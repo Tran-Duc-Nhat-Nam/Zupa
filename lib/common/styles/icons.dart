@@ -1,0 +1,37 @@
+abstract class AppIcons {
+  static const String home = 'assets/icons/vuesax/bold/home.svg';
+  static const String homeOutline = 'assets/icons/vuesax/outline/home.svg';
+  static const String camera = 'assets/icons/vuesax/bold/camera.svg';
+  static const String chart = 'assets/icons/vuesax/bold/chart.svg';
+  static const String clock = 'assets/icons/vuesax/bold/clock.svg';
+  static const String setting = 'assets/icons/vuesax/bold/setting.svg';
+  static const String outlineSetting = 'assets/icons/vuesax/outline/setting-2.svg';
+  static const String config = 'assets/icons/vuesax/outline/setting-3.svg';
+  static const String userOctagon = 'assets/icons/vuesax/outline/user-octagon.svg';
+  static const String userEdit = 'assets/icons/vuesax/outline/user-edit.svg';
+  static const String lock = 'assets/icons/vuesax/outline/lock.svg';
+  static const String logout = 'assets/icons/vuesax/outline/logout.svg';
+  static const String calendarAdd = 'assets/icons/vuesax/outline/calendar-add.svg';
+  static const String calendarEdit = 'assets/icons/vuesax/outline/calendar-edit.svg';
+  static const String trello = 'assets/icons/vuesax/outline/trello.svg';
+  static const String filter = 'assets/icons/vuesax/outline/filter.svg';
+  static const String lampOn = 'assets/icons/vuesax/outline/lamp-on.svg';
+  static const String global = 'assets/icons/vuesax/outline/global.svg';
+  static const String notification = 'assets/icons/vuesax/outline/notification.svg';
+  static const String rotateLeft = 'assets/icons/vuesax/outline/rotate-left.svg';
+  static const String book = 'assets/icons/vuesax/outline/book.svg';
+  static const String information = 'assets/icons/vuesax/outline/information.svg';
+  static const String message = 'assets/icons/vuesax/outline/message.svg';
+  static const String roundArrowDown = 'assets/icons/vuesax/linear/arrow-bottom.svg';
+  static const String roundArrowUp = 'assets/icons/vuesax/linear/arrow-up.svg';
+  static const String bicycle = 'assets/icons/bicycle.svg';
+  static const String motorbike = 'assets/icons/motorbike.svg';
+  static const String car = 'assets/icons/car.svg';
+  static const String back = 'assets/icons/back.svg';
+  static const String close = 'assets/icons/close.svg';
+  static const String search = 'assets/icons/search.svg';
+  static const String roundPlus = 'assets/icons/ic_round-plus.svg';
+  static const String checkCircle = 'assets/icons/check-circle.svg';
+  static const String alertCircle = 'assets/icons/alert-circle.svg';
+  static const String chevronRight = 'assets/icons/chevron-right.svg';
+}

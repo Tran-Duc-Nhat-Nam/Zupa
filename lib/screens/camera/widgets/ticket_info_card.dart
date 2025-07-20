@@ -1,0 +1,132 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
+
+import '../../../common/styles/text_styles.dart';
+import '../../../helper/theme/theme_helper.dart';
+
+class TicketInfoCard extends StatelessWidget {
+  const TicketInfoCard({
+    super.key,
+    this.licenseNumber,
+    required this.ticketType,
+    required this.timeIn,
+    this.timeOut,
+    this.totalTime,
+    required this.price,
+  });
+
+  final String? licenseNumber;
+  final String ticketType;
+  final DateTime timeIn;
+  final DateTime? timeOut;
+  final int? totalTime;
+  final int price;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: ThemeHelper.getColor(context).white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4),
+            child: Text(licenseNumber ?? 'N/A'),
+          ),
+          Container(
+            height: 1,
+            width: double.infinity,
+            color: ThemeHelper.getColor(context).grey300,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: IntrinsicHeight(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              Jiffy.parseFromDateTime(timeIn)
+                                  .format(pattern: 'dd/MM/yyyy hh:mm'),
+                              style: AppTextStyles.bodyMediumMedium.copyWith(
+                                color: ThemeHelper.getColor(context).success600,
+                              ),
+                            ),
+                            if (timeOut != null)
+                              Text(
+                                Jiffy.parseFromDateTime(timeOut!)
+                                    .format(pattern: 'dd/MM/yyyy hh:mm'),
+                                style: AppTextStyles.bodyMediumMedium.copyWith(
+                                  color: ThemeHelper.getColor(context).error600,
+                                ),
+                              ),
+                            if (totalTime != null)
+                              Container(
+                                height: 1,
+                                margin: const EdgeInsets.symmetric(vertical: 4),
+                                width: double.infinity,
+                                color: ThemeHelper.getColor(context).grey200,
+                              ),
+                            if (totalTime != null)
+                              Text(
+                                context.plural('totalTime', totalTime!),
+                                style: AppTextStyles.bodyMediumMedium.copyWith(
+                                  color: ThemeHelper.getColor(context).grey700,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                     VerticalDivider(
+                      color: ThemeHelper.getColor(context).grey300,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              context.tr(ticketType),
+                              style: AppTextStyles.bodyMediumMedium.copyWith(
+                                color: ThemeHelper.getColor(context).grey700,
+                              ),
+                            ),
+                            Text(
+                              NumberFormat.currency(
+                                locale: Intl.getCurrentLocale(),
+                                symbol: '',
+                              ).format(price),
+                              style: AppTextStyles.bodyLargeSemibold.copyWith(
+                                color: ThemeHelper.getColor(context).primary500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

@@ -1,0 +1,76 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
+import '../../../common/constants/vehicle_types.dart';
+import '../../../helper/theme/theme_helper.dart';
+import '../../../common/styles/text_styles.dart';
+import '../../../widgets/app_icon.dart';
+import '../../../widgets/app_radio_group.dart';
+import '../models/vehicle_type.dart';
+
+class VehicleTypeRadioCards extends StatelessWidget {
+  const VehicleTypeRadioCards({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppRadioGroup<VehicleType>(
+      name: 'type',
+      items: vehicleTypes,
+      required: true,
+      itemBuilder: (radioButton, vehicle,
+          isSelected, select) =>
+          Expanded(
+            child: InkWell(
+              onTap: select,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  padding: EdgeInsets.all(
+                    isSelected ? 5 : 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: ThemeHelper.getColor(context).white,
+                    borderRadius:
+                    BorderRadius.circular(4),
+                    border: isSelected
+                        ? Border.all(
+                      color: ThemeHelper.getColor(context).primary500,
+                      width: 3,
+                    )
+                        : null,
+                  ),
+                  child: Column(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: AppIcon(
+                          path: vehicle.iconPath,
+                          color: ThemeHelper.getColor(context).grey700,
+                          size: 24,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          context.tr(vehicle.name),
+                          style: AppTextStyles
+                              .bodyMediumMedium
+                              .copyWith(
+                            color: ThemeHelper.getColor(context).grey700,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: radioButton,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+    );
+  }
+}

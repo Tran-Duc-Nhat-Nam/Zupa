@@ -1,0 +1,25 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../widgets/app_screen.dart';
+
+class ParkingPriceSetting extends StatefulWidget {
+  const ParkingPriceSetting({Key? key}) : super(key: key);
+
+  @override
+  _ParkingPriceSettingState createState() => _ParkingPriceSettingState();
+}
+
+class _ParkingPriceSettingState extends State<ParkingPriceSetting> {
+  @override
+  Widget build(BuildContext context) {
+    return AppScreen(
+      title: context.tr('parkingPrice'),
+      child: Center(
+        child: Text(
+          context.tr('parkingPrice'),
+        ),
+      ),
+    );
+  }
+}
