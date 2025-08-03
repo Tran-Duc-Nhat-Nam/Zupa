@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-  animated_toggle_switch:
-    dependency: "direct main"
-    description:
-      name: animated_toggle_switch
-      sha256: "31ba41bb2b13b1324da8370bda934cd569e77d42ce5950cf1d31707b6061a0d0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.5"
   archive:
     dependency: transitive
     description:
@@ -433,14 +425,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
-  expansion_widget:
-    dependency: "direct main"
-    description:
-      name: expansion_widget
-      sha256: "9204670970a1c2a836526f4c9bd38f0ae43468e28bca940f1de1432a4feaff6d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -519,14 +503,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.4"
-  flutter_layout_grid:
-    dependency: "direct main"
-    description:
-      name: flutter_layout_grid
-      sha256: "739e568db97af031d528dfd8a80d333df0e5a310a126e087690fa42cd61dfb5f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.8"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -626,10 +602,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "02ff498f6279470ff7f60c998a69b872f26696ceec237c8402e63a2133868ddf"
+      sha256: c489908a54ce2131f1d1b7cc631af9c1a06fac5ca7c449e959192089f9489431
       url: "https://pub.dev"
     source: hosted
-    version: "15.2.3"
+    version: "16.0.0"
   google_fonts:
     dependency: "direct main"
     description:
@@ -742,14 +718,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.10.0"
-  jwt_decoder:
-    dependency: "direct main"
-    description:
-      name: jwt_decoder
-      sha256: "54774aebf83f2923b99e6416b4ea915d47af3bde56884eb622de85feabbc559f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -1014,61 +982,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  permission_handler:
-    dependency: "direct main"
-    description:
-      name: permission_handler
-      sha256: bc917da36261b00137bbc8896bf1482169cd76f866282368948f032c8c1caae1
-      url: "https://pub.dev"
-    source: hosted
-    version: "12.0.1"
-  permission_handler_android:
-    dependency: transitive
-    description:
-      name: permission_handler_android
-      sha256: "1e3bc410ca1bf84662104b100eb126e066cb55791b7451307f9708d4007350e6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "13.0.1"
-  permission_handler_apple:
-    dependency: transitive
-    description:
-      name: permission_handler_apple
-      sha256: f000131e755c54cf4d84a5d8bd6e4149e262cc31c5a8b1d698de1ac85fa41023
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.4.7"
-  permission_handler_html:
-    dependency: transitive
-    description:
-      name: permission_handler_html
-      sha256: "38f000e83355abb3392140f6bc3030660cfaef189e1f87824facb76300b4ff24"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.3+5"
-  permission_handler_platform_interface:
-    dependency: transitive
-    description:
-      name: permission_handler_platform_interface
-      sha256: eb99b295153abce5d683cac8c02e22faab63e50679b937fa1bf67d58bb282878
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.3.0"
-  permission_handler_windows:
-    dependency: transitive
-    description:
-      name: permission_handler_windows
-      sha256: "1a790728016f79a41216d88672dbc5df30e686e811ad4e698bfc51f76ad91f1e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1"
   persistent_bottom_nav_bar_v2:
     dependency: "direct main"
     description:
-      name: persistent_bottom_nav_bar_v2
-      sha256: "1d6347d86512ef028341eaecf2e8870af5dd41462fe77ec5b3126da29b4d7a8d"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: "9c6d7a6260ba33daa1258c19854877e1ffc00a1e"
+      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/PersistentBottomNavBarV2.git"
+    source: git
     version: "6.1.0"
   petitparser:
     dependency: transitive
