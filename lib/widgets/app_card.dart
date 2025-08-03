@@ -35,6 +35,13 @@ class AppCard extends StatelessWidget {
           BoxDecoration(
             color: ThemeHelper.getColor(context).white,
             borderRadius: radius ?? BorderRadius.circular(8),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0C0C0D0D),
+                offset: Offset(0, 1),
+                blurRadius: 4,
+              ),
+            ],
           ),
       constraints: constraints,
       child: child,

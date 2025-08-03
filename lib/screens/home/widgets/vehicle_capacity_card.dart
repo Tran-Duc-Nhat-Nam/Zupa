@@ -100,7 +100,7 @@ class VehicleCapacityCard extends StatelessWidget {
                         ),
                       ],
                     ],
-                  )
+                  ),
                 ],
               ),
             ],

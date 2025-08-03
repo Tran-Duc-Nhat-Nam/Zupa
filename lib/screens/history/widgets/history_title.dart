@@ -11,28 +11,24 @@ import '../../../widgets/app_card.dart';
 import '../../../widgets/app_icon.dart';
 
 class HistoryTitle extends StatelessWidget {
-  const HistoryTitle({
-    Key? key,
-    required this.ticket,
-  }) : super(key: key);
+  const HistoryTitle({Key? key, required this.ticket}) : super(key: key);
   final Ticket ticket;
   @override
   Widget build(BuildContext context) {
     return AppCard(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
       decoration: BoxDecoration(
-          color: ThemeHelper.getColor(context).white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(4),
+        color: ThemeHelper.getColor(context).white,
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        border: Border.all(color: ThemeHelper.getColor(context).grey100),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0C0C0D0D),
+            offset: Offset(0, 1),
+            blurRadius: 4,
           ),
-          border: Border.all(color: ThemeHelper.getColor(context).grey100),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x0C0C0D0D),
-              offset: Offset(0, 1),
-              blurRadius: 4,
-            )
-          ]),
+        ],
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         spacing: 16,
@@ -53,15 +49,16 @@ class HistoryTitle extends StatelessWidget {
                 style: AppTextStyles.bodyMediumMedium.copyWith(
                   color: ThemeHelper.getColor(context).grey700,
                 ),
-              )
+              ),
             ],
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               border: Border.symmetric(
-                vertical:
-                    BorderSide(color: ThemeHelper.getColor(context).grey100),
+                vertical: BorderSide(
+                  color: ThemeHelper.getColor(context).grey100,
+                ),
               ),
             ),
             child: Column(
@@ -83,7 +80,7 @@ class HistoryTitle extends StatelessWidget {
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: ThemeHelper.getColor(context).grey700,
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Row(
@@ -99,14 +96,12 @@ class HistoryTitle extends StatelessWidget {
                     ),
                     Text(
                       ticket.timeOut != null
-                          ? DateTimeConverter.toShortTime(
-                              ticket.timeOut!,
-                            )
+                          ? DateTimeConverter.toShortTime(ticket.timeOut!)
                           : 'N/A',
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: ThemeHelper.getColor(context).grey700,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -116,10 +111,7 @@ class HistoryTitle extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  context.tr(
-                    'ticketId',
-                    args: [ticket.id],
-                  ),
+                  ticket.id,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: AppTextStyles.bodyMediumMedium.copyWith(
@@ -127,14 +119,14 @@ class HistoryTitle extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  ticket.licensePlate ?? 'N/A',
+                  ticket.licensePlate ?? 'No license plate',
                   style: AppTextStyles.bodyLargeSemibold.copyWith(
                     color: ThemeHelper.getColor(context).grey900,
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

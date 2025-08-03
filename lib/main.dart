@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:upgrader/upgrader.dart';
 import 'common/constants/routes.dart';
 
 import 'bloc/theme/theme_cubit.dart';
@@ -29,17 +32,6 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) => state.when(
             initial: (theme) {
-              Jiffy.setLocale('${context.locale.languageCode}_${context.locale.countryCode}');
-              InternetConnection().onStatusChange.listen((
-                  InternetStatus status,
-                  ) {
-                switch (status) {
-                  case InternetStatus.connected:
-                    AppMessage.showSuccessMessage(context.tr('internetConnected'));
-                  case InternetStatus.disconnected:
-                    AppMessage.showWarningMessage(context.tr('noInternet'));
-                }
-              });
               return MaterialApp.router(
                 onGenerateTitle: (context) => context.tr('appTitle'),
                 theme: theme,
@@ -50,8 +42,39 @@ class MyApp extends StatelessWidget {
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
-                builder: (context, child) =>
-                    FToastBuilder()(context, child ?? const Text('child')),
+                builder: (materialContext, child) {
+                  Jiffy.setLocale(
+                    '${materialContext.locale.languageCode}_${materialContext.locale.countryCode}',
+                  );
+                  InternetConnection().onStatusChange.listen((
+                    InternetStatus status,
+                  ) {
+                    switch (status) {
+                      case InternetStatus.connected:
+                        try {
+                          AppMessage.showSuccessMessage(
+                            materialContext.tr('internetConnected'),
+                          );
+                        } catch (e) {
+                          AppMessage.showSuccessMessage('Internet connected');
+                        }
+                      case InternetStatus.disconnected:
+                        try {
+                          AppMessage.showWarningMessage(
+                            materialContext.tr('noInternet'),
+                          );
+                        } catch (e) {
+                          AppMessage.showWarningMessage(
+                            'No internet connection',
+                          );
+                        }
+                    }
+                  });
+                  return FToastBuilder()(
+                    materialContext,
+                    UpgradeAlert(child: child),
+                  );
+                },
               );
             },
           ),

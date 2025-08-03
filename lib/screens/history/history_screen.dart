@@ -25,14 +25,21 @@ class HistoryScreen extends StatelessWidget {
     return AppScreen(
       isChildScrollable: true,
       title: context.tr('history'),
-      appBarTrailing: const [
+      appBarTrailing: [
         Padding(
-          padding: EdgeInsets.only(right: 24),
+          padding: const EdgeInsets.only(right: 24),
           child: AppDropDownSearch(
             name: 'parkingLot',
-            dropdownItems: ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
+            dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
             initialValue: 'Bãi xe 2',
             buttonWidth: 140,
+            buttonDecoration: BoxDecoration(
+              color: ThemeHelper.getColor(context).primary50,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: ThemeHelper.getColor(context).primary100,
+              ),
+            ),
           ),
         ),
       ],
@@ -42,11 +49,10 @@ class HistoryScreen extends StatelessWidget {
             create: (context) => HistoryListCubit()..init(context),
           ),
           BlocProvider<filter.HistoryFilterCubit>(
-            create:
-                (context) =>
-                    filter.HistoryFilterCubit()..load(context, () {
-                      return {};
-                    }),
+            create: (context) => filter.HistoryFilterCubit()
+              ..load(context, () {
+                return {};
+              }),
           ),
         ],
         child: MultiBlocListener(
@@ -70,10 +76,7 @@ class HistoryScreen extends StatelessWidget {
               const SizedBox(height: 6),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: BlocBuilder<
-                  filter.HistoryFilterCubit,
-                  filter.HistoryFilterState
-                >(
+                child: BlocBuilder<filter.HistoryFilterCubit, filter.HistoryFilterState>(
                   builder: (context, state) {
                     return Skeletonizer(
                       enabled: state is filter.Loading,
@@ -108,46 +111,92 @@ class HistoryScreen extends StatelessWidget {
                                     icon: AppIcon(
                                       path: AppIcons.filter,
                                       size: 20,
-                                      color:
-                                          ThemeHelper.getColor(context).grey900,
+                                      color: ThemeHelper.getColor(
+                                        context,
+                                      ).grey900,
                                     ),
                                     onPressed: () {
                                       showModalBottomSheet(
                                         context: context,
-                                        builder:
-                                            (context) => Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 24,
-                                                bottom: 48,
-                                                left: 24,
-                                                right: 24,
+                                        builder: (context) => Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 24,
+                                            bottom: 48,
+                                            left: 24,
+                                            right: 24,
+                                          ),
+                                          child: Column(
+                                            spacing: 16,
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  context.tr('filter'),
+                                                  style: AppTextStyles
+                                                      .bodySmallSemibold
+                                                      .copyWith(
+                                                        color:
+                                                            ThemeHelper.getColor(
+                                                              context,
+                                                            ).grey600,
+                                                      ),
+                                                ),
                                               ),
-                                              child: Column(
-                                                spacing: 16,
-                                                mainAxisSize: MainAxisSize.min,
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    context.tr('time'),
+                                                    style: AppTextStyles
+                                                        .bodyMediumSemibold
+                                                        .copyWith(
+                                                          color:
+                                                              ThemeHelper.getColor(
+                                                                context,
+                                                              ).grey700,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    context.tr('reset'),
+                                                    style: AppTextStyles
+                                                        .bodyMediumSemibold
+                                                        .copyWith(
+                                                          color:
+                                                              ThemeHelper.getColor(
+                                                                context,
+                                                              ).primary500,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                spacing: 12,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Center(
-                                                    child: Text(
-                                                      context.tr('filter'),
-                                                      style: AppTextStyles
-                                                          .bodySmallSemibold
-                                                          .copyWith(
-                                                            color:
-                                                                ThemeHelper.getColor(
-                                                                  context,
-                                                                ).grey600,
-                                                          ),
-                                                    ),
+                                                  Text(context.tr('date')),
+                                                  const AppDateTimePicker(
+                                                    name: 'dateTime',
                                                   ),
+                                                ],
+                                              ),
+                                              const Divider(),
+                                              Column(
+                                                spacing: 12,
+                                                children: [
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
                                                       Text(
-                                                        context.tr('time'),
+                                                        context.tr(
+                                                          'vehicleType',
+                                                        ),
                                                         style: AppTextStyles
                                                             .bodyMediumSemibold
                                                             .copyWith(
@@ -170,115 +219,59 @@ class HistoryScreen extends StatelessWidget {
                                                       ),
                                                     ],
                                                   ),
-                                                  Column(
-                                                    spacing: 12,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(context.tr('date')),
-                                                      const AppDateTimePicker(
-                                                        name: 'dateTime',
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const Divider(),
-                                                  Column(
-                                                    spacing: 12,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            context.tr(
-                                                              'vehicleType',
-                                                            ),
-                                                            style: AppTextStyles
-                                                                .bodyMediumSemibold
-                                                                .copyWith(
-                                                                  color:
-                                                                      ThemeHelper.getColor(
-                                                                        context,
-                                                                      ).grey700,
-                                                                ),
-                                                          ),
-                                                          Text(
-                                                            context.tr('reset'),
-                                                            style: AppTextStyles
-                                                                .bodyMediumSemibold
-                                                                .copyWith(
-                                                                  color:
-                                                                      ThemeHelper.getColor(
-                                                                        context,
-                                                                      ).primary500,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        spacing: 32,
-                                                        children:
-                                                            vehicleTypes
-                                                                .map(
-                                                                  (
-                                                                    item,
-                                                                  ) => AppCheckbox(
-                                                                    name:
-                                                                        item.value,
-                                                                    label: Text(
-                                                                      context.tr(
-                                                                        item.value,
-                                                                      ),
-                                                                      style: AppTextStyles.bodySmallMedium.copyWith(
-                                                                        color:
-                                                                            ThemeHelper.getColor(
-                                                                              context,
-                                                                            ).grey700,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                                .toList(),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const Divider(),
                                                   Row(
-                                                    spacing: 16,
-                                                    children: [
-                                                      Expanded(
-                                                        child: AppButton(
-                                                          color:
-                                                              AppButtonColor
-                                                                  .basic,
-                                                          theme:
-                                                              AppButtonTheme
-                                                                  .outline,
-                                                          onPressed:
-                                                              () =>
-                                                                  context.pop(),
-                                                          text: context.tr(
-                                                            'cancel',
+                                                    spacing: 32,
+                                                    children: vehicleTypes
+                                                        .map(
+                                                          (item) => AppCheckbox(
+                                                            name: item.value,
+                                                            label: Text(
+                                                              context.tr(
+                                                                item.value,
+                                                              ),
+                                                              style: AppTextStyles
+                                                                  .bodySmallMedium
+                                                                  .copyWith(
+                                                                    color: ThemeHelper.getColor(
+                                                                      context,
+                                                                    ).grey700,
+                                                                  ),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: AppButton(
-                                                          onPressed:
-                                                              () =>
-                                                                  context.pop(),
-                                                          text: context.tr(
-                                                            'apply',
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                        )
+                                                        .toList(),
                                                   ),
                                                 ],
                                               ),
-                                            ),
+                                              const Divider(),
+                                              Row(
+                                                spacing: 16,
+                                                children: [
+                                                  Expanded(
+                                                    child: AppButton(
+                                                      color:
+                                                          AppButtonColor.basic,
+                                                      theme: AppButtonTheme
+                                                          .outline,
+                                                      onPressed: () =>
+                                                          context.pop(),
+                                                      text: context.tr(
+                                                        'cancel',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: AppButton(
+                                                      onPressed: () =>
+                                                          context.pop(),
+                                                      text: context.tr('apply'),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         useRootNavigator: true,
                                       );
                                     },

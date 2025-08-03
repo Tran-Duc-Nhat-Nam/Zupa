@@ -203,7 +203,7 @@ class TicketTitle extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    Jiffy.now().toString(),
+                    Jiffy.now().format(pattern: "dd/MM/yyyy HH:mm"),
                   ),
                 ],
               ),

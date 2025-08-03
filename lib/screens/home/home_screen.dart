@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
 import '../../bloc/home/filter/home_filter_cubit.dart' as filter;
 import '../../bloc/home/ticket/home_ticket_cubit.dart';
+import '../../helper/theme/theme_helper.dart';
 import '../../widgets/state/app_state.dart';
 import 'widgets/home_search_bar.dart';
 import 'widgets/ticket_list_tab.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
     Future.delayed(Duration.zero, () async {
       await Jiffy.setLocale('en_US');
       super.initState();
-    },);
+    });
   }
 
   Map<String, dynamic> getFormValues() {
@@ -40,15 +41,20 @@ class _HomeScreenState extends AppState<HomeScreen> {
     return AppScreen(
       formKey: formKey,
       isChildScrollable: true,
-      title: context.tr('revenue'),
-      appBarTrailing: const [
+      title: context.tr('home'),
+      appBarTrailing: [
         Padding(
-          padding: EdgeInsets.only(right: 24),
+          padding: const EdgeInsets.only(right: 24),
           child: AppDropDownSearch(
             name: 'parkingLot',
-            dropdownItems: ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
+            dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
             initialValue: 'Bãi xe 2',
             buttonWidth: 140,
+            buttonDecoration: BoxDecoration(
+              color: ThemeHelper.getColor(context).primary50,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: ThemeHelper.getColor(context).primary100),
+            ),
           ),
         ),
       ],
@@ -58,16 +64,18 @@ class _HomeScreenState extends AppState<HomeScreen> {
             create: (context) => HomeTicketCubit()..init(context),
           ),
           BlocProvider<filter.HomeFilterCubit>(
-            create:
-                (context) =>
-                    filter.HomeFilterCubit()..load(context, getFormValues),
+            create: (context) =>
+                filter.HomeFilterCubit()..load(context, getFormValues),
           ),
         ],
         child: MultiBlocListener(
           listeners: [
             BlocListener<HomeTicketCubit, HomeTicketState>(
               listener: (context, state) {
-                state.whenOrNull(loaded: (tickets, pageIndex) => context.read<filter.HomeFilterCubit>().init(context),);
+                state.whenOrNull(
+                  loaded: (tickets, pageIndex) =>
+                      context.read<filter.HomeFilterCubit>().init(context),
+                );
               },
             ),
           ],
