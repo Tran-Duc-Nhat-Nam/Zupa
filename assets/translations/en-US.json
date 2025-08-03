@@ -156,6 +156,8 @@
   "logout": {
   },
   "loginSuccessed": "Login successed",
+  "internetConnected": "Internet connected",
+  "noInternet": "No internet connection",
   "remainingTicket": {
     "zero": "Sold out",
     "one": "{} ticket remain",

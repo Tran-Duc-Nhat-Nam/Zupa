@@ -20,7 +20,6 @@ class ThemeCubit extends Cubit<ThemeState> {
                 : appDarkTheme));
 
   Future<void> loadTheme(BuildContext context) async {
-    await Jiffy.setLocale('${context.locale.languageCode}_${context.locale.countryCode}');
     emit(ThemeState.initial(
         await ThemeHelper.getTheme() ? appDarkTheme : appTheme));
   }

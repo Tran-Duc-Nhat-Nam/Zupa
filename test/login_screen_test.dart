@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:parking_tsp/screens/login/login_screen.dart';
-import 'package:parking_tsp/widgets/app_text_field.dart';
+import 'package:zupa/screens/login/login_screen.dart';
+import 'package:zupa/widgets/app_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';

@@ -18,7 +18,7 @@ class ScannerCubit extends Cubit<ScannerState> {
             emit(const ScannerState.scanFailed('Cannot get data!'));
           } else {
             emit(ScannerState.scanSuccess({
-              'data': tag.data,
+              'data': data,
             }));
           }
         }, pollingOptions: {NfcPollingOption.iso14443},

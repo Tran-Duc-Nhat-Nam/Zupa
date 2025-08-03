@@ -38,7 +38,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
           text: context.tr('save'),
           onPressed:
               () =>
-                  AppMessage.showSuccessMessage(context, context.tr('success')),
+                  AppMessage.showSuccessMessage(context.tr('success'), context: context),
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(

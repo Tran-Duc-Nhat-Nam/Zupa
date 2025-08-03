@@ -153,6 +153,8 @@
   "ticketSearch": "Tìm biển số xe/Mã thẻ",
   "seat": "Chỗ ngồi: {}{}",
   "loginSuccessed": "Đăng nhập thành công",
+  "internetConnected": "Đã kết nối internet",
+  "noInternet": "Không có kết nối internet",
   "remainingTicket": {
     "zero": "Hết vé",
     "one": "Còn {} vé",

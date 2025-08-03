@@ -26,10 +26,10 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
       child: BlocListener<PasswordSettingsCubit, PasswordSettingsState>(
         listener: (context, state) {
           state is ChangePasswordSuccess
-              ? AppMessage.showSuccessMessage(context, context.tr('success'))
+              ? AppMessage.showSuccessMessage(context.tr('success'), context: context)
               : null;
           state is ChangePasswordFailed
-              ? AppMessage.showSuccessMessage(context, context.tr('failed'))
+              ? AppMessage.showSuccessMessage(context.tr('failed'), context: context)
               : null;
           state is ChangePasswordFailed || state is ChangePasswordSuccess
               ? context.read<PasswordSettingsCubit>().init()

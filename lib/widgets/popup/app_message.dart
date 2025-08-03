@@ -10,7 +10,7 @@ abstract class AppMessage {
   static FToast toast = FToast();
 
   static FToast getToast() {
-    if (toast.context == null) {
+    if (toast.context == null && router.routerDelegate.navigatorKey.currentContext != null) {
       toast.init(router.routerDelegate.navigatorKey.currentContext!);
     }
     return toast;
@@ -74,23 +74,23 @@ abstract class AppMessage {
     );
   }
 
-  static void showSuccessMessage(BuildContext context, String message) {
+  static void showSuccessMessage(String message, {BuildContext? context}) {
     show(AppIcons.checkCircle, ThemeHelper.getColor(context).success600, message);
   }
 
-  static void showErrorMessage(BuildContext context, String message) {
+  static void showErrorMessage(String message, {BuildContext? context}) {
     show(AppIcons.alertCircle, ThemeHelper.getColor(context).error600, message);
   }
 
-  static void showWarningMessage(String message) {
-    show(AppIcons.information, ThemeHelper.getColor(null).warning600, message);
+  static void showWarningMessage(String message, {BuildContext? context}) {
+    show(AppIcons.information, ThemeHelper.getColor(context).warning600, message);
   }
 
-  static void showInfoMessage(String message) {
-    show(AppIcons.book, ThemeHelper.getColor(null).primary500, message);
+  static void showInfoMessage(String message, {BuildContext? context}) {
+    show(AppIcons.book, ThemeHelper.getColor(context).primary500, message);
   }
 
-  static void showBasicMessage(String message) {
-    show(AppIcons.message, ThemeHelper.getColor(null).grey700, message);
+  static void showBasicMessage(String message, {BuildContext? context}) {
+    show(AppIcons.message, ThemeHelper.getColor(context).grey700, message);
   }
 }
