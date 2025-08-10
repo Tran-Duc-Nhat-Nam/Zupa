@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
@@ -26,12 +27,11 @@ class TicketListTab extends StatelessWidget {
     return BlocBuilder<HomeTicketCubit, HomeTicketState>(
       builder: (context, state) {
         final _refreshController = RefreshController();
-        final List<Ticket>? items = switch (state) {
-          Loaded(:final tickets) => tickets,
-          Refreshing(:final tickets) => tickets,
-          LoadingMore(:final tickets) => tickets,
-          _ => null,
-        };
+        final List<Ticket>? items = state.whenOrNull(
+          loaded: (tickets, pageIndex) => tickets,
+          refreshing: (tickets) => tickets,
+          loadingMore: (tickets) => tickets,
+        );
         return Skeletonizer(
           child: Container(
             clipBehavior: Clip.antiAlias,
@@ -41,10 +41,10 @@ class TicketListTab extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(16),
               ),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Color(0x0C0C0D0D),
-                  offset: Offset(0, 1),
+                  color: ThemeHelper.getColor(context).grey100,
+                  offset: const Offset(0, 1),
                   blurRadius: 4,
                 ),
               ],
@@ -52,38 +52,55 @@ class TicketListTab extends StatelessWidget {
             child: SmartRefresher(
               enablePullDown: state is! LoadingMore,
               enablePullUp: state is! Refreshing,
+              footer: CustomFooter(
+                builder: (context, mode) {
+                  Widget body;
+                  if (mode == LoadStatus.idle) {
+                    body = Text(context.tr('pullUpToLoad'));
+                  } else if (mode == LoadStatus.loading) {
+                    body = const CupertinoActivityIndicator();
+                  } else if (mode == LoadStatus.failed) {
+                    body = Text(context.tr('loadFailedPleaseRetry'));
+                  } else if (mode == LoadStatus.canLoading) {
+                    body = Text(context.tr('releaseToLoadMore'));
+                  } else {
+                    body = Text(context.tr('noMoreData'));
+                  }
+                  return SizedBox(height: 55.0, child: Center(child: body));
+                },
+              ),
               controller: _refreshController,
-              onRefresh:
-                  () => context.read<HomeTicketCubit>().refresh(
-                    context,
-                    _refreshController.refreshCompleted,
-                    _refreshController.refreshFailed,
-                  ),
-              onLoading:
-                  () => context.read<HomeTicketCubit>().loadMore(
-                    context,
-                    _refreshController.loadComplete,
-                    _refreshController.loadFailed,
-                    _refreshController.loadNoData,
-                  ),
+              onRefresh: () => context.read<HomeTicketCubit>().refresh(
+                context,
+                _refreshController.refreshCompleted,
+                _refreshController.refreshFailed,
+              ),
+              onLoading: () => context.read<HomeTicketCubit>().loadMore(
+                context,
+                _refreshController.loadComplete,
+                _refreshController.loadFailed,
+                _refreshController.loadNoData,
+              ),
               child: ListView.separated(
-                separatorBuilder:
-                    (context, index) =>
-                        const Divider(indent: 24, endIndent: 24, height: 0),
-                itemBuilder:
-                    (c, i) => Padding(
-                      padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
-                      child: TicketTitle(
-                        ticket:
-                            items?[i] ??
-                            Ticket(
-                              id: 'Placeholder',
-                              timeIn: DateTime.now(),
-                              siteId: 'A much Longer placeholder',
-                              type: vehicleTypes.first,
-                            ),
-                      ),
-                    ),
+                separatorBuilder: (context, index) => Divider(
+                  indent: 0,
+                  endIndent: 0,
+                  height: 0,
+                  color: ThemeHelper.getColor(context).grey100,
+                ),
+                itemBuilder: (c, i) => Padding(
+                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
+                  child: TicketTitle(
+                    ticket:
+                        items?[i] ??
+                        Ticket(
+                          id: 'Placeholder',
+                          timeIn: DateTime.now(),
+                          siteId: 'A much Longer placeholder',
+                          type: vehicleTypes.first,
+                        ),
+                  ),
+                ),
                 itemCount: items?.length ?? 10,
               ),
             ),
@@ -136,11 +153,10 @@ class TicketTitle extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 12),
               child: InkWell(
-                onTap:
-                    () => AppPhotoView.showPhotoView(
-                      context,
-                      const NetworkImage('https://picsum.photos/750'),
-                    ),
+                onTap: () => AppPhotoView.showPhotoView(
+                  context,
+                  const NetworkImage('https://picsum.photos/750'),
+                ),
                 child: Container(
                   clipBehavior: Clip.antiAlias,
                   height: 50,
@@ -180,31 +196,28 @@ class TicketTitle extends StatelessWidget {
                           fitContent: true,
                           onPressed: () {},
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          theme:
-                              2 % 2 == 0
-                                  ? AppButtonTheme.secondary
-                                  : AppButtonTheme.outline,
-                          color:
-                              ticket.id.length % 2 == 0
-                                  ? AppButtonColor.info
-                                  : AppButtonColor.error,
+                          theme: 2 % 2 == 0
+                              ? AppButtonTheme.secondary
+                              : AppButtonTheme.outline,
+                          color: ticket.id.length % 2 == 0
+                              ? AppButtonColor.info
+                              : AppButtonColor.error,
                           radius: BorderRadius.circular(6),
                           child: Text(
-                            context.tr(ticket.id.length % 2 == 0 ? 'recover' : 'lost'),
+                            context.tr(
+                              ticket.id.length % 2 == 0 ? 'recover' : 'lost',
+                            ),
                             style: AppTextStyles.bodySmallSemibold.copyWith(
-                              color:
-                                  ticket.id.length % 2 == 0
-                                      ? ThemeHelper.getColor(context).primary500
-                                      : ThemeHelper.getColor(context).error600,
+                              color: ticket.id.length % 2 == 0
+                                  ? ThemeHelper.getColor(context).primary500
+                                  : ThemeHelper.getColor(context).error600,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Text(
-                    Jiffy.now().format(pattern: "dd/MM/yyyy HH:mm"),
-                  ),
+                  Text(Jiffy.now().format(pattern: 'dd/MM/yyyy HH:mm')),
                 ],
               ),
             ),

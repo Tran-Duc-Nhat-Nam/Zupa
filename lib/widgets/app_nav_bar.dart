@@ -6,6 +6,10 @@ import '../common/styles/icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../common/styles/text_styles.dart';
+import '../screens/history/history_screen.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/revenue/revenue_screen.dart';
+import '../screens/settings/settings_screen.dart';
 import 'app_icon.dart';
 
 class AppNavBar extends StatefulWidget {
@@ -20,11 +24,12 @@ class AppNavBar extends StatefulWidget {
 class _AppNavBarState extends State<AppNavBar> {
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView.router(
+    return PersistentTabView(
       resizeToAvoidBottomInset: false,
       gestureNavigationEnabled: true,
       tabs: [
-        PersistentRouterTabConfig(
+        PersistentTabConfig(
+          screen: const HomeScreen(),
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -43,7 +48,8 @@ class _AppNavBarState extends State<AppNavBar> {
             ),
           ),
         ),
-        PersistentRouterTabConfig(
+        PersistentTabConfig(
+          screen: const HistoryScreen(),
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -62,7 +68,8 @@ class _AppNavBarState extends State<AppNavBar> {
             ),
           ),
         ),
-        PersistentRouterTabConfig(
+        PersistentTabConfig(
+          screen: const RevenueScreen(),
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -81,7 +88,8 @@ class _AppNavBarState extends State<AppNavBar> {
             ),
           ),
         ),
-        PersistentRouterTabConfig(
+        PersistentTabConfig(
+          screen: const SettingsScreen(),
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -114,16 +122,15 @@ class _AppNavBarState extends State<AppNavBar> {
             top: Radius.circular(16),
             bottom: Radius.circular(16),
           ),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Color(0x0E5A71DA), // Color with alpha
-              offset: Offset(0, -8), // Horizontal and vertical offsets
+              color: ThemeHelper.getColor(context).primary50, // Color with alpha
+              offset: const Offset(0, -8), // Horizontal and vertical offsets
               blurRadius: 28, // Blur radius
             ),
           ],
         ),
       ),
-      navigationShell: widget.navigationShell,
       // onTabChanged: (value) => AppDialog.checkAuth(context),
     );
   }

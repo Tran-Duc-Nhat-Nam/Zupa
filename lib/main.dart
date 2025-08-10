@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,33 +41,6 @@ class MyApp extends StatelessWidget {
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 builder: (materialContext, child) {
-                  Jiffy.setLocale(
-                    '${materialContext.locale.languageCode}_${materialContext.locale.countryCode}',
-                  );
-                  InternetConnection().onStatusChange.listen((
-                    InternetStatus status,
-                  ) {
-                    switch (status) {
-                      case InternetStatus.connected:
-                        try {
-                          AppMessage.showSuccessMessage(
-                            materialContext.tr('internetConnected'),
-                          );
-                        } catch (e) {
-                          AppMessage.showSuccessMessage('Internet connected');
-                        }
-                      case InternetStatus.disconnected:
-                        try {
-                          AppMessage.showWarningMessage(
-                            materialContext.tr('noInternet'),
-                          );
-                        } catch (e) {
-                          AppMessage.showWarningMessage(
-                            'No internet connection',
-                          );
-                        }
-                    }
-                  });
                   return FToastBuilder()(
                     materialContext,
                     UpgradeAlert(child: child),

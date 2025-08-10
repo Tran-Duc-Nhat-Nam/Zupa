@@ -155,6 +155,10 @@
   "loginSuccessed": "Đăng nhập thành công",
   "internetConnected": "Đã kết nối internet",
   "noInternet": "Không có kết nối internet",
+  "noMoreData" : "Không còn dữ liệu",
+  "pullUpToLoad" : "Kéo lên để tải thêm",
+  "loadFailedPleaseRetry" : "Tải thất bại! Vui lòng thử lại",
+  "releaseToLoadMore" : "Thả ra để tải thêm",
   "remainingTicket": {
     "zero": "Hết vé",
     "one": "Còn {} vé",

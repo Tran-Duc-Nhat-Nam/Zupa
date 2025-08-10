@@ -155,6 +155,10 @@
   "ticketSearch": "Search by plate/card",
   "logout": {
   },
+  "noMoreData" : "No more data",
+  "pullUpToLoad" : "Pull up to load more",
+  "loadFailedPleaseRetry" : "Load failed! Please retry",
+  "releaseToLoadMore" : "Release to load more",
   "loginSuccessed": "Login successed",
   "internetConnected": "Internet connected",
   "noInternet": "No internet connection",

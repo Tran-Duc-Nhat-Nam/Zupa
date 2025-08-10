@@ -39,8 +39,10 @@ class _AppAppBarState extends State<AppAppBar> {
       scrolledUnderElevation: 0,
       backgroundColor: widget.color ?? ThemeHelper.getColor(context).white,
       foregroundColor: ThemeHelper.getColor(context).blueDark,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
+      animateColor: true,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: ThemeHelper.getColor(context).grey50),
+        borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(16),
         ),
       ),
