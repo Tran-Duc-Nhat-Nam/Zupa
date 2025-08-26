@@ -6,8 +6,8 @@ part 'account_request.g.dart';
 @freezed
 sealed class AccountRequest with _$AccountRequest {
   const factory AccountRequest({
-    @Default('tenant') String tenant,
-    @Default('username') String username,
+    @Default('site') String tenant,
+    @Default('name') String username,
     @Default('password') String password,
   }) = _AccountRequest;
 

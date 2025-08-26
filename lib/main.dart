@@ -2,13 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:upgrader/upgrader.dart';
 import 'common/constants/routes.dart';
 
 import 'bloc/theme/theme_cubit.dart';
-import 'widgets/popup/app_message.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,16 +19,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
-      supportedLocales: const [Locale('en', 'US'), Locale('vi', 'VN')],
+      supportedLocales: const <Locale>[Locale('en', 'US'), Locale('vi', 'VN')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en', 'US'),
       child: BlocProvider<ThemeCubit>(
-        create: (context) => ThemeCubit()..loadTheme(context),
+        create: (BuildContext context) => ThemeCubit()..loadTheme(context),
         child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, state) => state.when(
-            initial: (theme) {
+          builder: (BuildContext context, ThemeState state) => state.when(
+            initial: (ThemeData theme) {
               return MaterialApp.router(
-                onGenerateTitle: (context) => context.tr('appTitle'),
+                onGenerateTitle: (BuildContext context) => context.tr('appTitle'),
                 theme: theme,
                 darkTheme: theme,
                 color: Theme.of(context).colorScheme.primary,
@@ -40,7 +37,7 @@ class MyApp extends StatelessWidget {
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
-                builder: (materialContext, child) {
+                builder: (BuildContext materialContext, Widget? child) {
                   return FToastBuilder()(
                     materialContext,
                     UpgradeAlert(child: child),

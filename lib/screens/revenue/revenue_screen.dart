@@ -17,6 +17,7 @@ class RevenueScreen extends StatefulWidget {
 }
 
 class _RevenueScreenState extends AppState<RevenueScreen> {
+  @override
   Map<String, dynamic> getFormValues() {
     formKey.currentState?.saveAndValidate();
     if (formKey.currentState?.validate() == true) {

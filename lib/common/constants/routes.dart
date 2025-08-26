@@ -39,27 +39,46 @@ final GoRouter router = GoRouter(
     GoRoute(
       name: 'CheckIn',
       path: '/check-in',
-      pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const CheckInScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const CheckInScreen()),
     ),
     GoRoute(
       name: 'Login',
       path: '/login',
-      pageBuilder:
-          (context, state) => fadingTransition(context, state, LoginScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, LoginScreen()),
       redirect: (context, state) async {
         return (await AuthHelper.getAuth()) != null ? '/' : null;
       },
     ),
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: navigatorKey,
-      pageBuilder:
-          (context, state, navigationShell) => fadingTransition(
-            context,
-            state,
-            AppNavBar(navigationShell: navigationShell),
-          ),
+      pageBuilder: (context, state, navigationShell) {
+        if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+          NfcManager.instance.isAvailable().then(
+                (value) =>
+            value
+                ? NfcManager.instance.startSession(
+              onDiscovered: (NfcTag tag) async {
+                final MifareClassicAndroid? data =
+                MifareClassicAndroid.from(tag);
+                if (data == null) {
+                  AppToast.showErrorToast(context.tr('error'));
+                } else {
+                  context.pushNamed('CheckIn', extra: false);
+                }
+              },
+              pollingOptions: {NfcPollingOption.iso14443},
+            )
+                : null,
+          );
+        }
+        return fadingTransition(
+          context,
+          state,
+          AppNavBar(navigationShell: navigationShell),
+        );
+      },
       branches: [
         StatefulShellBranch(
           routes: [
@@ -67,25 +86,6 @@ final GoRouter router = GoRouter(
               name: 'Home',
               path: '/',
               pageBuilder: (context, state) {
-                if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-                  NfcManager.instance.isAvailable().then(
-                        (value) =>
-                    value
-                        ? NfcManager.instance.startSession(
-                      onDiscovered: (NfcTag tag) async {
-                        final MifareClassicAndroid? data =
-                        MifareClassicAndroid.from(tag);
-                        if (data == null) {
-                          AppToast.showErrorToast(context.tr('error'));
-                        } else {
-                          context.pushNamed('CheckIn', extra: false);
-                        }
-                      },
-                      pollingOptions: {NfcPollingOption.iso14443},
-                    )
-                        : null,
-                  );
-                }
                 return fadingTransition(context, state, const HomeScreen());
               },
             ),
@@ -96,9 +96,8 @@ final GoRouter router = GoRouter(
             GoRoute(
               name: 'History',
               path: '/history',
-              pageBuilder:
-                  (context, state) =>
-                      fadingTransition(context, state, const HistoryScreen()),
+              pageBuilder: (context, state) =>
+                  fadingTransition(context, state, const HistoryScreen()),
             ),
           ],
         ),
@@ -107,9 +106,8 @@ final GoRouter router = GoRouter(
             GoRoute(
               name: 'Revenue',
               path: '/revenue',
-              pageBuilder:
-                  (context, state) =>
-                      fadingTransition(context, state, const RevenueScreen()),
+              pageBuilder: (context, state) =>
+                  fadingTransition(context, state, const RevenueScreen()),
             ),
           ],
         ),
@@ -119,9 +117,8 @@ final GoRouter router = GoRouter(
             GoRoute(
               name: 'Settings',
               path: '/settings',
-              pageBuilder:
-                  (context, state) =>
-                      fadingTransition(context, state, const SettingsScreen()),
+              pageBuilder: (context, state) =>
+                  fadingTransition(context, state, const SettingsScreen()),
             ),
           ],
         ),
@@ -130,93 +127,71 @@ final GoRouter router = GoRouter(
     GoRoute(
       name: 'Parking',
       path: '/settings/parking',
-      pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const ParkingSettingsScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const ParkingSettingsScreen()),
       routes: [
         GoRoute(
           name: 'ParkingDetail',
           path: 'detail',
-          pageBuilder:
-              (context, state) => fadingTransition(
-                context,
-                state,
-                const ParkingDetailsScreen(),
-              ),
+          pageBuilder: (context, state) =>
+              fadingTransition(context, state, const ParkingDetailsScreen()),
         ),
       ],
     ),
     GoRoute(
       name: 'MemberVehicles',
       path: '/settings/member-vehicles',
-      pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const MemberVehiclesScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const MemberVehiclesScreen()),
       routes: [
         GoRoute(
           name: 'MemberVehiclesDetail',
           path: 'detail',
-          pageBuilder:
-              (context, state) => fadingTransition(
-                context,
-                state,
-                const MemberVehicleDetailScreen(),
-              ),
+          pageBuilder: (context, state) => fadingTransition(
+            context,
+            state,
+            const MemberVehicleDetailScreen(),
+          ),
         ),
       ],
     ),
     GoRoute(
       name: 'EmployeeManagement',
       path: '/settings/employee-management',
-      pageBuilder:
-          (context, state) => fadingTransition(
-            context,
-            state,
-            const EmployeeManagementScreen(),
-          ),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const EmployeeManagementScreen()),
     ),
     GoRoute(
       name: 'GeneralConfig',
       path: '/settings/general-config',
-      pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const GeneralConfigScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const GeneralConfigScreen()),
       routes: [
         GoRoute(
           name: 'ParkingPrice',
           path: 'detail',
-          pageBuilder:
-              (context, state) => fadingTransition(
-            context,
-            state,
-            const ParkingPriceSetting(),
-          ),
+          pageBuilder: (context, state) =>
+              fadingTransition(context, state, const ParkingPriceSetting()),
         ),
         GoRoute(
           name: 'MemberFee',
           path: 'detail',
-          pageBuilder:
-              (context, state) => fadingTransition(
-            context,
-            state,
-            const MemberFeeSetingScreen(),
-          ),
+          pageBuilder: (context, state) =>
+              fadingTransition(context, state, const MemberFeeSetingScreen()),
         ),
       ],
     ),
     GoRoute(
       name: 'ChangePassword',
       path: '/settings/change-password',
-      pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const ChangePasswordScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const ChangePasswordScreen()),
     ),
     GoRoute(
       name: 'AppSettings',
       path: '/settings/change-app',
-      pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const AppSettingsScreen()),
+      pageBuilder: (context, state) =>
+          fadingTransition(context, state, const AppSettingsScreen()),
     ),
   ],
 );
