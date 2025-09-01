@@ -20,6 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
+      hasParentView: true,
       title: context.tr('settings'),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),

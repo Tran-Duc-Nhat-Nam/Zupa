@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:shake/shake.dart';
+import '../common/constants/debugger.dart';
 import 'state/app_state.dart';
 import 'app_app_bar.dart';
 
@@ -20,6 +22,7 @@ class AppScreen extends StatefulWidget {
     this.backgroundColor,
     this.appBarColor,
     this.footer = const [],
+    this.hasParentView = false,
     this.onFormChanged,
     this.formInitialValue,
     this.footerPadding,
@@ -47,6 +50,7 @@ class AppScreen extends StatefulWidget {
   final bool hasSafeBottomArea;
   final bool hasSafeTopArea;
   final bool noBackground;
+  final bool hasParentView;
   final String? appBarTrailingIconPath;
   final List<Widget>? appBarTrailing;
   final String? appBarLeadingIconPath;
@@ -60,6 +64,30 @@ class AppScreen extends StatefulWidget {
 }
 
 class _AppScreenState extends AppState<AppScreen> {
+
+  ShakeDetector? detector;
+
+  @override
+  void initState() {
+    if (!widget.hasParentView) {
+      detector = ShakeDetector.autoStart(
+          onPhoneShake: (ShakeEvent event) {
+            debugger.openConsole(context);
+            // Access detailed shake information
+            print('Shake direction: ${event.direction}');
+            print('Shake force: ${event.force}');
+            print('Shake timestamp: ${event.timestamp}');
+          }
+      );
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    detector?.stopListening();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return FormBuilder(

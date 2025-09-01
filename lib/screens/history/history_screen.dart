@@ -24,6 +24,7 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScreen(
       isChildScrollable: true,
+      hasParentView: true,
       title: context.tr('history'),
       appBarTrailing: [
         Padding(

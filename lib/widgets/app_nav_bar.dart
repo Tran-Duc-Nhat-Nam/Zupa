@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
+import 'package:shake/shake.dart';
 import '../common/constants/debugger.dart';
 import '../helper/theme/theme_helper.dart';
 import '../common/styles/icons.dart';
@@ -24,6 +25,27 @@ class AppNavBar extends StatefulWidget {
 }
 
 class _AppNavBarState extends State<AppNavBar> {
+  late final ShakeDetector detector;
+
+  @override
+  void initState() {
+    detector = ShakeDetector.autoStart(
+        onPhoneShake: (ShakeEvent event) {
+          debugger.openConsole(context);
+          // Access detailed shake information
+          print('Shake direction: ${event.direction}');
+          print('Shake force: ${event.force}');
+          print('Shake timestamp: ${event.timestamp}');
+        }
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    detector.stopListening();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(

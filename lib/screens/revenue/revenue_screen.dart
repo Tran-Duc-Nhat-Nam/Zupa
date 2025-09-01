@@ -31,6 +31,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
     return AppScreen(
       formKey: formKey,
       isChildScrollable: true,
+      hasParentView: true,
       title: context.tr('revenue'),
       appBarTrailing: [
         Padding(

@@ -1,11 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
 import '../../bloc/home/filter/home_filter_cubit.dart' as filter;
 import '../../bloc/home/ticket/home_ticket_cubit.dart';
-import '../../common/constants/debugger.dart';
 import '../../helper/theme/theme_helper.dart';
 import '../../widgets/state/app_state.dart';
 import 'widgets/home_search_bar.dart';
@@ -44,6 +42,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
     return AppScreen(
       formKey: formKey,
       isChildScrollable: true,
+      hasParentView: true,
       title: context.tr('home'),
       appBarTrailing: [
         Padding(
