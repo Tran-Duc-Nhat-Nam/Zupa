@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logarte/logarte.dart';
+import '../common/constants/debugger.dart';
 import '../helper/theme/theme_helper.dart';
 import '../common/styles/icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -72,9 +74,12 @@ class _AppNavBarState extends State<AppNavBar> {
           screen: const RevenueScreen(),
           item: ItemConfig(
             iconSize: 24,
-            icon: AppIcon(
-              path: AppIcons.chart,
-              color: ThemeHelper.getColor(context).white,
+            icon: LogarteMagicalTap(
+              logarte: debugger,
+              child: AppIcon(
+                path: AppIcons.chart,
+                color: ThemeHelper.getColor(context).white,
+              ),
             ),
             activeColorSecondary: ThemeHelper.getColor(context).primary500,
             title: context.tr('revenue'),
@@ -122,13 +127,6 @@ class _AppNavBarState extends State<AppNavBar> {
             top: Radius.circular(16),
             bottom: Radius.circular(16),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: ThemeHelper.getColor(context).primary50, // Color with alpha
-              offset: const Offset(0, -8), // Horizontal and vertical offsets
-              blurRadius: 28, // Blur radius
-            ),
-          ],
         ),
       ),
       // onTabChanged: (value) => AppDialog.checkAuth(context),

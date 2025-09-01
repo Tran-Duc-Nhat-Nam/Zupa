@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:logarte/logarte.dart';
 
+import '../../common/constants/debugger.dart';
 import '../../env/env.dart';
 import '../../data/response/error/error_response.dart';
 import '../../data/response/success/success_response.dart';
@@ -14,12 +16,15 @@ class ApiHelper {
   static Dio? _dio;
 
   /// Getter for Dio instance with predefined BaseOptions and interceptors.
-  static Dio get dio => _dio ??= Dio(
-        BaseOptions(
-          baseUrl: Environment.restApiUrl,
-          connectTimeout: const Duration(seconds: 30),
-        ),
-      )..interceptors.add(AuthInterceptor());
+  static Dio get dio => _dio ??=
+      Dio(
+          BaseOptions(
+            baseUrl: Environment.restApiUrl,
+            connectTimeout: const Duration(seconds: 30),
+          ),
+        )
+        ..interceptors.add(AuthInterceptor())
+        ..interceptors.add(LogarteDioInterceptor(debugger));
 
   /// Makes a network call using the provided [apiFunction].
   ///

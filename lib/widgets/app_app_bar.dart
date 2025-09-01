@@ -26,6 +26,7 @@ class AppAppBar extends AppBar {
   final String? trailingIconPath;
   final List<Widget>? trailing;
   final String? leadingIconPath;
+  @override
   final Widget? leading;
 
   @override
@@ -39,10 +40,8 @@ class _AppAppBarState extends State<AppAppBar> {
       scrolledUnderElevation: 0,
       backgroundColor: widget.color ?? ThemeHelper.getColor(context).white,
       foregroundColor: ThemeHelper.getColor(context).blueDark,
-      animateColor: true,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: ThemeHelper.getColor(context).grey50),
-        borderRadius: const BorderRadius.vertical(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(16),
         ),
       ),
