@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../common/constants/routes.dart';
+import '../../helper/router/router_helper.dart';
 import '../../helper/theme/theme_helper.dart';
 import '../../common/styles/icons.dart';
 import '../../common/styles/text_styles.dart';
@@ -13,8 +13,8 @@ abstract class AppMessage {
     if (context != null) {
       toast.init(context);
     } else if (toast.context == null &&
-        router.routerDelegate.navigatorKey.currentContext != null) {
-      toast.init(router.routerDelegate.navigatorKey.currentContext!);
+        RouterHelper.router.routerDelegate.navigatorKey.currentContext != null) {
+      toast.init(RouterHelper.router.routerDelegate.navigatorKey.currentContext!);
     }
     return toast;
   }

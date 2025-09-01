@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../common/constants/routes.dart';
 import '../../helper/theme/theme_helper.dart';
 import '../../common/styles/icons.dart';
 import '../../helper/auth/auth_helper.dart';
@@ -36,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     leadingColor: ThemeHelper.getColor(context).primary500,
                     text: context.tr('parkingAreaConfig'),
                     trailingIconPath: AppIcons.chevronRight,
-                    onTap: () => context.pushNamed('Parking'),
+                    onTap: () => context.pushNamed(AppRoutes.parking),
                   ),
                   Divider(
                     color: ThemeHelper.getColor(context).grey100,
@@ -46,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     leadingColor: ThemeHelper.getColor(context).primary500,
                     text: context.tr('memberVehicles'),
                     trailingIconPath: AppIcons.chevronRight,
-                    onTap: () => context.pushNamed('MemberVehicles'),
+                    onTap: () => context.pushNamed(AppRoutes.memberVehicles),
                   ),
                   Divider(
                     color: ThemeHelper.getColor(context).grey100,
@@ -56,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     leadingColor: ThemeHelper.getColor(context).primary500,
                     text: context.tr('employeeManagement'),
                     trailingIconPath: AppIcons.chevronRight,
-                    onTap: () => context.pushNamed('EmployeeManagement'),
+                    onTap: () => context.pushNamed(AppRoutes.employeeManagement),
                   ),
                   Divider(
                     color: ThemeHelper.getColor(context).grey100,
@@ -66,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     leadingColor: ThemeHelper.getColor(context).primary500,
                     text: context.tr('generalConfig'),
                     trailingIconPath: AppIcons.chevronRight,
-                    onTap: () => context.pushNamed('GeneralConfig'),
+                    onTap: () => context.pushNamed(AppRoutes.generalConfig),
                   ),
                 ],
               ),

@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
-import 'common/constants/routes.dart';
 
 import 'bloc/theme/theme_cubit.dart';
+import 'helper/router/router_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  RouterHelper.initRouter();
 
   runApp(const MyApp());
 }
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
                 darkTheme: theme,
                 color: Theme.of(context).colorScheme.primary,
                 debugShowCheckedModeBanner: false,
-                routerConfig: router,
+                routerConfig: RouterHelper.router,
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
