@@ -2,13 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:upgrader/upgrader.dart';
 import 'common/constants/routes.dart';
 
 import 'bloc/theme/theme_cubit.dart';
-import 'widgets/popup/app_message.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

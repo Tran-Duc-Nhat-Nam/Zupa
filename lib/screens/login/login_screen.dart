@@ -24,29 +24,24 @@ class LoginScreen extends StatelessWidget {
       create: (context) => LoginCubit()..load(),
       child: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          switch (state) {
-            case LoginSuccess():
-              {
-                context.mounted
-                    ? context.go('/')
-                    : AppToast.showErrorToast(
-                      'Xảy ra lỗi không xác định! Vui lòng thoát ứng dụng và vào lại để đảm bảo ứng dụng hoạt động bình thường.',
-                    );
-              }
-            case LoginFailed(:final message):
-              {
-                AppToast.showErrorToast(message);
-                context.read<LoginCubit>().load();
-              }
-            default:
-              {}
-          }
+          state.whenOrNull(
+            loginSuccess: () => context.mounted
+                ? context.go('/')
+                : AppToast.showErrorToast(
+                    'Xảy ra lỗi không xác định! Vui lòng thoát ứng dụng và vào lại để đảm bảo ứng dụng hoạt động bình thường.',
+                  ),
+            loginFailed: (message) {
+              AppToast.showErrorToast(message);
+              context.read<LoginCubit>().load();
+            },
+          );
         },
         child: BlocBuilder<LoginCubit, LoginState>(
           builder: (context, state) {
             return AppScreen(
               hasSafeBottomArea: false,
               hasAppBar: false,
+              resizeToAvoidBottomInset: true,
               child: FormBuilder(
                 key: formKey,
                 child: Padding(

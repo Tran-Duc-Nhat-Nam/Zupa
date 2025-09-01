@@ -26,7 +26,7 @@ import '../../screens/revenue/revenue_screen.dart';
 
 import '../../widgets/app_nav_bar.dart';
 import '../../widgets/popup/app_toast.dart';
-import '../../widgets/transition/fading_transition.dart';
+import '../../widgets/transition/app_transitions.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final _shellKey = GlobalKey<NavigatorState>();
@@ -41,13 +41,13 @@ final GoRouter router = GoRouter(
       path: '/check-in',
       pageBuilder:
           (context, state) =>
-              fadingTransition(context, state, const CheckInScreen()),
+              rightToLeftJoinedTransition(context, state, const CheckInScreen()),
     ),
     GoRoute(
       name: 'Login',
       path: '/login',
       pageBuilder:
-          (context, state) => fadingTransition(context, state, LoginScreen()),
+          (context, state) => rightToLeftJoinedTransition(context, state, LoginScreen()),
       redirect: (context, state) async {
         return (await AuthHelper.getAuth()) != null ? '/' : null;
       },
@@ -55,7 +55,7 @@ final GoRouter router = GoRouter(
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: navigatorKey,
       pageBuilder:
-          (context, state, navigationShell) => fadingTransition(
+          (context, state, navigationShell) => rightToLeftJoinedTransition(
             context,
             state,
             AppNavBar(navigationShell: navigationShell),
@@ -86,7 +86,7 @@ final GoRouter router = GoRouter(
                         : null,
                   );
                 }
-                return fadingTransition(context, state, const HomeScreen());
+                return rightToLeftJoinedTransition(context, state, const HomeScreen());
               },
             ),
           ],
@@ -98,7 +98,7 @@ final GoRouter router = GoRouter(
               path: '/history',
               pageBuilder:
                   (context, state) =>
-                      fadingTransition(context, state, const HistoryScreen()),
+                      rightToLeftJoinedTransition(context, state, const HistoryScreen()),
             ),
           ],
         ),
@@ -109,7 +109,7 @@ final GoRouter router = GoRouter(
               path: '/revenue',
               pageBuilder:
                   (context, state) =>
-                      fadingTransition(context, state, const RevenueScreen()),
+                      rightToLeftJoinedTransition(context, state, const RevenueScreen()),
             ),
           ],
         ),
@@ -121,7 +121,7 @@ final GoRouter router = GoRouter(
               path: '/settings',
               pageBuilder:
                   (context, state) =>
-                      fadingTransition(context, state, const SettingsScreen()),
+                      rightToLeftJoinedTransition(context, state, const SettingsScreen()),
             ),
           ],
         ),
@@ -132,13 +132,13 @@ final GoRouter router = GoRouter(
       path: '/settings/parking',
       pageBuilder:
           (context, state) =>
-              fadingTransition(context, state, const ParkingSettingsScreen()),
+              rightToLeftJoinedTransition(context, state, const ParkingSettingsScreen()),
       routes: [
         GoRoute(
           name: 'ParkingDetail',
           path: 'detail',
           pageBuilder:
-              (context, state) => fadingTransition(
+              (context, state) => rightToLeftJoinedTransition(
                 context,
                 state,
                 const ParkingDetailsScreen(),
@@ -150,14 +150,13 @@ final GoRouter router = GoRouter(
       name: 'MemberVehicles',
       path: '/settings/member-vehicles',
       pageBuilder:
-          (context, state) =>
-              fadingTransition(context, state, const MemberVehiclesScreen()),
+          (context, state) => rightToLeftJoinedTransition(context, state, const MemberVehiclesScreen()),
       routes: [
         GoRoute(
           name: 'MemberVehiclesDetail',
           path: 'detail',
           pageBuilder:
-              (context, state) => fadingTransition(
+              (context, state) => rightToLeftJoinedTransition(
                 context,
                 state,
                 const MemberVehicleDetailScreen(),
@@ -169,7 +168,7 @@ final GoRouter router = GoRouter(
       name: 'EmployeeManagement',
       path: '/settings/employee-management',
       pageBuilder:
-          (context, state) => fadingTransition(
+          (context, state) => rightToLeftJoinedTransition(
             context,
             state,
             const EmployeeManagementScreen(),
@@ -180,13 +179,13 @@ final GoRouter router = GoRouter(
       path: '/settings/general-config',
       pageBuilder:
           (context, state) =>
-              fadingTransition(context, state, const GeneralConfigScreen()),
+              rightToLeftJoinedTransition(context, state, const GeneralConfigScreen()),
       routes: [
         GoRoute(
           name: 'ParkingPrice',
           path: 'detail',
           pageBuilder:
-              (context, state) => fadingTransition(
+              (context, state) => rightToLeftJoinedTransition(
             context,
             state,
             const ParkingPriceSetting(),
@@ -196,7 +195,7 @@ final GoRouter router = GoRouter(
           name: 'MemberFee',
           path: 'detail',
           pageBuilder:
-              (context, state) => fadingTransition(
+              (context, state) => rightToLeftJoinedTransition(
             context,
             state,
             const MemberFeeSetingScreen(),
@@ -209,14 +208,14 @@ final GoRouter router = GoRouter(
       path: '/settings/change-password',
       pageBuilder:
           (context, state) =>
-              fadingTransition(context, state, const ChangePasswordScreen()),
+              rightToLeftJoinedTransition(context, state, const ChangePasswordScreen()),
     ),
     GoRoute(
       name: 'AppSettings',
       path: '/settings/change-app',
       pageBuilder:
           (context, state) =>
-              fadingTransition(context, state, const AppSettingsScreen()),
+              rightToLeftJoinedTransition(context, state, const AppSettingsScreen()),
     ),
   ],
 );
