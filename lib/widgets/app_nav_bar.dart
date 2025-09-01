@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:shake/shake.dart';
-import '../common/constants/debugger.dart';
+import '../helper/debugger/debugger_helper.dart';
 import '../helper/theme/theme_helper.dart';
 import '../common/styles/icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -30,8 +30,8 @@ class _AppNavBarState extends State<AppNavBar> {
   @override
   void initState() {
     detector = ShakeDetector.autoStart(
-        onPhoneShake: (ShakeEvent event) {
-          debugger.openConsole(context);
+        onPhoneShake: (ShakeEvent event) async {
+          if (await DebuggerHelper.getDebuggerMode()) DebuggerHelper.debugger.attach(context: context, visible: true);
           // Access detailed shake information
           print('Shake direction: ${event.direction}');
           print('Shake force: ${event.force}');
@@ -97,7 +97,7 @@ class _AppNavBarState extends State<AppNavBar> {
           item: ItemConfig(
             iconSize: 24,
             icon: LogarteMagicalTap(
-              logarte: debugger,
+              logarte: DebuggerHelper.debugger,
               child: AppIcon(
                 path: AppIcons.chart,
                 color: ThemeHelper.getColor(context).white,

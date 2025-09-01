@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/debugger/debugger_cubit.dart';
 import '../../../bloc/theme/theme_cubit.dart';
 import '../../../common/styles/icons.dart';
 import '../../../common/styles/theme.dart';
+import '../../../helper/debugger/debugger_helper.dart';
 import '../../../helper/theme/theme_helper.dart';
 import '../../../widgets/app_card.dart';
 import '../../../widgets/app_drop_down_search.dart';
@@ -63,9 +65,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       ),
                     ),
                   ),
-                  Divider(
-                    color: ThemeHelper.getColor(context).grey100,
-                  ),
+                  Divider(color: ThemeHelper.getColor(context).grey100),
                   AppListTile(
                     padding: EdgeInsets.zero,
                     leadingIconPath: AppIcons.global,
@@ -76,7 +76,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       iconSize: 0,
                       dropdownItems: [
                         appTheme.brightness,
-                        appDarkTheme.brightness
+                        appDarkTheme.brightness,
                       ],
                       extraDropdownItems: [
                         AppDropDownSearchExtraItem(
@@ -85,10 +85,59 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       ],
                       buttonWidth: 140,
                       initialValue: Theme.of(context).brightness,
-                      itemLabelGetter: (item) => context.tr('${item?.name}Mode'),
+                      itemLabelGetter: (item) =>
+                          context.tr('${item?.name}Mode'),
                       onChanged: (value) =>
                           context.read<ThemeCubit>().changeBrightness(value),
                     ),
+                  ),
+                  Divider(color: ThemeHelper.getColor(context).grey100),
+                  BlocBuilder<DebuggerCubit, DebuggerState>(
+                    builder: (context, state) {
+                      return AppListTile(
+                        padding: EdgeInsets.zero,
+                        leadingIconPath: AppIcons.notification,
+                        text: context.tr('debuggerMode'),
+                        trailing: SizedBox(
+                          height: 20,
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              padding: EdgeInsets.zero,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                                (Set<WidgetState> states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return const Icon(Icons.check);
+                                  }
+                                  return const Icon(Icons.close);
+                                },
+                              ),
+                              thumbColor: WidgetStateProperty.all(
+                                ThemeHelper.getColor(context).white,
+                              ),
+                              inactiveTrackColor: ThemeHelper.getColor(
+                                context,
+                              ).grey100,
+                              trackOutlineWidth: const WidgetStatePropertyAll(
+                                0,
+                              ),
+                              trackOutlineColor: const WidgetStatePropertyAll(
+                                WidgetStateColor.transparent,
+                              ),
+                              value: state.maybeWhen(
+                                loaded: (isOn) => isOn,
+                                orElse: () => false,
+                              ),
+                              onChanged: (value) => context
+                                  .read<DebuggerCubit>()
+                                  .changeDebuggerMode(value),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

@@ -4,13 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
 
+import 'bloc/debugger/debugger_cubit.dart';
 import 'bloc/theme/theme_cubit.dart';
+import 'helper/debugger/debugger_helper.dart';
 import 'helper/router/router_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   RouterHelper.initRouter();
+  DebuggerHelper.initDebugger();
 
   runApp(const MyApp());
 }
@@ -23,13 +26,21 @@ class MyApp extends StatelessWidget {
       supportedLocales: const <Locale>[Locale('en', 'US'), Locale('vi', 'VN')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en', 'US'),
-      child: BlocProvider<ThemeCubit>(
-        create: (BuildContext context) => ThemeCubit()..loadTheme(context),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<ThemeCubit>(
+            create: (BuildContext context) => ThemeCubit()..loadTheme(context),
+          ),
+          BlocProvider<DebuggerCubit>(
+            create: (BuildContext context) => DebuggerCubit()..loadDebugger(),
+          ),
+        ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (BuildContext context, ThemeState state) => state.when(
             initial: (ThemeData theme) {
               return MaterialApp.router(
-                onGenerateTitle: (BuildContext context) => context.tr('appTitle'),
+                onGenerateTitle: (BuildContext context) =>
+                    context.tr('appTitle'),
                 theme: theme,
                 darkTheme: theme,
                 color: Theme.of(context).colorScheme.primary,

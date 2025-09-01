@@ -111,30 +111,30 @@ class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
                                     thumbColor: WidgetStateProperty.all(
                                       ThemeHelper.getColor(context).white,
                                     ),
-                                    inactiveTrackColor:
-                                        ThemeHelper.getColor(context).grey100,
+                                    inactiveTrackColor: ThemeHelper.getColor(
+                                      context,
+                                    ).grey100,
                                     trackOutlineWidth:
                                         const WidgetStatePropertyAll(0),
                                     trackOutlineColor:
                                         const WidgetStatePropertyAll(
                                           WidgetStateColor.transparent,
                                         ),
-                                    value: switch (state) {
-                                      Loaded(:final isWarning) => isWarning,
-                                      _ => false,
-                                    },
-                                    onChanged:
-                                        (value) => context
-                                            .read<GeneralConfigCubit>()
-                                            .setWarning(value),
+                                    value: state.maybeWhen(
+                                      loaded: (isWarning, _) => isWarning,
+                                      orElse: () => false,
+                                    ),
+                                    onChanged: (value) => context
+                                        .read<GeneralConfigCubit>()
+                                        .setWarning(value),
                                   ),
                                 ),
                               ),
                             ),
-                            if (switch (state) {
-                              Loaded(:final isWarning) => isWarning,
-                              _ => false,
-                            }) ...[
+                            if (state.maybeWhen(
+                              loaded: (isWarning, _) => isWarning,
+                              orElse: () => false,
+                            )) ...[
                               AppTextField(
                                 name: 'warningThreshold',
                                 hintText: context.tr('enterInteger'),

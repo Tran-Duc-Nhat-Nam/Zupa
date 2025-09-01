@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logarte/logarte.dart';
 
-import '../../common/constants/debugger.dart';
 import '../../env/env.dart';
 import '../../data/response/error/error_response.dart';
 import '../../data/response/success/success_response.dart';
 import '../../widgets/popup/app_dialog.dart';
 import '../auth/auth_helper.dart';
+import '../debugger/debugger_helper.dart';
 import 'interceptors.dart';
 
 /// A helper class for making API requests using Dio.
@@ -24,7 +24,7 @@ class ApiHelper {
           ),
         )
         ..interceptors.add(AuthInterceptor())
-        ..interceptors.add(LogarteDioInterceptor(debugger));
+        ..interceptors.add(LogarteDioInterceptor(DebuggerHelper.debugger));
 
   /// Makes a network call using the provided [apiFunction].
   ///

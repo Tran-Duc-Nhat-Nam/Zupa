@@ -153,6 +153,9 @@
   "seat": "Seat: {}{}",
   "enterInteger": "Enter integer",
   "ticketSearch": "Search by plate/card",
+  "on": "On",
+  "off": "Off",
+  "debuggerMode": "Debugging mode",
   "logout": {
   },
   "noMoreData" : "No more data",

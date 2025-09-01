@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:shake/shake.dart';
-import '../common/constants/debugger.dart';
+import '../helper/debugger/debugger_helper.dart';
 import 'state/app_state.dart';
 import 'app_app_bar.dart';
 
@@ -71,8 +71,8 @@ class _AppScreenState extends AppState<AppScreen> {
   void initState() {
     if (!widget.hasParentView) {
       detector = ShakeDetector.autoStart(
-          onPhoneShake: (ShakeEvent event) {
-            debugger.openConsole(context);
+          onPhoneShake: (ShakeEvent event) async {
+            if (await DebuggerHelper.getDebuggerMode()) DebuggerHelper.debugger.attach(context: context, visible: true);
             // Access detailed shake information
             print('Shake direction: ${event.direction}');
             print('Shake force: ${event.force}');

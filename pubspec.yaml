@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.0
+  sdk: ^3.10.0-75.1.beta
 
 dependencies:
   flutter:
@@ -45,8 +45,6 @@ dependencies:
   photo_view: ^0.15.0
   flutter_swipe_action_cell: ^3.1.5
   dropdown_button2: ^3.0.0-beta.22
-  mockito: ^5.5.0
-  bloc_test: ^10.0.0
   catppuccin_flutter: ^1.0.0
   omni_datetime_picker: ^2.3.1
   flutter_advanced_switch:
@@ -64,7 +62,11 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.7.0
-  freezed: ^3.2.0
+  freezed:
+    git:
+      url: https://github.com/Tran-Duc-Nhat-Nam-270702/freezed.git
+      ref: master
+      path: packages/freezed/
   json_serializable: ^6.11.0
   retrofit_generator: ^10.0.2
   rename_app: ^1.6.5
