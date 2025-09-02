@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:logarte/logarte.dart';
 
 import '../../common/constants/shared_ref.dart';

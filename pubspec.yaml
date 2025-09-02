@@ -66,7 +66,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  build_runner: ^2.7.0
+  build_runner: ^2.7.1
   freezed:
     git:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/freezed.git
