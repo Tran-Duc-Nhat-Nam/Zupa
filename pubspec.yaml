@@ -68,7 +68,7 @@ dev_dependencies:
       ref: master
       path: packages/freezed/
   json_serializable: ^6.11.0
-  retrofit_generator: ^10.0.2
+  retrofit_generator: ^10.0.4
   rename_app: ^1.6.5
   flutter_launcher_icons: ^0.14.4
 

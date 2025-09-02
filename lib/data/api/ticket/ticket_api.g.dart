@@ -2,6 +2,8 @@
 
 part of 'ticket_api.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -154,3 +156,5 @@ class _StaffAPI implements StaffAPI {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

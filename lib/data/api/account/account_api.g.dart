@@ -2,6 +2,8 @@
 
 part of 'account_api.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -66,3 +68,5 @@ class _AccountAPI implements AccountAPI {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

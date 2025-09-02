@@ -11,6 +11,6 @@ abstract class AccountAPI {
   factory AccountAPI(Dio dio, {String? baseUrl, ParseErrorLogger? errorLogger}) =
   _AccountAPI;
 
-  @POST('/account')
+  @POST('/account/auth/login')
   Future<dynamic> login(@Body() AccountRequest request);
 }
