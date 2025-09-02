@@ -64,20 +64,20 @@ class AppScreen extends StatefulWidget {
 }
 
 class _AppScreenState extends AppState<AppScreen> {
-
   ShakeDetector? detector;
 
   @override
   void initState() {
     if (!widget.hasParentView) {
       detector = ShakeDetector.autoStart(
-          onPhoneShake: (ShakeEvent event) async {
-            if (await DebuggerHelper.getDebuggerMode()) DebuggerHelper.debugger.attach(context: context, visible: true);
-            // Access detailed shake information
-            print('Shake direction: ${event.direction}');
-            print('Shake force: ${event.force}');
-            print('Shake timestamp: ${event.timestamp}');
-          }
+        onPhoneShake: (ShakeEvent event) async {
+          if (await DebuggerHelper.getDebuggerMode())
+            DebuggerHelper.debugger.attach(context: context, visible: true);
+          // Access detailed shake information
+          print('Shake direction: ${event.direction}');
+          print('Shake force: ${event.force}');
+          print('Shake timestamp: ${event.timestamp}');
+        },
       );
     }
     super.initState();
@@ -88,6 +88,7 @@ class _AppScreenState extends AppState<AppScreen> {
     detector?.stopListening();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
@@ -109,33 +110,27 @@ class _AppScreenState extends AppState<AppScreen> {
             : widget.appBar,
         backgroundColor:
             widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
-        body: SafeArea(
-          top: widget.hasSafeTopArea,
-          bottom: widget.hasSafeBottomArea,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              if (!widget.noBackground)
-                LayoutBuilder(
-                  builder:
-                      (BuildContext context, BoxConstraints constraints) {
-                        return SingleChildScrollView(
-                          child: ConstrainedBox(
-                            constraints: constraints.copyWith(
-                              minHeight: MediaQuery.of(context).size.height,
-                              maxHeight: double.infinity,
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                'assets/images/tsp-logo.png',
-                                opacity: const AlwaysStoppedAnimation(0.05),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                ),
-              Align(
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            // if (!widget.noBackground)
+            //   SingleChildScrollView(
+            //     child: ConstrainedBox(
+            //       constraints: BoxConstraints(
+            //         minHeight: MediaQuery.of(context).size.height,
+            //       ),
+            //       child: Center(
+            //         child: Image.asset(
+            //           'assets/images/tsp-logo.png',
+            //           opacity: const AlwaysStoppedAnimation(0.05),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            SafeArea(
+              top: widget.hasSafeTopArea,
+              bottom: widget.hasSafeBottomArea,
+              child: Align(
                 alignment: Alignment.topLeft,
                 child: SizedBox(
                   width: double.infinity,
@@ -160,20 +155,20 @@ class _AppScreenState extends AppState<AppScreen> {
                         ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding:
-                      widget.footerPadding ??
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: widget.footer,
-                  ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding:
+                    widget.footerPadding ??
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: widget.footer,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -5,7 +5,6 @@ import '../../../bloc/debugger/debugger_cubit.dart';
 import '../../../bloc/theme/theme_cubit.dart';
 import '../../../common/styles/icons.dart';
 import '../../../common/styles/theme.dart';
-import '../../../helper/debugger/debugger_helper.dart';
 import '../../../helper/theme/theme_helper.dart';
 import '../../../widgets/app_card.dart';
 import '../../../widgets/app_drop_down_search.dart';

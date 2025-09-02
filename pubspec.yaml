@@ -56,6 +56,11 @@ dependencies:
   logarte: ^1.2.2
   shake: ^3.0.0
   sensors_plus_platform_interface: ^2.0.1
+  flutter_native_splash: ^2.4.6
+  device_preview: ^1.3.1
+  logger: ^2.6.1
+  local_auth: ^2.3.0
+  awesome_notifications: ^0.10.1
 
 dev_dependencies:
   flutter_test:

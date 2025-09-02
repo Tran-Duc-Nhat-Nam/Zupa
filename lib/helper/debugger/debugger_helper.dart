@@ -8,12 +8,7 @@ class DebuggerHelper {
   static late final Logarte debugger;
 
   static Future<void> initDebugger() async {
-    debugger = Logarte(
-      ignorePassword: true,
-      onShare: (String content) {
-        log(content, time: DateTime.now());
-      },
-    );
+    debugger = Logarte();
   }
 
   static Future<void> clearDebugger() async {
@@ -21,7 +16,7 @@ class DebuggerHelper {
   }
 
   static Future<void> setDebuggerMode(bool isOn) async {
-    await sharedPreferences.setBool('isDebuggerMode', isOn);;
+    await sharedPreferences.setBool('isDebuggerMode', isOn);
   }
 
   static Future<bool> getDebuggerMode() async {
