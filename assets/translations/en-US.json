@@ -155,6 +155,7 @@
   "ticketSearch": "Search by plate/card",
   "on": "On",
   "off": "Off",
+  "isRemember": "Remember me",
   "debuggerMode": "Debugging mode",
   "logout": {
   },

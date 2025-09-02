@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -82,8 +80,6 @@ class _AppTextFieldState extends State<AppTextField> {
         widget.validators! as Iterable<FormFieldValidator<String>>,
       );
     }
-
-    log('Initial value: ${widget.initialValue ?? ""}');
 
     return Column(
       mainAxisSize: MainAxisSize.min,

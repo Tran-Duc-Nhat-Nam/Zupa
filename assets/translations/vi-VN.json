@@ -153,6 +153,7 @@
   "ticketSearch": "Tìm theo số xe/mã thẻ",
   "on": "Bật",
   "off": "Tắt",
+  "isRemember": "Ghi nhớ tài khoản",
   "debuggerMode": "Chế độ gỡ lỗi",
   "seat": "Chỗ ngồi: {}{}",
   "loginSuccessed": "Đăng nhập thành công",
