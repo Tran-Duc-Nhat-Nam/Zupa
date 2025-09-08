@@ -30,184 +30,181 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CheckInCubit>(
-      create:
-          (_) =>
-              CheckInCubit()..init(
-                context,
-                GoRouterState.of(context).extra is bool
-                    ? GoRouterState.of(context).extra! as bool
-                    : false,
-              ),
-      child: BlocBuilder<CheckInCubit, CheckInState>(
-        builder: (context, state) {
-          return AppScreen(
-            formKey: formKey,
-            appBarColor: Colors.black,
-            isClose: true,
-            isChildScrollable: true,
-            hasSafeTopArea: false,
-            backgroundColor: Colors.black,
-            child: switch (state) {
-              Initial() => const SizedBox(),
-              CheckIn(:final controller) => CameraScreen(
-                isOut: false,
-                controller: controller,
-                onTakePicture: () {
-                  formKey.currentState?.saveAndValidate();
-                  if (formKey.currentState?.validate() == true) {
-                    context.read<CheckInCubit>().check(
-                      controller,
-                      formKey.currentState!.value['type'],
-                    );
-                  } else {
-                    AppToast.showErrorToast(context.tr('error'));
-                  }
-                },
-              ),
-              CheckOut(:final controller) => CameraScreen(
-                isOut: true,
-                controller: controller,
-                onTakePicture:
-                    () => context.read<CheckInCubit>().check(
-                      controller,
-                      vehicleTypes[0],
-                    ),
-              ),
-              Loading() => Center(
-                child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 48,
+      create: (_) => CheckInCubit()
+        ..init(
+          context,
+          GoRouterState.of(context).extra is bool
+              ? GoRouterState.of(context).extra! as bool
+              : false,
+        ),
+      child: BlocListener<CheckInCubit, CheckInState>(
+        listener: (context, state) {
+          state.whenOrNull(submitSuccess: () => context.go('/'));
+        },
+        child: BlocBuilder<CheckInCubit, CheckInState>(
+          builder: (context, state) {
+            return AppScreen(
+              formKey: formKey,
+              appBarColor: Colors.black,
+              isClose: true,
+              isChildScrollable: true,
+              hasSafeTopArea: false,
+              backgroundColor: Colors.black,
+              child: state.maybeWhen(
+                initial: () => const SizedBox(),
+                checkIn: (controller) => CameraScreen(
+                  isOut: false,
+                  controller: controller,
+                  onTakePicture: () {
+                    formKey.currentState?.saveAndValidate();
+                    if (formKey.currentState?.validate() == true) {
+                      context.read<CheckInCubit>().check(
+                        controller,
+                        formKey.currentState!.value['type'],
+                      );
+                    } else {
+                      AppToast.showErrorToast(context.tr('error'));
+                    }
+                  },
                 ),
-              ),
-              TakingPicture() => Center(
-                child: LoadingAnimationWidget.fallingDot(
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 48,
-                ),
-              ),
-              _ => Column(
-                mainAxisSize: MainAxisSize.min,
-                spacing: 16,
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: switch (state) {
-                      CheckedInSuccess(:final picture) => Image(
-                        image: FileImage(File(picture.path)),
-                        fit: BoxFit.fitWidth,
-                        frameBuilder: (
-                          context,
-                          child,
-                          frame,
-                          wasSynchronouslyLoaded,
-                        ) {
-                          return frame != null
-                              ? SizedBox(
-                                width: double.infinity,
-                                child: FittedBox(
-                                  clipBehavior: Clip.antiAlias,
-                                  fit: BoxFit.fitWidth,
-                                  child: child,
-                                ),
-                              )
-                              : LoadingAnimationWidget.beat(
-                                color: Theme.of(context).colorScheme.primary,
-                                size: 48,
-                              );
-                        },
-                      ),
-                      CheckedOutSuccess(:final picture) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 24,
-                        ),
-                        child: Column(
-                          spacing: 16,
-                          children: [
-                            Expanded(
-                              child: Image(
-                                image: FileImage(File(picture.path)),
-                                fit: BoxFit.fitWidth,
-                                frameBuilder: (
-                                  context,
-                                  child,
-                                  frame,
-                                  wasSynchronouslyLoaded,
-                                ) {
-                                  return frame != null
-                                      ? Container(
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                        ),
-                                        width: double.infinity,
-                                        child: FittedBox(
-                                          clipBehavior: Clip.antiAlias,
-                                          fit: BoxFit.fitWidth,
-                                          child: child,
-                                        ),
-                                      )
-                                      : LoadingAnimationWidget.beat(
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                        size: 48,
-                                      );
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: Image(
-                                image: FileImage(File(picture.path)),
-                                fit: BoxFit.fitWidth,
-                                frameBuilder: (
-                                  context,
-                                  child,
-                                  frame,
-                                  wasSynchronouslyLoaded,
-                                ) {
-                                  return frame != null
-                                      ? Container(
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                        ),
-                                        width: double.infinity,
-                                        child: FittedBox(
-                                          clipBehavior: Clip.antiAlias,
-                                          fit: BoxFit.fitWidth,
-                                          child: child,
-                                        ),
-                                      )
-                                      : LoadingAnimationWidget.beat(
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                        size: 48,
-                                      );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      _ => const SizedBox(),
-                    },
+                checkOut: (controller) => CameraScreen(
+                  isOut: true,
+                  controller: controller,
+                  onTakePicture: () => context.read<CheckInCubit>().check(
+                    controller,
+                    vehicleTypes[0],
                   ),
-                  switch (state) {
-                    CheckedInSuccess(:final vehicleType) => SizedBox(
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child:
-                            vehicleType == vehicleTypes[1]
-                                ? AppCard(
+                ),
+                loading: () => Center(
+                  child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 48,
+                  ),
+                ),
+                takingPicture: () => Center(
+                  child: LoadingAnimationWidget.fallingDot(
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 48,
+                  ),
+                ),
+                orElse: () => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 16,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: state.maybeWhen(
+                        checkedInSuccess: (picture, _) => Image(
+                          image: FileImage(File(picture.path)),
+                          fit: BoxFit.fitWidth,
+                          frameBuilder:
+                              (context, child, frame, wasSynchronouslyLoaded) {
+                                return frame != null
+                                    ? SizedBox(
+                                        width: double.infinity,
+                                        child: FittedBox(
+                                          clipBehavior: Clip.antiAlias,
+                                          fit: BoxFit.fitWidth,
+                                          child: child,
+                                        ),
+                                      )
+                                    : LoadingAnimationWidget.beat(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                        size: 48,
+                                      );
+                              },
+                        ),
+                        checkedOutSuccess: (picture) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 24,
+                          ),
+                          child: Column(
+                            spacing: 16,
+                            children: [
+                              Expanded(
+                                child: Image(
+                                  image: FileImage(File(picture.path)),
+                                  fit: BoxFit.fitWidth,
+                                  frameBuilder:
+                                      (
+                                        context,
+                                        child,
+                                        frame,
+                                        wasSynchronouslyLoaded,
+                                      ) {
+                                        return frame != null
+                                            ? Container(
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                width: double.infinity,
+                                                child: FittedBox(
+                                                  clipBehavior: Clip.antiAlias,
+                                                  fit: BoxFit.fitWidth,
+                                                  child: child,
+                                                ),
+                                              )
+                                            : LoadingAnimationWidget.beat(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                                size: 48,
+                                              );
+                                      },
+                                ),
+                              ),
+                              Expanded(
+                                child: Image(
+                                  image: FileImage(File(picture.path)),
+                                  fit: BoxFit.fitWidth,
+                                  frameBuilder:
+                                      (
+                                        context,
+                                        child,
+                                        frame,
+                                        wasSynchronouslyLoaded,
+                                      ) {
+                                        return frame != null
+                                            ? Container(
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                width: double.infinity,
+                                                child: FittedBox(
+                                                  clipBehavior: Clip.antiAlias,
+                                                  fit: BoxFit.fitWidth,
+                                                  child: child,
+                                                ),
+                                              )
+                                            : LoadingAnimationWidget.beat(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                                size: 48,
+                                              );
+                                      },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        orElse: () => const SizedBox(),
+                      ),
+                    ),
+                    switch (state) {
+                      CheckedInSuccess(:final vehicleType) => SizedBox(
+                        height: 100,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: vehicleType == vehicleTypes[1]
+                              ? AppCard(
                                   child: Center(
                                     child: AppTextField(
                                       name: 'ticketNumber',
@@ -217,81 +214,82 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                     ),
                                   ),
                                 )
-                                : const VehicleInfoCard(
+                              : const VehicleInfoCard(
                                   ticketNumber: '01223',
                                   licenseNumber: '29AB90175',
                                 ),
+                        ),
                       ),
-                    ),
-                    _ => Expanded(
+                      _ => Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: TicketInfoCard(
+                            licenseNumber: '29AB90175',
+                            price: 4000,
+                            ticketType: 'guest',
+                            timeIn: DateTime.now(),
+                            timeOut: DateTime.now(),
+                            totalTime: 120,
+                          ),
+                        ),
+                      ),
+                    },
+                    Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TicketInfoCard(
-                          licenseNumber: '29AB90175',
-                          price: 4000,
-                          ticketType: 'guest',
-                          timeIn: DateTime.now(),
-                          timeOut: DateTime.now(),
-                          totalTime: 120,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 16,
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              spacing: 12,
+                              children: [
+                                AppButton(
+                                  fitContent: true,
+                                  theme: AppButtonTheme.secondary,
+                                  onPressed: () => context
+                                      .read<CheckInCubit>()
+                                      .reset(context),
+                                  shape: const CircleBorder(),
+                                  color: AppButtonColor.basic,
+                                  iconPath: AppIcons.rotateLeft,
+                                ),
+                                Expanded(
+                                  child: AppButton(
+                                    fitContent: true,
+                                    onPressed: () {
+                                      formKey.currentState?.saveAndValidate();
+                                      if (formKey.currentState?.validate() ==
+                                          true) {
+                                        context.read<CheckInCubit>().saveTicket(
+                                          context,
+                                          formKey.currentState?.value,
+                                        );
+                                      }
+                                    },
+                                    text: context.tr(
+                                      state.maybeWhen(
+                                        checkedInSuccess: (_, __) => 'allowIn',
+                                        checkedOutSuccess: (_) => 'allowOut',
+                                        orElse: () => '',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  },
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 16,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            spacing: 12,
-                            children: [
-                              AppButton(
-                                fitContent: true,
-                                theme: AppButtonTheme.secondary,
-                                onPressed:
-                                    () => context.read<CheckInCubit>().reset(
-                                      context,
-                                    ),
-                                shape: const CircleBorder(),
-                                color: AppButtonColor.basic,
-                                iconPath: AppIcons.rotateLeft,
-                              ),
-                              Expanded(
-                                child: AppButton(
-                                  fitContent: true,
-                                  onPressed: () {
-                                    formKey.currentState?.saveAndValidate();
-                                    if (formKey.currentState?.validate() ==
-                                        true) {
-                                      context.read<CheckInCubit>().saveTicket(
-                                        context,
-                                        formKey.currentState?.value,
-                                      );
-                                      context.go('/');
-                                    }
-                                  },
-                                  text: context.tr(switch (state) {
-                                    CheckedInSuccess() => 'allowIn',
-                                    CheckedOutSuccess() => 'allowOut',
-                                    _ => '',
-                                  }),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            },
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,11 @@
+import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+import 'package:nfc_manager/nfc_manager_android.dart';
 
 import '../../common/constants/routes.dart';
 import '../../helper/auth/auth_helper.dart';
@@ -20,6 +26,7 @@ import '../../screens/settings/password/change_password_screen.dart';
 import '../../screens/settings/settings_screen.dart';
 import '../../screens/revenue/revenue_screen.dart';
 import '../../widgets/app_nav_bar.dart';
+import '../../widgets/popup/app_toast.dart';
 import '../../widgets/transition/app_transitions.dart';
 import '../sensor/nfc_helper.dart';
 
@@ -55,12 +62,31 @@ class RouterHelper {
         ),
         StatefulShellRoute.indexedStack(
           parentNavigatorKey: navigatorKey,
-          pageBuilder: (context, state, navigationShell) =>
-              rightToLeftJoinedTransition(
-                context,
-                state,
-                AppNavBar(navigationShell: navigationShell),
-              ),
+          pageBuilder: (context, state, navigationShell) {
+            if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+              NfcManager.instance.isAvailable().then(
+                (value) => value
+                    ? NfcManager.instance.startSession(
+                        onDiscovered: (NfcTag tag) async {
+                          final MifareClassicAndroid? data =
+                              MifareClassicAndroid.from(tag);
+                          if (data == null) {
+                            AppToast.showErrorToast(context.tr('error'));
+                          } else {
+                            context.pushNamed('CheckIn', extra: false);
+                          }
+                        },
+                        pollingOptions: {NfcPollingOption.iso14443},
+                      )
+                    : null,
+              );
+            }
+            return rightToLeftJoinedTransition(
+              context,
+              state,
+              AppNavBar(navigationShell: navigationShell),
+            );
+          },
           branches: [
             StatefulShellBranch(
               routes: [

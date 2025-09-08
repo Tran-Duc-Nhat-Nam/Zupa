@@ -50,54 +50,51 @@ class TicketInfoCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              Jiffy.parseFromDateTime(timeIn)
-                                  .format(pattern: 'dd/MM/yyyy hh:mm'),
+                              Jiffy.parseFromDateTime(
+                                timeIn,
+                              ).format(pattern: 'dd/MM/yyyy hh:mm'),
                               style: AppTextStyles.bodyMediumMedium.copyWith(
                                 color: ThemeHelper.getColor(context).success600,
                               ),
                             ),
-                            if (timeOut != null)
+                            if (timeOut != null) ...[
                               Text(
-                                Jiffy.parseFromDateTime(timeOut!)
-                                    .format(pattern: 'dd/MM/yyyy hh:mm'),
+                                Jiffy.parseFromDateTime(
+                                  timeOut!,
+                                ).format(pattern: 'dd/MM/yyyy hh:mm'),
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).error600,
                                 ),
                               ),
-                            if (totalTime != null)
                               Container(
                                 height: 1,
                                 margin: const EdgeInsets.symmetric(vertical: 4),
                                 width: double.infinity,
                                 color: ThemeHelper.getColor(context).grey200,
                               ),
-                            if (totalTime != null)
                               Text(
                                 context.plural('totalTime', totalTime!),
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,
                                 ),
                               ),
+                            ],
                           ],
                         ),
                       ),
                     ),
-                     VerticalDivider(
+                    VerticalDivider(
                       color: ThemeHelper.getColor(context).grey300,
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -124,7 +121,7 @@ class TicketInfoCard extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
