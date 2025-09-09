@@ -545,6 +545,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tilt:
+    dependency: "direct main"
+    description:
+      name: flutter_tilt
+      sha256: ec5f3b0fa9a99569de63a4db8f23a427fa61b968af2a0b92bc7f3940ac67b7ec
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -827,10 +835,10 @@ packages:
     dependency: transitive
     description:
       name: lottie
-      sha256: c5fa04a80a620066c15cf19cc44773e19e9b38e989ff23ea32e5903ef1015950
+      sha256: "8ae0be46dbd9e19641791dc12ee480d34e1fd3f84c749adc05f3ad9342b71b95"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "3.3.2"
   matcher:
     dependency: transitive
     description:
@@ -1545,10 +1553,11 @@ packages:
   volume_listener:
     dependency: "direct main"
     description:
-      name: volume_listener
-      sha256: bfaba6353e61ccc7799432eefae2b5c9f0fdf426e2b2a0b49bbe65f84b7bd959
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: main
+      resolved-ref: "1d86defc922c402c3eb823a9a034ba3bfc21b3fc"
+      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/volume_listener.git"
+    source: git
     version: "0.1.0"
   watcher:
     dependency: transitive

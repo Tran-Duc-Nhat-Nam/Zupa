@@ -1,5 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
+import 'package:local_auth/local_auth.dart';
+
 import '../../common/constants/shared_ref.dart';
 import '../../data/request/account/account_request.dart';
+import '../../widgets/popup/app_toast.dart';
 
 class AuthHelper {
   static Future<void> setAuth(String accessToken) async {
@@ -24,12 +31,66 @@ class AuthHelper {
     return AccountRequest(
       tenant: await sharedPreferences.getString('accountTenant') ?? '',
       username: await sharedPreferences.getString('accountUsername') ?? '',
-      password: await sharedPreferences.getString('accountPassword') ?? '',);
+      password: await sharedPreferences.getString('accountPassword') ?? '',
+    );
   }
 
   static Future<void> removeAccountInfo() async {
     await sharedPreferences.remove('accountTenant');
     await sharedPreferences.remove('accountUsername');
     await sharedPreferences.remove('accountPassword');
+  }
+
+  static Future<void> setBiometricAuth(bool isBiometricAuth) async {
+    await sharedPreferences.setBool('isBiometricAuth', isBiometricAuth);
+  }
+
+  static Future<bool?> getBiometricAuth() async {
+    return sharedPreferences.getBool('isBiometricAuth');
+  }
+
+  static Future<bool> biometricCheck(BuildContext context) async {
+    if ((await getBiometricAuth()) == true) {
+      final LocalAuthentication auth = LocalAuthentication();
+      final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+      final bool canAuthenticate =
+          canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+
+      if (canAuthenticate) {
+        final List<BiometricType> availableBiometrics = await auth
+            .getAvailableBiometrics();
+
+        if (availableBiometrics.isEmpty) {
+          return false;
+        }
+
+        if (availableBiometrics.contains(BiometricType.weak) ||
+            availableBiometrics.contains(BiometricType.strong)) {
+          try {
+            final bool didAuthenticate = await auth.authenticate(
+              localizedReason: 'Please authenticate to show account balance',
+              options: const AuthenticationOptions(useErrorDialogs: false),
+            );
+            return didAuthenticate;
+          } on PlatformException catch (e) {
+            if (e.code == auth_error.notAvailable) {
+              AppToast.showErrorToast(
+                context.tr('Biometric authentication is not available'),
+              );
+            } else if (e.code == auth_error.notEnrolled) {
+              AppToast.showErrorToast(
+                context.tr('Biometric authentication is not enrolled'),
+              );
+            } else {
+              AppToast.showErrorToast(
+                context.tr(e.message ?? 'Unknown error'),
+              );
+            }
+          }
+        }
+      }
+    }
+
+    return false;
   }
 }

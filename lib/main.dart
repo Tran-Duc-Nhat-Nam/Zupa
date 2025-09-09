@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
 
+import 'bloc/auth/auth_cubit.dart';
 import 'bloc/debugger/debugger_cubit.dart';
 import 'bloc/theme/theme_cubit.dart';
 import 'helper/debugger/debugger_helper.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<DebuggerCubit>(
             create: (BuildContext context) => DebuggerCubit()..loadDebugger(),
+          ),
+          BlocProvider<AuthCubit>(
+            create: (BuildContext context) => AuthCubit()..loadAuth(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(

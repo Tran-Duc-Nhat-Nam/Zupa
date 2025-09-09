@@ -57,7 +57,11 @@ class RouterHelper {
           pageBuilder: (context, state) =>
               rightToLeftJoinedTransition(context, state, LoginScreen()),
           redirect: (context, state) async {
-            return (await AuthHelper.getAuth()) != null ? '/' : null;
+            if ((await AuthHelper.getAuth()) != null ) {
+              return '/';
+            } else {
+              return (await AuthHelper.biometricCheck(context)) == true ? '/' : null;
+            }
           },
         ),
         StatefulShellRoute.indexedStack(

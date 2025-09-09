@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/auth/auth_cubit.dart';
 import '../../../bloc/debugger/debugger_cubit.dart';
 import '../../../bloc/theme/theme_cubit.dart';
 import '../../../common/styles/icons.dart';
@@ -132,6 +133,54 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               onChanged: (value) => context
                                   .read<DebuggerCubit>()
                                   .changeDebuggerMode(value),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Divider(color: ThemeHelper.getColor(context).grey100),
+                  BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      return AppListTile(
+                        padding: EdgeInsets.zero,
+                        leadingIconPath: AppIcons.notification,
+                        text: context.tr('debuggerMode'),
+                        trailing: SizedBox(
+                          height: 20,
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              padding: EdgeInsets.zero,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                                (Set<WidgetState> states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return const Icon(Icons.check);
+                                  }
+                                  return const Icon(Icons.close);
+                                },
+                              ),
+                              thumbColor: WidgetStateProperty.all(
+                                ThemeHelper.getColor(context).white,
+                              ),
+                              inactiveTrackColor: ThemeHelper.getColor(
+                                context,
+                              ).grey100,
+                              trackOutlineWidth: const WidgetStatePropertyAll(
+                                0,
+                              ),
+                              trackOutlineColor: const WidgetStatePropertyAll(
+                                WidgetStateColor.transparent,
+                              ),
+                              value: state.maybeWhen(
+                                loaded: (isOn) => isOn,
+                                orElse: () => false,
+                              ),
+                              onChanged: (value) => context
+                                  .read<AuthCubit>()
+                                  .toggleBiometricMode(value),
                             ),
                           ),
                         ),

@@ -36,7 +36,10 @@ dependencies:
   cached_network_image: ^3.4.1
   skeletonizer: ^2.1.0
   nfc_manager: ^4.0.2
-  volume_listener: ^0.1.0
+  volume_listener:
+    git:
+      url: https://github.com/Tran-Duc-Nhat-Nam-270702/volume_listener.git
+      ref: main
   material_dialogs: ^1.1.5
   camera: ^0.11.2
   upgrader: ^11.5.0
@@ -62,6 +65,7 @@ dependencies:
   local_auth: ^2.3.0
   awesome_notifications: ^0.10.1
   home_widget: ^0.8.0
+  flutter_tilt: ^3.3.1
 
 dev_dependencies:
   flutter_test:
