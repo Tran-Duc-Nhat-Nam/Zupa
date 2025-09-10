@@ -8,6 +8,7 @@ import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../bloc/home/ticket/home_ticket_cubit.dart';
+import '../../../common/constants/routes.dart';
 import '../../../common/constants/vehicle_types.dart';
 import '../../../common/styles/icons.dart';
 import '../../../data/model/ticket/ticket.dart';
@@ -127,7 +128,7 @@ class TicketTitle extends StatelessWidget {
       fullSwipeFactor: 0.5,
       leadingActions: [
         SwipeAction(
-          onTap: (CompletionHandler handler) => context.pushNamed('CheckIn'),
+          onTap: (CompletionHandler handler) => context.pushNamed(AppRoutes.checkIn),
           icon: AppIcon(
             path: AppIcons.close,
             color: ThemeHelper.getColor(context).white,
@@ -141,7 +142,7 @@ class TicketTitle extends StatelessWidget {
           title: context.tr('allowOut'),
           onTap: (CompletionHandler handler) {
             controller.closeAllOpenCell();
-            context.pushNamed('CheckIn', extra: true);
+            context.pushNamed(AppRoutes.checkIn, extra: true);
           },
           color: ThemeHelper.getColor(context).error600,
         ),

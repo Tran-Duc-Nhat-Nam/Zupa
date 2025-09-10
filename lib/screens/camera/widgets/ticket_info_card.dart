@@ -49,6 +49,7 @@ class TicketInfoCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -80,6 +81,7 @@ class TicketInfoCard extends StatelessWidget {
                               ),
                               Text(
                                 context.plural('totalTime', totalTime!),
+                                overflow: TextOverflow.fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,
                                 ),
@@ -93,6 +95,7 @@ class TicketInfoCard extends StatelessWidget {
                       color: ThemeHelper.getColor(context).grey300,
                     ),
                     Expanded(
+                      flex: 2,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(

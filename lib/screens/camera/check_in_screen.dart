@@ -81,6 +81,12 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                     size: 48,
                   ),
                 ),
+                submitting: () => Center(
+                  child: LoadingAnimationWidget.beat(
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 48,
+                  ),
+                ),
                 takingPicture: () => Center(
                   child: LoadingAnimationWidget.fallingDot(
                     color: Theme.of(context).colorScheme.primary,
@@ -198,8 +204,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                         orElse: () => const SizedBox(),
                       ),
                     ),
-                    switch (state) {
-                      CheckedInSuccess(:final vehicleType) => SizedBox(
+                    state.maybeWhen(
+                      checkedInSuccess: (_, vehicleType) => SizedBox(
                         height: 100,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -220,7 +226,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                 ),
                         ),
                       ),
-                      _ => Expanded(
+                      orElse: () => Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: TicketInfoCard(
@@ -233,7 +239,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                           ),
                         ),
                       ),
-                    },
+                    ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

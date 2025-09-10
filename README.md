@@ -28,8 +28,8 @@ A parking app project for small and medium-sized parking areas, built with Flutt
 
 | Name           | Version        |
 |----------------|----------------|
-| Flutter        | 3.35.0         |
-| Dart           | 3.9.0          |
+| Flutter        | 3.37.0         |
+| Dart           | 3.10.0         |
 | JDK            | OpenJDK 21.0.5 |
 | Android Studio | 2025.1.4       |
 | Android SDK    | 35             |

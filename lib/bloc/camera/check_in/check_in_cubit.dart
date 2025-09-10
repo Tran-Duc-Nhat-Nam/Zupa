@@ -69,7 +69,7 @@ class CheckInCubit extends Cubit<CheckInState> {
 
   void saveTicket(BuildContext context, dynamic ticket) async {
     emit(const CheckInState.submitting());
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 5));
     AppToast.showSuccessToast(context.tr('success'));
     emit(const CheckInState.submitSuccess());
   }
