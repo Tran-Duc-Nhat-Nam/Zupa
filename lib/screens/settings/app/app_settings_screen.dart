@@ -145,7 +145,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       return AppListTile(
                         padding: EdgeInsets.zero,
                         leadingIconPath: AppIcons.notification,
-                        text: context.tr('debuggerMode'),
+                        text: context.tr('biometricAuth'),
                         trailing: SizedBox(
                           height: 20,
                           child: Transform.scale(

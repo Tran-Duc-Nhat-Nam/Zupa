@@ -22,6 +22,7 @@
   "revenue": "Revenue",
   "account": "Account",
   "search": "Search",
+  "enterTicketNumber": "Enter ticket number here",
   "january": "January",
   "february": "February",
   "march": "March",
@@ -157,6 +158,7 @@
   "off": "Off",
   "isRemember": "Remember me",
   "debuggerMode": "Debugging mode",
+  "biometricAuth": "Biometric authentication",
   "logout": {
   },
   "noMoreData" : "No more data",
