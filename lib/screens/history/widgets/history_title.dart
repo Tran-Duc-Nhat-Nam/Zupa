@@ -11,7 +11,7 @@ import '../../../widgets/app_card.dart';
 import '../../../widgets/app_icon.dart';
 
 class HistoryTitle extends StatelessWidget {
-  const HistoryTitle({Key? key, required this.ticket}) : super(key: key);
+  const HistoryTitle({super.key, required this.ticket});
   final Ticket ticket;
   @override
   Widget build(BuildContext context) {

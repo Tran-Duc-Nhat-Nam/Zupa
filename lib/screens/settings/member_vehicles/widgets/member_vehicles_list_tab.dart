@@ -23,48 +23,45 @@ class MemberVehiclesListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MemberVehiclesListCubit, MemberVehiclesListState>(
       builder: (context, state) {
-        final _refreshController = RefreshController();
-        final List<MemberVehicle>? items = switch (state) {
-          Loaded(:final vehicles) => vehicles,
-          Refreshing(:final vehicles) => vehicles,
-          LoadingMore(:final vehicles) => vehicles,
-          _ => null,
-        };
+        final refreshController = RefreshController();
+        final List<MemberVehicle>? items = state.maybeWhen(
+          loaded: (vehicles, _) => vehicles,
+          refreshing: (vehicles) => vehicles,
+          loadingMore: (vehicles) => vehicles,
+          orElse: () => null,
+        );
         return Skeletonizer(
+          enabled: state is Loading,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SmartRefresher(
               enablePullDown: state is! LoadingMore,
               enablePullUp: state is! Refreshing,
-              controller: _refreshController,
-              onRefresh:
-                  () => context.read<MemberVehiclesListCubit>().refresh(
-                    context,
-                    _refreshController.refreshCompleted,
-                    _refreshController.refreshFailed,
-                  ),
-              onLoading:
-                  () => context.read<MemberVehiclesListCubit>().loadMore(
-                    context,
-                    _refreshController.loadComplete,
-                    _refreshController.loadFailed,
-                    _refreshController.loadNoData,
-                  ),
+              controller: refreshController,
+              onRefresh: () => context.read<MemberVehiclesListCubit>().refresh(
+                context,
+                refreshController.refreshCompleted,
+                refreshController.refreshFailed,
+              ),
+              onLoading: () => context.read<MemberVehiclesListCubit>().loadMore(
+                context,
+                refreshController.loadComplete,
+                refreshController.loadFailed,
+                refreshController.loadNoData,
+              ),
               child: ListView.separated(
-                separatorBuilder:
-                    (context, index) => const SizedBox(height: 10),
-                itemBuilder:
-                    (c, i) => Padding(
-                      padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
-                      child: MemberVehiclesTitle(
-                        ticket: items?[i] ?? const MemberVehicle(),
-                      ),
-                    ),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                itemBuilder: (c, i) => Padding(
+                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
+                  child: MemberVehiclesTitle(
+                    ticket: items?[i] ?? const MemberVehicle(),
+                  ),
+                ),
                 itemCount: items?.length ?? 10,
               ),
             ),
           ),
-          enabled: state is Loading,
         );
       },
     );
@@ -88,11 +85,10 @@ class MemberVehiclesTitle extends StatelessWidget {
             spacing: 3,
             children: [
               InkWell(
-                onTap:
-                    () => AppPhotoView.showPhotoView(
-                      context,
-                      const NetworkImage('https://picsum.photos/750'),
-                    ),
+                onTap: () => AppPhotoView.showPhotoView(
+                  context,
+                  const NetworkImage('https://picsum.photos/750'),
+                ),
                 child: Container(
                   clipBehavior: Clip.antiAlias,
                   height: 60,
@@ -166,19 +162,21 @@ class MemberVehiclesTitle extends StatelessWidget {
                   fitContent: true,
                   radius: BorderRadius.circular(8),
                   theme: AppButtonTheme.secondary,
-                  onPressed:
-                      () => AppDialog.showModal(
-                        context,
-                        titleText: context.tr('title.extend'),
-                        subtitleText: context.tr('subtitle.extend'),
-                        okText: context.tr('title.extend'),
-                        cancelText: context.tr('close'),
-                        onOk: () async {
-                          context.pop();
-                          await Future.delayed(const Duration(milliseconds: 200));
-                          AppMessage.showSuccessMessage(context.tr('extendSuccessful'), context: context);
-                        }
-                      ),
+                  onPressed: () => AppDialog.showModal(
+                    context,
+                    titleText: context.tr('title.extend'),
+                    subtitleText: context.tr('subtitle.extend'),
+                    okText: context.tr('title.extend'),
+                    cancelText: context.tr('close'),
+                    onOk: () async {
+                      context.pop();
+                      await Future.delayed(const Duration(milliseconds: 200));
+                      AppMessage.showSuccessMessage(
+                        context.tr('extendSuccessful'),
+                        context: context,
+                      );
+                    },
+                  ),
                   child: SizedBox(
                     width: 80,
                     child: Text(

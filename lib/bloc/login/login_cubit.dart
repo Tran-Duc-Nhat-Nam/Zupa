@@ -21,8 +21,9 @@ class LoginCubit extends Cubit<LoginState> {
     bool isRemember = false;
     if (accountInfo.tenant.isNotEmpty &&
         accountInfo.username.isNotEmpty &&
-        accountInfo.password.isNotEmpty)
+        accountInfo.password.isNotEmpty) {
       isRemember = true;
+    }
     log('Save info: $accountInfo');
     emit(
       LoginState.loaded(

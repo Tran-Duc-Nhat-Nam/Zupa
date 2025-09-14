@@ -277,7 +277,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                     },
                                     text: context.tr(
                                       state.maybeWhen(
-                                        checkedInSuccess: (_, __) => 'allowIn',
+                                        checkedInSuccess: (_, _) => 'allowIn',
                                         checkedOutSuccess: (_) => 'allowOut',
                                         orElse: () => '',
                                       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -33,9 +35,9 @@ class _AppNavBarState extends State<AppNavBar> {
         onPhoneShake: (ShakeEvent event) async {
           if (await DebuggerHelper.getDebuggerMode()) DebuggerHelper.debugger.attach(context: context, visible: true);
           // Access detailed shake information
-          print('Shake direction: ${event.direction}');
-          print('Shake force: ${event.force}');
-          print('Shake timestamp: ${event.timestamp}');
+          log('Shake direction: ${event.direction}', name: 'Shake detector');
+          log('Shake force: ${event.force}', name: 'Shake detector');
+          log('Shake timestamp: ${event.timestamp}', name: 'Shake detector');
         }
     );
     super.initState();

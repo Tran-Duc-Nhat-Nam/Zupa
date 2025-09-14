@@ -15,10 +15,10 @@ import '../../../widgets/app_screen.dart';
 import '../../../widgets/state/app_state.dart';
 
 class EmployeeManagementScreen extends StatefulWidget {
-  const EmployeeManagementScreen({Key? key}) : super(key: key);
+  const EmployeeManagementScreen({super.key});
 
   @override
-  _EmployeeManagementScreenState createState() =>
+  State<EmployeeManagementScreen> createState() =>
       _EmployeeManagementScreenState();
 }
 

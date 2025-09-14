@@ -16,10 +16,11 @@ class DebuggerCubit extends Cubit<DebuggerState> {
 
   void changeDebuggerMode(bool isOn) {
     DebuggerHelper.setDebuggerMode(isOn);
-    if (!isOn)
+    if (!isOn) {
       DebuggerHelper.clearDebugger();
-    else
+    } else {
       AppToast.showInfoToast('Shake to active debug mode');
+    }
     emit(DebuggerState.loaded(isOn));
   }
 }

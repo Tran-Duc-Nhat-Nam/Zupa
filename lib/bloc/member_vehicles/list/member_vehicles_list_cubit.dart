@@ -47,10 +47,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     void Function() onSuccess,
     void Function() onFailed,
   ) async {
-    final List<MemberVehicle> items = switch (state) {
-      Loaded(:final vehicles) => [...vehicles],
-      _ => [],
-    };
+    final List<MemberVehicle> items = state.maybeWhen(loaded: (vehicles, _) => [...vehicles], orElse: () => []);
     emit(MemberVehiclesListState.refreshing(items));
     await ApiHelper.callAPI(
       context: context,
@@ -80,14 +77,8 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     void Function() onFailed,
     void Function() onEmpty,
   ) async {
-    final List<MemberVehicle> items = switch (state) {
-      Loaded(:final vehicles) => [...vehicles],
-      _ => [],
-    };
-    final int pageIndex = switch (state) {
-      Loaded(:final pageIndex) => pageIndex + 1,
-      _ => 1,
-    };
+    final List<MemberVehicle> items = state.maybeWhen(loaded: (vehicles, _) => [...vehicles], orElse: () => []);
+    final int pageIndex = state.maybeWhen(loaded: (_, pageIndex) => pageIndex + 1, orElse: () => 1);
     emit(MemberVehiclesListState.loadingMore(items));
     await ApiHelper.callAPI(
       context: context,
@@ -99,13 +90,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
                 .map((item) => const MemberVehicle())
                 .toList();
         items.addAll(newItems);
-        print(items.length);
-        print(newItems.length);
-        if (newItems.isEmpty) {
-          onEmpty();
-        } else {
-          onSuccess();
-        }
+        newItems.isEmpty ? onEmpty() : onSuccess();
         emit(MemberVehiclesListState.loaded(items, pageIndex));
       },
       onFailed: (response) {

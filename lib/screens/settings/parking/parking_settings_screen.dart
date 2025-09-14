@@ -15,10 +15,10 @@ import '../../../widgets/app_screen.dart';
 import '../../../widgets/state/app_state.dart';
 
 class ParkingSettingsScreen extends StatefulWidget {
-  const ParkingSettingsScreen({Key? key}) : super(key: key);
+  const ParkingSettingsScreen({super.key});
 
   @override
-  _ParkingSettingsScreenState createState() => _ParkingSettingsScreenState();
+  State<ParkingSettingsScreen> createState() => _ParkingSettingsScreenState();
 }
 
 class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {

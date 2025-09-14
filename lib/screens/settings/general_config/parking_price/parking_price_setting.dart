@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../../../widgets/app_screen.dart';
 
 class ParkingPriceSetting extends StatefulWidget {
-  const ParkingPriceSetting({Key? key}) : super(key: key);
+  const ParkingPriceSetting({super.key});
 
   @override
-  _ParkingPriceSettingState createState() => _ParkingPriceSettingState();
+  State<ParkingPriceSetting> createState() => _ParkingPriceSettingState();
 }
 
 class _ParkingPriceSettingState extends State<ParkingPriceSetting> {

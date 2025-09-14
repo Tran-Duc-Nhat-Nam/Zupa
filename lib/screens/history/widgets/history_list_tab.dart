@@ -21,24 +21,25 @@ class HistoryListTab extends StatelessWidget {
           LoadingMore(:final tickets) => tickets,
           _ => null,
         };
-        final RefreshController _refreshController = RefreshController();
+        final RefreshController refreshController = RefreshController();
         return Skeletonizer(
+          enabled: state is Loading,
           child: SmartRefresher(
             enablePullDown: state is! LoadingMore,
             enablePullUp: state is! Refreshing,
-            controller: _refreshController,
+            controller: refreshController,
             onRefresh:
                 () => context.read<HistoryListCubit>().refresh(
                   context,
-                  _refreshController.refreshCompleted,
-                  _refreshController.refreshFailed,
+                  refreshController.refreshCompleted,
+                  refreshController.refreshFailed,
                 ),
             onLoading:
                 () => context.read<HistoryListCubit>().loadMore(
                   context,
-                  _refreshController.loadComplete,
-                  _refreshController.loadFailed,
-                  _refreshController.loadNoData,
+                  refreshController.loadComplete,
+                  refreshController.loadFailed,
+                  refreshController.loadNoData,
                 ),
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 12),
@@ -66,7 +67,6 @@ class HistoryListTab extends StatelessWidget {
               itemCount: items?.length ?? 10,
             ),
           ),
-          enabled: state is Loading,
         );
       },
     );

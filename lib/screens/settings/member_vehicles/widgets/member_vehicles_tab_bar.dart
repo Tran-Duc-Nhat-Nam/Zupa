@@ -6,7 +6,7 @@ import '../../../../helper/theme/theme_helper.dart';
 import '../../../../common/styles/text_styles.dart';
 
 class MemberVehiclesTabBar extends StatelessWidget {
-  const MemberVehiclesTabBar({Key? key}) : super(key: key);
+  const MemberVehiclesTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {

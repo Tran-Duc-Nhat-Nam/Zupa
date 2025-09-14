@@ -21,13 +21,14 @@ class RevenueListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RevenueListCubit, RevenueListState>(
       builder: (context, state) {
-        final _refreshController = RefreshController();
+        final refreshController = RefreshController();
         final List<DailyRevenue>? items = state.whenOrNull(
           loaded: (revenue, _) => revenue,
           refreshing: (revenue) => revenue,
           loadingMore: (revenue) => revenue,
         );
         return Skeletonizer(
+          enabled: state is Loading,
           child: Container(
             clipBehavior: Clip.antiAlias,
             margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -54,18 +55,18 @@ class RevenueListTab extends StatelessWidget {
                     child: SmartRefresher(
                       enablePullDown: state is! LoadingMore,
                       enablePullUp: state is! Refreshing,
-                      controller: _refreshController,
+                      controller: refreshController,
                       onRefresh: () => context.read<RevenueListCubit>().refresh(
                         context,
-                        _refreshController.refreshCompleted,
-                        _refreshController.refreshFailed,
+                        refreshController.refreshCompleted,
+                        refreshController.refreshFailed,
                       ),
                       onLoading: () =>
                           context.read<RevenueListCubit>().loadMore(
                             context,
-                            _refreshController.loadComplete,
-                            _refreshController.loadFailed,
-                            _refreshController.loadNoData,
+                            refreshController.loadComplete,
+                            refreshController.loadFailed,
+                            refreshController.loadNoData,
                           ),
                       child: ListView.separated(
                         separatorBuilder: (context, index) =>
@@ -100,7 +101,6 @@ class RevenueListTab extends StatelessWidget {
               ),
             ),
           ),
-          enabled: state is Loading,
         );
       },
     );

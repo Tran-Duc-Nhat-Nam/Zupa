@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../../../widgets/app_screen.dart';
 
 class MemberFeeSetingScreen extends StatefulWidget {
-  const MemberFeeSetingScreen({Key? key}) : super(key: key);
+  const MemberFeeSetingScreen({super.key});
 
   @override
-  _MemberFeeSetingScreenState createState() => _MemberFeeSetingScreenState();
+  State<MemberFeeSetingScreen> createState() => _MemberFeeSetingScreenState();
 }
 
 class _MemberFeeSetingScreenState extends State<MemberFeeSetingScreen> {
@@ -15,10 +15,7 @@ class _MemberFeeSetingScreenState extends State<MemberFeeSetingScreen> {
   Widget build(BuildContext context) {
     return AppScreen(
       title: context.tr('memberFee'),
-      child: Center(
-        child: Text(
-          context.tr('memberFee'),
-        ),
-      ),
-    );  }
+      child: Center(child: Text(context.tr('memberFee'))),
+    );
+  }
 }

@@ -16,7 +16,7 @@ import '../../../../widgets/app_text_field.dart';
 import '../../../../widgets/state/app_state.dart';
 
 class MemberVehicleDetailScreen extends StatefulWidget {
-  const MemberVehicleDetailScreen({Key? key}) : super(key: key);
+  const MemberVehicleDetailScreen({super.key});
 
   @override
   AppState<MemberVehicleDetailScreen> createState() =>

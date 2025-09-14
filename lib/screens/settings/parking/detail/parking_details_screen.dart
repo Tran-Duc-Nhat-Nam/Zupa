@@ -21,7 +21,7 @@ import '../../../../widgets/state/app_state.dart';
 import '../../../../widgets/app_screen.dart';
 
 class ParkingDetailsScreen extends StatefulWidget {
-  const ParkingDetailsScreen({Key? key}) : super(key: key);
+  const ParkingDetailsScreen({super.key});
 
   @override
   AppState<ParkingDetailsScreen> createState() => _ParkingDetailsScreenState();

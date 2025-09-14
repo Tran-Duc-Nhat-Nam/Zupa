@@ -27,13 +27,14 @@ class TicketListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeTicketCubit, HomeTicketState>(
       builder: (context, state) {
-        final _refreshController = RefreshController();
+        final refreshController = RefreshController();
         final List<Ticket>? items = state.whenOrNull(
           loaded: (tickets, pageIndex) => tickets,
           refreshing: (tickets) => tickets,
           loadingMore: (tickets) => tickets,
         );
         return Skeletonizer(
+          enabled: state is Loading,
           child: Container(
             clipBehavior: Clip.antiAlias,
             margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -70,17 +71,17 @@ class TicketListTab extends StatelessWidget {
                   return SizedBox(height: 55.0, child: Center(child: body));
                 },
               ),
-              controller: _refreshController,
+              controller: refreshController,
               onRefresh: () => context.read<HomeTicketCubit>().refresh(
                 context,
-                _refreshController.refreshCompleted,
-                _refreshController.refreshFailed,
+                refreshController.refreshCompleted,
+                refreshController.refreshFailed,
               ),
               onLoading: () => context.read<HomeTicketCubit>().loadMore(
                 context,
-                _refreshController.loadComplete,
-                _refreshController.loadFailed,
-                _refreshController.loadNoData,
+                refreshController.loadComplete,
+                refreshController.loadFailed,
+                refreshController.loadNoData,
               ),
               child: ListView.separated(
                 separatorBuilder: (context, index) => Divider(
@@ -106,7 +107,6 @@ class TicketListTab extends StatelessWidget {
               ),
             ),
           ),
-          enabled: state is Loading,
         );
       },
     );
