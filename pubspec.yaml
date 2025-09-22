@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  go_router: ^16.2.1
+  go_router: ^16.2.2
   flutter_form_builder: ^10.2.0
   form_builder_validators: ^11.2.0
   shared_preferences: ^2.5.3
@@ -42,8 +42,8 @@ dependencies:
       ref: main
   material_dialogs: ^1.1.5
   camera: ^0.11.2
-  upgrader: ^11.5.1
-  fluttertoast: ^8.2.12
+  upgrader: ^12.1.0
+  fluttertoast: ^9.0.0
   animated_segmented_tab_control: ^2.0.0
   photo_view: ^0.15.0
   flutter_swipe_action_cell: ^3.1.6
@@ -65,24 +65,16 @@ dependencies:
   local_auth: ^2.3.0
   awesome_notifications: ^0.10.1
   home_widget: ^0.8.0
-  flutter_tilt: ^3.3.1
+  flutter_tilt: ^3.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.8.0
-  freezed:
-    git:
-      url: https://github.com/Tran-Duc-Nhat-Nam-270702/freezed.git
-      ref: master
-      path: packages/freezed/
+  freezed: ^3.2.3
   json_serializable: ^6.11.1
-  retrofit_generator:
-    git:
-      url: https://github.com/Tran-Duc-Nhat-Nam-270702/retrofit.dart.git
-      ref: master
-      path: generator/
+  retrofit_generator: ^10.0.5
   rename_app: ^1.6.5
   flutter_launcher_icons: ^0.14.4
 
