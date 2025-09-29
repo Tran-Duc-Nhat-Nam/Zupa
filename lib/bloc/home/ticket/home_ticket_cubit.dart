@@ -116,8 +116,6 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
                 )
                 .toList();
         items.addAll(newItems);
-        print(items.length);
-        print(newItems.length);
         if (newItems.isEmpty) {
           onEmpty();
         } else {

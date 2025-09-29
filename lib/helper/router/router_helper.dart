@@ -68,8 +68,8 @@ class RouterHelper {
           parentNavigatorKey: navigatorKey,
           pageBuilder: (context, state, navigationShell) {
             if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-              NfcManager.instance.isAvailable().then(
-                (value) => value
+              NfcManager.instance.checkAvailability().then(
+                (value) => value == NfcAvailability.enabled
                     ? NfcManager.instance.startSession(
                         onDiscovered: (NfcTag tag) async {
                           final MifareClassicAndroid? data =

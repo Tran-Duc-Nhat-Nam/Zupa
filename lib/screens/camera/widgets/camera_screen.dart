@@ -66,9 +66,6 @@ class _CameraScreenState extends State<CameraScreen> {
             }
             break;
           }
-        // for iOS 17.2+
-        case VolumeKey.capture:
-          print('iOS Hardware Camera Capture');
       }
     });
   }

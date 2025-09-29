@@ -113,8 +113,6 @@ class HistoryListCubit extends Cubit<HistoryListState> {
                 )
                 .toList();
         items.addAll(newItems);
-        print(items.length);
-        print(newItems.length);
         if (newItems.isEmpty) {
           onEmpty();
         } else {

@@ -8,9 +8,9 @@ import 'history_title.dart';
 
 class HistoryListSection extends StatelessWidget {
   const HistoryListSection({
-    Key? key,
+    super.key,
     this.tickets = const [],
-  }) : super(key: key);
+  });
 
   final List<Ticket> tickets;
   @override

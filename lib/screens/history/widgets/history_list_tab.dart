@@ -9,7 +9,7 @@ import '../../../data/model/ticket/ticket.dart';
 import 'history_list_section.dart';
 
 class HistoryListTab extends StatelessWidget {
-  const HistoryListTab({Key? key}) : super(key: key);
+  const HistoryListTab({super.key});
 
   @override
   Widget build(BuildContext context) {
