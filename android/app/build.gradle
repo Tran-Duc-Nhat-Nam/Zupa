@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.tsp.parking"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "29.0.13599879"
+    ndkVersion = "29.0.14033849"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -28,7 +28,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        buildToolsVersion = "36.0.0"
+        buildToolsVersion = "36.1.0"
     }
 
     buildTypes {
@@ -39,7 +39,7 @@ android {
             minifyEnabled = true
         }
     }
-    buildToolsVersion '36.0.0'
+    buildToolsVersion '36.1.0'
 }
 
 kotlin {
