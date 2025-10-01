@@ -66,6 +66,8 @@ class _CameraScreenState extends State<CameraScreen> {
             }
             break;
           }
+        case VolumeKey.capture:
+          break;
       }
     });
   }
