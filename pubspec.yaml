@@ -65,7 +65,6 @@ dependencies:
   local_auth: ^2.3.0
   awesome_notifications: ^0.10.1
   home_widget: ^0.8.0
-  flutter_tilt: ^3.3.2
 
 dev_dependencies:
   flutter_test:
