@@ -14,13 +14,10 @@ class CheckInCubit extends Cubit<CheckInState> {
 
   @override
   Future<void> close() {
-    switch (state) {
-      case CheckIn(:final controller):
-        controller.dispose();
-      case CheckOut(:final controller):
-        controller.dispose();
-      default:
-    }
+    state.whenOrNull(
+      checkIn: (controller) => controller.dispose(),
+      checkOut: (controller) => controller.dispose(),
+    );
     return super.close();
   }
 
@@ -70,7 +67,9 @@ class CheckInCubit extends Cubit<CheckInState> {
   void saveTicket(BuildContext context, dynamic ticket) async {
     emit(const CheckInState.submitting());
     await Future.delayed(const Duration(seconds: 5));
-    AppToast.showSuccessToast(context.tr('success'));
+    if (context.mounted) {
+      AppToast.showSuccessToast(context.tr('success'));
+    }
     emit(const CheckInState.submitSuccess());
   }
 }

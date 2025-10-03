@@ -21,22 +21,19 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
   Timer? _debounce;
 
   void search(String? query) {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          _debounce?.cancel();
-          _debounce = Timer(const Duration(milliseconds: 500), () {
-            log(query.toString());
-            emit(
-              MemberVehiclesFilterState.loaded(
-                filter: filter.copyWith(keyword: query),
-              ),
-            ); // Emit the latest query after the debounce delay
-          });
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) {
+        _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          log(query.toString());
+          emit(
+            MemberVehiclesFilterState.loaded(
+              filter: filter.copyWith(keyword: query),
+            ),
+          ); // Emit the latest query after the debounce delay
+        });
+      },
+    );
   }
 
   void load(
@@ -49,18 +46,11 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
   }
 
   void init(BuildContext context) async {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          emit(MemberVehiclesFilterState.loaded(filter: filter));
-        }
-      case Loading():
-        {
-          emit(const MemberVehiclesFilterState.loaded());
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) =>
+          emit(MemberVehiclesFilterState.loaded(filter: filter)),
+      loading: () => emit(const MemberVehiclesFilterState.loading()),
+    );
   }
 
   void filter(
@@ -75,9 +65,9 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
             keyword: values['keyword'],
             time: values['time'],
           );
-          emit( MemberVehiclesFilterState.filtering(filter: temp));
+          emit(MemberVehiclesFilterState.filtering(filter: temp));
           await fetchData(temp);
-          emit( MemberVehiclesFilterState.loaded(filter: temp));
+          emit(MemberVehiclesFilterState.loaded(filter: temp));
         }
       default:
         {}

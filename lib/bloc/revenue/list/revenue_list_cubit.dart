@@ -20,10 +20,9 @@ class RevenueListCubit extends Cubit<RevenueListState> {
       context: context,
       apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
       onSuccess: (response) {
-        final items =
-            (response.data.data as List<dynamic>)
-                .map((item) => DailyRevenue(date: DateTime.now()))
-                .toList();
+        final items = (response.data.data as List<dynamic>)
+            .map((item) => DailyRevenue(date: DateTime.now()))
+            .toList();
         emit(
           items.isEmpty
               ? const RevenueListState.empty()
@@ -39,19 +38,18 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     void Function() onSuccess,
     void Function() onFailed,
   ) async {
-    final List<DailyRevenue> items = switch (state) {
-      Loaded(:final revenue) => [...revenue],
-      _ => [],
-    };
+    final List<DailyRevenue> items = state.maybeMap(
+      loaded: (params) => [...params.revenue],
+      orElse: () => [],
+    );
     emit(RevenueListState.refreshing(items));
     await ApiHelper.callAPI(
       context: context,
       apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
       onSuccess: (response) {
-        final items =
-            (response.data.data as List<dynamic>)
-                .map((item) => DailyRevenue(date: DateTime.now()))
-                .toList();
+        final items = (response.data.data as List<dynamic>)
+            .map((item) => DailyRevenue(date: DateTime.now()))
+            .toList();
         onSuccess();
         emit(
           items.isEmpty
@@ -72,19 +70,18 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     void Function() onFailed,
     void Function() onEmpty,
   ) async {
-    final List<DailyRevenue> items = switch (state) {
-      Loaded(:final revenue) => [...revenue],
-      _ => [],
-    };
-    final int pageIndex = switch (state) {
-      Loaded(:final pageIndex) => pageIndex + 1,
-      _ => 1,
-    };
+    final List<DailyRevenue> items = state.maybeMap(
+      loaded: (params) => [...params.revenue],
+      orElse: () => [],
+    );
+    final int pageIndex = state.maybeMap(
+      loaded: (params) => params.pageIndex,
+      orElse: () => 1,
+    );
     emit(RevenueListState.loadingMore(items));
     await ApiHelper.callAPI(
       context: context,
-      apiFunction:
-          (dio) => StaffAPI(dio).getList( Request(page: pageIndex)),
+      apiFunction: (dio) => StaffAPI(dio).getList(Request(page: pageIndex)),
       onSuccess: (response) {
         final List<DailyRevenue> newItems =
             (response.data.data as List<dynamic>)

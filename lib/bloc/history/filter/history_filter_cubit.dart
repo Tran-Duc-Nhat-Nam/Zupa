@@ -48,37 +48,26 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
   }
 
   void init(BuildContext context) async {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          emit(HistoryFilterState.loaded(filter: filter));
-        }
-      case Loading():
-        {
-          emit(const HistoryFilterState.loaded());
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) => emit(HistoryFilterState.loaded(filter: filter)),
+      loading: () => emit(const HistoryFilterState.loaded()),
+    );
   }
 
   void filter(Future<void> Function(HistoryFilter filter) fetchData) async {
-    switch (state) {
-      case Loaded():
-        {
-          final values = _getFormValues!();
-          final temp = HistoryFilter(
-            type: values['vehicleType'],
-            keyword: values['keyword'],
-            time: values['time'],
-          );
-          emit( HistoryFilterState.filtering(filter: temp));
-          await fetchData(temp);
-          emit( HistoryFilterState.loaded(filter: temp));
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) async {
+        final values = _getFormValues!();
+        final temp = HistoryFilter(
+          type: values['vehicleType'],
+          keyword: values['keyword'],
+          time: values['time'],
+        );
+        emit(HistoryFilterState.filtering(filter: temp));
+        await fetchData(temp);
+        emit(HistoryFilterState.loaded(filter: temp));
+      },
+    );
   }
 
   @override

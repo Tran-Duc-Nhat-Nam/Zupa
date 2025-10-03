@@ -15,12 +15,11 @@ class HistoryListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HistoryListCubit, HistoryListState>(
       builder: (context, state) {
-        final List<Ticket>? items = switch (state) {
-          Loaded(:final tickets) => tickets,
-          Refreshing(:final tickets) => tickets,
-          LoadingMore(:final tickets) => tickets,
-          _ => null,
-        };
+        final List<Ticket>? items = state.mapOrNull(
+          loaded: (state) => state.tickets,
+          refreshing: (state) => state.tickets,
+          loadingMore: (state) => state.tickets,
+        );
         final RefreshController refreshController = RefreshController();
         return Skeletonizer(
           enabled: state is Loading,
@@ -28,42 +27,39 @@ class HistoryListTab extends StatelessWidget {
             enablePullDown: state is! LoadingMore,
             enablePullUp: state is! Refreshing,
             controller: refreshController,
-            onRefresh:
-                () => context.read<HistoryListCubit>().refresh(
-                  context,
-                  refreshController.refreshCompleted,
-                  refreshController.refreshFailed,
-                ),
-            onLoading:
-                () => context.read<HistoryListCubit>().loadMore(
-                  context,
-                  refreshController.loadComplete,
-                  refreshController.loadFailed,
-                  refreshController.loadNoData,
-                ),
+            onRefresh: () => context.read<HistoryListCubit>().refresh(
+              context,
+              refreshController.refreshCompleted,
+              refreshController.refreshFailed,
+            ),
+            onLoading: () => context.read<HistoryListCubit>().loadMore(
+              context,
+              refreshController.loadComplete,
+              refreshController.loadFailed,
+              refreshController.loadNoData,
+            ),
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder:
-                  (c, i) => Padding(
-                    padding: EdgeInsets.only(
-                      top: i == 0 ? 16 : 0,
-                      left: 24,
-                      right: 24,
-                    ),
-                    child: HistoryListSection(
-                      tickets:
-                          items ??
-                          List.generate(
-                            10,
-                            (index) => Ticket(
-                              id: 'Placeholder',
-                              timeIn: DateTime.now(),
-                              siteId: 'A much Longer placeholder',
-                              type: vehicleTypes.first,
-                            ),
-                          ),
-                    ),
-                  ),
+              itemBuilder: (c, i) => Padding(
+                padding: EdgeInsets.only(
+                  top: i == 0 ? 16 : 0,
+                  left: 24,
+                  right: 24,
+                ),
+                child: HistoryListSection(
+                  tickets:
+                      items ??
+                      List.generate(
+                        10,
+                        (index) => Ticket(
+                          id: 'Placeholder',
+                          timeIn: DateTime.now(),
+                          siteId: 'A much Longer placeholder',
+                          type: vehicleTypes.first,
+                        ),
+                      ),
+                ),
+              ),
               itemCount: items?.length ?? 10,
             ),
           ),

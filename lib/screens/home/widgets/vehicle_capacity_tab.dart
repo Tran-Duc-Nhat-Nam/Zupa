@@ -34,13 +34,11 @@ class VehicleCapacityTab extends StatelessWidget {
                         current: 90,
                         capacity: 120,
                         isDisabled: state is Loading || state is Filtering,
-                        isSelected: switch (state) {
-                          Filtering(:final filter) =>
-                            filter.type?.value == types[index].value,
-                          Loaded(:final filter) =>
-                            filter.type?.value == types[index].value,
-                          _ => false,
-                        },
+                        isSelected: state.maybeWhen(
+                          loaded: (filter) => filter.type?.value == types[index].value,
+                          filtering: (filter) => filter.type?.value == types[index].value,
+                          orElse: () => false,
+                        ),
                         onPressed: () {
                           field.value == types[index]
                               ? field.didChange(null)

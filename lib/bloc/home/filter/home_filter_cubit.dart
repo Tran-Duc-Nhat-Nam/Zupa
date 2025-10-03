@@ -20,20 +20,17 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
   Timer? _debounce;
 
   void search(String? query) {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          _debounce?.cancel();
-          _debounce = Timer(const Duration(milliseconds: 500), () {
-            log(query.toString());
-            emit(
-              HomeFilterState.loaded(filter: filter.copyWith(keyword: query)),
-            ); // Emit the latest query after the debounce delay
-          });
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) {
+        _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          log(query.toString());
+          emit(
+            HomeFilterState.loaded(filter: filter.copyWith(keyword: query)),
+          ); // Emit the latest query after the debounce delay
+        });
+      },
+    );
   }
 
   void load(
@@ -46,37 +43,26 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
   }
 
   void init(BuildContext context) async {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          emit(HomeFilterState.loaded(filter: filter));
-        }
-      case Loading():
-        {
-          emit(const HomeFilterState.loaded());
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) => emit(HomeFilterState.loaded(filter: filter)),
+      loading: () => emit(const HomeFilterState.loaded()),
+    );
   }
 
   void filter(Future<void> Function(HomeFilter filter) fetchData) async {
-    switch (state) {
-      case Loaded():
-        {
-          final values = _getFormValues!();
-          final temp = HomeFilter(
-            type: values['vehicleType'],
-            keyword: values['keyword'],
-            time: values['time'],
-          );
-          emit(HomeFilterState.filtering(filter: temp));
-          await fetchData(temp);
-          emit(HomeFilterState.loaded(filter: temp));
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) async {
+        final values = _getFormValues!();
+        final temp = HomeFilter(
+          type: values['vehicleType'],
+          keyword: values['keyword'],
+          time: values['time'],
+        );
+        emit(HomeFilterState.filtering(filter: temp));
+        await fetchData(temp);
+        emit(HomeFilterState.loaded(filter: temp));
+      },
+    );
   }
 
   @override

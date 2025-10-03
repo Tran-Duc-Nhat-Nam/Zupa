@@ -65,6 +65,8 @@ dependencies:
   local_auth: ^2.3.0
   awesome_notifications: ^0.10.1
   home_widget: ^0.8.0
+  dartx: ^1.2.0
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
