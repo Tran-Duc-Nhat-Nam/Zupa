@@ -20,22 +20,17 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
   Timer? _debounce;
 
   void search(String? query) {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          _debounce?.cancel();
-          _debounce = Timer(const Duration(milliseconds: 500), () {
-            log(query.toString());
-            emit(
-              HistoryFilterState.loaded(
-                filter: filter.copyWith(keyword: query),
-              ),
-            ); // Emit the latest query after the debounce delay
-          });
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) {
+        _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          log(query.toString());
+          emit(
+            HistoryFilterState.loaded(filter: filter.copyWith(keyword: query)),
+          ); // Emit the latest query after the debounce delay
+        });
+      },
+    );
   }
 
   void load(

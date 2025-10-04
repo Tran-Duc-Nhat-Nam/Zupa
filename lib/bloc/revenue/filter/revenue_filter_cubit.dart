@@ -20,22 +20,17 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   Timer? _debounce;
 
   void search(String? query) {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          _debounce?.cancel();
-          _debounce = Timer(const Duration(milliseconds: 500), () {
-            log(query.toString());
-            emit(
-              RevenueFilterState.loaded(
-                filter: filter.copyWith(keyword: query),
-              ),
-            ); // Emit the latest query after the debounce delay
-          });
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) {
+        _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          log(query.toString());
+          emit(
+            RevenueFilterState.loaded(filter: filter.copyWith(keyword: query)),
+          ); // Emit the latest query after the debounce delay
+        });
+      },
+    );
   }
 
   void load(
@@ -48,37 +43,30 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   }
 
   void init(BuildContext context) async {
-    switch (state) {
-      case Loaded(:final filter):
-        {
-          emit(RevenueFilterState.loaded(filter: filter));
-        }
-      case Loading():
-        {
-          emit(const RevenueFilterState.loaded());
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) {
+        emit(RevenueFilterState.loaded(filter: filter));
+      },
+      loading: () {
+        emit(const RevenueFilterState.loaded());
+      },
+    );
   }
 
   void filter(Future<void> Function(RevenueFilter filter) fetchData) async {
-    switch (state) {
-      case Loaded():
-        {
-          final values = _getFormValues!();
-          final temp = RevenueFilter(
-            type: values['vehicleType'],
-            keyword: values['keyword'],
-            time: values['time'],
-          );
-          emit( RevenueFilterState.filtering(filter: temp));
-          await fetchData(temp);
-          emit( RevenueFilterState.loaded(filter: temp));
-        }
-      default:
-        {}
-    }
+    state.whenOrNull(
+      loaded: (filter) async {
+        final values = _getFormValues!();
+        final temp = RevenueFilter(
+          type: values['vehicleType'],
+          keyword: values['keyword'],
+          time: values['time'],
+        );
+        emit(RevenueFilterState.filtering(filter: temp));
+        await fetchData(temp);
+        emit(RevenueFilterState.loaded(filter: temp));
+      },
+    );
   }
 
   @override

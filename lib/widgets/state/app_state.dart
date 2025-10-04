@@ -48,32 +48,30 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
 
   Map<String, dynamic> getFormValues() {
     formKey.currentState?.saveAndValidate();
-    if (formKey.currentState?.validate() == true) {
-      return formKey.currentState!.value;
-    }
-    return {};
+    return formKey.currentState?.validate() == true
+        ? formKey.currentState!.value
+        : {};
   }
+
   @override
   void initState() {
     observer = LifecycleEventHandler(
       resumeCallBack: () async {
-        setState(
-          () {
-            // TODO: Check authentication here
-            initService(context);
-          },
-        );
+        setState(() {
+          // TODO: Check authentication here
+          initService(context);
+        });
       },
       localeChangeCallBack: (locale) {
-        setState(
-          () {
-            // TODO: Check authentication here
-            log('Set locale to ${locale ?? Localizations.localeOf(context)}',
-                name: 'App state');
-            context.setLocale(locale ?? Localizations.localeOf(context));
-            initService(context);
-          },
-        );
+        setState(() {
+          // TODO: Check authentication here
+          log(
+            'Set locale to ${locale ?? Localizations.localeOf(context)}',
+            name: 'App state',
+          );
+          context.setLocale(locale ?? Localizations.localeOf(context));
+          initService(context);
+        });
       },
     );
     WidgetsBinding.instance.addObserver(observer);
