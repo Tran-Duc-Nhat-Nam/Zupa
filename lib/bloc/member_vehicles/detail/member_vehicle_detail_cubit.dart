@@ -21,17 +21,20 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
     } else {
       emit(const MemberVehicleDetailState.loading());
       await Future.delayed(const Duration(seconds: 2));
-      await ApiHelper.callAPI(
-        context: context,
-        apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
-        onSuccess: (response) {
-          final item = response.data.data as MemberVehicle;
-          emit(MemberVehicleDetailState.loaded(item));
-        },
-        onFailed:
-            (response) =>
-                emit(MemberVehicleDetailState.failed(response.message)),
-      );
+      if (context.mounted) {
+        await ApiHelper.callAPI(
+          context: context,
+          apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
+          onSuccess: (response) {
+            final item = response.data.data as MemberVehicle;
+            emit(MemberVehicleDetailState.loaded(item));
+          },
+          onFailed: (response) =>
+              emit(MemberVehicleDetailState.failed(response.message)),
+        );
+      } else {
+        emit(const MemberVehicleDetailState.initial());
+      }
     }
   }
 
@@ -39,27 +42,25 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
     emit(const MemberVehicleDetailState.loading());
     ApiHelper.callAPI(
       context: context,
-      apiFunction:
-          (dio) => StaffAPI(dio).create(
-            MemberVehicleRequest(
-              name: data['name'],
-              phoneNumber: data['phoneNumber'],
-              licenseNumber: data['licenseNumber'],
-              cardID: data['cardID'],
-              branchID: data['branchID'],
-              vehicleTypeID: data['vehicleTypeID'],
-              expiredIn: data['expiredIn'],
-            ),
-          ),
+      apiFunction: (dio) => StaffAPI(dio).create(
+        MemberVehicleRequest(
+          name: data['name'],
+          phoneNumber: data['phoneNumber'],
+          licenseNumber: data['licenseNumber'],
+          cardID: data['cardID'],
+          branchID: data['branchID'],
+          vehicleTypeID: data['vehicleTypeID'],
+          expiredIn: data['expiredIn'],
+        ),
+      ),
       onSuccess: (response) async {
         await AuthHelper.setAuth(response.data['accessToken']);
         emit(const MemberVehicleDetailState.failed('Hehe'));
       },
-      onFailed:
-          (response) => emit(MemberVehicleDetailState.failed(response.message)),
-      onError:
-          (response) =>
-              emit(MemberVehicleDetailState.failed(response.toString())),
+      onFailed: (response) =>
+          emit(MemberVehicleDetailState.failed(response.message)),
+      onError: (response) =>
+          emit(MemberVehicleDetailState.failed(response.toString())),
     );
   }
 
@@ -72,11 +73,10 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
         await AuthHelper.setAuth(response.data['accessToken']);
         emit(const MemberVehicleDetailState.failed('Hehe'));
       },
-      onFailed:
-          (response) => emit(MemberVehicleDetailState.failed(response.message)),
-      onError:
-          (response) =>
-              emit(MemberVehicleDetailState.failed(response.toString())),
+      onFailed: (response) =>
+          emit(MemberVehicleDetailState.failed(response.message)),
+      onError: (response) =>
+          emit(MemberVehicleDetailState.failed(response.toString())),
     );
   }
 }

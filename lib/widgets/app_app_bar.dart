@@ -16,7 +16,7 @@ class AppAppBar extends AppBar {
     this.trailingIconPath,
     this.trailing,
     this.leadingIconPath,
-    this.leading,
+    super.leading,
   });
 
   final Color? color;
@@ -26,8 +26,6 @@ class AppAppBar extends AppBar {
   final String? trailingIconPath;
   final List<Widget>? trailing;
   final String? leadingIconPath;
-  @override
-  final Widget? leading;
 
   @override
   State<AppAppBar> createState() => _AppAppBarState();
@@ -41,17 +39,10 @@ class _AppAppBarState extends State<AppAppBar> {
       backgroundColor: widget.color ?? ThemeHelper.getColor(context).white,
       foregroundColor: ThemeHelper.getColor(context).blueDark,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(16),
-        ),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
       ),
       title: widget.subtext != null
-          ? Column(
-              children: [
-                Text(widget.text ?? ''),
-                Text(widget.subtext!),
-              ],
-            )
+          ? Column(children: [Text(widget.text ?? ''), Text(widget.subtext!)])
           : GestureDetector(
               child: Text(
                 widget.text ?? '',
@@ -63,54 +54,53 @@ class _AppAppBarState extends State<AppAppBar> {
       leading: widget.leading != null
           ? widget.leading!
           : widget.leadingIconPath != null
-              ? IconButton(
-                  constraints: const BoxConstraints(),
-                  padding: const EdgeInsets.only(left: 24),
-                  style: const ButtonStyle(
-                    overlayColor: WidgetStateColor.transparent,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  icon: AppIcon(
-                    path: widget.leadingIconPath!,
-                    color: ThemeHelper.getColor(context).grey400,
-                    size: 32,
-                  ),
-                  onPressed: () {},
-                )
-              : ModalRoute.of(context)?.impliesAppBarDismissal == true
-                  ? IconButton(
-                      constraints: const BoxConstraints(),
-                      padding: const EdgeInsets.only(left: 24),
-                      style: const ButtonStyle(
-                        overlayColor: WidgetStateColor.transparent,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      icon: AppIcon(
-                        path: widget.isClose == true
-                            ? AppIcons.close
-                            : AppIcons.back,
-                        color: ThemeHelper.getColor(context).grey400,
-                        size: 32,
-                      ),
-                      onPressed: () => context.pop(),
-                    )
-                  : null,
-      titleSpacing:
-          ModalRoute.of(context)?.impliesAppBarDismissal == true ? 8 : 24,
+          ? IconButton(
+              constraints: const BoxConstraints(),
+              padding: const EdgeInsets.only(left: 24),
+              style: const ButtonStyle(
+                overlayColor: WidgetStateColor.transparent,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              icon: AppIcon(
+                path: widget.leadingIconPath!,
+                color: ThemeHelper.getColor(context).grey400,
+                size: 32,
+              ),
+              onPressed: () {},
+            )
+          : ModalRoute.of(context)?.impliesAppBarDismissal == true
+          ? IconButton(
+              constraints: const BoxConstraints(),
+              padding: const EdgeInsets.only(left: 24),
+              style: const ButtonStyle(
+                overlayColor: WidgetStateColor.transparent,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              icon: AppIcon(
+                path: widget.isClose == true ? AppIcons.close : AppIcons.back,
+                color: ThemeHelper.getColor(context).grey400,
+                size: 32,
+              ),
+              onPressed: () => context.pop(),
+            )
+          : null,
+      titleSpacing: ModalRoute.of(context)?.impliesAppBarDismissal == true
+          ? 8
+          : 24,
       actions: widget.trailing != null
           ? [...widget.trailing!]
           : widget.trailingIconPath != null
-              ? [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24),
-                    child: AppIcon(
-                      path: widget.trailingIconPath!,
-                      color: ThemeHelper.getColor(context).grey400,
-                      size: 32,
-                    ),
-                  ),
-                ]
-              : [const SizedBox(width: 12)],
+          ? [
+              Padding(
+                padding: const EdgeInsets.only(right: 24),
+                child: AppIcon(
+                  path: widget.trailingIconPath!,
+                  color: ThemeHelper.getColor(context).grey400,
+                  size: 32,
+                ),
+              ),
+            ]
+          : [const SizedBox(width: 12)],
     );
   }
 }

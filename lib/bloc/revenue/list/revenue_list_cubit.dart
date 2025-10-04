@@ -16,21 +16,25 @@ class RevenueListCubit extends Cubit<RevenueListState> {
   Future<void> init(BuildContext context) async {
     emit(const RevenueListState.loading());
     await Future.delayed(const Duration(seconds: 2));
-    await ApiHelper.callAPI(
-      context: context,
-      apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
-      onSuccess: (response) {
-        final items = (response.data.data as List<dynamic>)
-            .map((item) => DailyRevenue(date: DateTime.now()))
-            .toList();
-        emit(
-          items.isEmpty
-              ? const RevenueListState.empty()
-              : RevenueListState.loaded(items, 0),
-        );
-      },
-      onFailed: (response) => emit(RevenueListState.failed(response.message)),
-    );
+    if (context.mounted) {
+      await ApiHelper.callAPI(
+        context: context,
+        apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
+        onSuccess: (response) {
+          final items = (response.data.data as List<dynamic>)
+              .map((item) => DailyRevenue(date: DateTime.now()))
+              .toList();
+          emit(
+            items.isEmpty
+                ? const RevenueListState.empty()
+                : RevenueListState.loaded(items, 0),
+          );
+        },
+        onFailed: (response) => emit(RevenueListState.failed(response.message)),
+      );
+    } else {
+      emit(const RevenueListState.initial());
+    }
   }
 
   void refresh(

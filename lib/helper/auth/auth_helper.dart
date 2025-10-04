@@ -73,18 +73,22 @@ class AuthHelper {
             );
             return didAuthenticate;
           } on PlatformException catch (e) {
-            if (e.code == auth_error.notAvailable) {
-              AppToast.showErrorToast(
-                context.tr('Biometric authentication is not available'),
-              );
-            } else if (e.code == auth_error.notEnrolled) {
-              AppToast.showErrorToast(
-                context.tr('Biometric authentication is not enrolled'),
-              );
+            if (context.mounted) {
+              if (e.code == auth_error.notAvailable) {
+                AppToast.showErrorToast(
+                  context.tr('Biometric authentication is not available'),
+                );
+              } else if (e.code == auth_error.notEnrolled) {
+                AppToast.showErrorToast(
+                  context.tr('Biometric authentication is not enrolled'),
+                );
+              } else {
+                AppToast.showErrorToast(
+                  context.tr(e.message ?? 'Unknown error'),
+                );
+              }
             } else {
-              AppToast.showErrorToast(
-                context.tr(e.message ?? 'Unknown error'),
-              );
+              AppToast.showErrorToast('Unknown error');
             }
           }
         }

@@ -23,23 +23,26 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     emit(const MemberVehiclesListState.loading());
     log(name: 'MemberVehiclesListCubit', filter.toString());
     await Future.delayed(const Duration(seconds: 2));
-    await ApiHelper.callAPI(
-      context: context,
-      apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
-      onSuccess: (response) {
-        final items =
-            (response.data.data as List<dynamic>)
-                .map((item) => const MemberVehicle())
-                .toList();
-        emit(
-          items.isEmpty
-              ? const MemberVehiclesListState.empty()
-              : MemberVehiclesListState.loaded(items, 0),
-        );
-      },
-      onFailed:
-          (response) => emit(MemberVehiclesListState.failed(response.message)),
-    );
+    if (context.mounted) {
+      await ApiHelper.callAPI(
+        context: context,
+        apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
+        onSuccess: (response) {
+          final items = (response.data.data as List<dynamic>)
+              .map((item) => const MemberVehicle())
+              .toList();
+          emit(
+            items.isEmpty
+                ? const MemberVehiclesListState.empty()
+                : MemberVehiclesListState.loaded(items, 0),
+          );
+        },
+        onFailed: (response) =>
+            emit(MemberVehiclesListState.failed(response.message)),
+      );
+    } else {
+      emit(const MemberVehiclesListState.initial());
+    }
   }
 
   void refresh(
@@ -47,16 +50,18 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     void Function() onSuccess,
     void Function() onFailed,
   ) async {
-    final List<MemberVehicle> items = state.maybeWhen(loaded: (vehicles, _) => [...vehicles], orElse: () => []);
+    final List<MemberVehicle> items = state.maybeMap(
+      loaded: (params) => [...params.vehicles],
+      orElse: () => [],
+    );
     emit(MemberVehiclesListState.refreshing(items));
     await ApiHelper.callAPI(
       context: context,
       apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
       onSuccess: (response) {
-        final items =
-            (response.data.data as List<dynamic>)
-                .map((item) => const MemberVehicle())
-                .toList();
+        final items = (response.data.data as List<dynamic>)
+            .map((item) => const MemberVehicle())
+            .toList();
         onSuccess();
         emit(
           items.isEmpty
@@ -77,13 +82,18 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     void Function() onFailed,
     void Function() onEmpty,
   ) async {
-    final List<MemberVehicle> items = state.maybeWhen(loaded: (vehicles, _) => [...vehicles], orElse: () => []);
-    final int pageIndex = state.maybeWhen(loaded: (_, pageIndex) => pageIndex + 1, orElse: () => 1);
+    final List<MemberVehicle> items = state.maybeMap(
+      loaded: (params) => [...params.vehicles],
+      orElse: () => [],
+    );
+    final int pageIndex = state.maybeMap(
+      loaded: (params) => params.pageIndex + 1,
+      orElse: () => 1,
+    );
     emit(MemberVehiclesListState.loadingMore(items));
     await ApiHelper.callAPI(
       context: context,
-      apiFunction:
-          (dio) => StaffAPI(dio).getList( Request(page: pageIndex)),
+      apiFunction: (dio) => StaffAPI(dio).getList(Request(page: pageIndex)),
       onSuccess: (response) {
         final List<MemberVehicle> newItems =
             (response.data.data as List<dynamic>)

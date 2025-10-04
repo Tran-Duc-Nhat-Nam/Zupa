@@ -6,7 +6,7 @@ import 'colors.dart';
 
 ThemeData appTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: AppColors().primary500,
+    seedColor: const AppColors().primary500,
   ),
   fontFamily: GoogleFonts.inter().fontFamily,
   useMaterial3: true,

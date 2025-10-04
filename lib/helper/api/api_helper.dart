@@ -48,8 +48,8 @@ class ApiHelper {
           onFailed(response);
         } else {
           if (response.code == 4001 || response.code == 4003) {
+            await AuthHelper.removeAuth();
             if (context.mounted) {
-              await AuthHelper.removeAuth();
               AppDialog.showAuthDialog(context);
             }
           }
