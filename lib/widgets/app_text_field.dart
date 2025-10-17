@@ -103,6 +103,8 @@ class _AppTextFieldState extends State<AppTextField> {
           style: AppTextStyles.bodyMediumRegular.copyWith(
             color: ThemeHelper.getColor(context).grey500,
           ),
+          textInputAction: TextInputAction.next,
+          onEditingComplete: () => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
           decoration: InputDecoration(
             prefixIcon: widget.prefix != null || widget.prefixIconPath != null
