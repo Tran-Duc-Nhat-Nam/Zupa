@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 
 import '../../common/constants/shared_ref.dart';
@@ -69,22 +67,21 @@ class AuthHelper {
           try {
             final bool didAuthenticate = await auth.authenticate(
               localizedReason: 'Please authenticate to show account balance',
-              options: const AuthenticationOptions(useErrorDialogs: false),
             );
             return didAuthenticate;
-          } on PlatformException catch (e) {
+          } on LocalAuthException catch (e) {
             if (context.mounted) {
-              if (e.code == auth_error.notAvailable) {
+              if (e.code == LocalAuthExceptionCode.noBiometricHardware) {
                 AppToast.showErrorToast(
                   context.tr('Biometric authentication is not available'),
                 );
-              } else if (e.code == auth_error.notEnrolled) {
+              } else if (e.code == LocalAuthExceptionCode.noBiometricsEnrolled) {
                 AppToast.showErrorToast(
                   context.tr('Biometric authentication is not enrolled'),
                 );
               } else {
                 AppToast.showErrorToast(
-                  context.tr(e.message ?? 'Unknown error'),
+                  context.tr(e.description ?? 'Unknown error'),
                 );
               }
             } else {
