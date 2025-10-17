@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  go_router: ^16.2.4
+  go_router: ^16.2.5
   flutter_form_builder: ^10.2.0
   form_builder_validators: ^11.2.0
   shared_preferences: ^2.5.3
@@ -28,7 +28,7 @@ dependencies:
   dropdown_search: ^7.0.0-pre2
   dio: ^5.9.0
   easy_localization: ^3.0.8
-  bloc: ^9.0.1
+  bloc: ^9.1.0
   flutter_bloc: ^9.1.1
   loading_animation_widget: ^1.3.0
   pull_to_refresh_flutter3: ^2.0.2
@@ -54,17 +54,17 @@ dependencies:
     git:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/flutter_advanced_switch.git
       ref: master
-  animations: ^2.0.11
+  animations: ^2.1.0
   page_transition: ^2.2.1
   logarte: ^1.4.0
   shake: ^3.0.0
   sensors_plus_platform_interface: ^2.0.1
-  flutter_native_splash: ^2.4.6
+  flutter_native_splash: ^2.4.7
   device_preview: ^1.3.1
-  logger: ^2.6.1
-  local_auth: ^2.3.0
+  logger: ^2.6.2
+  local_auth: ^3.0.0
   awesome_notifications: ^0.10.1
-  home_widget: ^0.8.0
+  home_widget: ^0.8.1
   dartx: ^1.2.0
   auto_size_text: ^3.0.0
 
