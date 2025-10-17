@@ -73,7 +73,7 @@ class _AppScreenState extends AppState<AppScreen> {
     if (!widget.hasParentView) {
       detector = ShakeDetector.autoStart(
         onPhoneShake: (ShakeEvent event) async {
-          if (await DebuggerHelper.getDebuggerMode()) {
+          if (await DebuggerHelper.getDebuggerMode() && mounted) {
             DebuggerHelper.debugger.attach(context: context, visible: true);
           }
           // Access detailed shake information

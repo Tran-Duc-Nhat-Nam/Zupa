@@ -39,61 +39,50 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
                   horizontal: 24,
                 ),
                 child: AppCard(
-                  child: switch (state) {
-                    Loaded(:final parkingLots) => ListView.separated(
+                  child: state.maybeMap(
+                    loaded: (params) => ListView.separated(
                       shrinkWrap: true,
-                      itemBuilder:
-                          (context, index) => AppListTile(
-                            leadingIconPath: AppIcons.outlineSetting,
-                            content: Row(
-                              spacing: 8,
-                              children: [
-                                Text(
-                                  parkingLots[index].name,
-                                  style: AppTextStyles.bodyMediumMedium
-                                      .copyWith(
-                                        color:
-                                            ThemeHelper.getColor(
-                                              context,
-                                            ).grey700,
-                                      ),
-                                ),
-                                AppIcon(
-                                  path: AppIcons.lock,
-                                  color: ThemeHelper.getColor(context).error600,
-                                  size: 16,
-                                ),
-                              ],
+                      itemBuilder: (context, index) => AppListTile(
+                        leadingIconPath: AppIcons.outlineSetting,
+                        content: Row(
+                          spacing: 8,
+                          children: [
+                            Text(
+                              params.parkingLots[index].name,
+                              style: AppTextStyles.bodyMediumMedium.copyWith(
+                                color: ThemeHelper.getColor(context).grey700,
+                              ),
                             ),
-                            trailingIconPath: AppIcons.chevronRight,
-                            onTap:
-                                () => context.pushNamed(
-                                  'ParkingDetail',
-                                  extra: parkingLots[index],
-                                ),
-                          ),
-                      separatorBuilder:
-                          (context, index) => Divider(
-                            color: ThemeHelper.getColor(context).grey100,
-                          ),
-                      itemCount: parkingLots.length,
+                            AppIcon(
+                              path: AppIcons.lock,
+                              color: ThemeHelper.getColor(context).error600,
+                              size: 16,
+                            ),
+                          ],
+                        ),
+                        trailingIconPath: AppIcons.chevronRight,
+                        onTap: () => context.pushNamed(
+                          'ParkingDetail',
+                          extra: params.parkingLots[index],
+                        ),
+                      ),
+                      separatorBuilder: (context, index) =>
+                          Divider(color: ThemeHelper.getColor(context).grey100),
+                      itemCount: params.parkingLots.length,
                     ),
-                    Loading() => ListView.separated(
+                    loading: (_) => ListView.separated(
                       shrinkWrap: true,
-                      itemBuilder:
-                          (context, index) => const AppListTile(
-                            leadingIconPath: AppIcons.outlineSetting,
-                            text: 'Placeholder name',
-                            trailingIconPath: AppIcons.chevronRight,
-                          ),
-                      separatorBuilder:
-                          (context, index) => Divider(
-                            color: ThemeHelper.getColor(context).grey100,
-                          ),
+                      itemBuilder: (context, index) => const AppListTile(
+                        leadingIconPath: AppIcons.outlineSetting,
+                        text: 'Placeholder name',
+                        trailingIconPath: AppIcons.chevronRight,
+                      ),
+                      separatorBuilder: (context, index) =>
+                          Divider(color: ThemeHelper.getColor(context).grey100),
                       itemCount: 3,
                     ),
-                    _ => const SizedBox.shrink(),
-                  },
+                    orElse: () => const SizedBox.shrink(),
+                  ),
                 ),
               ),
             );

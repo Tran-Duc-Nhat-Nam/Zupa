@@ -171,10 +171,12 @@ class MemberVehiclesTitle extends StatelessWidget {
                     onOk: () async {
                       context.pop();
                       await Future.delayed(const Duration(milliseconds: 200));
-                      AppMessage.showSuccessMessage(
-                        context.tr('extendSuccessful'),
-                        context: context,
-                      );
+                      if (context.mounted) {
+                        AppMessage.showSuccessMessage(
+                          context.tr('extendSuccessful'),
+                          context: context,
+                        );
+                      }
                     },
                   ),
                   child: SizedBox(

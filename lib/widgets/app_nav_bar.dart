@@ -32,13 +32,15 @@ class _AppNavBarState extends State<AppNavBar> {
   @override
   void initState() {
     detector = ShakeDetector.autoStart(
-        onPhoneShake: (ShakeEvent event) async {
-          if (await DebuggerHelper.getDebuggerMode()) DebuggerHelper.debugger.attach(context: context, visible: true);
-          // Access detailed shake information
-          log('Shake direction: ${event.direction}', name: 'Shake detector');
-          log('Shake force: ${event.force}', name: 'Shake detector');
-          log('Shake timestamp: ${event.timestamp}', name: 'Shake detector');
+      onPhoneShake: (ShakeEvent event) async {
+        if (await DebuggerHelper.getDebuggerMode() && mounted) {
+          DebuggerHelper.debugger.attach(context: context, visible: true);
         }
+        // Access detailed shake information
+        log('Shake direction: ${event.direction}', name: 'Shake detector');
+        log('Shake force: ${event.force}', name: 'Shake detector');
+        log('Shake timestamp: ${event.timestamp}', name: 'Shake detector');
+      },
     );
     super.initState();
   }
@@ -48,6 +50,7 @@ class _AppNavBarState extends State<AppNavBar> {
     detector.stopListening();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(

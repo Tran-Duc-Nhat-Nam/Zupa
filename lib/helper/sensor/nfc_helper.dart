@@ -12,22 +12,21 @@ import '../../widgets/popup/app_toast.dart';
 class NfcHelper {
   static void startListenToNfc(BuildContext context) {
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      NfcManager.instance.isAvailable().then(
-            (value) => value
+      NfcManager.instance.checkAvailability().then(
+        (value) => value == NfcAvailability.enabled
             ? NfcManager.instance.startSession(
-          onDiscovered: (NfcTag tag) async {
-            final MifareClassicAndroid? data =
-            MifareClassicAndroid.from(tag);
-            if (data == null) {
-              AppToast.showErrorToast(
-                context.tr('error'),
-              );
-            } else {
-              context.pushNamed('CheckIn', extra: false);
-            }
-          },
-          pollingOptions: {NfcPollingOption.iso14443},
-        )
+                onDiscovered: (NfcTag tag) async {
+                  final MifareClassicAndroid? data = MifareClassicAndroid.from(
+                    tag,
+                  );
+                  if (data == null) {
+                    AppToast.showErrorToast(context.tr('error'));
+                  } else {
+                    context.pushNamed('CheckIn', extra: false);
+                  }
+                },
+                pollingOptions: {NfcPollingOption.iso14443},
+              )
             : null,
       );
     }
@@ -37,4 +36,3 @@ class NfcHelper {
     NfcManager.instance.stopSession();
   }
 }
-

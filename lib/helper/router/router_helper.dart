@@ -60,7 +60,7 @@ class RouterHelper {
             if ((await AuthHelper.getAuth()) != null ) {
               return '/';
             } else {
-              return (await AuthHelper.biometricCheck(context)) == true ? '/' : null;
+              return context.mounted && (await AuthHelper.biometricCheck(context)) == true ? '/' : null;
             }
           },
         ),

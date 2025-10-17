@@ -60,14 +60,10 @@ class HistoryScreen extends StatelessWidget {
           listeners: [
             BlocListener<HistoryListCubit, HistoryListState>(
               listener: (context, state) {
-                switch (state) {
-                  case Loaded():
-                    {
-                      context.read<filter.HistoryFilterCubit>().init(context);
-                    }
-                  default:
-                    {}
-                }
+                state.whenOrNull(
+                  loaded: (_, _) =>
+                      context.read<filter.HistoryFilterCubit>().init(context),
+                );
               },
             ),
           ],

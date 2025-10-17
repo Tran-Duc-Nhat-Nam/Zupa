@@ -35,11 +35,10 @@ class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
               child: FormBuilder(
                 key: formKey,
                 initialValue: {
-                  'warningThreshold': switch (state) {
-                    Loaded(:final warningThreshold) =>
-                      warningThreshold.toString(),
-                    _ => false,
-                  },
+                  'warningThreshold': state.maybeMap(
+                    loaded: (params) => params.warningThreshold.toString(),
+                    orElse: () => false,
+                  ),
                 },
                 onChanged: () {
                   formKey.currentState?.saveAndValidate();

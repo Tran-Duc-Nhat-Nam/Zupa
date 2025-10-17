@@ -17,29 +17,32 @@ class HistoryListCubit extends Cubit<HistoryListState> {
   Future<void> init(BuildContext context) async {
     emit(const HistoryListState.loading());
     await Future.delayed(const Duration(seconds: 2));
-    await ApiHelper.callAPI(
-      context: context,
-      apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
-      onSuccess: (response) {
-        final items =
-            (response.data.data as List<dynamic>)
-                .map(
-                  (item) => Ticket(
-                    id: item['code'],
-                    timeIn: DateTime.now(),
-                    siteId: 'EBST',
-                    type: vehicleTypes.first,
-                  ),
-                )
-                .toList();
-        emit(
-          items.isEmpty
-              ? const HistoryListState.empty()
-              : HistoryListState.loaded(items, 0),
-        );
-      },
-      onFailed: (response) => emit(HistoryListState.failed(response.message)),
-    );
+    if (context.mounted) {
+      await ApiHelper.callAPI(
+        context: context,
+        apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
+        onSuccess: (response) {
+          final items = (response.data.data as List<dynamic>)
+              .map(
+                (item) => Ticket(
+                  id: item['code'],
+                  timeIn: DateTime.now(),
+                  siteId: 'EBST',
+                  type: vehicleTypes.first,
+                ),
+              )
+              .toList();
+          emit(
+            items.isEmpty
+                ? const HistoryListState.empty()
+                : HistoryListState.loaded(items, 0),
+          );
+        },
+        onFailed: (response) => emit(HistoryListState.failed(response.message)),
+      );
+    } else {
+      emit(const HistoryListState.initial());
+    }
   }
 
   void refresh(
@@ -47,26 +50,25 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     void Function() onSuccess,
     void Function() onFailed,
   ) async {
-    final List<Ticket> items = switch (state) {
-      Loaded(:final tickets) => [...tickets],
-      _ => [],
-    };
+    final List<Ticket> items = state.maybeMap(
+      loaded: (params) => [...params.tickets],
+      orElse: () => [],
+    );
     emit(HistoryListState.refreshing(items));
     await ApiHelper.callAPI(
       context: context,
       apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
       onSuccess: (response) {
-        final items =
-            (response.data.data as List<dynamic>)
-                .map(
-                  (item) => Ticket(
-                    id: item['code'],
-                    timeIn: DateTime.now(),
-                    siteId: 'EBST',
-                    type: vehicleTypes.first,
-                  ),
-                )
-                .toList();
+        final items = (response.data.data as List<dynamic>)
+            .map(
+              (item) => Ticket(
+                id: item['code'],
+                timeIn: DateTime.now(),
+                siteId: 'EBST',
+                type: vehicleTypes.first,
+              ),
+            )
+            .toList();
         onSuccess();
         emit(
           items.isEmpty
@@ -87,31 +89,29 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     void Function() onFailed,
     void Function() onEmpty,
   ) async {
-    final List<Ticket> items = switch (state) {
-      Loaded(:final tickets) => [...tickets],
-      _ => [],
-    };
-    final int pageIndex = switch (state) {
-      Loaded(:final pageIndex) => pageIndex + 1,
-      _ => 1,
-    };
+    final List<Ticket> items = state.maybeMap(
+      loaded: (params) => [...params.tickets],
+      orElse: () => [],
+    );
+    final int pageIndex = state.maybeMap(
+      loaded: (params) => params.pageIndex + 1,
+      orElse: () => 1,
+    );
     emit(HistoryListState.loadingMore(items));
     await ApiHelper.callAPI(
       context: context,
-      apiFunction:
-          (dio) => StaffAPI(dio).getList( Request(page: pageIndex)),
+      apiFunction: (dio) => StaffAPI(dio).getList(Request(page: pageIndex)),
       onSuccess: (response) {
-        final List<Ticket> newItems =
-            (response.data.data as List<dynamic>)
-                .map(
-                  (item) => Ticket(
-                    id: item['code'],
-                    timeIn: DateTime.now(),
-                    siteId: 'EBST',
-                    type: vehicleTypes.first,
-                  ),
-                )
-                .toList();
+        final List<Ticket> newItems = (response.data.data as List<dynamic>)
+            .map(
+              (item) => Ticket(
+                id: item['code'],
+                timeIn: DateTime.now(),
+                siteId: 'EBST',
+                type: vehicleTypes.first,
+              ),
+            )
+            .toList();
         items.addAll(newItems);
         if (newItems.isEmpty) {
           onEmpty();

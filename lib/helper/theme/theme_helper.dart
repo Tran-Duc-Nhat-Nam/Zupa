@@ -13,8 +13,8 @@ class ThemeHelper {
   }
 
   static BaseColors getColor(BuildContext? context) {
-    return context == null ? AppColors() : Theme.of(context).brightness == Brightness.light
-        ? AppColors()
-        : DarkAppColors();
+    return context == null ? const AppColors() : Theme.of(context).brightness == Brightness.light
+        ? const AppColors()
+        : const DarkAppColors();
   }
 }

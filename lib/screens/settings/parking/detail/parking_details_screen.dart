@@ -36,19 +36,19 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
       footer: [
         AppButton(
           text: context.tr('save'),
-          onPressed:
-              () =>
-                  AppMessage.showSuccessMessage(context.tr('success'), context: context),
+          onPressed: () => AppMessage.showSuccessMessage(
+            context.tr('success'),
+            context: context,
+          ),
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
-        create:
-            (_) =>
-                ParkingLotDetailCubit()..init(
-                  GoRouterState.of(context).extra is ParkingLot
-                      ? GoRouterState.of(context).extra! as ParkingLot
-                      : null,
-                ),
+        create: (_) => ParkingLotDetailCubit()
+          ..init(
+            GoRouterState.of(context).extra is ParkingLot
+                ? GoRouterState.of(context).extra! as ParkingLot
+                : null,
+          ),
         child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
           builder: (context, state) {
             return Skeletonizer(
@@ -85,18 +85,17 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         spacing: 8,
                         children: [
                           Text(context.tr('capacity')),
-                          ...switch (state) {
-                            Loaded(:final parkingLot) =>
-                              parkingLot.capacity
-                                  .map(
-                                    (e) => AppTextField(
-                                      name: e.vehicleType.value,
-                                      labelText: context.tr(e.vehicleType.name),
-                                      isExternalLabel: true,
-                                    ),
-                                  )
-                                  .toList(),
-                            Loading() => List.generate(
+                          ...state.maybeMap(
+                            loaded: (params) => params.parkingLot.capacity
+                                .map(
+                                  (e) => AppTextField(
+                                    name: e.vehicleType.value,
+                                    labelText: context.tr(e.vehicleType.name),
+                                    isExternalLabel: true,
+                                  ),
+                                )
+                                .toList(),
+                            loading: (_) => List.generate(
                               3,
                               (index) => AppTextField(
                                 name: vehicleTypes[index].value,
@@ -104,8 +103,8 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                                 isExternalLabel: true,
                               ),
                             ),
-                            _ => [],
-                          },
+                            orElse: () => [],
+                          ),
                         ],
                       ),
                     ),
@@ -119,18 +118,16 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                             text: context.tr('title.warningThreshold'),
                             trailing: AppSwitch(
                               name: 'isLocked',
-                              onToggle:
-                                  (value, toggle) =>
-                                      value
-                                          ? toggle(false)
-                                          : AppDialog.showModal(
-                                            context,
-                                            okText: context.tr('lock'),
-                                            cancelText: context.tr('close'),
-                                            theme: AppDialogTheme.warning,
-                                            onOk: () => toggle(true),
-                                            onCancel: () => toggle(false),
-                                          ),
+                              onToggle: (value, toggle) => value
+                                  ? toggle(false)
+                                  : AppDialog.showModal(
+                                      context,
+                                      okText: context.tr('lock'),
+                                      cancelText: context.tr('close'),
+                                      theme: AppDialogTheme.warning,
+                                      onOk: () => toggle(true),
+                                      onCancel: () => toggle(false),
+                                    ),
                             ),
                           ),
                           Text(
