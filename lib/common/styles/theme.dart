@@ -12,6 +12,7 @@ ThemeData appTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   visualDensity: VisualDensity.adaptivePlatformDensity,
+  useSystemColors: true,
 );
 
 ThemeData appDarkTheme = ThemeData(
@@ -24,4 +25,5 @@ ThemeData appDarkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
   visualDensity: VisualDensity.adaptivePlatformDensity,
+  useSystemColors: true,
 );
