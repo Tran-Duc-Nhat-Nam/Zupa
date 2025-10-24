@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_route_shifter/flutter_route_shifter.dart';
 
 Page<dynamic> fadingTransition(
   BuildContext context,
@@ -35,4 +36,12 @@ Page<dynamic> rightToLeftJoinedTransition(
       ).buildTransitions(context, animation, secondaryAnimation, child);
     },
   );
+}
+
+Page<dynamic> material3ExpressiveTransition(
+  BuildContext context,
+  GoRouterState state,
+  Widget child,
+) {
+  return RouteShifterBuilder().followMaterial3(context).fade().slideFromRight().toPage(child: child);
 }

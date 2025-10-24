@@ -45,7 +45,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.checkIn,
           path: '/check-in',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const CheckInScreen(),
@@ -55,7 +55,7 @@ class RouterHelper {
           name: AppRoutes.login,
           path: '/login',
           pageBuilder: (context, state) =>
-              rightToLeftJoinedTransition(context, state, LoginScreen()),
+              material3ExpressiveTransition(context, state, LoginScreen()),
           redirect: (context, state) async {
             if ((await AuthHelper.getAuth()) != null ) {
               return '/';
@@ -85,7 +85,7 @@ class RouterHelper {
                     : null,
               );
             }
-            return rightToLeftJoinedTransition(
+            return material3ExpressiveTransition(
               context,
               state,
               AppNavBar(navigationShell: navigationShell),
@@ -99,7 +99,7 @@ class RouterHelper {
                   path: '/',
                   pageBuilder: (context, state) {
                     NfcHelper.startListenToNfc(context);
-                    return rightToLeftJoinedTransition(
+                    return material3ExpressiveTransition(
                       context,
                       state,
                       const HomeScreen(),
@@ -113,7 +113,7 @@ class RouterHelper {
                 GoRoute(
                   name: AppRoutes.history,
                   path: '/history',
-                  pageBuilder: (context, state) => rightToLeftJoinedTransition(
+                  pageBuilder: (context, state) => material3ExpressiveTransition(
                     context,
                     state,
                     const HistoryScreen(),
@@ -126,7 +126,7 @@ class RouterHelper {
                 GoRoute(
                   name: AppRoutes.revenue,
                   path: '/revenue',
-                  pageBuilder: (context, state) => rightToLeftJoinedTransition(
+                  pageBuilder: (context, state) => material3ExpressiveTransition(
                     context,
                     state,
                     const RevenueScreen(),
@@ -140,7 +140,7 @@ class RouterHelper {
                 GoRoute(
                   name: AppRoutes.settings,
                   path: '/settings',
-                  pageBuilder: (context, state) => rightToLeftJoinedTransition(
+                  pageBuilder: (context, state) => material3ExpressiveTransition(
                     context,
                     state,
                     const SettingsScreen(),
@@ -153,7 +153,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.parking,
           path: '/settings/parking',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const ParkingSettingsScreen(),
@@ -162,7 +162,7 @@ class RouterHelper {
             GoRoute(
               name: AppRoutes.parkingDetail,
               path: 'detail',
-              pageBuilder: (context, state) => rightToLeftJoinedTransition(
+              pageBuilder: (context, state) => material3ExpressiveTransition(
                 context,
                 state,
                 const ParkingDetailsScreen(),
@@ -173,7 +173,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.memberVehicles,
           path: '/settings/member-vehicles',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const MemberVehiclesScreen(),
@@ -182,7 +182,7 @@ class RouterHelper {
             GoRoute(
               name: AppRoutes.memberVehiclesDetail,
               path: 'detail',
-              pageBuilder: (context, state) => rightToLeftJoinedTransition(
+              pageBuilder: (context, state) => material3ExpressiveTransition(
                 context,
                 state,
                 const MemberVehicleDetailScreen(),
@@ -193,7 +193,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.employeeManagement,
           path: '/settings/employee-management',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const EmployeeManagementScreen(),
@@ -202,7 +202,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.generalConfig,
           path: '/settings/general-config',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const GeneralConfigScreen(),
@@ -211,7 +211,7 @@ class RouterHelper {
             GoRoute(
               name: AppRoutes.parkingPrice,
               path: 'detail',
-              pageBuilder: (context, state) => rightToLeftJoinedTransition(
+              pageBuilder: (context, state) => material3ExpressiveTransition(
                 context,
                 state,
                 const ParkingPriceSetting(),
@@ -220,7 +220,7 @@ class RouterHelper {
             GoRoute(
               name: AppRoutes.memberFee,
               path: 'detail',
-              pageBuilder: (context, state) => rightToLeftJoinedTransition(
+              pageBuilder: (context, state) => material3ExpressiveTransition(
                 context,
                 state,
                 const MemberFeeSetingScreen(),
@@ -231,7 +231,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.changePassword,
           path: '/settings/change-password',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const ChangePasswordScreen(),
@@ -240,7 +240,7 @@ class RouterHelper {
         GoRoute(
           name: AppRoutes.appSettings,
           path: '/settings/change-app',
-          pageBuilder: (context, state) => rightToLeftJoinedTransition(
+          pageBuilder: (context, state) => material3ExpressiveTransition(
             context,
             state,
             const AppSettingsScreen(),
