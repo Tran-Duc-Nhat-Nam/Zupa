@@ -55,7 +55,7 @@ class _AppNavBarState extends State<AppNavBar> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       resizeToAvoidBottomInset: false,
-      gestureNavigationEnabled: true,
+      animatedTabBuilder: (context, index, animationValue, newIndex, oldIndex, child) => child,
       tabs: [
         PersistentTabConfig(
           screen: const HomeScreen(),
