@@ -105,7 +105,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () async {
                   await AuthHelper.removeAuth();
                   context.mounted
-                      ? context.go('/login')
+                      ? context.goNamed(AppRoutes.login)
                       : AppToast.showErrorToast(
                           'Xảy ra lỗi không xác định! Vui lòng thoát ứng dụng và vào lại để đảm bảo ứng dụng hoạt động bình thường.');
                 },

@@ -11,10 +11,6 @@ import '../common/styles/icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../common/styles/text_styles.dart';
-import '../screens/history/history_screen.dart';
-import '../screens/home/home_screen.dart';
-import '../screens/revenue/revenue_screen.dart';
-import '../screens/settings/settings_screen.dart';
 import 'app_icon.dart';
 
 class AppNavBar extends StatefulWidget {
@@ -53,12 +49,10 @@ class _AppNavBarState extends State<AppNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
+    return PersistentTabView.router(
       resizeToAvoidBottomInset: false,
-      animatedTabBuilder: (context, index, animationValue, newIndex, oldIndex, child) => child,
       tabs: [
-        PersistentTabConfig(
-          screen: const HomeScreen(),
+        PersistentRouterTabConfig(
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -77,8 +71,7 @@ class _AppNavBarState extends State<AppNavBar> {
             ),
           ),
         ),
-        PersistentTabConfig(
-          screen: const HistoryScreen(),
+        PersistentRouterTabConfig(
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -97,8 +90,7 @@ class _AppNavBarState extends State<AppNavBar> {
             ),
           ),
         ),
-        PersistentTabConfig(
-          screen: const RevenueScreen(),
+        PersistentRouterTabConfig(
           item: ItemConfig(
             iconSize: 24,
             icon: LogarteMagicalTap(
@@ -120,8 +112,7 @@ class _AppNavBarState extends State<AppNavBar> {
             ),
           ),
         ),
-        PersistentTabConfig(
-          screen: const SettingsScreen(),
+        PersistentRouterTabConfig(
           item: ItemConfig(
             iconSize: 24,
             icon: AppIcon(
@@ -156,6 +147,7 @@ class _AppNavBarState extends State<AppNavBar> {
           ),
         ),
       ),
+      navigationShell: widget.navigationShell,
       // onTabChanged: (value) => AppDialog.checkAuth(context),
     );
   }

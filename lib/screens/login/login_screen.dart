@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../bloc/login/login_cubit.dart';
+import '../../common/constants/routes.dart';
 import '../../helper/theme/theme_helper.dart';
 import '../../common/styles/text_styles.dart';
 import '../../widgets/app_button.dart';
@@ -26,7 +27,7 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           state.whenOrNull(
             loginSuccess: () => context.mounted
-                ? context.go('/')
+                ? context.goNamed(AppRoutes.home)
                 : AppToast.showErrorToast(
                     'Xảy ra lỗi không xác định! Vui lòng thoát ứng dụng và vào lại để đảm bảo ứng dụng hoạt động bình thường.',
                   ),
