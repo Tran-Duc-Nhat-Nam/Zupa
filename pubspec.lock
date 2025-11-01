@@ -314,7 +314,7 @@ packages:
     source: hosted
     version: "1.0.2"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cupertino_icons
       sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
@@ -830,14 +830,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  logger:
-    dependency: "direct main"
-    description:
-      name: logger
-      sha256: a7967e31b703831a893bbc3c3dd11db08126fe5f369b5c648a36f821979f5be3
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.2"
   logging:
     dependency: transitive
     description:
@@ -1151,14 +1143,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.2"
-  rename_app:
-    dependency: "direct dev"
-    description:
-      name: rename_app
-      sha256: "387a88335f853674b39bed7943955388bbaf6aae4ffdc812e2ef275ce119abc7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.6.5"
   retrofit:
     dependency: "direct main"
     description:
@@ -1456,10 +1440,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: aa4149357501862c8a79283fe2649faf03608d870af1d239cf5874c2ed9110f5
+      sha256: "4ba3f840691ffa43c6d71a93a6ad3ae01590c7895c3eb33f9f683513f736a9f7"
       url: "https://pub.dev"
     source: hosted
-    version: "12.2.0"
+    version: "12.3.0"
   url_launcher:
     dependency: transitive
     description:
