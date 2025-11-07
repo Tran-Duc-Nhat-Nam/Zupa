@@ -8,7 +8,7 @@ part of 'ticket_api.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
 class _StaffAPI implements StaffAPI {
   _StaffAPI(this._dio, {this.baseUrl, this.errorLogger});
@@ -36,7 +36,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);
@@ -63,7 +63,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);
@@ -91,7 +91,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);
@@ -118,7 +118,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);

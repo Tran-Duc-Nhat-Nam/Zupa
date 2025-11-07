@@ -66,10 +66,6 @@ dependencies:
   dartx: ^1.2.0
   auto_size_text: ^3.0.0
   string_validator: ^1.2.0
-  flutter_route_shifter:
-    git:
-      url: https://github.com/Tran-Duc-Nhat-Nam/flutter_route_shifter.git
-      ref: main
 
 dev_dependencies:
   flutter_test:
