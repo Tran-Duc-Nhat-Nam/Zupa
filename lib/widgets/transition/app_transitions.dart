@@ -29,10 +29,9 @@ Page<dynamic> rightToLeftJoinedTransition(
     transitionsBuilder: (_, animation, secondaryAnimation, child) {
       return PageTransition(
         child: RepaintBoundary(child: child),
-        type: PageTransitionType.rightToLeftWithFade,
+        type: PageTransitionType.rightToLeft,
         alignment: Alignment.center,
         childCurrent: context.currentRoute ?? child,
-        curve: Curves.easeOut,
       ).buildTransitions(context, animation, secondaryAnimation, child);
     },
   );

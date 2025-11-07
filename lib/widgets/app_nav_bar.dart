@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:shake/shake.dart';
+import '../common/constants/routes.dart';
 import '../helper/debugger/debugger_helper.dart';
 import '../helper/theme/theme_helper.dart';
 import '../common/styles/icons.dart';
@@ -136,7 +137,6 @@ class _AppNavBarState extends State<AppNavBar> {
       backgroundColor: Colors.transparent,
       navBarBuilder: (navBarConfig) => Style2BottomNavBar(
         navBarConfig: navBarConfig,
-        itemPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         height: 75,
         navBarDecoration: NavBarDecoration(
           color: ThemeHelper.getColor(context).white,
