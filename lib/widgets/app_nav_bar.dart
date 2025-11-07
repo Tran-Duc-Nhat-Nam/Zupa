@@ -24,6 +24,7 @@ class AppNavBar extends StatefulWidget {
 
 class _AppNavBarState extends State<AppNavBar> {
   late final ShakeDetector detector;
+  final double iconSize = 24;
 
   @override
   void initState() {
@@ -32,10 +33,6 @@ class _AppNavBarState extends State<AppNavBar> {
         if (await DebuggerHelper.getDebuggerMode() && mounted) {
           DebuggerHelper.debugger.attach(context: context, visible: true);
         }
-        // Access detailed shake information
-        log('Shake direction: ${event.direction}', name: 'Shake detector');
-        log('Shake force: ${event.force}', name: 'Shake detector');
-        log('Shake timestamp: ${event.timestamp}', name: 'Shake detector');
       },
     );
     super.initState();
@@ -54,7 +51,7 @@ class _AppNavBarState extends State<AppNavBar> {
       tabs: [
         PersistentRouterTabConfig(
           item: ItemConfig(
-            iconSize: 24,
+            iconSize: iconSize,
             icon: AppIcon(
               path: AppIcons.home,
               color: ThemeHelper.getColor(context).white,
@@ -73,7 +70,7 @@ class _AppNavBarState extends State<AppNavBar> {
         ),
         PersistentRouterTabConfig(
           item: ItemConfig(
-            iconSize: 24,
+            iconSize: iconSize,
             icon: AppIcon(
               path: AppIcons.clock,
               color: ThemeHelper.getColor(context).white,
@@ -92,7 +89,7 @@ class _AppNavBarState extends State<AppNavBar> {
         ),
         PersistentRouterTabConfig(
           item: ItemConfig(
-            iconSize: 24,
+            iconSize: iconSize,
             icon: LogarteMagicalTap(
               logarte: DebuggerHelper.debugger,
               child: AppIcon(
@@ -114,7 +111,7 @@ class _AppNavBarState extends State<AppNavBar> {
         ),
         PersistentRouterTabConfig(
           item: ItemConfig(
-            iconSize: 24,
+            iconSize: iconSize,
             icon: AppIcon(
               path: AppIcons.setting,
               color: ThemeHelper.getColor(context).white,

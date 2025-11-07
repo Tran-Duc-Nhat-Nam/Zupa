@@ -6,7 +6,7 @@ abstract class AppToast {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.SNACKBAR,
+        gravity: ToastGravity.BOTTOM,
         backgroundColor: ThemeHelper.getColor(null).success600,
         textColor: ThemeHelper.getColor(null).white,
         fontSize: 16.0
@@ -17,7 +17,7 @@ abstract class AppToast {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.SNACKBAR,
+        gravity: ToastGravity.BOTTOM,
         backgroundColor: ThemeHelper.getColor(null).error600,
         textColor: ThemeHelper.getColor(null).white,
         fontSize: 16.0
@@ -28,7 +28,7 @@ abstract class AppToast {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
+        gravity: ToastGravity.BOTTOM,
         backgroundColor: ThemeHelper.getColor(null).warning600,
         textColor: ThemeHelper.getColor(null).white,
         fontSize: 16.0
@@ -39,7 +39,7 @@ abstract class AppToast {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.SNACKBAR,
+        gravity: ToastGravity.BOTTOM,
         backgroundColor: ThemeHelper.getColor(null).primary500,
         textColor: ThemeHelper.getColor(null).white,
         fontSize: 16.0
@@ -50,7 +50,7 @@ abstract class AppToast {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.SNACKBAR,
+        gravity: ToastGravity.BOTTOM,
         fontSize: 16.0
     );
   }

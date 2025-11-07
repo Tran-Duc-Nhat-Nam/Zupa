@@ -76,10 +76,6 @@ class _AppScreenState extends AppState<AppScreen> {
           if (await DebuggerHelper.getDebuggerMode() && mounted) {
             DebuggerHelper.debugger.attach(context: context, visible: true);
           }
-          // Access detailed shake information
-          log('Shake direction: ${event.direction}', name: 'Shake detector');
-          log('Shake force: ${event.force}', name: 'Shake detector');
-          log('Shake timestamp: ${event.timestamp}', name: 'Shake detector');
         },
       );
     }

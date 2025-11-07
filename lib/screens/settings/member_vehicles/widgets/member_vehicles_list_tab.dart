@@ -169,7 +169,6 @@ class MemberVehiclesTitle extends StatelessWidget {
                     okText: context.tr('title.extend'),
                     cancelText: context.tr('close'),
                     onOk: () async {
-                      context.pop();
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
                         AppMessage.showSuccessMessage(

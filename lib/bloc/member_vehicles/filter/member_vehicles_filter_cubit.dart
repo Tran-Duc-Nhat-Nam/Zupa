@@ -42,7 +42,7 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
   ) async {
     types = vehicleTypes;
     _getFormValues = getFormValues;
-    emit(const MemberVehiclesFilterState.loading());
+    emit(const MemberVehiclesFilterState.loaded());
   }
 
   void init(BuildContext context) async {
