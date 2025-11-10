@@ -108,7 +108,7 @@ class _AppScreenState extends AppState<AppScreen> {
               )
             : widget.appBar,
         backgroundColor:
-            widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+            widget.backgroundColor ?? Theme.of(context).colorScheme.surfaceDim,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -130,9 +130,9 @@ class _AppScreenState extends AppState<AppScreen> {
               top: widget.hasSafeTopArea,
               bottom: widget.hasSafeBottomArea,
               child: Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: SizedBox(
-                  width: double.infinity,
+                  width: 600,
                   child: widget.isChildScrollable
                       ? widget.child
                       : LayoutBuilder(
