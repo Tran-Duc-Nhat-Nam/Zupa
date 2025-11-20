@@ -53,7 +53,7 @@ dependencies:
     git:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/flutter_advanced_switch.git
       ref: master
-  animations: ^2.1.0
+  animations: ^2.1.1
   page_transition: ^2.2.1
   logarte: ^1.4.0
   shake: ^3.0.0
@@ -63,16 +63,17 @@ dependencies:
   flutter_local_notifications: ^19.5.0
   firebase_messaging: ^16.0.4
   firebase_core: ^4.2.1
-  firebase_crashlytics: ^5.0.4
+  firebase_crashlytics: ^5.0.5
   dartx: ^1.2.0
   auto_size_text: ^3.0.0
   string_validator: ^1.2.0
+  zentoast: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  build_runner: ^2.10.2
+  build_runner: ^2.10.3
   freezed: ^3.2.3
   json_serializable: ^6.11.1
   retrofit_generator: ^10.1.4
