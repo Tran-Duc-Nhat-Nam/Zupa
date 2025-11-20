@@ -16,16 +16,14 @@ class NfcHelper {
         (value) => value == NfcAvailability.enabled
             ? NfcManager.instance.startSession(
                 onDiscovered: (NfcTag tag) async {
-                  final MifareClassicAndroid? data = MifareClassicAndroid.from(
-                    tag,
-                  );
+                  final MifareClassicAndroid? data = .from(tag);
                   if (data == null) {
                     AppToast.showErrorToast(context.tr('error'));
                   } else {
                     context.pushNamed('CheckIn', extra: false);
                   }
                 },
-                pollingOptions: {NfcPollingOption.iso14443},
+                pollingOptions: {.iso14443},
               )
             : null,
       );

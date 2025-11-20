@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+
 class AppDateTimePicker extends StatelessWidget {
   const AppDateTimePicker({
     super.key,
@@ -28,25 +29,27 @@ class AppDateTimePicker extends StatelessWidget {
       );
     }
     if (customValidators != null) {
-      validators
-          .addAll(customValidators! as Iterable<FormFieldValidator<DateTime>>);
+      validators.addAll(
+        customValidators! as Iterable<FormFieldValidator<DateTime>>,
+      );
     }
     return FormBuilderField<DateTime?>(
-      initialValue: DateTime.now(),
+      initialValue: .now(),
       builder: (field) => Container(
-        padding: const EdgeInsets.all(12),
+        padding: const .all(12),
         decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).colorScheme.secondary),
-          borderRadius: BorderRadius.circular(12),
+          border: .all(color: Theme.of(context).colorScheme.secondary),
+          borderRadius: .circular(12),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Expanded(
               child: Text(
                 field.value != null
-                    ? Jiffy.parseFromDateTime(field.value!)
-                        .format(pattern: 'dd/MM/yyyy hh:mm')
+                    ? Jiffy.parseFromDateTime(
+                        field.value!,
+                      ).format(pattern: 'dd/MM/yyyy hh:mm')
                     : '',
                 maxLines: 1,
               ),
@@ -55,13 +58,13 @@ class AppDateTimePicker extends StatelessWidget {
               onTap: () async {
                 final DateTime? dt = await showOmniDateTimePicker(
                   context: context,
-                  initialDate: DateTime.now(),
+                  initialDate: .now(),
                   firstDate: firstDate,
                 );
                 dt != null ? field.didChange(dt) : null;
               },
               child: const Icon(Icons.date_range),
-            )
+            ),
           ],
         ),
       ),

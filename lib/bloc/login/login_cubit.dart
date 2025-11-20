@@ -13,7 +13,7 @@ part 'login_state.dart';
 part 'login_cubit.freezed.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(const LoginState.initial());
+  LoginCubit() : super(const .initial());
 
   Future<void> load() async {
     final accountInfo = await AuthHelper.getAccountInfo();
@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
     log('Save info: $accountInfo');
     emit(
-      LoginState.loaded(
+      .loaded(
         accountInfo.tenant,
         accountInfo.username,
         accountInfo.password,
@@ -42,8 +42,8 @@ class LoginCubit extends Cubit<LoginState> {
     String password = '',
     bool isRemember = false,
   }) {
-    emit(const LoginState.submitting());
-    final AccountRequest payload = AccountRequest(
+    emit(const .submitting());
+    final payload = AccountRequest(
       tenant: tenant,
       username: username,
       password: password,
@@ -56,10 +56,10 @@ class LoginCubit extends Cubit<LoginState> {
         isRemember
             ? await AuthHelper.saveAccountInfo(payload)
             : await AuthHelper.removeAccountInfo();
-        emit(const LoginState.loginSuccess());
+        emit(const .loginSuccess());
       },
-      onFailed: (response) => emit(LoginState.loginFailed(response.message)),
-      onError: (response) => emit(LoginState.loginFailed(response.toString())),
+      onFailed: (response) => emit(.loginFailed(response.message)),
+      onError: (response) => emit(.loginFailed(response.toString())),
     );
   }
 }

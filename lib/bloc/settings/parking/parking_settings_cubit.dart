@@ -9,39 +9,34 @@ part 'parking_settings_state.dart';
 part 'parking_settings_cubit.freezed.dart';
 
 class ParkingSettingsCubit extends Cubit<ParkingSettingsState> {
-  ParkingSettingsCubit() : super(const ParkingSettingsState.initial());
+  ParkingSettingsCubit() : super(const .initial());
 
   Future<void> init() async {
-    emit(const ParkingSettingsState.loading());
-    await Future.delayed(const Duration(seconds: 2));
+    emit(const .loading());
+    await Future.delayed(const .new(seconds: 2));
     final List<ParkingLot> parkingLots = [
       ParkingLot(
         id: '1',
         name: 'Parking Lot 1',
-        capacity:
-        vehicleTypes
+        capacity: vehicleTypes
             .map((e) => ParkingLotCapacity(vehicleType: e))
             .toList(),
       ),
       ParkingLot(
         id: '2',
         name: 'Parking Lot 2',
-        capacity:
-        vehicleTypes
+        capacity: vehicleTypes
             .map((e) => ParkingLotCapacity(vehicleType: e))
             .toList(),
       ),
       ParkingLot(
         id: '3',
         name: 'Parking Lot 3',
-        capacity:
-        vehicleTypes
+        capacity: vehicleTypes
             .map((e) => ParkingLotCapacity(vehicleType: e))
             .toList(),
       ),
     ];
-    emit(
-      ParkingSettingsState.loaded(parkingLots, 0),
-    );
+    emit(.loaded(parkingLots, 0));
   }
 }

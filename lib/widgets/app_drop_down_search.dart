@@ -6,10 +6,7 @@ import '../helper/theme/theme_helper.dart';
 import 'app_form_field.dart';
 
 class AppDropDownSearchExtraItem<T> {
-  const AppDropDownSearchExtraItem({
-    this.value,
-    required this.label,
-  });
+  const AppDropDownSearchExtraItem({this.value, required this.label});
 
   final T? value;
   final dynamic label;
@@ -93,8 +90,9 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
   late ValueNotifier<T?> valueListenable;
   @override
   void initState() {
-    valueListenable =
-        ValueNotifier<T?>(widget.initialValue ?? widget.defaultValue);
+    valueListenable = ValueNotifier<T?>(
+      widget.initialValue ?? widget.defaultValue,
+    );
     super.initState();
   }
 
@@ -112,62 +110,58 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
             alignment: widget.hintAlignment,
             child: Text(
               widget.hint,
-              overflow: TextOverflow.ellipsis,
+              overflow: .ellipsis,
               maxLines: 1,
-              style: TextStyle(
-                fontSize: 14,
-                color: Theme.of(context).hintColor,
-              ),
+              style: .new(fontSize: 14, color: Theme.of(context).hintColor),
             ),
           ),
           valueListenable: valueListenable,
           items: widget.extraDropdownItems.isEmpty
               ? widget.dropdownItems
-                  .map(
-                    (item) => DropdownItem<T>(
-                      value: item,
-                      height: widget.itemHeight ?? 40,
-                      child: Container(
-                        alignment: widget.valueAlignment,
-                        width: widget.itemWidth ?? 140,
-                        child: Text(
-                          widget.itemLabelGetter != null
-                              ? widget.itemLabelGetter!(item)
-                              : item.toString(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontSize: 14,
+                    .map(
+                      (item) => DropdownItem<T>(
+                        value: item,
+                        height: widget.itemHeight ?? 40,
+                        child: Container(
+                          alignment: widget.valueAlignment,
+                          width: widget.itemWidth ?? 140,
+                          child: Text(
+                            widget.itemLabelGetter != null
+                                ? widget.itemLabelGetter!(item)
+                                : item.toString(),
+                            overflow: .ellipsis,
+                            maxLines: 1,
+                            style: const .new(fontSize: 14),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                  .toList()
+                    )
+                    .toList()
               : [...widget.dropdownItems, ...widget.extraDropdownItems]
-                  .map(
-                    (item) => DropdownItem<T>(
-                      value: item is T ? item : (item! as AppDropDownSearchExtraItem<T>).value,
-                      height: widget.itemHeight ?? 40,
-                      child: Container(
-                        width: widget.itemWidth ?? 140,
-                        alignment: widget.valueAlignment,
-                        child: Text(
-                          item is T
-                              ? widget.itemLabelGetter != null
-                                  ? widget.itemLabelGetter!(item)
-                                  : item.toString()
-                              : (item! as AppDropDownSearchExtraItem<T>).label,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontSize: 14,
+                    .map(
+                      (item) => DropdownItem<T>(
+                        value: item is T
+                            ? item
+                            : (item! as AppDropDownSearchExtraItem<T>).value,
+                        height: widget.itemHeight ?? 40,
+                        child: Container(
+                          width: widget.itemWidth ?? 140,
+                          alignment: widget.valueAlignment,
+                          child: Text(
+                            item is T
+                                ? widget.itemLabelGetter != null
+                                      ? widget.itemLabelGetter!(item)
+                                      : item.toString()
+                                : (item! as AppDropDownSearchExtraItem<T>)
+                                      .label,
+                            overflow: .ellipsis,
+                            maxLines: 1,
+                            style: const .new(fontSize: 14),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
           onChanged: (value) => {
             widget.onChanged?.call(value),
             field.didChange(value ?? widget.defaultValue),
@@ -177,21 +171,19 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
           buttonStyleData: ButtonStyleData(
             height: widget.buttonHeight ?? 40,
             width: widget.buttonWidth,
-            padding: widget.buttonPadding ??
-                const EdgeInsets.only(left: 14, right: 14),
-            decoration: widget.buttonDecoration ??
-                BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: ThemeHelper.getColor(context).grey100,
-                  ),
+            padding: widget.buttonPadding ?? const .only(left: 14, right: 14),
+            decoration:
+                widget.buttonDecoration ??
+                .new(
+                  borderRadius: .circular(8),
+                  border: .all(color: ThemeHelper.getColor(context).grey100),
                 ),
             elevation: widget.buttonElevation,
           ),
           iconStyleData: IconStyleData(
             icon: AnimatedRotation(
               turns: isOpen ? 0.5 : 0,
-              duration: const Duration(milliseconds: 200),
+              duration: const .new(milliseconds: 200),
               child: widget.icon ?? const Icon(Icons.keyboard_arrow_down),
             ),
             iconSize: widget.iconSize ?? 24,
@@ -203,15 +195,14 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
             maxHeight: widget.dropdownHeight ?? 200,
             width: widget.dropdownWidth ?? 140,
             padding: widget.dropdownPadding,
-            decoration: widget.dropdownDecoration ??
-                BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                ),
+            decoration:
+                widget.dropdownDecoration ??
+                BoxDecoration(borderRadius: .circular(14)),
             elevation: widget.dropdownElevation ?? 8,
             //Null or Offset(0, 0) will open just under the button. You can edit as you want.
             offset: widget.offset,
             scrollbarTheme: ScrollbarThemeData(
-              radius: widget.scrollbarRadius ?? const Radius.circular(40),
+              radius: widget.scrollbarRadius ?? const .circular(40),
               thickness: widget.scrollbarThickness != null
                   ? WidgetStateProperty.all<double>(widget.scrollbarThickness!)
                   : null,
@@ -220,9 +211,8 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
                   : null,
             ),
           ),
-          menuItemStyleData: MenuItemStyleData(
-            padding: widget.itemPadding ??
-                const EdgeInsets.only(left: 14, right: 14),
+          menuItemStyleData: .new(
+            padding: widget.itemPadding ?? const .only(left: 14, right: 14),
           ),
         ),
       ),

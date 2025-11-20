@@ -46,16 +46,16 @@ class _HomeScreenState extends AppState<HomeScreen> {
       title: context.tr('home'),
       appBarTrailing: [
         Padding(
-          padding: const EdgeInsets.only(right: 24),
+          padding: const .only(right: 24),
           child: AppDropDownSearch(
             name: 'parkingLot',
             dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
             initialValue: 'Bãi xe 2',
             buttonWidth: 140,
-            buttonDecoration: BoxDecoration(
+            buttonDecoration: .new(
               color: ThemeHelper.getColor(context).primary50,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: ThemeHelper.getColor(context).primary100),
+              borderRadius: .circular(8),
+              border: .all(color: ThemeHelper.getColor(context).primary100),
             ),
           ),
         ),
@@ -86,11 +86,11 @@ class _HomeScreenState extends AppState<HomeScreen> {
             children: [
               SizedBox(height: 6),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
+                padding: .symmetric(horizontal: 24),
                 child: HomeSearchBar(),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
+                padding: .symmetric(horizontal: 24),
                 child: VehicleCapacityTab(),
               ),
               Expanded(child: TicketListTab()),

@@ -28,18 +28,16 @@ class HistoryScreen extends StatelessWidget {
       title: context.tr('history'),
       appBarTrailing: [
         Padding(
-          padding: const EdgeInsets.only(right: 24),
+          padding: const .only(right: 24),
           child: AppDropDownSearch(
             name: 'parkingLot',
             dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
             initialValue: 'Bãi xe 2',
             buttonWidth: 140,
-            buttonDecoration: BoxDecoration(
+            buttonDecoration: .new(
               color: ThemeHelper.getColor(context).primary50,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: ThemeHelper.getColor(context).primary100,
-              ),
+              borderRadius: .circular(8),
+              border: .all(color: ThemeHelper.getColor(context).primary100),
             ),
           ),
         ),
@@ -72,7 +70,7 @@ class HistoryScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 6),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const .symmetric(horizontal: 24),
                 child:
                     BlocBuilder<
                       filter.HistoryFilterCubit,
@@ -92,9 +90,9 @@ class HistoryScreen extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                clipBehavior: Clip.antiAlias,
+                                clipBehavior: .antiAlias,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: .circular(8),
                                 ),
                                 child: Skeleton.replace(
                                   width: 44,
@@ -105,10 +103,10 @@ class HistoryScreen extends StatelessWidget {
                                       aspectRatio: 1,
                                       child: AppButton(
                                         fitContent: true,
-                                        theme: AppButtonTheme.outline,
-                                        padding: const EdgeInsets.all(8),
-                                        radius: BorderRadius.circular(8),
-                                        color: AppButtonColor.basic,
+                                        theme: .outline,
+                                        padding: const .all(8),
+                                        radius: .circular(8),
+                                        color: .basic,
                                         icon: AppIcon(
                                           path: AppIcons.filter,
                                           size: 20,
@@ -142,16 +140,11 @@ class HistoryScreen extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
-        padding: const EdgeInsets.only(
-          top: 24,
-          bottom: 48,
-          left: 24,
-          right: 24,
-        ),
+        padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
         child: Column(
           spacing: 16,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: .min,
+          crossAxisAlignment: .start,
           children: [
             Center(
               child: Text(
@@ -162,7 +155,7 @@ class HistoryScreen extends StatelessWidget {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
                   context.tr('time'),
@@ -180,7 +173,7 @@ class HistoryScreen extends StatelessWidget {
             ),
             Column(
               spacing: 12,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(context.tr('date')),
                 const AppDateTimePicker(name: 'dateTime'),
@@ -191,7 +184,7 @@ class HistoryScreen extends StatelessWidget {
               spacing: 12,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: .spaceBetween,
                   children: [
                     Text(
                       context.tr('vehicleType'),
@@ -231,8 +224,8 @@ class HistoryScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: AppButton(
-                    color: AppButtonColor.basic,
-                    theme: AppButtonTheme.outline,
+                    color: .basic,
+                    theme: .outline,
                     onPressed: () => context.pop(),
                     text: context.tr('cancel'),
                   ),

@@ -8,10 +8,10 @@ part 'debugger_state.dart';
 part 'debugger_cubit.freezed.dart';
 
 class DebuggerCubit extends Cubit<DebuggerState> {
-  DebuggerCubit() : super(const DebuggerState.initial());
+  DebuggerCubit() : super(const .initial());
 
   Future<void> loadDebugger() async {
-    emit(DebuggerState.loaded(await DebuggerHelper.getDebuggerMode()));
+    emit(.loaded(await DebuggerHelper.getDebuggerMode()));
   }
 
   void changeDebuggerMode(bool isOn) {
@@ -21,6 +21,6 @@ class DebuggerCubit extends Cubit<DebuggerState> {
     } else {
       AppToast.showInfoToast('Shake to active debug mode');
     }
-    emit(DebuggerState.loaded(isOn));
+    emit(.loaded(isOn));
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,7 +26,7 @@ class _AppNavBarState extends State<AppNavBar> {
 
   @override
   void initState() {
-    detector = ShakeDetector.autoStart(
+    detector = .autoStart(
       onPhoneShake: (ShakeEvent event) async {
         if (await DebuggerHelper.getDebuggerMode() && mounted) {
           DebuggerHelper.debugger.attach(context: context, visible: true);
@@ -129,17 +127,17 @@ class _AppNavBarState extends State<AppNavBar> {
           ),
         ),
       ],
-      navBarOverlap: const NavBarOverlap.full(),
+      navBarOverlap: const .full(),
       backgroundColor: Colors.transparent,
       navBarBuilder: (navBarConfig) => Style2BottomNavBar(
         navBarConfig: navBarConfig,
         height: 75,
-        navBarDecoration: NavBarDecoration(
+        navBarDecoration: .new(
           color: ThemeHelper.getColor(context).white,
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(16),
-            bottom: Radius.circular(16),
+          padding: const .symmetric(vertical: 12),
+          borderRadius: const .vertical(
+            top: .circular(16),
+            bottom: .circular(16),
           ),
         ),
       ),

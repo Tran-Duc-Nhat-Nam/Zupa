@@ -27,15 +27,15 @@ class VehicleTypeRadioCards extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Container(
-                  padding: EdgeInsets.all(
+                  padding: .all(
                     isSelected ? 5 : 8,
                   ),
                   decoration: BoxDecoration(
                     color: ThemeHelper.getColor(context).white,
                     borderRadius:
-                    BorderRadius.circular(4),
+                    .circular(4),
                     border: isSelected
-                        ? Border.all(
+                        ? .all(
                       color: ThemeHelper.getColor(context).primary500,
                       width: 3,
                     )
@@ -43,7 +43,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                   ),
                   child: Column(
                     mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                    .spaceBetween,
                     children: [
                       Expanded(
                         child: AppIcon(

@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../helper/theme/theme_helper.dart';
 
 class AppIcon extends StatelessWidget {
-  const  AppIcon({
+  const AppIcon({
     super.key,
     required this.path,
     this.color,
@@ -31,8 +31,10 @@ class AppIcon extends StatelessWidget {
       isLoading = false;
     }
     return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration:  BoxDecoration(shape: isLoading ? BoxShape.circle : BoxShape.rectangle),
+      clipBehavior: .antiAlias,
+      decoration: BoxDecoration(
+        shape: isLoading ? BoxShape.circle : BoxShape.rectangle,
+      ),
       child: Skeleton.replace(
         width: width ?? size ?? 24,
         height: height ?? size ?? 24,
@@ -40,9 +42,9 @@ class AppIcon extends StatelessWidget {
           onTap: onTap,
           child: SvgPicture.asset(
             path,
-            colorFilter: ColorFilter.mode(
+            colorFilter: .mode(
               color ?? ThemeHelper.getColor(context).primary500,
-              BlendMode.srcIn,
+              .srcIn,
             ),
             width: width ?? size,
             height: height ?? size,

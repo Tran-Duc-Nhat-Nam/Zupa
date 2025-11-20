@@ -39,7 +39,7 @@ class _AppAppBarState extends State<AppAppBar> {
       backgroundColor: widget.color ?? ThemeHelper.getColor(context).white,
       foregroundColor: ThemeHelper.getColor(context).blueDark,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
+        borderRadius: .vertical(bottom: .circular(16)),
       ),
       title: widget.subtext != null
           ? Column(children: [Text(widget.text ?? ''), Text(widget.subtext!)])
@@ -55,8 +55,8 @@ class _AppAppBarState extends State<AppAppBar> {
           ? widget.leading!
           : widget.leadingIconPath != null
           ? IconButton(
-              constraints: const BoxConstraints(),
-              padding: const EdgeInsets.only(left: 24),
+              constraints: const .new(),
+              padding: const .only(left: 24),
               style: const ButtonStyle(
                 overlayColor: WidgetStateColor.transparent,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -70,11 +70,11 @@ class _AppAppBarState extends State<AppAppBar> {
             )
           : ModalRoute.of(context)?.impliesAppBarDismissal == true
           ? IconButton(
-              constraints: const BoxConstraints(),
-              padding: const EdgeInsets.only(left: 24),
+              constraints: const .new(),
+              padding: const .only(left: 24),
               style: const ButtonStyle(
                 overlayColor: WidgetStateColor.transparent,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                tapTargetSize: .shrinkWrap,
               ),
               icon: AppIcon(
                 path: widget.isClose == true ? AppIcons.close : AppIcons.back,

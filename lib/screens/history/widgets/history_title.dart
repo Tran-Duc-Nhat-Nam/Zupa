@@ -16,21 +16,17 @@ class HistoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-      decoration: BoxDecoration(
+      padding: const .symmetric(vertical: 6, horizontal: 10),
+      decoration: .new(
         color: ThemeHelper.getColor(context).white,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(color: ThemeHelper.getColor(context).grey100),
+        borderRadius: const .all(.circular(4)),
+        border: .all(color: ThemeHelper.getColor(context).grey100),
         boxShadow: const [
-          BoxShadow(
-            color: Color(0x0C0C0D0D),
-            offset: Offset(0, 1),
-            blurRadius: 4,
-          ),
+          .new(color: .new(0x0C0C0D0D), offset: .new(0, 1), blurRadius: 4),
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: .spaceBetween,
         spacing: 16,
         children: [
           Column(
@@ -53,16 +49,14 @@ class HistoryTitle extends StatelessWidget {
             ],
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const .symmetric(horizontal: 12),
             decoration: BoxDecoration(
-              border: Border.symmetric(
-                vertical: BorderSide(
-                  color: ThemeHelper.getColor(context).grey100,
-                ),
+              border: .symmetric(
+                vertical: .new(color: ThemeHelper.getColor(context).grey100),
               ),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Row(
                   children: [
@@ -112,7 +106,7 @@ class HistoryTitle extends StatelessWidget {
               children: [
                 Text(
                   ticket.id,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 1,
                   style: AppTextStyles.bodyMediumMedium.copyWith(
                     color: ThemeHelper.getColor(context).grey700,

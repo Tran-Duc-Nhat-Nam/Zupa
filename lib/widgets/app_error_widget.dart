@@ -18,15 +18,12 @@ class AppErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: const .symmetric(horizontal: 32),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Text(context.tr(message)),
-            IconsButton(
-              onPressed: onPressed,
-              text: buttonText,
-            ),
+            IconsButton(onPressed: onPressed, text: buttonText),
           ],
         ),
       ),

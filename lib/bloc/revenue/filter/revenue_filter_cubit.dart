@@ -13,7 +13,7 @@ part 'revenue_filter_state.dart';
 part 'revenue_filter_cubit.freezed.dart';
 
 class RevenueFilterCubit extends Cubit<RevenueFilterState> {
-  RevenueFilterCubit() : super(const RevenueFilterState.initial());
+  RevenueFilterCubit() : super(const .initial());
 
   List<VehicleType> types = [];
   Map<String, dynamic> Function()? _getFormValues;
@@ -23,10 +23,10 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
-        _debounce = Timer(const Duration(milliseconds: 500), () {
+        _debounce = .new(const .new(milliseconds: 500), () {
           log(query.toString());
           emit(
-            RevenueFilterState.loaded(filter: filter.copyWith(keyword: query)),
+            .loaded(filter: filter.copyWith(keyword: query)),
           ); // Emit the latest query after the debounce delay
         });
       },
@@ -39,16 +39,16 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   ) async {
     types = vehicleTypes;
     _getFormValues = getFormValues;
-    emit(const RevenueFilterState.loading());
+    emit(const .loading());
   }
 
   void init(BuildContext context) async {
     state.whenOrNull(
       loaded: (filter) {
-        emit(RevenueFilterState.loaded(filter: filter));
+        emit(.loaded(filter: filter));
       },
       loading: () {
-        emit(const RevenueFilterState.loaded());
+        emit(const .loaded());
       },
     );
   }
@@ -62,9 +62,9 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
           keyword: values['keyword'],
           time: values['time'],
         );
-        emit(RevenueFilterState.filtering(filter: temp));
+        emit(.filtering(filter: temp));
         await fetchData(temp);
-        emit(RevenueFilterState.loaded(filter: temp));
+        emit(.loaded(filter: temp));
       },
     );
   }

@@ -29,12 +29,9 @@ class _AppSwitchState extends State<AppSwitch> {
       name: widget.name,
       builder: (field) {
         return Container(
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: .antiAlias,
           decoration: BoxDecoration(
-            borderRadius:
-                isLoading
-                    ? BorderRadius.circular(15)
-                    : BorderRadius.circular(0),
+            borderRadius: isLoading ? .circular(15) : .circular(0),
           ),
           child: Skeleton.replace(
             width: 50,

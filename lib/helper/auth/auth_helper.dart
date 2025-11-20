@@ -49,7 +49,7 @@ class AuthHelper {
 
   static Future<bool> biometricCheck(BuildContext context) async {
     if ((await getBiometricAuth()) == true) {
-      final LocalAuthentication auth = LocalAuthentication();
+      final auth = LocalAuthentication();
       final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
       final bool canAuthenticate =
           canAuthenticateWithBiometrics || await auth.isDeviceSupported();
@@ -71,18 +71,19 @@ class AuthHelper {
             return didAuthenticate;
           } on LocalAuthException catch (e) {
             if (context.mounted) {
-              if (e.code == LocalAuthExceptionCode.noBiometricHardware) {
-                AppToast.showErrorToast(
-                  context.tr('Biometric authentication is not available'),
-                );
-              } else if (e.code == LocalAuthExceptionCode.noBiometricsEnrolled) {
-                AppToast.showErrorToast(
-                  context.tr('Biometric authentication is not enrolled'),
-                );
-              } else {
-                AppToast.showErrorToast(
-                  context.tr(e.description ?? 'Unknown error'),
-                );
+              switch (e.code) {
+                case .noBiometricsEnrolled:
+                  AppToast.showErrorToast(
+                    context.tr('Biometric authentication is not enrolled'),
+                  );
+                case .noBiometricHardware:
+                  AppToast.showErrorToast(
+                    context.tr('Biometric authentication is not available'),
+                  );
+                default:
+                  AppToast.showErrorToast(
+                    context.tr(e.description ?? 'Unknown error'),
+                  );
               }
             } else {
               AppToast.showErrorToast('Unknown error');

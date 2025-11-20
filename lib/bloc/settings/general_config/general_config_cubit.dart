@@ -6,18 +6,18 @@ part 'general_config_state.dart';
 part 'general_config_cubit.freezed.dart';
 
 class GeneralConfigCubit extends Cubit<GeneralConfigState> {
-  GeneralConfigCubit() : super(const GeneralConfigState.initial());
+  GeneralConfigCubit() : super(const .initial());
 
   Future<void> init() async {
-    emit(const GeneralConfigState.loading());
+    emit(const .loading());
     final bool isWarning =
         await sharedPreferences.getBool('isWarningCapacityThreshold') ?? false;
     if (isWarning) {
       final int threshold =
           await sharedPreferences.getInt('warningCapacityThreshold') ?? 0;
-      emit(GeneralConfigState.loaded(isWarning, threshold));
+      emit(.loaded(isWarning, threshold));
     } else {
-      emit(GeneralConfigState.loaded(isWarning, -1));
+      emit(.loaded(isWarning, -1));
     }
   }
 
@@ -28,18 +28,18 @@ class GeneralConfigCubit extends Cubit<GeneralConfigState> {
     await sharedPreferences.setBool('isWarningCapacityThreshold', value);
     if (value) {
       emit(
-        GeneralConfigState.loaded(value, switch (state) {
+        .loaded(value, switch (state) {
           Loaded(:final warningThreshold) => warningThreshold,
           _ => 0,
         }),
       );
     } else {
-      emit(GeneralConfigState.loaded(value, -1));
+      emit(.loaded(value, -1));
     }
   }
 
   Future<void> setThreshold(int value) async {
     await sharedPreferences.setInt('warningCapacityThreshold', value);
-    emit(GeneralConfigState.loaded(true, value));
+    emit(.loaded(true, value));
   }
 }

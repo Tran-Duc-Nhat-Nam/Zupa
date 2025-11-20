@@ -4,26 +4,26 @@ import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 
 import 'colors.dart';
 
-ThemeData appTheme = ThemeData(
-  colorScheme: ColorScheme.fromSeed(
+final appTheme = ThemeData(
+  colorScheme: .fromSeed(
     seedColor: const AppColors().primary500,
   ),
   fontFamily: GoogleFonts.inter().fontFamily,
   useMaterial3: true,
-  brightness: Brightness.light,
-  visualDensity: VisualDensity.adaptivePlatformDensity,
+  brightness: .light,
+  visualDensity: .adaptivePlatformDensity,
   useSystemColors: true,
 );
 
-ThemeData appDarkTheme = ThemeData(
-  colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.dark,
+final appDarkTheme = ThemeData(
+  colorScheme: .fromSeed(
+    brightness: .dark,
     seedColor: catppuccin.mocha.mauve,
     surface: catppuccin.mocha.base,
   ),
   fontFamily: GoogleFonts.inter().fontFamily,
   useMaterial3: true,
-  brightness: Brightness.dark,
-  visualDensity: VisualDensity.adaptivePlatformDensity,
+  brightness: .dark,
+  visualDensity: .adaptivePlatformDensity,
   useSystemColors: true,
 );

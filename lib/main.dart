@@ -15,9 +15,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
-  flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
+      .new();
+  flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >()
+      ?.requestNotificationsPermission();
   RouterHelper.initRouter();
   DebuggerHelper.initDebugger();
 
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
     return EasyLocalization(
       supportedLocales: const <Locale>[Locale('en', 'US'), Locale('vi', 'VN')],
       path: 'assets/translations',
-      fallbackLocale: const Locale('en', 'US'),
+      fallbackLocale: const .new('en', 'US'),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(

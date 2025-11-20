@@ -9,21 +9,23 @@ class AppLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: label != null ? Column(
-        spacing: 4,
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          LoadingAnimationWidget.discreteCircle(
-            color: Theme.of(context).colorScheme.primary,
-            size: 32,
-          ),
-          Text(label!),
-        ],
-      ) : LoadingAnimationWidget.discreteCircle(
-        color: Theme.of(context).colorScheme.primary,
-        size: 32,
-      ),
+      child: label != null
+          ? Column(
+              spacing: 4,
+              mainAxisSize: .min,
+              mainAxisAlignment: .center,
+              children: [
+                LoadingAnimationWidget.discreteCircle(
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 32,
+                ),
+                Text(label!),
+              ],
+            )
+          : LoadingAnimationWidget.discreteCircle(
+              color: Theme.of(context).colorScheme.primary,
+              size: 32,
+            ),
     );
   }
 }

@@ -5,13 +5,13 @@ part 'password_settings_state.dart';
 part 'password_settings_cubit.freezed.dart';
 
 class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
-  PasswordSettingsCubit() : super(const PasswordSettingsState.initial());
+  PasswordSettingsCubit() : super(const .initial());
 
   void init() {
-    emit(const PasswordSettingsState.loaded());
+    emit(const .loaded());
   }
 
   void changePassword(String currentPassword, String newPassword) {
-    emit(const PasswordSettingsState.changePasswordSuccess());
+    emit(const .changePasswordSuccess());
   }
 }

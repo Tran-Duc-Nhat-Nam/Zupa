@@ -36,15 +36,13 @@ class TicketListTab extends StatelessWidget {
         return Skeletonizer(
           enabled: state is Loading,
           child: Container(
-            clipBehavior: Clip.antiAlias,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            clipBehavior: .antiAlias,
+            margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: ThemeHelper.getColor(context).white,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
+              borderRadius: const .vertical(top: .circular(16)),
               boxShadow: [
-                BoxShadow(
+                .new(
                   color: ThemeHelper.getColor(context).grey100,
                   offset: const Offset(0, 1),
                   blurRadius: 4,
@@ -57,16 +55,17 @@ class TicketListTab extends StatelessWidget {
               footer: CustomFooter(
                 builder: (context, mode) {
                   Widget body;
-                  if (mode == LoadStatus.idle) {
-                    body = Text(context.tr('pullUpToLoad'));
-                  } else if (mode == LoadStatus.loading) {
-                    body = const CupertinoActivityIndicator();
-                  } else if (mode == LoadStatus.failed) {
-                    body = Text(context.tr('loadFailedPleaseRetry'));
-                  } else if (mode == LoadStatus.canLoading) {
-                    body = Text(context.tr('releaseToLoadMore'));
-                  } else {
-                    body = Text(context.tr('noMoreData'));
+                  switch (mode) {
+                    case .idle:
+                      body = Text(context.tr('pullUpToLoad'));
+                    case .loading:
+                      body = const CupertinoActivityIndicator();
+                    case .failed:
+                      body = Text(context.tr('loadFailedPleaseRetry'));
+                    case .canLoading:
+                      body = Text(context.tr('releaseToLoadMore'));
+                    default:
+                      body = Text(context.tr('noMoreData'));
                   }
                   return SizedBox(height: 55.0, child: Center(child: body));
                 },
@@ -91,13 +90,13 @@ class TicketListTab extends StatelessWidget {
                   color: ThemeHelper.getColor(context).grey100,
                 ),
                 itemBuilder: (c, i) => Padding(
-                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
+                  padding: .only(top: i == 0 ? 16 : 0),
                   child: TicketTitle(
                     ticket:
                         items?[i] ??
                         Ticket(
                           id: 'Placeholder',
-                          timeIn: DateTime.now(),
+                          timeIn: .now(),
                           siteId: 'A much Longer placeholder',
                           type: vehicleTypes.first,
                         ),
@@ -117,7 +116,7 @@ class TicketTitle extends StatelessWidget {
   TicketTitle({super.key, required this.ticket});
 
   final Ticket ticket;
-  final SwipeActionController controller = SwipeActionController();
+  final controller = SwipeActionController();
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +127,8 @@ class TicketTitle extends StatelessWidget {
       fullSwipeFactor: 0.5,
       leadingActions: [
         SwipeAction(
-          onTap: (CompletionHandler handler) => context.pushNamed(AppRoutes.checkIn),
+          onTap: (CompletionHandler handler) =>
+              context.pushNamed(AppRoutes.checkIn),
           icon: AppIcon(
             path: AppIcons.close,
             color: ThemeHelper.getColor(context).white,
@@ -148,11 +148,11 @@ class TicketTitle extends StatelessWidget {
         ),
       ],
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+        padding: const .symmetric(vertical: 8, horizontal: 24),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 12),
+              padding: const .only(right: 12),
               child: InkWell(
                 onTap: () => AppPhotoView.showPhotoView(
                   context,
@@ -162,9 +162,7 @@ class TicketTitle extends StatelessWidget {
                   clipBehavior: Clip.antiAlias,
                   height: 50,
                   width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
+                  decoration: BoxDecoration(borderRadius: .circular(6)),
                   child: Skeleton.replace(
                     height: 50,
                     width: 50,
@@ -177,13 +175,13 @@ class TicketTitle extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: .start,
+                mainAxisAlignment: .center,
                 children: [
                   SizedBox(
                     height: 24,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: .spaceBetween,
                       children: [
                         Expanded(
                           child: Text(
@@ -196,14 +194,10 @@ class TicketTitle extends StatelessWidget {
                         AppButton(
                           fitContent: true,
                           onPressed: () {},
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          theme: 2 % 2 == 0
-                              ? AppButtonTheme.secondary
-                              : AppButtonTheme.outline,
-                          color: ticket.id.length % 2 == 0
-                              ? AppButtonColor.info
-                              : AppButtonColor.error,
-                          radius: BorderRadius.circular(6),
+                          padding: const .symmetric(horizontal: 16),
+                          theme: 2 % 2 == 0 ? .secondary : .outline,
+                          color: ticket.id.length % 2 == 0 ? .info : .error,
+                          radius: .circular(6),
                           child: Text(
                             context.tr(
                               ticket.id.length % 2 == 0 ? 'recover' : 'lost',

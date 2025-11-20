@@ -16,8 +16,12 @@ class AppRadioGroup<T> extends StatefulWidget {
   final String name;
   final List<T> items;
   final Widget Function(
-          Widget radioButton, T item, bool isSelected, Function() select)?
-      itemBuilder;
+    Widget radioButton,
+    T item,
+    bool isSelected,
+    Function() select,
+  )?
+  itemBuilder;
   final bool required;
   final List<FormFieldValidator<String>>? customValidators;
 
@@ -38,34 +42,32 @@ class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
       );
     }
     if (widget.customValidators != null) {
-      validators
-          .addAll(widget.customValidators! as Iterable<FormFieldValidator<T?>>);
+      validators.addAll(
+        widget.customValidators! as Iterable<FormFieldValidator<T?>>,
+      );
     }
     return FormBuilderField<T>(
       builder: (field) => Row(
         spacing: 16,
-        children: List.generate(
-          widget.items.length,
-          (index) {
-            if (widget.itemBuilder != null) {
-              return widget.itemBuilder!(
-                Radio<T>(
-                  value: widget.items[index],
-                  groupValue: field.value,
-                  onChanged: (value) => field.didChange(value),
-                ),
-                widget.items[index],
-                field.value == widget.items[index],
-                () => field.didChange(widget.items[index]),
-              );
-            }
-            return Radio<T>(
-              value: widget.items[index],
-              groupValue: field.value,
-              onChanged: (value) => field.didChange(value),
+        children: .generate(widget.items.length, (index) {
+          if (widget.itemBuilder != null) {
+            return widget.itemBuilder!(
+              Radio<T>(
+                value: widget.items[index],
+                groupValue: field.value,
+                onChanged: (value) => field.didChange(value),
+              ),
+              widget.items[index],
+              field.value == widget.items[index],
+              () => field.didChange(widget.items[index]),
             );
-          },
-        ),
+          }
+          return Radio<T>(
+            value: widget.items[index],
+            groupValue: field.value,
+            onChanged: (value) => field.didChange(value),
+          );
+        }),
       ),
       name: widget.name,
       validator: FormBuilderValidators.compose(validators),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:shake/shake.dart';
@@ -71,7 +69,7 @@ class _AppScreenState extends AppState<AppScreen> {
   @override
   void initState() {
     if (!widget.hasParentView) {
-      detector = ShakeDetector.autoStart(
+      detector = .autoStart(
         onPhoneShake: (ShakeEvent event) async {
           if (await DebuggerHelper.getDebuggerMode() && mounted) {
             DebuggerHelper.debugger.attach(context: context, visible: true);
@@ -92,7 +90,7 @@ class _AppScreenState extends AppState<AppScreen> {
   Widget build(BuildContext context) {
     return FormBuilder(
       key: widget.formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: .onUserInteraction,
       child: Scaffold(
         resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
         appBar: widget.hasAppBar
@@ -110,7 +108,7 @@ class _AppScreenState extends AppState<AppScreen> {
         backgroundColor:
             widget.backgroundColor ?? Theme.of(context).colorScheme.surfaceDim,
         body: Stack(
-          alignment: Alignment.bottomCenter,
+          alignment: .bottomCenter,
           children: [
             // if (!widget.noBackground)
             //   SingleChildScrollView(
@@ -130,7 +128,7 @@ class _AppScreenState extends AppState<AppScreen> {
               top: widget.hasSafeTopArea,
               bottom: widget.hasSafeBottomArea,
               child: Align(
-                alignment: Alignment.topCenter,
+                alignment: .topCenter,
                 child: SizedBox(
                   width: 600,
                   child: widget.isChildScrollable
@@ -145,7 +143,7 @@ class _AppScreenState extends AppState<AppScreen> {
                                   child: ConstrainedBox(
                                     constraints: constraints.copyWith(
                                       minHeight: constraints.maxHeight,
-                                      maxHeight: double.infinity,
+                                      maxHeight: .infinity,
                                     ),
                                     child: widget.child,
                                   ),
@@ -156,15 +154,12 @@ class _AppScreenState extends AppState<AppScreen> {
               ),
             ),
             Align(
-              alignment: Alignment.bottomCenter,
+              alignment: .bottomCenter,
               child: Padding(
                 padding:
                     widget.footerPadding ??
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: widget.footer,
-                ),
+                    const .symmetric(vertical: 16, horizontal: 24),
+                child: Column(mainAxisSize: .min, children: widget.footer),
               ),
             ),
           ],

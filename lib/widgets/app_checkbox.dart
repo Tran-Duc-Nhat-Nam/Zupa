@@ -31,24 +31,19 @@ class AppCheckbox extends StatelessWidget {
                 field.didChange(value);
                 onChanged?.call(value);
               },
-              side: BorderSide(
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
-              fillColor: WidgetStateProperty.resolveWith<Color>(
-                      (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Theme.of(context).colorScheme.primary;
-                    }
-                    return Theme.of(context).colorScheme.surfaceContainer;
-                  }),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
+              side: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+              fillColor: WidgetStateProperty.resolveWith<Color>((
+                Set<WidgetState> states,
+              ) {
+                if (states.contains(WidgetState.selected)) {
+                  return Theme.of(context).colorScheme.primary;
+                }
+                return Theme.of(context).colorScheme.surfaceContainer;
+              }),
+              shape: RoundedRectangleBorder(borderRadius: .circular(4)),
             ),
           ),
-          if (label != null) ...[
-            label!,
-          ]
+          if (label != null) ...[label!],
         ],
       ),
     );

@@ -13,8 +13,7 @@ part 'member_vehicles_filter_state.dart';
 part 'member_vehicles_filter_cubit.freezed.dart';
 
 class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
-  MemberVehiclesFilterCubit()
-    : super(const MemberVehiclesFilterState.initial());
+  MemberVehiclesFilterCubit() : super(const .initial());
 
   List<VehicleType> types = [];
   Map<String, dynamic> Function()? _getFormValues;
@@ -24,12 +23,10 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
-        _debounce = Timer(const Duration(milliseconds: 500), () {
+        _debounce = .new(const .new(milliseconds: 500), () {
           log(query.toString());
           emit(
-            MemberVehiclesFilterState.loaded(
-              filter: filter.copyWith(keyword: query),
-            ),
+            .loaded(filter: filter.copyWith(keyword: query)),
           ); // Emit the latest query after the debounce delay
         });
       },
@@ -42,14 +39,13 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
   ) async {
     types = vehicleTypes;
     _getFormValues = getFormValues;
-    emit(const MemberVehiclesFilterState.loaded());
+    emit(const .loaded());
   }
 
   void init(BuildContext context) async {
     state.whenOrNull(
-      loaded: (filter) =>
-          emit(MemberVehiclesFilterState.loaded(filter: filter)),
-      loading: () => emit(const MemberVehiclesFilterState.loading()),
+      loaded: (filter) => emit(.loaded(filter: filter)),
+      loading: () => emit(const .loading()),
     );
   }
 
@@ -65,9 +61,9 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
             keyword: values['keyword'],
             time: values['time'],
           );
-          emit(MemberVehiclesFilterState.filtering(filter: temp));
+          emit(.filtering(filter: temp));
           await fetchData(temp);
-          emit(MemberVehiclesFilterState.loaded(filter: temp));
+          emit(.loaded(filter: temp));
         }
       default:
         {}

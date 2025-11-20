@@ -10,7 +10,7 @@ part 'check_in_state.dart';
 part 'check_in_cubit.freezed.dart';
 
 class CheckInCubit extends Cubit<CheckInState> {
-  CheckInCubit() : super(const CheckInState.initial());
+  CheckInCubit() : super(const .initial());
 
   @override
   Future<void> close() {
@@ -22,9 +22,9 @@ class CheckInCubit extends Cubit<CheckInState> {
   }
 
   Future<void> init(BuildContext context, bool isOut) async {
-    emit(const CheckInState.loading());
+    emit(const .loading());
     final List<CameraDescription> cameras = await availableCameras();
-    final CameraController controller = CameraController(
+    final controller = CameraController(
       cameras[0],
       ResolutionPreset.max,
       enableAudio: false,
@@ -33,26 +33,24 @@ class CheckInCubit extends Cubit<CheckInState> {
         .initialize()
         .then((_) {
           if (context.mounted) {
-            isOut
-                ? emit(CheckInState.checkOut(controller))
-                : emit(CheckInState.checkIn(controller));
+            isOut ? emit(.checkOut(controller)) : emit(.checkIn(controller));
           }
         })
         .catchError((Object e) {
           if (e is CameraException) {
-            emit(CheckInState.failed(e.code));
+            emit(.failed(e.code));
           }
         });
   }
 
   void check(CameraController controller, VehicleType vehicleType) async {
-    emit(const CheckInState.takingPicture());
-    final XFile picture = await controller.takePicture();
+    emit(const .takingPicture());
+    final picture = await controller.takePicture();
     controller.dispose();
     emit(
       state is CheckOut
-          ? CheckInState.checkedOutSuccess(picture)
-          : CheckInState.checkedInSuccess(picture, vehicleType),
+          ? .checkedOutSuccess(picture)
+          : .checkedInSuccess(picture, vehicleType),
     );
   }
 
@@ -65,11 +63,11 @@ class CheckInCubit extends Cubit<CheckInState> {
   }
 
   void saveTicket(BuildContext context, dynamic ticket) async {
-    emit(const CheckInState.submitting());
-    await Future.delayed(const Duration(seconds: 5));
+    emit(const .submitting());
+    await Future.delayed(const .new(seconds: 5));
     if (context.mounted) {
       AppToast.showSuccessToast(context.tr('success'));
     }
-    emit(const CheckInState.submitSuccess());
+    emit(const .submitSuccess());
   }
 }

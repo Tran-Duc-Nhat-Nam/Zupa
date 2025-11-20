@@ -35,18 +35,16 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
       title: context.tr('revenue'),
       appBarTrailing: [
         Padding(
-          padding: const EdgeInsets.only(right: 24),
+          padding: const .only(right: 24),
           child: AppDropDownSearch(
             name: 'parkingLot',
             dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
             initialValue: 'Bãi xe 2',
             buttonWidth: 140,
-            buttonDecoration: BoxDecoration(
+            buttonDecoration: .new(
               color: ThemeHelper.getColor(context).primary50,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: ThemeHelper.getColor(context).primary100,
-              ),
+              borderRadius: .circular(8),
+              border: .all(color: ThemeHelper.getColor(context).primary100),
             ),
           ),
         ),

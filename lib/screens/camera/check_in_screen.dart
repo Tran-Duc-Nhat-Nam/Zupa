@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -94,23 +92,23 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                   ),
                 ),
                 orElse: () => Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   spacing: 16,
                   children: [
                     Expanded(
                       flex: 4,
                       child: state.maybeWhen(
                         checkedInSuccess: (picture, _) => Image(
-                          image: FileImage(File(picture.path)),
-                          fit: BoxFit.fitWidth,
+                          image: FileImage(.new(picture.path)),
+                          fit: .fitWidth,
                           frameBuilder:
                               (context, child, frame, wasSynchronouslyLoaded) {
                                 return frame != null
                                     ? SizedBox(
-                                        width: double.infinity,
+                                        width: .infinity,
                                         child: FittedBox(
-                                          clipBehavior: Clip.antiAlias,
-                                          fit: BoxFit.fitWidth,
+                                          clipBehavior: .antiAlias,
+                                          fit: .fitWidth,
                                           child: child,
                                         ),
                                       )
@@ -123,7 +121,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                               },
                         ),
                         checkedOutSuccess: (picture) => Padding(
-                          padding: const EdgeInsets.symmetric(
+                          padding: const .symmetric(
                             vertical: 16,
                             horizontal: 24,
                           ),
@@ -132,8 +130,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                             children: [
                               Expanded(
                                 child: Image(
-                                  image: FileImage(File(picture.path)),
-                                  fit: BoxFit.fitWidth,
+                                  image: FileImage(.new(picture.path)),
+                                  fit: .fitWidth,
                                   frameBuilder:
                                       (
                                         context,
@@ -143,15 +141,14 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                       ) {
                                         return frame != null
                                             ? Container(
-                                                clipBehavior: Clip.antiAlias,
+                                                clipBehavior: .antiAlias,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
+                                                  borderRadius: .circular(8),
                                                 ),
-                                                width: double.infinity,
+                                                width: .infinity,
                                                 child: FittedBox(
-                                                  clipBehavior: Clip.antiAlias,
-                                                  fit: BoxFit.fitWidth,
+                                                  clipBehavior: .antiAlias,
+                                                  fit: .fitWidth,
                                                   child: child,
                                                 ),
                                               )
@@ -166,8 +163,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                               ),
                               Expanded(
                                 child: Image(
-                                  image: FileImage(File(picture.path)),
-                                  fit: BoxFit.fitWidth,
+                                  image: FileImage(.new(picture.path)),
+                                  fit: .fitWidth,
                                   frameBuilder:
                                       (
                                         context,
@@ -177,15 +174,14 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                       ) {
                                         return frame != null
                                             ? Container(
-                                                clipBehavior: Clip.antiAlias,
+                                                clipBehavior: .antiAlias,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
+                                                  borderRadius: .circular(8),
                                                 ),
-                                                width: double.infinity,
+                                                width: .infinity,
                                                 child: FittedBox(
-                                                  clipBehavior: Clip.antiAlias,
-                                                  fit: BoxFit.fitWidth,
+                                                  clipBehavior: .antiAlias,
+                                                  fit: .fitWidth,
                                                   child: child,
                                                 ),
                                               )
@@ -208,7 +204,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                       checkedInSuccess: (_, vehicleType) => SizedBox(
                         height: 100,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: const .symmetric(horizontal: 24),
                           child: vehicleType == vehicleTypes[1]
                               ? AppCard(
                                   child: Center(
@@ -216,7 +212,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                       name: 'ticketNumber',
                                       hintText: context.tr('enterTicketNumber'),
                                       hasBorder: false,
-                                      textAlign: TextAlign.center,
+                                      textAlign: .center,
                                     ),
                                   ),
                                 )
@@ -228,13 +224,13 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                       ),
                       orElse: () => Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: const .symmetric(horizontal: 24),
                           child: TicketInfoCard(
                             licenseNumber: '29AB90175',
                             price: 4000,
                             ticketType: 'guest',
-                            timeIn: DateTime.now(),
-                            timeOut: DateTime.now(),
+                            timeIn: .now(),
+                            timeOut: .now(),
                             totalTime: 120,
                           ),
                         ),
@@ -242,24 +238,21 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 16,
-                        ),
+                        padding: const .symmetric(vertical: 16, horizontal: 16),
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: .center,
                               spacing: 12,
                               children: [
                                 AppButton(
                                   fitContent: true,
-                                  theme: AppButtonTheme.secondary,
+                                  theme: .secondary,
                                   onPressed: () => context
                                       .read<CheckInCubit>()
                                       .reset(context),
                                   shape: const CircleBorder(),
-                                  color: AppButtonColor.basic,
+                                  color: .basic,
                                   iconPath: AppIcons.rotateLeft,
                                 ),
                                 Expanded(

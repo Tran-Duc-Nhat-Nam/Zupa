@@ -13,7 +13,7 @@ part 'history_filter_state.dart';
 part 'history_filter_cubit.freezed.dart';
 
 class HistoryFilterCubit extends Cubit<HistoryFilterState> {
-  HistoryFilterCubit() : super(const HistoryFilterState.initial());
+  HistoryFilterCubit() : super(const .initial());
 
   List<VehicleType> types = [];
   Map<String, dynamic> Function()? _getFormValues;
@@ -23,10 +23,10 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
-        _debounce = Timer(const Duration(milliseconds: 500), () {
+        _debounce = .new(const .new(milliseconds: 500), () {
           log(query.toString());
           emit(
-            HistoryFilterState.loaded(filter: filter.copyWith(keyword: query)),
+            .loaded(filter: filter.copyWith(keyword: query)),
           ); // Emit the latest query after the debounce delay
         });
       },
@@ -39,13 +39,13 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
   ) async {
     types = vehicleTypes;
     _getFormValues = getFormValues;
-    emit(const HistoryFilterState.loading());
+    emit(const .loading());
   }
 
   void init(BuildContext context) async {
     state.whenOrNull(
-      loaded: (filter) => emit(HistoryFilterState.loaded(filter: filter)),
-      loading: () => emit(const HistoryFilterState.loaded()),
+      loaded: (filter) => emit(.loaded(filter: filter)),
+      loading: () => emit(const .loaded()),
     );
   }
 
@@ -58,9 +58,9 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
           keyword: values['keyword'],
           time: values['time'],
         );
-        emit(HistoryFilterState.filtering(filter: temp));
+        emit(.filtering(filter: temp));
         await fetchData(temp);
-        emit(HistoryFilterState.loaded(filter: temp));
+        emit(.loaded(filter: temp));
       },
     );
   }

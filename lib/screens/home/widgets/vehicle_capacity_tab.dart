@@ -22,10 +22,10 @@ class VehicleCapacityTab extends StatelessWidget {
             return Skeletonizer(
               enabled: state is Loading,
               child: AppCard(
-                padding: const EdgeInsets.all(16),
+                padding: const .all(16),
                 child: Row(
                   spacing: 16,
-                  children: List.generate(
+                  children: .generate(
                     types.length,
                     (index) => Expanded(
                       child: VehicleCapacityCard(
@@ -35,8 +35,10 @@ class VehicleCapacityTab extends StatelessWidget {
                         capacity: 120,
                         isDisabled: state is Loading || state is Filtering,
                         isSelected: state.maybeWhen(
-                          loaded: (filter) => filter.type?.value == types[index].value,
-                          filtering: (filter) => filter.type?.value == types[index].value,
+                          loaded: (filter) =>
+                              filter.type?.value == types[index].value,
+                          filtering: (filter) =>
+                              filter.type?.value == types[index].value,
                           orElse: () => false,
                         ),
                         onPressed: () {

@@ -26,35 +26,32 @@ class TicketInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: .infinity,
       decoration: BoxDecoration(
         color: ThemeHelper.getColor(context).white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: .circular(8),
       ),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(4),
-            child: Text(licenseNumber ?? 'N/A'),
-          ),
+          Padding(padding: const .all(4), child: Text(licenseNumber ?? 'N/A')),
           Container(
             height: 1,
-            width: double.infinity,
+            width: .infinity,
             color: ThemeHelper.getColor(context).grey300,
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
+              padding: const .symmetric(vertical: 6),
               child: IntrinsicHeight(
                 child: Row(
                   children: [
                     Expanded(
                       flex: 3,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const .symmetric(horizontal: 16),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: .start,
+                          mainAxisAlignment: .center,
                           children: [
                             Text(
                               Jiffy.parseFromDateTime(
@@ -75,13 +72,13 @@ class TicketInfoCard extends StatelessWidget {
                               ),
                               Container(
                                 height: 1,
-                                margin: const EdgeInsets.symmetric(vertical: 4),
-                                width: double.infinity,
+                                margin: const .symmetric(vertical: 4),
+                                width: .infinity,
                                 color: ThemeHelper.getColor(context).grey200,
                               ),
                               Text(
                                 context.plural('totalTime', totalTime!),
-                                overflow: TextOverflow.fade,
+                                overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,
                                 ),
@@ -97,9 +94,9 @@ class TicketInfoCard extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const .symmetric(horizontal: 16),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: .center,
                           children: [
                             Text(
                               context.tr(ticketType),

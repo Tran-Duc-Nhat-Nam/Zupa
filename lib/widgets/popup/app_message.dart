@@ -13,8 +13,11 @@ abstract class AppMessage {
     if (context != null) {
       toast.init(context);
     } else if (toast.context == null &&
-        RouterHelper.router.routerDelegate.navigatorKey.currentContext != null) {
-      toast.init(RouterHelper.router.routerDelegate.navigatorKey.currentContext!);
+        RouterHelper.router.routerDelegate.navigatorKey.currentContext !=
+            null) {
+      toast.init(
+        RouterHelper.router.routerDelegate.navigatorKey.currentContext!,
+      );
     }
     return toast;
   }
@@ -27,7 +30,7 @@ abstract class AppMessage {
   ) {
     getToast(context).showToast(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: .spaceBetween,
         children: [
           AppIcon(path: iconPath, color: color),
           Text(
@@ -44,24 +47,22 @@ abstract class AppMessage {
         ],
       ),
       isDismissible: true,
-      gravity: ToastGravity.TOP,
+      gravity: .TOP,
       positionedToastBuilder: (context, child, gravity) => Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: .symmetric(
               vertical: MediaQuery.of(context).padding.top + 8,
               horizontal: 24,
             ),
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const .symmetric(vertical: 8, horizontal: 16),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: ThemeHelper.getColor(context).grey200,
-                ),
-                borderRadius: BorderRadius.circular(6),
+                border: .all(color: ThemeHelper.getColor(context).grey200),
+                borderRadius: .circular(6),
                 color: ThemeHelper.getColor(context).white,
                 boxShadow: const [
-                  BoxShadow(
+                  .new(
                     color: Color(0x0C0C0D0D),
                     offset: Offset(0, 1),
                     blurRadius: 4,

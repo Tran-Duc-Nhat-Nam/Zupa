@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
@@ -7,120 +6,120 @@ class AppTextStyles {
 
   // Define the base style once to reduce repetitive calls to GoogleFonts.inter()
   // and improve readability when defining derived styles.
-  static final TextStyle _baseTextStyle = GoogleFonts.inter();
+  static final _baseTextStyle = GoogleFonts.inter();
 
   // Headings (W700)
-  static final TextStyle heading1 = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final heading1 = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 48,
   );
 
-  static final TextStyle heading2 = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final heading2 = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 40,
   );
 
-  static final TextStyle heading3 = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final heading3 = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 28,
   );
 
-  static final TextStyle heading4 = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final heading4 = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 24,
   );
 
-  static final TextStyle heading5 = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final heading5 = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 20,
   );
 
-  static final TextStyle heading6 = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final heading6 = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 16,
   );
 
   // Body X-Large (18)
-  static final TextStyle bodyXLargeBold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final bodyXLargeBold = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 18,
   );
 
-  static final TextStyle bodyXLargeSemibold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w600,
+  static final bodyXLargeSemibold = _baseTextStyle.copyWith(
+    fontWeight: .w600,
     fontSize: 18,
   );
 
-  static final TextStyle bodyXLargeMedium = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w500,
+  static final bodyXLargeMedium = _baseTextStyle.copyWith(
+    fontWeight: .w500,
     fontSize: 18,
   );
 
-  static final TextStyle bodyXLargeRegular = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w400,
+  static final bodyXLargeRegular = _baseTextStyle.copyWith(
+    fontWeight: .w400,
     fontSize: 18,
   );
 
   // Body Large (16)
-  static final TextStyle bodyLargeBold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final bodyLargeBold = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 16,
   );
 
-  static final TextStyle bodyLargeSemibold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w600,
+  static final bodyLargeSemibold = _baseTextStyle.copyWith(
+    fontWeight: .w600,
     fontSize: 16,
   );
 
-  static final TextStyle bodyLargeMedium = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w500,
+  static final bodyLargeMedium = _baseTextStyle.copyWith(
+    fontWeight: .w500,
     fontSize: 16,
   );
 
-  static final TextStyle bodyLargeRegular = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w400,
+  static final bodyLargeRegular = _baseTextStyle.copyWith(
+    fontWeight: .w400,
     fontSize: 16,
   );
 
   // Body Medium (14)
-  static final TextStyle bodyMediumBold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final bodyMediumBold = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 14,
   );
 
-  static final TextStyle bodyMediumSemibold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w600,
+  static final bodyMediumSemibold = _baseTextStyle.copyWith(
+    fontWeight: .w600,
     fontSize: 14,
   );
 
-  static final TextStyle bodyMediumMedium = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w500,
+  static final bodyMediumMedium = _baseTextStyle.copyWith(
+    fontWeight: .w500,
     fontSize: 14,
   );
 
-  static final TextStyle bodyMediumRegular = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w400,
+  static final bodyMediumRegular = _baseTextStyle.copyWith(
+    fontWeight: .w400,
     fontSize: 14,
   );
 
   // Body Small (12)
-  static final TextStyle bodySmallBold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w700,
+  static final bodySmallBold = _baseTextStyle.copyWith(
+    fontWeight: .w700,
     fontSize: 12,
   );
 
-  static final TextStyle bodySmallSemibold = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w600,
+  static final bodySmallSemibold = _baseTextStyle.copyWith(
+    fontWeight: .w600,
     fontSize: 12,
   );
 
-  static final TextStyle bodySmallMedium = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w500,
+  static final bodySmallMedium = _baseTextStyle.copyWith(
+    fontWeight: .w500,
     fontSize: 12,
   );
 
-  static final TextStyle bodySmallRegular = _baseTextStyle.copyWith(
-    fontWeight: FontWeight.w400,
+  static final bodySmallRegular = _baseTextStyle.copyWith(
+    fontWeight: .w400,
     fontSize: 12,
   );
 }

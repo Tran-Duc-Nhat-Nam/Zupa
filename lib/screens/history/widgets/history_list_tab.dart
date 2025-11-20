@@ -20,7 +20,7 @@ class HistoryListTab extends StatelessWidget {
           refreshing: (state) => state.tickets,
           loadingMore: (state) => state.tickets,
         );
-        final RefreshController refreshController = RefreshController();
+        final refreshController = RefreshController();
         return Skeletonizer(
           enabled: state is Loading,
           child: SmartRefresher(
@@ -41,19 +41,15 @@ class HistoryListTab extends StatelessWidget {
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (c, i) => Padding(
-                padding: EdgeInsets.only(
-                  top: i == 0 ? 16 : 0,
-                  left: 24,
-                  right: 24,
-                ),
+                padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
                 child: HistoryListSection(
                   tickets:
                       items ??
-                      List.generate(
+                      .generate(
                         10,
                         (index) => Ticket(
                           id: 'Placeholder',
-                          timeIn: DateTime.now(),
+                          timeIn: .now(),
                           siteId: 'A much Longer placeholder',
                           type: vehicleTypes.first,
                         ),

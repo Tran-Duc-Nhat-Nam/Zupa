@@ -20,7 +20,7 @@ class ApiHelper {
       Dio(
           BaseOptions(
             baseUrl: Environment.restApiUrl,
-            connectTimeout: const Duration(seconds: 30),
+            connectTimeout: const .new(seconds: 30),
           ),
         )
         ..interceptors.add(AuthInterceptor())

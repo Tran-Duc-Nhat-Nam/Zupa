@@ -7,7 +7,6 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import '../../../bloc/revenue/list/revenue_list_cubit.dart';
 import '../../../common/constants/vehicle_types.dart';
 import '../../../data/model/revenue/daily/daily_revenue.dart';
-import '../../../data/model/revenue/revenue.dart';
 import '../../../widgets/app_card.dart';
 
 import '../../../helper/theme/theme_helper.dart';
@@ -30,15 +29,13 @@ class RevenueListTab extends StatelessWidget {
         return Skeletonizer(
           enabled: state is Loading,
           child: Container(
-            clipBehavior: Clip.antiAlias,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            clipBehavior: .antiAlias,
+            margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: ThemeHelper.getColor(context).white,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
+              borderRadius: const .vertical(top: .circular(16)),
               boxShadow: const [
-                BoxShadow(
+                .new(
                   color: Color(0x0C0C0D0D),
                   offset: Offset(0, 1),
                   blurRadius: 4,
@@ -46,7 +43,7 @@ class RevenueListTab extends StatelessWidget {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+              padding: const .only(left: 24, right: 24, top: 16),
               child: Column(
                 spacing: 10,
                 children: [
@@ -73,19 +70,19 @@ class RevenueListTab extends StatelessWidget {
                             const SizedBox(height: 10),
                         itemBuilder: (c, i) => RevenueTitle(
                           revenue: DailyRevenue(
-                            date: DateTime.now(),
+                            date: .now(),
                             revenue: [
-                              Revenue(
+                              .new(
                                 vehicleType: vehicleTypes[0],
                                 pass: 32,
                                 revenue: 202000,
                               ),
-                              Revenue(
+                              .new(
                                 vehicleType: vehicleTypes[1],
                                 pass: 10,
                                 revenue: 100000,
                               ),
-                              Revenue(
+                              .new(
                                 vehicleType: vehicleTypes[2],
                                 pass: 12,
                                 revenue: 510000,
@@ -116,36 +113,36 @@ class RevenueTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
+      padding: .zero,
+      clipBehavior: .antiAlias,
+      decoration: .new(
         color: ThemeHelper.getColor(context).primary100,
-        borderRadius: const BorderRadius.all(Radius.circular(6)),
-        border: Border.all(color: ThemeHelper.getColor(context).grey100),
+        borderRadius: const .all(.circular(6)),
+        border: .all(color: ThemeHelper.getColor(context).grey100),
       ),
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const .symmetric(horizontal: 6),
             child: Text(revenue.date.day.toString()),
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const .symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: ThemeHelper.getColor(context).white,
-                borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(6),
-                  topRight: Radius.circular(6),
+                borderRadius: const .only(
+                  bottomRight: .circular(6),
+                  topRight: .circular(6),
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: .spaceBetween,
                 children: [
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: .start,
+                      mainAxisAlignment: .center,
                       children: [
                         ...revenue.revenue.map(
                           (e) => Text(
@@ -166,8 +163,8 @@ class RevenueTitle extends StatelessWidget {
                   ),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: .end,
+                      mainAxisAlignment: .center,
                       children: [
                         ...revenue.revenue.map(
                           (e) => Text(
@@ -188,8 +185,8 @@ class RevenueTitle extends StatelessWidget {
                   ),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: .end,
+                      mainAxisAlignment: .center,
                       children: [
                         ...revenue.revenue.map(
                           (e) => Text(

@@ -7,34 +7,34 @@ part 'scanner_state.dart';
 part 'scanner_cubit.freezed.dart';
 
 class ScannerCubit extends Cubit<ScannerState> {
-  ScannerCubit() : super(const ScannerState.initial());
+  ScannerCubit() : super(const .initial());
 
   Future<void> init() async {
     if (await NfcManager.instance.checkAvailability() ==
         NfcAvailability.enabled) {
       await NfcManager.instance.startSession(
         onDiscovered: (NfcTag tag) async {
-          final MifareClassicAndroid? data = MifareClassicAndroid.from(tag);
+          final MifareClassicAndroid? data = .from(tag);
           if (data == null) {
-            emit(const ScannerState.scanFailed('Cannot get data!'));
+            emit(const .scanFailed('Cannot get data!'));
           } else {
-            emit(ScannerState.scanSuccess({'data': data}));
+            emit(.scanSuccess({'data': data}));
           }
         },
-        pollingOptions: {NfcPollingOption.iso14443},
+        pollingOptions: {.iso14443},
       );
-      emit(const ScannerState.loaded());
+      emit(const .loaded());
     } else {
-      emit(const ScannerState.failed());
+      emit(const .failed());
     }
   }
 
   Future<void> reset() async {
     if (await NfcManager.instance.checkAvailability() ==
         NfcAvailability.enabled) {
-      emit(const ScannerState.loaded());
+      emit(const .loaded());
     } else {
-      emit(const ScannerState.failed());
+      emit(const .failed());
     }
   }
 }

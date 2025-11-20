@@ -82,8 +82,8 @@ class _AppTextFieldState extends State<AppTextField> {
     }
 
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: .min,
+      crossAxisAlignment: .start,
       spacing: 8,
       children: [
         if (widget.isExternalLabel)
@@ -99,17 +99,17 @@ class _AppTextFieldState extends State<AppTextField> {
           validator: FormBuilderValidators.compose(validators),
           obscureText: isPasswordVisible,
           initialValue: widget.initialValue,
-          textAlign: widget.textAlign ?? TextAlign.start,
+          textAlign: widget.textAlign ?? .start,
           style: AppTextStyles.bodyMediumRegular.copyWith(
             color: ThemeHelper.getColor(context).grey500,
           ),
-          textInputAction: TextInputAction.next,
+          textInputAction: .next,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
-          decoration: InputDecoration(
+          decoration: .new(
             prefixIcon: widget.prefix != null || widget.prefixIconPath != null
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 12),
+                    padding: const .only(left: 12),
                     child:
                         widget.prefix ??
                         AppIcon(
@@ -119,10 +119,7 @@ class _AppTextFieldState extends State<AppTextField> {
                         ),
                   )
                 : null,
-            prefixIconConstraints: const BoxConstraints(
-              maxHeight: 20,
-              minWidth: 20,
-            ),
+            prefixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
             suffix: widget.suffix != null || widget.suffixIconPath != null
                 ? widget.suffix ??
                       AppIcon(
@@ -147,55 +144,51 @@ class _AppTextFieldState extends State<AppTextField> {
             fillColor: ThemeHelper.getColor(context).white,
             errorBorder: widget.hasBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(
+                    borderRadius: .circular(8),
+                    borderSide: .new(
                       color: ThemeHelper.getColor(context).error600,
                     ),
                   )
-                : const OutlineInputBorder(borderSide: BorderSide.none),
+                : const OutlineInputBorder(borderSide: .none),
             enabledBorder: widget.hasBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(
+                    borderRadius: .circular(8),
+                    borderSide: .new(
                       color: ThemeHelper.getColor(context).grey100,
                     ),
                   )
-                : const OutlineInputBorder(borderSide: BorderSide.none),
+                : const OutlineInputBorder(borderSide: .none),
             focusedErrorBorder: widget.hasBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(
+                    borderRadius: .circular(8),
+                    borderSide: .new(
                       color: ThemeHelper.getColor(context).error600,
                     ),
                   )
-                : const OutlineInputBorder(borderSide: BorderSide.none),
+                : const OutlineInputBorder(borderSide: .none),
             focusedBorder: widget.hasBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(
+                    borderRadius: .circular(8),
+                    borderSide: .new(
                       color: ThemeHelper.getColor(context).grey200,
                     ),
                   )
-                : const OutlineInputBorder(borderSide: BorderSide.none),
-            prefix: const Padding(padding: EdgeInsets.only(left: 16.0)),
-            suffixIconConstraints: const BoxConstraints(
-              minHeight: 20,
-              minWidth: 20,
-            ),
+                : const OutlineInputBorder(borderSide: .none),
+            prefix: const Padding(padding: .only(left: 16.0)),
+            suffixIconConstraints: const .new(minHeight: 20, minWidth: 20),
             suffixIcon: widget.isPassword || widget.isPasswordConfirm
                 ? IconButton(
                     iconSize: 20,
-                    padding: const EdgeInsets.all(8),
-                    constraints: const BoxConstraints(),
+                    padding: const .all(8),
+                    constraints: const .new(),
                     icon: Icon(
                       !isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
                       size: 20,
                     ),
-                    style: const ButtonStyle(
-                      tapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap, // the '2023' part
+                    style: const .new(
+                      tapTargetSize: .shrinkWrap, // the '2023' part
                     ),
                     onPressed: () {
                       setState(() {
@@ -206,8 +199,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 : null,
             isDense: true,
             contentPadding:
-                widget.contentPadding ??
-                const EdgeInsets.symmetric(vertical: 12),
+                widget.contentPadding ?? const .symmetric(vertical: 12),
           ),
         ),
       ],

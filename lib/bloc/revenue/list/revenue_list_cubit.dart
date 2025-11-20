@@ -4,36 +4,31 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/api/ticket/ticket_api.dart';
 import '../../../data/model/revenue/daily/daily_revenue.dart';
-import '../../../data/request/request.dart';
 import '../../../helper/api/api_helper.dart';
 
 part 'revenue_list_state.dart';
 part 'revenue_list_cubit.freezed.dart';
 
 class RevenueListCubit extends Cubit<RevenueListState> {
-  RevenueListCubit() : super(const RevenueListState.initial());
+  RevenueListCubit() : super(const .initial());
 
   Future<void> init(BuildContext context) async {
-    emit(const RevenueListState.loading());
-    await Future.delayed(const Duration(seconds: 2));
+    emit(const .loading());
+    await Future.delayed(const .new(seconds: 2));
     if (context.mounted) {
       await ApiHelper.callAPI(
         context: context,
-        apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
+        apiFunction: (dio) => StaffAPI(dio).getList(const .new()),
         onSuccess: (response) {
           final items = (response.data.data as List<dynamic>)
-              .map((item) => DailyRevenue(date: DateTime.now()))
+              .map((item) => DailyRevenue(date: .now()))
               .toList();
-          emit(
-            items.isEmpty
-                ? const RevenueListState.empty()
-                : RevenueListState.loaded(items, 0),
-          );
+          emit(items.isEmpty ? const .empty() : .loaded(items, 0));
         },
-        onFailed: (response) => emit(RevenueListState.failed(response.message)),
+        onFailed: (response) => emit(.failed(response.message)),
       );
     } else {
-      emit(const RevenueListState.initial());
+      emit(const .initial());
     }
   }
 
@@ -46,24 +41,20 @@ class RevenueListCubit extends Cubit<RevenueListState> {
       loaded: (params) => [...params.revenue],
       orElse: () => [],
     );
-    emit(RevenueListState.refreshing(items));
+    emit(.refreshing(items));
     await ApiHelper.callAPI(
       context: context,
-      apiFunction: (dio) => StaffAPI(dio).getList(const Request()),
+      apiFunction: (dio) => StaffAPI(dio).getList(const .new()),
       onSuccess: (response) {
         final items = (response.data.data as List<dynamic>)
-            .map((item) => DailyRevenue(date: DateTime.now()))
+            .map((item) => DailyRevenue(date: .now()))
             .toList();
         onSuccess();
-        emit(
-          items.isEmpty
-              ? const RevenueListState.empty()
-              : RevenueListState.loaded(items, 0),
-        );
+        emit(items.isEmpty ? const .empty() : .loaded(items, 0));
       },
       onFailed: (response) {
         onFailed();
-        emit(RevenueListState.failed(response.message));
+        emit(.failed(response.message));
       },
     );
   }
@@ -82,14 +73,14 @@ class RevenueListCubit extends Cubit<RevenueListState> {
       loaded: (params) => params.pageIndex,
       orElse: () => 1,
     );
-    emit(RevenueListState.loadingMore(items));
+    emit(.loadingMore(items));
     await ApiHelper.callAPI(
       context: context,
-      apiFunction: (dio) => StaffAPI(dio).getList(Request(page: pageIndex)),
+      apiFunction: (dio) => StaffAPI(dio).getList(.new(page: pageIndex)),
       onSuccess: (response) {
         final List<DailyRevenue> newItems =
             (response.data.data as List<dynamic>)
-                .map((item) => DailyRevenue(date: DateTime.now()))
+                .map((item) => DailyRevenue(date: .now()))
                 .toList();
         items.addAll(newItems);
         if (newItems.isEmpty) {
@@ -97,11 +88,11 @@ class RevenueListCubit extends Cubit<RevenueListState> {
         } else {
           onSuccess();
         }
-        emit(RevenueListState.loaded(items, pageIndex));
+        emit(.loaded(items, pageIndex));
       },
       onFailed: (response) {
         onFailed();
-        emit(RevenueListState.failed(response.message));
+        emit(.failed(response.message));
       },
     );
   }

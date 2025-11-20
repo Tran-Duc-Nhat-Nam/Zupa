@@ -12,30 +12,30 @@ part 'theme_cubit.freezed.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit()
-      : super(ThemeState.initial(
-            PlatformDispatcher.instance.platformBrightness == Brightness.light
-                ? appTheme
-                : appDarkTheme));
+    : super(
+        .initial(
+          PlatformDispatcher.instance.platformBrightness == .light
+              ? appTheme
+              : appDarkTheme,
+        ),
+      );
 
   Future<void> loadTheme(BuildContext context) async {
-    emit(ThemeState.initial(
-        await ThemeHelper.getTheme() ? appDarkTheme : appTheme));
+    emit(.initial(await ThemeHelper.getTheme() ? appDarkTheme : appTheme));
   }
 
   void changeTheme(ThemeData theme) {
-    ThemeHelper.setTheme(theme.brightness == Brightness.dark);
-    emit(ThemeState.initial(theme));
+    ThemeHelper.setTheme(theme.brightness == .dark);
+    emit(.initial(theme));
   }
 
   void changeBrightness(Brightness? brightness) {
     ThemeHelper.setTheme(
-      (brightness ?? PlatformDispatcher.instance.platformBrightness) ==
-          Brightness.dark,
+      (brightness ?? PlatformDispatcher.instance.platformBrightness) == .dark,
     );
     emit(
-      ThemeState.initial(
-        (brightness ?? PlatformDispatcher.instance.platformBrightness) ==
-                Brightness.dark
+      .initial(
+        (brightness ?? PlatformDispatcher.instance.platformBrightness) == .dark
             ? appDarkTheme
             : appTheme,
       ),

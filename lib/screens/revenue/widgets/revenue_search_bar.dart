@@ -21,7 +21,7 @@ class RevenueSearchBar extends StatelessWidget {
       children: [
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: .start,
             children: [
               Row(
                 children: [
@@ -41,8 +41,8 @@ class RevenueSearchBar extends StatelessWidget {
           ),
         ),
         Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+          clipBehavior: .antiAlias,
+          decoration: BoxDecoration(borderRadius: .circular(8)),
           child: Skeleton.replace(
             width: 44,
             height: 44,
@@ -53,8 +53,8 @@ class RevenueSearchBar extends StatelessWidget {
                 child: AppButton(
                   fitContent: true,
                   theme: AppButtonTheme.outline,
-                  padding: const EdgeInsets.all(8),
-                  radius: BorderRadius.circular(8),
+                  padding: const .all(8),
+                  radius: .circular(8),
                   color: AppButtonColor.basic,
                   icon: AppIcon(
                     path: AppIcons.filter,
@@ -64,88 +64,80 @@ class RevenueSearchBar extends StatelessWidget {
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
-                      builder:
-                          (context) => Padding(
-                            padding: const EdgeInsets.only(
-                              top: 24,
-                              bottom: 48,
-                              left: 24,
-                              right: 24,
+                      builder: (context) => Padding(
+                        padding: const .only(
+                          top: 24,
+                          bottom: 48,
+                          left: 24,
+                          right: 24,
+                        ),
+                        child: Column(
+                          spacing: 16,
+                          mainAxisSize: .min,
+                          crossAxisAlignment: .start,
+                          children: [
+                            Center(
+                              child: Text(
+                                context.tr('filter'),
+                                style: AppTextStyles.bodySmallSemibold.copyWith(
+                                  color: ThemeHelper.getColor(context).grey600,
+                                ),
+                              ),
                             ),
-                            child: Column(
-                              spacing: 16,
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
+                              mainAxisAlignment: .spaceBetween,
                               children: [
-                                Center(
-                                  child: Text(
-                                    context.tr('filter'),
-                                    style: AppTextStyles.bodySmallSemibold
-                                        .copyWith(
-                                          color:
-                                              ThemeHelper.getColor(
-                                                context,
-                                              ).grey600,
-                                        ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.tr('time'),
-                                      style: AppTextStyles.bodyMediumSemibold
-                                          .copyWith(
-                                            color:
-                                                ThemeHelper.getColor(
-                                                  context,
-                                                ).grey700,
-                                          ),
-                                    ),
-                                    Text(
-                                      context.tr('reset'),
-                                      style: AppTextStyles.bodyMediumSemibold
-                                          .copyWith(
-                                            color:
-                                                ThemeHelper.getColor(
-                                                  context,
-                                                ).primary500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  spacing: 12,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(context.tr('date')),
-                                    const AppDateTimePicker(name: 'dateTime'),
-                                  ],
-                                ),
-                                const Divider(),
-                                Row(
-                                  spacing: 16,
-                                  children: [
-                                    Expanded(
-                                      child: AppButton(
-                                        color: AppButtonColor.basic,
-                                        theme: AppButtonTheme.outline,
-                                        onPressed: () => context.pop(),
-                                        text: context.tr('cancel'),
+                                Text(
+                                  context.tr('time'),
+                                  style: AppTextStyles.bodyMediumSemibold
+                                      .copyWith(
+                                        color: ThemeHelper.getColor(
+                                          context,
+                                        ).grey700,
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: AppButton(
-                                        onPressed: () => context.pop(),
-                                        text: context.tr('apply'),
+                                ),
+                                Text(
+                                  context.tr('reset'),
+                                  style: AppTextStyles.bodyMediumSemibold
+                                      .copyWith(
+                                        color: ThemeHelper.getColor(
+                                          context,
+                                        ).primary500,
                                       ),
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),
-                          ),
+                            Column(
+                              spacing: 12,
+                              crossAxisAlignment: .start,
+                              children: [
+                                Text(context.tr('date')),
+                                const AppDateTimePicker(name: 'dateTime'),
+                              ],
+                            ),
+                            const Divider(),
+                            Row(
+                              spacing: 16,
+                              children: [
+                                Expanded(
+                                  child: AppButton(
+                                    color: AppButtonColor.basic,
+                                    theme: AppButtonTheme.outline,
+                                    onPressed: () => context.pop(),
+                                    text: context.tr('cancel'),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: AppButton(
+                                    onPressed: () => context.pop(),
+                                    text: context.tr('apply'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                       useRootNavigator: true,
                     );
                   },

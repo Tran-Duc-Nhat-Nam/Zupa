@@ -17,7 +17,8 @@ class AppButton extends StatelessWidget {
     this.color = AppButtonColor.info,
     this.radius,
     this.shape,
-    this.iconPath, this.height,
+    this.iconPath,
+    this.height,
   });
 
   final void Function()? onPressed;
@@ -115,32 +116,30 @@ class AppButton extends StatelessWidget {
         disabledColor: disabledColor,
         color: backgroundColor,
         splashColor: splashColor,
-        padding: padding ?? const EdgeInsets.all(10),
-        shape: shape ??
+        padding: padding ?? const .all(10),
+        shape:
+            shape ??
             RoundedRectangleBorder(
-              borderRadius: radius ?? BorderRadius.circular(56),
+              borderRadius: radius ?? .circular(56),
               side: BorderSide(color: borderColor ?? Colors.transparent),
             ),
         elevation: elevation,
-        minWidth: fitContent ? null : double.infinity,
-        child: child ??
+        minWidth: fitContent ? null : .infinity,
+        child:
+            child ??
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: .center,
               spacing: 8,
               children: [
                 if (icon != null || iconPath != null)
-                  icon ??
-                      AppIcon(
-                        path: iconPath!,
-                        color: foregroundColor,
-                      ),
+                  icon ?? AppIcon(path: iconPath!, color: foregroundColor),
                 if (text != null)
                   Text(
                     text!,
                     style: AppTextStyles.bodyLargeSemibold.copyWith(
                       color: foregroundColor,
                     ),
-                  )
+                  ),
               ],
             ),
       ),
@@ -149,4 +148,5 @@ class AppButton extends StatelessWidget {
 }
 
 enum AppButtonTheme { primary, secondary, outline }
-enum AppButtonColor { basic, info, success, warning, error}
+
+enum AppButtonColor { basic, info, success, warning, error }

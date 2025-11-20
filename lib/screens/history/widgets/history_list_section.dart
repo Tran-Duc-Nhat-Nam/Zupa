@@ -7,27 +7,23 @@ import '../../../common/styles/text_styles.dart';
 import 'history_title.dart';
 
 class HistoryListSection extends StatelessWidget {
-  const HistoryListSection({
-    super.key,
-    this.tickets = const [],
-  });
+  const HistoryListSection({super.key, this.tickets = const []});
 
   final List<Ticket> tickets;
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: .min,
+      crossAxisAlignment: .start,
       spacing: 6,
       children: [
         Text(
-          DateTimeConverter.toDate(DateTime.now()),
-          style: AppTextStyles.bodyMediumSemibold
-              .copyWith(color: ThemeHelper.getColor(context).grey900),
+          DateTimeConverter.toDate(.now()),
+          style: AppTextStyles.bodyMediumSemibold.copyWith(
+            color: ThemeHelper.getColor(context).grey900,
+          ),
         ),
-        ...tickets.map(
-          (ticket) => HistoryTitle(ticket: ticket),
-        )
+        ...tickets.map((ticket) => HistoryTitle(ticket: ticket)),
       ],
     );
   }

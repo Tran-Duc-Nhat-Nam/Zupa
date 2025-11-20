@@ -37,9 +37,9 @@ class HomeSearchBar extends StatelessWidget {
                 ),
               ),
               Container(
-                clipBehavior: Clip.antiAlias,
+                clipBehavior: .antiAlias,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: .circular(8),
                 ),
                 child: Skeleton.replace(
                   width: 44,
@@ -51,8 +51,8 @@ class HomeSearchBar extends StatelessWidget {
                       child: AppButton(
                         fitContent: true,
                         theme: AppButtonTheme.outline,
-                        padding: const EdgeInsets.all(8),
-                        radius: BorderRadius.circular(8),
+                        padding: const .all(8),
+                        radius: .circular(8),
                         color: AppButtonColor.basic,
                         icon: AppIcon(
                           path: AppIcons.filter,
@@ -64,7 +64,7 @@ class HomeSearchBar extends StatelessWidget {
                             context: context,
                             builder: (context) =>
                                 Padding(
-                                  padding: const EdgeInsets.only(
+                                  padding: const .only(
                                     top: 24,
                                     bottom: 48,
                                     left: 24,
@@ -72,8 +72,8 @@ class HomeSearchBar extends StatelessWidget {
                                   ),
                                   child: Column(
                                     spacing: 16,
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: .min,
+                                    crossAxisAlignment: .start,
                                     children: [
                                       Center(
                                         child: Text(
@@ -87,7 +87,7 @@ class HomeSearchBar extends StatelessWidget {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        .spaceBetween,
                                         children: [
                                           Text(
                                             context.tr('time'),
@@ -110,7 +110,7 @@ class HomeSearchBar extends StatelessWidget {
                                       Column(
                                         spacing: 12,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        .start,
                                         children: [
                                           Text(
                                             context.tr('date'),
@@ -126,8 +126,8 @@ class HomeSearchBar extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: AppButton(
-                                              color: AppButtonColor.basic,
-                                              theme: AppButtonTheme.outline,
+                                              color: .basic,
+                                              theme: .outline,
                                               onPressed: () => context.pop(),
                                               text: context.tr('cancel'),
                                             ),

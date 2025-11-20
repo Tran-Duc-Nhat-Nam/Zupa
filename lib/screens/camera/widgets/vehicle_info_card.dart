@@ -17,15 +17,15 @@ class VehicleInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: .infinity,
       decoration: BoxDecoration(
         color: ThemeHelper.getColor(context).white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: .circular(8),
       ),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const .all(10),
             child: Text(
               context.tr(
                 'ticketNumber',
@@ -38,11 +38,11 @@ class VehicleInfoCard extends StatelessWidget {
           ),
           Container(
             height: 1,
-            width: double.infinity,
+            width: .infinity,
             color: ThemeHelper.getColor(context).grey300,
           ),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const .all(8),
             child: Text(
               context.tr(
                 'ticketNumber',

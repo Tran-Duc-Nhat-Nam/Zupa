@@ -36,7 +36,7 @@ class AppListTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: padding ?? const EdgeInsets.symmetric(vertical: 12),
+        padding: padding ?? const .symmetric(vertical: 12),
         child: Row(
           spacing: 12,
           children: [
@@ -44,24 +44,27 @@ class AppListTile extends StatelessWidget {
               leading ??
                   AppIcon(
                     path: leadingIconPath!,
-                    color: leadingColor ?? ThemeHelper.getColor(context).grey500,
+                    color:
+                        leadingColor ?? ThemeHelper.getColor(context).grey500,
                   ),
             Expanded(
               child: text != null || content != null
                   ? content ??
-                      Text(
-                        text!,
-                        style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: color ?? ThemeHelper.getColor(context).grey700,
-                        ),
-                      )
+                        Text(
+                          text!,
+                          style: AppTextStyles.bodyMediumMedium.copyWith(
+                            color:
+                                color ?? ThemeHelper.getColor(context).grey700,
+                          ),
+                        )
                   : const SizedBox(),
             ),
             if (trailing != null || trailingIconPath != null)
               trailing ??
                   AppIcon(
                     path: trailingIconPath!,
-                    color: trailingColor ?? ThemeHelper.getColor(context).grey500,
+                    color:
+                        trailingColor ?? ThemeHelper.getColor(context).grey500,
                   ),
           ],
         ),

@@ -32,44 +32,47 @@ class VehicleCapacityCard extends StatelessWidget {
     return InkWell(
       onTap: isDisabled ? null : onPressed,
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 350),
+        duration: const .new(milliseconds: 350),
         opacity: isDisabled ? 0.5 : 1,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const .symmetric(vertical: 10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: isSelected ? ThemeHelper.getColor(context).primary400 : Theme.of(context).colorScheme.secondaryContainer,
+            borderRadius: .circular(6),
+            color: isSelected
+                ? ThemeHelper.getColor(context).primary400
+                : Theme.of(context).colorScheme.secondaryContainer,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: .spaceAround,
             children: [
               Column(
                 children: [
                   Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
+                    clipBehavior: .antiAlias,
+                    decoration: BoxDecoration(borderRadius: .circular(6)),
                     child: Skeleton.replace(
                       width: 36,
                       height: 36,
                       child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const .all(6),
                         decoration: BoxDecoration(
-                          color: isSelected ? ThemeHelper.getColor(context).blueDark : ThemeHelper.getColor(context).primary100,
+                          color: isSelected
+                              ? ThemeHelper.getColor(context).blueDark
+                              : ThemeHelper.getColor(context).primary100,
                         ),
                         child: AppIcon(
                           path: iconPath,
                           size: 24,
-                          color:
-                              isSelected ? ThemeHelper.getColor(context).primary50 : ThemeHelper.getColor(context).primary500,
+                          color: isSelected
+                              ? ThemeHelper.getColor(context).primary50
+                              : ThemeHelper.getColor(context).primary500,
                         ),
                       ),
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: .end,
+                    crossAxisAlignment: .end,
                     children: [
                       Text(
                         current.toString(),
@@ -77,8 +80,8 @@ class VehicleCapacityCard extends StatelessWidget {
                           color: isWarning
                               ? ThemeHelper.getColor(context).error600
                               : isSelected
-                                  ? ThemeHelper.getColor(context).white
-                                  : ThemeHelper.getColor(context).grey700,
+                              ? ThemeHelper.getColor(context).white
+                              : ThemeHelper.getColor(context).grey700,
                         ),
                       ),
                       if (capacity != null) ...[
@@ -88,14 +91,16 @@ class VehicleCapacityCard extends StatelessWidget {
                             color: isWarning
                                 ? ThemeHelper.getColor(context).error600
                                 : isSelected
-                                    ? ThemeHelper.getColor(context).white
-                                    : ThemeHelper.getColor(context).grey700,
+                                ? ThemeHelper.getColor(context).white
+                                : ThemeHelper.getColor(context).grey700,
                           ),
                         ),
                         Text(
                           capacity.toString(),
                           style: AppTextStyles.bodyMediumMedium.copyWith(
-                            color: isSelected ? ThemeHelper.getColor(context).white : ThemeHelper.getColor(context).grey700,
+                            color: isSelected
+                                ? ThemeHelper.getColor(context).white
+                                : ThemeHelper.getColor(context).grey700,
                           ),
                         ),
                       ],

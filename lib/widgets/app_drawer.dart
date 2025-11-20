@@ -11,9 +11,7 @@ import '../common/styles/text_styles.dart';
 import '../common/styles/theme.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({
-    super.key,
-  });
+  const AppDrawer({super.key});
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
@@ -24,15 +22,15 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: .zero,
         children: [
           DrawerHeader(
-            padding: EdgeInsets.zero,
+            padding: .zero,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Theme.of(context).colorScheme.onPrimaryContainer,
-                  Theme.of(context).colorScheme.primary
+                  Theme.of(context).colorScheme.primary,
                 ],
                 stops: const [0.0, 1.0],
                 transform: const GradientRotation(math.pi / 4),
@@ -64,7 +62,7 @@ class _AppDrawerState extends State<AppDrawer> {
           ListTile(
             title: Text(context.tr('changeTheme')),
             leading: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
+              duration: const .new(milliseconds: 300),
               transitionBuilder: (child, anim) => RotationTransition(
                 turns: child.key == const ValueKey('icon1')
                     ? Tween<double>(begin: 1, end: 0.75).animate(anim)
@@ -72,15 +70,14 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: FadeTransition(opacity: anim, child: child),
               ),
               child:
-              context.read<ThemeCubit>().state.theme.brightness ==
-                  Brightness.light
+                  context.read<ThemeCubit>().state.theme.brightness ==
+                      Brightness.light
                   ? const Icon(Icons.light_mode)
                   : const Icon(Icons.dark_mode),
             ),
             onTap: () {
               final themeCubit = context.read<ThemeCubit>();
-              if (themeCubit.state.theme.brightness ==
-                  Brightness.light) {
+              if (themeCubit.state.theme.brightness == Brightness.light) {
                 themeCubit.changeTheme(appDarkTheme);
               } else {
                 themeCubit.changeTheme(appTheme);
@@ -91,14 +88,10 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () {
               context.push('/settings');
             },
-            leading: const Icon(
-              Icons.settings,
-            ),
+            leading: const Icon(Icons.settings),
             title: Text(
               context.tr('settings'),
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const .new(fontSize: 16),
             ),
           ),
         ],

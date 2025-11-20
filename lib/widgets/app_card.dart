@@ -27,14 +27,15 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: clipBehavior ?? Clip.none,
-      padding: padding ?? const EdgeInsets.all(16),
+      clipBehavior: clipBehavior ?? .none,
+      padding: padding ?? const .all(16),
       height: height,
       width: width,
-      decoration: decoration ??
+      decoration:
+          decoration ??
           BoxDecoration(
             color: ThemeHelper.getColor(context).white,
-            borderRadius: radius ?? BorderRadius.circular(8),
+            borderRadius: radius ?? .circular(8),
           ),
       constraints: constraints,
       child: child,

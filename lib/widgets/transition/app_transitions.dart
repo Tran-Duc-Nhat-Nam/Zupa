@@ -28,8 +28,8 @@ Page<dynamic> rightToLeftJoinedTransition(
     transitionsBuilder: (_, animation, secondaryAnimation, child) {
       return PageTransition(
         child: RepaintBoundary(child: child),
-        type: PageTransitionType.rightToLeft,
-        alignment: Alignment.center,
+        type: .rightToLeft,
+        alignment: .center,
         childCurrent: context.currentRoute ?? child,
       ).buildTransitions(context, animation, secondaryAnimation, child);
     },
