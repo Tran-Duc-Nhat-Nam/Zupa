@@ -118,9 +118,7 @@ class AppButton extends StatelessWidget {
         splashColor: splashColor,
         padding: padding ?? const .all(10),
         shape:
-            shape ??
-            RoundedRectangleBorder(
-              borderRadius: radius ?? .circular(56),
+            shape ?? StadiumBorder(
               side: BorderSide(color: borderColor ?? Colors.transparent),
             ),
         elevation: elevation,

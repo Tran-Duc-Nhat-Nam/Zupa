@@ -37,10 +37,10 @@ class VehicleCapacityCard extends StatelessWidget {
         child: Container(
           padding: const .symmetric(vertical: 10),
           decoration: BoxDecoration(
-            borderRadius: .circular(6),
+            borderRadius: .circular(8),
             color: isSelected
                 ? ThemeHelper.getColor(context).primary400
-                : Theme.of(context).colorScheme.secondaryContainer,
+                : ThemeHelper.getColor(context).primary100,
           ),
           child: Row(
             mainAxisAlignment: .spaceAround,
@@ -58,7 +58,7 @@ class VehicleCapacityCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: isSelected
                               ? ThemeHelper.getColor(context).blueDark
-                              : ThemeHelper.getColor(context).primary100,
+                              : ThemeHelper.getColor(context).primary200,
                         ),
                         child: AppIcon(
                           path: iconPath,

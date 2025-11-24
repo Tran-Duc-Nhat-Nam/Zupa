@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                       Center(
                         child: Text(
                           context.tr('title.login'),
-                          style: AppTextStyles.heading6,
+                          style: AppTextStyles.heading2,
                         ),
                       ),
                       Center(
@@ -82,24 +82,24 @@ class LoginScreen extends StatelessWidget {
                       AppTextField(
                         name: 'tenant',
                         required: true,
-                        isExternalLabel: true,
                         labelText: context.tr('site'),
-                        hintText: context.tr('site'),
+                        prefix: const Icon(Icons.warehouse_outlined),
+                        // hintText: context.tr('site'),
                       ),
                       AppTextField(
                         name: 'username',
                         required: true,
-                        isExternalLabel: true,
                         labelText: context.tr('username'),
-                        hintText: context.tr('username'),
+                        prefix: const Icon(Icons.person_outline_rounded),
+                        // hintText: context.tr('username'),
                       ),
                       AppTextField(
                         name: 'password',
                         required: true,
                         isPassword: true,
-                        isExternalLabel: true,
                         labelText: context.tr('password'),
-                        hintText: context.tr('password'),
+                        prefix: const Icon(Icons.lock_outline_rounded),
+                        // hintText: context.tr('password'),
                       ),
                       AppCheckbox(
                         name: 'isRemember',
@@ -133,6 +133,7 @@ class LoginScreen extends StatelessWidget {
                           },
                         ),
                         text: context.tr('title.login'),
+                        padding: const .all(16),
                         child: state.whenOrNull(
                           submitting: () => LoadingAnimationWidget.waveDots(
                             color: ThemeHelper.getColor(context).white,

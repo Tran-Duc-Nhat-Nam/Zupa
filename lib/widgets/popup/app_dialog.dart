@@ -40,7 +40,7 @@ abstract class AppDialog {
     String? subtitleText,
     String? okText,
     String? cancelText,
-    AppDialogTheme theme = AppDialogTheme.confirm,
+    AppDialogTheme theme = .confirm,
     void Function()? onOk,
     void Function()? onCancel,
   }) {
@@ -100,9 +100,7 @@ abstract class AppDialog {
                                           }
                                         : null,
                                     text: okText,
-                                    color: theme == AppDialogTheme.confirm
-                                        ? AppButtonColor.basic
-                                        : AppButtonColor.error,
+                                    color: theme == .confirm ? .basic : .error,
                                   ),
                                   AppButton(
                                     onPressed: () {
@@ -110,10 +108,8 @@ abstract class AppDialog {
                                       context.pop();
                                     },
                                     text: cancelText,
-                                    theme: AppButtonTheme.outline,
-                                    color: theme == AppDialogTheme.confirm
-                                        ? AppButtonColor.basic
-                                        : AppButtonColor.error,
+                                    theme: .outline,
+                                    color: theme == .confirm ? .basic : .error,
                                   ),
                                 ],
                               ),

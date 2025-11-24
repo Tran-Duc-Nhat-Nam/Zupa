@@ -32,6 +32,12 @@ class HomeSearchBar extends StatelessWidget {
                   name: 'keyword',
                   prefixIconPath: AppIcons.search,
                   hintText: context.tr('ticketSearch'),
+                  border: OutlineInputBorder(
+                    borderRadius: .circular(50),
+                    borderSide: .new(
+                      color: ThemeHelper.getColor(context).grey100,
+                    ),
+                  ),
                   onChanged: (value) =>
                       context.read<HomeFilterCubit>().search(value),
                 ),

@@ -6,7 +6,7 @@ class AppTextStyles {
 
   // Define the base style once to reduce repetitive calls to GoogleFonts.inter()
   // and improve readability when defining derived styles.
-  static final _baseTextStyle = GoogleFonts.inter();
+  static final _baseTextStyle = GoogleFonts.robotoFlex();
 
   // Headings (W700)
   static final heading1 = _baseTextStyle.copyWith(

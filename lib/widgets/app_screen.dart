@@ -106,7 +106,7 @@ class _AppScreenState extends AppState<AppScreen> {
               )
             : widget.appBar,
         backgroundColor:
-            widget.backgroundColor ?? Theme.of(context).colorScheme.surfaceDim,
+            widget.backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerLow,
         body: Stack(
           alignment: .bottomCenter,
           children: [

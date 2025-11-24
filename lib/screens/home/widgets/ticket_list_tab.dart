@@ -129,11 +129,13 @@ class TicketTitle extends StatelessWidget {
         SwipeAction(
           onTap: (CompletionHandler handler) =>
               context.pushNamed(AppRoutes.checkIn),
-          icon: AppIcon(
-            path: AppIcons.close,
-            color: ThemeHelper.getColor(context).white,
+          title: context.tr(
+            ticket.id.length % 2 == 0 ? 'reportRecovered' : 'markAsLost',
           ),
-          color: ThemeHelper.getColor(context).error600,
+          widthSpace: 180,
+          color: ticket.id.length % 2 == 0
+              ? ThemeHelper.getColor(context).primary500
+              : ThemeHelper.getColor(context).error600,
         ),
       ],
       trailingActions: [
@@ -159,7 +161,7 @@ class TicketTitle extends StatelessWidget {
                   const NetworkImage('https://picsum.photos/750'),
                 ),
                 child: Container(
-                  clipBehavior: Clip.antiAlias,
+                  clipBehavior: .antiAlias,
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(borderRadius: .circular(6)),
@@ -181,38 +183,37 @@ class TicketTitle extends StatelessWidget {
                   SizedBox(
                     height: 24,
                     child: Row(
-                      mainAxisAlignment: .spaceBetween,
+                      spacing: 8,
                       children: [
-                        Expanded(
-                          child: Text(
-                            ticket.id,
-                            style: AppTextStyles.bodyLargeSemibold.copyWith(
-                              color: ThemeHelper.getColor(context).grey1000,
-                            ),
+                        Text(
+                          ticket.id,
+                          style: AppTextStyles.bodyLargeBold.copyWith(
+                            color: ThemeHelper.getColor(context).grey1000,
                           ),
                         ),
-                        AppButton(
-                          fitContent: true,
-                          onPressed: () {},
-                          padding: const .symmetric(horizontal: 16),
-                          theme: 2 % 2 == 0 ? .secondary : .outline,
-                          color: ticket.id.length % 2 == 0 ? .info : .error,
-                          radius: .circular(6),
-                          child: Text(
-                            context.tr(
-                              ticket.id.length % 2 == 0 ? 'recover' : 'lost',
+                        if (ticket.id.length % 2 == 0)
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 16,),
+                            decoration: BoxDecoration(
+                              color: ThemeHelper.getColor(context).error200,
+                              borderRadius: .circular(50),
                             ),
-                            style: AppTextStyles.bodySmallSemibold.copyWith(
-                              color: ticket.id.length % 2 == 0
-                                  ? ThemeHelper.getColor(context).primary500
-                                  : ThemeHelper.getColor(context).error600,
+                            child: Text(
+                              context.tr('lost'),
+                              style: AppTextStyles.bodySmallSemibold.copyWith(
+                                color: ThemeHelper.getColor(context).error600,
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),
-                  Text(Jiffy.now().format(pattern: 'dd/MM/yyyy HH:mm')),
+                  Text(
+                    Jiffy.now().format(pattern: 'dd/MM/yyyy HH:mm'),
+                    style: AppTextStyles.bodyMediumRegular.copyWith(
+                      color: ThemeHelper.getColor(context).grey500,
+                    ),
+                  ),
                 ],
               ),
             ),
