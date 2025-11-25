@@ -10,14 +10,11 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../bloc/home/ticket/home_ticket_cubit.dart';
 import '../../../common/constants/routes.dart';
 import '../../../common/constants/vehicle_types.dart';
-import '../../../common/styles/icons.dart';
 import '../../../data/model/ticket/ticket.dart';
-import '../../../widgets/app_icon.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import '../../../helper/theme/theme_helper.dart';
 import '../../../common/styles/text_styles.dart';
-import '../../../widgets/app_button.dart';
 import '../../../widgets/popup/app_photo_view.dart';
 import 'package:jiffy/jiffy.dart';
 

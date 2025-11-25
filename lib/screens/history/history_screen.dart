@@ -12,7 +12,6 @@ import '../../common/styles/text_styles.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_checkbox.dart';
 import '../../widgets/app_date_time_picker.dart';
-import '../../widgets/app_drop_down_search.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/app_screen.dart';
 import '../../widgets/app_text_field.dart';
@@ -26,22 +25,7 @@ class HistoryScreen extends StatelessWidget {
       isChildScrollable: true,
       hasParentView: true,
       title: context.tr('history'),
-      appBarTrailing: [
-        Padding(
-          padding: const .only(right: 24),
-          child: AppDropDownSearch(
-            name: 'parkingLot',
-            dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
-            initialValue: 'Bãi xe 2',
-            buttonWidth: 140,
-            buttonDecoration: .new(
-              color: ThemeHelper.getColor(context).primary50,
-              borderRadius: .circular(8),
-              border: .all(color: ThemeHelper.getColor(context).primary100),
-            ),
-          ),
-        ),
-      ],
+      hasAppBar: false,
       child: MultiBlocProvider(
         providers: [
           BlocProvider<HistoryListCubit>(
@@ -87,6 +71,7 @@ class HistoryScreen extends StatelessWidget {
                                   name: 'keyword',
                                   prefixIconPath: AppIcons.search,
                                   hintText: context.tr('ticketSearch'),
+                                  borderRadius: 100,
                                 ),
                               ),
                               Container(

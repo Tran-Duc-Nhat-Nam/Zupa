@@ -9,6 +9,8 @@ import '../common/styles/icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../common/styles/text_styles.dart';
+import 'app_app_bar.dart';
+import 'app_drop_down_search.dart';
 import 'app_icon.dart';
 
 class AppNavBar extends StatefulWidget {
@@ -44,105 +46,127 @@ class _AppNavBarState extends State<AppNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView.router(
-      resizeToAvoidBottomInset: false,
-      tabs: [
-        PersistentRouterTabConfig(
-          item: ItemConfig(
-            iconSize: iconSize,
-            icon: AppIcon(
-              path: AppIcons.home,
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeColorSecondary: ThemeHelper.getColor(context).primary500,
-            title: context.tr('home'),
-            textStyle: AppTextStyles.bodySmallBold.copyWith(
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeForegroundColor: ThemeHelper.getColor(context).white,
-            inactiveIcon: AppIcon(
-              path: AppIcons.home,
-              color: ThemeHelper.getColor(context).primary300,
-            ),
-          ),
-        ),
-        PersistentRouterTabConfig(
-          item: ItemConfig(
-            iconSize: iconSize,
-            icon: AppIcon(
-              path: AppIcons.clock,
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeColorSecondary: ThemeHelper.getColor(context).primary500,
-            title: context.tr('history'),
-            textStyle: AppTextStyles.bodySmallBold.copyWith(
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeForegroundColor: ThemeHelper.getColor(context).white,
-            inactiveIcon: AppIcon(
-              path: AppIcons.clock,
-              color: ThemeHelper.getColor(context).primary300,
-            ),
-          ),
-        ),
-        PersistentRouterTabConfig(
-          item: ItemConfig(
-            iconSize: iconSize,
-            icon: LogarteMagicalTap(
-              logarte: DebuggerHelper.debugger,
-              child: AppIcon(
-                path: AppIcons.chart,
-                color: ThemeHelper.getColor(context).white,
+    final path = GoRouter.of(context).routerDelegate.currentConfiguration.uri.path.split(  '/');
+    return Scaffold(
+      appBar: AppAppBar(
+        text: (path.last == '' || path.length == 1 ? 'home' : path.last).tr(),
+        trailing: [
+          Padding(
+            padding: const .only(right: 24),
+            child: AppDropDownSearch(
+              name: 'parkingLot',
+              dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
+              initialValue: 'Bãi xe 2',
+              buttonWidth: 140,
+              buttonDecoration: .new(
+                color: ThemeHelper.getColor(context).primary50,
+                borderRadius: .circular(50),
+                border: .all(color: ThemeHelper.getColor(context).primary100),
               ),
             ),
-            activeColorSecondary: ThemeHelper.getColor(context).primary500,
-            title: context.tr('revenue'),
-            textStyle: AppTextStyles.bodySmallBold.copyWith(
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeForegroundColor: ThemeHelper.getColor(context).white,
-            inactiveIcon: AppIcon(
-              path: AppIcons.chart,
-              color: ThemeHelper.getColor(context).primary300,
-            ),
-          ),
-        ),
-        PersistentRouterTabConfig(
-          item: ItemConfig(
-            iconSize: iconSize,
-            icon: AppIcon(
-              path: AppIcons.setting,
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeColorSecondary: ThemeHelper.getColor(context).primary500,
-            title: context.tr('settings'),
-            textStyle: AppTextStyles.bodySmallBold.copyWith(
-              color: ThemeHelper.getColor(context).white,
-            ),
-            activeForegroundColor: ThemeHelper.getColor(context).white,
-            inactiveIcon: AppIcon(
-              path: AppIcons.setting,
-              color: ThemeHelper.getColor(context).primary300,
-            ),
-          ),
-        ),
-      ],
-      navBarOverlap: const .full(),
-      backgroundColor: Colors.transparent,
-      navBarBuilder: (navBarConfig) => Style2BottomNavBar(
-        navBarConfig: navBarConfig,
-        height: 75,
-        navBarDecoration: .new(
-          color: ThemeHelper.getColor(context).white,
-          padding: const .symmetric(vertical: 12),
-          borderRadius: const .vertical(
-            top: .circular(16),
-            bottom: .circular(16),
-          ),
-        ),
+          )
+        ],
       ),
-      navigationShell: widget.navigationShell,
-      // onTabChanged: (value) => AppDialog.checkAuth(context),
+      body: PersistentTabView.router(
+        resizeToAvoidBottomInset: false,
+        tabs: [
+          PersistentRouterTabConfig(
+            item: ItemConfig(
+              iconSize: iconSize,
+              icon: AppIcon(
+                path: AppIcons.home,
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeColorSecondary: ThemeHelper.getColor(context).primary500,
+              title: context.tr('home'),
+              textStyle: AppTextStyles.bodySmallBold.copyWith(
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeForegroundColor: ThemeHelper.getColor(context).white,
+              inactiveIcon: AppIcon(
+                path: AppIcons.home,
+                color: ThemeHelper.getColor(context).primary300,
+              ),
+            ),
+          ),
+          PersistentRouterTabConfig(
+            item: ItemConfig(
+              iconSize: iconSize,
+              icon: AppIcon(
+                path: AppIcons.clock,
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeColorSecondary: ThemeHelper.getColor(context).primary500,
+              title: context.tr('history'),
+              textStyle: AppTextStyles.bodySmallBold.copyWith(
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeForegroundColor: ThemeHelper.getColor(context).white,
+              inactiveIcon: AppIcon(
+                path: AppIcons.clock,
+                color: ThemeHelper.getColor(context).primary300,
+              ),
+            ),
+          ),
+          PersistentRouterTabConfig(
+            item: ItemConfig(
+              iconSize: iconSize,
+              icon: LogarteMagicalTap(
+                logarte: DebuggerHelper.debugger,
+                child: AppIcon(
+                  path: AppIcons.chart,
+                  color: ThemeHelper.getColor(context).white,
+                ),
+              ),
+              activeColorSecondary: ThemeHelper.getColor(context).primary500,
+              title: context.tr('revenue'),
+              textStyle: AppTextStyles.bodySmallBold.copyWith(
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeForegroundColor: ThemeHelper.getColor(context).white,
+              inactiveIcon: AppIcon(
+                path: AppIcons.chart,
+                color: ThemeHelper.getColor(context).primary300,
+              ),
+            ),
+          ),
+          PersistentRouterTabConfig(
+            item: ItemConfig(
+              iconSize: iconSize,
+              icon: AppIcon(
+                path: AppIcons.setting,
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeColorSecondary: ThemeHelper.getColor(context).primary500,
+              title: context.tr('settings'),
+              textStyle: AppTextStyles.bodySmallBold.copyWith(
+                color: ThemeHelper.getColor(context).white,
+              ),
+              activeForegroundColor: ThemeHelper.getColor(context).white,
+              inactiveIcon: AppIcon(
+                path: AppIcons.setting,
+                color: ThemeHelper.getColor(context).primary300,
+              ),
+            ),
+          ),
+        ],
+        navBarOverlap: const .full(),
+        backgroundColor: Colors.transparent,
+        navBarBuilder: (navBarConfig) => Style2BottomNavBar(
+          navBarConfig: navBarConfig,
+          height: 75,
+          navBarDecoration: .new(
+            color: ThemeHelper.getColor(context).white,
+            padding: const .symmetric(vertical: 12),
+            borderRadius: const .vertical(
+              top: .circular(16),
+              bottom: .circular(16),
+            ),
+          ),
+        ),
+        navigationShell: widget.navigationShell,
+        // onTabChanged: (value) => AppDialog.checkAuth(context),
+      ),
     );
   }
 }

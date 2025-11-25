@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../helper/theme/theme_helper.dart';
 import '../../../common/styles/icons.dart';
@@ -16,10 +17,10 @@ class HistoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: const .symmetric(vertical: 6, horizontal: 10),
+      padding: const .symmetric(vertical: 0, horizontal: 0),
       decoration: .new(
         color: ThemeHelper.getColor(context).white,
-        borderRadius: const .all(.circular(4)),
+        borderRadius: const .all(.circular(8)),
         border: .all(color: ThemeHelper.getColor(context).grey100),
         boxShadow: const [
           .new(color: .new(0x0C0C0D0D), offset: .new(0, 1), blurRadius: 4),
@@ -27,36 +28,67 @@ class HistoryTitle extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: .spaceBetween,
-        spacing: 16,
         children: [
-          Column(
-            children: [
-              Skeleton.replace(
-                width: 24,
-                height: 24,
-                child: AppIcon(
-                  path: ticket.type.iconPath,
-                  size: 24,
-                  color: ThemeHelper.getColor(context).grey700,
-                ),
-              ),
-              Text(
-                context.tr(ticket.type.value),
-                style: AppTextStyles.bodyMediumMedium.copyWith(
-                  color: ThemeHelper.getColor(context).grey700,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: const .symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              border: .symmetric(
-                vertical: .new(color: ThemeHelper.getColor(context).grey100),
+          Padding(
+            padding: const .all(16),
+            child: Skeleton.replace(
+              width: 24,
+              height: 24,
+              child: AppIcon(
+                path: ticket.type.iconPath,
+                size: 24,
+                color: ThemeHelper.getColor(context).grey700,
               ),
             ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const .symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                border: .symmetric(
+                  vertical: .new(color: ThemeHelper.getColor(context).grey100),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: .center,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        ticket.id.length % 2 == 0 ? ticket.id : 'passenger',
+                        overflow: .ellipsis,
+                        maxLines: 1,
+                        style: AppTextStyles.bodyMediumMedium.copyWith(
+                          color: ThemeHelper.getColor(context).grey900,
+                        ),
+                      ),
+                      if (ticket.id.length % 2 == 0)
+                        const AppIcon(path: AppIcons.userOctagon, size: 20),
+                    ],
+                  ),
+                  Text(
+                    ticket.id.length % 2 == 0
+                        ? 'ABC-789-4004-ZYX-9A8B'
+                        : 'No license plate',
+                    textAlign: .center,
+                    style: ticket.id.length % 2 == 0
+                        ? GoogleFonts.robotoMono().copyWith(
+                            fontWeight: .w600,
+                            color: ThemeHelper.getColor(context).grey900,
+                          )
+                        : AppTextStyles.bodyLargeRegular.copyWith(
+                            fontStyle: .italic,
+                            color: ThemeHelper.getColor(context).grey400,
+                          ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const .symmetric(horizontal: 16, vertical: 8),
             child: Column(
-              crossAxisAlignment: .start,
               children: [
                 Row(
                   children: [
@@ -79,7 +111,7 @@ class HistoryTitle extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Skeleton.replace(
+                    if (ticket.id.length % 2 == 0) Skeleton.replace(
                       width: 24,
                       height: 24,
                       child: AppIcon(
@@ -88,35 +120,30 @@ class HistoryTitle extends StatelessWidget {
                         color: ThemeHelper.getColor(context).error600,
                       ),
                     ),
-                    Text(
-                      ticket.timeOut != null
-                          ? DateTimeConverter.toShortTime(ticket.timeOut!)
-                          : 'N/A',
-                      style: AppTextStyles.bodyMediumMedium.copyWith(
-                        color: ThemeHelper.getColor(context).grey700,
-                      ),
-                    ),
+                    ticket.id.length % 2 == 0
+                        ? Text(
+                            DateTimeConverter.toShortTime(ticket.timeOut ?? DateTime.now()),
+                            style: AppTextStyles.bodyMediumMedium.copyWith(
+                              color: ThemeHelper.getColor(context).grey700,
+                            ),
+                          )
+                        : Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: ThemeHelper.getColor(context).success200,
+                              borderRadius: .circular(50),
+                            ),
+                            child: Text(
+                              context.tr('parking'),
+                              style: AppTextStyles.bodySmallSemibold.copyWith(
+                                color: ThemeHelper.getColor(context).success600,
+                              ),
+                            ),
+                          ),
                   ],
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  ticket.id,
-                  overflow: .ellipsis,
-                  maxLines: 1,
-                  style: AppTextStyles.bodyMediumMedium.copyWith(
-                    color: ThemeHelper.getColor(context).grey700,
-                  ),
-                ),
-                Text(
-                  ticket.licensePlate ?? 'No license plate',
-                  style: AppTextStyles.bodyLargeSemibold.copyWith(
-                    color: ThemeHelper.getColor(context).grey900,
-                  ),
                 ),
               ],
             ),

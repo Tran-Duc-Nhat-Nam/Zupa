@@ -28,6 +28,7 @@ class AppTextField extends StatefulWidget {
     this.hasBorder = true,
     this.border,
     this.textAlign,
+    this.borderRadius = 12,
     this.controller,
     this.initialValue,
   });
@@ -51,6 +52,7 @@ class AppTextField extends StatefulWidget {
   final bool isPasswordConfirm;
   final bool hasBorder;
   final InputBorder? border;
+  final double borderRadius;
   final TextAlign? textAlign;
 
   @override
@@ -148,7 +150,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 widget.border ??
                 (widget.hasBorder
                     ? OutlineInputBorder(
-                        borderRadius: .circular(12),
+                        borderRadius: .circular(widget.borderRadius),
                         borderSide: .new(
                           color: ThemeHelper.getColor(context).error600,
                         ),
@@ -158,7 +160,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 widget.border ??
                 (widget.hasBorder
                     ? OutlineInputBorder(
-                        borderRadius: .circular(12),
+                        borderRadius: .circular(widget.borderRadius),
                         borderSide: .new(
                           color: ThemeHelper.getColor(context).grey100,
                         ),
@@ -168,7 +170,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 widget.border ??
                 (widget.hasBorder
                     ? OutlineInputBorder(
-                        borderRadius: .circular(12),
+                        borderRadius: .circular(widget.borderRadius),
                         borderSide: .new(
                           color: ThemeHelper.getColor(context).error600,
                         ),
@@ -178,7 +180,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 widget.border ??
                 (widget.hasBorder
                     ? OutlineInputBorder(
-                        borderRadius: .circular(12),
+                        borderRadius: .circular(widget.borderRadius),
                         borderSide: .new(
                           color: ThemeHelper.getColor(context).grey200,
                         ),

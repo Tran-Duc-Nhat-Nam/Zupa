@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/revenue/filter/revenue_filter_cubit.dart' as filter;
 import '../../bloc/revenue/list/revenue_list_cubit.dart';
-import '../../helper/theme/theme_helper.dart';
 import '../../widgets/state/app_state.dart';
-import '../../widgets/app_drop_down_search.dart';
 import '../../widgets/app_screen.dart';
 import 'widgets/revenue_list_tab.dart';
 
@@ -33,22 +31,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
       isChildScrollable: true,
       hasParentView: true,
       title: context.tr('revenue'),
-      appBarTrailing: [
-        Padding(
-          padding: const .only(right: 24),
-          child: AppDropDownSearch(
-            name: 'parkingLot',
-            dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
-            initialValue: 'Bãi xe 2',
-            buttonWidth: 140,
-            buttonDecoration: .new(
-              color: ThemeHelper.getColor(context).primary50,
-              borderRadius: .circular(8),
-              border: .all(color: ThemeHelper.getColor(context).primary100),
-            ),
-          ),
-        ),
-      ],
+      hasAppBar: false,
       child: MultiBlocProvider(
         providers: [
           BlocProvider<RevenueListCubit>(
