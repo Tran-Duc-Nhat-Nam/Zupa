@@ -128,7 +128,7 @@ class HistoryTitle extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: const .symmetric(
                               vertical: 4,
                               horizontal: 8,
                             ),

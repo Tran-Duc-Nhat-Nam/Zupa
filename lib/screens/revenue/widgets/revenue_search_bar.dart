@@ -16,137 +16,163 @@ class RevenueSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      spacing: 8,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: .start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    context.tr(
+    return Card(
+      margin: const .all(0),
+      elevation: 0, // Keep it flat inside the colored container
+      color: ThemeHelper.getColor(context).primary100, // Light Brand Color
+      shape: RoundedRectangleBorder(
+        borderRadius: .circular(16), // Modern large curves
+      ),
+      child: Padding(
+        padding: const .symmetric(vertical: 16, horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.tr(
                       DateTimeConverter.getMonthKey(DateTime.now().month),
                     ),
+                  style: AppTextStyles.heading5.copyWith(
+                    color: ThemeHelper.getColor(context).primary500,
+                    fontWeight: .w600
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(context.tr('totalRevenue', args: [1984.toString()])),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Container(
-          clipBehavior: .antiAlias,
-          decoration: BoxDecoration(borderRadius: .circular(8)),
-          child: Skeleton.replace(
-            width: 44,
-            height: 44,
-            child: SizedBox(
-              width: 44,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: AppButton(
-                  fitContent: true,
-                  theme: AppButtonTheme.outline,
-                  padding: const .all(8),
-                  radius: .circular(8),
-                  color: AppButtonColor.basic,
-                  icon: AppIcon(
-                    path: AppIcons.filter,
-                    size: 20,
-                    color: ThemeHelper.getColor(context).grey900,
-                  ),
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => Padding(
-                        padding: const .only(
-                          top: 24,
-                          bottom: 48,
-                          left: 24,
-                          right: 24,
-                        ),
-                        child: Column(
-                          spacing: 16,
-                          mainAxisSize: .min,
-                          crossAxisAlignment: .start,
-                          children: [
-                            Center(
-                              child: Text(
-                                context.tr('filter'),
-                                style: AppTextStyles.bodySmallSemibold.copyWith(
-                                  color: ThemeHelper.getColor(context).grey600,
+                ),
+                Container(
+                  clipBehavior: .antiAlias,
+                  decoration: BoxDecoration(borderRadius: .circular(8)),
+                  child: Skeleton.replace(
+                    width: 44,
+                    height: 44,
+                    child: SizedBox(
+                      width: 44,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: AppButton(
+                          fitContent: true,
+                          padding: const .all(8),
+                          radius: .circular(8),
+                          icon: AppIcon(
+                            path: AppIcons.filter,
+                            size: 20,
+                            color: ThemeHelper.getColor(context).white,
+                          ),
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => Padding(
+                                padding: const .only(
+                                  top: 24,
+                                  bottom: 48,
+                                  left: 24,
+                                  right: 24,
+                                ),
+                                child: Column(
+                                  spacing: 16,
+                                  mainAxisSize: .min,
+                                  crossAxisAlignment: .start,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        context.tr('filter'),
+                                        style: AppTextStyles.bodySmallSemibold.copyWith(
+                                          color: ThemeHelper.getColor(context).grey600,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: .spaceBetween,
+                                      children: [
+                                        Text(
+                                          context.tr('time'),
+                                          style: AppTextStyles.bodyMediumSemibold
+                                              .copyWith(
+                                            color: ThemeHelper.getColor(
+                                              context,
+                                            ).grey700,
+                                          ),
+                                        ),
+                                        Text(
+                                          context.tr('reset'),
+                                          style: AppTextStyles.bodyMediumSemibold
+                                              .copyWith(
+                                            color: ThemeHelper.getColor(
+                                              context,
+                                            ).primary500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      spacing: 12,
+                                      crossAxisAlignment: .start,
+                                      children: [
+                                        Text(context.tr('date')),
+                                        const AppDateTimePicker(name: 'dateTime'),
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      spacing: 16,
+                                      children: [
+                                        Expanded(
+                                          child: AppButton(
+                                            color: AppButtonColor.basic,
+                                            theme: AppButtonTheme.outline,
+                                            onPressed: () => context.pop(),
+                                            text: context.tr('cancel'),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: AppButton(
+                                            onPressed: () => context.pop(),
+                                            text: context.tr('apply'),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: .spaceBetween,
-                              children: [
-                                Text(
-                                  context.tr('time'),
-                                  style: AppTextStyles.bodyMediumSemibold
-                                      .copyWith(
-                                        color: ThemeHelper.getColor(
-                                          context,
-                                        ).grey700,
-                                      ),
-                                ),
-                                Text(
-                                  context.tr('reset'),
-                                  style: AppTextStyles.bodyMediumSemibold
-                                      .copyWith(
-                                        color: ThemeHelper.getColor(
-                                          context,
-                                        ).primary500,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              spacing: 12,
-                              crossAxisAlignment: .start,
-                              children: [
-                                Text(context.tr('date')),
-                                const AppDateTimePicker(name: 'dateTime'),
-                              ],
-                            ),
-                            const Divider(),
-                            Row(
-                              spacing: 16,
-                              children: [
-                                Expanded(
-                                  child: AppButton(
-                                    color: AppButtonColor.basic,
-                                    theme: AppButtonTheme.outline,
-                                    onPressed: () => context.pop(),
-                                    text: context.tr('cancel'),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: AppButton(
-                                    onPressed: () => context.pop(),
-                                    text: context.tr('apply'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              useRootNavigator: true,
+                            );
+                          },
                         ),
                       ),
-                      useRootNavigator: true,
-                    );
-                  },
-                ),
-              ),
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
+            Row(
+              spacing: 4,
+              children: [
+                Text(
+                  '${context.tr('totalRevenue')}:',
+                  style: AppTextStyles.bodyLargeBold.copyWith( // Very large text
+                    fontWeight: FontWeight.bold,
+                    color: ThemeHelper.getColor(context).blueDark,
+                  ),
+                ),
+                Text(
+                  "${NumberFormat.currency(
+                    decimalDigits: 0,
+                    symbol: '',
+                  ).format(1984000000)} VND",
+                  style: AppTextStyles.bodyLargeBold.copyWith( // Very large text
+                    fontWeight: FontWeight.bold,
+                    color: ThemeHelper.getColor(context).blueDark,
+                    letterSpacing: -0.5, // Tighten numbers slightly
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
