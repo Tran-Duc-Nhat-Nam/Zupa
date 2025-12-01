@@ -152,6 +152,7 @@
   "lost": "Lost",
   "markAsLost": "Mark as lost",
   "reportRecovered": "Report recovered",
+  "parking": "Parking",
   "seat": "Seat: {}{}",
   "enterInteger": "Enter integer",
   "ticketSearch": "Search by plate/card",

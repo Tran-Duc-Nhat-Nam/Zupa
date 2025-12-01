@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DailyRevenue {
 
- DateTime get date; List<Revenue> get revenue;
+ DateTime get date; VehicleType? get vehicleType; List<Revenue> get revenue;
 /// Create a copy of DailyRevenue
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DailyRevenueCopyWith<DailyRevenue> get copyWith => _$DailyRevenueCopyWithImpl<D
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyRevenue&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.revenue, revenue));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyRevenue&&(identical(other.date, date) || other.date == date)&&(identical(other.vehicleType, vehicleType) || other.vehicleType == vehicleType)&&const DeepCollectionEquality().equals(other.revenue, revenue));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,date,const DeepCollectionEquality().hash(revenue));
+int get hashCode => Object.hash(runtimeType,date,vehicleType,const DeepCollectionEquality().hash(revenue));
 
 @override
 String toString() {
-  return 'DailyRevenue(date: $date, revenue: $revenue)';
+  return 'DailyRevenue(date: $date, vehicleType: $vehicleType, revenue: $revenue)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $DailyRevenueCopyWith<$Res>  {
   factory $DailyRevenueCopyWith(DailyRevenue value, $Res Function(DailyRevenue) _then) = _$DailyRevenueCopyWithImpl;
 @useResult
 $Res call({
- DateTime date, List<Revenue> revenue
+ DateTime date, VehicleType? vehicleType, List<Revenue> revenue
 });
 
 
-
+$VehicleTypeCopyWith<$Res>? get vehicleType;
 
 }
 /// @nodoc
@@ -65,14 +65,27 @@ class _$DailyRevenueCopyWithImpl<$Res>
 
 /// Create a copy of DailyRevenue
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? date = null,Object? revenue = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? date = null,Object? vehicleType = freezed,Object? revenue = null,}) {
   return _then(_self.copyWith(
 date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
+as DateTime,vehicleType: freezed == vehicleType ? _self.vehicleType : vehicleType // ignore: cast_nullable_to_non_nullable
+as VehicleType?,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
 as List<Revenue>,
   ));
 }
+/// Create a copy of DailyRevenue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VehicleTypeCopyWith<$Res>? get vehicleType {
+    if (_self.vehicleType == null) {
+    return null;
+  }
 
+  return $VehicleTypeCopyWith<$Res>(_self.vehicleType!, (value) {
+    return _then(_self.copyWith(vehicleType: value));
+  });
+}
 }
 
 
@@ -151,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime date,  List<Revenue> revenue)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime date,  VehicleType? vehicleType,  List<Revenue> revenue)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DailyRevenue() when $default != null:
-return $default(_that.date,_that.revenue);case _:
+return $default(_that.date,_that.vehicleType,_that.revenue);case _:
   return orElse();
 
 }
@@ -172,10 +185,10 @@ return $default(_that.date,_that.revenue);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime date,  List<Revenue> revenue)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime date,  VehicleType? vehicleType,  List<Revenue> revenue)  $default,) {final _that = this;
 switch (_that) {
 case _DailyRevenue():
-return $default(_that.date,_that.revenue);}
+return $default(_that.date,_that.vehicleType,_that.revenue);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -189,10 +202,10 @@ return $default(_that.date,_that.revenue);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime date,  List<Revenue> revenue)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime date,  VehicleType? vehicleType,  List<Revenue> revenue)?  $default,) {final _that = this;
 switch (_that) {
 case _DailyRevenue() when $default != null:
-return $default(_that.date,_that.revenue);case _:
+return $default(_that.date,_that.vehicleType,_that.revenue);case _:
   return null;
 
 }
@@ -204,10 +217,11 @@ return $default(_that.date,_that.revenue);case _:
 @JsonSerializable()
 
 class _DailyRevenue extends DailyRevenue {
-  const _DailyRevenue({required this.date, final  List<Revenue> revenue = const []}): _revenue = revenue,super._();
+  const _DailyRevenue({required this.date, this.vehicleType, final  List<Revenue> revenue = const []}): _revenue = revenue,super._();
   factory _DailyRevenue.fromJson(Map<String, dynamic> json) => _$DailyRevenueFromJson(json);
 
 @override final  DateTime date;
+@override final  VehicleType? vehicleType;
  final  List<Revenue> _revenue;
 @override@JsonKey() List<Revenue> get revenue {
   if (_revenue is EqualUnmodifiableListView) return _revenue;
@@ -229,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyRevenue&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._revenue, _revenue));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyRevenue&&(identical(other.date, date) || other.date == date)&&(identical(other.vehicleType, vehicleType) || other.vehicleType == vehicleType)&&const DeepCollectionEquality().equals(other._revenue, _revenue));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,date,const DeepCollectionEquality().hash(_revenue));
+int get hashCode => Object.hash(runtimeType,date,vehicleType,const DeepCollectionEquality().hash(_revenue));
 
 @override
 String toString() {
-  return 'DailyRevenue(date: $date, revenue: $revenue)';
+  return 'DailyRevenue(date: $date, vehicleType: $vehicleType, revenue: $revenue)';
 }
 
 
@@ -249,11 +263,11 @@ abstract mixin class _$DailyRevenueCopyWith<$Res> implements $DailyRevenueCopyWi
   factory _$DailyRevenueCopyWith(_DailyRevenue value, $Res Function(_DailyRevenue) _then) = __$DailyRevenueCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime date, List<Revenue> revenue
+ DateTime date, VehicleType? vehicleType, List<Revenue> revenue
 });
 
 
-
+@override $VehicleTypeCopyWith<$Res>? get vehicleType;
 
 }
 /// @nodoc
@@ -266,15 +280,28 @@ class __$DailyRevenueCopyWithImpl<$Res>
 
 /// Create a copy of DailyRevenue
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? date = null,Object? revenue = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? date = null,Object? vehicleType = freezed,Object? revenue = null,}) {
   return _then(_DailyRevenue(
 date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime,revenue: null == revenue ? _self._revenue : revenue // ignore: cast_nullable_to_non_nullable
+as DateTime,vehicleType: freezed == vehicleType ? _self.vehicleType : vehicleType // ignore: cast_nullable_to_non_nullable
+as VehicleType?,revenue: null == revenue ? _self._revenue : revenue // ignore: cast_nullable_to_non_nullable
 as List<Revenue>,
   ));
 }
 
+/// Create a copy of DailyRevenue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VehicleTypeCopyWith<$Res>? get vehicleType {
+    if (_self.vehicleType == null) {
+    return null;
+  }
 
+  return $VehicleTypeCopyWith<$Res>(_self.vehicleType!, (value) {
+    return _then(_self.copyWith(vehicleType: value));
+  });
+}
 }
 
 // dart format on

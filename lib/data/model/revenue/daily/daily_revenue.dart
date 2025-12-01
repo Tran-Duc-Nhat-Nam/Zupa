@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../screens/camera/models/vehicle_type.dart';
 import '../revenue.dart';
 
 part 'daily_revenue.freezed.dart';
@@ -10,6 +11,7 @@ sealed class DailyRevenue with _$DailyRevenue {
   const DailyRevenue._();
   const factory DailyRevenue({
     required DateTime date,
+    VehicleType? vehicleType,
     @Default([]) List<Revenue> revenue,
   }) = _DailyRevenue;
 
