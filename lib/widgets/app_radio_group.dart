@@ -47,27 +47,27 @@ class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
       );
     }
     return FormBuilderField<T>(
-      builder: (field) => Row(
-        spacing: 16,
-        children: .generate(widget.items.length, (index) {
-          if (widget.itemBuilder != null) {
-            return widget.itemBuilder!(
-              Radio<T>(
-                value: widget.items[index],
-                groupValue: field.value,
-                onChanged: (value) => field.didChange(value),
-              ),
-              widget.items[index],
-              field.value == widget.items[index],
-              () => field.didChange(widget.items[index]),
+      builder: (field) => RadioGroup<T?>(
+        onChanged: (value) => field.didChange(value),
+        groupValue: field.value,
+        child: Row(
+          spacing: 16,
+          children: .generate(widget.items.length, (index) {
+            if (widget.itemBuilder != null) {
+              return widget.itemBuilder!(
+                Radio<T>(
+                  value: widget.items[index],
+                ),
+                widget.items[index],
+                field.value == widget.items[index],
+                () => field.didChange(widget.items[index]),
+              );
+            }
+            return Radio<T>(
+              value: widget.items[index],
             );
-          }
-          return Radio<T>(
-            value: widget.items[index],
-            groupValue: field.value,
-            onChanged: (value) => field.didChange(value),
-          );
-        }),
+          }),
+        ),
       ),
       name: widget.name,
       validator: FormBuilderValidators.compose(validators),
