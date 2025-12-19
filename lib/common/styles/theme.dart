@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 
 import 'colors.dart';
 
@@ -18,8 +17,7 @@ final appTheme = ThemeData(
 final appDarkTheme = ThemeData(
   colorScheme: .fromSeed(
     brightness: .dark,
-    seedColor: catppuccin.mocha.mauve,
-    surface: catppuccin.mocha.base,
+    seedColor: const AppColors().primary500,
   ),
   fontFamily: GoogleFonts.inter().fontFamily,
   useMaterial3: true,
