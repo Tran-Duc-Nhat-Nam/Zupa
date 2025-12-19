@@ -33,7 +33,12 @@ class LoginScreen extends StatelessWidget {
                   ),
             loginFailed: (message) {
               AppToast.showErrorToast(message);
-              context.read<LoginCubit>().load();
+              final values = formKey.currentState?.value;
+              context.read<LoginCubit>().load(
+                tenant: values?['tenant'],
+                username: values?['username'],
+                isRemember: values?['isRemember'],
+              );
             },
           );
         },

@@ -15,22 +15,37 @@ part 'login_cubit.freezed.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const .initial());
 
-  Future<void> load() async {
+  Future<void> load({
+    String? tenant,
+    String? username,
+    bool? isRemember,
+  }) async {
+    if (tenant != null || username != null) {
+      emit(
+        LoginState.loaded(
+          tenant ?? '',
+          username ?? '',
+          '',
+          isRemember ?? false,
+        ),
+      );
+      return;
+    }
     final accountInfo = await AuthHelper.getAccountInfo();
     log('Loading login screen');
-    bool isRemember = false;
+    bool isSavedRemember = false;
     if (accountInfo.tenant.isNotEmpty &&
         accountInfo.username.isNotEmpty &&
         accountInfo.password.isNotEmpty) {
-      isRemember = true;
+      isSavedRemember = true;
     }
     log('Save info: $accountInfo');
     emit(
-      .loaded(
+      LoginState.loaded(
         accountInfo.tenant,
         accountInfo.username,
         accountInfo.password,
-        isRemember,
+        isSavedRemember,
       ),
     );
   }
