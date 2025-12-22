@@ -20,19 +20,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends AppState<HomeScreen> {
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
-      await Jiffy.setLocale('en_US');
-      super.initState();
-    });
-  }
-
-  @override
-  Map<String, dynamic> getFormValues() {
-    formKey.currentState?.saveAndValidate();
-    if (formKey.currentState?.validate() == true) {
-      return formKey.currentState!.value;
-    }
-    return {};
+    super.initState();
+    Jiffy.setLocale('en_US');
   }
 
   @override

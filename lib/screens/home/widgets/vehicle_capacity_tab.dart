@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -6,6 +7,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../bloc/home/filter/home_filter_cubit.dart';
 import '../../../bloc/home/ticket/home_ticket_cubit.dart' as ticket;
 import '../../../widgets/app_card.dart';
+import '../../../widgets/popup/app_toast.dart';
 import 'vehicle_capacity_card.dart';
 
 class VehicleCapacityTab extends StatelessWidget {
@@ -31,8 +33,9 @@ class VehicleCapacityTab extends StatelessWidget {
                       child: VehicleCapacityCard(
                         iconPath: types[index].iconPath,
                         name: types[index].value,
-                        current: 90,
+                        current: 65 + index * 20,
                         capacity: 120,
+                        isWarning: (65 + index * 20) / 120 >= 0.8,
                         isDisabled: state is Loading || state is Filtering,
                         isSelected: state.maybeWhen(
                           loaded: (filter) =>

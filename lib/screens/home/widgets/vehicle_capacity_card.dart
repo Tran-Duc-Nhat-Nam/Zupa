@@ -1,11 +1,44 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../common/styles/colors.dart';
 import '../../../helper/theme/theme_helper.dart';
 import '../../../common/styles/text_styles.dart';
 import '../../../widgets/app_icon.dart';
 
-class VehicleCapacityCard extends StatelessWidget {
+class BorderPainter extends CustomPainter {
+  final double currentState;
+  final Color color;
+
+  BorderPainter({required this.currentState, required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const double strokeWidth = 5;
+    final Rect rect =
+        const Offset(-3, -3) & Size(size.width + 6, size.height + 6);
+
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    const double startAngle = -pi / 2;
+    final double sweepAmount = currentState * pi;
+
+    canvas.drawArc(rect, startAngle, sweepAmount, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class VehicleCapacityCard extends StatefulWidget {
   const VehicleCapacityCard({
     super.key,
     required this.iconPath,
@@ -28,87 +61,88 @@ class VehicleCapacityCard extends StatelessWidget {
   final void Function()? onPressed;
 
   @override
+  State<VehicleCapacityCard> createState() => _VehicleCapacityCardState();
+}
+
+class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
+  late BaseColors colors;
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: isDisabled ? null : onPressed,
+    colors = ThemeHelper.getColor(context);
+
+    final double value = widget.capacity != null && (widget.capacity!) >= 0
+        ? (widget.current / widget.capacity!) * 2
+        : 1;
+
+    return AspectRatio(
+      aspectRatio: 1, // <--- 1. Enforces a 1:1 square/circle ratio
       child: AnimatedOpacity(
-        duration: const .new(milliseconds: 350),
-        opacity: isDisabled ? 0.5 : 1,
-        child: Container(
-          padding: const .symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: .circular(8),
-            color: isSelected
-                ? ThemeHelper.getColor(context).primary400
-                : ThemeHelper.getColor(context).primary100,
+        duration: const Duration(milliseconds: 350),
+        opacity: widget.isDisabled ? 0.5 : 1,
+        child: CustomPaint(
+          painter: BorderPainter(
+            currentState: value,
+            color: widget.isWarning ? colors.error600 : colors.primary400,
           ),
-          child: Row(
-            mainAxisAlignment: .spaceAround,
-            children: [
-              Column(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape
+                  .circle, // <--- 2. Ensures the background is a perfect circle
+              color: widget.isSelected ? colors.primary400 : colors.primary100,
+            ),
+            child: InkWell(
+              customBorder:
+                  const CircleBorder(), // <--- 3. Ensures ripple effect is circular
+              onTap: widget.isDisabled ? null : widget.onPressed,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment
+                    .center, // <--- 4. Centers content vertically
                 children: [
                   Container(
-                    clipBehavior: .antiAlias,
-                    decoration: BoxDecoration(borderRadius: .circular(6)),
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     child: Skeleton.replace(
-                      width: 36,
-                      height: 36,
+                      width: 32,
+                      height: 32,
                       child: Container(
-                        padding: const .all(6),
+                        padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: isSelected
-                              ? ThemeHelper.getColor(context).blueDark
-                              : ThemeHelper.getColor(context).primary200,
+                          color: widget.isSelected
+                              ? colors.blueDark
+                              : colors.primary200,
                         ),
                         child: AppIcon(
-                          path: iconPath,
+                          path: widget.iconPath,
                           size: 24,
-                          color: isSelected
-                              ? ThemeHelper.getColor(context).primary50
-                              : ThemeHelper.getColor(context).primary500,
+                          color: widget.isSelected
+                              ? colors.primary50
+                              : colors.primary500,
                         ),
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: .end,
-                    crossAxisAlignment: .end,
-                    children: [
-                      Text(
-                        current.toString(),
-                        style: AppTextStyles.heading3.copyWith(
-                          color: isWarning
-                              ? ThemeHelper.getColor(context).error600
-                              : isSelected
-                              ? ThemeHelper.getColor(context).white
-                              : ThemeHelper.getColor(context).grey700,
-                        ),
-                      ),
-                      if (capacity != null) ...[
-                        Text(
-                          '/',
-                          style: AppTextStyles.heading3.copyWith(
-                            color: isWarning
-                                ? ThemeHelper.getColor(context).error600
-                                : isSelected
-                                ? ThemeHelper.getColor(context).white
-                                : ThemeHelper.getColor(context).grey700,
-                          ),
-                        ),
-                        Text(
-                          capacity.toString(),
-                          style: AppTextStyles.bodyMediumMedium.copyWith(
-                            color: isSelected
-                                ? ThemeHelper.getColor(context).white
-                                : ThemeHelper.getColor(context).grey700,
-                          ),
-                        ),
-                      ],
-                    ],
+                  const SizedBox(
+                    height: 5,
+                  ), // Spacing between Icon and Text
+                  Text(
+                    widget.capacity != null && widget.capacity! >= 0
+                        ? (widget.capacity! - widget.current).toString()
+                        : '${(value * 100).toInt()}%',
+                    style: AppTextStyles.heading4.copyWith(
+                      color: widget.isWarning
+                          ? colors.error600
+                          : widget.isSelected
+                          ? colors.white
+                          : colors.grey700,
+                    ),
                   ),
+                  // Removed bottom SizedBox to allow true centering
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
