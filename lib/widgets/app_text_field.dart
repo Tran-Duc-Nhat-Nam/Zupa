@@ -110,10 +110,11 @@ class _AppTextFieldState extends State<AppTextField> {
           textInputAction: .next,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
+          textAlignVertical: TextAlignVertical.center,
           decoration: .new(
             prefixIcon: widget.prefix != null || widget.prefixIconPath != null
                 ? Padding(
-                    padding: const .only(left: 12),
+                    padding: const .only(left: 12, right: 6),
                     child:
                         widget.prefix ??
                         AppIcon(
@@ -124,13 +125,38 @@ class _AppTextFieldState extends State<AppTextField> {
                   )
                 : null,
             prefixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
-            suffix: widget.suffix != null || widget.suffixIconPath != null
-                ? widget.suffix ??
-                      AppIcon(
-                        path: widget.suffixIconPath!,
-                        color: ThemeHelper.getColor(context).grey400,
-                      )
+            suffixIcon: widget.isPassword || widget.isPasswordConfirm
+                ? IconButton(
+                    iconSize: 20,
+                    padding: const .all(8),
+                    constraints: const .new(),
+                    icon: Icon(
+                      !isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      size: 20,
+                    ),
+                    style: const .new(
+                      tapTargetSize: .shrinkWrap, // the '2023' part
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                  )
+                : widget.suffix != null || widget.suffixIconPath != null
+                ? Padding(
+                  padding: const .only(left: 6, right: 12),
+                  child: widget.suffix ??
+                        AppIcon(
+                          path: widget.suffixIconPath!,
+                          color: ThemeHelper.getColor(context).grey400,
+                          size: 20,
+                        ),
+                )
                 : null,
+            suffixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
             hintText: widget.hintText,
             hintStyle: AppTextStyles.bodyMediumRegular.copyWith(
               color: ThemeHelper.getColor(context).grey500,
@@ -186,28 +212,6 @@ class _AppTextFieldState extends State<AppTextField> {
                         ),
                       )
                     : const OutlineInputBorder(borderSide: .none)),
-            suffixIconConstraints: const .new(minHeight: 20, minWidth: 20),
-            suffixIcon: widget.isPassword || widget.isPasswordConfirm
-                ? IconButton(
-                    iconSize: 20,
-                    padding: const .all(8),
-                    constraints: const .new(),
-                    icon: Icon(
-                      !isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      size: 20,
-                    ),
-                    style: const .new(
-                      tapTargetSize: .shrinkWrap, // the '2023' part
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isPasswordVisible = !isPasswordVisible;
-                      });
-                    },
-                  )
-                : null,
             contentPadding: widget.contentPadding ?? const .all(12),
           ),
         ),

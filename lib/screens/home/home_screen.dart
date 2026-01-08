@@ -58,7 +58,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
             children: [
               SizedBox(height: 6),
               Padding(
-                padding: .symmetric(horizontal: 24),
+                padding: .symmetric(horizontal: 12),
                 child: HomeSearchBar(),
               ),
               Padding(
