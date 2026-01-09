@@ -43,7 +43,7 @@ class HistoryTitle extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              constraints: BoxConstraints(minHeight: 70),
+              constraints: const BoxConstraints(minHeight: 70),
               decoration: BoxDecoration(
                 border: Border.symmetric(
                   vertical: BorderSide(
@@ -135,7 +135,7 @@ class HistoryTitle extends StatelessWidget {
                             ),
                           )
                         : Text(
-                            "",
+                            '',
                             style: AppTextStyles.bodyMediumMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey700,
                             ),
