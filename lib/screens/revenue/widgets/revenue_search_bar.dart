@@ -154,7 +154,7 @@ class RevenueSearchBar extends StatelessWidget {
                   '${context.tr('totalRevenue')}:',
                   style: AppTextStyles.bodyLargeBold.copyWith( // Very large text
                     fontWeight: FontWeight.bold,
-                    color: ThemeHelper.getColor(context).blueDark,
+                    color: ThemeHelper.getColor(context).primary400,
                   ),
                 ),
                 Text(
@@ -164,7 +164,7 @@ class RevenueSearchBar extends StatelessWidget {
                   ).format(1984000000)} VND",
                   style: AppTextStyles.bodyLargeBold.copyWith( // Very large text
                     fontWeight: FontWeight.bold,
-                    color: ThemeHelper.getColor(context).blueDark,
+                    color: ThemeHelper.getColor(context).primary400,
                     letterSpacing: -0.5, // Tighten numbers slightly
                   ),
                 ),

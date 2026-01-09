@@ -141,7 +141,7 @@ class RevenueTitle extends StatelessWidget {
           title: Container(
             clipBehavior: .antiAlias,
             decoration: BoxDecoration(
-              borderRadius: const .all(.circular(8)),
+              borderRadius: const .all(.circular(6)),
               color: ThemeHelper.getColor(context).primary50,
             ),
             child: Row(

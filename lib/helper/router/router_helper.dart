@@ -28,6 +28,7 @@ import '../../screens/revenue/revenue_screen.dart';
 import '../../widgets/app_nav_bar.dart';
 import '../../widgets/popup/app_toast.dart';
 import '../../widgets/transition/app_transitions.dart';
+import '../../widgets/transition/go_open_container.dart';
 import '../sensor/nfc_helper.dart';
 
 class RouterHelper {
@@ -182,8 +183,7 @@ class RouterHelper {
             GoRoute(
               name: AppRoutes.memberVehiclesDetail,
               path: 'detail',
-              pageBuilder: (context, state) => rightToLeftJoinedTransition(
-                context,
+              pageBuilder: (context, state) => goOpenContainerCustomTransition(
                 state,
                 const MemberVehicleDetailScreen(),
               ),
