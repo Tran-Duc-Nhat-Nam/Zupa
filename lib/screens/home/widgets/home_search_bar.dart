@@ -1,10 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../bloc/home/filter/home_filter_cubit.dart';
 import '../../../common/styles/icons.dart';
+import '../../../common/styles/text_styles.dart';
+import '../../../helper/theme/theme_helper.dart';
+import '../../../widgets/app_button.dart';
+import '../../../widgets/app_date_time_picker.dart';
+import '../../../widgets/app_icon.dart';
 import '../../../widgets/app_text_field.dart';
 
 class HomeSearchBar extends StatelessWidget {
@@ -21,12 +27,88 @@ class HomeSearchBar extends StatelessWidget {
             hintText: context.tr('ticketSearch'),
             borderRadius: 100,
             prefixIconPath: AppIcons.search,
-            suffixIconPath: AppIcons.filter,
-            onChanged: (value) =>
-                context.read<HomeFilterCubit>().search(value),
+            suffix: InkWell(
+              child: AppIcon(
+                path: AppIcons.filter,
+                size: 20,
+                color: ThemeHelper.getColor(context).grey400,
+              ),
+              onTap: () => showFilter,
+            ),
+            onChanged: (value) => context.read<HomeFilterCubit>().search(value),
           ),
         );
       },
+    );
+  }
+
+  void showFilter(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Padding(
+        padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
+        child: Column(
+          spacing: 16,
+          mainAxisSize: .min,
+          crossAxisAlignment: .start,
+          children: [
+            Center(
+              child: Text(
+                context.tr('filter'),
+                style: AppTextStyles.bodySmallSemibold.copyWith(
+                  color: ThemeHelper.getColor(context).grey600,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                Text(
+                  context.tr('time'),
+                  style: AppTextStyles.bodyMediumSemibold.copyWith(
+                    color: ThemeHelper.getColor(context).grey700,
+                  ),
+                ),
+                Text(
+                  context.tr('reset'),
+                  style: AppTextStyles.bodyMediumSemibold.copyWith(
+                    color: ThemeHelper.getColor(context).primary500,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              spacing: 12,
+              crossAxisAlignment: .start,
+              children: [
+                Text(context.tr('date')),
+                const AppDateTimePicker(name: 'dateTime'),
+              ],
+            ),
+            const Divider(),
+            Row(
+              spacing: 16,
+              children: [
+                Expanded(
+                  child: AppButton(
+                    color: .basic,
+                    theme: .outline,
+                    onPressed: () => context.pop(),
+                    text: context.tr('cancel'),
+                  ),
+                ),
+                Expanded(
+                  child: AppButton(
+                    onPressed: () => context.pop(),
+                    text: context.tr('apply'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      useRootNavigator: true,
     );
   }
 }

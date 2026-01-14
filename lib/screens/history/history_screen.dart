@@ -124,36 +124,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         borderRadius: 100,
                                       ),
                                     ),
-                                    Container(
-                                      clipBehavior: .antiAlias,
-                                      decoration: BoxDecoration(
-                                        borderRadius: .circular(8),
-                                      ),
-                                      child: Skeleton.replace(
-                                        width: 44,
-                                        height: 44,
-                                        child: SizedBox(
-                                          width: 44,
-                                          child: AspectRatio(
-                                            aspectRatio: 1,
-                                            child: AppButton(
-                                              fitContent: true,
-                                              theme: .outline,
-                                              padding: const .all(8),
-                                              radius: .circular(8),
-                                              color: .basic,
-                                              icon: AppIcon(
-                                                path: AppIcons.filter,
-                                                size: 20,
-                                                color: ThemeHelper.getColor(
-                                                  context,
-                                                ).grey900,
-                                              ),
-                                              onPressed: () {
-                                                showHistoryFilter(context);
-                                              },
-                                            ),
+                                    SizedBox(
+                                      width: 44,
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: AppButton(
+                                          fitContent: true,
+                                          theme: .outline,
+                                          padding: const .all(8),
+                                          radius: .circular(8),
+                                          color: .basic,
+                                          icon: AppIcon(
+                                            path: AppIcons.filter,
+                                            size: 20,
+                                            color: ThemeHelper.getColor(
+                                              context,
+                                            ).grey900,
                                           ),
+                                          onPressed: () {
+                                            showHistoryFilter(context);
+                                          },
                                         ),
                                       ),
                                     ),

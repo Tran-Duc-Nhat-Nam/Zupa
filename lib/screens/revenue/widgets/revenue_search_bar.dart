@@ -26,11 +26,11 @@ class RevenueSearchBar extends StatelessWidget {
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           spacing: 8,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
                   context.tr(
@@ -44,103 +44,99 @@ class RevenueSearchBar extends StatelessWidget {
                 Container(
                   clipBehavior: .antiAlias,
                   decoration: BoxDecoration(borderRadius: .circular(8)),
-                  child: Skeleton.replace(
+                  child: SizedBox(
                     width: 44,
-                    height: 44,
-                    child: SizedBox(
-                      width: 44,
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: AppButton(
-                          fitContent: true,
-                          padding: const .all(8),
-                          radius: .circular(8),
-                          icon: AppIcon(
-                            path: AppIcons.filter,
-                            size: 20,
-                            color: ThemeHelper.getColor(context).white,
-                          ),
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) => Padding(
-                                padding: const .only(
-                                  top: 24,
-                                  bottom: 48,
-                                  left: 24,
-                                  right: 24,
-                                ),
-                                child: Column(
-                                  spacing: 16,
-                                  mainAxisSize: .min,
-                                  crossAxisAlignment: .start,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        context.tr('filter'),
-                                        style: AppTextStyles.bodySmallSemibold.copyWith(
-                                          color: ThemeHelper.getColor(context).grey600,
-                                        ),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: AppButton(
+                        fitContent: true,
+                        padding: const .all(8),
+                        radius: .circular(8),
+                        icon: AppIcon(
+                          path: AppIcons.filter,
+                          size: 20,
+                          color: ThemeHelper.getColor(context).white,
+                        ),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => Padding(
+                              padding: const .only(
+                                top: 24,
+                                bottom: 48,
+                                left: 24,
+                                right: 24,
+                              ),
+                              child: Column(
+                                spacing: 16,
+                                mainAxisSize: .min,
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      context.tr('filter'),
+                                      style: AppTextStyles.bodySmallSemibold.copyWith(
+                                        color: ThemeHelper.getColor(context).grey600,
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment: .spaceBetween,
-                                      children: [
-                                        Text(
-                                          context.tr('time'),
-                                          style: AppTextStyles.bodyMediumSemibold
-                                              .copyWith(
-                                            color: ThemeHelper.getColor(
-                                              context,
-                                            ).grey700,
-                                          ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: .spaceBetween,
+                                    children: [
+                                      Text(
+                                        context.tr('time'),
+                                        style: AppTextStyles.bodyMediumSemibold
+                                            .copyWith(
+                                          color: ThemeHelper.getColor(
+                                            context,
+                                          ).grey700,
                                         ),
-                                        Text(
-                                          context.tr('reset'),
-                                          style: AppTextStyles.bodyMediumSemibold
-                                              .copyWith(
-                                            color: ThemeHelper.getColor(
-                                              context,
-                                            ).primary500,
-                                          ),
+                                      ),
+                                      Text(
+                                        context.tr('reset'),
+                                        style: AppTextStyles.bodyMediumSemibold
+                                            .copyWith(
+                                          color: ThemeHelper.getColor(
+                                            context,
+                                          ).primary500,
                                         ),
-                                      ],
-                                    ),
-                                    Column(
-                                      spacing: 12,
-                                      crossAxisAlignment: .start,
-                                      children: [
-                                        Text(context.tr('date')),
-                                        const AppDateTimePicker(name: 'dateTime'),
-                                      ],
-                                    ),
-                                    const Divider(),
-                                    Row(
-                                      spacing: 16,
-                                      children: [
-                                        Expanded(
-                                          child: AppButton(
-                                            color: AppButtonColor.basic,
-                                            theme: AppButtonTheme.outline,
-                                            onPressed: () => context.pop(),
-                                            text: context.tr('cancel'),
-                                          ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    spacing: 12,
+                                    crossAxisAlignment: .start,
+                                    children: [
+                                      Text(context.tr('date')),
+                                      const AppDateTimePicker(name: 'dateTime'),
+                                    ],
+                                  ),
+                                  const Divider(),
+                                  Row(
+                                    spacing: 16,
+                                    children: [
+                                      Expanded(
+                                        child: AppButton(
+                                          color: .basic,
+                                          theme: .outline,
+                                          onPressed: () => context.pop(),
+                                          text: context.tr('cancel'),
                                         ),
-                                        Expanded(
-                                          child: AppButton(
-                                            onPressed: () => context.pop(),
-                                            text: context.tr('apply'),
-                                          ),
+                                      ),
+                                      Expanded(
+                                        child: AppButton(
+                                          onPressed: () => context.pop(),
+                                          text: context.tr('apply'),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              useRootNavigator: true,
-                            );
-                          },
-                        ),
+                            ),
+                            useRootNavigator: true,
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -153,7 +149,7 @@ class RevenueSearchBar extends StatelessWidget {
                 Text(
                   '${context.tr('totalRevenue')}:',
                   style: AppTextStyles.bodyLargeBold.copyWith( // Very large text
-                    fontWeight: FontWeight.bold,
+                    fontWeight: .bold,
                     color: ThemeHelper.getColor(context).primary400,
                   ),
                 ),
@@ -163,7 +159,7 @@ class RevenueSearchBar extends StatelessWidget {
                     symbol: '',
                   ).format(1984000000)} VND",
                   style: AppTextStyles.bodyLargeBold.copyWith( // Very large text
-                    fontWeight: FontWeight.bold,
+                    fontWeight: .bold,
                     color: ThemeHelper.getColor(context).primary400,
                     letterSpacing: -0.5, // Tighten numbers slightly
                   ),

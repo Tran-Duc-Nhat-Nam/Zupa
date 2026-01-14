@@ -42,17 +42,13 @@ class _HomeScreenState extends AppState<HomeScreen> {
                 filter.HomeFilterCubit()..load(context, getFormValues),
           ),
         ],
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<HomeTicketCubit, HomeTicketState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  loaded: (tickets, pageIndex) =>
-                      context.read<filter.HomeFilterCubit>().init(context),
-                );
-              },
-            ),
-          ],
+        child: BlocListener<HomeTicketCubit, HomeTicketState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              loaded: (tickets, pageIndex) =>
+                  context.read<filter.HomeFilterCubit>().init(context),
+            );
+          },
           child: const Column(
             spacing: 10,
             children: [

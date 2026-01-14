@@ -42,17 +42,13 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
                 filter.RevenueFilterCubit()..load(context, getFormValues),
           ),
         ],
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<RevenueListCubit, RevenueListState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  loaded: (_, _) =>
-                      context.read<filter.RevenueFilterCubit>().init(context),
-                );
-              },
-            ),
-          ],
+        child: BlocListener<RevenueListCubit, RevenueListState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              loaded: (_, _) =>
+                  context.read<filter.RevenueFilterCubit>().init(context),
+            );
+          },
           child: const Column(
             children: [
               SizedBox(height: 16),
