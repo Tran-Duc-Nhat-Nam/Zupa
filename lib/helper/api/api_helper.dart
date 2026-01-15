@@ -6,8 +6,7 @@ import 'package:logarte/logarte.dart';
 import '../../env/env.dart';
 import '../../data/response/error/error_response.dart';
 import '../../data/response/success/success_response.dart';
-import '../../widgets/popup/app_dialog.dart';
-import '../auth/auth_helper.dart';
+
 import '../debugger/debugger_helper.dart';
 import 'interceptors.dart';
 
@@ -31,8 +30,15 @@ class ApiHelper {
   /// The [onSuccess] callback is invoked if the response is a [SuccessResponse].
   /// The [onFailed] callback is invoked if the response is an [ErrorResponse].
   /// The [onError] callback is invoked if an exception is thrown.
+  /// Callback for 401/403 errors.
+  static VoidCallback? onUnauthorized;
+
+  /// Makes a network call using the provided [apiFunction].
+  ///
+  /// The [onSuccess] callback is invoked if the response is a [SuccessResponse].
+  /// The [onFailed] callback is invoked if the response is an [ErrorResponse].
+  /// The [onError] callback is invoked if an exception is thrown.
   static Future<void> callAPI({
-    required BuildContext context,
     required Function(Dio dio) apiFunction,
     Function(SuccessResponse response)? onSuccess,
     Function(ErrorResponse error)? onFailed,
@@ -48,10 +54,7 @@ class ApiHelper {
           onFailed(response);
         } else {
           if (response.code == 4001 || response.code == 4003) {
-            await AuthHelper.removeAuth();
-            if (context.mounted) {
-              AppDialog.showAuthDialog(context);
-            }
+            onUnauthorized?.call();
           }
         }
       }

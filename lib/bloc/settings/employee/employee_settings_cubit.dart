@@ -17,7 +17,7 @@ class EmployeeSettingsCubit extends Cubit<EmployeeSettingsState> {
     await Future.delayed(const .new(seconds: 2));
     if (context.mounted) {
       await ApiHelper.callAPI(
-        context: context,
+  
         apiFunction: (dio) => StaffAPI(dio).getList(const .new()),
         onSuccess: (response) {
           final List<Employee> items = [];

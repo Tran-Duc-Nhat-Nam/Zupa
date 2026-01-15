@@ -21,7 +21,7 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
       await Future.delayed(const .new(seconds: 2));
       if (context.mounted) {
         await ApiHelper.callAPI(
-          context: context,
+    
           apiFunction: (dio) => StaffAPI(dio).getList(const .new()),
           onSuccess: (response) {
             final item = response.data.data as MemberVehicle;
@@ -38,7 +38,7 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
   void create(BuildContext context, Map<String, dynamic> data) {
     emit(const .loading());
     ApiHelper.callAPI(
-      context: context,
+
       apiFunction: (dio) => StaffAPI(dio).create(
         .new(
           name: data['name'],
@@ -62,7 +62,7 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
   void delete(BuildContext context, String id) {
     emit(const .loading());
     ApiHelper.callAPI(
-      context: context,
+
       apiFunction: (dio) => StaffAPI(dio).delete(id),
       onSuccess: (response) async {
         await AuthHelper.setAuth(response.data['accessToken']);

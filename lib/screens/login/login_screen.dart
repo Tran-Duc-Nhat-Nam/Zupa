@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../bloc/login/login_cubit.dart';
+import '../../di/injection.dart';
 import '../../common/constants/routes.dart';
 import '../../helper/theme/theme_helper.dart';
 import '../../common/styles/text_styles.dart';
@@ -22,7 +23,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit()..load(),
+      create: (context) => getIt<LoginCubit>()..load(),
       child: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
@@ -121,7 +122,6 @@ class LoginScreen extends StatelessWidget {
                             formKey.currentState?.saveAndValidate();
                             if (formKey.currentState?.validate() ?? false) {
                               context.read<LoginCubit>().login(
-                                context,
                                 tenant:
                                     formKey.currentState?.value['tenant'] ?? '',
                                 username:

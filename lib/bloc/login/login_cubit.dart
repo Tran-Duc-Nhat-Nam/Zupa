@@ -3,17 +3,19 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
-import '../../data/api/account/account_api.dart';
-import '../../data/request/account/account_request.dart';
-import '../../helper/api/api_helper.dart';
+import '../../data/repository/authentication_repository.dart';
 import '../../helper/auth/auth_helper.dart';
 
 part 'login_state.dart';
 part 'login_cubit.freezed.dart';
 
+@injectable
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(const .initial());
+  final AuthenticationRepository _authRepo;
+
+  LoginCubit(this._authRepo) : super(const LoginState.initial());
 
   Future<void> load({
     String? tenant,
@@ -50,31 +52,23 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  void login(
-    BuildContext context, {
+  Future<void> login({
     String tenant = '',
     String username = '',
     String password = '',
     bool isRemember = false,
-  }) {
+  }) async {
     emit(const .submitting());
-    final payload = AccountRequest(
-      tenant: tenant,
-      username: username,
-      password: password,
-    );
-    ApiHelper.callAPI(
-      context: context,
-      apiFunction: (dio) => AccountAPI(dio).login(payload),
-      onSuccess: (response) async {
-        await AuthHelper.setAuth(response.data['accessToken']);
-        isRemember
-            ? await AuthHelper.saveAccountInfo(payload)
-            : await AuthHelper.removeAccountInfo();
-        emit(const .loginSuccess());
-      },
-      onFailed: (response) => emit(.loginFailed(response.message)),
-      onError: (response) => emit(.loginFailed(response.toString())),
-    );
+    try {
+      await _authRepo.logIn(
+        tenant: tenant,
+        username: username,
+        password: password,
+        isRemember: isRemember,
+      );
+      emit(const .loginSuccess());
+    } catch (e) {
+      emit(.loginFailed(e.toString()));
+    }
   }
 }

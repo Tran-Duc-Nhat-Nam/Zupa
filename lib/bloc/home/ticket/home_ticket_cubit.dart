@@ -20,7 +20,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     await Future.delayed(const .new(seconds: 2));
     if (context.mounted) {
       await ApiHelper.callAPI(
-        context: context,
+  
         apiFunction: (dio) => StaffAPI(dio).getList(const .new()),
         onSuccess: (response) {
           final items = (response.data.data as List<dynamic>)
@@ -53,7 +53,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
     emit(.refreshing(items));
     await ApiHelper.callAPI(
-      context: context,
+
       apiFunction: (dio) => StaffAPI(dio).getList(const .new()),
       onSuccess: (response) {
         final items = (response.data.data as List<dynamic>)
@@ -92,7 +92,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
     emit(.loadingMore(items));
     await ApiHelper.callAPI(
-      context: context,
+
       apiFunction: (dio) => StaffAPI(dio).getList(.new(page: pageIndex)),
       onSuccess: (response) {
         final List<Ticket> newItems = (response.data.data as List<dynamic>)
