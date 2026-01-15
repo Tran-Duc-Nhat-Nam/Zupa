@@ -3,8 +3,8 @@ import 'dart:async';
 
 
 
-import '../../helper/api/api_helper.dart';
-import '../../helper/auth/auth_helper.dart';
+import '../../data/service/network_service.dart';
+import '../../data/service/storage_service.dart';
 import '../api/account/account_api.dart';
 import '../request/account/account_request.dart';
 import '../response/error/error_response.dart';
@@ -16,7 +16,11 @@ enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 @lazySingleton
 class AuthenticationRepository {
+  final NetworkService _networkService;
+  final StorageService _storageService;
   final _controller = StreamController<AuthenticationStatus>();
+
+  AuthenticationRepository(this._networkService, this._storageService);
 
   Stream<AuthenticationStatus> get status async* {
     yield AuthenticationStatus.unknown;
@@ -36,16 +40,18 @@ class AuthenticationRepository {
     );
     
     try {
-      final response = await ApiHelper.request((dio) => AccountAPI(dio).login(payload));
+      final response = await _networkService.request(
+        (dio) => AccountAPI(dio).login(payload),
+      );
       
       if (response is SuccessResponse) {
          final accessToken = response.data['accessToken'];
-         await AuthHelper.setAuth(accessToken);
+        await _storageService.setAuth(accessToken);
          
          if (isRemember) {
-           await AuthHelper.saveAccountInfo(payload);
+          await _storageService.saveAccountInfo(payload);
          } else {
-           await AuthHelper.removeAccountInfo();
+          await _storageService.removeAccountInfo();
          }
          
          _controller.add(AuthenticationStatus.authenticated);
@@ -58,7 +64,7 @@ class AuthenticationRepository {
   }
 
   Future<void> logOut() async {
-    await AuthHelper.removeAuth();
+    await _storageService.removeAuth();
     _controller.add(AuthenticationStatus.unauthenticated);
   }
 
