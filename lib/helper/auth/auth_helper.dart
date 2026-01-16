@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../common/constants/shared_ref.dart';
-import '../../data/request/account/account_request.dart';
+import '../../features/auth/data/models/account_request.dart';
 import '../../widgets/popup/app_toast.dart';
 
 class AuthHelper {

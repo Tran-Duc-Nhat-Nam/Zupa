@@ -46,7 +46,9 @@ class _AppNavBarState extends State<AppNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final path = GoRouter.of(context).routerDelegate.currentConfiguration.uri.path.split(  '/');
+    final path = GoRouter.of(
+      context,
+    ).routerDelegate.currentConfiguration.uri.path.split('/');
     return Scaffold(
       appBar: AppAppBar(
         text: (path.last == '' || path.length == 1 ? 'home' : path.last).tr(),
@@ -64,7 +66,7 @@ class _AppNavBarState extends State<AppNavBar> {
                 border: .all(color: ThemeHelper.getColor(context).primary100),
               ),
             ),
-          )
+          ),
         ],
       ),
       body: PersistentTabView.router(

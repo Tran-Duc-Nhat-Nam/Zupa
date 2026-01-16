@@ -55,17 +55,13 @@ class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
           children: .generate(widget.items.length, (index) {
             if (widget.itemBuilder != null) {
               return widget.itemBuilder!(
-                Radio<T>(
-                  value: widget.items[index],
-                ),
+                Radio<T>(value: widget.items[index]),
                 widget.items[index],
                 field.value == widget.items[index],
                 () => field.didChange(widget.items[index]),
               );
             }
-            return Radio<T>(
-              value: widget.items[index],
-            );
+            return Radio<T>(value: widget.items[index]);
           }),
         ),
       ),

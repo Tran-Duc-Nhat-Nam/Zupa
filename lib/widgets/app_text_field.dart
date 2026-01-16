@@ -147,14 +147,15 @@ class _AppTextFieldState extends State<AppTextField> {
                   )
                 : widget.suffix != null || widget.suffixIconPath != null
                 ? Padding(
-                  padding: const .only(left: 6, right: 12),
-                  child: widget.suffix ??
+                    padding: const .only(left: 6, right: 12),
+                    child:
+                        widget.suffix ??
                         AppIcon(
                           path: widget.suffixIconPath!,
                           color: ThemeHelper.getColor(context).grey400,
                           size: 20,
                         ),
-                )
+                  )
                 : null,
             suffixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
             hintText: widget.hintText,

@@ -1,0 +1,51 @@
+import 'dart:async';
+import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+import '../../../../../screens/camera/models/vehicle_type.dart';
+import 'model/history_filter.dart';
+
+part 'history_filter_state.dart';
+part 'history_filter_cubit.freezed.dart';
+
+@injectable
+class HistoryFilterCubit extends Cubit<HistoryFilterState> {
+  HistoryFilterCubit() : super(const HistoryFilterState.initial());
+
+  Timer? _debounce;
+
+  void update({String? keyword, DateTime? time, VehicleType? type}) {
+    final currentFilter = state.maybeMap(
+      loaded: (s) => s.filter,
+      filtering: (s) => s.filter,
+      orElse: () => const HistoryFilter(),
+    );
+
+    final newFilter = currentFilter.copyWith(
+      keyword: keyword ?? currentFilter.keyword,
+      time: time ?? currentFilter.time,
+      type: type ?? currentFilter.type,
+    );
+
+    emit(HistoryFilterState.loaded(filter: newFilter));
+  }
+
+  void reset() {
+    emit(const HistoryFilterState.initial());
+  }
+
+  void init(BuildContext context) {
+    // No-op or sync with initial values if needed
+    state.maybeMap(
+      initial: (s) => emit(const HistoryFilterState.loaded()),
+      orElse: () {},
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _debounce?.cancel();
+    return super.close();
+  }
+}

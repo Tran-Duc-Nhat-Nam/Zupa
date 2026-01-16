@@ -1,0 +1,24 @@
+import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+
+import 'package:zupa/features/settings/data/models/parking_lot.dart';
+
+part 'parking_lot_detail_state.dart';
+part 'parking_lot_detail_cubit.freezed.dart';
+
+@injectable
+class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
+  ParkingLotDetailCubit() : super(const ParkingLotDetailState.initial());
+
+  Future<void> init(ParkingLot? parkingLot) async {
+    emit(const ParkingLotDetailState.loading());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(
+      parkingLot != null
+          ? ParkingLotDetailState.loaded(parkingLot)
+          : const ParkingLotDetailState.creating(),
+    );
+  }
+}
+

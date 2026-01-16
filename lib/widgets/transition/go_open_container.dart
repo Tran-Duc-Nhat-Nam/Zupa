@@ -11,6 +11,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 const _kGoOpenContainerAnimationDuration = Duration(milliseconds: 300);
 
 /// Mimics the behaviour of the OpenContainer widget for go_router.
@@ -53,29 +54,33 @@ class _GoOpenContainerState extends State<GoOpenContainer>
   void initState() {
     super.initState();
     _animationController =
-    AnimationController(
-      duration: _kGoOpenContainerAnimationDuration,
-      vsync: this,
-    )..addStatusListener((status) async {
-      if (status == AnimationStatus.completed) {
-        _removeOverlay();
-      }
-    });
+        AnimationController(
+          duration: _kGoOpenContainerAnimationDuration,
+          vsync: this,
+        )..addStatusListener((status) async {
+          if (status == AnimationStatus.completed) {
+            _removeOverlay();
+          }
+        });
 
     _sizeAnimation = Tween<Size>(begin: Size.zero, end: Size.zero).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
     _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
         .animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
-    );
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
     _opacityAnimation = Tween<double>(begin: 1, end: 0.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const DelayedCurve(delay: 0.5, curve: Curves.easeInOut, end: 0.8),
+        curve: const DelayedCurve(
+          delay: 0.5,
+          curve: Curves.easeInOut,
+          end: 0.8,
+        ),
       ),
     );
     _borderRadiusAnimation =
@@ -113,10 +118,10 @@ class _GoOpenContainerState extends State<GoOpenContainer>
     if (!shouldNavigate) return;
 
     final RenderBox renderBox =
-    _containerKey.currentContext!.findRenderObject()! as RenderBox;
+        _containerKey.currentContext!.findRenderObject()! as RenderBox;
 
     final RenderBox navigatorRenderBox =
-    Navigator.of(context).context.findRenderObject()! as RenderBox;
+        Navigator.of(context).context.findRenderObject()! as RenderBox;
 
     final Offset position = renderBox.localToGlobal(
       Offset.zero,
@@ -219,9 +224,9 @@ class _GoOpenContainerState extends State<GoOpenContainer>
 
 /// Use this custom transition only for pages that are accessed by using GoOpenContainer
 Page<dynamic> goOpenContainerCustomTransition(
-    GoRouterState state,
-    Widget page,
-    ) {
+  GoRouterState state,
+  Widget page,
+) {
   if (state.extra == null) {
     return MaterialPage(key: state.pageKey, child: page);
   }
@@ -269,10 +274,10 @@ class DelayedCurve extends Curve {
     this.curve = Curves.easeIn,
     this.end = 1.0,
   }) : assert(
-  delay >= 0.0 && delay <= 1.0 && end >= 0.0 && end <= 1.0,
-  'Delay and end must be between 0.0 and 1.0',
-  ),
-        assert(end >= delay, 'End must not be lower than delay');
+         delay >= 0.0 && delay <= 1.0 && end >= 0.0 && end <= 1.0,
+         'Delay and end must be between 0.0 and 1.0',
+       ),
+       assert(end >= delay, 'End must not be lower than delay');
 
   @override
   double transform(double t) {
@@ -287,4 +292,3 @@ class DelayedCurve extends Curve {
     return curve.transform(adjustedT);
   }
 }
-

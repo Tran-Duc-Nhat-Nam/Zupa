@@ -15,9 +15,6 @@ sealed class VehicleType with _$VehicleType {
     @ColorConverter() @Default(Colors.grey) Color color,
   }) = _VehicleType;
 
-  factory VehicleType.fromJson(Map<String, Object?> json)
-  => _$VehicleTypeFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => toJson();
+  factory VehicleType.fromJson(Map<String, dynamic> json) =>
+      _$VehicleTypeFromJson(json);
 }

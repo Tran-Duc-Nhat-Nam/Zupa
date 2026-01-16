@@ -205,7 +205,7 @@ return $default(_that.code,_that.data,_that.message);case _:
 @JsonSerializable()
 
 class _SuccessResponse implements SuccessResponse {
-  const _SuccessResponse({this.code = 200, this.data, this.message = 'Success'});
+  const _SuccessResponse({this.code = 200, required this.data, this.message = 'Success'});
   factory _SuccessResponse.fromJson(Map<String, dynamic> json) => _$SuccessResponseFromJson(json);
 
 @override@JsonKey() final  int code;

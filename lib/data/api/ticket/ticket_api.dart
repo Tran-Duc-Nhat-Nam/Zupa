@@ -10,7 +10,7 @@ part 'ticket_api.g.dart';
 @RestApi()
 abstract class StaffAPI {
   factory StaffAPI(Dio dio, {String? baseUrl, ParseErrorLogger? errorLogger}) =
-  _StaffAPI;
+      _StaffAPI;
 
   @GET('/hrm/staff-meta-data')
   Future<SuccessResponse> getList(@Queries() Request request);

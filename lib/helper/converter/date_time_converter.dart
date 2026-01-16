@@ -13,6 +13,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
     final formatter = DateFormat('hh:mm');
     return formatter.format(object);
   }
+
   static String toDate(DateTime object) {
     final formatter = DateFormat('dd/MM/yyyy');
     return formatter.format(object);
@@ -20,8 +21,19 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   static String getMonthKey(int month) {
     const monthNames = [
-      '', 'january', 'february', 'march', 'april', 'may', 'june',
-      'july', 'august', 'september', 'october', 'november', 'december'
+      '',
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december',
     ];
 
     if (month < 1 || month > 12) {

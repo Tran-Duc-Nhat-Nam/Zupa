@@ -36,7 +36,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);
@@ -63,7 +63,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);
@@ -91,7 +91,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);
@@ -118,7 +118,7 @@ class _StaffAPI implements StaffAPI {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late SuccessResponse _value;
     try {
       _value = SuccessResponse.fromJson(_result.data!);

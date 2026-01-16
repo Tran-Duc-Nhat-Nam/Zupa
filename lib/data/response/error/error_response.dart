@@ -10,9 +10,6 @@ sealed class ErrorResponse with _$ErrorResponse {
     @Default('Unknown error') String message,
   }) = _ErrorResponse;
 
-  factory ErrorResponse.fromJson(Map<String, Object?> json)
-  => _$ErrorResponseFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => toJson();
+  factory ErrorResponse.fromJson(Map<String, Object?> json) =>
+      _$ErrorResponseFromJson(json);
 }

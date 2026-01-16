@@ -6,13 +6,11 @@ part 'request.g.dart';
 @freezed
 sealed class Request with _$Request {
   const factory Request({
-    @Default(0) int page,
+    @Default(1) int page,
     @Default(10) int size,
+    Map<String, dynamic>? query,
   }) = _Request;
 
-  factory Request.fromJson(Map<String, Object?> json)
-  => _$RequestFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => toJson();
+  factory Request.fromJson(Map<String, Object?> json) =>
+      _$RequestFromJson(json);
 }

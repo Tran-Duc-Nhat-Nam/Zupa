@@ -7,18 +7,15 @@ import 'package:upgrader/upgrader.dart';
 import 'bloc/auth/auth_cubit.dart';
 import 'bloc/debugger/debugger_cubit.dart';
 import 'bloc/theme/theme_cubit.dart';
-import 'helper/debugger/debugger_helper.dart';
 import 'helper/router/router_helper.dart';
 
 import 'di/injection.dart';
-import 'data/repository/authentication_repository.dart';
+import 'features/auth/domain/repository/authentication_repository.dart';
 import 'helper/api/api_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  RouterHelper.initRouter();
-  DebuggerHelper.initDebugger();
   configureDependencies();
 
   ApiHelper.onUnauthorized = () => getIt<AuthenticationRepository>().logOut();
@@ -31,17 +28,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
-      supportedLocales: const <Locale>[
-        Locale('en', 'US'),
-        Locale('vi', 'VN'),
-      ],
+      supportedLocales: const <Locale>[Locale('en', 'US'), Locale('vi', 'VN')],
       path: 'assets/translations',
       fallbackLocale: const .new('en', 'US'),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(
-            create: (BuildContext context) =>
-                ThemeCubit()..loadTheme(context),
+            create: (BuildContext context) => ThemeCubit()..loadTheme(context),
           ),
           BlocProvider<DebuggerCubit>(
             create: (BuildContext context) => DebuggerCubit()..loadDebugger(),

@@ -3,11 +3,7 @@ import 'package:logarte/logarte.dart';
 import '../../common/constants/shared_ref.dart';
 
 class DebuggerHelper {
-  static late final Logarte debugger;
-
-  static Future<void> initDebugger() async {
-    debugger = Logarte();
-  }
+  static final Logarte debugger = Logarte();
 
   static Future<void> clearDebugger() async {
     debugger.detachOverlay();

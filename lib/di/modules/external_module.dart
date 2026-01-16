@@ -17,12 +17,13 @@ abstract class ExternalModule {
   LocalAuthentication get localAuthentication => LocalAuthentication();
 
   @lazySingleton
-  Dio get dio => Dio(
-        BaseOptions(
-          baseUrl: app_env.Environment.restApiUrl,
-          connectTimeout: const Duration(seconds: 30),
-        ),
-      )
+  Dio get dio =>
+      Dio(
+          BaseOptions(
+            baseUrl: app_env.Environment.restApiUrl,
+            connectTimeout: const Duration(seconds: 30),
+          ),
+        )
         ..interceptors.add(AuthInterceptor())
         ..interceptors.add(LogarteDioInterceptor(DebuggerHelper.debugger));
 }

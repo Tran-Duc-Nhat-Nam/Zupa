@@ -56,7 +56,7 @@ linter:
     prefer_interpolation_to_compose_strings: true
     prefer_is_empty: true
     prefer_null_aware_operators: true
-    prefer_relative_imports: true
+    prefer_relative_imports: false
     prefer_single_quotes: true
     sized_box_for_whitespace: true
     unnecessary_await_in_return: true

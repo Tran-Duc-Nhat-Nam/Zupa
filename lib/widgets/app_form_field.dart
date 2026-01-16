@@ -32,8 +32,7 @@ class AppFormField<T> extends StatelessWidget {
       );
     }
     if (customValidators != null) {
-      _validators
-          .addAll(customValidators! as Iterable<FormFieldValidator<T>>);
+      _validators.addAll(customValidators! as Iterable<FormFieldValidator<T>>);
     }
     return FormBuilderField<T>(
       name: name,

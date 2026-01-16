@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Request {
 
- int get page; int get size;
+ int get page; int get size; Map<String, dynamic>? get query;
 /// Create a copy of Request
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RequestCopyWith<Request> get copyWith => _$RequestCopyWithImpl<Request>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Request&&(identical(other.page, page) || other.page == page)&&(identical(other.size, size) || other.size == size));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Request&&(identical(other.page, page) || other.page == page)&&(identical(other.size, size) || other.size == size)&&const DeepCollectionEquality().equals(other.query, query));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,size);
+int get hashCode => Object.hash(runtimeType,page,size,const DeepCollectionEquality().hash(query));
 
 @override
 String toString() {
-  return 'Request(page: $page, size: $size)';
+  return 'Request(page: $page, size: $size, query: $query)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RequestCopyWith<$Res>  {
   factory $RequestCopyWith(Request value, $Res Function(Request) _then) = _$RequestCopyWithImpl;
 @useResult
 $Res call({
- int page, int size
+ int page, int size, Map<String, dynamic>? query
 });
 
 
@@ -65,11 +65,12 @@ class _$RequestCopyWithImpl<$Res>
 
 /// Create a copy of Request
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? size = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? size = null,Object? query = freezed,}) {
   return _then(_self.copyWith(
 page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
-as int,
+as int,query: freezed == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,
   ));
 }
 
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int page,  int size)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int page,  int size,  Map<String, dynamic>? query)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Request() when $default != null:
-return $default(_that.page,_that.size);case _:
+return $default(_that.page,_that.size,_that.query);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.page,_that.size);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int page,  int size)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int page,  int size,  Map<String, dynamic>? query)  $default,) {final _that = this;
 switch (_that) {
 case _Request():
-return $default(_that.page,_that.size);}
+return $default(_that.page,_that.size,_that.query);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -189,10 +190,10 @@ return $default(_that.page,_that.size);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int page,  int size)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int page,  int size,  Map<String, dynamic>? query)?  $default,) {final _that = this;
 switch (_that) {
 case _Request() when $default != null:
-return $default(_that.page,_that.size);case _:
+return $default(_that.page,_that.size,_that.query);case _:
   return null;
 
 }
@@ -204,11 +205,20 @@ return $default(_that.page,_that.size);case _:
 @JsonSerializable()
 
 class _Request implements Request {
-  const _Request({this.page = 0, this.size = 10});
+  const _Request({this.page = 1, this.size = 10, final  Map<String, dynamic>? query}): _query = query;
   factory _Request.fromJson(Map<String, dynamic> json) => _$RequestFromJson(json);
 
 @override@JsonKey() final  int page;
 @override@JsonKey() final  int size;
+ final  Map<String, dynamic>? _query;
+@override Map<String, dynamic>? get query {
+  final value = _query;
+  if (value == null) return null;
+  if (_query is EqualUnmodifiableMapView) return _query;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
 
 /// Create a copy of Request
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Request&&(identical(other.page, page) || other.page == page)&&(identical(other.size, size) || other.size == size));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Request&&(identical(other.page, page) || other.page == page)&&(identical(other.size, size) || other.size == size)&&const DeepCollectionEquality().equals(other._query, _query));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,size);
+int get hashCode => Object.hash(runtimeType,page,size,const DeepCollectionEquality().hash(_query));
 
 @override
 String toString() {
-  return 'Request(page: $page, size: $size)';
+  return 'Request(page: $page, size: $size, query: $query)';
 }
 
 
@@ -243,7 +253,7 @@ abstract mixin class _$RequestCopyWith<$Res> implements $RequestCopyWith<$Res> {
   factory _$RequestCopyWith(_Request value, $Res Function(_Request) _then) = __$RequestCopyWithImpl;
 @override @useResult
 $Res call({
- int page, int size
+ int page, int size, Map<String, dynamic>? query
 });
 
 
@@ -260,11 +270,12 @@ class __$RequestCopyWithImpl<$Res>
 
 /// Create a copy of Request
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? size = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? size = null,Object? query = freezed,}) {
   return _then(_Request(
 page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
-as int,
+as int,query: freezed == query ? _self._query : query // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,
   ));
 }
 
