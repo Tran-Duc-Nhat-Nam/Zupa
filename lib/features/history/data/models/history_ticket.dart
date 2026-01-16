@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:zupa/screens/camera/models/vehicle_type.dart';
+import 'package:zupa/core/common/models/vehicle_type.dart';
 
 part 'history_ticket.freezed.dart';
 part 'history_ticket.g.dart';

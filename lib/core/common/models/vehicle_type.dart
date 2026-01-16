@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../common/styles/icons.dart';
-import '../../../helper/converter/color_converter.dart';
+import 'package:zupa/common/styles/icons.dart';
+import 'package:zupa/helper/converter/color_converter.dart';
 
 part 'vehicle_type.freezed.dart';
 part 'vehicle_type.g.dart';

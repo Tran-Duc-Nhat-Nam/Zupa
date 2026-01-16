@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../common/constants/vehicle_types.dart';
-import '../../../../../screens/camera/models/vehicle_type.dart';
+import 'package:zupa/core/common/models/vehicle_type.dart';
 import 'model/home_filter.dart';
 
 part 'home_filter_state.dart';

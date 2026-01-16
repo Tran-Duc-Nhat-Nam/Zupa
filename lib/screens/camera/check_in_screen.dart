@@ -2,20 +2,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../common/constants/vehicle_types.dart';
-import '../../common/styles/icons.dart';
-import 'widgets/camera_screen.dart';
-import 'widgets/ticket_info_card.dart';
+import 'package:zupa/common/constants/vehicle_types.dart';
+import 'package:zupa/common/styles/icons.dart';
+import 'package:zupa/screens/camera/widgets/camera_screen.dart';
+import 'package:zupa/screens/camera/widgets/ticket_info_card.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'widgets/vehicle_info_card.dart';
-import '../../widgets/app_button.dart';
-import '../../widgets/app_card.dart';
-import '../../widgets/app_screen.dart';
-import '../../widgets/app_text_field.dart';
-import '../../widgets/state/app_state.dart';
-
-import '../../bloc/camera/check_in/check_in_cubit.dart';
-import '../../widgets/popup/app_toast.dart';
+import 'package:zupa/screens/camera/widgets/vehicle_info_card.dart';
+import 'package:zupa/widgets/app_button.dart';
+import 'package:zupa/widgets/app_card.dart';
+import 'package:zupa/widgets/app_screen.dart';
+import 'package:zupa/widgets/app_text_field.dart';
+import 'package:zupa/widgets/state/app_state.dart';
+import 'package:zupa/bloc/camera/check_in/check_in_cubit.dart';
+import 'package:zupa/widgets/popup/app_toast.dart';
 
 class CheckInScreen extends StatefulWidget {
   const CheckInScreen({super.key});

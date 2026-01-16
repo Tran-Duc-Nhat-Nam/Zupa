@@ -1,6 +1,5 @@
-import '../../screens/camera/models/vehicle_type.dart';
-
-import '../styles/icons.dart';
+import 'package:zupa/core/common/models/vehicle_type.dart';
+import 'package:zupa/common/styles/icons.dart';
 
 const List<VehicleType> vehicleTypes = [
   .new(name: 'motorbike', value: 'motorbike', iconPath: AppIcons.motorbike),

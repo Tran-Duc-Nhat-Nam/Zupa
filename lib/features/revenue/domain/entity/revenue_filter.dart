@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/screens/camera/models/vehicle_type.dart';
+import 'package:zupa/core/common/models/vehicle_type.dart';
 
 part 'revenue_filter.freezed.dart';
 part 'revenue_filter.g.dart';
