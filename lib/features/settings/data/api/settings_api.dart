@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 
 part 'settings_api.g.dart';
 

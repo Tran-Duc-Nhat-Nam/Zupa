@@ -1,20 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
-import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 import 'package:zupa/features/revenue/data/models/revenue_model.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/widgets/app_icon.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
 
-import 'package:zupa/common/constants/vehicle_types.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
 
 class RevenueListTab extends StatelessWidget {
   const RevenueListTab({super.key});

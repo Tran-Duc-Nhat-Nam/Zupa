@@ -4,8 +4,8 @@ import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/features/auth/data/api/account_api.dart';
 import 'package:zupa/features/auth/data/models/account_request.dart';
-import 'package:zupa/data/response/error/error_response.dart';
-import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/core/data/response/error/error_response.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 
 import 'package:injectable/injectable.dart';
 

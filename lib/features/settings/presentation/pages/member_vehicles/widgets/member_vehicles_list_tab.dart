@@ -5,15 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
-import 'package:zupa/helper/converter/date_time_converter.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/settings/data/models/member_vehicle.dart';
-import 'package:zupa/widgets/app_button.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/popup/app_dialog.dart';
-import 'package:zupa/widgets/popup/app_message.dart';
-import 'package:zupa/widgets/popup/app_photo_view.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
+import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class MemberVehiclesListTab extends StatelessWidget {

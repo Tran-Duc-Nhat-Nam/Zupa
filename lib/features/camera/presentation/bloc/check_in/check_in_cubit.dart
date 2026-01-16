@@ -3,8 +3,8 @@ import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/core/common/models/vehicle_type.dart';
-import 'package:zupa/widgets/popup/app_toast.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 part 'check_in_state.dart';
 part 'check_in_cubit.freezed.dart';

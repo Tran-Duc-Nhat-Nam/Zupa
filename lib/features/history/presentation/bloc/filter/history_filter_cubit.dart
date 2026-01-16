@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/common/models/vehicle_type.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/model/history_filter.dart';
 
 part 'history_filter_state.dart';

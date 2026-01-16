@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
-import 'package:zupa/helper/converter/date_time_converter.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_icon.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
 
 class HistoryTitle extends StatelessWidget {
   const HistoryTitle({super.key, required this.ticket});

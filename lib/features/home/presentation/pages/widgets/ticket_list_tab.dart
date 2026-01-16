@@ -8,15 +8,15 @@ import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
-import 'package:zupa/common/constants/routes.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:jiffy/jiffy.dart';
 
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/common/styles/text_styles.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/widgets/popup/app_photo_view.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 
 class TicketListTab extends StatelessWidget {
   const TicketListTab({super.key});

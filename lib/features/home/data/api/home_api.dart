@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import 'package:zupa/data/request/member_vehicle/member_vehicle_request.dart';
-import 'package:zupa/data/request/request.dart';
-import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/core/data/request/member_vehicle/member_vehicle_request.dart';
+import 'package:zupa/core/data/request/request.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 
 part 'home_api.g.dart';
 

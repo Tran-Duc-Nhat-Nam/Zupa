@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // ignore: prefer_relative_imports
-import 'package:zupa/core/common/models/vehicle_type.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
 
 part 'ticket.freezed.dart';
 part 'ticket.g.dart';

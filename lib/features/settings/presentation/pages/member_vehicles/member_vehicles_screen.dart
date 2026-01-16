@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
     as filter;
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/widgets/app_icon.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/state/app_state.dart';
-import 'package:zupa/di/injection.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_list_tab.dart';
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_search_bar.dart';
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_tab_bar.dart';

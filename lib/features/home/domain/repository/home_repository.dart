@@ -1,4 +1,4 @@
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
 
 abstract class IHomeRepository {

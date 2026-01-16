@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';

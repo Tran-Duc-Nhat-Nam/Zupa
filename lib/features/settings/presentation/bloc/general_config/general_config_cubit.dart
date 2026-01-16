@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/common/constants/shared_ref.dart';
+import 'package:zupa/core/constants/shared_ref.dart';
 
 part 'general_config_state.dart';
 part 'general_config_cubit.freezed.dart';

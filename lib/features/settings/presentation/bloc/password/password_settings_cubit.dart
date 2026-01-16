@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/resource/network_state.dart';
 
 import 'package:zupa/features/settings/domain/repository/settings_repository.dart';
 

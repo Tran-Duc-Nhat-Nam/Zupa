@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/password/password_settings_cubit.dart';
-import 'package:zupa/di/injection.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/widgets/app_button.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/app_text_field.dart';
-import 'package:zupa/widgets/popup/app_message.dart';
-import 'package:zupa/widgets/state/app_state.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});

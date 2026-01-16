@@ -2,8 +2,8 @@ import 'package:zupa/features/settings/data/models/employee.dart';
 import 'package:zupa/features/settings/data/models/parking_lot.dart';
 import 'package:zupa/features/settings/data/models/member_vehicle.dart';
 import 'package:zupa/features/settings/data/models/member_vehicles_filter.dart';
-import 'package:zupa/core/common/resource/network_state.dart';
-import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 
 abstract class ISettingsRepository {
   Future<NetworkState<List<Employee>>> getEmployees();

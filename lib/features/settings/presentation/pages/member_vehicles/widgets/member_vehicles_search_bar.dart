@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/widgets/app_text_field.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
 
 class MemberVehiclesSearchBar extends StatelessWidget {
   const MemberVehiclesSearchBar({super.key});

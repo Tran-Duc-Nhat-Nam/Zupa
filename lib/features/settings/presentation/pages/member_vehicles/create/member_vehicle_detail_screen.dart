@@ -4,17 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/detail/member_vehicle_detail_cubit.dart';
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/widgets/app_button.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_drop_down_search.dart';
-import 'package:zupa/widgets/app_icon.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/app_text_field.dart';
-import 'package:zupa/widgets/state/app_state.dart';
-import 'package:zupa/di/injection.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_drop_down_search.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/core/di/injection.dart';
 
 class MemberVehicleDetailScreen extends StatefulWidget {
   const MemberVehicleDetailScreen({super.key});

@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:zupa/common/constants/routes.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/helper/auth/auth_helper.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/popup/app_toast.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_list_tile.dart';
+import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/helper/auth/auth_helper.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_list_tile.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

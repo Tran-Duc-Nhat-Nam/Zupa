@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/data/request/request.dart';
-import 'package:zupa/data/response/success/success_response.dart';
-import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/core/data/request/request.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
 import 'package:zupa/features/revenue/data/api/revenue_api.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';

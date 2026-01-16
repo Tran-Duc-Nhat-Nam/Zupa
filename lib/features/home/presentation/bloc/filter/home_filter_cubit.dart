@@ -5,8 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/core/common/models/vehicle_type.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/model/home_filter.dart';
 
 part 'home_filter_state.dart';

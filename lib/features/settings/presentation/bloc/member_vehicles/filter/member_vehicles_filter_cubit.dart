@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/core/common/models/vehicle_type.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/settings/data/models/member_vehicles_filter.dart';
 
 part 'member_vehicles_filter_state.dart';

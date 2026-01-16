@@ -5,15 +5,15 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
-import 'package:zupa/di/injection.dart';
-import 'package:zupa/common/constants/routes.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/text_styles.dart';
-import 'package:zupa/widgets/app_button.dart';
-import 'package:zupa/widgets/app_checkbox.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/app_text_field.dart';
-import 'package:zupa/widgets/popup/app_toast.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_checkbox.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});

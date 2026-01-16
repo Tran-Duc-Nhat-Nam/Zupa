@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:zupa/helper/auth/auth_helper.dart';
+import 'package:zupa/core/helper/auth/auth_helper.dart';
 
 part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';

@@ -5,14 +5,14 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/features/settings/presentation/bloc/general_config/general_config_cubit.dart';
-import 'package:zupa/di/injection.dart';
-import 'package:zupa/common/styles/text_styles.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/app_text_field.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_list_tile.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_list_tile.dart';
 
 class GeneralConfigScreen extends StatefulWidget {
   const GeneralConfigScreen({super.key});

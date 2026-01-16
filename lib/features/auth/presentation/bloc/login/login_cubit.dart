@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
-import 'package:zupa/helper/auth/auth_helper.dart';
+import 'package:zupa/core/helper/auth/auth_helper.dart';
 
 part 'login_state.dart';
 part 'login_cubit.freezed.dart';

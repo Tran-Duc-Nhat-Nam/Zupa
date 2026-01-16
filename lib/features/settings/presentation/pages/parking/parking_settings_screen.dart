@@ -5,15 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/parking/parking_settings_cubit.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/common/styles/text_styles.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_icon.dart';
-import 'package:zupa/widgets/app_list_tile.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/widgets/state/app_state.dart';
-import 'package:zupa/di/injection.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/core/di/injection.dart';
 
 class ParkingSettingsScreen extends StatefulWidget {
   const ParkingSettingsScreen({super.key});

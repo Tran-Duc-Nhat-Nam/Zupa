@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:zupa/widgets/app_icon.dart';
-import 'package:zupa/widgets/app_button.dart';
-import 'package:zupa/widgets/app_date_time_picker.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_date_time_picker.dart';
 
-import 'package:zupa/helper/converter/date_time_converter.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 
 class RevenueSearchBar extends StatelessWidget {
   const RevenueSearchBar({super.key});

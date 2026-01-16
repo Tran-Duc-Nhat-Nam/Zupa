@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 
 class MemberVehiclesTabBar extends StatelessWidget {
   const MemberVehiclesTabBar({super.key});

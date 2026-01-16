@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/features/settings/data/api/settings_api.dart';
 import 'package:zupa/features/settings/data/models/employee.dart';
 import 'package:zupa/features/settings/data/models/parking_lot.dart';
@@ -11,7 +11,7 @@ import 'package:zupa/features/settings/domain/repository/settings_repository.dar
 import 'package:zupa/features/settings/data/models/parking_lot_capacity.dart';
 import 'package:zupa/features/settings/data/models/member_vehicle.dart';
 import 'package:zupa/features/settings/data/models/member_vehicles_filter.dart';
-import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 
 @LazySingleton(as: ISettingsRepository)
 class SettingsRepositoryImpl implements ISettingsRepository {

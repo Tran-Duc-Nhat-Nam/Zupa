@@ -5,21 +5,21 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/parking/detail/parking_lot_detail_cubit.dart';
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/common/styles/icons.dart';
-import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/styles/icons.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/settings/data/models/parking_lot.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/widgets/app_button.dart';
-import 'package:zupa/widgets/app_card.dart';
-import 'package:zupa/widgets/app_list_tile.dart';
-import 'package:zupa/widgets/app_switch.dart';
-import 'package:zupa/widgets/app_text_field.dart';
-import 'package:zupa/widgets/popup/app_dialog.dart';
-import 'package:zupa/widgets/popup/app_message.dart';
-import 'package:zupa/widgets/state/app_state.dart';
-import 'package:zupa/widgets/app_screen.dart';
-import 'package:zupa/di/injection.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/app_switch.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/di/injection.dart';
 
 class ParkingDetailsScreen extends StatefulWidget {
   const ParkingDetailsScreen({super.key});

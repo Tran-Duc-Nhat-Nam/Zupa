@@ -1,11 +1,11 @@
-import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
-import 'package:zupa/common/constants/vehicle_types.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 

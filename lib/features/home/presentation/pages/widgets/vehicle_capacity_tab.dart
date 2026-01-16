@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart' as ticket;
-import 'package:zupa/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_card.dart';
 
 class VehicleCapacityTab extends StatelessWidget {

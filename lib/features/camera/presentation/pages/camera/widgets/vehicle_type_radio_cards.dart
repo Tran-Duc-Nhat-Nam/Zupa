@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:zupa/common/constants/vehicle_types.dart';
-import 'package:zupa/helper/theme/theme_helper.dart';
-import 'package:zupa/common/styles/text_styles.dart';
-import 'package:zupa/widgets/app_icon.dart';
-import 'package:zupa/widgets/app_radio_group.dart';
-import 'package:zupa/core/common/models/vehicle_type.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/core/widgets/app_radio_group.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
 
 class VehicleTypeRadioCards extends StatelessWidget {
   const VehicleTypeRadioCards({super.key});
