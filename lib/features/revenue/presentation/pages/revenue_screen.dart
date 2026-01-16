@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/di/injection.dart';
-import '../bloc/filter/revenue_filter_cubit.dart' as filter;
-import '../bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart' as filter;
+import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/widgets/app_screen.dart';
 import 'package:zupa/widgets/state/app_state.dart';
-import 'widgets/revenue_list_tab.dart';
+import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
 
 class RevenueScreen extends StatefulWidget {
   const RevenueScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
 
-import 'storage_service.dart';
+import 'package:zupa/core/services/storage_service.dart';
 
 @lazySingleton
 class BiometricService {

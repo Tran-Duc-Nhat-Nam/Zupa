@@ -7,11 +7,11 @@ import 'package:upgrader/upgrader.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/common/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/common/bloc/theme/theme_cubit.dart';
-import 'helper/router/router_helper.dart';
+import 'package:zupa/helper/router/router_helper.dart';
 
-import 'di/injection.dart';
-import 'features/auth/domain/repository/authentication_repository.dart';
-import 'helper/api/api_helper.dart';
+import 'package:zupa/di/injection.dart';
+import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
+import 'package:zupa/helper/api/api_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

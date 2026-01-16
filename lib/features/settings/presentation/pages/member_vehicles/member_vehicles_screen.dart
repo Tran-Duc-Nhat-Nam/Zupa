@@ -10,9 +10,9 @@ import 'package:zupa/widgets/app_icon.dart';
 import 'package:zupa/widgets/app_screen.dart';
 import 'package:zupa/widgets/state/app_state.dart';
 import 'package:zupa/di/injection.dart';
-import 'widgets/member_vehicles_list_tab.dart';
-import 'widgets/member_vehicles_search_bar.dart';
-import 'widgets/member_vehicles_tab_bar.dart';
+import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_list_tab.dart';
+import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_search_bar.dart';
+import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_tab_bar.dart';
 
 class MemberVehiclesScreen extends StatefulWidget {
   const MemberVehiclesScreen({super.key});

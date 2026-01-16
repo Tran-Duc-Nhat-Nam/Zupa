@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../common/styles/colors.dart';
-import '../../../../../common/styles/text_styles.dart';
-import '../../../../../helper/theme/theme_helper.dart';
-import '../../../../../widgets/app_icon.dart';
+import 'package:zupa/common/styles/colors.dart';
+import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/widgets/app_icon.dart';
 
 class BorderPainter extends CustomPainter {
   final double currentState;

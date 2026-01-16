@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../helper/theme/theme_helper.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
 
 class AppSwitch extends StatefulWidget {
   const AppSwitch({super.key, required this.name, this.onToggle});

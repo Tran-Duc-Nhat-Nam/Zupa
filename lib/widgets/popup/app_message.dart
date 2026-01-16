@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../helper/router/router_helper.dart';
-import '../../helper/theme/theme_helper.dart';
-import '../../common/styles/icons.dart';
-import '../../common/styles/text_styles.dart';
-import '../app_icon.dart';
+import 'package:zupa/helper/router/router_helper.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/common/styles/icons.dart';
+import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/widgets/app_icon.dart';
 
 abstract class AppMessage {
   static FToast toast = FToast();

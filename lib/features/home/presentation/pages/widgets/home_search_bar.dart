@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../bloc/filter/home_filter_cubit.dart';
-import '../../../../../common/styles/icons.dart';
-import '../../../../../common/styles/text_styles.dart';
-import '../../../../../helper/theme/theme_helper.dart';
-import '../../../../../widgets/app_button.dart';
-import '../../../../../widgets/app_date_time_picker.dart';
-import '../../../../../widgets/app_icon.dart';
-import '../../../../../widgets/app_text_field.dart';
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
+import 'package:zupa/common/styles/icons.dart';
+import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/widgets/app_button.dart';
+import 'package:zupa/widgets/app_date_time_picker.dart';
+import 'package:zupa/widgets/app_icon.dart';
+import 'package:zupa/widgets/app_text_field.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});

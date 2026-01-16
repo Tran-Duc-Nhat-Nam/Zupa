@@ -2,8 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../helper/theme/theme_helper.dart';
-import 'app_form_field.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/widgets/app_form_field.dart';
 
 class AppDropDownSearchExtraItem<T> {
   const AppDropDownSearchExtraItem({this.value, required this.label});

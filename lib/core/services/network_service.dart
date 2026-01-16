@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/response/error/error_response.dart';
-import '../../data/response/success/success_response.dart';
+import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/data/response/success/success_response.dart';
 
 @lazySingleton
 class NetworkService {

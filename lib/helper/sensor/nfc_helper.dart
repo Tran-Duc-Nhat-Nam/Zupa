@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 
-import '../../widgets/popup/app_toast.dart';
+import 'package:zupa/widgets/popup/app_toast.dart';
 
 class NfcHelper {
   static void startListenToNfc(BuildContext context) {

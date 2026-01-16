@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/common/models/vehicle_type.dart';
-import 'model/history_filter.dart';
+import 'package:zupa/features/history/presentation/bloc/filter/model/history_filter.dart';
 
 part 'history_filter_state.dart';
 part 'history_filter_cubit.freezed.dart';

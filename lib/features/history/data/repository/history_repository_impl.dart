@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/common/resource/network_state.dart';
-import '../../../../core/services/network_service.dart';
-import '../../../../data/request/request.dart';
-import '../../../../data/response/success/success_response.dart';
-import '../../../../data/response/error/error_response.dart';
-import '../../domain/repository/history_repository.dart';
-import '../api/history_api.dart';
-import '../models/history_ticket.dart';
-import '../../presentation/bloc/filter/model/history_filter.dart';
+import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/services/network_service.dart';
+import 'package:zupa/data/request/request.dart';
+import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/features/history/domain/repository/history_repository.dart';
+import 'package:zupa/features/history/data/api/history_api.dart';
+import 'package:zupa/features/history/data/models/history_ticket.dart';
+import 'package:zupa/features/history/presentation/bloc/filter/model/history_filter.dart';
 
 @LazySingleton(as: IHistoryRepository)
 class HistoryRepositoryImpl implements IHistoryRepository {

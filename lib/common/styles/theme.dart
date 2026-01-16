@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'colors.dart';
+import 'package:zupa/common/styles/colors.dart';
 
 final appTheme = ThemeData(
   colorScheme: .fromSeed(seedColor: const AppColors().primary500),

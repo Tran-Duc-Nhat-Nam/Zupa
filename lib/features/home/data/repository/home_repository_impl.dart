@@ -1,13 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:dio/dio.dart';
-import '../../../../core/common/resource/network_state.dart';
-import '../../../../core/services/network_service.dart';
-import '../../../../data/request/request.dart';
-import '../../../../data/response/success/success_response.dart';
-import '../../../../data/response/error/error_response.dart';
-import '../../domain/repository/home_repository.dart';
-import '../api/home_api.dart';
-import '../models/ticket.dart';
+import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/services/network_service.dart';
+import 'package:zupa/data/request/request.dart';
+import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/features/home/domain/repository/home_repository.dart';
+import 'package:zupa/features/home/data/api/home_api.dart';
+import 'package:zupa/features/home/data/models/ticket.dart';
 
 @LazySingleton(as: IHomeRepository)
 class HomeRepositoryImpl implements IHomeRepository {

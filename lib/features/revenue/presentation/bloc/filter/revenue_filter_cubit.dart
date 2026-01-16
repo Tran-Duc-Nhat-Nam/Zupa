@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/common/models/vehicle_type.dart';
-import '../../../domain/entity/revenue_filter.dart';
+import 'package:zupa/features/revenue/domain/entity/revenue_filter.dart';
 
 part 'revenue_filter_state.dart';
 part 'revenue_filter_cubit.freezed.dart';

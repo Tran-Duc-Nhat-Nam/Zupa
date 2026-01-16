@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/common/resource/network_state.dart';
-import '../../../../core/services/network_service.dart';
-import '../../../../data/request/request.dart';
-import '../../../../data/response/success/success_response.dart';
-import '../../../../data/response/error/error_response.dart';
-import '../../domain/repository/revenue_repository.dart';
-import '../api/revenue_api.dart';
-import '../models/daily_revenue.dart';
-import '../../domain/entity/revenue_filter.dart';
+import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/core/services/network_service.dart';
+import 'package:zupa/data/request/request.dart';
+import 'package:zupa/data/response/success/success_response.dart';
+import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
+import 'package:zupa/features/revenue/data/api/revenue_api.dart';
+import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
+import 'package:zupa/features/revenue/domain/entity/revenue_filter.dart';
 
 @LazySingleton(as: IRevenueRepository)
 class RevenueRepositoryImpl implements IRevenueRepository {

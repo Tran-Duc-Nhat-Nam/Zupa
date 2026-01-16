@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:shake/shake.dart';
-import '../helper/debugger/debugger_helper.dart';
-import '../helper/theme/theme_helper.dart';
-import '../common/styles/icons.dart';
+import 'package:zupa/helper/debugger/debugger_helper.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/common/styles/icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../common/styles/text_styles.dart';
-import 'app_app_bar.dart';
-import 'app_drop_down_search.dart';
-import 'app_icon.dart';
+import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/widgets/app_app_bar.dart';
+import 'package:zupa/widgets/app_drop_down_search.dart';
+import 'package:zupa/widgets/app_icon.dart';
 
 class AppNavBar extends StatefulWidget {
   const AppNavBar({super.key, required this.navigationShell});

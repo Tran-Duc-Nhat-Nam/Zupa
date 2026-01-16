@@ -4,7 +4,7 @@ import 'package:zupa/helper/theme/theme_helper.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/helper/converter/date_time_converter.dart';
 import 'package:zupa/common/styles/text_styles.dart';
-import 'history_title.dart';
+import 'package:zupa/features/history/presentation/pages/widgets/history_title.dart';
 
 class HistoryListSection extends StatelessWidget {
   const HistoryListSection({super.key, this.tickets = const []});

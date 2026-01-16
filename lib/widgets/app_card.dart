@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../helper/theme/theme_helper.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard({

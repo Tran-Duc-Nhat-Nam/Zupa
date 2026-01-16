@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import '../../../../core/services/network_service.dart';
-import '../../../../core/services/storage_service.dart';
-import '../api/account_api.dart';
-import '../models/account_request.dart';
-import '../../../../data/response/error/error_response.dart';
-import '../../../../data/response/success/success_response.dart';
+import 'package:zupa/core/services/network_service.dart';
+import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/features/auth/data/api/account_api.dart';
+import 'package:zupa/features/auth/data/models/account_request.dart';
+import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/data/response/success/success_response.dart';
 
 import 'package:injectable/injectable.dart';
 
-import '../../domain/repository/authentication_repository.dart';
+import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
 
 @LazySingleton(as: AuthenticationRepository)
 class AuthenticationRepositoryImpl implements AuthenticationRepository {

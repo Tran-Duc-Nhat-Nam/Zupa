@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../common/constants/shared_ref.dart';
+import 'package:zupa/common/constants/shared_ref.dart';
 
 class AuthInterceptor extends Interceptor {
   @override

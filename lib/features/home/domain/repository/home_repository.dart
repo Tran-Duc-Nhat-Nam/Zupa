@@ -1,5 +1,5 @@
-import '../../../../core/common/resource/network_state.dart';
-import '../../data/models/ticket.dart';
+import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/features/home/data/models/ticket.dart';
 
 abstract class IHomeRepository {
   Future<NetworkState<List<HomeTicket>>> getTickets({

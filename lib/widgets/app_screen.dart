@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:shake/shake.dart';
-import '../helper/debugger/debugger_helper.dart';
-import 'state/app_state.dart';
-import 'app_app_bar.dart';
+import 'package:zupa/helper/debugger/debugger_helper.dart';
+import 'package:zupa/widgets/state/app_state.dart';
+import 'package:zupa/widgets/app_app_bar.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({

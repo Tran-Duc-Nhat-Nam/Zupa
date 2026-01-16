@@ -2,14 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
-import '../bloc/filter/home_filter_cubit.dart' as filter;
-import '../bloc/ticket/home_ticket_cubit.dart';
-import '../../../../widgets/state/app_state.dart';
-import '../../../../di/injection.dart';
-import '../../../../widgets/app_screen.dart';
-import 'widgets/home_search_bar.dart';
-import 'widgets/ticket_list_tab.dart';
-import 'widgets/vehicle_capacity_tab.dart';
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart' as filter;
+import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
+import 'package:zupa/widgets/state/app_state.dart';
+import 'package:zupa/di/injection.dart';
+import 'package:zupa/widgets/app_screen.dart';
+import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.dart';
+import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.dart';
+import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

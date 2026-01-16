@@ -7,12 +7,12 @@ import 'package:go_router/go_router.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 
-import '../../common/constants/routes.dart';
-import '../../features/camera/presentation/pages/camera/check_in_screen.dart';
-import '../../helper/auth/auth_helper.dart';
-import '../../features/history/presentation/pages/history_screen.dart';
-import '../../features/home/presentation/pages/home_screen.dart';
-import '../../features/auth/presentation/pages/login/login_screen.dart';
+import 'package:zupa/common/constants/routes.dart';
+import 'package:zupa/features/camera/presentation/pages/camera/check_in_screen.dart';
+import 'package:zupa/helper/auth/auth_helper.dart';
+import 'package:zupa/features/history/presentation/pages/history_screen.dart';
+import 'package:zupa/features/home/presentation/pages/home_screen.dart';
+import 'package:zupa/features/auth/presentation/pages/login/login_screen.dart';
 import 'package:zupa/features/settings/presentation/pages/app/app_settings_screen.dart';
 import 'package:zupa/features/settings/presentation/pages/employee_management/employee_management_screen.dart';
 import 'package:zupa/features/settings/presentation/pages/general_config/general_config_screen.dart';
@@ -24,12 +24,12 @@ import 'package:zupa/features/settings/presentation/pages/parking/detail/parking
 import 'package:zupa/features/settings/presentation/pages/parking/parking_settings_screen.dart';
 import 'package:zupa/features/settings/presentation/pages/password/change_password_screen.dart';
 import 'package:zupa/features/settings/presentation/pages/settings_screen.dart';
-import '../../features/revenue/presentation/pages/revenue_screen.dart';
-import '../../widgets/app_nav_bar.dart';
-import '../../widgets/popup/app_toast.dart';
-import '../../widgets/transition/app_transitions.dart';
-import '../../widgets/transition/go_open_container.dart';
-import '../sensor/nfc_helper.dart';
+import 'package:zupa/features/revenue/presentation/pages/revenue_screen.dart';
+import 'package:zupa/widgets/app_nav_bar.dart';
+import 'package:zupa/widgets/popup/app_toast.dart';
+import 'package:zupa/widgets/transition/app_transitions.dart';
+import 'package:zupa/widgets/transition/go_open_container.dart';
+import 'package:zupa/helper/sensor/nfc_helper.dart';
 
 class RouterHelper {
   static final navigatorKey = GlobalKey<NavigatorState>();

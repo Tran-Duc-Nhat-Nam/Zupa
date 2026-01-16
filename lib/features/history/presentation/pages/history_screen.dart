@@ -15,9 +15,9 @@ import 'package:zupa/widgets/app_date_time_picker.dart';
 import 'package:zupa/widgets/app_icon.dart';
 import 'package:zupa/widgets/app_screen.dart';
 import 'package:zupa/widgets/app_text_field.dart';
-import '../bloc/filter/history_filter_cubit.dart' as filter;
-import '../bloc/list/history_list_cubit.dart';
-import 'widgets/history_list_tab.dart';
+import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart' as filter;
+import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
+import 'package:zupa/features/history/presentation/pages/widgets/history_list_tab.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});

@@ -12,7 +12,7 @@ import 'package:zupa/features/revenue/data/models/revenue_model.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/helper/theme/theme_helper.dart';
 import 'package:zupa/widgets/app_icon.dart';
-import 'revenue_search_bar.dart';
+import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
 
 import 'package:zupa/common/constants/vehicle_types.dart';
 

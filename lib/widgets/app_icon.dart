@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../helper/theme/theme_helper.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
 
 class AppIcon extends StatelessWidget {
   const AppIcon({

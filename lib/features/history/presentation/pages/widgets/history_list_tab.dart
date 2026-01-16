@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../bloc/list/history_list_cubit.dart';
-import '../../../../../common/constants/vehicle_types.dart';
-import '../../../data/models/history_ticket.dart';
-import 'history_list_section.dart';
+import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
+import 'package:zupa/common/constants/vehicle_types.dart';
+import 'package:zupa/features/history/data/models/history_ticket.dart';
+import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 
 class HistoryListTab extends StatelessWidget {
   const HistoryListTab({super.key});

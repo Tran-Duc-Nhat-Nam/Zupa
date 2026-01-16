@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'app_icon.dart';
+import 'package:zupa/widgets/app_icon.dart';
 
-import '../helper/theme/theme_helper.dart';
-import '../common/styles/text_styles.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/common/styles/text_styles.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({

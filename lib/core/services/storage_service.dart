@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/auth/data/models/account_request.dart';
+import 'package:zupa/features/auth/data/models/account_request.dart';
 
 @lazySingleton
 class StorageService {

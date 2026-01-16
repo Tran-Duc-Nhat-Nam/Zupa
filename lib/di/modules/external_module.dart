@@ -3,9 +3,9 @@ import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../env/env.dart' as app_env;
-import '../../helper/api/interceptors.dart';
-import '../../helper/debugger/debugger_helper.dart';
+import 'package:zupa/env/env.dart' as app_env;
+import 'package:zupa/helper/api/interceptors.dart';
+import 'package:zupa/helper/debugger/debugger_helper.dart';
 import 'package:logarte/logarte.dart';
 
 @module

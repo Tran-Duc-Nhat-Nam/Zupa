@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:local_auth/local_auth.dart';
 
-import '../../common/constants/shared_ref.dart';
-import '../../features/auth/data/models/account_request.dart';
-import '../../widgets/popup/app_toast.dart';
+import 'package:zupa/common/constants/shared_ref.dart';
+import 'package:zupa/features/auth/data/models/account_request.dart';
+import 'package:zupa/widgets/popup/app_toast.dart';
 
 class AuthHelper {
   static Future<void> setAuth(String accessToken) async {

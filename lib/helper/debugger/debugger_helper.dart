@@ -1,6 +1,6 @@
 import 'package:logarte/logarte.dart';
 
-import '../../common/constants/shared_ref.dart';
+import 'package:zupa/common/constants/shared_ref.dart';
 
 class DebuggerHelper {
   static final Logarte debugger = Logarte();

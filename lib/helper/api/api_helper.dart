@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logarte/logarte.dart';
 
-import '../../env/env.dart';
-import '../../data/response/error/error_response.dart';
-import '../../data/response/success/success_response.dart';
+import 'package:zupa/env/env.dart';
+import 'package:zupa/data/response/error/error_response.dart';
+import 'package:zupa/data/response/success/success_response.dart';
 
-import '../debugger/debugger_helper.dart';
-import 'interceptors.dart';
+import 'package:zupa/helper/debugger/debugger_helper.dart';
+import 'package:zupa/helper/api/interceptors.dart';
 
 /// A helper class for making API requests using Dio.
 class ApiHelper {

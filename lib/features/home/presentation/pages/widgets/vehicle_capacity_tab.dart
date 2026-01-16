@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../bloc/filter/home_filter_cubit.dart';
-import '../../bloc/ticket/home_ticket_cubit.dart' as ticket;
-import '../../../../../widgets/app_card.dart';
-import 'vehicle_capacity_card.dart';
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
+import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart' as ticket;
+import 'package:zupa/widgets/app_card.dart';
+import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_card.dart';
 
 class VehicleCapacityTab extends StatelessWidget {
   const VehicleCapacityTab({super.key});

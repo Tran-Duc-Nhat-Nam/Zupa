@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import '../../../data/models/ticket.dart';
-import '../../../domain/repository/home_repository.dart';
-import '../../../../../core/common/resource/network_state.dart';
-import '../filter/model/home_filter.dart';
+import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/features/home/domain/repository/home_repository.dart';
+import 'package:zupa/core/common/resource/network_state.dart';
+import 'package:zupa/features/home/presentation/bloc/filter/model/home_filter.dart';
 
 part 'home_ticket_state.dart';
 part 'home_ticket_cubit.freezed.dart';

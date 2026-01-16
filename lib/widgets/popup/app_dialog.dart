@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 
-import '../../common/styles/icons.dart';
-import '../../common/styles/text_styles.dart';
-import '../../helper/theme/theme_helper.dart';
-import '../app_button.dart';
-import '../app_icon.dart';
+import 'package:zupa/common/styles/icons.dart';
+import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/widgets/app_button.dart';
+import 'package:zupa/widgets/app_icon.dart';
 
 abstract class AppDialog {
   static void showAuthDialog(BuildContext context) {

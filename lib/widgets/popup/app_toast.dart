@@ -1,5 +1,5 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../helper/theme/theme_helper.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
 
 abstract class AppToast {
   static void showSuccessToast(String message) {

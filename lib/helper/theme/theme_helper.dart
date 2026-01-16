@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/constants/shared_ref.dart';
-import '../../common/styles/colors.dart';
+import 'package:zupa/common/constants/shared_ref.dart';
+import 'package:zupa/common/styles/colors.dart';
 
 class ThemeHelper {
   static Future<void> setTheme(bool isDark) async {
