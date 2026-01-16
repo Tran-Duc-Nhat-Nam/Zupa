@@ -8,8 +8,8 @@ import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 
 import '../../common/constants/routes.dart';
+import '../../features/camera/presentation/pages/camera/check_in_screen.dart';
 import '../../helper/auth/auth_helper.dart';
-import '../../screens/camera/check_in_screen.dart';
 import '../../features/history/presentation/pages/history_screen.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/auth/presentation/pages/login/login_screen.dart';

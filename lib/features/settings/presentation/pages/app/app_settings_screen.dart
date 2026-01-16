@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zupa/bloc/auth/auth_cubit.dart';
-import 'package:zupa/bloc/debugger/debugger_cubit.dart';
-import 'package:zupa/bloc/theme/theme_cubit.dart';
+import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/core/common/bloc/debugger/debugger_cubit.dart';
+import 'package:zupa/core/common/bloc/theme/theme_cubit.dart';
 import 'package:zupa/common/styles/icons.dart';
 import 'package:zupa/common/styles/theme.dart';
 import 'package:zupa/helper/theme/theme_helper.dart';

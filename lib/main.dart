@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
 
-import 'bloc/auth/auth_cubit.dart';
-import 'bloc/debugger/debugger_cubit.dart';
-import 'bloc/theme/theme_cubit.dart';
+import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/core/common/bloc/debugger/debugger_cubit.dart';
+import 'package:zupa/core/common/bloc/theme/theme_cubit.dart';
 import 'helper/router/router_helper.dart';
 
 import 'di/injection.dart';

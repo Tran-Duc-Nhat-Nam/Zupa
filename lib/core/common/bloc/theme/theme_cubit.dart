@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../common/styles/theme.dart';
-import '../../helper/theme/theme_helper.dart';
+import 'package:zupa/common/styles/theme.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
 
 part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';

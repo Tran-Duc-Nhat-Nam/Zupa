@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import '../../../helper/theme/theme_helper.dart';
+import '../../../../../../helper/theme/theme_helper.dart';
+import '../../../../../../widgets/app_button.dart';
 import 'vehicle_type_radio_cards.dart';
-import '../../../widgets/app_button.dart';
 import 'package:volume_listener/volume_listener.dart';
 
 class CameraScreen extends StatefulWidget {

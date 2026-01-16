@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../helper/debugger/debugger_helper.dart';
-import '../../widgets/popup/app_toast.dart';
+import 'package:zupa/helper/debugger/debugger_helper.dart';
+import 'package:zupa/widgets/popup/app_toast.dart';
 
 part 'debugger_state.dart';
 part 'debugger_cubit.freezed.dart';

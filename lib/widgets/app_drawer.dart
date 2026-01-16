@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 
 import 'dart:math' as math;
 
-import '../bloc/theme/theme_cubit.dart';
-import '../helper/theme/theme_helper.dart';
-import '../common/styles/text_styles.dart';
-import '../common/styles/theme.dart';
+import 'package:zupa/core/common/bloc/theme/theme_cubit.dart';
+import 'package:zupa/helper/theme/theme_helper.dart';
+import 'package:zupa/common/styles/text_styles.dart';
+import 'package:zupa/common/styles/theme.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
