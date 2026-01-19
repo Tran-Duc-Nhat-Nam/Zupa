@@ -20,7 +20,7 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
-        _debounce = .new(const .new(milliseconds: 500), () {
+        _debounce = .new(const Duration(milliseconds: 500), () {
           log(query.toString());
           emit(
             .loaded(filter: filter.copyWith(keyword: query)),

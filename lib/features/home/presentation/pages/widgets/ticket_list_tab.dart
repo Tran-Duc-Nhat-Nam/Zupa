@@ -41,7 +41,7 @@ class TicketListTab extends StatelessWidget {
               boxShadow: [
                 .new(
                   color: ThemeHelper.getColor(context).grey100,
-                  offset: const Offset(0, 1),
+                  offset: const .new(0, 1),
                   blurRadius: 4,
                 ),
               ],
@@ -91,7 +91,7 @@ class TicketListTab extends StatelessWidget {
                   child: TicketTitle(
                     ticket:
                         items?[i] ??
-                        HomeTicket(
+                        .new(
                           id: 'Placeholder',
                           timeIn: .now(),
                           siteId: 'A much Longer placeholder',
@@ -185,12 +185,12 @@ class TicketTitle extends StatelessWidget {
                         Text(
                           ticket.id,
                           style: AppTextStyles.bodyLargeBold.copyWith(
-                            color: ThemeHelper.getColor(context).grey1000,
+                            color: ThemeHelper.getColor(context).grey600,
                           ),
                         ),
                         if (ticket.id.length % 2 == 0)
                           Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: const .symmetric(
                               vertical: 2,
                               horizontal: 16,
                             ),

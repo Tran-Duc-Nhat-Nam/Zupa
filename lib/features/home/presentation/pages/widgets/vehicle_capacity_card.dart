@@ -21,10 +21,11 @@ class BorderPainter extends CustomPainter {
         const Offset(-3, -3) & Size(size.width + 6, size.height + 6);
 
     final paint = Paint()
+      ..filterQuality = .high
       ..color = color
       ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
+      ..strokeCap = .round
+      ..style = .stroke;
 
     const double startAngle = -pi / 2;
     final double sweepAmount = currentState * pi;
@@ -78,16 +79,20 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
     return AspectRatio(
       aspectRatio: 1, // <--- 1. Enforces a 1:1 square/circle ratio
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 350),
+        duration: const .new(milliseconds: 350),
         opacity: widget.isDisabled ? 0.5 : 1,
         child: CustomPaint(
           painter: BorderPainter(
             currentState: value,
-            color: widget.isWarning ? colors.error600 : colors.primary400,
+            color: widget.current >= (widget.capacity ?? 0)
+                ? colors.error600
+                : widget.isWarning
+                ? colors.warning600
+                : colors.success600,
           ),
           child: DecoratedBox(
             decoration: BoxDecoration(
-              shape: BoxShape
+              shape:
                   .circle, // <--- 2. Ensures the background is a perfect circle
               color: widget.isSelected ? colors.primary400 : colors.primary100,
             ),
@@ -96,19 +101,17 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                   const CircleBorder(), // <--- 3. Ensures ripple effect is circular
               onTap: widget.isDisabled ? null : widget.onPressed,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment
+                mainAxisAlignment:
                     .center, // <--- 4. Centers content vertically
                 children: [
                   Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
+                    clipBehavior: .antiAlias,
+                    decoration: BoxDecoration(borderRadius: .circular(6)),
                     child: Skeleton.replace(
                       width: 32,
                       height: 32,
                       child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const .all(6),
                         decoration: BoxDecoration(
                           color: widget.isSelected
                               ? colors.blueDark
@@ -130,11 +133,11 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                         ? (widget.capacity! - widget.current).toString()
                         : '${(value * 100).toInt()}%',
                     style: AppTextStyles.heading4.copyWith(
-                      color: widget.isWarning
+                      color: widget.current >= (widget.capacity ?? 0)
                           ? colors.error600
-                          : widget.isSelected
-                          ? colors.white
-                          : colors.grey700,
+                          : widget.isWarning
+                          ? colors.warning600
+                          : colors.success600,
                     ),
                   ),
                   // Removed bottom SizedBox to allow true centering

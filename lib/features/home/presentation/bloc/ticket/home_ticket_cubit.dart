@@ -70,9 +70,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     emit(.loadingMore(items));
 
     final result = await _repository.getTickets(page: pageIndex + 1);
-    result.when(
-      initial: () {},
-      loading: () {},
+    result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
         if (newItems.isEmpty) {

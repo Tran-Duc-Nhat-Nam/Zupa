@@ -22,7 +22,7 @@ class HomeRepositoryImpl implements IHomeRepository {
     int pageSize = 10,
   }) async {
     final response = await _networkService.request(
-      (dio) => _api.getList(Request(page: page, size: pageSize)),
+      (dio) => _api.getList(.new(page: page, size: pageSize)),
     );
 
     if (response is SuccessResponse) {
@@ -31,14 +31,14 @@ class HomeRepositoryImpl implements IHomeRepository {
         final tickets = dataList
             .map((e) => HomeTicket.fromJson(e as Map<String, dynamic>))
             .toList();
-        return NetworkState.success(tickets);
+        return .success(tickets);
       } catch (e) {
-        return NetworkState.error('Parsing Error: ${e.toString()}');
+        return .error('Parsing Error: ${e.toString()}');
       }
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('Unknown Response Type');
+      return const .error('Unknown Response Type');
     }
   }
 }
