@@ -15,7 +15,7 @@ class HistoryRepositoryImpl implements IHistoryRepository {
   final HistoryAPI _api;
   final NetworkService _networkService;
 
-  HistoryRepositoryImpl(this._networkService, Dio dio) : _api = HistoryAPI(dio);
+  HistoryRepositoryImpl(this._networkService, Dio dio) : _api = .new(dio);
 
   @override
   Future<NetworkState<List<HistoryTicket>>> getHistory({
@@ -35,14 +35,14 @@ class HistoryRepositoryImpl implements IHistoryRepository {
         final items = dataList
             .map((e) => HistoryTicket.fromJson(e as Map<String, dynamic>))
             .toList();
-        return NetworkState.success(items);
+        return .success(items);
       } catch (e) {
-        return NetworkState.error('Parsing Error: ${e.toString()}');
+        return .error('Parsing Error: ${e.toString()}');
       }
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('Unknown Response Type');
+      return const .error('Unknown Response Type');
     }
   }
 }

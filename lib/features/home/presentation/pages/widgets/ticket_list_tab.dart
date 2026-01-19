@@ -7,6 +7,7 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart' hide Loading;
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
@@ -69,8 +70,11 @@ class TicketListTab extends StatelessWidget {
               ),
               controller: refreshController,
               onRefresh: () => context.read<HomeTicketCubit>().refresh(
-                refreshController.refreshCompleted,
-                refreshController.refreshFailed,
+                filter: context.read<HomeFilterState>().mapOrNull(
+                  loaded: (s) => s.filter
+                ),
+                onSuccess:  refreshController.refreshCompleted,
+                onFailed:  refreshController.refreshFailed,
               ),
               onLoading: () => context.read<HomeTicketCubit>().loadMore(
                 refreshController.loadComplete,

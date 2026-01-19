@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
 import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/features/home/domain/entities/home_filter.dart';
 
 part 'home_ticket_state.dart';
 part 'home_ticket_cubit.freezed.dart';
@@ -25,23 +26,23 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void refresh(void Function() onSuccess, void Function() onFailed) async {
+  void refresh({HomeFilter? filter, void Function()? onSuccess, void Function()? onFailed}) async {
     final List<HomeTicket> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
     emit(.refreshing(items));
 
-    final result = await _repository.getTickets();
+    final result = await _repository.getTickets(filter: filter);
     result.when(
       initial: () {},
       loading: () {},
       success: (data) {
-        onSuccess();
+        onSuccess?.call();
         emit(data.isEmpty ? const .empty() : .loaded(data, 0));
       },
       error: (message) {
-        onFailed();
+        onFailed?.call();
         emit(.failed(message));
       },
     );

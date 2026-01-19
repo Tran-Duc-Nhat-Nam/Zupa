@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/model/history_filter.dart';
 
 part 'history_list_state.dart';
@@ -19,7 +17,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
 
   Future<void> init() async {
     emit(state.copyWith(status: const .loading()));
-    final response = await _historyRepository.getHistory(filter: const .new());
+    final response = await _historyRepository.getHistory();
 
     response.when(
       initial: () => emit(state.copyWith(status: const .initial())),

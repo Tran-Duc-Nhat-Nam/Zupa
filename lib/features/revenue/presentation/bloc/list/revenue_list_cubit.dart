@@ -13,11 +13,11 @@ part 'revenue_list_cubit.freezed.dart';
 class RevenueListCubit extends Cubit<RevenueListState> {
   final IRevenueRepository _revenueRepository;
 
-  RevenueListCubit(this._revenueRepository) : super(const RevenueListState());
+  RevenueListCubit(this._revenueRepository) : super(const .new());
 
   Future<void> init() async {
     emit(state.copyWith(status: const .loading()));
-    final result = await _revenueRepository.getRevenue(filter: const .new());
+    final result = await _revenueRepository.getRevenue();
 
     result.when(
       initial: () => emit(state.copyWith(status: const .initial())),
