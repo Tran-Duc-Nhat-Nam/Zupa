@@ -59,7 +59,7 @@ class _AppAppBarState extends State<AppAppBar> {
               padding: const .only(left: 24),
               style: const ButtonStyle(
                 overlayColor: WidgetStateColor.transparent,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                tapTargetSize: .shrinkWrap,
               ),
               icon: AppIcon(
                 path: widget.leadingIconPath!,
@@ -92,7 +92,7 @@ class _AppAppBarState extends State<AppAppBar> {
           : widget.trailingIconPath != null
           ? [
               Padding(
-                padding: const EdgeInsets.only(right: 24),
+                padding: const .only(right: 24),
                 child: AppIcon(
                   path: widget.trailingIconPath!,
                   color: ThemeHelper.getColor(context).grey400,

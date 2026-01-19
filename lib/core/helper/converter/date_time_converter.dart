@@ -45,7 +45,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return DateTime.parse(json);
+    return .parse(json);
   }
 
   @override

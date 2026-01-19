@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(
-            create: (BuildContext context) => ThemeCubit()..loadTheme(context),
+            create: (BuildContext context) => ThemeCubit()..loadTheme(),
           ),
           BlocProvider<DebuggerCubit>(
             create: (BuildContext context) => DebuggerCubit()..loadDebugger(),

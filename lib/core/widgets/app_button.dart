@@ -13,8 +13,8 @@ class AppButton extends StatelessWidget {
     this.fitContent = false,
     this.padding,
     this.icon,
-    this.theme = AppButtonTheme.primary,
-    this.color = AppButtonColor.info,
+    this.theme = .primary,
+    this.color = .info,
     this.radius,
     this.shape,
     this.iconPath,
@@ -49,59 +49,61 @@ class AppButton extends StatelessWidget {
     Color disabledColor;
     double elevation = 0;
 
+    final colorScheme = ThemeHelper.getColor(context);
+
     switch (color) {
       case AppButtonColor.success:
-        primaryColor = ThemeHelper.getColor(context).success500;
-        secondaryColor = ThemeHelper.getColor(context).white;
-        primarySurfaceColor = ThemeHelper.getColor(context).success200;
-        secondarySurfaceColor = ThemeHelper.getColor(context).success100;
-        primarySplashColor = ThemeHelper.getColor(context).success600;
-        secondarySplashColor = ThemeHelper.getColor(context).success200;
+        primaryColor = colorScheme.success500;
+        secondaryColor = colorScheme.white;
+        primarySurfaceColor = colorScheme.success200;
+        secondarySurfaceColor = colorScheme.success100;
+        primarySplashColor = colorScheme.success600;
+        secondarySplashColor = colorScheme.success200;
       case AppButtonColor.warning:
-        primaryColor = ThemeHelper.getColor(context).warning600;
-        secondaryColor = ThemeHelper.getColor(context).white;
-        primarySurfaceColor = ThemeHelper.getColor(context).warning200;
-        secondarySurfaceColor = ThemeHelper.getColor(context).warning100;
-        primarySplashColor = ThemeHelper.getColor(context).warning600;
-        secondarySplashColor = ThemeHelper.getColor(context).warning200;
+        primaryColor = colorScheme.warning600;
+        secondaryColor = colorScheme.white;
+        primarySurfaceColor = colorScheme.warning200;
+        secondarySurfaceColor = colorScheme.warning100;
+        primarySplashColor = colorScheme.warning600;
+        secondarySplashColor = colorScheme.warning200;
       case AppButtonColor.error:
-        primaryColor = ThemeHelper.getColor(context).error600;
-        secondaryColor = ThemeHelper.getColor(context).white;
-        primarySurfaceColor = ThemeHelper.getColor(context).error200;
-        secondarySurfaceColor = ThemeHelper.getColor(context).error100;
-        primarySplashColor = ThemeHelper.getColor(context).error600;
-        secondarySplashColor = ThemeHelper.getColor(context).error200;
+        primaryColor = colorScheme.error600;
+        secondaryColor = colorScheme.white;
+        primarySurfaceColor = colorScheme.error200;
+        secondarySurfaceColor = colorScheme.error100;
+        primarySplashColor = colorScheme.error600;
+        secondarySplashColor = colorScheme.error200;
       case AppButtonColor.info:
-        primaryColor = ThemeHelper.getColor(context).primary500;
-        secondaryColor = ThemeHelper.getColor(context).white;
-        primarySurfaceColor = ThemeHelper.getColor(context).primary200;
-        secondarySurfaceColor = ThemeHelper.getColor(context).primary100;
-        primarySplashColor = ThemeHelper.getColor(context).blueDark;
-        secondarySplashColor = ThemeHelper.getColor(context).primary200;
+        primaryColor = colorScheme.primary500;
+        secondaryColor = colorScheme.white;
+        primarySurfaceColor = colorScheme.primary200;
+        secondarySurfaceColor = colorScheme.primary100;
+        primarySplashColor = colorScheme.blueDark;
+        secondarySplashColor = colorScheme.primary200;
       case AppButtonColor.basic:
-        primaryColor = ThemeHelper.getColor(context).grey900;
-        secondaryColor = ThemeHelper.getColor(context).white;
-        primarySurfaceColor = ThemeHelper.getColor(context).grey200;
-        secondarySurfaceColor = ThemeHelper.getColor(context).grey100;
-        primarySplashColor = ThemeHelper.getColor(context).grey1000;
-        secondarySplashColor = ThemeHelper.getColor(context).grey200;
+        primaryColor = colorScheme.grey900;
+        secondaryColor = colorScheme.white;
+        primarySurfaceColor = colorScheme.grey200;
+        secondarySurfaceColor = colorScheme.grey100;
+        primarySplashColor = colorScheme.grey1000;
+        secondarySplashColor = colorScheme.grey200;
     }
 
     switch (theme) {
-      case AppButtonTheme.primary:
+      case .primary:
         foregroundColor = secondaryColor;
         backgroundColor = primaryColor;
         disabledColor = primarySurfaceColor;
         splashColor = primarySplashColor;
         elevation = 1;
-      case AppButtonTheme.secondary:
+      case .secondary:
         backgroundColor = secondarySurfaceColor;
         foregroundColor = primaryColor;
         disabledColor = secondarySurfaceColor;
         splashColor = secondarySplashColor;
         elevation = 0.5;
-      case AppButtonTheme.outline:
-        backgroundColor = ThemeHelper.getColor(context).white;
+      case .outline:
+        backgroundColor = colorScheme.white;
         foregroundColor = primaryColor;
         borderColor = primarySurfaceColor;
         disabledColor = secondarySurfaceColor;
@@ -119,9 +121,7 @@ class AppButton extends StatelessWidget {
         padding: padding ?? const .all(10),
         shape:
             shape ??
-            StadiumBorder(
-              side: BorderSide(color: borderColor ?? Colors.transparent),
-            ),
+            StadiumBorder(side: .new(color: borderColor ?? Colors.transparent)),
         elevation: elevation,
         minWidth: fitContent ? null : .infinity,
         child:

@@ -32,7 +32,7 @@ class AppCheckbox extends StatelessWidget {
                 onChanged?.call(value);
               },
               side: BorderSide(color: Theme.of(context).colorScheme.tertiary),
-              fillColor: WidgetStateProperty.resolveWith<Color>((
+              fillColor: .resolveWith<Color>((
                 Set<WidgetState> states,
               ) {
                 if (states.contains(WidgetState.selected)) {

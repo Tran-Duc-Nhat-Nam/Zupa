@@ -21,7 +21,7 @@ abstract class ExternalModule {
       Dio(
           BaseOptions(
             baseUrl: app_env.Environment.restApiUrl,
-            connectTimeout: const Duration(seconds: 30),
+            connectTimeout: const .new(seconds: 30),
           ),
         )
         ..interceptors.add(AuthInterceptor())

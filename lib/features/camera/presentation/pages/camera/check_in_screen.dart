@@ -29,7 +29,6 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
     return BlocProvider<CheckInCubit>(
       create: (_) => CheckInCubit()
         ..init(
-          context,
           GoRouterState.of(context).extra is bool
               ? GoRouterState.of(context).extra! as bool
               : false,
@@ -247,9 +246,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                 AppButton(
                                   fitContent: true,
                                   theme: .secondary,
-                                  onPressed: () => context
-                                      .read<CheckInCubit>()
-                                      .reset(context),
+                                  onPressed: () =>
+                                      context.read<CheckInCubit>().reset(),
                                   shape: const CircleBorder(),
                                   color: .basic,
                                   iconPath: AppIcons.rotateLeft,
@@ -262,17 +260,15 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                       if (formKey.currentState?.validate() ==
                                           true) {
                                         context.read<CheckInCubit>().saveTicket(
-                                          context,
                                           formKey.currentState?.value,
                                         );
                                       }
                                     },
                                     text: context.tr(
-                                      state.maybeWhen(
-                                        checkedInSuccess: (_, _) => 'allowIn',
+                                      state.mapOrNull(
+                                        checkedInSuccess: (_) => 'allowIn',
                                         checkedOutSuccess: (_) => 'allowOut',
-                                        orElse: () => '',
-                                      ),
+                                      ) ?? '',
                                     ),
                                   ),
                                 ),

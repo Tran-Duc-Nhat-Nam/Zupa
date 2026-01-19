@@ -204,10 +204,10 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
             scrollbarTheme: ScrollbarThemeData(
               radius: widget.scrollbarRadius ?? const .circular(40),
               thickness: widget.scrollbarThickness != null
-                  ? WidgetStateProperty.all<double>(widget.scrollbarThickness!)
+                  ? .all<double>(widget.scrollbarThickness!)
                   : null,
               thumbVisibility: widget.scrollbarAlwaysShow != null
-                  ? WidgetStateProperty.all<bool>(widget.scrollbarAlwaysShow!)
+                  ? .all<bool>(widget.scrollbarAlwaysShow!)
                   : null,
             ),
           ),

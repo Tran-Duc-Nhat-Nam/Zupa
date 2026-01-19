@@ -110,7 +110,7 @@ class _AppTextFieldState extends State<AppTextField> {
           textInputAction: .next,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
-          textAlignVertical: TextAlignVertical.center,
+          textAlignVertical: .center,
           decoration: .new(
             prefixIcon: widget.prefix != null || widget.prefixIconPath != null
                 ? Padding(
@@ -137,7 +137,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       size: 20,
                     ),
                     style: const .new(
-                      tapTargetSize: .shrinkWrap, // the '2023' part
+                      tapTargetSize: .shrinkWrap,
                     ),
                     onPressed: () {
                       setState(() {

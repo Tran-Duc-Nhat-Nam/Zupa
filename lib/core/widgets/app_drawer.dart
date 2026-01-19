@@ -54,8 +54,8 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () {
               context.setLocale(
                 context.locale.toString() == 'en'
-                    ? const Locale('vi')
-                    : const Locale('en'),
+                    ? const .new('vi')
+                    : const .new('en'),
               );
             },
           ),

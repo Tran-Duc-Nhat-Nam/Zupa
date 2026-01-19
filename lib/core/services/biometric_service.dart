@@ -16,8 +16,8 @@ class BiometricService {
   Future<bool> authenticate() async {
     if (!await isEnabled) return false;
 
-    final bool canAuthenticateWithBiometrics = await _auth.canCheckBiometrics;
-    final bool canAuthenticate =
+    final canAuthenticateWithBiometrics = await _auth.canCheckBiometrics;
+    final canAuthenticate =
         canAuthenticateWithBiometrics || await _auth.isDeviceSupported();
 
     if (!canAuthenticate) {
@@ -39,9 +39,6 @@ class BiometricService {
 
     if (availableBiometrics.contains(BiometricType.weak) ||
         availableBiometrics.contains(BiometricType.strong) ||
-        // iOS often returns just 'face' or 'fingerprint' which might map to other types,
-        // but typically checking for weak/strong/or merely existing is enough if isDeviceSupported is true.
-        // The original code checked explicitly for weak/strong.
         availableBiometrics.isNotEmpty) {
       try {
         final bool didAuthenticate = await _auth.authenticate(

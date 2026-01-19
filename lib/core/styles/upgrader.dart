@@ -1,3 +1,3 @@
 import 'package:upgrader/upgrader.dart';
 
-final Upgrader upgrader = Upgrader(debugDisplayAlways: true);
+final upgrader = Upgrader(debugDisplayAlways: true);

@@ -18,9 +18,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
   Future<void> init() async {
     emit(const .loading());
     final result = await _repository.getMemberVehicles();
-    result.when(
-      initial: () => emit(const .initial()),
-      loading: () => emit(const .loading()),
+    result.whenOrNull(
       success: (items) {
         if (items.isEmpty) {
           emit(const .empty());
@@ -43,9 +41,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
     emit(.refreshing(items));
     final result = await _repository.getMemberVehicles(filter: filter);
-    result.when(
-      initial: () {},
-      loading: () {},
+    result.whenOrNull(
       success: (newItems) {
         onSuccess?.call();
         if (newItems.isEmpty) {
@@ -77,9 +73,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
     emit(.loadingMore(items));
     final result = await _repository.getMemberVehicles(page: pageIndex, filter: filter);
-    result.when(
-      initial: () {},
-      loading: () {},
+    result.whenOrNull(
       success: (newItems) {
         if (newItems.isEmpty) {
           onEmpty?.call();

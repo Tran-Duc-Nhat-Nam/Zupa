@@ -6,7 +6,7 @@ class ColorConverter implements JsonConverter<Color, int> {
 
   @override
   Color fromJson(int json) {
-    return Color(json);
+    return .new(json);
   }
 
   @override

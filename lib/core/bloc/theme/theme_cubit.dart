@@ -20,7 +20,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         ),
       );
 
-  Future<void> loadTheme(BuildContext context) async {
+  Future<void> loadTheme() async {
     emit(.initial(await ThemeHelper.getTheme() ? appDarkTheme : appTheme));
   }
 

@@ -17,9 +17,7 @@ import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(

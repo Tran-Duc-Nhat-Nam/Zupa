@@ -78,7 +78,7 @@ class RouterHelper {
                           context.pushNamed('CheckIn', extra: false);
                         }
                       },
-                      pollingOptions: {NfcPollingOption.iso14443},
+                      pollingOptions: {.iso14443},
                     )
                   : null,
             );
