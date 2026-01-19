@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/model/home_filter.dart';
 
 part 'home_ticket_state.dart';
 part 'home_ticket_cubit.freezed.dart';
@@ -16,7 +14,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
 
   HomeTicketCubit(this._repository) : super(const .initial());
 
-  Future<void> init(BuildContext context, {filter = const HomeFilter()}) async {
+  Future<void> init() async {
     emit(const .loading());
     final result = await _repository.getTickets();
     result.when(
@@ -27,11 +25,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void refresh(
-    BuildContext context,
-    void Function() onSuccess,
-    void Function() onFailed,
-  ) async {
+  void refresh(void Function() onSuccess, void Function() onFailed) async {
     final List<HomeTicket> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -54,7 +48,6 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
   }
 
   void loadMore(
-    BuildContext context,
     void Function() onSuccess,
     void Function() onFailed,
     void Function() onEmpty,

@@ -134,7 +134,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1054.RevenueListCubit>(
       () => _i1054.RevenueListCubit(
         gh<_i286.IRevenueRepository>(),
-        gh<_i912.RevenueFilterCubit>(),
       ),
     );
     gh.factory<_i602.HomeTicketCubit>(

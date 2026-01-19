@@ -9,6 +9,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 import 'package:zupa/features/revenue/data/models/revenue_model.dart';
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
@@ -33,44 +34,56 @@ class RevenueListTab extends StatelessWidget {
         return Skeletonizer(
           enabled: isLoading,
           child: Container(
-            clipBehavior: Clip.antiAlias,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            clipBehavior: .antiAlias,
+            margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: ThemeHelper.getColor(context).white,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
+              borderRadius: const .vertical(top: .circular(16)),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x0C0C0D0D),
-                  offset: Offset(0, 1),
+                  color: .new(0x0C0C0D0D),
+                  offset: .new(0, 1),
                   blurRadius: 4,
                 ),
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+              padding: const .only(left: 16, right: 16, top: 16),
               child: Column(
                 spacing: 16,
                 children: [
                   const RevenueSearchBar(),
                   Expanded(
                     child: Container(
-                      clipBehavior: Clip.antiAlias,
+                      clipBehavior: .antiAlias,
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(8),
-                        ),
+                        borderRadius: .vertical(top: .circular(8)),
                       ),
                       child: SmartRefresher(
                         enablePullUp: state.hasMore,
                         controller: refreshController,
                         onRefresh: () async {
-                          await context.read<RevenueListCubit>().init(context);
+                          final filter = context
+                              .read<RevenueFilterState>()
+                              .maybeMap(
+                                loaded: (s) => s.filter,
+                                orElse: () => null,
+                              );
+                          await context.read<RevenueListCubit>().refresh(
+                            filter,
+                          );
                           refreshController.refreshCompleted();
                         },
                         onLoading: () async {
-                          await context.read<RevenueListCubit>().loadMore();
+                          final filter = context
+                              .read<RevenueFilterState>()
+                              .maybeMap(
+                                loaded: (s) => s.filter,
+                                orElse: () => null,
+                              );
+                          await context.read<RevenueListCubit>().loadMore(
+                            filter,
+                          );
                           refreshController.loadComplete();
                         },
                         child: ListView.separated(
@@ -80,7 +93,7 @@ class RevenueListTab extends StatelessWidget {
                             revenue: items.isNotEmpty
                                 ? items[i]
                                 : DailyRevenue(
-                                    date: DateTime.now(),
+                                    date: .now(),
                                     revenue: [
                                       RevenueModel(
                                         vehicleType: vehicleTypes[0],
@@ -126,7 +139,7 @@ class RevenueTitle extends StatelessWidget {
     return Container(
       clipBehavior: .antiAlias,
       decoration: BoxDecoration(
-        borderRadius: const .all(.circular(8)),
+        borderRadius: const .all(Radius.circular(8)),
         border: .all(color: ThemeHelper.getColor(context).grey100),
       ),
       child: ListTileTheme(
@@ -136,8 +149,8 @@ class RevenueTitle extends StatelessWidget {
         minVerticalPadding: 0.0,
         minLeadingWidth: 0,
         child: ExpansionTile(
-          tilePadding: EdgeInsetsGeometry.zero,
-          childrenPadding: EdgeInsetsGeometry.zero,
+          tilePadding: .zero,
+          childrenPadding: .zero,
           minTileHeight: 20,
           showTrailingIcon: false,
           visualDensity: .compact,

@@ -10,10 +10,10 @@ part 'revenue_filter_cubit.freezed.dart';
 
 @injectable
 class RevenueFilterCubit extends Cubit<RevenueFilterState> {
-  RevenueFilterCubit() : super(const RevenueFilterState.initial());
+  RevenueFilterCubit() : super(const .initial());
 
   void reset() {
-    emit(const RevenueFilterState.initial());
+    emit(const .initial());
   }
 
   void update({String? keyword, DateTime? time, VehicleType? type}) {
@@ -28,13 +28,10 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
       time: time ?? currentFilter.time,
       type: type ?? currentFilter.type,
     );
-    emit(RevenueFilterState.loaded(filter: newFilter));
+    emit(.loaded(filter: newFilter));
   }
 
-  void init(BuildContext context) {
-    state.maybeMap(
-      initial: (s) => emit(const RevenueFilterState.loaded()),
-      orElse: () {},
-    );
+  void init() {
+    state.maybeMap(initial: (s) => emit(const .loaded()), orElse: () {});
   }
 }

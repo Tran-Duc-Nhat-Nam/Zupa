@@ -45,7 +45,9 @@ class VehicleCapacityTab extends StatelessWidget {
                           field.value == vehicleTypes[index]
                               ? field.didChange(null)
                               : field.didChange(vehicleTypes[index]);
-                          context.read<HomeFilterCubit>().filter({'type': vehicleTypes[index]});
+                          context.read<HomeFilterCubit>().filter(
+                            type: vehicleTypes[index],
+                          );
                         },
                       ),
                     ),

@@ -15,7 +15,7 @@ import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart' as filter;
+import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_tab.dart';
 
@@ -27,7 +27,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  final ValueNotifier<bool> _isScrolledNotifier = .new(false);
+  final _isScrolledNotifier = ValueNotifier<bool>(false);
 
   @override
   void dispose() {
@@ -44,67 +44,60 @@ class _HistoryScreenState extends State<HistoryScreen> {
       hasAppBar: false,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<filter.HistoryFilterCubit>(
-            create: (context) =>
-                getIt<filter.HistoryFilterCubit>()..init(context),
+          BlocProvider<HistoryFilterCubit>(
+            create: (context) => getIt<HistoryFilterCubit>()..init(),
           ),
           BlocProvider<HistoryListCubit>(
-            create: (context) => getIt<HistoryListCubit>()..init(context),
+            create: (context) => getIt<HistoryListCubit>()..init(),
           ),
         ],
-        child: Column(
-          children: [
-            BlocBuilder<HistoryListCubit, HistoryListState>(
-              builder: (context, historyState) {
-                final isRefreshing = historyState.status.maybeWhen(
-                  loading: () => historyState.tickets.isNotEmpty,
-                  orElse: () => false,
-                );
+        child: BlocBuilder<HistoryListCubit, HistoryListState>(
+          builder: (listContext, listState) {
+            final isRefreshing = listState.status.maybeWhen(
+              loading: () => listState.tickets.isNotEmpty,
+              orElse: () => false,
+            );
 
-                return ValueListenableBuilder<bool>(
-                  valueListenable: _isScrolledNotifier,
-                  builder: (context, isScrolled, child) {
-                    final backgroundColor = ThemeHelper.getColor(
-                      context,
-                    ).primary400;
-                    final showWhiteBackground = isScrolled && !isRefreshing;
+            return ValueListenableBuilder<bool>(
+              valueListenable: _isScrolledNotifier,
+              builder: (context, isScrolled, child) {
+                final backgroundColor = ThemeHelper.getColor(
+                  context,
+                ).primary400;
+                final showWhiteBackground = isScrolled && !isRefreshing;
 
-                    return AnimatedContainer(
-                      duration: const .new(milliseconds: 250),
-                      curve: Curves.easeInOut,
-                      padding: showWhiteBackground
-                          ? const .symmetric(vertical: 10)
-                          : const .only(top: 10),
-                      decoration: BoxDecoration(
+                return AnimatedContainer(
+                  duration: const .new(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                  padding: showWhiteBackground
+                      ? const .symmetric(vertical: 10)
+                      : const .only(top: 10),
+                  decoration: BoxDecoration(
+                    color: showWhiteBackground
+                        ? backgroundColor
+                        : backgroundColor.withAlpha(0),
+                    boxShadow: [
+                      BoxShadow(
                         color: showWhiteBackground
-                            ? backgroundColor
-                            : backgroundColor.withAlpha(0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: showWhiteBackground
-                                ? Colors.black.withAlpha(12)
-                                : Colors.transparent,
-                            blurRadius: 4,
-                            offset: const .new(0, 2),
-                          ),
-                        ],
+                            ? Colors.black.withAlpha(12)
+                            : Colors.transparent,
+                        blurRadius: 4,
+                        offset: const .new(0, 2),
                       ),
-                      child: child,
-                    );
-                  },
-                  child: Padding(
+                    ],
+                  ),
+                  child: child,
+                );
+              },
+              child: Column(
+                children: [
+                  Padding(
                     padding: const .symmetric(horizontal: 24),
                     child:
-                        BlocBuilder<
-                          filter.HistoryFilterCubit,
-                          filter.HistoryFilterState
-                        >(
+                        BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
                           builder: (context, state) {
                             return Skeletonizer(
-                              enabled: state.maybeWhen(
-                                loading: () => true,
-                                orElse: () => false,
-                              ),
+                              enabled: state is Loading,
                               child: Row(
                                 spacing: 8,
                                 children: [
@@ -145,22 +138,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           },
                         ),
                   ),
-                );
-              },
-            ),
-            Expanded(
-              child: NotificationListener<ScrollNotification>(
-                onNotification: (notification) {
-                  if (notification is ScrollUpdateNotification) {
-                    final isScrolled = notification.metrics.pixels > 20;
-                    _isScrolledNotifier.value = isScrolled;
-                  }
-                  return false;
-                },
-                child: const HistoryListTab(),
+                  Expanded(
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (notification) {
+                        if (notification is ScrollUpdateNotification) {
+                          final isScrolled =
+                              notification.metrics.pixels > 20;
+                          _isScrolledNotifier.value = isScrolled;
+                        }
+                        return false;
+                      },
+                      child: const HistoryListTab(),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -170,12 +164,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
-        padding: const .only(
-          top: 24,
-          bottom: 48,
-          left: 24,
-          right: 24,
-        ),
+        padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
         child: Column(
           spacing: 16,
           mainAxisSize: .min,

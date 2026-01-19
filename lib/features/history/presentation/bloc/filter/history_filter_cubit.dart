@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
@@ -11,7 +10,7 @@ part 'history_filter_cubit.freezed.dart';
 
 @injectable
 class HistoryFilterCubit extends Cubit<HistoryFilterState> {
-  HistoryFilterCubit() : super(const HistoryFilterState.initial());
+  HistoryFilterCubit() : super(const .initial());
 
   Timer? _debounce;
 
@@ -28,17 +27,16 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
       type: type ?? currentFilter.type,
     );
 
-    emit(HistoryFilterState.loaded(filter: newFilter));
+    emit(.loaded(filter: newFilter));
   }
 
   void reset() {
-    emit(const HistoryFilterState.initial());
+    emit(const .initial());
   }
 
-  void init(BuildContext context) {
-    // No-op or sync with initial values if needed
+  void init() {
     state.maybeMap(
-      initial: (s) => emit(const HistoryFilterState.loaded()),
+      initial: (s) => emit(const .loaded()),
       orElse: () {},
     );
   }

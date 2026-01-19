@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
 
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -16,7 +17,7 @@ class HistoryListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HistoryListCubit, HistoryListState>(
       builder: (context, state) {
-        final List<HistoryTicket> items = state.tickets;
+        final items = state.tickets;
         final refreshController = RefreshController();
 
         final isLoading = state.status.maybeWhen(
@@ -30,11 +31,19 @@ class HistoryListTab extends StatelessWidget {
             enablePullUp: state.hasMore,
             controller: refreshController,
             onRefresh: () async {
-              await context.read<HistoryListCubit>().init(context);
+              final filter = context.read<HistoryFilterState>().maybeMap(
+                loaded: (s) => s.filter,
+                orElse: () => null,
+              );
+              await context.read<HistoryListCubit>().refresh(filter);
               refreshController.refreshCompleted();
             },
             onLoading: () async {
-              await context.read<HistoryListCubit>().loadMore(context);
+              final filter = context.read<HistoryFilterState>().maybeMap(
+                loaded: (s) => s.filter,
+                orElse: () => null,
+              );
+              await context.read<HistoryListCubit>().loadMore(filter);
               refreshController.loadComplete();
             },
             child: ListView.separated(

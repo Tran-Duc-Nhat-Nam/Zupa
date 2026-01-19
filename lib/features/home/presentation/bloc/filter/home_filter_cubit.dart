@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
 
@@ -30,17 +29,17 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
     );
   }
 
-  void init(BuildContext context) async {
+  void init() async {
     emit(const .loaded());
   }
 
-  void filter(Map<String, dynamic> values) async {
+  void filter({String? keyword, DateTime? time, VehicleType? type}) async {
     state.whenOrNull(
       loaded: (filter) async {
         final temp = HomeFilter(
-          keyword: values.containsKey('keyword') ? values['keyword'] as String : filter.keyword,
-          time: values.containsKey('time') ? values['time'] as DateTime : filter.time,
-          type: values.containsKey('type') ? values['type'] as VehicleType : filter.type,
+          keyword: keyword ?? filter.keyword,
+          time: time ?? filter.time,
+          type: type ?? filter.type,
         );
         emit(.filtering(filter: temp));
         await Future.delayed(const .new(seconds: 3));

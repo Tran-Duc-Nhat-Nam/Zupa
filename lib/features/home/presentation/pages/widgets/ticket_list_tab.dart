@@ -69,12 +69,10 @@ class TicketListTab extends StatelessWidget {
               ),
               controller: refreshController,
               onRefresh: () => context.read<HomeTicketCubit>().refresh(
-                context,
                 refreshController.refreshCompleted,
                 refreshController.refreshFailed,
               ),
               onLoading: () => context.read<HomeTicketCubit>().loadMore(
-                context,
                 refreshController.loadComplete,
                 refreshController.loadFailed,
                 refreshController.loadNoData,

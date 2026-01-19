@@ -2,7 +2,6 @@ import 'package:injectable/injectable.dart';
 import 'package:dio/dio.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/core/data/request/request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';

@@ -2,8 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
-    as filter;
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -37,35 +36,26 @@ class _HomeScreenState extends AppState<HomeScreen> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<HomeTicketCubit>(
-            create: (context) => getIt<HomeTicketCubit>()..init(context),
+            create: (context) => getIt<HomeTicketCubit>()..init(),
           ),
-          BlocProvider<filter.HomeFilterCubit>(
-            create: (context) =>
-                filter.HomeFilterCubit()..init(context),
+          BlocProvider<HomeFilterCubit>(
+            create: (context) => HomeFilterCubit()..init(),
           ),
         ],
-        child: BlocListener<HomeTicketCubit, HomeTicketState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              loaded: (tickets, pageIndex) =>
-                  context.read<filter.HomeFilterCubit>().init(context),
-            );
-          },
-          child: const Column(
-            spacing: 10,
-            children: [
-              SizedBox(height: 6),
-              Padding(
-                padding: .symmetric(horizontal: 12),
-                child: HomeSearchBar(),
-              ),
-              Padding(
-                padding: .symmetric(horizontal: 24),
-                child: VehicleCapacityTab(),
-              ),
-              Expanded(child: TicketListTab()),
-            ],
-          ),
+        child: const Column(
+          spacing: 10,
+          children: [
+            SizedBox(height: 6),
+            Padding(
+              padding: .symmetric(horizontal: 12),
+              child: HomeSearchBar(),
+            ),
+            Padding(
+              padding: .symmetric(horizontal: 24),
+              child: VehicleCapacityTab(),
+            ),
+            Expanded(child: TicketListTab()),
+          ],
         ),
       ),
     );
