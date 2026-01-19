@@ -185,7 +185,7 @@ class TicketTitle extends StatelessWidget {
                         Text(
                           ticket.id,
                           style: AppTextStyles.bodyLargeBold.copyWith(
-                            color: ThemeHelper.getColor(context).grey600,
+                            color: ThemeHelper.getColor(context).grey900,
                           ),
                         ),
                         if (ticket.id.length % 2 == 0)

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
-      supportedLocales: const <Locale>[Locale('en', 'US'), Locale('vi', 'VN')],
+      supportedLocales: const <Locale>[.new('en', 'US'), .new('vi', 'VN')],
       path: 'assets/translations',
       fallbackLocale: const .new('en', 'US'),
       child: MultiBlocProvider(
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
                     context.tr('appTitle'),
                 theme: theme,
                 darkTheme: theme,
-                color: Theme.of(context).colorScheme.primary,
+                color: theme.primaryColor,
                 debugShowCheckedModeBanner: false,
                 routerConfig: RouterHelper.router,
                 localizationsDelegates: context.localizationDelegates,
