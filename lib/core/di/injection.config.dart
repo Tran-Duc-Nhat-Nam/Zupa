@@ -119,6 +119,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(),
       ),
     );
+    gh.factory<_i1054.RevenueListCubit>(
+      () => _i1054.RevenueListCubit(gh<_i286.IRevenueRepository>()),
+    );
     gh.lazySingleton<_i757.IHistoryRepository>(
       () => _i148.HistoryRepositoryImpl(
         gh<_i463.NetworkService>(),
@@ -131,18 +134,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i65.LoginCubit>(
       () => _i65.LoginCubit(gh<_i251.AuthenticationRepository>()),
     );
-    gh.factory<_i1054.RevenueListCubit>(
-      () => _i1054.RevenueListCubit(
-        gh<_i286.IRevenueRepository>(),
-      ),
-    );
     gh.factory<_i602.HomeTicketCubit>(
       () => _i602.HomeTicketCubit(gh<_i541.IHomeRepository>()),
-    );
-    gh.factory<_i110.HistoryListCubit>(
-      () => _i110.HistoryListCubit(
-        gh<_i757.IHistoryRepository>(),
-      ),
     );
     gh.factory<_i884.EmployeeSettingsCubit>(
       () => _i884.EmployeeSettingsCubit(gh<_i187.ISettingsRepository>()),
@@ -158,6 +151,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i382.PasswordSettingsCubit>(
       () => _i382.PasswordSettingsCubit(gh<_i187.ISettingsRepository>()),
+    );
+    gh.factory<_i110.HistoryListCubit>(
+      () => _i110.HistoryListCubit(gh<_i757.IHistoryRepository>()),
     );
     return this;
   }

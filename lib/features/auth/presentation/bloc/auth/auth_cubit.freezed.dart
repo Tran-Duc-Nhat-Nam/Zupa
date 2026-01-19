@@ -55,12 +55,13 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loaded value)?  loaded,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loaded value)?  loaded,TResult Function( _NoAuthenticated value)?  noAuthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _:
+return loaded(_that);case _NoAuthenticated() when noAuthenticated != null:
+return noAuthenticated(_that);case _:
   return orElse();
 
 }
@@ -78,12 +79,13 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loaded value)  loaded,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loaded value)  loaded,required TResult Function( _NoAuthenticated value)  noAuthenticated,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case _Loaded():
-return loaded(_that);case _:
+return loaded(_that);case _NoAuthenticated():
+return noAuthenticated(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +102,13 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loaded value)?  loaded,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loaded value)?  loaded,TResult? Function( _NoAuthenticated value)?  noAuthenticated,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _:
+return loaded(_that);case _NoAuthenticated() when noAuthenticated != null:
+return noAuthenticated(_that);case _:
   return null;
 
 }
@@ -122,11 +125,12 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( bool isBiometric)?  loaded,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( bool isBiometric)?  loaded,TResult Function()?  noAuthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loaded() when loaded != null:
-return loaded(_that.isBiometric);case _:
+return loaded(_that.isBiometric);case _NoAuthenticated() when noAuthenticated != null:
+return noAuthenticated();case _:
   return orElse();
 
 }
@@ -144,11 +148,12 @@ return loaded(_that.isBiometric);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( bool isBiometric)  loaded,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( bool isBiometric)  loaded,required TResult Function()  noAuthenticated,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loaded():
-return loaded(_that.isBiometric);case _:
+return loaded(_that.isBiometric);case _NoAuthenticated():
+return noAuthenticated();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +170,12 @@ return loaded(_that.isBiometric);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( bool isBiometric)?  loaded,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( bool isBiometric)?  loaded,TResult? Function()?  noAuthenticated,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loaded() when loaded != null:
-return loaded(_that.isBiometric);case _:
+return loaded(_that.isBiometric);case _NoAuthenticated() when noAuthenticated != null:
+return noAuthenticated();case _:
   return null;
 
 }
@@ -274,5 +280,37 @@ as bool,
 
 
 }
+
+/// @nodoc
+
+
+class _NoAuthenticated implements AuthState {
+  const _NoAuthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoAuthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthState.noAuthenticated()';
+}
+
+
+}
+
+
+
 
 // dart format on

@@ -21,15 +21,11 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
-      create: (context) => getIt<LoginCubit>()..load(),
+      create: (context) => getIt<LoginCubit>()..init(),
       child: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
-            loginSuccess: () => context.mounted
-                ? context.goNamed(AppRoutes.home)
-                : AppToast.showErrorToast(
-                    'Xảy ra lỗi không xác định! Vui lòng thoát ứng dụng và vào lại để đảm bảo ứng dụng hoạt động bình thường.',
-                  ),
+            loginSuccess: () => context.goNamed(AppRoutes.home),
             loginFailed: (message) {
               AppToast.showErrorToast(message);
               final values = formKey.currentState?.value;

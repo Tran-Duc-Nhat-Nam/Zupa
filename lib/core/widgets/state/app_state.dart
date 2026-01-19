@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:get_it/get_it.dart';
+import 'package:zupa/core/services/storage_service.dart';
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
   final void Function(Locale? locale)? localeChangeCallBack;
@@ -18,32 +20,28 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
 
   @override
   void didChangeLocales(List<Locale>? locales) {
-    log('Set locale to ${locales?.first}', name: 'App state');
-    localeChangeCallBack!(locales?.first);
+    localeChangeCallBack?.call(locales?.first);
     super.didChangeLocales(locales);
   }
 
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    debugPrint('State changed ${state.name}');
+    log('State changed ${state.name}');
     switch (state) {
       case .resumed:
-        if (resumeCallBack != null) {
-          await resumeCallBack!();
-        }
+        await resumeCallBack?.call();
       case .inactive:
       case .paused:
       case .detached:
       case .hidden:
-        if (suspendingCallBack != null) {
-          await suspendingCallBack!();
-        }
+        await suspendingCallBack?.call();
     }
   }
 }
 
 abstract class AppState<T extends StatefulWidget> extends State<T> {
   late LifecycleEventHandler observer;
+  final StorageService _storageService = GetIt.instance<StorageService>();
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
   Map<String, dynamic> getFormValues() {
@@ -57,18 +55,19 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
   void initState() {
     observer = LifecycleEventHandler(
       resumeCallBack: () async {
-        setState(() {
-          // TODO: Check authentication here
-          initService(context);
-        });
+        if ((await _storageService.getAuth()) != null) {
+          log('Is Auth');
+          if (mounted) initService(context);
+        } else {
+          if (mounted) {
+            Navigator.of(
+              context,
+            ).pushNamedAndRemoveUntil('/login', (route) => false);
+          }
+        }
       },
       localeChangeCallBack: (locale) {
         setState(() {
-          // TODO: Check authentication here
-          log(
-            'Set locale to ${locale ?? Localizations.localeOf(context)}',
-            name: 'App state',
-          );
           context.setLocale(locale ?? Localizations.localeOf(context));
           initService(context);
         });
