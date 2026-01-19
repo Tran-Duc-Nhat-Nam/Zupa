@@ -143,7 +143,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i110.HistoryListCubit>(
       () => _i110.HistoryListCubit(
         gh<_i757.IHistoryRepository>(),
-        gh<_i567.HistoryFilterCubit>(),
       ),
     );
     gh.factory<_i884.EmployeeSettingsCubit>(

@@ -70,11 +70,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     final showWhiteBackground = isScrolled && !isRefreshing;
 
                     return AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const .new(milliseconds: 250),
                       curve: Curves.easeInOut,
                       padding: showWhiteBackground
-                          ? const EdgeInsets.symmetric(vertical: 10)
-                          : const EdgeInsets.only(top: 10),
+                          ? const .symmetric(vertical: 10)
+                          : const .only(top: 10),
                       decoration: BoxDecoration(
                         color: showWhiteBackground
                             ? backgroundColor
@@ -85,7 +85,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 ? Colors.black.withAlpha(12)
                                 : Colors.transparent,
                             blurRadius: 4,
-                            offset: const Offset(0, 2),
+                            offset: const .new(0, 2),
                           ),
                         ],
                       ),
@@ -93,7 +93,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const .symmetric(horizontal: 24),
                     child:
                         BlocBuilder<
                           filter.HistoryFilterCubit,
@@ -122,10 +122,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       aspectRatio: 1,
                                       child: AppButton(
                                         fitContent: true,
-                                        theme: AppButtonTheme.outline,
-                                        padding: const EdgeInsets.all(8),
-                                        radius: BorderRadius.circular(8),
-                                        color: AppButtonColor.basic,
+                                        theme: .outline,
+                                        padding: const .all(8),
+                                        radius: .circular(8),
+                                        color: .basic,
                                         icon: AppIcon(
                                           path: AppIcons.filter,
                                           size: 20,
@@ -153,9 +153,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 onNotification: (notification) {
                   if (notification is ScrollUpdateNotification) {
                     final isScrolled = notification.metrics.pixels > 20;
-                    if (_isScrolledNotifier.value != isScrolled) {
-                      _isScrolledNotifier.value = isScrolled;
-                    }
+                    _isScrolledNotifier.value = isScrolled;
                   }
                   return false;
                 },
@@ -172,7 +170,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
-        padding: const EdgeInsets.only(
+        padding: const .only(
           top: 24,
           bottom: 48,
           left: 24,

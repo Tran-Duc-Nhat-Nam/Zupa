@@ -34,17 +34,13 @@ class HistoryListTab extends StatelessWidget {
               refreshController.refreshCompleted();
             },
             onLoading: () async {
-              await context.read<HistoryListCubit>().loadMore();
+              await context.read<HistoryListCubit>().loadMore(context);
               refreshController.loadComplete();
             },
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (c, i) => Padding(
-                padding: EdgeInsets.only(
-                  top: i == 0 ? 16 : 0,
-                  left: 24,
-                  right: 24,
-                ),
+                padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
                 child: HistoryListSection(
                   tickets: items.isNotEmpty
                       ? items
@@ -52,7 +48,7 @@ class HistoryListTab extends StatelessWidget {
                           10,
                           (index) => HistoryTicket(
                             id: 'Placeholder',
-                            timeIn: DateTime.now(),
+                            timeIn: .now(),
                             siteId: 'A much Longer placeholder',
                             type: vehicleTypes.first,
                           ),

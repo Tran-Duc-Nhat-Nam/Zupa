@@ -17,7 +17,7 @@ class HistoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: EdgeInsetsGeometry.zero,
+      padding: .zero,
       decoration: .new(
         color: ThemeHelper.getColor(context).white,
         borderRadius: const .all(.circular(8)),
@@ -43,12 +43,10 @@ class HistoryTitle extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              constraints: const BoxConstraints(minHeight: 70),
+              constraints: const .new(minHeight: 70),
               decoration: BoxDecoration(
-                border: Border.symmetric(
-                  vertical: BorderSide(
-                    color: ThemeHelper.getColor(context).grey100,
-                  ),
+                border: .symmetric(
+                  vertical: .new(color: ThemeHelper.getColor(context).grey100),
                 ),
               ),
               padding: const .symmetric(horizontal: 16, vertical: 8),
@@ -130,7 +128,7 @@ class HistoryTitle extends StatelessWidget {
                     ticket.id.length % 2 == 0
                         ? Text(
                             DateTimeConverter.toShortTime(
-                              ticket.timeOut ?? DateTime.now(),
+                              ticket.timeOut ?? .now(),
                             ),
                             style: AppTextStyles.bodyMediumMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey700,
