@@ -13,17 +13,15 @@ part 'parking_settings_cubit.freezed.dart';
 class ParkingSettingsCubit extends Cubit<ParkingSettingsState> {
   final ISettingsRepository _repository;
 
-  ParkingSettingsCubit(this._repository) : super(const ParkingSettingsState.initial());
+  ParkingSettingsCubit(this._repository) : super(const .initial());
 
   Future<void> init() async {
-    emit(const ParkingSettingsState.loading());
+    emit(const .loading());
     final result = await _repository.getParkingLots();
     
-    result.when(
-      initial: () {},
-      loading: () {},
-      success: (data) => emit(ParkingSettingsState.loaded(data, 0)),
-      error: (message) => emit(ParkingSettingsState.failed(message)),
+    result.whenOrNull(
+      success: (data) => emit(.loaded(data, 0)),
+      error: (message) => emit(.failed(message)),
     );
   }
 }

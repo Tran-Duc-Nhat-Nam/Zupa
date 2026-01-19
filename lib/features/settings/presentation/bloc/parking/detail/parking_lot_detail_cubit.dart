@@ -9,16 +9,11 @@ part 'parking_lot_detail_cubit.freezed.dart';
 
 @injectable
 class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
-  ParkingLotDetailCubit() : super(const ParkingLotDetailState.initial());
+  ParkingLotDetailCubit() : super(const .initial());
 
   Future<void> init(ParkingLot? parkingLot) async {
-    emit(const ParkingLotDetailState.loading());
-    await Future.delayed(const Duration(seconds: 2));
-    emit(
-      parkingLot != null
-          ? ParkingLotDetailState.loaded(parkingLot)
-          : const ParkingLotDetailState.creating(),
-    );
+    emit(const .loading());
+    await Future.delayed(const .new(seconds: 2));
+    emit(parkingLot != null ? .loaded(parkingLot) : const .creating());
   }
 }
-

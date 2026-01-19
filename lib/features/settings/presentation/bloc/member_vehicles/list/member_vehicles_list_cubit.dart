@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,64 +13,60 @@ part 'member_vehicles_list_cubit.freezed.dart';
 class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
   final ISettingsRepository _repository;
 
-  MemberVehiclesListCubit(this._repository)
-      : super(const MemberVehiclesListState.initial());
+  MemberVehiclesListCubit(this._repository) : super(const .initial());
 
-  Future<void> init(
-    BuildContext context, {
-    MemberVehiclesFilter filter = const MemberVehiclesFilter(),
-  }) async {
-    emit(const MemberVehiclesListState.loading());
-    final result = await _repository.getMemberVehicles(page: 1, filter: filter);
+  Future<void> init() async {
+    emit(const .loading());
+    final result = await _repository.getMemberVehicles();
     result.when(
-      initial: () => emit(const MemberVehiclesListState.initial()),
-      loading: () => emit(const MemberVehiclesListState.loading()),
+      initial: () => emit(const .initial()),
+      loading: () => emit(const .loading()),
       success: (items) {
         if (items.isEmpty) {
-          emit(const MemberVehiclesListState.empty());
+          emit(const .empty());
         } else {
-          emit(MemberVehiclesListState.loaded(items, 1));
+          emit(.loaded(items, 1));
         }
       },
-      error: (message) => emit(MemberVehiclesListState.failed(message)),
+      error: (message) => emit(.failed(message)),
     );
   }
 
-  void refresh(
-    BuildContext context,
-    void Function() onSuccess,
-    void Function() onFailed,
-  ) async {
+  void refresh({
+    MemberVehiclesFilter? filter,
+    void Function()? onSuccess,
+    void Function()? onFailed,
+  }) async {
     final List<MemberVehicle> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
     );
-    emit(MemberVehiclesListState.refreshing(items));
-    final result = await _repository.getMemberVehicles(page: 1);
+    emit(.refreshing(items));
+    final result = await _repository.getMemberVehicles(filter: filter);
     result.when(
       initial: () {},
       loading: () {},
       success: (newItems) {
-        onSuccess();
+        onSuccess?.call();
         if (newItems.isEmpty) {
-          emit(const MemberVehiclesListState.empty());
+          emit(const .empty());
         } else {
-          emit(MemberVehiclesListState.loaded(newItems, 1));
+          emit(.loaded(newItems, 1));
         }
       },
       error: (message) {
-        onFailed();
-        emit(MemberVehiclesListState.failed(message));
+        onFailed?.call();
+        emit(.failed(message));
       },
     );
   }
 
-  void loadMore(
-    BuildContext context,
-    void Function() onSuccess,
-    void Function() onFailed,
-    void Function() onEmpty,
-  ) async {
+  void loadMore({
+    MemberVehiclesFilter? filter,
+    void Function()? onSuccess,
+    void Function()? onFailed,
+    void Function()? onEmpty,
+  }) async {
     final List<MemberVehicle> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
@@ -80,25 +75,24 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       loaded: (params) => params.pageIndex + 1,
       orElse: () => 1,
     );
-    emit(MemberVehiclesListState.loadingMore(items));
-    final result = await _repository.getMemberVehicles(page: pageIndex);
+    emit(.loadingMore(items));
+    final result = await _repository.getMemberVehicles(page: pageIndex, filter: filter);
     result.when(
       initial: () {},
       loading: () {},
       success: (newItems) {
         if (newItems.isEmpty) {
-          onEmpty();
+          onEmpty?.call();
         } else {
           items.addAll(newItems);
-          onSuccess();
+          onSuccess?.call();
         }
-        emit(MemberVehiclesListState.loaded(items, pageIndex));
+        emit(.loaded(items, pageIndex));
       },
       error: (message) {
-        onFailed();
-        emit(MemberVehiclesListState.failed(message));
+        onFailed?.call();
+        emit(.failed(message));
       },
     );
   }
 }
-

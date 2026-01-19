@@ -13,21 +13,15 @@ part 'employee_settings_cubit.freezed.dart';
 class EmployeeSettingsCubit extends Cubit<EmployeeSettingsState> {
   final ISettingsRepository _repository;
 
-  EmployeeSettingsCubit(this._repository) : super(const EmployeeSettingsState.initial());
+  EmployeeSettingsCubit(this._repository) : super(const .initial());
 
   Future<void> init() async {
-    emit(const EmployeeSettingsState.loading());
+    emit(const .loading());
     final result = await _repository.getEmployees();
-    
-    result.when(
-      initial: () {},
-      loading: () {},
-      success: (data) => emit(data.isEmpty 
-        ? const EmployeeSettingsState.empty() 
-        : EmployeeSettingsState.loaded(data, 0)),
-      error: (message) => emit(EmployeeSettingsState.failed(message)),
+
+    result.whenOrNull(
+      success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
+      error: (message) => emit(.failed(message)),
     );
   }
 }
-
-

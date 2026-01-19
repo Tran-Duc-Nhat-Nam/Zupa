@@ -27,7 +27,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
       formKey: formKey,
       title: context.tr('appSettings'),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
           children: [
             AppCard(
@@ -35,21 +35,16 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                 spacing: 10,
                 children: [
                   AppListTile(
-                    padding: EdgeInsets.zero,
+                    padding: .zero,
                     leadingIconPath: AppIcons.lampOn,
                     text: context.tr('language'),
                     trailing: AppDropDownSearch<Locale>(
                       name: 'appLocale',
-                      buttonDecoration: const BoxDecoration(),
+                      buttonDecoration: const .new(),
                       iconSize: 0,
-                      dropdownItems: const [
-                        Locale('en', 'US'),
-                        Locale('vi', 'VN'),
-                      ],
+                      dropdownItems: const [.new('en', 'US'), .new('vi', 'VN')],
                       extraDropdownItems: [
-                        AppDropDownSearchExtraItem(
-                          label: context.tr('followSystem'),
-                        ),
+                        .new(label: context.tr('followSystem')),
                       ],
                       buttonWidth: 140,
                       initialValue: context.locale,
@@ -58,7 +53,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       onChanged: (value) => context.setLocale(
                         value is Locale
                             ? value
-                            : Locale(
+                            : .new(
                                 Intl.systemLocale.substring(0, 2),
                                 Intl.systemLocale.substring(3, 5),
                               ),
@@ -67,12 +62,12 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
                   AppListTile(
-                    padding: EdgeInsets.zero,
+                    padding: .zero,
                     leadingIconPath: AppIcons.global,
                     text: context.tr('language'),
                     trailing: AppDropDownSearch<Brightness>(
                       name: 'appLocale',
-                      buttonDecoration: const BoxDecoration(),
+                      buttonDecoration: const .new(),
                       iconSize: 0,
                       dropdownItems: [
                         appTheme.brightness,
@@ -95,7 +90,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   BlocBuilder<DebuggerCubit, DebuggerState>(
                     builder: (context, state) {
                       return AppListTile(
-                        padding: EdgeInsets.zero,
+                        padding: .zero,
                         leadingIconPath: AppIcons.notification,
                         text: context.tr('debuggerMode'),
                         trailing: SizedBox(
@@ -103,18 +98,17 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
-                              padding: EdgeInsets.zero,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                                (Set<WidgetState> states) {
-                                  if (states.contains(WidgetState.selected)) {
-                                    return const Icon(Icons.check);
-                                  }
-                                  return const Icon(Icons.close);
-                                },
-                              ),
-                              thumbColor: WidgetStateProperty.all(
+                              padding: .zero,
+                              materialTapTargetSize: .shrinkWrap,
+                              thumbIcon: .resolveWith<Icon?>((
+                                Set<WidgetState> states,
+                              ) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return const .new(Icons.check);
+                                }
+                                return const .new(Icons.close);
+                              }),
+                              thumbColor: .all(
                                 ThemeHelper.getColor(context).white,
                               ),
                               inactiveTrackColor: ThemeHelper.getColor(
@@ -143,7 +137,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   BlocBuilder<AuthCubit, AuthState>(
                     builder: (context, state) {
                       return AppListTile(
-                        padding: EdgeInsets.zero,
+                        padding: .zero,
                         leadingIconPath: AppIcons.notification,
                         text: context.tr('biometricAuth'),
                         trailing: SizedBox(
@@ -151,18 +145,17 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
-                              padding: EdgeInsets.zero,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                                (Set<WidgetState> states) {
-                                  if (states.contains(WidgetState.selected)) {
-                                    return const Icon(Icons.check);
-                                  }
-                                  return const Icon(Icons.close);
-                                },
-                              ),
-                              thumbColor: WidgetStateProperty.all(
+                              padding: .zero,
+                              materialTapTargetSize: .shrinkWrap,
+                              thumbIcon: .resolveWith<Icon?>((
+                                Set<WidgetState> states,
+                              ) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return const .new(Icons.check);
+                                }
+                                return const .new(Icons.close);
+                              }),
+                              thumbColor: .all(
                                 ThemeHelper.getColor(context).white,
                               ),
                               inactiveTrackColor: ThemeHelper.getColor(
@@ -196,4 +189,3 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
     );
   }
 }
-

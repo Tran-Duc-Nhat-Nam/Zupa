@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
+    hide Loading;
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -23,39 +25,40 @@ class MemberVehiclesListTab extends StatelessWidget {
     return BlocBuilder<MemberVehiclesListCubit, MemberVehiclesListState>(
       builder: (context, state) {
         final refreshController = RefreshController();
-        final List<MemberVehicle>? items = state.maybeWhen(
+        final List<MemberVehicle>? items = state.whenOrNull(
           loaded: (vehicles, _) => vehicles,
           refreshing: (vehicles) => vehicles,
           loadingMore: (vehicles) => vehicles,
-          orElse: () => null,
         );
         return Skeletonizer(
           enabled: state is Loading,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const .symmetric(horizontal: 24),
             child: SmartRefresher(
               enablePullDown: state is! LoadingMore,
               enablePullUp: state is! Refreshing,
               controller: refreshController,
               onRefresh: () => context.read<MemberVehiclesListCubit>().refresh(
-                context,
-                refreshController.refreshCompleted,
-                refreshController.refreshFailed,
+                filter: context.read<MemberVehiclesFilterState>().mapOrNull(
+                  loaded: (s) => s.filter,
+                ),
+                onSuccess: refreshController.refreshCompleted,
+                onFailed: refreshController.refreshFailed,
               ),
               onLoading: () => context.read<MemberVehiclesListCubit>().loadMore(
-                context,
-                refreshController.loadComplete,
-                refreshController.loadFailed,
-                refreshController.loadNoData,
+                filter: context.read<MemberVehiclesFilterState>().mapOrNull(
+                  loaded: (s) => s.filter,
+                ),
+                onSuccess: refreshController.loadComplete,
+                onFailed: refreshController.loadFailed,
+                onEmpty: refreshController.loadNoData,
               ),
               child: ListView.separated(
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
                 itemBuilder: (c, i) => Padding(
-                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
-                  child: MemberVehiclesTitle(
-                    ticket: items?[i] ?? const MemberVehicle(),
-                  ),
+                  padding: .only(top: i == 0 ? 16 : 0),
+                  child: MemberVehiclesTitle(ticket: items?[i] ?? const .new()),
                 ),
                 itemCount: items?.length ?? 10,
               ),
@@ -71,12 +74,12 @@ class MemberVehiclesTitle extends StatelessWidget {
   MemberVehiclesTitle({super.key, required this.ticket});
 
   final MemberVehicle ticket;
-  final SwipeActionController controller = SwipeActionController();
+  final controller = SwipeActionController();
 
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: const EdgeInsets.all(16),
+      padding: const .all(16),
       child: Row(
         spacing: 12,
         children: [
@@ -89,12 +92,10 @@ class MemberVehiclesTitle extends StatelessWidget {
                   const NetworkImage('https://picsum.photos/750'),
                 ),
                 child: Container(
-                  clipBehavior: Clip.antiAlias,
+                  clipBehavior: .antiAlias,
                   height: 60,
                   width: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
+                  decoration: BoxDecoration(borderRadius: .circular(6)),
                   child: Skeleton.replace(
                     height: 60,
                     width: 60,
@@ -107,10 +108,8 @@ class MemberVehiclesTitle extends StatelessWidget {
               Container(
                 width: 60,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: ThemeHelper.getColor(context).grey100,
-                  ),
+                  borderRadius: .circular(6),
+                  border: .all(color: ThemeHelper.getColor(context).grey100),
                 ),
                 child: Center(child: Text(ticket.vehicleType.name)),
               ),
@@ -119,12 +118,12 @@ class MemberVehiclesTitle extends StatelessWidget {
           Expanded(
             child: Row(
               spacing: 12,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: .spaceBetween,
               children: [
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: .center,
+                    crossAxisAlignment: .start,
                     children: [
                       Text(
                         ticket.name,
@@ -159,8 +158,8 @@ class MemberVehiclesTitle extends StatelessWidget {
                 ),
                 AppButton(
                   fitContent: true,
-                  radius: BorderRadius.circular(8),
-                  theme: AppButtonTheme.secondary,
+                  radius: .circular(8),
+                  theme: .secondary,
                   onPressed: () => AppDialog.showModal(
                     context,
                     titleText: context.tr('title.extend'),
@@ -181,10 +180,10 @@ class MemberVehiclesTitle extends StatelessWidget {
                     width: 80,
                     child: Text(
                       'Gia hạn 200.000đ',
-                      overflow: TextOverflow.clip,
+                      overflow: .clip,
                       softWrap: true,
                       maxLines: 10,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                       style: AppTextStyles.bodySmallSemibold.copyWith(
                         color: ThemeHelper.getColor(context).primary500,
                       ),
@@ -199,4 +198,3 @@ class MemberVehiclesTitle extends StatelessWidget {
     );
   }
 }
-

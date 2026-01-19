@@ -31,7 +31,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
       title: context.tr('memberVehicles'),
       appBarTrailing: [
         Padding(
-          padding: const EdgeInsets.only(right: 24),
+          padding: const .only(right: 24),
           child: AppIcon(
             path: AppIcons.roundPlus,
             onTap: () => context.pushNamed('MemberVehiclesDetail'),
@@ -41,54 +41,36 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<MemberVehiclesListCubit>(
-            create: (context) => getIt<MemberVehiclesListCubit>()..init(context),
+            create: (context) => getIt<MemberVehiclesListCubit>()..init(),
           ),
           BlocProvider<filter.MemberVehiclesFilterCubit>(
             create: (context) =>
                 getIt<filter.MemberVehiclesFilterCubit>()
-                  ..load(context, getFormValues),
+                  ..init(),
           ),
         ],
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<MemberVehiclesListCubit, MemberVehiclesListState>(
-              listener: (context, state) {
-                switch (state) {
-                  case Loaded():
-                    {
-                      context.read<filter.MemberVehiclesFilterCubit>().init(
-                        context,
-                      );
-                    }
-                  default:
-                    {}
-                }
-              },
-            ),
-          ],
-          child: DefaultTabController(
-            length: 3,
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: MemberVehiclesTabBar(),
-                ),
-                const SizedBox(height: 10),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: MemberVehiclesSearchBar(),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    children: List.generate(
-                      3,
-                      (index) => const MemberVehiclesListTab(),
-                    ),
+        child: DefaultTabController(
+          length: 3,
+          child: Column(
+            children: [
+              const Padding(
+                padding: .symmetric(horizontal: 24),
+                child: MemberVehiclesTabBar(),
+              ),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: .symmetric(horizontal: 24),
+                child: MemberVehiclesSearchBar(),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: List.generate(
+                    3,
+                    (index) => const MemberVehiclesListTab(),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

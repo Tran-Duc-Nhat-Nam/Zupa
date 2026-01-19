@@ -32,11 +32,7 @@ class _MemberVehicleDetailScreenState
     final String? code = extra is String ? extra : null;
 
     return BlocProvider<MemberVehicleDetailCubit>(
-      create: (context) => getIt<MemberVehicleDetailCubit>()
-        ..init(
-          context,
-          code: code,
-        ),
+      create: (context) => getIt<MemberVehicleDetailCubit>()..init(code: code),
       child: BlocBuilder<MemberVehicleDetailCubit, MemberVehicleDetailState>(
         builder: (context, state) {
           return AppScreen(
@@ -54,7 +50,6 @@ class _MemberVehicleDetailScreenState
                   formKey.currentState?.saveAndValidate();
                   if (formKey.currentState?.validate() == true) {
                     context.read<MemberVehicleDetailCubit>().create(
-                      context,
                       formKey.currentState!.value,
                     );
                   }
@@ -62,13 +57,12 @@ class _MemberVehicleDetailScreenState
                 text: context.tr('save'),
               ),
               AppButton(
-                theme: AppButtonTheme.outline,
-                color: AppButtonColor.error,
+                theme: .outline,
+                color: .error,
                 onPressed: () {
                   formKey.currentState?.saveAndValidate();
                   if (formKey.currentState?.validate() == true) {
                     context.read<MemberVehicleDetailCubit>().create(
-                      context,
                       formKey.currentState!.value,
                     );
                   }
@@ -85,7 +79,7 @@ class _MemberVehicleDetailScreenState
                     height: 100,
                     decoration: BoxDecoration(
                       color: ThemeHelper.getColor(context).primary50,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: .circular(8),
                     ),
                     child: Center(
                       child: AppIcon(
@@ -142,4 +136,3 @@ class _MemberVehicleDetailScreenState
     );
   }
 }
-

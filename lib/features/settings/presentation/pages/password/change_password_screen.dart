@@ -66,14 +66,14 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                 ),
               ],
               child: Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: const .symmetric(
                   vertical: 16,
                   horizontal: 24,
                 ),
                 child: AppCard(
                   child: Column(
                     spacing: 8,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: .min,
                     children: [
                       AppTextField(
                         name: 'currentPassword',

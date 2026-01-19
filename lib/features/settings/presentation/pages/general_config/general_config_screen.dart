@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/settings/presentation/bloc/general_config/general_config_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -21,8 +22,7 @@ class GeneralConfigScreen extends StatefulWidget {
   State<GeneralConfigScreen> createState() => _GeneralConfigScreenState();
 }
 
-class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
-  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
@@ -53,10 +53,7 @@ class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 24,
-                  ),
+                  padding: const .symmetric(vertical: 16, horizontal: 24),
                   child: Column(
                     spacing: 10,
                     children: [
@@ -86,7 +83,7 @@ class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
                           spacing: 10,
                           children: [
                             AppListTile(
-                              padding: EdgeInsets.zero,
+                              padding: .zero,
                               leadingIconPath: AppIcons.notification,
                               text: context.tr('title.warningThreshold'),
                               trailing: SizedBox(
@@ -94,21 +91,19 @@ class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
                                 child: Transform.scale(
                                   scale: 0.8,
                                   child: Switch(
-                                    padding: EdgeInsets.zero,
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                    thumbIcon:
-                                        WidgetStateProperty.resolveWith<Icon?>((
-                                          Set<WidgetState> states,
-                                        ) {
-                                          if (states.contains(
-                                            WidgetState.selected,
-                                          )) {
-                                            return const Icon(Icons.check);
-                                          }
-                                          return const Icon(Icons.close);
-                                        }),
-                                    thumbColor: WidgetStateProperty.all(
+                                    padding: .zero,
+                                    materialTapTargetSize: .shrinkWrap,
+                                    thumbIcon: .resolveWith<Icon?>((
+                                      Set<WidgetState> states,
+                                    ) {
+                                      if (states.contains(
+                                        WidgetState.selected,
+                                      )) {
+                                        return const .new(Icons.check);
+                                      }
+                                      return const .new(Icons.close);
+                                    }),
+                                    thumbColor: .all(
                                       ThemeHelper.getColor(context).white,
                                     ),
                                     inactiveTrackColor: ThemeHelper.getColor(
@@ -161,4 +156,3 @@ class _GeneralConfigScreenState extends State<GeneralConfigScreen> {
     );
   }
 }
-

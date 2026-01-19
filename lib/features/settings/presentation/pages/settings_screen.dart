@@ -25,12 +25,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       title: context.tr('settings'),
       hasAppBar: false,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
           spacing: 10,
           children: [
             AppCard(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              padding: const .symmetric(vertical: 4, horizontal: 16),
               child: Column(
                 children: [
                   AppListTile(
@@ -69,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             AppCard(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              padding: const .symmetric(vertical: 4, horizontal: 16),
               child: Column(
                 children: [
                   AppListTile(
@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             AppCard(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              padding: const .symmetric(vertical: 4, horizontal: 16),
               child: AppListTile(
                 leadingIconPath: AppIcons.outlineSetting,
                 text: context.tr('appSettings'),
@@ -93,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             AppCard(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              padding: const .symmetric(vertical: 4, horizontal: 16),
               child: AppListTile(
                 leadingIconPath: AppIcons.logout,
                 text: context.tr('title.logout'),
@@ -114,4 +114,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-

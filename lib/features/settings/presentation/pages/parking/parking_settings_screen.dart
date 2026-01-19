@@ -35,7 +35,7 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
             return Skeletonizer(
               enabled: state is Loading,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: const .symmetric(
                   vertical: 16,
                   horizontal: 24,
                 ),

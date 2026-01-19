@@ -37,10 +37,7 @@ class _EmployeeManagementScreenState
             return Skeletonizer(
               enabled: state is Loading,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 24,
-                ),
+                padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: AppCard(
                   child: state.maybeMap(
                     loaded: (params) => ListView.separated(
@@ -95,4 +92,3 @@ class _EmployeeManagementScreenState
     );
   }
 }
-

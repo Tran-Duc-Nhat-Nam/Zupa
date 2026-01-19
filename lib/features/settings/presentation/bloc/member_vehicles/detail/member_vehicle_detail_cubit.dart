@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -13,50 +12,42 @@ part 'member_vehicle_detail_cubit.freezed.dart';
 class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
   final ISettingsRepository _repository;
 
-  MemberVehicleDetailCubit(this._repository) : super(const MemberVehicleDetailState.initial());
+  MemberVehicleDetailCubit(this._repository) : super(const .initial());
 
-  Future<void> init(BuildContext context, {String? code}) async {
+  Future<void> init({String? code}) async {
     if (code == null) {
-      emit(const MemberVehicleDetailState.empty());
+      emit(const .empty());
     } else {
-      emit(const MemberVehicleDetailState.loading());
-      // Placeholder: in a real app, we'd fetch the specific vehicle by code/id
-      // For now, let's assume we fetch all and find it, or just mock result.
+      emit(const .loading());
       final result = await _repository.getMemberVehicles();
       
-      result.when(
-        initial: () {},
-        loading: () {},
+      result.whenOrNull(
         success: (items) {
           final item = items.firstWhere((e) => e.licenseNumber == code, orElse: () => items.first);
-          emit(MemberVehicleDetailState.loaded(item));
+          emit(.loaded(item));
         },
-        error: (message) => emit(MemberVehicleDetailState.failed(message)),
+        error: (message) => emit(.failed(message)),
       );
     }
   }
 
-  void create(BuildContext context, Map<String, dynamic> data) async {
-    emit(const MemberVehicleDetailState.loading());
+  void create(Map<String, dynamic> data) async {
+    emit(const .loading());
     final result = await _repository.createMemberVehicle(data);
     
-    result.when(
-      initial: () {},
-      loading: () {},
-      success: (response) => emit(const MemberVehicleDetailState.initial()), // or success state
-      error: (message) => emit(MemberVehicleDetailState.failed(message)),
+    result.whenOrNull(
+      success: (response) => emit(const .initial()), // or success state
+      error: (message) => emit(.failed(message)),
     );
   }
 
-  void delete(BuildContext context, String id) async {
-    emit(const MemberVehicleDetailState.loading());
+  void delete(String id) async {
+    emit(const .loading());
     final result = await _repository.deleteMemberVehicle(id);
     
-    result.when(
-      initial: () {},
-      loading: () {},
-      success: (response) => emit(const MemberVehicleDetailState.initial()), // or success state
-      error: (message) => emit(MemberVehicleDetailState.failed(message)),
+    result.whenOrNull(
+      success: (response) => emit(const .initial()), // or success state
+      error: (message) => emit(.failed(message)),
     );
   }
 }

@@ -12,20 +12,18 @@ part 'password_settings_cubit.freezed.dart';
 class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
   final ISettingsRepository _repository;
 
-  PasswordSettingsCubit(this._repository) : super(const PasswordSettingsState.initial());
+  PasswordSettingsCubit(this._repository) : super(const .initial());
 
   void init() {
-    emit(const PasswordSettingsState.loaded());
+    emit(const .loaded());
   }
 
   Future<void> changePassword(String currentPassword, String newPassword) async {
     final result = await _repository.changePassword(currentPassword, newPassword);
     
-    result.when(
-      initial: () {},
-      loading: () {},
-      success: (_) => emit(const PasswordSettingsState.changePasswordSuccess()),
-      error: (message) => emit(PasswordSettingsState.changePasswordFailed(message)),
+    result.whenOrNull(
+      success: (_) => emit(const .changePasswordSuccess()),
+      error: (message) => emit(.changePasswordFailed(message)),
     );
   }
 }

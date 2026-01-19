@@ -11,26 +11,26 @@ class MemberVehiclesTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 16),
+      padding: const .only(top: 16),
       child: SegmentedTabControl(
         height: 40,
         splashColor: Colors.transparent,
         barDecoration: BoxDecoration(
           color: ThemeHelper.getColor(context).white,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          border: Border.all(color: ThemeHelper.getColor(context).grey100),
+          borderRadius: const .all(Radius.circular(8)),
+          border: .all(color: ThemeHelper.getColor(context).grey100),
         ),
-        indicatorPadding: const EdgeInsets.all(4),
+        indicatorPadding: const .all(4),
         indicatorDecoration: BoxDecoration(
           color: ThemeHelper.getColor(context).primary500,
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
+          borderRadius: const .all(Radius.circular(6)),
         ),
         textStyle: AppTextStyles.bodySmallBold,
         tabTextColor: ThemeHelper.getColor(context).grey300,
         tabs: [
-          SegmentTab(label: context.tr('all')),
-          SegmentTab(label: context.tr('inUse')),
-          SegmentTab(label: context.tr('lost')),
+          .new(label: context.tr('all')),
+          .new(label: context.tr('inUse')),
+          .new(label: context.tr('lost')),
         ],
       ),
     );

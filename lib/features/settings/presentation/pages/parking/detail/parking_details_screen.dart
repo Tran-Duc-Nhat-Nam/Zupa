@@ -55,7 +55,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
             return Skeletonizer(
               enabled: state is Loading,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: const .symmetric(
                   vertical: 16,
                   horizontal: 24,
                 ),
@@ -63,7 +63,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                   children: [
                     AppCard(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
                           Text(context.tr('info')),
@@ -82,7 +82,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                     ),
                     AppCard(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
                           Text(context.tr('capacity')),
@@ -114,7 +114,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         spacing: 10,
                         children: [
                           AppListTile(
-                            padding: EdgeInsets.zero,
+                            padding: .zero,
                             leadingIconPath: AppIcons.notification,
                             text: context.tr('title.warningThreshold'),
                             trailing: AppSwitch(
@@ -125,7 +125,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                                       context,
                                       okText: context.tr('lock'),
                                       cancelText: context.tr('close'),
-                                      theme: AppDialogTheme.warning,
+                                      theme: .warning,
                                       onOk: () => toggle(true),
                                       onCancel: () => toggle(false),
                                     ),

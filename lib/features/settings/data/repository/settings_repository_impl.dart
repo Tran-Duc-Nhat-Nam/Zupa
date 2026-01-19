@@ -8,7 +8,6 @@ import 'package:zupa/features/settings/data/api/settings_api.dart';
 import 'package:zupa/features/settings/data/models/employee.dart';
 import 'package:zupa/features/settings/data/models/parking_lot.dart';
 import 'package:zupa/features/settings/domain/repository/settings_repository.dart';
-import 'package:zupa/features/settings/data/models/parking_lot_capacity.dart';
 import 'package:zupa/features/settings/data/models/member_vehicle.dart';
 import 'package:zupa/features/settings/data/models/member_vehicles_filter.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
@@ -18,11 +17,14 @@ class SettingsRepositoryImpl implements ISettingsRepository {
   final SettingsAPI _api;
   final NetworkService _networkService;
 
-  SettingsRepositoryImpl(this._networkService, Dio dio) : _api = SettingsAPI(dio);
+  SettingsRepositoryImpl(this._networkService, Dio dio)
+    : _api = SettingsAPI(dio);
 
   @override
   Future<NetworkState<List<Employee>>> getEmployees() async {
-    final response = await _networkService.request((dio) => _api.getEmployees());
+    final response = await _networkService.request(
+      (dio) => _api.getEmployees(),
+    );
 
     if (response is SuccessResponse) {
       try {
@@ -30,59 +32,45 @@ class SettingsRepositoryImpl implements ISettingsRepository {
         final items = dataList
             .map((e) => Employee.fromJson(e as Map<String, dynamic>))
             .toList();
-        return NetworkState.success(items);
+        return .success(items);
       } catch (e) {
-        return NetworkState.error('Parsing Error: ${e.toString()}');
+        return .error('Parsing Error: ${e.toString()}');
       }
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('Unknown Response');
+      return const .error('Unknown Response');
     }
   }
 
   @override
   Future<NetworkState<List<ParkingLot>>> getParkingLots() async {
     // Returning mock data as originally implemented in the cubit
-    return NetworkState.success([
+    return .success([
       ParkingLot(
         id: '1',
         name: 'Bãi xe A',
         capacity: [
-          ParkingLotCapacity(
-            vehicleType: vehicleTypes[0],
-            capacity: 100,
-            available: 50,
-          ),
-          ParkingLotCapacity(
-            vehicleType: vehicleTypes[1],
-            capacity: 200,
-            available: 150,
-          ),
+          .new(vehicleType: vehicleTypes[0], capacity: 100, available: 50),
+          .new(vehicleType: vehicleTypes[1], capacity: 200, available: 150),
         ],
       ),
       ParkingLot(
         id: '2',
         name: 'Bãi xe B',
         capacity: [
-          ParkingLotCapacity(
-            vehicleType: vehicleTypes[0],
-            capacity: 50,
-            available: 20,
-          ),
-          ParkingLotCapacity(
-            vehicleType: vehicleTypes[1],
-            capacity: 100,
-            available: 80,
-          ),
+          .new(vehicleType: vehicleTypes[0], capacity: 50, available: 20),
+          .new(vehicleType: vehicleTypes[1], capacity: 100, available: 80),
         ],
       ),
     ]);
   }
 
   @override
-  Future<NetworkState<List<MemberVehicle>>> getMemberVehicles(
-      {int? page, MemberVehiclesFilter? filter}) async {
+  Future<NetworkState<List<MemberVehicle>>> getMemberVehicles({
+    int? page,
+    MemberVehiclesFilter? filter,
+  }) async {
     final response = await _networkService.request(
       (dio) => _api.getMemberVehicles(
         page?.toString(),
@@ -98,50 +86,55 @@ class SettingsRepositoryImpl implements ISettingsRepository {
         final items = dataList
             .map((e) => MemberVehicle.fromJson(e as Map<String, dynamic>))
             .toList();
-        return NetworkState.success(items);
+        return .success(items);
       } catch (e) {
-        return NetworkState.error('Parsing Error: ${e.toString()}');
+        return .error('Parsing Error: ${e.toString()}');
       }
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('Unknown Response');
+      return const .error('Unknown Response');
     }
   }
 
   @override
   Future<NetworkState<SuccessResponse>> createMemberVehicle(
-      Map<String, dynamic> data) async {
-    final response =
-        await _networkService.request((dio) => _api.createMemberVehicle(data));
+    Map<String, dynamic> data,
+  ) async {
+    final response = await _networkService.request(
+      (dio) => _api.createMemberVehicle(data),
+    );
 
     if (response is SuccessResponse) {
-      return NetworkState.success(response);
+      return .success(response);
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('Unknown Response');
+      return const .error('Unknown Response');
     }
   }
 
   @override
   Future<NetworkState<SuccessResponse>> deleteMemberVehicle(String id) async {
-    final response =
-        await _networkService.request((dio) => _api.deleteMemberVehicle(id));
+    final response = await _networkService.request(
+      (dio) => _api.deleteMemberVehicle(id),
+    );
 
     if (response is SuccessResponse) {
-      return NetworkState.success(response);
+      return .success(response);
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('Unknown Response');
+      return const .error('Unknown Response');
     }
   }
 
   @override
   Future<NetworkState<SuccessResponse>> changePassword(
-      String currentPassword, String newPassword) async {
+    String currentPassword,
+    String newPassword,
+  ) async {
     // Placeholder for API call
-    return const NetworkState.success(SuccessResponse(data: null));
+    return const .success(.new(data: null));
   }
 }
