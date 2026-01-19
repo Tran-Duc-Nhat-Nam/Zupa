@@ -4,9 +4,8 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
+
 import 'package:zupa/features/home/presentation/bloc/filter/model/home_filter.dart';
 
 part 'home_filter_state.dart';
@@ -15,8 +14,6 @@ part 'home_filter_cubit.freezed.dart';
 class HomeFilterCubit extends Cubit<HomeFilterState> {
   HomeFilterCubit() : super(const .initial());
 
-  List<VehicleType> types = [];
-  Map<String, dynamic> Function()? _getFormValues;
   Timer? _debounce;
 
   void search(String? query) {
@@ -33,33 +30,20 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
     );
   }
 
-  void load(
-    BuildContext context,
-    Map<String, dynamic> Function()? getFormValues,
-  ) async {
-    types = vehicleTypes;
-    _getFormValues = getFormValues;
-    emit(const .loading());
-  }
-
   void init(BuildContext context) async {
-    state.whenOrNull(
-      loaded: (filter) => emit(.loaded(filter: filter)),
-      loading: () => emit(const .loaded()),
-    );
+    emit(const .loaded());
   }
 
-  void filter(Future<void> Function(HomeFilter filter) fetchData) async {
+  void filter(Map<String, dynamic> values) async {
     state.whenOrNull(
       loaded: (filter) async {
-        final values = _getFormValues!();
         final temp = HomeFilter(
-          type: values['vehicleType'],
-          keyword: values['keyword'],
-          time: values['time'],
+          keyword: values.containsKey('keyword') ? values['keyword'] as String : filter.keyword,
+          time: values.containsKey('time') ? values['time'] as DateTime : filter.time,
+          type: values.containsKey('type') ? values['type'] as VehicleType : filter.type,
         );
         emit(.filtering(filter: temp));
-        await fetchData(temp);
+        await Future.delayed(const .new(seconds: 3));
         emit(.loaded(filter: temp));
       },
     );

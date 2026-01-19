@@ -16,7 +16,7 @@ class RevenueSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const .all(0),
+      margin: EdgeInsetsGeometry.zero,
       elevation: 0, // Keep it flat inside the colored container
       color: ThemeHelper.getColor(context).primary100, // Light Brand Color
       shape: RoundedRectangleBorder(

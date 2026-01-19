@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart' as filter;
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
+    as filter;
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -40,7 +41,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
           ),
           BlocProvider<filter.HomeFilterCubit>(
             create: (context) =>
-                filter.HomeFilterCubit()..load(context, getFormValues),
+                filter.HomeFilterCubit()..init(context),
           ),
         ],
         child: BlocListener<HomeTicketCubit, HomeTicketState>(

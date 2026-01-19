@@ -17,7 +17,7 @@ class HistoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: const .symmetric(vertical: 0, horizontal: 0),
+      padding: EdgeInsetsGeometry.zero,
       decoration: .new(
         color: ThemeHelper.getColor(context).white,
         borderRadius: const .all(.circular(8)),

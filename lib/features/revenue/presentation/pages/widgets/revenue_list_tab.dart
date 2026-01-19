@@ -130,14 +130,14 @@ class RevenueTitle extends StatelessWidget {
         border: .all(color: ThemeHelper.getColor(context).grey100),
       ),
       child: ListTileTheme(
-        contentPadding: const .all(0),
+        contentPadding: EdgeInsetsGeometry.zero,
         dense: true,
         horizontalTitleGap: 0.0,
         minVerticalPadding: 0.0,
         minLeadingWidth: 0,
         child: ExpansionTile(
-          tilePadding: const .all(0),
-          childrenPadding: const .all(0),
+          tilePadding: EdgeInsetsGeometry.zero,
+          childrenPadding: EdgeInsetsGeometry.zero,
           minTileHeight: 20,
           showTrailingIcon: false,
           visualDensity: .compact,
