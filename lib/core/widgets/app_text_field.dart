@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -71,6 +72,8 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final colorsScheme = ThemeHelper.getColor(context);
+
     validators = [];
     if (widget.required) {
       validators.add(
@@ -94,7 +97,7 @@ class _AppTextFieldState extends State<AppTextField> {
           Text(
             widget.labelText ?? '',
             style: AppTextStyles.bodyMediumMedium.copyWith(
-              color: ThemeHelper.getColor(context).grey650,
+              color: colorsScheme.grey650,
             ),
           ),
         FormBuilderTextField(
@@ -105,7 +108,7 @@ class _AppTextFieldState extends State<AppTextField> {
           initialValue: widget.initialValue,
           textAlign: widget.textAlign ?? .start,
           style: AppTextStyles.bodyMediumRegular.copyWith(
-            color: ThemeHelper.getColor(context).grey500,
+            color: colorsScheme.grey500,
           ),
           textInputAction: .next,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
@@ -119,7 +122,7 @@ class _AppTextFieldState extends State<AppTextField> {
                         widget.prefix ??
                         AppIcon(
                           path: widget.prefixIconPath!,
-                          color: ThemeHelper.getColor(context).grey400,
+                          color: colorsScheme.grey400,
                           size: 20,
                         ),
                   )
@@ -136,9 +139,7 @@ class _AppTextFieldState extends State<AppTextField> {
                           : Icons.visibility_off,
                       size: 20,
                     ),
-                    style: const .new(
-                      tapTargetSize: .shrinkWrap,
-                    ),
+                    style: const .new(tapTargetSize: .shrinkWrap),
                     onPressed: () {
                       setState(() {
                         isPasswordVisible = !isPasswordVisible;
@@ -152,7 +153,7 @@ class _AppTextFieldState extends State<AppTextField> {
                         widget.suffix ??
                         AppIcon(
                           path: widget.suffixIconPath!,
-                          color: ThemeHelper.getColor(context).grey400,
+                          color: colorsScheme.grey400,
                           size: 20,
                         ),
                   )
@@ -160,7 +161,7 @@ class _AppTextFieldState extends State<AppTextField> {
             suffixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
             hintText: widget.hintText,
             hintStyle: AppTextStyles.bodyMediumRegular.copyWith(
-              color: ThemeHelper.getColor(context).grey500,
+              color: colorsScheme.grey500,
             ),
             labelText: widget.isExternalLabel
                 ? null
@@ -169,18 +170,16 @@ class _AppTextFieldState extends State<AppTextField> {
                 : widget.labelText,
             label: widget.isExternalLabel ? null : widget.label,
             labelStyle: AppTextStyles.bodyMediumMedium.copyWith(
-              color: ThemeHelper.getColor(context).grey650,
+              color: colorsScheme.grey650,
             ),
             filled: true,
-            fillColor: ThemeHelper.getColor(context).white,
+            fillColor: colorsScheme.white,
             errorBorder:
                 widget.border ??
                 (widget.hasBorder
                     ? OutlineInputBorder(
                         borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(
-                          color: ThemeHelper.getColor(context).error600,
-                        ),
+                        borderSide: .new(color: colorsScheme.error600),
                       )
                     : const OutlineInputBorder(borderSide: .none)),
             enabledBorder:
@@ -188,9 +187,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 (widget.hasBorder
                     ? OutlineInputBorder(
                         borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(
-                          color: ThemeHelper.getColor(context).grey100,
-                        ),
+                        borderSide: .new(color: colorsScheme.grey100),
                       )
                     : const OutlineInputBorder(borderSide: .none)),
             focusedErrorBorder:
@@ -198,9 +195,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 (widget.hasBorder
                     ? OutlineInputBorder(
                         borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(
-                          color: ThemeHelper.getColor(context).error600,
-                        ),
+                        borderSide: .new(color: colorsScheme.error600),
                       )
                     : const OutlineInputBorder(borderSide: .none)),
             focusedBorder:
@@ -208,9 +203,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 (widget.hasBorder
                     ? OutlineInputBorder(
                         borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(
-                          color: ThemeHelper.getColor(context).grey200,
-                        ),
+                        borderSide: .new(color: colorsScheme.grey200),
                       )
                     : const OutlineInputBorder(borderSide: .none)),
             contentPadding: widget.contentPadding ?? const .all(12),
