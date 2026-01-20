@@ -55,7 +55,7 @@ extension CheckInStatePatterns on CheckInState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( CheckIn value)?  checkIn,TResult Function( CheckOut value)?  checkOut,TResult Function( Failed value)?  failed,TResult Function( TakingPicture value)?  takingPicture,TResult Function( CheckedInSuccess value)?  checkedInSuccess,TResult Function( CheckInFailed value)?  checkedInFailed,TResult Function( CheckedOutSuccess value)?  checkedOutSuccess,TResult Function( CheckOutFailed value)?  checkedOutFailed,TResult Function( Submitting value)?  submitting,TResult Function( SubmitSuccess value)?  submitSuccess,TResult Function( SubmitFailed value)?  submitFailed,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( CheckIn value)?  checkIn,TResult Function( CheckOut value)?  checkOut,TResult Function( Failed value)?  failed,TResult Function( TakingPicture value)?  takingPicture,TResult Function( CheckedInSuccess value)?  checkedInSuccess,TResult Function( CheckInFailed value)?  checkedInFailed,TResult Function( CheckedOutSuccess value)?  checkedOutSuccess,TResult Function( CheckOutFailed value)?  checkedOutFailed,TResult Function( Submitting value)?  submitting,TResult Function( SubmitSuccess value)?  submitSuccess,TResult Function( SubmitFailed value)?  submitFailed,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -71,7 +71,8 @@ return checkedOutSuccess(_that);case CheckOutFailed() when checkedOutFailed != n
 return checkedOutFailed(_that);case Submitting() when submitting != null:
 return submitting(_that);case SubmitSuccess() when submitSuccess != null:
 return submitSuccess(_that);case SubmitFailed() when submitFailed != null:
-return submitFailed(_that);case _:
+return submitFailed(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -89,7 +90,7 @@ return submitFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( CheckIn value)  checkIn,required TResult Function( CheckOut value)  checkOut,required TResult Function( Failed value)  failed,required TResult Function( TakingPicture value)  takingPicture,required TResult Function( CheckedInSuccess value)  checkedInSuccess,required TResult Function( CheckInFailed value)  checkedInFailed,required TResult Function( CheckedOutSuccess value)  checkedOutSuccess,required TResult Function( CheckOutFailed value)  checkedOutFailed,required TResult Function( Submitting value)  submitting,required TResult Function( SubmitSuccess value)  submitSuccess,required TResult Function( SubmitFailed value)  submitFailed,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( CheckIn value)  checkIn,required TResult Function( CheckOut value)  checkOut,required TResult Function( Failed value)  failed,required TResult Function( TakingPicture value)  takingPicture,required TResult Function( CheckedInSuccess value)  checkedInSuccess,required TResult Function( CheckInFailed value)  checkedInFailed,required TResult Function( CheckedOutSuccess value)  checkedOutSuccess,required TResult Function( CheckOutFailed value)  checkedOutFailed,required TResult Function( Submitting value)  submitting,required TResult Function( SubmitSuccess value)  submitSuccess,required TResult Function( SubmitFailed value)  submitFailed,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial():
@@ -105,7 +106,8 @@ return checkedOutSuccess(_that);case CheckOutFailed():
 return checkedOutFailed(_that);case Submitting():
 return submitting(_that);case SubmitSuccess():
 return submitSuccess(_that);case SubmitFailed():
-return submitFailed(_that);}
+return submitFailed(_that);case Unauthenticated():
+return unauthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -119,7 +121,7 @@ return submitFailed(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( CheckIn value)?  checkIn,TResult? Function( CheckOut value)?  checkOut,TResult? Function( Failed value)?  failed,TResult? Function( TakingPicture value)?  takingPicture,TResult? Function( CheckedInSuccess value)?  checkedInSuccess,TResult? Function( CheckInFailed value)?  checkedInFailed,TResult? Function( CheckedOutSuccess value)?  checkedOutSuccess,TResult? Function( CheckOutFailed value)?  checkedOutFailed,TResult? Function( Submitting value)?  submitting,TResult? Function( SubmitSuccess value)?  submitSuccess,TResult? Function( SubmitFailed value)?  submitFailed,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( CheckIn value)?  checkIn,TResult? Function( CheckOut value)?  checkOut,TResult? Function( Failed value)?  failed,TResult? Function( TakingPicture value)?  takingPicture,TResult? Function( CheckedInSuccess value)?  checkedInSuccess,TResult? Function( CheckInFailed value)?  checkedInFailed,TResult? Function( CheckedOutSuccess value)?  checkedOutSuccess,TResult? Function( CheckOutFailed value)?  checkedOutFailed,TResult? Function( Submitting value)?  submitting,TResult? Function( SubmitSuccess value)?  submitSuccess,TResult? Function( SubmitFailed value)?  submitFailed,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -135,7 +137,8 @@ return checkedOutSuccess(_that);case CheckOutFailed() when checkedOutFailed != n
 return checkedOutFailed(_that);case Submitting() when submitting != null:
 return submitting(_that);case SubmitSuccess() when submitSuccess != null:
 return submitSuccess(_that);case SubmitFailed() when submitFailed != null:
-return submitFailed(_that);case _:
+return submitFailed(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -152,7 +155,7 @@ return submitFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( CameraController controller)?  checkIn,TResult Function( CameraController controller)?  checkOut,TResult Function( String message)?  failed,TResult Function()?  takingPicture,TResult Function( XFile picture,  VehicleType vehicleType)?  checkedInSuccess,TResult Function( String message)?  checkedInFailed,TResult Function( XFile picture)?  checkedOutSuccess,TResult Function( String message)?  checkedOutFailed,TResult Function()?  submitting,TResult Function()?  submitSuccess,TResult Function()?  submitFailed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( CameraController controller)?  checkIn,TResult Function( CameraController controller)?  checkOut,TResult Function( String message)?  failed,TResult Function()?  takingPicture,TResult Function( XFile picture,  VehicleType vehicleType)?  checkedInSuccess,TResult Function( String message)?  checkedInFailed,TResult Function( XFile picture)?  checkedOutSuccess,TResult Function( String message)?  checkedOutFailed,TResult Function()?  submitting,TResult Function()?  submitSuccess,TResult Function()?  submitFailed,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -167,7 +170,8 @@ return checkedOutSuccess(_that.picture);case CheckOutFailed() when checkedOutFai
 return checkedOutFailed(_that.message);case Submitting() when submitting != null:
 return submitting();case SubmitSuccess() when submitSuccess != null:
 return submitSuccess();case SubmitFailed() when submitFailed != null:
-return submitFailed();case _:
+return submitFailed();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -185,7 +189,7 @@ return submitFailed();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( CameraController controller)  checkIn,required TResult Function( CameraController controller)  checkOut,required TResult Function( String message)  failed,required TResult Function()  takingPicture,required TResult Function( XFile picture,  VehicleType vehicleType)  checkedInSuccess,required TResult Function( String message)  checkedInFailed,required TResult Function( XFile picture)  checkedOutSuccess,required TResult Function( String message)  checkedOutFailed,required TResult Function()  submitting,required TResult Function()  submitSuccess,required TResult Function()  submitFailed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( CameraController controller)  checkIn,required TResult Function( CameraController controller)  checkOut,required TResult Function( String message)  failed,required TResult Function()  takingPicture,required TResult Function( XFile picture,  VehicleType vehicleType)  checkedInSuccess,required TResult Function( String message)  checkedInFailed,required TResult Function( XFile picture)  checkedOutSuccess,required TResult Function( String message)  checkedOutFailed,required TResult Function()  submitting,required TResult Function()  submitSuccess,required TResult Function()  submitFailed,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
@@ -200,7 +204,8 @@ return checkedOutSuccess(_that.picture);case CheckOutFailed():
 return checkedOutFailed(_that.message);case Submitting():
 return submitting();case SubmitSuccess():
 return submitSuccess();case SubmitFailed():
-return submitFailed();}
+return submitFailed();case Unauthenticated():
+return unauthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -214,7 +219,7 @@ return submitFailed();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( CameraController controller)?  checkIn,TResult? Function( CameraController controller)?  checkOut,TResult? Function( String message)?  failed,TResult? Function()?  takingPicture,TResult? Function( XFile picture,  VehicleType vehicleType)?  checkedInSuccess,TResult? Function( String message)?  checkedInFailed,TResult? Function( XFile picture)?  checkedOutSuccess,TResult? Function( String message)?  checkedOutFailed,TResult? Function()?  submitting,TResult? Function()?  submitSuccess,TResult? Function()?  submitFailed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( CameraController controller)?  checkIn,TResult? Function( CameraController controller)?  checkOut,TResult? Function( String message)?  failed,TResult? Function()?  takingPicture,TResult? Function( XFile picture,  VehicleType vehicleType)?  checkedInSuccess,TResult? Function( String message)?  checkedInFailed,TResult? Function( XFile picture)?  checkedOutSuccess,TResult? Function( String message)?  checkedOutFailed,TResult? Function()?  submitting,TResult? Function()?  submitSuccess,TResult? Function()?  submitFailed,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -229,7 +234,8 @@ return checkedOutSuccess(_that.picture);case CheckOutFailed() when checkedOutFai
 return checkedOutFailed(_that.message);case Submitting() when submitting != null:
 return submitting();case SubmitSuccess() when submitSuccess != null:
 return submitSuccess();case SubmitFailed() when submitFailed != null:
-return submitFailed();case _:
+return submitFailed();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -894,6 +900,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'CheckInState.submitFailed()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Unauthenticated implements CheckInState {
+  const Unauthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unauthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CheckInState.unauthenticated()';
 }
 
 

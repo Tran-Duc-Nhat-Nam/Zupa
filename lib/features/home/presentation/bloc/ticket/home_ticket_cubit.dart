@@ -18,9 +18,8 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
   Future<void> init() async {
     emit(const .loading());
     final result = await _repository.getTickets();
-    result.when(
-      initial: () {},
-      loading: () => emit(const .loading()),
+    result.whenOrNull(
+      unauthenticated: () => emit(const .unauthenticated()),
       success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
       error: (message) => emit(.failed(message)),
     );
@@ -34,9 +33,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     emit(.refreshing(items));
 
     final result = await _repository.getTickets(filter: filter);
-    result.when(
-      initial: () {},
-      loading: () {},
+    result.whenOrNull(
       success: (data) {
         onSuccess?.call();
         emit(data.isEmpty ? const .empty() : .loaded(data, 0));

@@ -55,7 +55,7 @@ extension MemberVehicleDetailStatePatterns on MemberVehicleDetailState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( Failed value)?  failed,TResult Function( Empty value)?  empty,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( Failed value)?  failed,TResult Function( Empty value)?  empty,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -63,7 +63,8 @@ return initial(_that);case Loading() when loading != null:
 return loading(_that);case Loaded() when loaded != null:
 return loaded(_that);case Failed() when failed != null:
 return failed(_that);case Empty() when empty != null:
-return empty(_that);case _:
+return empty(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -81,7 +82,7 @@ return empty(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( Failed value)  failed,required TResult Function( Empty value)  empty,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( Failed value)  failed,required TResult Function( Empty value)  empty,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial():
@@ -89,7 +90,8 @@ return initial(_that);case Loading():
 return loading(_that);case Loaded():
 return loaded(_that);case Failed():
 return failed(_that);case Empty():
-return empty(_that);}
+return empty(_that);case Unauthenticated():
+return unauthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -103,7 +105,7 @@ return empty(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( Failed value)?  failed,TResult? Function( Empty value)?  empty,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( Failed value)?  failed,TResult? Function( Empty value)?  empty,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -111,7 +113,8 @@ return initial(_that);case Loading() when loading != null:
 return loading(_that);case Loaded() when loaded != null:
 return loaded(_that);case Failed() when failed != null:
 return failed(_that);case Empty() when empty != null:
-return empty(_that);case _:
+return empty(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -128,14 +131,15 @@ return empty(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( MemberVehicle vehicle)?  loaded,TResult Function( String message)?  failed,TResult Function()?  empty,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( MemberVehicle vehicle)?  loaded,TResult Function( String message)?  failed,TResult Function()?  empty,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
 return loaded(_that.vehicle);case Failed() when failed != null:
 return failed(_that.message);case Empty() when empty != null:
-return empty();case _:
+return empty();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -153,14 +157,15 @@ return empty();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( MemberVehicle vehicle)  loaded,required TResult Function( String message)  failed,required TResult Function()  empty,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( MemberVehicle vehicle)  loaded,required TResult Function( String message)  failed,required TResult Function()  empty,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Loaded():
 return loaded(_that.vehicle);case Failed():
 return failed(_that.message);case Empty():
-return empty();}
+return empty();case Unauthenticated():
+return unauthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -174,14 +179,15 @@ return empty();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( MemberVehicle vehicle)?  loaded,TResult? Function( String message)?  failed,TResult? Function()?  empty,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( MemberVehicle vehicle)?  loaded,TResult? Function( String message)?  failed,TResult? Function()?  empty,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
 return loaded(_that.vehicle);case Failed() when failed != null:
 return failed(_that.message);case Empty() when empty != null:
-return empty();case _:
+return empty();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -418,6 +424,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'MemberVehicleDetailState.empty()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Unauthenticated implements MemberVehicleDetailState {
+  const Unauthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unauthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'MemberVehicleDetailState.unauthenticated()';
 }
 
 

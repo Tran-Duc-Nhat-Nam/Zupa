@@ -14,73 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HistoryListState {
 
- List<HistoryTicket> get tickets; int get page; bool get hasMore; NetworkState<List<HistoryTicket>> get status;
-/// Create a copy of HistoryListState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$HistoryListStateCopyWith<HistoryListState> get copyWith => _$HistoryListStateCopyWithImpl<HistoryListState>(this as HistoryListState, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryListState&&const DeepCollectionEquality().equals(other.tickets, tickets)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryListState);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tickets),page,hasMore,status);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HistoryListState(tickets: $tickets, page: $page, hasMore: $hasMore, status: $status)';
+  return 'HistoryListState()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $HistoryListStateCopyWith<$Res>  {
-  factory $HistoryListStateCopyWith(HistoryListState value, $Res Function(HistoryListState) _then) = _$HistoryListStateCopyWithImpl;
-@useResult
-$Res call({
- List<HistoryTicket> tickets, int page, bool hasMore, NetworkState<List<HistoryTicket>> status
-});
-
-
-$NetworkStateCopyWith<List<HistoryTicket>, $Res> get status;
-
-}
-/// @nodoc
-class _$HistoryListStateCopyWithImpl<$Res>
-    implements $HistoryListStateCopyWith<$Res> {
-  _$HistoryListStateCopyWithImpl(this._self, this._then);
-
-  final HistoryListState _self;
-  final $Res Function(HistoryListState) _then;
-
-/// Create a copy of HistoryListState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? tickets = null,Object? page = null,Object? hasMore = null,Object? status = null,}) {
-  return _then(_self.copyWith(
-tickets: null == tickets ? _self.tickets : tickets // ignore: cast_nullable_to_non_nullable
-as List<HistoryTicket>,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
-as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as NetworkState<List<HistoryTicket>>,
-  ));
-}
-/// Create a copy of HistoryListState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$NetworkStateCopyWith<List<HistoryTicket>, $Res> get status {
-  
-  return $NetworkStateCopyWith<List<HistoryTicket>, $Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
-}
+class $HistoryListStateCopyWith<$Res>  {
+$HistoryListStateCopyWith(HistoryListState _, $Res Function(HistoryListState) __);
 }
 
 
@@ -98,11 +55,18 @@ extension HistoryListStatePatterns on HistoryListState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HistoryListState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Refreshing value)?  refreshing,TResult Function( LoadingMore value)?  loadingMore,TResult Function( Loaded value)?  loaded,TResult Function( Failed value)?  failed,TResult Function( Emtpy value)?  empty,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _HistoryListState() when $default != null:
-return $default(_that);case _:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Refreshing() when refreshing != null:
+return refreshing(_that);case LoadingMore() when loadingMore != null:
+return loadingMore(_that);case Loaded() when loaded != null:
+return loaded(_that);case Failed() when failed != null:
+return failed(_that);case Emtpy() when empty != null:
+return empty(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -120,11 +84,18 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HistoryListState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Refreshing value)  refreshing,required TResult Function( LoadingMore value)  loadingMore,required TResult Function( Loaded value)  loaded,required TResult Function( Failed value)  failed,required TResult Function( Emtpy value)  empty,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _HistoryListState():
-return $default(_that);}
+case Initial():
+return initial(_that);case Loading():
+return loading(_that);case Refreshing():
+return refreshing(_that);case LoadingMore():
+return loadingMore(_that);case Loaded():
+return loaded(_that);case Failed():
+return failed(_that);case Emtpy():
+return empty(_that);case Unauthenticated():
+return unauthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -138,11 +109,18 @@ return $default(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HistoryListState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Refreshing value)?  refreshing,TResult? Function( LoadingMore value)?  loadingMore,TResult? Function( Loaded value)?  loaded,TResult? Function( Failed value)?  failed,TResult? Function( Emtpy value)?  empty,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _HistoryListState() when $default != null:
-return $default(_that);case _:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Refreshing() when refreshing != null:
+return refreshing(_that);case LoadingMore() when loadingMore != null:
+return loadingMore(_that);case Loaded() when loaded != null:
+return loaded(_that);case Failed() when failed != null:
+return failed(_that);case Emtpy() when empty != null:
+return empty(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -159,10 +137,17 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<HistoryTicket> tickets,  int page,  bool hasMore,  NetworkState<List<HistoryTicket>> status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<HistoryTicket> tickets)?  refreshing,TResult Function( List<HistoryTicket> tickets)?  loadingMore,TResult Function( List<HistoryTicket> tickets,  int pageIndex)?  loaded,TResult Function( String message)?  failed,TResult Function()?  empty,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _HistoryListState() when $default != null:
-return $default(_that.tickets,_that.page,_that.hasMore,_that.status);case _:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Refreshing() when refreshing != null:
+return refreshing(_that.tickets);case LoadingMore() when loadingMore != null:
+return loadingMore(_that.tickets);case Loaded() when loaded != null:
+return loaded(_that.tickets,_that.pageIndex);case Failed() when failed != null:
+return failed(_that.message);case Emtpy() when empty != null:
+return empty();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -180,10 +165,17 @@ return $default(_that.tickets,_that.page,_that.hasMore,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<HistoryTicket> tickets,  int page,  bool hasMore,  NetworkState<List<HistoryTicket>> status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<HistoryTicket> tickets)  refreshing,required TResult Function( List<HistoryTicket> tickets)  loadingMore,required TResult Function( List<HistoryTicket> tickets,  int pageIndex)  loaded,required TResult Function( String message)  failed,required TResult Function()  empty,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _HistoryListState():
-return $default(_that.tickets,_that.page,_that.hasMore,_that.status);}
+case Initial():
+return initial();case Loading():
+return loading();case Refreshing():
+return refreshing(_that.tickets);case LoadingMore():
+return loadingMore(_that.tickets);case Loaded():
+return loaded(_that.tickets,_that.pageIndex);case Failed():
+return failed(_that.message);case Emtpy():
+return empty();case Unauthenticated():
+return unauthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -197,10 +189,17 @@ return $default(_that.tickets,_that.page,_that.hasMore,_that.status);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<HistoryTicket> tickets,  int page,  bool hasMore,  NetworkState<List<HistoryTicket>> status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<HistoryTicket> tickets)?  refreshing,TResult? Function( List<HistoryTicket> tickets)?  loadingMore,TResult? Function( List<HistoryTicket> tickets,  int pageIndex)?  loaded,TResult? Function( String message)?  failed,TResult? Function()?  empty,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _HistoryListState() when $default != null:
-return $default(_that.tickets,_that.page,_that.hasMore,_that.status);case _:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Refreshing() when refreshing != null:
+return refreshing(_that.tickets);case LoadingMore() when loadingMore != null:
+return loadingMore(_that.tickets);case Loaded() when loaded != null:
+return loaded(_that.tickets,_that.pageIndex);case Failed() when failed != null:
+return failed(_that.message);case Emtpy() when empty != null:
+return empty();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -211,88 +210,413 @@ return $default(_that.tickets,_that.page,_that.hasMore,_that.status);case _:
 /// @nodoc
 
 
-class _HistoryListState implements HistoryListState {
-  const _HistoryListState({final  List<HistoryTicket> tickets = const [], this.page = 1, this.hasMore = true, this.status = const NetworkState.initial()}): _tickets = tickets;
+class Initial implements HistoryListState {
+  const Initial();
   
 
- final  List<HistoryTicket> _tickets;
-@override@JsonKey() List<HistoryTicket> get tickets {
-  if (_tickets is EqualUnmodifiableListView) return _tickets;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_tickets);
-}
 
-@override@JsonKey() final  int page;
-@override@JsonKey() final  bool hasMore;
-@override@JsonKey() final  NetworkState<List<HistoryTicket>> status;
 
-/// Create a copy of HistoryListState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$HistoryListStateCopyWith<_HistoryListState> get copyWith => __$HistoryListStateCopyWithImpl<_HistoryListState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HistoryListState&&const DeepCollectionEquality().equals(other._tickets, _tickets)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets),page,hasMore,status);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HistoryListState(tickets: $tickets, page: $page, hasMore: $hasMore, status: $status)';
+  return 'HistoryListState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Loading implements HistoryListState {
+  const Loading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HistoryListState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Refreshing implements HistoryListState {
+  const Refreshing(final  List<HistoryTicket> tickets): _tickets = tickets;
+  
+
+ final  List<HistoryTicket> _tickets;
+ List<HistoryTicket> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
+}
+
+
+/// Create a copy of HistoryListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RefreshingCopyWith<Refreshing> get copyWith => _$RefreshingCopyWithImpl<Refreshing>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Refreshing&&const DeepCollectionEquality().equals(other._tickets, _tickets));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets));
+
+@override
+String toString() {
+  return 'HistoryListState.refreshing(tickets: $tickets)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$HistoryListStateCopyWith<$Res> implements $HistoryListStateCopyWith<$Res> {
-  factory _$HistoryListStateCopyWith(_HistoryListState value, $Res Function(_HistoryListState) _then) = __$HistoryListStateCopyWithImpl;
-@override @useResult
+abstract mixin class $RefreshingCopyWith<$Res> implements $HistoryListStateCopyWith<$Res> {
+  factory $RefreshingCopyWith(Refreshing value, $Res Function(Refreshing) _then) = _$RefreshingCopyWithImpl;
+@useResult
 $Res call({
- List<HistoryTicket> tickets, int page, bool hasMore, NetworkState<List<HistoryTicket>> status
+ List<HistoryTicket> tickets
 });
 
 
-@override $NetworkStateCopyWith<List<HistoryTicket>, $Res> get status;
+
 
 }
 /// @nodoc
-class __$HistoryListStateCopyWithImpl<$Res>
-    implements _$HistoryListStateCopyWith<$Res> {
-  __$HistoryListStateCopyWithImpl(this._self, this._then);
+class _$RefreshingCopyWithImpl<$Res>
+    implements $RefreshingCopyWith<$Res> {
+  _$RefreshingCopyWithImpl(this._self, this._then);
 
-  final _HistoryListState _self;
-  final $Res Function(_HistoryListState) _then;
+  final Refreshing _self;
+  final $Res Function(Refreshing) _then;
 
 /// Create a copy of HistoryListState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? tickets = null,Object? page = null,Object? hasMore = null,Object? status = null,}) {
-  return _then(_HistoryListState(
-tickets: null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
-as List<HistoryTicket>,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
-as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as NetworkState<List<HistoryTicket>>,
+@pragma('vm:prefer-inline') $Res call({Object? tickets = null,}) {
+  return _then(Refreshing(
+null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<HistoryTicket>,
   ));
 }
 
+
+}
+
+/// @nodoc
+
+
+class LoadingMore implements HistoryListState {
+  const LoadingMore(final  List<HistoryTicket> tickets): _tickets = tickets;
+  
+
+ final  List<HistoryTicket> _tickets;
+ List<HistoryTicket> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
+}
+
+
 /// Create a copy of HistoryListState
 /// with the given fields replaced by the non-null parameter values.
-@override
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$NetworkStateCopyWith<List<HistoryTicket>, $Res> get status {
+$LoadingMoreCopyWith<LoadingMore> get copyWith => _$LoadingMoreCopyWithImpl<LoadingMore>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadingMore&&const DeepCollectionEquality().equals(other._tickets, _tickets));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets));
+
+@override
+String toString() {
+  return 'HistoryListState.loadingMore(tickets: $tickets)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadingMoreCopyWith<$Res> implements $HistoryListStateCopyWith<$Res> {
+  factory $LoadingMoreCopyWith(LoadingMore value, $Res Function(LoadingMore) _then) = _$LoadingMoreCopyWithImpl;
+@useResult
+$Res call({
+ List<HistoryTicket> tickets
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadingMoreCopyWithImpl<$Res>
+    implements $LoadingMoreCopyWith<$Res> {
+  _$LoadingMoreCopyWithImpl(this._self, this._then);
+
+  final LoadingMore _self;
+  final $Res Function(LoadingMore) _then;
+
+/// Create a copy of HistoryListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tickets = null,}) {
+  return _then(LoadingMore(
+null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<HistoryTicket>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Loaded implements HistoryListState {
+  const Loaded(final  List<HistoryTicket> tickets, this.pageIndex): _tickets = tickets;
   
-  return $NetworkStateCopyWith<List<HistoryTicket>, $Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
+
+ final  List<HistoryTicket> _tickets;
+ List<HistoryTicket> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
 }
+
+ final  int pageIndex;
+
+/// Create a copy of HistoryListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._tickets, _tickets)&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex));
 }
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets),pageIndex);
+
+@override
+String toString() {
+  return 'HistoryListState.loaded(tickets: $tickets, pageIndex: $pageIndex)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadedCopyWith<$Res> implements $HistoryListStateCopyWith<$Res> {
+  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ List<HistoryTicket> tickets, int pageIndex
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadedCopyWithImpl<$Res>
+    implements $LoadedCopyWith<$Res> {
+  _$LoadedCopyWithImpl(this._self, this._then);
+
+  final Loaded _self;
+  final $Res Function(Loaded) _then;
+
+/// Create a copy of HistoryListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tickets = null,Object? pageIndex = null,}) {
+  return _then(Loaded(
+null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<HistoryTicket>,null == pageIndex ? _self.pageIndex : pageIndex // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Failed implements HistoryListState {
+  const Failed(this.message);
+  
+
+ final  String message;
+
+/// Create a copy of HistoryListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FailedCopyWith<Failed> get copyWith => _$FailedCopyWithImpl<Failed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failed&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'HistoryListState.failed(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FailedCopyWith<$Res> implements $HistoryListStateCopyWith<$Res> {
+  factory $FailedCopyWith(Failed value, $Res Function(Failed) _then) = _$FailedCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$FailedCopyWithImpl<$Res>
+    implements $FailedCopyWith<$Res> {
+  _$FailedCopyWithImpl(this._self, this._then);
+
+  final Failed _self;
+  final $Res Function(Failed) _then;
+
+/// Create a copy of HistoryListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(Failed(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Emtpy implements HistoryListState {
+  const Emtpy();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Emtpy);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HistoryListState.empty()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Unauthenticated implements HistoryListState {
+  const Unauthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unauthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HistoryListState.unauthenticated()';
+}
+
+
+}
+
+
+
 
 // dart format on

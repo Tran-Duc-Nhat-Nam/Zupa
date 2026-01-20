@@ -60,10 +60,14 @@ class NetworkService {
         return SuccessResponse(data: response);
       }
     } on DioException catch (e) {
-      return ErrorResponse(
-        code: e.response?.data['code'] ?? 500,
-        message: e.response?.data['message'] ?? e.message ?? 'Error',
-      );
+      if (e.response?.data is Map<String, dynamic>) {
+        return ErrorResponse(
+          code: e.response?.data?['code'] ?? 500,
+          message: e.response?.data?['message'] ?? e.message ?? 'Error',
+        );
+      } else {
+        const ErrorResponse(message: 'Error');
+      }
     } on Exception catch (e) {
       return ErrorResponse(code: 0, message: e.toString());
     }

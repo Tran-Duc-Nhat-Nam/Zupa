@@ -55,7 +55,7 @@ extension ParkingLotDetailStatePatterns on ParkingLotDetailState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( Creating value)?  creating,TResult Function( Empty value)?  empty,TResult Function( Failed value)?  failed,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( Creating value)?  creating,TResult Function( Empty value)?  empty,TResult Function( Failed value)?  failed,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -64,7 +64,8 @@ return loading(_that);case Loaded() when loaded != null:
 return loaded(_that);case Creating() when creating != null:
 return creating(_that);case Empty() when empty != null:
 return empty(_that);case Failed() when failed != null:
-return failed(_that);case _:
+return failed(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -82,7 +83,7 @@ return failed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( Creating value)  creating,required TResult Function( Empty value)  empty,required TResult Function( Failed value)  failed,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( Creating value)  creating,required TResult Function( Empty value)  empty,required TResult Function( Failed value)  failed,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial():
@@ -91,7 +92,8 @@ return loading(_that);case Loaded():
 return loaded(_that);case Creating():
 return creating(_that);case Empty():
 return empty(_that);case Failed():
-return failed(_that);}
+return failed(_that);case Unauthenticated():
+return unauthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -105,7 +107,7 @@ return failed(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( Creating value)?  creating,TResult? Function( Empty value)?  empty,TResult? Function( Failed value)?  failed,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( Creating value)?  creating,TResult? Function( Empty value)?  empty,TResult? Function( Failed value)?  failed,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -114,7 +116,8 @@ return loading(_that);case Loaded() when loaded != null:
 return loaded(_that);case Creating() when creating != null:
 return creating(_that);case Empty() when empty != null:
 return empty(_that);case Failed() when failed != null:
-return failed(_that);case _:
+return failed(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -131,7 +134,7 @@ return failed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( ParkingLot parkingLot)?  loaded,TResult Function()?  creating,TResult Function()?  empty,TResult Function( String message)?  failed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( ParkingLot parkingLot)?  loaded,TResult Function()?  creating,TResult Function()?  empty,TResult Function( String message)?  failed,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -139,7 +142,8 @@ return loading();case Loaded() when loaded != null:
 return loaded(_that.parkingLot);case Creating() when creating != null:
 return creating();case Empty() when empty != null:
 return empty();case Failed() when failed != null:
-return failed(_that.message);case _:
+return failed(_that.message);case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -157,7 +161,7 @@ return failed(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( ParkingLot parkingLot)  loaded,required TResult Function()  creating,required TResult Function()  empty,required TResult Function( String message)  failed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( ParkingLot parkingLot)  loaded,required TResult Function()  creating,required TResult Function()  empty,required TResult Function( String message)  failed,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
@@ -165,7 +169,8 @@ return loading();case Loaded():
 return loaded(_that.parkingLot);case Creating():
 return creating();case Empty():
 return empty();case Failed():
-return failed(_that.message);}
+return failed(_that.message);case Unauthenticated():
+return unauthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -179,7 +184,7 @@ return failed(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( ParkingLot parkingLot)?  loaded,TResult? Function()?  creating,TResult? Function()?  empty,TResult? Function( String message)?  failed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( ParkingLot parkingLot)?  loaded,TResult? Function()?  creating,TResult? Function()?  empty,TResult? Function( String message)?  failed,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -187,7 +192,8 @@ return loading();case Loaded() when loaded != null:
 return loaded(_that.parkingLot);case Creating() when creating != null:
 return creating();case Empty() when empty != null:
 return empty();case Failed() when failed != null:
-return failed(_that.message);case _:
+return failed(_that.message);case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -463,5 +469,37 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class Unauthenticated implements ParkingLotDetailState {
+  const Unauthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unauthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ParkingLotDetailState.unauthenticated()';
+}
+
+
+}
+
+
+
 
 // dart format on

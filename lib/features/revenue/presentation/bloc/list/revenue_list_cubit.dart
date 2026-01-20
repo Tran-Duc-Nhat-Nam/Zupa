@@ -13,64 +13,57 @@ part 'revenue_list_cubit.freezed.dart';
 class RevenueListCubit extends Cubit<RevenueListState> {
   final IRevenueRepository _revenueRepository;
 
-  RevenueListCubit(this._revenueRepository) : super(const .new());
+  RevenueListCubit(this._revenueRepository) : super(const .initial());
 
   Future<void> init() async {
-    emit(state.copyWith(status: const .loading()));
-    final result = await _revenueRepository.getRevenue();
+    emit(const .loading());
+    final response = await _revenueRepository.getRevenue();
 
-    result.when(
-      initial: () => emit(state.copyWith(status: const .initial())),
-      loading: () => emit(state.copyWith(status: const .loading())),
-      success: (data) => emit(
-        state.copyWith(
-          revenue: data,
-          page: 1,
-          hasMore: data.length >= 10,
-          status: .success(data),
-        ),
-      ),
-      error: (message) => emit(state.copyWith(status: .error(message))),
+    response.whenOrNull(
+      success: (data) =>
+      data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+      error: (message) => emit(.failed(message)),
     );
   }
 
   Future<void> refresh(RevenueFilter? filter) async {
-    emit(state.copyWith(status: const .loading()));
-    final result = await _revenueRepository.getRevenue(filter: filter);
+    emit(const .loading());
+    final response = await _revenueRepository.getRevenue(filter: filter);
 
-    result.whenOrNull(
-      success: (data) => emit(
-        state.copyWith(
-          revenue: data,
-          page: 1,
-          hasMore: data.length >= 10,
-          status: .success(data),
-        ),
-      ),
-      error: (message) => emit(state.copyWith(status: .error(message))),
+    response.whenOrNull(
+      success: (data) =>
+      data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+      error: (message) => emit(.failed(message)),
     );
   }
 
   Future<void> loadMore(RevenueFilter? filter) async {
-    final isLoading = state.status.maybeWhen(
-      loading: () => true,
-      orElse: () => false,
+    final List<DailyRevenue> items = state.maybeMap(
+      loaded: (params) => [...params.tickets],
+      orElse: () => [],
     );
-    if (!state.hasMore || isLoading) return;
+    final int pageIndex = state.maybeMap(
+      loaded: (params) => params.pageIndex,
+      orElse: () => 1,
+    );
+    emit(.loadingMore(items));
 
-    final response = await _revenueRepository.getRevenue(
-      page: state.page + 1,
+    final result = await _revenueRepository.getRevenue(
       filter: filter,
+      page: pageIndex + 1,
     );
-
-    response.whenOrNull(
-      success: (data) => emit(
-        state.copyWith(
-          revenue: [...state.revenue, ...data],
-          page: state.page + 1,
-          hasMore: data.length >= 10,
-        ),
-      ),
+    result.whenOrNull(
+      success: (newItems) {
+        items.addAll(newItems);
+        items.isEmpty
+            ? emit(const .empty())
+            : emit(
+              .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+        );
+      },
+      error: (message) {
+        emit(.failed(message));
+      },
     );
   }
 }

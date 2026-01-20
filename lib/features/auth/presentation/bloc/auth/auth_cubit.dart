@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:get_it/get_it.dart';
+import 'package:zupa/core/di/injection.dart';
 
 import 'package:zupa/core/services/storage_service.dart';
 
@@ -10,7 +10,7 @@ part 'auth_cubit.freezed.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(const .initial());
 
-  final _storageService = GetIt.instance<StorageService>();
+  final _storageService = getIt<StorageService>();
 
   Future<void> loadAuth() async {
     emit(.loaded(await _storageService.getBiometricAuth() == true));

@@ -17,7 +17,7 @@ class StorageService {
 
   /// Get token. Returns null if the token does not exist OR has expired.
   Future<String?> getAuth() async {
-    return await _getStringWithTTL('accessToken');
+    return _getStringWithTTL('accessToken');
   }
 
   Future<void> removeAuth() async {
@@ -93,5 +93,20 @@ class StorageService {
 
   Future<bool?> getBiometricAuth() async {
     return _sharedPreferences.getBool('isBiometricAuth');
+  }
+  Future<void> setTheme(bool isDark) async {
+    await _sharedPreferences.setBool('isDark', isDark);
+  }
+
+  Future<bool> getTheme() async {
+    return await _sharedPreferences.getBool('isDark') == true;
+  }
+
+  Future<void> setDebuggerMode(bool isOn) async {
+    await _sharedPreferences.setBool('isDebuggerMode', isOn);
+  }
+
+  Future<bool> getDebuggerMode() async {
+    return await _sharedPreferences.getBool('isDebuggerMode') == true;
   }
 }

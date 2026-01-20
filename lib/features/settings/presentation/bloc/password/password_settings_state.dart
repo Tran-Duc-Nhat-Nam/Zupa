@@ -9,5 +9,6 @@ sealed class PasswordSettingsState with _$PasswordSettingsState {
       ChangePasswordSuccess;
   const factory PasswordSettingsState.changePasswordFailed(String message) =
       ChangePasswordFailed;
+  const factory PasswordSettingsState.unauthenticated() = Unauthenticated;
 }
 

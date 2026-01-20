@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
-    as filter;
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -37,15 +38,22 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => getIt<filter.RevenueFilterCubit>()..init(),
+            create: (context) => getIt<RevenueFilterCubit>()..init(),
           ),
           BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
         ],
-        child: const Column(
-          children: [
-            SizedBox(height: 16),
-            Expanded(child: RevenueListTab()),
-          ],
+        child: BlocListener<RevenueListCubit, RevenueListState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              unauthenticated: () => context.goNamed(AppRoutes.login),
+            );
+          },
+          child: const Column(
+            children: [
+              SizedBox(height: 16),
+              Expanded(child: RevenueListTab()),
+            ],
+          ),
         ),
       ),
     );

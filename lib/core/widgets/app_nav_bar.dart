@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shake/shake.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:zupa/core/di/injection.dart';
 
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
@@ -37,7 +39,7 @@ class _AppNavBarState extends State<AppNavBar> {
   void _initShakeDetector() {
     _shakeDetector = .autoStart(
       onPhoneShake: (event) async {
-        if (mounted && await DebuggerHelper.getDebuggerMode()) {
+        if (mounted && await getIt<StorageService>().getDebuggerMode()) {
           DebuggerHelper.debugger.attach(context: context, visible: true);
         }
       },

@@ -14,73 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RevenueListState {
 
- List<DailyRevenue> get revenue; int get page; bool get hasMore; NetworkState<List<DailyRevenue>> get status;
-/// Create a copy of RevenueListState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$RevenueListStateCopyWith<RevenueListState> get copyWith => _$RevenueListStateCopyWithImpl<RevenueListState>(this as RevenueListState, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RevenueListState&&const DeepCollectionEquality().equals(other.revenue, revenue)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RevenueListState);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(revenue),page,hasMore,status);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RevenueListState(revenue: $revenue, page: $page, hasMore: $hasMore, status: $status)';
+  return 'RevenueListState()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $RevenueListStateCopyWith<$Res>  {
-  factory $RevenueListStateCopyWith(RevenueListState value, $Res Function(RevenueListState) _then) = _$RevenueListStateCopyWithImpl;
-@useResult
-$Res call({
- List<DailyRevenue> revenue, int page, bool hasMore, NetworkState<List<DailyRevenue>> status
-});
-
-
-$NetworkStateCopyWith<List<DailyRevenue>, $Res> get status;
-
-}
-/// @nodoc
-class _$RevenueListStateCopyWithImpl<$Res>
-    implements $RevenueListStateCopyWith<$Res> {
-  _$RevenueListStateCopyWithImpl(this._self, this._then);
-
-  final RevenueListState _self;
-  final $Res Function(RevenueListState) _then;
-
-/// Create a copy of RevenueListState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? revenue = null,Object? page = null,Object? hasMore = null,Object? status = null,}) {
-  return _then(_self.copyWith(
-revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
-as List<DailyRevenue>,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
-as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as NetworkState<List<DailyRevenue>>,
-  ));
-}
-/// Create a copy of RevenueListState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$NetworkStateCopyWith<List<DailyRevenue>, $Res> get status {
-  
-  return $NetworkStateCopyWith<List<DailyRevenue>, $Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
-}
+class $RevenueListStateCopyWith<$Res>  {
+$RevenueListStateCopyWith(RevenueListState _, $Res Function(RevenueListState) __);
 }
 
 
@@ -98,11 +55,18 @@ extension RevenueListStatePatterns on RevenueListState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RevenueListState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Refreshing value)?  refreshing,TResult Function( LoadingMore value)?  loadingMore,TResult Function( Loaded value)?  loaded,TResult Function( Failed value)?  failed,TResult Function( Emtpy value)?  empty,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _RevenueListState() when $default != null:
-return $default(_that);case _:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Refreshing() when refreshing != null:
+return refreshing(_that);case LoadingMore() when loadingMore != null:
+return loadingMore(_that);case Loaded() when loaded != null:
+return loaded(_that);case Failed() when failed != null:
+return failed(_that);case Emtpy() when empty != null:
+return empty(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -120,11 +84,18 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RevenueListState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Refreshing value)  refreshing,required TResult Function( LoadingMore value)  loadingMore,required TResult Function( Loaded value)  loaded,required TResult Function( Failed value)  failed,required TResult Function( Emtpy value)  empty,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _RevenueListState():
-return $default(_that);}
+case Initial():
+return initial(_that);case Loading():
+return loading(_that);case Refreshing():
+return refreshing(_that);case LoadingMore():
+return loadingMore(_that);case Loaded():
+return loaded(_that);case Failed():
+return failed(_that);case Emtpy():
+return empty(_that);case Unauthenticated():
+return unauthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -138,11 +109,18 @@ return $default(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RevenueListState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Refreshing value)?  refreshing,TResult? Function( LoadingMore value)?  loadingMore,TResult? Function( Loaded value)?  loaded,TResult? Function( Failed value)?  failed,TResult? Function( Emtpy value)?  empty,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _RevenueListState() when $default != null:
-return $default(_that);case _:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Refreshing() when refreshing != null:
+return refreshing(_that);case LoadingMore() when loadingMore != null:
+return loadingMore(_that);case Loaded() when loaded != null:
+return loaded(_that);case Failed() when failed != null:
+return failed(_that);case Emtpy() when empty != null:
+return empty(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -159,10 +137,17 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<DailyRevenue> revenue,  int page,  bool hasMore,  NetworkState<List<DailyRevenue>> status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<DailyRevenue> tickets)?  refreshing,TResult Function( List<DailyRevenue> tickets)?  loadingMore,TResult Function( List<DailyRevenue> tickets,  int pageIndex)?  loaded,TResult Function( String message)?  failed,TResult Function()?  empty,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _RevenueListState() when $default != null:
-return $default(_that.revenue,_that.page,_that.hasMore,_that.status);case _:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Refreshing() when refreshing != null:
+return refreshing(_that.tickets);case LoadingMore() when loadingMore != null:
+return loadingMore(_that.tickets);case Loaded() when loaded != null:
+return loaded(_that.tickets,_that.pageIndex);case Failed() when failed != null:
+return failed(_that.message);case Emtpy() when empty != null:
+return empty();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -180,10 +165,17 @@ return $default(_that.revenue,_that.page,_that.hasMore,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<DailyRevenue> revenue,  int page,  bool hasMore,  NetworkState<List<DailyRevenue>> status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<DailyRevenue> tickets)  refreshing,required TResult Function( List<DailyRevenue> tickets)  loadingMore,required TResult Function( List<DailyRevenue> tickets,  int pageIndex)  loaded,required TResult Function( String message)  failed,required TResult Function()  empty,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _RevenueListState():
-return $default(_that.revenue,_that.page,_that.hasMore,_that.status);}
+case Initial():
+return initial();case Loading():
+return loading();case Refreshing():
+return refreshing(_that.tickets);case LoadingMore():
+return loadingMore(_that.tickets);case Loaded():
+return loaded(_that.tickets,_that.pageIndex);case Failed():
+return failed(_that.message);case Emtpy():
+return empty();case Unauthenticated():
+return unauthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -197,10 +189,17 @@ return $default(_that.revenue,_that.page,_that.hasMore,_that.status);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<DailyRevenue> revenue,  int page,  bool hasMore,  NetworkState<List<DailyRevenue>> status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<DailyRevenue> tickets)?  refreshing,TResult? Function( List<DailyRevenue> tickets)?  loadingMore,TResult? Function( List<DailyRevenue> tickets,  int pageIndex)?  loaded,TResult? Function( String message)?  failed,TResult? Function()?  empty,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _RevenueListState() when $default != null:
-return $default(_that.revenue,_that.page,_that.hasMore,_that.status);case _:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Refreshing() when refreshing != null:
+return refreshing(_that.tickets);case LoadingMore() when loadingMore != null:
+return loadingMore(_that.tickets);case Loaded() when loaded != null:
+return loaded(_that.tickets,_that.pageIndex);case Failed() when failed != null:
+return failed(_that.message);case Emtpy() when empty != null:
+return empty();case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -211,88 +210,413 @@ return $default(_that.revenue,_that.page,_that.hasMore,_that.status);case _:
 /// @nodoc
 
 
-class _RevenueListState implements RevenueListState {
-  const _RevenueListState({final  List<DailyRevenue> revenue = const [], this.page = 1, this.hasMore = true, this.status = const NetworkState.initial()}): _revenue = revenue;
+class Initial implements RevenueListState {
+  const Initial();
   
 
- final  List<DailyRevenue> _revenue;
-@override@JsonKey() List<DailyRevenue> get revenue {
-  if (_revenue is EqualUnmodifiableListView) return _revenue;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_revenue);
-}
 
-@override@JsonKey() final  int page;
-@override@JsonKey() final  bool hasMore;
-@override@JsonKey() final  NetworkState<List<DailyRevenue>> status;
 
-/// Create a copy of RevenueListState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$RevenueListStateCopyWith<_RevenueListState> get copyWith => __$RevenueListStateCopyWithImpl<_RevenueListState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RevenueListState&&const DeepCollectionEquality().equals(other._revenue, _revenue)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_revenue),page,hasMore,status);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RevenueListState(revenue: $revenue, page: $page, hasMore: $hasMore, status: $status)';
+  return 'RevenueListState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Loading implements RevenueListState {
+  const Loading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RevenueListState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Refreshing implements RevenueListState {
+  const Refreshing(final  List<DailyRevenue> tickets): _tickets = tickets;
+  
+
+ final  List<DailyRevenue> _tickets;
+ List<DailyRevenue> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
+}
+
+
+/// Create a copy of RevenueListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RefreshingCopyWith<Refreshing> get copyWith => _$RefreshingCopyWithImpl<Refreshing>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Refreshing&&const DeepCollectionEquality().equals(other._tickets, _tickets));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets));
+
+@override
+String toString() {
+  return 'RevenueListState.refreshing(tickets: $tickets)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$RevenueListStateCopyWith<$Res> implements $RevenueListStateCopyWith<$Res> {
-  factory _$RevenueListStateCopyWith(_RevenueListState value, $Res Function(_RevenueListState) _then) = __$RevenueListStateCopyWithImpl;
-@override @useResult
+abstract mixin class $RefreshingCopyWith<$Res> implements $RevenueListStateCopyWith<$Res> {
+  factory $RefreshingCopyWith(Refreshing value, $Res Function(Refreshing) _then) = _$RefreshingCopyWithImpl;
+@useResult
 $Res call({
- List<DailyRevenue> revenue, int page, bool hasMore, NetworkState<List<DailyRevenue>> status
+ List<DailyRevenue> tickets
 });
 
 
-@override $NetworkStateCopyWith<List<DailyRevenue>, $Res> get status;
+
 
 }
 /// @nodoc
-class __$RevenueListStateCopyWithImpl<$Res>
-    implements _$RevenueListStateCopyWith<$Res> {
-  __$RevenueListStateCopyWithImpl(this._self, this._then);
+class _$RefreshingCopyWithImpl<$Res>
+    implements $RefreshingCopyWith<$Res> {
+  _$RefreshingCopyWithImpl(this._self, this._then);
 
-  final _RevenueListState _self;
-  final $Res Function(_RevenueListState) _then;
+  final Refreshing _self;
+  final $Res Function(Refreshing) _then;
 
 /// Create a copy of RevenueListState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? revenue = null,Object? page = null,Object? hasMore = null,Object? status = null,}) {
-  return _then(_RevenueListState(
-revenue: null == revenue ? _self._revenue : revenue // ignore: cast_nullable_to_non_nullable
-as List<DailyRevenue>,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
-as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as NetworkState<List<DailyRevenue>>,
+@pragma('vm:prefer-inline') $Res call({Object? tickets = null,}) {
+  return _then(Refreshing(
+null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<DailyRevenue>,
   ));
 }
 
+
+}
+
+/// @nodoc
+
+
+class LoadingMore implements RevenueListState {
+  const LoadingMore(final  List<DailyRevenue> tickets): _tickets = tickets;
+  
+
+ final  List<DailyRevenue> _tickets;
+ List<DailyRevenue> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
+}
+
+
 /// Create a copy of RevenueListState
 /// with the given fields replaced by the non-null parameter values.
-@override
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$NetworkStateCopyWith<List<DailyRevenue>, $Res> get status {
+$LoadingMoreCopyWith<LoadingMore> get copyWith => _$LoadingMoreCopyWithImpl<LoadingMore>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadingMore&&const DeepCollectionEquality().equals(other._tickets, _tickets));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets));
+
+@override
+String toString() {
+  return 'RevenueListState.loadingMore(tickets: $tickets)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadingMoreCopyWith<$Res> implements $RevenueListStateCopyWith<$Res> {
+  factory $LoadingMoreCopyWith(LoadingMore value, $Res Function(LoadingMore) _then) = _$LoadingMoreCopyWithImpl;
+@useResult
+$Res call({
+ List<DailyRevenue> tickets
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadingMoreCopyWithImpl<$Res>
+    implements $LoadingMoreCopyWith<$Res> {
+  _$LoadingMoreCopyWithImpl(this._self, this._then);
+
+  final LoadingMore _self;
+  final $Res Function(LoadingMore) _then;
+
+/// Create a copy of RevenueListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tickets = null,}) {
+  return _then(LoadingMore(
+null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<DailyRevenue>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Loaded implements RevenueListState {
+  const Loaded(final  List<DailyRevenue> tickets, this.pageIndex): _tickets = tickets;
   
-  return $NetworkStateCopyWith<List<DailyRevenue>, $Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
+
+ final  List<DailyRevenue> _tickets;
+ List<DailyRevenue> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
 }
+
+ final  int pageIndex;
+
+/// Create a copy of RevenueListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._tickets, _tickets)&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex));
 }
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tickets),pageIndex);
+
+@override
+String toString() {
+  return 'RevenueListState.loaded(tickets: $tickets, pageIndex: $pageIndex)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadedCopyWith<$Res> implements $RevenueListStateCopyWith<$Res> {
+  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ List<DailyRevenue> tickets, int pageIndex
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadedCopyWithImpl<$Res>
+    implements $LoadedCopyWith<$Res> {
+  _$LoadedCopyWithImpl(this._self, this._then);
+
+  final Loaded _self;
+  final $Res Function(Loaded) _then;
+
+/// Create a copy of RevenueListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tickets = null,Object? pageIndex = null,}) {
+  return _then(Loaded(
+null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<DailyRevenue>,null == pageIndex ? _self.pageIndex : pageIndex // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Failed implements RevenueListState {
+  const Failed(this.message);
+  
+
+ final  String message;
+
+/// Create a copy of RevenueListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FailedCopyWith<Failed> get copyWith => _$FailedCopyWithImpl<Failed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failed&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'RevenueListState.failed(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FailedCopyWith<$Res> implements $RevenueListStateCopyWith<$Res> {
+  factory $FailedCopyWith(Failed value, $Res Function(Failed) _then) = _$FailedCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$FailedCopyWithImpl<$Res>
+    implements $FailedCopyWith<$Res> {
+  _$FailedCopyWithImpl(this._self, this._then);
+
+  final Failed _self;
+  final $Res Function(Failed) _then;
+
+/// Create a copy of RevenueListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(Failed(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Emtpy implements RevenueListState {
+  const Emtpy();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Emtpy);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RevenueListState.empty()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Unauthenticated implements RevenueListState {
+  const Unauthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unauthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RevenueListState.unauthenticated()';
+}
+
+
+}
+
+
+
 
 // dart format on

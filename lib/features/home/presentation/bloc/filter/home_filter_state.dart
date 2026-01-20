@@ -11,4 +11,6 @@ sealed class HomeFilterState with _$HomeFilterState {
     @Default(HomeFilter()) HomeFilter filter,
   }) = Filtering;
   const factory HomeFilterState.failed(String message) = Failed;
+  const factory HomeFilterState.empty() = Empty;
+  const factory HomeFilterState.unauthenticated() = Unauthenticated;
 }

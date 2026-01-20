@@ -2,12 +2,11 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
-import 'package:zupa/core/helper/auth/auth_helper.dart';
 
 part 'login_state.dart';
 part 'login_cubit.freezed.dart';
@@ -18,7 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit(this._authRepo) : super(const .initial());
 
-  final _storageService = GetIt.instance<StorageService>();
+  final _storageService = getIt<StorageService>();
 
   Future<void> init() async {
     final accountInfo = await _storageService.getAccountInfo();

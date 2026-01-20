@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -39,10 +41,16 @@ class _HomeScreenState extends AppState<HomeScreen> {
             create: (context) => getIt<HomeTicketCubit>()..init(),
           ),
           BlocProvider<HomeFilterCubit>(
-            create: (context) => HomeFilterCubit()..init(),
+            create: (context) => getIt<HomeFilterCubit>()..init(),
           ),
         ],
-        child: const Column(
+        child: BlocListener<HomeTicketCubit, HomeTicketState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              unauthenticated: () => context.goNamed(AppRoutes.login),
+            );
+          },
+          child: const Column(
           spacing: 10,
           children: [
             SizedBox(height: 6),
@@ -57,6 +65,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
             Expanded(child: TicketListTab()),
           ],
         ),
+      ),
       ),
     );
   }

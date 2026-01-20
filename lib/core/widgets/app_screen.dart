@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:shake/shake.dart';
+import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 
@@ -71,7 +73,7 @@ class _AppScreenState extends AppState<AppScreen> {
     if (!widget.hasParentView) {
       detector = .autoStart(
         onPhoneShake: (ShakeEvent event) async {
-          if (await DebuggerHelper.getDebuggerMode() && mounted) {
+          if (await getIt<StorageService>().getDebuggerMode() && mounted) {
             DebuggerHelper.debugger.attach(context: context, visible: true);
           }
         },

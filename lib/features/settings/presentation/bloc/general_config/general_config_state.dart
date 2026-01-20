@@ -8,5 +8,8 @@ sealed class GeneralConfigState with _$GeneralConfigState {
     bool isWarning,
     int warningThreshold,
   ) = Loaded;
+  const factory GeneralConfigState.empty() = Empty;
+  const factory GeneralConfigState.unauthenticated() = Unauthenticated;
+
 }
 

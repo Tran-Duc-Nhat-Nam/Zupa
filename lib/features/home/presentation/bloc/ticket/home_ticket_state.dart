@@ -14,4 +14,5 @@ sealed class HomeTicketState with _$HomeTicketState {
   ) = Loaded;
   const factory HomeTicketState.failed(String message) = Failed;
   const factory HomeTicketState.empty() = Emtpy;
+  const factory HomeTicketState.unauthenticated() = Unauthenticated;
 }

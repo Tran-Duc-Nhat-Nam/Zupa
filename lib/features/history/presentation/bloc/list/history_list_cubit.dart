@@ -13,64 +13,57 @@ part 'history_list_cubit.freezed.dart';
 class HistoryListCubit extends Cubit<HistoryListState> {
   final IHistoryRepository _historyRepository;
 
-  HistoryListCubit(this._historyRepository) : super(const .new());
+  HistoryListCubit(this._historyRepository) : super(const .initial());
 
   Future<void> init() async {
-    emit(state.copyWith(status: const .loading()));
+    emit(const .loading());
     final response = await _historyRepository.getHistory();
 
-    response.when(
-      initial: () => emit(state.copyWith(status: const .initial())),
-      loading: () => emit(state.copyWith(status: const .loading())),
-      success: (data) => emit(
-        state.copyWith(
-          tickets: data,
-          page: 1,
-          hasMore: data.length >= 10,
-          status: .success(data),
-        ),
-      ),
-      error: (message) => emit(state.copyWith(status: .error(message))),
+    response.whenOrNull(
+      success: (data) =>
+          data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+      error: (message) => emit(.failed(message)),
     );
   }
 
   Future<void> refresh(HistoryFilter? filter) async {
-    emit(state.copyWith(status: const .loading()));
+    emit(const .loading());
     final response = await _historyRepository.getHistory(filter: filter);
 
     response.whenOrNull(
-      success: (data) => emit(
-        state.copyWith(
-          tickets: data,
-          page: 1,
-          hasMore: data.length >= 10,
-          status: .success(data),
-        ),
-      ),
-      error: (message) => emit(state.copyWith(status: .error(message))),
+      success: (data) =>
+          data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+      error: (message) => emit(.failed(message)),
     );
   }
 
   Future<void> loadMore(HistoryFilter? filter) async {
-    final isLoading = state.status.maybeWhen(
-      loading: () => true,
-      orElse: () => false,
+    final List<HistoryTicket> items = state.maybeMap(
+      loaded: (params) => [...params.tickets],
+      orElse: () => [],
     );
-    if (!state.hasMore || isLoading) return;
+    final int pageIndex = state.maybeMap(
+      loaded: (params) => params.pageIndex,
+      orElse: () => 1,
+    );
+    emit(.loadingMore(items));
 
-    final response = await _historyRepository.getHistory(
-      page: state.page + 1,
+    final result = await _historyRepository.getHistory(
       filter: filter,
+      page: pageIndex + 1,
     );
-
-    response.whenOrNull(
-      success: (data) => emit(
-        state.copyWith(
-          tickets: [...state.tickets, ...data],
-          page: state.page + 1,
-          hasMore: data.length >= 10,
-        ),
-      ),
+    result.whenOrNull(
+      success: (newItems) {
+        items.addAll(newItems);
+        items.isEmpty
+            ? emit(const .empty())
+            : emit(
+                .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+              );
+      },
+      error: (message) {
+        emit(.failed(message));
+      },
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:zupa/core/resource/network_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
@@ -9,7 +8,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 import 'package:zupa/features/revenue/data/models/revenue_model.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart' hide Loading;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
@@ -24,15 +23,15 @@ class RevenueListTab extends StatelessWidget {
     return BlocBuilder<RevenueListCubit, RevenueListState>(
       builder: (context, state) {
         final refreshController = RefreshController();
-        final List<DailyRevenue> items = state.revenue;
-
-        final isLoading = state.status.maybeWhen(
-          loading: () => items.isEmpty,
-          orElse: () => false,
-        );
+        final List<DailyRevenue> items =
+            state.whenOrNull(
+              loaded: (tickets, _) => tickets,
+              refreshing: (tickets) => tickets,
+              loadingMore: (tickets) => tickets,
+            ) ?? [];
 
         return Skeletonizer(
-          enabled: isLoading,
+          enabled: state is Loading,
           child: Container(
             clipBehavior: .antiAlias,
             margin: const .symmetric(horizontal: 10),
@@ -60,7 +59,8 @@ class RevenueListTab extends StatelessWidget {
                         borderRadius: .vertical(top: .circular(8)),
                       ),
                       child: SmartRefresher(
-                        enablePullUp: state.hasMore,
+                        enablePullUp: state is !LoadingMore,
+                        enablePullDown: state is !Refreshing,
                         controller: refreshController,
                         onRefresh: () async {
                           final filter = context

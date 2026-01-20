@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -15,7 +15,8 @@ import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
+import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
+    hide Loading;
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_tab.dart';
 
@@ -51,110 +52,112 @@ class _HistoryScreenState extends State<HistoryScreen> {
             create: (context) => getIt<HistoryListCubit>()..init(),
           ),
         ],
-        child: BlocBuilder<HistoryListCubit, HistoryListState>(
-          builder: (listContext, listState) {
-            final isRefreshing = listState.status.maybeWhen(
-              loading: () => listState.tickets.isNotEmpty,
-              orElse: () => false,
-            );
-
-            return ValueListenableBuilder<bool>(
-              valueListenable: _isScrolledNotifier,
-              builder: (context, isScrolled, child) {
-                final backgroundColor = ThemeHelper.getColor(
-                  context,
-                ).primary400;
-                final showWhiteBackground = isScrolled && !isRefreshing;
-
-                return AnimatedContainer(
-                  duration: const .new(milliseconds: 250),
-                  curve: Curves.easeInOut,
-                  padding: showWhiteBackground
-                      ? const .symmetric(vertical: 10)
-                      : const .only(top: 10),
-                  decoration: BoxDecoration(
-                    color: showWhiteBackground
-                        ? backgroundColor
-                        : backgroundColor.withAlpha(0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: showWhiteBackground
-                            ? Colors.black.withAlpha(12)
-                            : Colors.transparent,
-                        blurRadius: 4,
-                        offset: const .new(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: child,
-                );
-              },
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const .symmetric(horizontal: 24),
-                    child:
-                        BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
-                          builder: (context, state) {
-                            return Skeletonizer(
-                              enabled: state is Loading,
-                              child: Row(
-                                spacing: 8,
-                                children: [
-                                  Expanded(
-                                    child: AppTextField(
-                                      name: 'keyword',
-                                      prefixIconPath: AppIcons.search,
-                                      hintText: context.tr('ticketSearch'),
-                                      borderRadius: 100,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 44,
-                                    child: AspectRatio(
-                                      aspectRatio: 1,
-                                      child: AppButton(
-                                        fitContent: true,
-                                        theme: .outline,
-                                        padding: const .all(8),
-                                        radius: .circular(8),
-                                        color: .basic,
-                                        icon: AppIcon(
-                                          path: AppIcons.filter,
-                                          size: 20,
-                                          color: ThemeHelper.getColor(
-                                            context,
-                                          ).grey900,
-                                        ),
-                                        onPressed: () {
-                                          showHistoryFilter(context);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                  ),
-                  Expanded(
-                    child: NotificationListener<ScrollNotification>(
-                      onNotification: (notification) {
-                        if (notification is ScrollUpdateNotification) {
-                          final isScrolled =
-                              notification.metrics.pixels > 20;
-                          _isScrolledNotifier.value = isScrolled;
-                        }
-                        return false;
-                      },
-                      child: const HistoryListTab(),
-                    ),
-                  ),
-                ],
-              ),
+        child: BlocListener<HistoryListCubit, HistoryListState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              unauthenticated: () => context.goNamed(AppRoutes.login),
             );
           },
+          child: BlocBuilder<HistoryListCubit, HistoryListState>(
+            builder: (listContext, listState) {
+              return ValueListenableBuilder<bool>(
+                valueListenable: _isScrolledNotifier,
+                builder: (context, isScrolled, child) {
+                  final backgroundColor = ThemeHelper.getColor(
+                    context,
+                  ).primary400;
+                  final showWhiteBackground =
+                      isScrolled && listState is! Refreshing;
+
+                  return AnimatedContainer(
+                    duration: const .new(milliseconds: 250),
+                    curve: Curves.easeInOut,
+                    padding: showWhiteBackground
+                        ? const .symmetric(vertical: 10)
+                        : const .only(top: 10),
+                    decoration: BoxDecoration(
+                      color: showWhiteBackground
+                          ? backgroundColor
+                          : backgroundColor.withAlpha(0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: showWhiteBackground
+                              ? Colors.black.withAlpha(12)
+                              : Colors.transparent,
+                          blurRadius: 4,
+                          offset: const .new(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: child,
+                  );
+                },
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const .symmetric(horizontal: 24),
+                      child:
+                          BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
+                            builder: (context, state) {
+                              return Skeletonizer(
+                                enabled: state is Loading,
+                                child: Row(
+                                  spacing: 8,
+                                  children: [
+                                    Expanded(
+                                      child: AppTextField(
+                                        name: 'keyword',
+                                        prefixIconPath: AppIcons.search,
+                                        hintText: context.tr('ticketSearch'),
+                                        borderRadius: 100,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 44,
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: AppButton(
+                                          fitContent: true,
+                                          theme: .outline,
+                                          padding: const .all(8),
+                                          radius: .circular(8),
+                                          color: .basic,
+                                          icon: AppIcon(
+                                            path: AppIcons.filter,
+                                            size: 20,
+                                            color: ThemeHelper.getColor(
+                                              context,
+                                            ).grey900,
+                                          ),
+                                          onPressed: () {
+                                            showHistoryFilter(context);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                    ),
+                    Expanded(
+                      child: NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is ScrollUpdateNotification) {
+                            final isScrolled = notification.metrics.pixels > 20;
+                            _isScrolledNotifier.value = isScrolled;
+                          }
+                          return false;
+                        },
+                        child: const HistoryListTab(),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

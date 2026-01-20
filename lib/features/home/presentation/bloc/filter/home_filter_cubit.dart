@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
 
 import 'package:zupa/features/home/domain/entities/home_filter.dart';
@@ -10,6 +11,7 @@ import 'package:zupa/features/home/domain/entities/home_filter.dart';
 part 'home_filter_state.dart';
 part 'home_filter_cubit.freezed.dart';
 
+@injectable
 class HomeFilterCubit extends Cubit<HomeFilterState> {
   HomeFilterCubit() : super(const .initial());
 

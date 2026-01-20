@@ -16,12 +16,13 @@ class HistoryTitle extends StatelessWidget {
   final HistoryTicket ticket;
   @override
   Widget build(BuildContext context) {
+    final colorScheme = ThemeHelper.getColor(context);
     return AppCard(
       padding: .zero,
       decoration: .new(
-        color: ThemeHelper.getColor(context).white,
+        color: colorScheme.white,
         borderRadius: const .all(.circular(8)),
-        border: .all(color: ThemeHelper.getColor(context).grey100),
+        border: .all(color: colorScheme.grey100),
         boxShadow: const [
           .new(color: .new(0x0C0C0D0D), offset: .new(0, 1), blurRadius: 4),
         ],
@@ -37,7 +38,7 @@ class HistoryTitle extends StatelessWidget {
               child: AppIcon(
                 path: ticket.type.iconPath,
                 size: 24,
-                color: ThemeHelper.getColor(context).grey700,
+                color: colorScheme.grey700,
               ),
             ),
           ),
@@ -45,9 +46,7 @@ class HistoryTitle extends StatelessWidget {
             child: Container(
               constraints: const .new(minHeight: 70),
               decoration: BoxDecoration(
-                border: .symmetric(
-                  vertical: .new(color: ThemeHelper.getColor(context).grey100),
-                ),
+                border: .symmetric(vertical: .new(color: colorScheme.grey100)),
               ),
               padding: const .symmetric(horizontal: 16, vertical: 8),
               child: Column(
@@ -63,7 +62,7 @@ class HistoryTitle extends StatelessWidget {
                         overflow: .ellipsis,
                         maxLines: 1,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: ThemeHelper.getColor(context).grey900,
+                          color: colorScheme.grey900,
                         ),
                       ),
                       if (ticket.id.length % 2 == 0)
@@ -78,11 +77,11 @@ class HistoryTitle extends StatelessWidget {
                     style: ticket.id.length % 2 == 0
                         ? GoogleFonts.robotoMono().copyWith(
                             fontWeight: .w600,
-                            color: ThemeHelper.getColor(context).grey900,
+                            color: colorScheme.grey900,
                           )
                         : AppTextStyles.bodyLargeRegular.copyWith(
                             fontStyle: .italic,
-                            color: ThemeHelper.getColor(context).grey400,
+                            color: colorScheme.grey400,
                           ),
                   ),
                 ],
@@ -102,13 +101,13 @@ class HistoryTitle extends StatelessWidget {
                       child: AppIcon(
                         path: AppIcons.roundArrowDown,
                         size: 24,
-                        color: ThemeHelper.getColor(context).success600,
+                        color: colorScheme.success600,
                       ),
                     ),
                     Text(
                       DateTimeConverter.toShortTime(ticket.timeIn),
                       style: AppTextStyles.bodyMediumMedium.copyWith(
-                        color: ThemeHelper.getColor(context).grey700,
+                        color: colorScheme.grey700,
                       ),
                     ),
                   ],
@@ -122,7 +121,7 @@ class HistoryTitle extends StatelessWidget {
                         child: AppIcon(
                           path: AppIcons.roundArrowUp,
                           size: 24,
-                          color: ThemeHelper.getColor(context).error600,
+                          color: colorScheme.error600,
                         ),
                       ),
                     ticket.id.length % 2 == 0
@@ -131,13 +130,13 @@ class HistoryTitle extends StatelessWidget {
                               ticket.timeOut ?? .now(),
                             ),
                             style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color: ThemeHelper.getColor(context).grey700,
+                              color: colorScheme.grey700,
                             ),
                           )
                         : Text(
                             '',
                             style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color: ThemeHelper.getColor(context).grey700,
+                              color: colorScheme.grey700,
                             ),
                           ),
                   ],

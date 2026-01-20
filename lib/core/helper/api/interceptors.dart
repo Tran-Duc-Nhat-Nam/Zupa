@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:zupa/core/di/injection.dart';
 
-import 'package:zupa/core/constants/shared_ref.dart';
+import 'package:zupa/core/services/storage_service.dart';
 
 class AuthInterceptor extends Interceptor {
   @override
@@ -9,7 +10,7 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await sharedPreferences.getString('accessToken');
+    final token = await getIt<StorageService>().getAuth();
 
     options.headers['Authorization'] = 'Bearer $token';
 

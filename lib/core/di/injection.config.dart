@@ -30,6 +30,8 @@ import '../../features/history/presentation/bloc/list/history_list_cubit.dart'
     as _i110;
 import '../../features/home/data/repository/home_repository_impl.dart' as _i9;
 import '../../features/home/domain/repository/home_repository.dart' as _i541;
+import '../../features/home/presentation/bloc/filter/home_filter_cubit.dart'
+    as _i200;
 import '../../features/home/presentation/bloc/ticket/home_ticket_cubit.dart'
     as _i602;
 import '../../features/revenue/data/repository/revenue_repository_impl.dart'
@@ -74,6 +76,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final externalModule = _$ExternalModule();
     gh.factory<_i567.HistoryFilterCubit>(() => _i567.HistoryFilterCubit());
+    gh.factory<_i200.HomeFilterCubit>(() => _i200.HomeFilterCubit());
     gh.factory<_i912.RevenueFilterCubit>(() => _i912.RevenueFilterCubit());
     gh.factory<_i934.GeneralConfigCubit>(() => _i934.GeneralConfigCubit());
     gh.factory<_i336.MemberVehiclesFilterCubit>(

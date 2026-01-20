@@ -1,9 +1,9 @@
-import 'package:zupa/core/resource/network_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
+import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
+    hide Loading;
 
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -17,33 +17,32 @@ class HistoryListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HistoryListCubit, HistoryListState>(
       builder: (context, state) {
-        final items = state.tickets;
         final refreshController = RefreshController();
-
-        final isLoading = state.status.maybeWhen(
-          loading: () => items.isEmpty,
-          orElse: () => false,
-        );
+        final List<HistoryTicket> items =
+            state.whenOrNull(
+              loaded: (tickets, _) => tickets,
+              refreshing: (tickets) => tickets,
+              loadingMore: (tickets) => tickets,
+            ) ?? [];
 
         return Skeletonizer(
-          enabled: isLoading,
+          enabled: state is Loading,
           child: SmartRefresher(
-            enablePullUp: state.hasMore,
+            enablePullDown: state is! LoadingMore,
+            enablePullUp: state is! Refreshing,
             controller: refreshController,
             onRefresh: () async {
-              final filter = context.read<HistoryFilterState>().maybeMap(
+              final filter = context.read<HistoryFilterState>().mapOrNull(
                 loaded: (s) => s.filter,
-                orElse: () => null,
               );
               await context.read<HistoryListCubit>().refresh(filter);
               refreshController.refreshCompleted();
             },
             onLoading: () async {
-              final filter = context.read<HistoryFilterState>().maybeMap(
+              final filter = context.read<HistoryFilterState>().mapOrNull(
                 loaded: (s) => s.filter,
-                orElse: () => null,
               );
-              await context.read<HistoryListCubit>().loadMore(filter);
+              context.read<HistoryListCubit>().loadMore(filter);
               refreshController.loadComplete();
             },
             child: ListView.separated(

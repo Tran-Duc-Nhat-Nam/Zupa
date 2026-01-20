@@ -55,7 +55,7 @@ extension PasswordSettingsStatePatterns on PasswordSettingsState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult Function( ChangePasswordFailed value)?  changePasswordFailed,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult Function( ChangePasswordFailed value)?  changePasswordFailed,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -63,7 +63,8 @@ return initial(_that);case Loading() when loading != null:
 return loading(_that);case Loaded() when loaded != null:
 return loaded(_that);case ChangePasswordSuccess() when changePasswordSuccess != null:
 return changePasswordSuccess(_that);case ChangePasswordFailed() when changePasswordFailed != null:
-return changePasswordFailed(_that);case _:
+return changePasswordFailed(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -81,7 +82,7 @@ return changePasswordFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( ChangePasswordSuccess value)  changePasswordSuccess,required TResult Function( ChangePasswordFailed value)  changePasswordFailed,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( ChangePasswordSuccess value)  changePasswordSuccess,required TResult Function( ChangePasswordFailed value)  changePasswordFailed,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial():
@@ -89,7 +90,8 @@ return initial(_that);case Loading():
 return loading(_that);case Loaded():
 return loaded(_that);case ChangePasswordSuccess():
 return changePasswordSuccess(_that);case ChangePasswordFailed():
-return changePasswordFailed(_that);}
+return changePasswordFailed(_that);case Unauthenticated():
+return unauthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -103,7 +105,7 @@ return changePasswordFailed(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult? Function( ChangePasswordFailed value)?  changePasswordFailed,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult? Function( ChangePasswordFailed value)?  changePasswordFailed,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -111,7 +113,8 @@ return initial(_that);case Loading() when loading != null:
 return loading(_that);case Loaded() when loaded != null:
 return loaded(_that);case ChangePasswordSuccess() when changePasswordSuccess != null:
 return changePasswordSuccess(_that);case ChangePasswordFailed() when changePasswordFailed != null:
-return changePasswordFailed(_that);case _:
+return changePasswordFailed(_that);case Unauthenticated() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -128,14 +131,15 @@ return changePasswordFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  loaded,TResult Function()?  changePasswordSuccess,TResult Function( String message)?  changePasswordFailed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  loaded,TResult Function()?  changePasswordSuccess,TResult Function( String message)?  changePasswordFailed,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
 return loaded();case ChangePasswordSuccess() when changePasswordSuccess != null:
 return changePasswordSuccess();case ChangePasswordFailed() when changePasswordFailed != null:
-return changePasswordFailed(_that.message);case _:
+return changePasswordFailed(_that.message);case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -153,14 +157,15 @@ return changePasswordFailed(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  loaded,required TResult Function()  changePasswordSuccess,required TResult Function( String message)  changePasswordFailed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  loaded,required TResult Function()  changePasswordSuccess,required TResult Function( String message)  changePasswordFailed,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Loaded():
 return loaded();case ChangePasswordSuccess():
 return changePasswordSuccess();case ChangePasswordFailed():
-return changePasswordFailed(_that.message);}
+return changePasswordFailed(_that.message);case Unauthenticated():
+return unauthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -174,14 +179,15 @@ return changePasswordFailed(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  loaded,TResult? Function()?  changePasswordSuccess,TResult? Function( String message)?  changePasswordFailed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  loaded,TResult? Function()?  changePasswordSuccess,TResult? Function( String message)?  changePasswordFailed,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
 return loaded();case ChangePasswordSuccess() when changePasswordSuccess != null:
 return changePasswordSuccess();case ChangePasswordFailed() when changePasswordFailed != null:
-return changePasswordFailed(_that.message);case _:
+return changePasswordFailed(_that.message);case Unauthenticated() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -382,5 +388,37 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class Unauthenticated implements PasswordSettingsState {
+  const Unauthenticated();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unauthenticated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'PasswordSettingsState.unauthenticated()';
+}
+
+
+}
+
+
+
 
 // dart format on

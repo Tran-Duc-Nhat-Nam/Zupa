@@ -37,7 +37,11 @@ class HomeRepositoryImpl implements IHomeRepository {
         return .error('Parsing Error: ${e.toString()}');
       }
     } else if (response is ErrorResponse) {
-      return .error(response.message);
+      if (response.code == 4001) {
+        return const .unauthenticated();
+      } else {
+        return .error(response.message);
+      }
     } else {
       return const .error('Unknown Response Type');
     }

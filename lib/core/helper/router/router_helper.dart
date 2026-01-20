@@ -8,8 +8,10 @@ import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 
 import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/services/biometric_service.dart';
+import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/check_in_screen.dart';
-import 'package:zupa/core/helper/auth/auth_helper.dart';
 import 'package:zupa/features/history/presentation/pages/history_screen.dart';
 import 'package:zupa/features/home/presentation/pages/home_screen.dart';
 import 'package:zupa/features/auth/presentation/pages/login/login_screen.dart';
@@ -52,11 +54,10 @@ class RouterHelper {
         pageBuilder: (context, state) =>
             rightToLeftJoinedTransition(context, state, LoginScreen()),
         redirect: (context, state) async {
-          if ((await AuthHelper.getAuth()) != null) {
+          if ((await getIt<StorageService>().getAuth()) != null) {
             return '/';
           } else {
-            return context.mounted &&
-                    (await AuthHelper.biometricCheck(context)) == true
+            return (await getIt<BiometricService>().isEnabled) == true
                 ? '/'
                 : null;
           }

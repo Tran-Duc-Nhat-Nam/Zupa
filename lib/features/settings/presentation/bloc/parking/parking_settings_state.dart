@@ -14,5 +14,7 @@ sealed class ParkingSettingsState with _$ParkingSettingsState {
   ) = Loaded;
   const factory ParkingSettingsState.failed(String message) = Failed;
   const factory ParkingSettingsState.empty() = Empty;
+  const factory ParkingSettingsState.unauthenticated() = Unauthenticated;
+
 }
 
