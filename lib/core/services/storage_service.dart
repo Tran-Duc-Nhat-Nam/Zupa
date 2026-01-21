@@ -1,6 +1,7 @@
 import 'dart:convert'; // Import dart:convert for JSON encoding/decoding
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/auth/data/models/account_request.dart';
 
 @lazySingleton
@@ -11,7 +12,10 @@ class StorageService {
 
   /// Save token with a Time-To-Live (TTL).
   /// [duration] determines how long the token remains valid.
-  Future<void> setAuth(String accessToken, {Duration duration = const Duration(hours: 1)}) async {
+  Future<void> setAuth(
+    String accessToken, {
+    Duration duration = const Duration(hours: 1),
+  }) async {
     await _setStringWithTTL('accessToken', accessToken, duration);
   }
 
@@ -25,7 +29,11 @@ class StorageService {
   }
 
   /// Private helper to save a string with an expiration date
-  Future<void> _setStringWithTTL(String key, String value, Duration duration) async {
+  Future<void> _setStringWithTTL(
+    String key,
+    String value,
+    Duration duration,
+  ) async {
     final expireDate = DateTime.now().add(duration);
 
     // Create a wrapper object
@@ -94,12 +102,22 @@ class StorageService {
   Future<bool?> getBiometricAuth() async {
     return _sharedPreferences.getBool('isBiometricAuth');
   }
-  Future<void> setTheme(bool isDark) async {
-    await _sharedPreferences.setBool('isDark', isDark);
+
+  Future<void> setTheme(AppThemeMode mode) async {
+    mode == AppThemeMode.followSystem
+        ? await _sharedPreferences.remove('brightnessMode')
+        : mode == AppThemeMode.light
+        ? await _sharedPreferences.setBool('brightnessMode', true)
+        : await _sharedPreferences.setBool('brightnessMode', false);
   }
 
-  Future<bool> getTheme() async {
-    return await _sharedPreferences.getBool('isDark') == true;
+  Future<AppThemeMode> getTheme() async {
+    final value = await _sharedPreferences.getBool('brightnessMode');
+    return value == null
+        ? AppThemeMode.followSystem
+        : value
+        ? AppThemeMode.light
+        : AppThemeMode.dark;
   }
 
   Future<void> setDebuggerMode(bool isOn) async {

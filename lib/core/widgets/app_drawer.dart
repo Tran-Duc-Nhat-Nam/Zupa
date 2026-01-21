@@ -8,7 +8,6 @@ import 'dart:math' as math;
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/styles/theme.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -70,17 +69,18 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: FadeTransition(opacity: anim, child: child),
               ),
               child:
-                  context.read<ThemeCubit>().state.theme.brightness ==
-                      Brightness.light
+                  context.read<ThemeCubit>().state.when(
+                    initial: (mode) => mode == .light,
+                  )
                   ? const Icon(Icons.light_mode)
                   : const Icon(Icons.dark_mode),
             ),
             onTap: () {
               final themeCubit = context.read<ThemeCubit>();
-              if (themeCubit.state.theme.brightness == Brightness.light) {
-                themeCubit.changeTheme(appDarkTheme);
+              if (themeCubit.state.when(initial: (mode) => mode == .light)) {
+                themeCubit.changeTheme(.dark);
               } else {
-                themeCubit.changeTheme(appTheme);
+                themeCubit.changeTheme(.light);
               }
             },
           ),

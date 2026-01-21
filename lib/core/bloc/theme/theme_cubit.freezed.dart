@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ThemeState {
 
- ThemeData get theme;
+ AppThemeMode get mode;
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ThemeStateCopyWith<ThemeState> get copyWith => _$ThemeStateCopyWithImpl<ThemeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.theme, theme) || other.theme == theme));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,theme);
+int get hashCode => Object.hash(runtimeType,mode);
 
 @override
 String toString() {
-  return 'ThemeState(theme: $theme)';
+  return 'ThemeState(mode: $mode)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ThemeStateCopyWith<$Res>  {
   factory $ThemeStateCopyWith(ThemeState value, $Res Function(ThemeState) _then) = _$ThemeStateCopyWithImpl;
 @useResult
 $Res call({
- ThemeData theme
+ AppThemeMode mode
 });
 
 
@@ -62,10 +62,10 @@ class _$ThemeStateCopyWithImpl<$Res>
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? theme = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,}) {
   return _then(_self.copyWith(
-theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
-as ThemeData,
+mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as AppThemeMode,
   ));
 }
 
@@ -147,10 +147,10 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ThemeData theme)?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( AppThemeMode mode)?  initial,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
-return initial(_that.theme);case _:
+return initial(_that.mode);case _:
   return orElse();
 
 }
@@ -168,10 +168,10 @@ return initial(_that.theme);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ThemeData theme)  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( AppThemeMode mode)  initial,}) {final _that = this;
 switch (_that) {
 case Initial():
-return initial(_that.theme);}
+return initial(_that.mode);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -185,10 +185,10 @@ return initial(_that.theme);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ThemeData theme)?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( AppThemeMode mode)?  initial,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
-return initial(_that.theme);case _:
+return initial(_that.mode);case _:
   return null;
 
 }
@@ -200,10 +200,10 @@ return initial(_that.theme);case _:
 
 
 class Initial implements ThemeState {
-  const Initial(this.theme);
+  const Initial(this.mode);
   
 
-@override final  ThemeData theme;
+@override final  AppThemeMode mode;
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
@@ -215,16 +215,16 @@ $InitialCopyWith<Initial> get copyWith => _$InitialCopyWithImpl<Initial>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial&&(identical(other.theme, theme) || other.theme == theme));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,theme);
+int get hashCode => Object.hash(runtimeType,mode);
 
 @override
 String toString() {
-  return 'ThemeState.initial(theme: $theme)';
+  return 'ThemeState.initial(mode: $mode)';
 }
 
 
@@ -235,7 +235,7 @@ abstract mixin class $InitialCopyWith<$Res> implements $ThemeStateCopyWith<$Res>
   factory $InitialCopyWith(Initial value, $Res Function(Initial) _then) = _$InitialCopyWithImpl;
 @override @useResult
 $Res call({
- ThemeData theme
+ AppThemeMode mode
 });
 
 
@@ -252,10 +252,10 @@ class _$InitialCopyWithImpl<$Res>
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? theme = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,}) {
   return _then(Initial(
-null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
-as ThemeData,
+null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as AppThemeMode,
   ));
 }
 

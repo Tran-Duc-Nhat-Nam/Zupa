@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/styles/icons.dart';
-import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
@@ -61,30 +61,37 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     ),
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
-                  AppListTile(
-                    padding: .zero,
-                    leadingIconPath: AppIcons.global,
-                    text: context.tr('language'),
-                    trailing: AppDropDownSearch<Brightness>(
-                      name: 'appLocale',
-                      buttonDecoration: const .new(),
-                      iconSize: 0,
-                      dropdownItems: [
-                        appTheme.brightness,
-                        appDarkTheme.brightness,
-                      ],
-                      extraDropdownItems: [
-                        AppDropDownSearchExtraItem(
-                          label: context.tr('followSystem'),
+                  BlocBuilder<ThemeCubit, ThemeState>(
+                    builder: (context, state) {
+                      return AppListTile(
+                        padding: .zero,
+                        leadingIconPath: AppIcons.global,
+                        text: context.tr('language'),
+                        trailing: AppDropDownSearch<AppThemeMode>(
+                          name: 'appLocale',
+                          buttonDecoration: const .new(),
+                          iconSize: 0,
+                          dropdownItems: const [.light, .dark, .followSystem],
+                          extraDropdownItems: [
+                            AppDropDownSearchExtraItem(
+                              label: context.tr('followSystem'),
+                            ),
+                          ],
+                          buttonWidth: 140,
+                          initialValue: state.when(initial: (mode) => mode),
+                          itemLabelGetter: (item) => context.tr(
+                            item == .light
+                                ? 'light_mode'
+                                : item == .dark
+                                ? 'dark_mode'
+                                : 'follow_system',
+                          ),
+                          onChanged: (value) => context
+                              .read<ThemeCubit>()
+                              .changeTheme(value ?? .followSystem),
                         ),
-                      ],
-                      buttonWidth: 140,
-                      initialValue: Theme.of(context).brightness,
-                      itemLabelGetter: (item) =>
-                          context.tr('${item?.name}Mode'),
-                      onChanged: (value) =>
-                          context.read<ThemeCubit>().changeBrightness(value),
-                    ),
+                      );
+                    },
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
                   BlocBuilder<DebuggerCubit, DebuggerState>(

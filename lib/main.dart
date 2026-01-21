@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:zupa/core/styles/theme.dart';
 
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -45,7 +48,14 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (BuildContext context, ThemeState state) => state.when(
-            initial: (ThemeData theme) {
+            initial: (mode) {
+              final theme = mode == .followSystem
+                  ? PlatformDispatcher.instance.platformBrightness == .light
+                        ? appTheme
+                        : appDarkTheme
+                  : mode == .light
+                  ? appTheme
+                  : appDarkTheme;
               return MaterialApp.router(
                 onGenerateTitle: (BuildContext context) =>
                     context.tr('appTitle'),

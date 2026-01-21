@@ -22,3 +22,5 @@ final appDarkTheme = ThemeData(
   visualDensity: .adaptivePlatformDensity,
   useSystemColors: true,
 );
+
+enum AppThemeMode { light, dark, followSystem }
