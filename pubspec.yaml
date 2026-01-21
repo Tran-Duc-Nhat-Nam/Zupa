@@ -18,7 +18,7 @@ dependencies:
     git:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/PersistentBottomNavBarV2.git
       ref: master
-  google_fonts: ^7.0.2
+  google_fonts: ^7.1.0
   flutter_svg: ^2.2.3
   jiffy: ^6.4.4
   retrofit: ^4.9.2
@@ -60,9 +60,9 @@ dependencies:
   flutter_native_splash: ^2.4.7
   local_auth: ^3.0.0
   flutter_local_notifications: ^19.5.0
-  firebase_messaging: ^16.1.0
-  firebase_core: ^4.3.0
-  firebase_crashlytics: ^5.0.6
+  firebase_messaging: ^16.1.1
+  firebase_core: ^4.4.0
+  firebase_crashlytics: ^5.0.7
   dartx: ^1.2.0
   string_validator: ^1.2.0
   get_it: ^9.2.0

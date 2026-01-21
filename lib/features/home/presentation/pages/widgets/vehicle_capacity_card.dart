@@ -16,9 +16,9 @@ class BorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const double strokeWidth = 5;
+    const double strokeWidth = 7;
     final Rect rect =
-        const Offset(-3, -3) & Size(size.width + 6, size.height + 6);
+        const Offset(-3.5, -3.5) & Size(size.width + 7, size.height + 7);
 
     final paint = Paint()
       ..filterQuality = .high

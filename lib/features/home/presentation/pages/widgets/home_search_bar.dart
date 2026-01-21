@@ -33,7 +33,7 @@ class HomeSearchBar extends StatelessWidget {
                 size: 20,
                 color: ThemeHelper.getColor(context).grey400,
               ),
-              onTap: () => showFilter,
+              onTap: () => showFilter(context),
             ),
             onChanged: (value) => context.read<HomeFilterCubit>().search(value),
           ),

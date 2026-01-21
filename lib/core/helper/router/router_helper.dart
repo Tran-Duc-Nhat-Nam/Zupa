@@ -29,7 +29,6 @@ import 'package:zupa/features/settings/presentation/pages/settings_screen.dart';
 import 'package:zupa/features/revenue/presentation/pages/revenue_screen.dart';
 import 'package:zupa/core/widgets/app_nav_bar.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/core/widgets/transition/app_transitions.dart';
 import 'package:zupa/core/widgets/transition/go_open_container.dart';
 import 'package:zupa/core/helper/sensor/nfc_helper.dart';
 
@@ -46,13 +45,13 @@ class RouterHelper {
         name: AppRoutes.checkIn,
         path: '/check-in',
         pageBuilder: (context, state) =>
-            rightToLeftJoinedTransition(context, state, const CheckInScreen()),
+            goOpenContainerCustomTransition(state, const CheckInScreen()),
       ),
       GoRoute(
         name: AppRoutes.login,
         path: '/login',
         pageBuilder: (context, state) =>
-            rightToLeftJoinedTransition(context, state, LoginScreen()),
+            goOpenContainerCustomTransition(state, LoginScreen()),
         redirect: (context, state) async {
           if ((await getIt<StorageService>().getAuth()) != null) {
             return '/';
@@ -84,8 +83,7 @@ class RouterHelper {
                   : null,
             );
           }
-          return rightToLeftJoinedTransition(
-            context,
+          return goOpenContainerCustomTransition(
             state,
             AppNavBar(navigationShell: navigationShell),
           );
@@ -98,8 +96,7 @@ class RouterHelper {
                 path: '/',
                 pageBuilder: (context, state) {
                   NfcHelper.startListenToNfc(context);
-                  return rightToLeftJoinedTransition(
-                    context,
+                  return goOpenContainerCustomTransition(
                     state,
                     const HomeScreen(),
                   );
@@ -112,11 +109,11 @@ class RouterHelper {
               GoRoute(
                 name: AppRoutes.history,
                 path: '/history',
-                pageBuilder: (context, state) => rightToLeftJoinedTransition(
-                  context,
-                  state,
-                  const HistoryScreen(),
-                ),
+                pageBuilder: (context, state) =>
+                    goOpenContainerCustomTransition(
+                      state,
+                      const HistoryScreen(),
+                    ),
               ),
             ],
           ),
@@ -125,11 +122,11 @@ class RouterHelper {
               GoRoute(
                 name: AppRoutes.revenue,
                 path: '/revenue',
-                pageBuilder: (context, state) => rightToLeftJoinedTransition(
-                  context,
-                  state,
-                  const RevenueScreen(),
-                ),
+                pageBuilder: (context, state) =>
+                    goOpenContainerCustomTransition(
+                      state,
+                      const RevenueScreen(),
+                    ),
               ),
             ],
           ),
@@ -139,11 +136,11 @@ class RouterHelper {
               GoRoute(
                 name: AppRoutes.settings,
                 path: '/settings',
-                pageBuilder: (context, state) => rightToLeftJoinedTransition(
-                  context,
-                  state,
-                  const SettingsScreen(),
-                ),
+                pageBuilder: (context, state) =>
+                    goOpenContainerCustomTransition(
+                      state,
+                      const SettingsScreen(),
+                    ),
               ),
             ],
           ),
@@ -152,8 +149,7 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.parking,
         path: '/settings/parking',
-        pageBuilder: (context, state) => rightToLeftJoinedTransition(
-          context,
+        pageBuilder: (context, state) => goOpenContainerCustomTransition(
           state,
           const ParkingSettingsScreen(),
         ),
@@ -161,8 +157,7 @@ class RouterHelper {
           GoRoute(
             name: AppRoutes.parkingDetail,
             path: 'detail',
-            pageBuilder: (context, state) => rightToLeftJoinedTransition(
-              context,
+            pageBuilder: (context, state) => goOpenContainerCustomTransition(
               state,
               const ParkingDetailsScreen(),
             ),
@@ -172,8 +167,7 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.memberVehicles,
         path: '/settings/member-vehicles',
-        pageBuilder: (context, state) => rightToLeftJoinedTransition(
-          context,
+        pageBuilder: (context, state) => goOpenContainerCustomTransition(
           state,
           const MemberVehiclesScreen(),
         ),
@@ -191,8 +185,7 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.employeeManagement,
         path: '/settings/employee-management',
-        pageBuilder: (context, state) => rightToLeftJoinedTransition(
-          context,
+        pageBuilder: (context, state) => goOpenContainerCustomTransition(
           state,
           const EmployeeManagementScreen(),
         ),
@@ -200,17 +193,13 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.generalConfig,
         path: '/settings/general-config',
-        pageBuilder: (context, state) => rightToLeftJoinedTransition(
-          context,
-          state,
-          const GeneralConfigScreen(),
-        ),
+        pageBuilder: (context, state) =>
+            goOpenContainerCustomTransition(state, const GeneralConfigScreen()),
         routes: [
           GoRoute(
             name: AppRoutes.parkingPrice,
             path: 'detail',
-            pageBuilder: (context, state) => rightToLeftJoinedTransition(
-              context,
+            pageBuilder: (context, state) => goOpenContainerCustomTransition(
               state,
               const ParkingPriceSetting(),
             ),
@@ -218,8 +207,7 @@ class RouterHelper {
           GoRoute(
             name: AppRoutes.memberFee,
             path: 'detail',
-            pageBuilder: (context, state) => rightToLeftJoinedTransition(
-              context,
+            pageBuilder: (context, state) => goOpenContainerCustomTransition(
               state,
               const MemberFeeSetingScreen(),
             ),
@@ -229,8 +217,7 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.changePassword,
         path: '/settings/change-password',
-        pageBuilder: (context, state) => rightToLeftJoinedTransition(
-          context,
+        pageBuilder: (context, state) => goOpenContainerCustomTransition(
           state,
           const ChangePasswordScreen(),
         ),
@@ -238,11 +225,8 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.appSettings,
         path: '/settings/change-app',
-        pageBuilder: (context, state) => rightToLeftJoinedTransition(
-          context,
-          state,
-          const AppSettingsScreen(),
-        ),
+        pageBuilder: (context, state) =>
+            goOpenContainerCustomTransition(state, const AppSettingsScreen()),
       ),
     ],
   );
