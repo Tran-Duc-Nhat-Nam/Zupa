@@ -225,5 +225,8 @@
     "warningThreshold": "When the parking lot is almost full, the system will display a warning.",
     "extend": "Do you want to extend?"
   },
-  "Token verification failed": "Verification failed"
+  "Token verification failed": "Verification failed",
+  "vi_VN": "Vietnamese",
+  "en_US": "English",
+  "ja": "Japanese"
 }

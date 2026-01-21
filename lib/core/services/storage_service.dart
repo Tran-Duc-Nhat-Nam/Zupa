@@ -1,6 +1,7 @@
-import 'dart:convert'; // Import dart:convert for JSON encoding/decoding
+import 'dart:convert';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zupa/core/styles/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/auth/data/models/account_request.dart';
 
@@ -118,6 +119,21 @@ class StorageService {
         : value
         ? AppThemeMode.light
         : AppThemeMode.dark;
+  }
+
+  Future<void> setLocalization(AppLocalization mode) async {
+    final value = mode.getLocaleString();
+    value == null
+        ? await _sharedPreferences.remove('locale')
+        : await _sharedPreferences.setString('locale', value);
+  }
+
+  Future<AppLocalization> getLocalization() async {
+    final value = await _sharedPreferences.getString('locale');
+    return AppLocalization.values.firstWhere(
+      (element) => element.name == value,
+      orElse: () => AppLocalization.followSystem,
+    );
   }
 
   Future<void> setDebuggerMode(bool isOn) async {

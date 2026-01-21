@@ -222,5 +222,8 @@
     "warningThreshold": "Khi nhà xe sắp hết chỗ, hệ thống sẽ hiển thị cảnh báo.",
     "extend": "Bạn có muốn gia hạn không?"
   },
-  "Token verification failed": "Xác thực thất bại"
+  "Token verification failed": "Xác thực thất bại",
+  "vi_VN": "Tiếng Việt",
+  "en_US": "Tiếng Anh",
+  "ja": "Tiếng Nhật"
 }

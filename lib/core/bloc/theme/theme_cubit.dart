@@ -13,7 +13,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   final _storageService = getIt<StorageService>();
 
   Future<void> loadTheme() async {
-    emit(.initial(await getIt<StorageService>().getTheme()));
+    emit(.initial(await _storageService.getTheme()));
   }
 
   void changeTheme(AppThemeMode mode) {

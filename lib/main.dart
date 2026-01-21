@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/styles/theme.dart';
 
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
@@ -31,9 +32,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
-      supportedLocales: const <Locale>[.new('en', 'US'), .new('vi', 'VN')],
+      supportedLocales: const <Locale>[.new('en'), .new('vi'), .new('ja')],
       path: 'assets/translations',
-      fallbackLocale: const .new('en', 'US'),
+      fallbackLocale: const .new('en'),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<AuthCubit>(
             create: (BuildContext context) => AuthCubit()..loadAuth(),
+          ),
+          BlocProvider<LocalizationCubit>(
+            create: (BuildContext context) => LocalizationCubit()..loadLocale(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(

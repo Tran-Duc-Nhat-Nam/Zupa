@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/styles/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -34,30 +36,43 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
               child: Column(
                 spacing: 10,
                 children: [
-                  AppListTile(
-                    padding: .zero,
-                    leadingIconPath: AppIcons.lampOn,
-                    text: context.tr('language'),
-                    trailing: AppDropDownSearch<Locale>(
-                      name: 'appLocale',
-                      buttonDecoration: const .new(),
-                      iconSize: 0,
-                      dropdownItems: const [.new('en', 'US'), .new('vi', 'VN')],
-                      extraDropdownItems: [
-                        .new(label: context.tr('followSystem')),
-                      ],
-                      buttonWidth: 140,
-                      initialValue: context.locale,
-                      itemLabelGetter: (item) =>
-                          context.tr(item?.languageCode ?? ''),
-                      onChanged: (value) => context.setLocale(
-                        value is Locale
-                            ? value
-                            : .new(
-                                Intl.systemLocale.substring(0, 2),
-                                Intl.systemLocale.substring(3, 5),
-                              ),
-                      ),
+                  BlocListener<LocalizationCubit, LocalizationState>(
+                    listener: (context, state) {
+                      state.whenOrNull(
+                        loading: (locale) {
+                          context.setLocale(
+                            locale.getLocale() ??
+                                .new(Intl.systemLocale.substring(0, 2)),
+                          );
+                        },
+                      );
+                    },
+                    child: BlocBuilder<LocalizationCubit, LocalizationState>(
+                      builder: (context, state) {
+                        return AppListTile(
+                          padding: .zero,
+                          leadingIconPath: AppIcons.lampOn,
+                          text: context.tr('language'),
+                          trailing: AppDropDownSearch<AppLocalization>(
+                            name: 'appLocale',
+                            buttonDecoration: const .new(),
+                            iconSize: 0,
+                            dropdownItems: const [.vi, .en, .ja, .followSystem],
+                            buttonWidth: 140,
+                            initialValue: state.when(
+                              loaded: (locale) => locale,
+                              loading: (locale) => locale,
+                              initial: () => .followSystem,
+                            ),
+                            itemLabelGetter: (item) => context.tr(
+                              item?.getLocaleString() ?? 'followSystem',
+                            ),
+                            onChanged: (value) => context
+                                .read<LocalizationCubit>()
+                                .changeLocale(value ?? .followSystem),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
@@ -72,19 +87,14 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           buttonDecoration: const .new(),
                           iconSize: 0,
                           dropdownItems: const [.light, .dark, .followSystem],
-                          extraDropdownItems: [
-                            AppDropDownSearchExtraItem(
-                              label: context.tr('followSystem'),
-                            ),
-                          ],
                           buttonWidth: 140,
                           initialValue: state.when(initial: (mode) => mode),
                           itemLabelGetter: (item) => context.tr(
                             item == .light
-                                ? 'light_mode'
+                                ? 'lightMode'
                                 : item == .dark
-                                ? 'dark_mode'
-                                : 'follow_system',
+                                ? 'darkMode'
+                                : 'followSystem',
                           ),
                           onChanged: (value) => context
                               .read<ThemeCubit>()
