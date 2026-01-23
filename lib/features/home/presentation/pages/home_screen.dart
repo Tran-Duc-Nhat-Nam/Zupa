@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
@@ -22,12 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends AppState<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Jiffy.setLocale('en_US');
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppScreen(

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dart_date/dart_date.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.da
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
-import 'package:jiffy/jiffy.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -215,7 +215,7 @@ class TicketTitle extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    Jiffy.now().format(pattern: 'dd/MM/yyyy HH:mm'),
+                    DateTime.now().format('dd/MM/yyyy HH:mm'),
                     style: AppTextStyles.bodyMediumRegular.copyWith(
                       color: ThemeHelper.getColor(context).grey500,
                     ),

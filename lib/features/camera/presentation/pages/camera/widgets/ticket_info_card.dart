@@ -1,6 +1,6 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -55,18 +55,14 @@ class TicketInfoCard extends StatelessWidget {
                           mainAxisAlignment: .center,
                           children: [
                             Text(
-                              Jiffy.parseFromDateTime(
-                                timeIn,
-                              ).format(pattern: 'dd/MM/yyyy hh:mm'),
+                              timeIn.format('dd/MM/yyyy hh:mm'),
                               style: AppTextStyles.bodyMediumMedium.copyWith(
                                 color: ThemeHelper.getColor(context).success600,
                               ),
                             ),
                             if (timeOut != null) ...[
                               Text(
-                                Jiffy.parseFromDateTime(
-                                  timeOut!,
-                                ).format(pattern: 'dd/MM/yyyy hh:mm'),
+                                timeOut!.format('dd/MM/yyyy hh:mm'),
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).error600,
                                 ),
@@ -78,7 +74,9 @@ class TicketInfoCard extends StatelessWidget {
                                 color: ThemeHelper.getColor(context).grey200,
                               ),
                               Text(
-                                  Translations.of(context).totalTime(n: totalTime!),
+                                Translations.of(
+                                  context,
+                                ).totalTime(n: totalTime!),
                                 overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,
@@ -100,7 +98,7 @@ class TicketInfoCard extends StatelessWidget {
                           mainAxisAlignment: .center,
                           children: [
                             Text(
-    Translations.of(context)[ticketType],
+                              Translations.of(context)[ticketType],
                               style: AppTextStyles.bodyMediumMedium.copyWith(
                                 color: ThemeHelper.getColor(context).grey700,
                               ),

@@ -1,8 +1,7 @@
-
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -48,9 +47,7 @@ class AppDateTimePicker extends StatelessWidget {
             Expanded(
               child: Text(
                 field.value != null
-                    ? Jiffy.parseFromDateTime(
-                        field.value!,
-                      ).format(pattern: 'dd/MM/yyyy hh:mm')
+                    ? field.value!.format('dd/MM/yyyy hh:mm')
                     : '',
                 maxLines: 1,
               ),
