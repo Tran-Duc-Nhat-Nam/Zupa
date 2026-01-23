@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zupa/core/env/env.dart';
 
 import 'package:zupa/core/helper/api/interceptors.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
@@ -19,7 +20,7 @@ abstract class ExternalModule {
   Dio get dio =>
       Dio(
           BaseOptions(
-            baseUrl: const String.fromEnvironment('END_POINT'),
+            baseUrl: Env.endPoint,
             connectTimeout: const .new(seconds: 30),
           ),
         )

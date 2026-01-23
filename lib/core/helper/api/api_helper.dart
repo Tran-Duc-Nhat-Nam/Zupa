@@ -4,6 +4,7 @@ import 'package:logarte/logarte.dart';
 
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/env/env.dart';
 
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/api/interceptors.dart';
@@ -16,7 +17,7 @@ class ApiHelper {
   static Dio get dio => _dio ??=
       Dio(
           BaseOptions(
-            baseUrl: const String.fromEnvironment('END_POINT'),
+            baseUrl: Env.endPoint,
             connectTimeout: const .new(seconds: 30),
           ),
         )
