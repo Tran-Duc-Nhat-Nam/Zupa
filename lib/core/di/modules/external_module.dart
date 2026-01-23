@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:zupa/core/env/env.dart';
 
 import 'package:zupa/core/helper/api/interceptors.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
-import 'package:logarte/logarte.dart';
 
 @module
 abstract class ExternalModule {
@@ -25,5 +25,5 @@ abstract class ExternalModule {
           ),
         )
         ..interceptors.add(AuthInterceptor())
-        ..interceptors.add(LogarteDioInterceptor(DebuggerHelper.debugger));
+        ..interceptors.add(TalkerDioLogger(talker: DebuggerHelper.talker));
 }

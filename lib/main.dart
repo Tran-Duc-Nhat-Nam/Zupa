@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
 
@@ -13,7 +14,6 @@ import 'package:zupa/core/helper/router/router_helper.dart';
 
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
-import 'package:zupa/core/helper/api/api_helper.dart';
 import 'package:zupa/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -23,7 +23,7 @@ Future<void> main() async {
   await LocaleSettings.setLocaleRaw(
     (await getIt<StorageService>().getLocalization()).name,
   );
-  ApiHelper.onUnauthorized = () => getIt<AuthenticationRepository>().logOut();
+  getIt<NetworkService>().onUnauthorized = () => getIt<AuthenticationRepository>().logOut();
 
   runApp(const MyApp());
 }

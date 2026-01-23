@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/services/biometric_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/widgets/app_nav_bar.dart';
@@ -39,6 +41,7 @@ class RouterHelper {
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: '/login',
+    observers: [TalkerRouteObserver(DebuggerHelper.talker)],
     redirect: (context, state) async {
       final isAuthenticated = (await _storageService.getAuth()) != null;
       if (!isAuthenticated && state.matchedLocation != '/login') {
@@ -67,7 +70,8 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.checkIn.name,
         path: '/check-in',
-        pageBuilder: (context, state) => _buildPage(state, const CheckInScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const CheckInScreen()),
       ),
 
       /* ----------------- SHELL (BOTTOM NAV) ROUTES ----------------- */
@@ -77,10 +81,7 @@ class RouterHelper {
           // Optimization: Removed NFC session start from here.
           // Trigger this logic in main.dart or a global Provider/Bloc.
 
-          return _buildPage(
-            state,
-            AppNavBar(navigationShell: navigationShell),
-          );
+          return _buildPage(state, AppNavBar(navigationShell: navigationShell));
         },
         branches: [
           // Branch: Home
@@ -103,7 +104,8 @@ class RouterHelper {
               GoRoute(
                 name: AppRoutes.history.name,
                 path: '/history',
-                pageBuilder: (context, state) => _buildPage(state, const HistoryScreen()),
+                pageBuilder: (context, state) =>
+                    _buildPage(state, const HistoryScreen()),
               ),
             ],
           ),
@@ -113,7 +115,8 @@ class RouterHelper {
               GoRoute(
                 name: AppRoutes.revenue.name,
                 path: '/revenue',
-                pageBuilder: (context, state) => _buildPage(state, const RevenueScreen()),
+                pageBuilder: (context, state) =>
+                    _buildPage(state, const RevenueScreen()),
               ),
             ],
           ),
@@ -124,7 +127,8 @@ class RouterHelper {
               GoRoute(
                 name: AppRoutes.settings.name,
                 path: '/settings',
-                pageBuilder: (context, state) => _buildPage(state, const SettingsScreen()),
+                pageBuilder: (context, state) =>
+                    _buildPage(state, const SettingsScreen()),
               ),
             ],
           ),
@@ -138,12 +142,14 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.parking.name,
         path: '/settings/parking',
-        pageBuilder: (context, state) => _buildPage(state, const ParkingSettingsScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const ParkingSettingsScreen()),
         routes: [
           GoRoute(
             name: AppRoutes.parkingDetail.name,
             path: 'detail',
-            pageBuilder: (context, state) => _buildPage(state, const ParkingDetailsScreen()),
+            pageBuilder: (context, state) =>
+                _buildPage(state, const ParkingDetailsScreen()),
           ),
         ],
       ),
@@ -152,12 +158,14 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.memberVehicles.name,
         path: '/settings/member-vehicles',
-        pageBuilder: (context, state) => _buildPage(state, const MemberVehiclesScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const MemberVehiclesScreen()),
         routes: [
           GoRoute(
             name: AppRoutes.memberVehiclesDetail.name,
             path: 'detail',
-            pageBuilder: (context, state) => _buildPage(state, const MemberVehicleDetailScreen()),
+            pageBuilder: (context, state) =>
+                _buildPage(state, const MemberVehicleDetailScreen()),
           ),
         ],
       ),
@@ -166,24 +174,29 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.employeeManagement.name,
         path: '/settings/employee-management',
-        pageBuilder: (context, state) => _buildPage(state, const EmployeeManagementScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const EmployeeManagementScreen()),
       ),
 
       // 4. General Config
       GoRoute(
         name: AppRoutes.generalConfig.name,
         path: '/settings/general-config',
-        pageBuilder: (context, state) => _buildPage(state, const GeneralConfigScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const GeneralConfigScreen()),
         routes: [
           GoRoute(
             name: AppRoutes.parkingPrice.name,
-            path: 'parking-price', // Changed from 'detail' to avoid path conflicts in deep linking
-            pageBuilder: (context, state) => _buildPage(state, const ParkingPriceSetting()),
+            path:
+                'parking-price', // Changed from 'detail' to avoid path conflicts in deep linking
+            pageBuilder: (context, state) =>
+                _buildPage(state, const ParkingPriceSetting()),
           ),
           GoRoute(
             name: AppRoutes.memberFee.name,
             path: 'member-fee', // Changed from 'detail'
-            pageBuilder: (context, state) => _buildPage(state, const MemberFeeSetingScreen()),
+            pageBuilder: (context, state) =>
+                _buildPage(state, const MemberFeeSetingScreen()),
           ),
         ],
       ),
@@ -192,14 +205,16 @@ class RouterHelper {
       GoRoute(
         name: AppRoutes.changePassword.name,
         path: '/settings/change-password',
-        pageBuilder: (context, state) => _buildPage(state, const ChangePasswordScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const ChangePasswordScreen()),
       ),
 
       // 6. App Settings
       GoRoute(
         name: AppRoutes.appSettings.name,
         path: '/settings/change-app',
-        pageBuilder: (context, state) => _buildPage(state, const AppSettingsScreen()),
+        pageBuilder: (context, state) =>
+            _buildPage(state, const AppSettingsScreen()),
       ),
     ],
   );

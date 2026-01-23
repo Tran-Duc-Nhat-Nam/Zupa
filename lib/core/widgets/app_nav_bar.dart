@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shake/shake.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
 
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
@@ -40,7 +41,11 @@ class _AppNavBarState extends State<AppNavBar> {
     _shakeDetector = .autoStart(
       onPhoneShake: (event) async {
         if (mounted && await getIt<StorageService>().getDebuggerMode()) {
-          DebuggerHelper.debugger.attach(context: context, visible: true);
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
+              )
+          );
         }
       },
     );

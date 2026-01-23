@@ -55,7 +55,9 @@ dependencies:
       ref: master
   animations: ^2.1.1
   page_transition: ^2.2.1
-  logarte: ^1.4.0
+  talker: ^5.1.12
+  talker_flutter: ^5.1.12
+  talker_dio_logger: ^5.1.12
   shake: ^3.0.0
   sensors_plus_platform_interface: ^2.0.1
   flutter_native_splash: ^2.4.7

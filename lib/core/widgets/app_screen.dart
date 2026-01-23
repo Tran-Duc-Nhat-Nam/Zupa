@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:shake/shake.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
@@ -74,7 +75,11 @@ class _AppScreenState extends AppState<AppScreen> {
       detector = .autoStart(
         onPhoneShake: (ShakeEvent event) async {
           if (await getIt<StorageService>().getDebuggerMode() && mounted) {
-            DebuggerHelper.debugger.attach(context: context, visible: true);
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
+                )
+            );
           }
         },
       );
