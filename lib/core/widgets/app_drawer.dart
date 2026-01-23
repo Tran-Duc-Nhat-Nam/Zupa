@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'dart:math' as math;
 
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -37,29 +39,29 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             child: Center(
               child: Text(
-                context.tr('drawer'),
+                Translations.of(context).drawer,
                 style: AppTextStyles.heading2.copyWith(
                   color: ThemeHelper.getColor(context).white,
                 ),
               ),
             ),
           ),
+          // ListTile(
+          //   title: Text(Translations.of(context).changeLanguage),
+          //   leading: Text(
+          //     Translations.of(context)[LocaleSettings.currentLocale.languageCode],
+          //     style: AppTextStyles.heading3,
+          //   ),
+          //   onTap: () {
+          //     LocaleSettings.setLocale(
+          //       context.locale.toString() == 'en'
+          //           ? const .new('vi')
+          //           : const .new('en'),
+          //     );
+          //   },
+          // ),
           ListTile(
-            title: Text(context.tr('changeLanguage')),
-            leading: Text(
-              context.locale.toString().toUpperCase(),
-              style: AppTextStyles.heading3,
-            ),
-            onTap: () {
-              context.setLocale(
-                context.locale.toString() == 'en'
-                    ? const .new('vi')
-                    : const .new('en'),
-              );
-            },
-          ),
-          ListTile(
-            title: Text(context.tr('changeTheme')),
+            title: Text(Translations.of(context).changeTheme),
             leading: AnimatedSwitcher(
               duration: const .new(milliseconds: 300),
               transitionBuilder: (child, anim) => RotationTransition(
@@ -86,11 +88,11 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           ListTile(
             onTap: () {
-              context.push('/settings');
+              context.pushNamed(AppRoutes.settings.name);
             },
             leading: const Icon(Icons.settings),
             title: Text(
-              context.tr('settings'),
+              Translations.of(context).settings,
               style: const .new(fontSize: 16),
             ),
           ),

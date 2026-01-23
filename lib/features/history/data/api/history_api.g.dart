@@ -30,7 +30,7 @@ class _HistoryAPI implements HistoryAPI {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data',
+            '/bill/receivedReceipt',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -57,7 +57,7 @@ class _HistoryAPI implements HistoryAPI {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data/${id}',
+            '/received/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -85,7 +85,7 @@ class _HistoryAPI implements HistoryAPI {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data',
+            '/bill/received',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -112,7 +112,7 @@ class _HistoryAPI implements HistoryAPI {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data/${id}',
+            '/bill/receipts/updateStatus/${id}',
             queryParameters: queryParameters,
             data: _data,
           )

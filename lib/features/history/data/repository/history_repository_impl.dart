@@ -8,14 +8,14 @@ import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/model/history_filter.dart';
+import 'package:zupa/features/history/domain/entities/history_filter.dart';
 
 @LazySingleton(as: IHistoryRepository)
 class HistoryRepositoryImpl implements IHistoryRepository {
   final HistoryAPI _api;
   final NetworkService _networkService;
 
-  HistoryRepositoryImpl(this._networkService, Dio dio) : _api = .new(dio);
+  HistoryRepositoryImpl(this._networkService, Dio dio) : _api = .new(dio, baseUrl: '/core/fsapp');
 
   @override
   Future<NetworkState<List<HistoryTicket>>> getHistory({
@@ -31,7 +31,7 @@ class HistoryRepositoryImpl implements IHistoryRepository {
 
     if (response is SuccessResponse) {
       try {
-        final List<dynamic> dataList = response.data['data'] as List<dynamic>;
+        final List<dynamic> dataList = response.data.data as List<dynamic>;
         final items = dataList
             .map((e) => HistoryTicket.fromJson(e as Map<String, dynamic>))
             .toList();

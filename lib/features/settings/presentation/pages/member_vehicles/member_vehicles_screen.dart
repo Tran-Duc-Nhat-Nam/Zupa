@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +12,7 @@ import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_list_tab.dart';
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_search_bar.dart';
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_tab_bar.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class MemberVehiclesScreen extends StatefulWidget {
   const MemberVehiclesScreen({super.key});
@@ -28,7 +28,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
       formKey: formKey,
       isChildScrollable: true,
       noBackground: true,
-      title: context.tr('memberVehicles'),
+      title: Translations.of(context).memberVehicles,
       appBarTrailing: [
         Padding(
           padding: const .only(right: 24),

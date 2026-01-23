@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logarte/logarte.dart';
 
-import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 
@@ -17,7 +16,7 @@ class ApiHelper {
   static Dio get dio => _dio ??=
       Dio(
           BaseOptions(
-            baseUrl: Environment.restApiUrl,
+            baseUrl: const String.fromEnvironment('END_POINT'),
             connectTimeout: const .new(seconds: 30),
           ),
         )

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +9,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -22,13 +23,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return AppScreen(
       hasParentView: true,
-      title: context.tr('settings'),
+      title: Translations.of(context).settings,
       hasAppBar: false,
       child: BlocListener<AuthCubit, AuthState>(
         listener: (_, state) {
           state.whenOrNull(
             noAuthenticated: () {
-              context.goNamed(AppRoutes.login);
+              context.goNamed(AppRoutes.login.name);
             },
           );
         },
@@ -44,34 +45,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.homeOutline,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: context.tr('parkingAreaConfig'),
+                      text: Translations.of(context).parkingAreaConfig,
                       trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushNamed(AppRoutes.parking),
+                      onTap: () => context.pushNamed(AppRoutes.parking.name),
                     ),
                     Divider(color: ThemeHelper.getColor(context).grey100),
                     AppListTile(
                       leadingIconPath: AppIcons.calendarEdit,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: context.tr('memberVehicles'),
+                      text: Translations.of(context).memberVehicles,
                       trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushNamed(AppRoutes.memberVehicles),
+                      onTap: () =>
+                          context.pushNamed(AppRoutes.memberVehicles.name),
                     ),
                     Divider(color: ThemeHelper.getColor(context).grey100),
                     AppListTile(
                       leadingIconPath: AppIcons.userEdit,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: context.tr('employeeManagement'),
+                      text: Translations.of(context).employeeManagement,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
-                          context.pushNamed(AppRoutes.employeeManagement),
+                          context.pushNamed(AppRoutes.employeeManagement.name),
                     ),
                     Divider(color: ThemeHelper.getColor(context).grey100),
                     AppListTile(
                       leadingIconPath: AppIcons.config,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: context.tr('generalConfig'),
+                      text: Translations.of(context).generalConfig,
                       trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushNamed(AppRoutes.generalConfig),
+                      onTap: () =>
+                          context.pushNamed(AppRoutes.generalConfig.name),
                     ),
                   ],
                 ),
@@ -83,9 +86,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.lock,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: context.tr('changePassword'),
+                      text: Translations.of(context).changePassword,
                       trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushNamed('ChangePassword'),
+                      onTap: () => context.pushNamed(AppRoutes.changePassword.name),
                     ),
                   ],
                 ),
@@ -94,17 +97,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
                   leadingIconPath: AppIcons.outlineSetting,
-                  text: context.tr('appSettings'),
+                  text: Translations.of(context).appSettings,
                   leadingColor: ThemeHelper.getColor(context).primary500,
                   trailingIconPath: AppIcons.chevronRight,
-                  onTap: () => context.pushNamed('AppSettings'),
+                  onTap: () => context.pushNamed(AppRoutes.appSettings.name),
                 ),
               ),
               AppCard(
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
                   leadingIconPath: AppIcons.logout,
-                  text: context.tr('title.logout'),
+                  text: Translations.of(context).title.logout,
                   leadingColor: ThemeHelper.getColor(context).error600,
                   onTap: () async {
                     context.read<AuthCubit>().logOut();

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HistoryTicket {
 
- String get id; DateTime get timeIn; DateTime? get timeOut; String get siteId; VehicleType get type;
+ int get id; String get code;@DateTimeConverter() DateTime? get timeIn;@DateTimeConverter() DateTime? get timeOut;@DateTimeConverter() DateTime? get receivedDate; bool get isFlagError; String? get siteId; VehicleType? get type;
 /// Create a copy of HistoryTicket
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $HistoryTicketCopyWith<HistoryTicket> get copyWith => _$HistoryTicketCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.timeIn, timeIn) || other.timeIn == timeIn)&&(identical(other.timeOut, timeOut) || other.timeOut == timeOut)&&(identical(other.siteId, siteId) || other.siteId == siteId)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.code, code) || other.code == code)&&(identical(other.timeIn, timeIn) || other.timeIn == timeIn)&&(identical(other.timeOut, timeOut) || other.timeOut == timeOut)&&(identical(other.receivedDate, receivedDate) || other.receivedDate == receivedDate)&&(identical(other.isFlagError, isFlagError) || other.isFlagError == isFlagError)&&(identical(other.siteId, siteId) || other.siteId == siteId)&&(identical(other.type, type) || other.type == type));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,timeIn,timeOut,siteId,type);
+int get hashCode => Object.hash(runtimeType,id,code,timeIn,timeOut,receivedDate,isFlagError,siteId,type);
 
 @override
 String toString() {
-  return 'HistoryTicket(id: $id, timeIn: $timeIn, timeOut: $timeOut, siteId: $siteId, type: $type)';
+  return 'HistoryTicket(id: $id, code: $code, timeIn: $timeIn, timeOut: $timeOut, receivedDate: $receivedDate, isFlagError: $isFlagError, siteId: $siteId, type: $type)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $HistoryTicketCopyWith<$Res>  {
   factory $HistoryTicketCopyWith(HistoryTicket value, $Res Function(HistoryTicket) _then) = _$HistoryTicketCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime timeIn, DateTime? timeOut, String siteId, VehicleType type
+ int id, String code,@DateTimeConverter() DateTime? timeIn,@DateTimeConverter() DateTime? timeOut,@DateTimeConverter() DateTime? receivedDate, bool isFlagError, String? siteId, VehicleType? type
 });
 
 
-$VehicleTypeCopyWith<$Res> get type;
+$VehicleTypeCopyWith<$Res>? get type;
 
 }
 /// @nodoc
@@ -65,23 +65,29 @@ class _$HistoryTicketCopyWithImpl<$Res>
 
 /// Create a copy of HistoryTicket
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? timeIn = null,Object? timeOut = freezed,Object? siteId = null,Object? type = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? code = null,Object? timeIn = freezed,Object? timeOut = freezed,Object? receivedDate = freezed,Object? isFlagError = null,Object? siteId = freezed,Object? type = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,timeIn: null == timeIn ? _self.timeIn : timeIn // ignore: cast_nullable_to_non_nullable
-as DateTime,timeOut: freezed == timeOut ? _self.timeOut : timeOut // ignore: cast_nullable_to_non_nullable
-as DateTime?,siteId: null == siteId ? _self.siteId : siteId // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as VehicleType,
+as int,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,timeIn: freezed == timeIn ? _self.timeIn : timeIn // ignore: cast_nullable_to_non_nullable
+as DateTime?,timeOut: freezed == timeOut ? _self.timeOut : timeOut // ignore: cast_nullable_to_non_nullable
+as DateTime?,receivedDate: freezed == receivedDate ? _self.receivedDate : receivedDate // ignore: cast_nullable_to_non_nullable
+as DateTime?,isFlagError: null == isFlagError ? _self.isFlagError : isFlagError // ignore: cast_nullable_to_non_nullable
+as bool,siteId: freezed == siteId ? _self.siteId : siteId // ignore: cast_nullable_to_non_nullable
+as String?,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as VehicleType?,
   ));
 }
 /// Create a copy of HistoryTicket
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$VehicleTypeCopyWith<$Res> get type {
-  
-  return $VehicleTypeCopyWith<$Res>(_self.type, (value) {
+$VehicleTypeCopyWith<$Res>? get type {
+    if (_self.type == null) {
+    return null;
+  }
+
+  return $VehicleTypeCopyWith<$Res>(_self.type!, (value) {
     return _then(_self.copyWith(type: value));
   });
 }
@@ -163,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime timeIn,  DateTime? timeOut,  String siteId,  VehicleType type)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String code, @DateTimeConverter()  DateTime? timeIn, @DateTimeConverter()  DateTime? timeOut, @DateTimeConverter()  DateTime? receivedDate,  bool isFlagError,  String? siteId,  VehicleType? type)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HistoryTicket() when $default != null:
-return $default(_that.id,_that.timeIn,_that.timeOut,_that.siteId,_that.type);case _:
+return $default(_that.id,_that.code,_that.timeIn,_that.timeOut,_that.receivedDate,_that.isFlagError,_that.siteId,_that.type);case _:
   return orElse();
 
 }
@@ -184,10 +190,10 @@ return $default(_that.id,_that.timeIn,_that.timeOut,_that.siteId,_that.type);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime timeIn,  DateTime? timeOut,  String siteId,  VehicleType type)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String code, @DateTimeConverter()  DateTime? timeIn, @DateTimeConverter()  DateTime? timeOut, @DateTimeConverter()  DateTime? receivedDate,  bool isFlagError,  String? siteId,  VehicleType? type)  $default,) {final _that = this;
 switch (_that) {
 case _HistoryTicket():
-return $default(_that.id,_that.timeIn,_that.timeOut,_that.siteId,_that.type);}
+return $default(_that.id,_that.code,_that.timeIn,_that.timeOut,_that.receivedDate,_that.isFlagError,_that.siteId,_that.type);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -201,10 +207,10 @@ return $default(_that.id,_that.timeIn,_that.timeOut,_that.siteId,_that.type);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime timeIn,  DateTime? timeOut,  String siteId,  VehicleType type)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String code, @DateTimeConverter()  DateTime? timeIn, @DateTimeConverter()  DateTime? timeOut, @DateTimeConverter()  DateTime? receivedDate,  bool isFlagError,  String? siteId,  VehicleType? type)?  $default,) {final _that = this;
 switch (_that) {
 case _HistoryTicket() when $default != null:
-return $default(_that.id,_that.timeIn,_that.timeOut,_that.siteId,_that.type);case _:
+return $default(_that.id,_that.code,_that.timeIn,_that.timeOut,_that.receivedDate,_that.isFlagError,_that.siteId,_that.type);case _:
   return null;
 
 }
@@ -216,14 +222,17 @@ return $default(_that.id,_that.timeIn,_that.timeOut,_that.siteId,_that.type);cas
 @JsonSerializable()
 
 class _HistoryTicket implements HistoryTicket {
-  const _HistoryTicket({required this.id, required this.timeIn, this.timeOut, required this.siteId, required this.type});
+  const _HistoryTicket({required this.id, required this.code, @DateTimeConverter() this.timeIn, @DateTimeConverter() this.timeOut, @DateTimeConverter() this.receivedDate, this.isFlagError = false, this.siteId, this.type});
   factory _HistoryTicket.fromJson(Map<String, dynamic> json) => _$HistoryTicketFromJson(json);
 
-@override final  String id;
-@override final  DateTime timeIn;
-@override final  DateTime? timeOut;
-@override final  String siteId;
-@override final  VehicleType type;
+@override final  int id;
+@override final  String code;
+@override@DateTimeConverter() final  DateTime? timeIn;
+@override@DateTimeConverter() final  DateTime? timeOut;
+@override@DateTimeConverter() final  DateTime? receivedDate;
+@override@JsonKey() final  bool isFlagError;
+@override final  String? siteId;
+@override final  VehicleType? type;
 
 /// Create a copy of HistoryTicket
 /// with the given fields replaced by the non-null parameter values.
@@ -238,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HistoryTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.timeIn, timeIn) || other.timeIn == timeIn)&&(identical(other.timeOut, timeOut) || other.timeOut == timeOut)&&(identical(other.siteId, siteId) || other.siteId == siteId)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HistoryTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.code, code) || other.code == code)&&(identical(other.timeIn, timeIn) || other.timeIn == timeIn)&&(identical(other.timeOut, timeOut) || other.timeOut == timeOut)&&(identical(other.receivedDate, receivedDate) || other.receivedDate == receivedDate)&&(identical(other.isFlagError, isFlagError) || other.isFlagError == isFlagError)&&(identical(other.siteId, siteId) || other.siteId == siteId)&&(identical(other.type, type) || other.type == type));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,timeIn,timeOut,siteId,type);
+int get hashCode => Object.hash(runtimeType,id,code,timeIn,timeOut,receivedDate,isFlagError,siteId,type);
 
 @override
 String toString() {
-  return 'HistoryTicket(id: $id, timeIn: $timeIn, timeOut: $timeOut, siteId: $siteId, type: $type)';
+  return 'HistoryTicket(id: $id, code: $code, timeIn: $timeIn, timeOut: $timeOut, receivedDate: $receivedDate, isFlagError: $isFlagError, siteId: $siteId, type: $type)';
 }
 
 
@@ -258,11 +267,11 @@ abstract mixin class _$HistoryTicketCopyWith<$Res> implements $HistoryTicketCopy
   factory _$HistoryTicketCopyWith(_HistoryTicket value, $Res Function(_HistoryTicket) _then) = __$HistoryTicketCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime timeIn, DateTime? timeOut, String siteId, VehicleType type
+ int id, String code,@DateTimeConverter() DateTime? timeIn,@DateTimeConverter() DateTime? timeOut,@DateTimeConverter() DateTime? receivedDate, bool isFlagError, String? siteId, VehicleType? type
 });
 
 
-@override $VehicleTypeCopyWith<$Res> get type;
+@override $VehicleTypeCopyWith<$Res>? get type;
 
 }
 /// @nodoc
@@ -275,14 +284,17 @@ class __$HistoryTicketCopyWithImpl<$Res>
 
 /// Create a copy of HistoryTicket
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? timeIn = null,Object? timeOut = freezed,Object? siteId = null,Object? type = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? code = null,Object? timeIn = freezed,Object? timeOut = freezed,Object? receivedDate = freezed,Object? isFlagError = null,Object? siteId = freezed,Object? type = freezed,}) {
   return _then(_HistoryTicket(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,timeIn: null == timeIn ? _self.timeIn : timeIn // ignore: cast_nullable_to_non_nullable
-as DateTime,timeOut: freezed == timeOut ? _self.timeOut : timeOut // ignore: cast_nullable_to_non_nullable
-as DateTime?,siteId: null == siteId ? _self.siteId : siteId // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as VehicleType,
+as int,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,timeIn: freezed == timeIn ? _self.timeIn : timeIn // ignore: cast_nullable_to_non_nullable
+as DateTime?,timeOut: freezed == timeOut ? _self.timeOut : timeOut // ignore: cast_nullable_to_non_nullable
+as DateTime?,receivedDate: freezed == receivedDate ? _self.receivedDate : receivedDate // ignore: cast_nullable_to_non_nullable
+as DateTime?,isFlagError: null == isFlagError ? _self.isFlagError : isFlagError // ignore: cast_nullable_to_non_nullable
+as bool,siteId: freezed == siteId ? _self.siteId : siteId // ignore: cast_nullable_to_non_nullable
+as String?,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as VehicleType?,
   ));
 }
 
@@ -290,9 +302,12 @@ as VehicleType,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$VehicleTypeCopyWith<$Res> get type {
-  
-  return $VehicleTypeCopyWith<$Res>(_self.type, (value) {
+$VehicleTypeCopyWith<$Res>? get type {
+    if (_self.type == null) {
+    return null;
+  }
+
+  return $VehicleTypeCopyWith<$Res>(_self.type!, (value) {
     return _then(_self.copyWith(type: value));
   });
 }

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +11,7 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});
@@ -24,7 +24,7 @@ class HomeSearchBar extends StatelessWidget {
           enabled: state is Loading,
           child: AppTextField(
             name: 'keyword',
-            hintText: context.tr('ticketSearch'),
+            hintText: Translations.of(context).ticketSearch,
             borderRadius: 100,
             prefixIconPath: AppIcons.search,
             suffix: InkWell(
@@ -54,7 +54,7 @@ class HomeSearchBar extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                context.tr('filter'),
+                Translations.of(context).filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
                   color: ThemeHelper.getColor(context).grey600,
                 ),
@@ -64,13 +64,13 @@ class HomeSearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  context.tr('time'),
+                  Translations.of(context).time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).grey700,
                   ),
                 ),
                 Text(
-                  context.tr('reset'),
+                  Translations.of(context).reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                   ),
@@ -81,7 +81,7 @@ class HomeSearchBar extends StatelessWidget {
               spacing: 12,
               crossAxisAlignment: .start,
               children: [
-                Text(context.tr('date')),
+                Text(Translations.of(context).date),
                 const AppDateTimePicker(name: 'dateTime'),
               ],
             ),
@@ -94,13 +94,13 @@ class HomeSearchBar extends StatelessWidget {
                     color: .basic,
                     theme: .outline,
                     onPressed: () => context.pop(),
-                    text: context.tr('cancel'),
+                    text: Translations.of(context).cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
                     onPressed: () => context.pop(),
-                    text: context.tr('apply'),
+                    text: Translations.of(context).apply,
                   ),
                 ),
               ],

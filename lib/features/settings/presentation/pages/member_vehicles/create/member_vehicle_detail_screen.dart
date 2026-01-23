@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +15,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class MemberVehicleDetailScreen extends StatefulWidget {
   const MemberVehicleDetailScreen({super.key});
@@ -39,11 +40,9 @@ class _MemberVehicleDetailScreenState
             formKey: formKey,
             isChildScrollable: true,
             noBackground: true,
-            title: context.tr(
-              GoRouterState.of(context).extra is String
-                  ? 'memberVehicleDetail'
-                  : 'createMemberVehicle',
-            ),
+            title: GoRouterState.of(context).extra is String
+                ? Translations.of(context).memberVehicleDetail
+                : Translations.of(context).createMemberVehicle,
             footer: [
               AppButton(
                 onPressed: () {
@@ -54,7 +53,7 @@ class _MemberVehicleDetailScreenState
                     );
                   }
                 },
-                text: context.tr('save'),
+                text: Translations.of(context).save,
               ),
               AppButton(
                 theme: .outline,
@@ -67,7 +66,7 @@ class _MemberVehicleDetailScreenState
                     );
                   }
                 },
-                text: context.tr('delete'),
+                text: Translations.of(context).delete,
               ),
             ],
             child: AppCard(
@@ -90,42 +89,42 @@ class _MemberVehicleDetailScreenState
                   ),
                   AppTextField(
                     name: 'name',
-                    labelText: context.tr('name'),
-                    hintText: context.tr('enter'),
+                    labelText: Translations.of(context).name,
+                    hintText: Translations.of(context).enter,
                     isExternalLabel: true,
                   ),
                   AppTextField(
                     name: 'phoneNumber',
-                    labelText: context.tr('phoneNumber'),
-                    hintText: context.tr('enter'),
+                    labelText: Translations.of(context).phoneNumber,
+                    hintText: Translations.of(context).enter,
                     isExternalLabel: true,
                   ),
                   AppTextField(
                     name: 'licenseNumber',
-                    labelText: context.tr('licenseNumber'),
-                    hintText: context.tr('enter'),
+                    labelText: Translations.of(context).licenseNumber,
+                    hintText: Translations.of(context).enter,
                     isExternalLabel: true,
                   ),
                   AppDropDownSearch(
                     name: 'branch',
                     dropdownItems: vehicleTypes,
-                    hint: context.tr('choose'),
+                    hint: Translations.of(context).choose,
                   ),
                   AppDropDownSearch(
                     name: 'vehicleType',
                     dropdownItems: vehicleTypes,
-                    hint: context.tr('choose'),
+                    hint: Translations.of(context).choose,
                   ),
                   AppTextField(
                     name: 'ticketID',
-                    labelText: context.tr('ticketID'),
-                    hintText: context.tr('enter'),
+                    labelText: Translations.of(context).ticketID,
+                    hintText: Translations.of(context).enter,
                     isExternalLabel: true,
                   ),
                   AppDropDownSearch(
                     name: 'expiredIn',
                     dropdownItems: vehicleTypes,
-                    hint: context.tr('choose'),
+                    hint: Translations.of(context).choose,
                   ),
                 ],
               ),

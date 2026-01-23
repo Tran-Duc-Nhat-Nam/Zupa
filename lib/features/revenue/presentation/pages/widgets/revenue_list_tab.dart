@@ -1,7 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
+import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
@@ -15,6 +16,7 @@ import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class RevenueListTab extends StatelessWidget {
   const RevenueListTab({super.key});
@@ -143,7 +145,7 @@ class RevenueTitle extends StatelessWidget {
         border: .all(color: ThemeHelper.getColor(context).grey100),
       ),
       child: ListTileTheme(
-        contentPadding: EdgeInsetsGeometry.zero,
+        contentPadding: .zero,
         dense: true,
         horizontalTitleGap: 0.0,
         minVerticalPadding: 0.0,
@@ -169,7 +171,7 @@ class RevenueTitle extends StatelessWidget {
                   alignment: .center,
                   color: ThemeHelper.getColor(context).primary400,
                   child: Text(
-                    revenue.date.day.toString(),
+                    revenue.date?.day.toString() ?? '36',
                     style: AppTextStyles.bodyMediumSemibold.copyWith(
                       color: ThemeHelper.getColor(context).white,
                     ),
@@ -189,7 +191,7 @@ class RevenueTitle extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            context.plural('pass', revenue.totalPass),
+                            Translations.of(context).pass(n: revenue.totalPass),
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
                               color: ThemeHelper.getColor(context).grey900,
@@ -247,7 +249,7 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  context.tr(e.vehicleType.name),
+                                  Translations.of(context)[e.vehicleType.name],
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(
@@ -266,7 +268,7 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  context.plural('pass', e.pass),
+                                  Translations.of(context).pass(n: e.pass),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(

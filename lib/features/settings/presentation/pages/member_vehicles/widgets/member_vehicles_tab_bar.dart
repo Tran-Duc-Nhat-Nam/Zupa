@@ -1,9 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class MemberVehiclesTabBar extends StatelessWidget {
   const MemberVehiclesTabBar({super.key});
@@ -28,9 +28,9 @@ class MemberVehiclesTabBar extends StatelessWidget {
         textStyle: AppTextStyles.bodySmallBold,
         tabTextColor: ThemeHelper.getColor(context).grey300,
         tabs: [
-          .new(label: context.tr('all')),
-          .new(label: context.tr('inUse')),
-          .new(label: context.tr('lost')),
+          .new(label: Translations.of(context).all),
+          .new(label: Translations.of(context).inUse),
+          .new(label: Translations.of(context).lost),
         ],
       ),
     );

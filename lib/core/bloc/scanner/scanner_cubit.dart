@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 
 part 'scanner_state.dart';
 part 'scanner_cubit.freezed.dart';
 
+@injectable
 class ScannerCubit extends Cubit<ScannerState> {
   ScannerCubit() : super(const .initial());
 

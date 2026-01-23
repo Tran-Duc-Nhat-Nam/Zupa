@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +14,7 @@ import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class EmployeeManagementScreen extends StatefulWidget {
   const EmployeeManagementScreen({super.key});
@@ -28,7 +29,7 @@ class _EmployeeManagementScreenState
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: context.tr('parkingAreaConfig'),
+      title: Translations.of(context).parkingAreaConfig,
       isChildScrollable: true,
       child: BlocProvider<EmployeeSettingsCubit>(
         create: (context) => getIt<EmployeeSettingsCubit>()..init(),

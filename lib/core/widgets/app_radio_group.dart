@@ -1,7 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class AppRadioGroup<T> extends StatefulWidget {
   const AppRadioGroup({
@@ -37,7 +37,7 @@ class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
     if (widget.required) {
       validators.add(
         FormBuilderValidators.required(
-          errorText: context.tr('errorMessage.required'),
+          errorText: Translations.of(context).errorMessage.required,
         ),
       );
     }

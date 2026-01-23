@@ -15,15 +15,15 @@ abstract class RevenueAPI {
     ParseErrorLogger? errorLogger,
   }) = _RevenueAPI;
 
-  @GET('/hrm/staff-meta-data')
+  @GET('/delivery')
   Future<SuccessResponse> getList(@Queries() Request request);
 
-  @GET('/hrm/staff-meta-data/{id}')
+  @GET('/delivery/{id}')
   Future<SuccessResponse> get(@Path('id') String id);
 
-  @POST('/hrm/staff-meta-data')
+  @POST('/delivery')
   Future<SuccessResponse> create(@Body() AccountRequest request);
 
-  @DELETE('/hrm/staff-meta-data/{id}')
+  @DELETE('/delivery/{id}')
   Future<SuccessResponse> delete(@Path('id') String id);
 }

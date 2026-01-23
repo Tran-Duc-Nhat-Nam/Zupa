@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -14,6 +14,7 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class GeneralConfigScreen extends StatefulWidget {
   const GeneralConfigScreen({super.key});
@@ -26,7 +27,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: context.tr('generalConfig'),
+      title: Translations.of(context).generalConfig,
       child: BlocProvider<GeneralConfigCubit>(
         create: (context) => getIt<GeneralConfigCubit>()..init(),
         child: BlocBuilder<GeneralConfigCubit, GeneralConfigState>(
@@ -62,7 +63,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                           children: [
                             AppListTile(
                               leadingIconPath: AppIcons.outlineSetting,
-                              text: context.tr('parkingPrice'),
+                              text: Translations.of(context).parkingPrice,
                               trailingIconPath: AppIcons.chevronRight,
                               onTap: () => context.pushNamed('ParkingPrice'),
                             ),
@@ -71,7 +72,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             ),
                             AppListTile(
                               leadingIconPath: AppIcons.calendarAdd,
-                              text: context.tr('memberFee'),
+                              text: Translations.of(context).memberFee,
                               trailingIconPath: AppIcons.chevronRight,
                               onTap: () => context.pushNamed('MemberFee'),
                             ),
@@ -85,7 +86,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             AppListTile(
                               padding: .zero,
                               leadingIconPath: AppIcons.notification,
-                              text: context.tr('title.warningThreshold'),
+                              text: Translations.of(context).title.warningThreshold,
                               trailing: SizedBox(
                                 height: 20,
                                 child: Transform.scale(
@@ -132,11 +133,11 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             )) ...[
                               AppTextField(
                                 name: 'warningThreshold',
-                                hintText: context.tr('enterInteger'),
+                                hintText: Translations.of(context).enterInteger,
                                 required: true,
                               ),
                               Text(
-                                context.tr('subtitle.warningThreshold'),
+                                Translations.of(context).subtitle.warningThreshold,
                                 style: AppTextStyles.bodySmallMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey500,
                                 ),

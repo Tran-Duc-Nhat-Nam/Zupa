@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -6,6 +6,7 @@ import 'package:zupa/core/widgets/app_icon.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -77,7 +78,7 @@ class _AppTextFieldState extends State<AppTextField> {
     if (widget.required) {
       validators.add(
         FormBuilderValidators.required(
-          errorText: context.tr('errorMessage.required'),
+          errorText: Translations.of(context).errorMessage.required,
         ),
       );
     }

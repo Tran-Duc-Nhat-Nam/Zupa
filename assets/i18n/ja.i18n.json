@@ -81,7 +81,6 @@
   "note": "備考",
   "noInfo": "情報なし",
   "noAccount": "予約するにはログインしてください",
-  "noTrip": "該当日の便は見つかりませんでした",
   "skip": "スキップ",
   "receipt": "領収書",
   "payment": "支払い",
@@ -224,8 +223,9 @@
     "warningThreshold": "駐車場が満車に近づいた際、システムが警告を表示します。",
     "extend": "延長しますか？"
   },
-  "Token verification failed": "認証に失敗しました",
+  "tokenVerificationFailed": "認証に失敗しました",
   "vi_VN": "ベトナム語",
   "en_US": "英語",
-  "ja": "日本語"
+  "ja": "日本語",
+  "ticketNumber": "チケット番号"
 }

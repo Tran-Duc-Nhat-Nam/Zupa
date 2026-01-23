@@ -1,5 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 class DateTimeConverter implements JsonConverter<DateTime, String> {
   const DateTimeConverter();
@@ -45,11 +45,11 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return .parse(json);
+    return DateFormat('dd-MM-yyyy HH:mm').parse(json);
   }
 
   @override
   String toJson(DateTime object) {
-    return convert(object);
+    return DateFormat('dd-MM-yyyy HH:mm').format(object);
   }
 }

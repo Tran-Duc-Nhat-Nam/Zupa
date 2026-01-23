@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shake/shake.dart';
@@ -13,6 +12,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class AppNavBar extends StatefulWidget {
   const AppNavBar({super.key, required this.navigationShell});
@@ -70,7 +70,7 @@ class _AppNavBarState extends State<AppNavBar> {
     return PersistentRouterTabConfig(
       item: .new(
         iconSize: _iconSize,
-        title: context.tr(titleKey),
+        title: Translations.of(context)[titleKey],
         activeColorSecondary: colors.primary500,
         activeForegroundColor: colors.primary50,
         textStyle: AppTextStyles.bodySmallBold.copyWith(
@@ -95,7 +95,7 @@ class _AppNavBarState extends State<AppNavBar> {
 
     return Scaffold(
       appBar: AppAppBar(
-        text: currentRouteName.tr(),
+        text: Translations.of(context)[currentRouteName],
         trailing: [
           Padding(
             padding: const .only(right: 24),

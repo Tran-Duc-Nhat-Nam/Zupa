@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
   final void Function(Locale? locale)? localeChangeCallBack;
@@ -67,10 +67,16 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
         }
       },
       localeChangeCallBack: (locale) {
-        setState(() {
-          context.setLocale(locale ?? Localizations.localeOf(context));
-          initService(context);
-        });
+        if (locale != null) {
+          setState(() {
+            LocaleSettings.setLocale(
+              AppLocale.values.firstWhere(
+                (element) => element.languageCode == locale.languageCode,
+              ),
+            );
+            initService(context);
+          });
+        }
       },
     );
     WidgetsBinding.instance.addObserver(observer);

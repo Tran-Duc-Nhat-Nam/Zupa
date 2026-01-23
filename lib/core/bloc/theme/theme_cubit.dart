@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
@@ -7,6 +8,7 @@ import 'package:zupa/core/styles/theme.dart';
 part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';
 
+@injectable
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit() : super(const .initial(AppThemeMode.followSystem));
 

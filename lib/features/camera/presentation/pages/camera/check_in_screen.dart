@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +14,7 @@ import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class CheckInScreen extends StatefulWidget {
   const CheckInScreen({super.key});
@@ -59,7 +59,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                         formKey.currentState!.value['type'],
                       );
                     } else {
-                      AppToast.showErrorToast(context.tr('error'));
+                      AppToast.showErrorToast(Translations.of(context).error);
                     }
                   },
                 ),
@@ -208,7 +208,9 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                   child: Center(
                                     child: AppTextField(
                                       name: 'ticketNumber',
-                                      hintText: context.tr('enterTicketNumber'),
+                                      hintText: Translations.of(
+                                        context,
+                                      ).enterTicketNumber,
                                       hasBorder: false,
                                       textAlign: .center,
                                     ),
@@ -264,12 +266,14 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                         );
                                       }
                                     },
-                                    text: context.tr(
-                                      state.mapOrNull(
-                                        checkedInSuccess: (_) => 'allowIn',
-                                        checkedOutSuccess: (_) => 'allowOut',
-                                      ) ?? '',
-                                    ),
+                                    text:
+                                        state.mapOrNull(
+                                          checkedInSuccess: (_) =>
+                                              Translations.of(context).allowIn,
+                                          checkedOutSuccess: (_) =>
+                                              Translations.of(context).allowOut,
+                                        ) ??
+                                        '',
                                   ),
                                 ),
                               ],

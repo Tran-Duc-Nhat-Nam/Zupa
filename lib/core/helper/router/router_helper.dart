@@ -49,7 +49,7 @@ class RouterHelper {
     routes: [
       /* ----------------- STANDALONE ROUTES ----------------- */
       GoRoute(
-        name: AppRoutes.login,
+        name: AppRoutes.login.name,
         path: '/login',
         pageBuilder: (context, state) => _buildPage(state, LoginScreen()),
         redirect: (context, state) async {
@@ -65,7 +65,7 @@ class RouterHelper {
         },
       ),
       GoRoute(
-        name: AppRoutes.checkIn,
+        name: AppRoutes.checkIn.name,
         path: '/check-in',
         pageBuilder: (context, state) => _buildPage(state, const CheckInScreen()),
       ),
@@ -87,7 +87,7 @@ class RouterHelper {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRoutes.home,
+                name: AppRoutes.home.name,
                 path: '/',
                 pageBuilder: (context, state) {
                   // Ensure this helper doesn't re-add listeners on every rebuild
@@ -101,7 +101,7 @@ class RouterHelper {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRoutes.history,
+                name: AppRoutes.history.name,
                 path: '/history',
                 pageBuilder: (context, state) => _buildPage(state, const HistoryScreen()),
               ),
@@ -111,7 +111,7 @@ class RouterHelper {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRoutes.revenue,
+                name: AppRoutes.revenue.name,
                 path: '/revenue',
                 pageBuilder: (context, state) => _buildPage(state, const RevenueScreen()),
               ),
@@ -122,7 +122,7 @@ class RouterHelper {
             navigatorKey: _shellKey,
             routes: [
               GoRoute(
-                name: AppRoutes.settings,
+                name: AppRoutes.settings.name,
                 path: '/settings',
                 pageBuilder: (context, state) => _buildPage(state, const SettingsScreen()),
               ),
@@ -136,12 +136,12 @@ class RouterHelper {
 
       // 1. Parking
       GoRoute(
-        name: AppRoutes.parking,
+        name: AppRoutes.parking.name,
         path: '/settings/parking',
         pageBuilder: (context, state) => _buildPage(state, const ParkingSettingsScreen()),
         routes: [
           GoRoute(
-            name: AppRoutes.parkingDetail,
+            name: AppRoutes.parkingDetail.name,
             path: 'detail',
             pageBuilder: (context, state) => _buildPage(state, const ParkingDetailsScreen()),
           ),
@@ -150,12 +150,12 @@ class RouterHelper {
 
       // 2. Member Vehicles
       GoRoute(
-        name: AppRoutes.memberVehicles,
+        name: AppRoutes.memberVehicles.name,
         path: '/settings/member-vehicles',
         pageBuilder: (context, state) => _buildPage(state, const MemberVehiclesScreen()),
         routes: [
           GoRoute(
-            name: AppRoutes.memberVehiclesDetail,
+            name: AppRoutes.memberVehiclesDetail.name,
             path: 'detail',
             pageBuilder: (context, state) => _buildPage(state, const MemberVehicleDetailScreen()),
           ),
@@ -164,24 +164,24 @@ class RouterHelper {
 
       // 3. Employee Management
       GoRoute(
-        name: AppRoutes.employeeManagement,
+        name: AppRoutes.employeeManagement.name,
         path: '/settings/employee-management',
         pageBuilder: (context, state) => _buildPage(state, const EmployeeManagementScreen()),
       ),
 
       // 4. General Config
       GoRoute(
-        name: AppRoutes.generalConfig,
+        name: AppRoutes.generalConfig.name,
         path: '/settings/general-config',
         pageBuilder: (context, state) => _buildPage(state, const GeneralConfigScreen()),
         routes: [
           GoRoute(
-            name: AppRoutes.parkingPrice,
+            name: AppRoutes.parkingPrice.name,
             path: 'parking-price', // Changed from 'detail' to avoid path conflicts in deep linking
             pageBuilder: (context, state) => _buildPage(state, const ParkingPriceSetting()),
           ),
           GoRoute(
-            name: AppRoutes.memberFee,
+            name: AppRoutes.memberFee.name,
             path: 'member-fee', // Changed from 'detail'
             pageBuilder: (context, state) => _buildPage(state, const MemberFeeSetingScreen()),
           ),
@@ -190,14 +190,14 @@ class RouterHelper {
 
       // 5. Change Password
       GoRoute(
-        name: AppRoutes.changePassword,
+        name: AppRoutes.changePassword.name,
         path: '/settings/change-password',
         pageBuilder: (context, state) => _buildPage(state, const ChangePasswordScreen()),
       ),
 
       // 6. App Settings
       GoRoute(
-        name: AppRoutes.appSettings,
+        name: AppRoutes.appSettings.name,
         path: '/settings/change-app',
         pageBuilder: (context, state) => _buildPage(state, const AppSettingsScreen()),
       ),

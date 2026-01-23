@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -14,6 +13,7 @@ import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
       child: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
-            loginSuccess: () => context.goNamed(AppRoutes.home),
+            loginSuccess: () => context.goNamed(AppRoutes.home.name),
             loginFailed: (message) {
               AppToast.showErrorToast(message);
               final values = formKey.currentState?.value;
@@ -67,13 +67,13 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          context.tr('title.login'),
+                          Translations.of(context).title.login,
                           style: AppTextStyles.heading2,
                         ),
                       ),
                       Center(
                         child: Text(
-                          context.tr('subtitle.login'),
+                          Translations.of(context).subtitle.login,
                           style: AppTextStyles.bodyMediumRegular.copyWith(
                             color: ThemeHelper.getColor(context).grey400,
                           ),
@@ -82,29 +82,26 @@ class LoginScreen extends StatelessWidget {
                       AppTextField(
                         name: 'tenant',
                         required: true,
-                        labelText: context.tr('site'),
+                        labelText: Translations.of(context).site,
                         prefix: const Icon(Icons.warehouse_outlined),
-                        // hintText: context.tr('site'),
                       ),
                       AppTextField(
                         name: 'username',
                         required: true,
-                        labelText: context.tr('username'),
+                        labelText: Translations.of(context).username,
                         prefix: const Icon(Icons.person_outline_rounded),
-                        // hintText: context.tr('username'),
                       ),
                       AppTextField(
                         name: 'password',
                         required: true,
                         isPassword: true,
-                        labelText: context.tr('password'),
+                        labelText: Translations.of(context).password,
                         prefix: const Icon(Icons.lock_outline_rounded),
-                        // hintText: context.tr('password'),
                       ),
                       AppCheckbox(
                         name: 'isRemember',
                         label: Text(
-                          context.tr('isRemember'),
+                          Translations.of(context).isRemember,
                           style: AppTextStyles.bodySmallMedium.copyWith(
                             color: ThemeHelper.getColor(context).grey700,
                           ),
@@ -131,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                             }
                           },
                         ),
-                        text: context.tr('title.login'),
+                        text: Translations.of(context).title.login,
                         padding: const .all(16),
                         child: state.whenOrNull(
                           submitting: () => LoadingAnimationWidget.waveDots(

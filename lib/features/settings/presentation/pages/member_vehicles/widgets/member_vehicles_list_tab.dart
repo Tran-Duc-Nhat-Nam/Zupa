@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
@@ -17,6 +17,7 @@ import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class MemberVehiclesListTab extends StatelessWidget {
   const MemberVehiclesListTab({super.key});
@@ -162,15 +163,15 @@ class MemberVehiclesTitle extends StatelessWidget {
                   theme: .secondary,
                   onPressed: () => AppDialog.showModal(
                     context,
-                    titleText: context.tr('title.extend'),
-                    subtitleText: context.tr('subtitle.extend'),
-                    okText: context.tr('title.extend'),
-                    cancelText: context.tr('close'),
+                    titleText: Translations.of(context).title.extend,
+                    subtitleText: Translations.of(context).subtitle.extend,
+                    okText: Translations.of(context).title.extend,
+                    cancelText: Translations.of(context).close,
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
                         AppMessage.showSuccessMessage(
-                          context.tr('extendSuccessful'),
+                          Translations.of(context).success,
                           context: context,
                         );
                       }

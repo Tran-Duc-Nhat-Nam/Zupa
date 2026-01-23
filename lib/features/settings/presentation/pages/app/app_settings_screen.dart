@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
-import 'package:zupa/core/styles/localization.dart';
+import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -14,6 +13,7 @@ import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class AppSettingsScreen extends StatefulWidget {
   const AppSettingsScreen({super.key});
@@ -27,7 +27,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   Widget build(BuildContext context) {
     return AppScreen(
       formKey: formKey,
-      title: context.tr('appSettings'),
+      title: Translations.of(context).appSettings,
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
@@ -40,10 +40,16 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     listener: (context, state) {
                       state.whenOrNull(
                         loading: (locale) {
-                          context.setLocale(
-                            locale.getLocale() ??
-                                .new(Intl.systemLocale.substring(0, 2)),
-                          );
+                          if (locale == AppLocalization.followSystem) {
+                            LocaleSettings.useDeviceLocale();
+                          } else {
+                            LocaleSettings.setLocale(
+                              AppLocale.values.firstWhere(
+                                (element) =>
+                                    element.languageCode == locale.name,
+                              ),
+                            );
+                          }
                         },
                       );
                     },
@@ -51,8 +57,8 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       builder: (context, state) {
                         return AppListTile(
                           padding: .zero,
-                          leadingIconPath: AppIcons.lampOn,
-                          text: context.tr('language'),
+                          leadingIconPath: AppIcons.global,
+                          text: Translations.of(context).language,
                           trailing: AppDropDownSearch<AppLocalization>(
                             name: 'appLocale',
                             buttonDecoration: const .new(),
@@ -64,9 +70,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               loading: (locale) => locale,
                               initial: () => .followSystem,
                             ),
-                            itemLabelGetter: (item) => context.tr(
-                              item?.getLocaleString() ?? 'followSystem',
-                            ),
+                            itemLabelGetter: (item) => item != null
+                                ? Translations.of(
+                                    context,
+                                  )[item.getLocaleString() ?? 'followSystem']
+                                : Translations.of(context).followSystem,
                             onChanged: (value) => context
                                 .read<LocalizationCubit>()
                                 .changeLocale(value ?? .followSystem),
@@ -80,8 +88,8 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     builder: (context, state) {
                       return AppListTile(
                         padding: .zero,
-                        leadingIconPath: AppIcons.global,
-                        text: context.tr('language'),
+                        leadingIconPath: AppIcons.lampOn,
+                        text: Translations.of(context).language,
                         trailing: AppDropDownSearch<AppThemeMode>(
                           name: 'appLocale',
                           buttonDecoration: const .new(),
@@ -89,13 +97,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           dropdownItems: const [.light, .dark, .followSystem],
                           buttonWidth: 140,
                           initialValue: state.when(initial: (mode) => mode),
-                          itemLabelGetter: (item) => context.tr(
-                            item == .light
-                                ? 'lightMode'
-                                : item == .dark
-                                ? 'darkMode'
-                                : 'followSystem',
-                          ),
+                          itemLabelGetter: (item) => item == .light
+                              ? Translations.of(context).lightMode
+                              : item == .dark
+                              ? Translations.of(context).darkMode
+                              : Translations.of(context).followSystem,
                           onChanged: (value) => context
                               .read<ThemeCubit>()
                               .changeTheme(value ?? .followSystem),
@@ -109,7 +115,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       return AppListTile(
                         padding: .zero,
                         leadingIconPath: AppIcons.notification,
-                        text: context.tr('debuggerMode'),
+                        text: Translations.of(context).debuggerMode,
                         trailing: SizedBox(
                           height: 20,
                           child: Transform.scale(
@@ -156,7 +162,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       return AppListTile(
                         padding: .zero,
                         leadingIconPath: AppIcons.notification,
-                        text: context.tr('biometricAuth'),
+                        text: Translations.of(context).biometricAuth,
                         trailing: SizedBox(
                           height: 20,
                           child: Transform.scale(

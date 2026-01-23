@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // Changed from cupertino for AppToast/Theme access
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,7 @@ import 'package:nfc_manager/nfc_manager_android.dart';
 
 import 'package:zupa/core/constants/routes.dart'; // Import your routes
 import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class NfcHelper {
   static Future<void> startListenToNfc(BuildContext context) async {
@@ -23,7 +23,7 @@ class NfcHelper {
     NfcManager.instance.startSession(
       // iOS specific alert message
       alertMessageIos: context.mounted
-          ? context.tr('nfc_scan_hint')
+          ? Translations.of(context).error
           : 'Hold your phone near the tag',
       onSessionErrorIos: (error) async {
         // Handle session errors silently or log them
@@ -52,17 +52,15 @@ class NfcHelper {
           // Stop session on iOS immediately after read (Android handles this differently)
           if (Platform.isIOS) NfcManager.instance.stopSession();
 
-          context.pushNamed(AppRoutes.checkIn, extra: false);
+          context.pushNamed(AppRoutes.checkIn.name, extra: false);
         } else {
           // On iOS, invalidate session with error message
           if (Platform.isIOS) {
             await NfcManager.instance.stopSession(
-              errorMessageIos: context.tr('error'),
+              errorMessageIos: Translations.of(context).error,
             );
           }
-          AppToast.showErrorToast(
-            context.mounted ? context.tr('error_invalid_tag') : 'Invalid Tag',
-          );
+          AppToast.showErrorToast(Translations.of(context).error);
         }
       },
       pollingOptions: {

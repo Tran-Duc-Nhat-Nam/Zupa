@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DailyRevenue {
 
- DateTime get date; VehicleType? get vehicleType; List<RevenueModel> get revenue;
+@DateTimeConverter() DateTime? get date; VehicleType? get vehicleType; List<RevenueModel> get revenue;
 /// Create a copy of DailyRevenue
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DailyRevenueCopyWith<$Res>  {
   factory $DailyRevenueCopyWith(DailyRevenue value, $Res Function(DailyRevenue) _then) = _$DailyRevenueCopyWithImpl;
 @useResult
 $Res call({
- DateTime date, VehicleType? vehicleType, List<RevenueModel> revenue
+@DateTimeConverter() DateTime? date, VehicleType? vehicleType, List<RevenueModel> revenue
 });
 
 
@@ -65,10 +65,10 @@ class _$DailyRevenueCopyWithImpl<$Res>
 
 /// Create a copy of DailyRevenue
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? date = null,Object? vehicleType = freezed,Object? revenue = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? date = freezed,Object? vehicleType = freezed,Object? revenue = null,}) {
   return _then(_self.copyWith(
-date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime,vehicleType: freezed == vehicleType ? _self.vehicleType : vehicleType // ignore: cast_nullable_to_non_nullable
+date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime?,vehicleType: freezed == vehicleType ? _self.vehicleType : vehicleType // ignore: cast_nullable_to_non_nullable
 as VehicleType?,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
 as List<RevenueModel>,
   ));
@@ -164,7 +164,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime date,  VehicleType? vehicleType,  List<RevenueModel> revenue)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@DateTimeConverter()  DateTime? date,  VehicleType? vehicleType,  List<RevenueModel> revenue)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DailyRevenue() when $default != null:
 return $default(_that.date,_that.vehicleType,_that.revenue);case _:
@@ -185,7 +185,7 @@ return $default(_that.date,_that.vehicleType,_that.revenue);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime date,  VehicleType? vehicleType,  List<RevenueModel> revenue)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@DateTimeConverter()  DateTime? date,  VehicleType? vehicleType,  List<RevenueModel> revenue)  $default,) {final _that = this;
 switch (_that) {
 case _DailyRevenue():
 return $default(_that.date,_that.vehicleType,_that.revenue);}
@@ -202,7 +202,7 @@ return $default(_that.date,_that.vehicleType,_that.revenue);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime date,  VehicleType? vehicleType,  List<RevenueModel> revenue)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@DateTimeConverter()  DateTime? date,  VehicleType? vehicleType,  List<RevenueModel> revenue)?  $default,) {final _that = this;
 switch (_that) {
 case _DailyRevenue() when $default != null:
 return $default(_that.date,_that.vehicleType,_that.revenue);case _:
@@ -217,10 +217,10 @@ return $default(_that.date,_that.vehicleType,_that.revenue);case _:
 @JsonSerializable()
 
 class _DailyRevenue extends DailyRevenue {
-  const _DailyRevenue({required this.date, this.vehicleType, final  List<RevenueModel> revenue = const []}): _revenue = revenue,super._();
+  const _DailyRevenue({@DateTimeConverter() this.date, this.vehicleType, final  List<RevenueModel> revenue = const []}): _revenue = revenue,super._();
   factory _DailyRevenue.fromJson(Map<String, dynamic> json) => _$DailyRevenueFromJson(json);
 
-@override final  DateTime date;
+@override@DateTimeConverter() final  DateTime? date;
 @override final  VehicleType? vehicleType;
  final  List<RevenueModel> _revenue;
 @override@JsonKey() List<RevenueModel> get revenue {
@@ -263,7 +263,7 @@ abstract mixin class _$DailyRevenueCopyWith<$Res> implements $DailyRevenueCopyWi
   factory _$DailyRevenueCopyWith(_DailyRevenue value, $Res Function(_DailyRevenue) _then) = __$DailyRevenueCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime date, VehicleType? vehicleType, List<RevenueModel> revenue
+@DateTimeConverter() DateTime? date, VehicleType? vehicleType, List<RevenueModel> revenue
 });
 
 
@@ -280,10 +280,10 @@ class __$DailyRevenueCopyWithImpl<$Res>
 
 /// Create a copy of DailyRevenue
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? date = null,Object? vehicleType = freezed,Object? revenue = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? date = freezed,Object? vehicleType = freezed,Object? revenue = null,}) {
   return _then(_DailyRevenue(
-date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime,vehicleType: freezed == vehicleType ? _self.vehicleType : vehicleType // ignore: cast_nullable_to_non_nullable
+date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime?,vehicleType: freezed == vehicleType ? _self.vehicleType : vehicleType // ignore: cast_nullable_to_non_nullable
 as VehicleType?,revenue: null == revenue ? _self._revenue : revenue // ignore: cast_nullable_to_non_nullable
 as List<RevenueModel>,
   ));

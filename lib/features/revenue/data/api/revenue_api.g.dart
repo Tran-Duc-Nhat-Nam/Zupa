@@ -30,7 +30,7 @@ class _RevenueAPI implements RevenueAPI {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data',
+            '/delivery',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -57,7 +57,7 @@ class _RevenueAPI implements RevenueAPI {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data/${id}',
+            '/delivery/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -85,7 +85,7 @@ class _RevenueAPI implements RevenueAPI {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data',
+            '/delivery',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -112,7 +112,7 @@ class _RevenueAPI implements RevenueAPI {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/hrm/staff-meta-data/${id}',
+            '/delivery/${id}',
             queryParameters: queryParameters,
             data: _data,
           )

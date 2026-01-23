@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +12,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,7 +34,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
       formKey: formKey,
       isChildScrollable: true,
       hasParentView: true,
-      title: context.tr('home'),
+      title: Translations.of(context).home,
       hasAppBar: false,
       child: MultiBlocProvider(
         providers: [
@@ -47,7 +48,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
         child: BlocListener<HomeTicketCubit, HomeTicketState>(
           listener: (context, state) {
             state.whenOrNull(
-              unauthenticated: () => context.goNamed(AppRoutes.login),
+              unauthenticated: () => context.goNamed(AppRoutes.login.name),
             );
           },
           child: const Column(

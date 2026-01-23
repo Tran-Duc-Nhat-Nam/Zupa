@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
 
 import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/revenue/data/models/revenue_model.dart';
@@ -10,7 +11,7 @@ part 'daily_revenue.g.dart';
 sealed class DailyRevenue with _$DailyRevenue {
   const DailyRevenue._();
   const factory DailyRevenue({
-    required DateTime date,
+    @DateTimeConverter() DateTime? date,
     VehicleType? vehicleType,
     @Default([]) List<RevenueModel> revenue,
   }) = _DailyRevenue;

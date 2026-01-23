@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +14,7 @@ import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class ParkingSettingsScreen extends StatefulWidget {
   const ParkingSettingsScreen({super.key});
@@ -26,7 +27,7 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: context.tr('parkingAreaConfig'),
+      title: Translations.of(context).parkingAreaConfig,
       isChildScrollable: true,
       child: BlocProvider<ParkingSettingsCubit>(
         create: (context) => getIt<ParkingSettingsCubit>()..init(),

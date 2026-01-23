@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +10,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -29,16 +29,13 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
           state.maybeWhen(
             changePasswordSuccess: () {
               AppMessage.showSuccessMessage(
-                context.tr('success'),
+                Translations.of(context).success,
                 context: context,
               );
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
-              AppMessage.showErrorMessage(
-                message,
-                context: context,
-              );
+              AppMessage.showErrorMessage(message, context: context);
               context.read<PasswordSettingsCubit>().init();
             },
             orElse: () {},
@@ -50,7 +47,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
               formKey: formKey,
               isChildScrollable: true,
               noBackground: true,
-              title: context.tr('changePassword'),
+              title: Translations.of(context).changePassword,
               footer: [
                 AppButton(
                   onPressed: () {
@@ -62,14 +59,11 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                       );
                     }
                   },
-                  text: context.tr('changePassword'),
+                  text: Translations.of(context).changePassword,
                 ),
               ],
               child: Padding(
-                padding: const .symmetric(
-                  vertical: 16,
-                  horizontal: 24,
-                ),
+                padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: AppCard(
                   child: Column(
                     spacing: 8,
@@ -77,8 +71,8 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                     children: [
                       AppTextField(
                         name: 'currentPassword',
-                        labelText: context.tr('currentPassword'),
-                        hintText: context.tr('enterCurrentPassword'),
+                        labelText: Translations.of(context).currentPassword,
+                        hintText: Translations.of(context).enterCurrentPassword,
                         isExternalLabel: true,
                         isPassword: true,
                         required: true,
@@ -86,15 +80,15 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                       Divider(color: ThemeHelper.getColor(context).grey100),
                       AppTextField(
                         name: 'newPassword',
-                        labelText: context.tr('newPassword'),
-                        hintText: context.tr('enterNewPassword'),
+                        labelText: Translations.of(context).newPassword,
+                        hintText: Translations.of(context).enterNewPassword,
                         isExternalLabel: true,
                         isPassword: true,
                         required: true,
                       ),
                       AppTextField(
                         name: 'confirmPassword',
-                        hintText: context.tr('confirmNewPassword'),
+                        hintText: Translations.of(context).confirmPassword,
                         isPasswordConfirm: true,
                         required: true,
                         validators: [
@@ -104,7 +98,9 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                                         .currentState
                                         ?.instantValue['newPassword']
                                 ? null
-                                : context.tr('errorMessage.confirmPassword');
+                                : Translations.of(
+                                    context,
+                                  ).errorMessage.confirmPassword;
                           },
                         ],
                       ),

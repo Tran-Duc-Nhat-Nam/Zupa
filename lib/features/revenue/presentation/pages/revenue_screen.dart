@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +9,7 @@ import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class RevenueScreen extends StatefulWidget {
   const RevenueScreen({super.key});
@@ -33,7 +34,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
       formKey: formKey,
       isChildScrollable: true,
       hasParentView: true,
-      title: context.tr('revenue'),
+      title: Translations.of(context).revenue,
       hasAppBar: false,
       child: MultiBlocProvider(
         providers: [
@@ -45,7 +46,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
         child: BlocListener<RevenueListCubit, RevenueListState>(
           listener: (context, state) {
             state.whenOrNull(
-              unauthenticated: () => context.goNamed(AppRoutes.login),
+              unauthenticated: () => context.goNamed(AppRoutes.login.name),
             );
           },
           child: const Column(

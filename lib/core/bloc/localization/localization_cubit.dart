@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
-import 'package:zupa/core/styles/localization.dart';
+import 'package:zupa/core/constants/localization.dart';
 
 part 'localization_state.dart';
 part 'localization_cubit.freezed.dart';
 
+@injectable
 class LocalizationCubit extends Cubit<LocalizationState> {
   LocalizationCubit() : super(const .initial());
 

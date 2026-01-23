@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
 
 import 'package:zupa/core/models/vehicle_type.dart';
 
@@ -8,11 +9,14 @@ part 'history_ticket.g.dart';
 @freezed
 sealed class HistoryTicket with _$HistoryTicket {
   const factory HistoryTicket({
-    required String id,
-    required DateTime timeIn,
-    DateTime? timeOut,
-    required String siteId,
-    required VehicleType type,
+    required int id,
+    required String code,
+    @DateTimeConverter() DateTime? timeIn,
+    @DateTimeConverter() DateTime? timeOut,
+    @DateTimeConverter() DateTime? receivedDate,
+    @Default(false) bool isFlagError,
+    String? siteId,
+    VehicleType? type,
   }) = _HistoryTicket;
 
   factory HistoryTicket.fromJson(Map<String, dynamic> json) =>

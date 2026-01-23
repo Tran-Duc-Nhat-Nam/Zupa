@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
@@ -22,7 +22,7 @@ class AppErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: .min,
           children: [
-            Text(context.tr(message)),
+            Text(message),
             IconsButton(onPressed: onPressed, text: buttonText),
           ],
         ),

@@ -1,9 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class TicketInfoCard extends StatelessWidget {
   const TicketInfoCard({
@@ -77,7 +78,7 @@ class TicketInfoCard extends StatelessWidget {
                                 color: ThemeHelper.getColor(context).grey200,
                               ),
                               Text(
-                                context.plural('totalTime', totalTime!),
+                                  Translations.of(context).totalTime(n: totalTime!),
                                 overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,
@@ -99,7 +100,7 @@ class TicketInfoCard extends StatelessWidget {
                           mainAxisAlignment: .center,
                           children: [
                             Text(
-                              context.tr(ticketType),
+    Translations.of(context)[ticketType],
                               style: AppTextStyles.bodyMediumMedium.copyWith(
                                 color: ThemeHelper.getColor(context).grey700,
                               ),

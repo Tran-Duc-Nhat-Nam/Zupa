@@ -305,6 +305,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  csv:
+    dependency: transitive
+    description:
+      name: csv
+      sha256: c6aa2679b2a18cb57652920f674488d89712efaf4d3fdf2e537215b35fc19d6c
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   cupertino_icons:
     dependency: transitive
     description:
@@ -369,22 +377,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0-pre6"
-  easy_localization:
-    dependency: "direct main"
-    description:
-      name: easy_localization
-      sha256: "2ccdf9db8fe4d9c5a75c122e6275674508fd0f0d49c827354967b8afcc56bbed"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.8"
-  easy_logger:
-    dependency: transitive
-    description:
-      name: easy_logger
-      sha256: c764a6e024846f33405a2342caf91c62e357c24b02c04dbc712ef232bf30ffb7
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   equatable:
     dependency: transitive
     description:
@@ -783,7 +775,7 @@ packages:
     source: hosted
     version: "2.9.1+2"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
@@ -1388,6 +1380,30 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  slang:
+    dependency: "direct main"
+    description:
+      name: slang
+      sha256: "13e3b6f07adc51ab751e7889647774d294cbce7a3382f81d9e5029acfe9c37b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.12.0"
+  slang_build_runner:
+    dependency: "direct dev"
+    description:
+      name: slang_build_runner
+      sha256: "453d74b5430153a3c4150d5ba8f6380e0785f3939f7511f10ac5b6cf9bb7d2a7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.12.0"
+  slang_flutter:
+    dependency: "direct main"
+    description:
+      name: slang_flutter
+      sha256: "0a4545cca5404d6b7487cf61cf1fe56c52daeb08de56a7574ee8381fbad035a0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.12.0"
   source_gen:
     dependency: transitive
     description:
@@ -1648,10 +1664,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: d354a7ec6931e6047785f4db12a1f61ec3d43b207fc0790f863818543f8ff0dc
+      sha256: "201e876b5d52753626af64b6359cd13ac6011b80728731428fd34bc840f71c9b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.19"
+    version: "1.1.20"
   vector_math:
     dependency: transitive
     description:

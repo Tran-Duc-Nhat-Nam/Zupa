@@ -81,7 +81,6 @@
   "note": "Note",
   "noInfo": "No information",
   "noAccount": "Login to book tickets",
-  "noTrip": "No trip found for this day",
   "skip": "Skip",
   "receipt": "Receipt",
   "payment": "Payment",
@@ -225,8 +224,9 @@
     "warningThreshold": "When the parking lot is almost full, the system will display a warning.",
     "extend": "Do you want to extend?"
   },
-  "Token verification failed": "Verification failed",
+  "tokenVerificationFailed": "Verification failed",
   "vi_VN": "Vietnamese",
   "en_US": "English",
-  "ja": "Japanese"
+  "ja": "Japanese",
+  "ticketNumber": "Ticket number"
 }

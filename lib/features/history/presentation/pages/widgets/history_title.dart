@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,7 +35,7 @@ class HistoryTitle extends StatelessWidget {
               width: 24,
               height: 24,
               child: AppIcon(
-                path: ticket.type.iconPath,
+                path: ticket.type?.iconPath ?? AppIcons.global,
                 size: 24,
                 color: colorScheme.grey700,
               ),
@@ -55,26 +54,33 @@ class HistoryTitle extends StatelessWidget {
                     mainAxisAlignment: .center,
                     spacing: 4,
                     children: [
+                      const Expanded(child: SizedBox()),
                       Text(
-                        ticket.id.length % 2 == 0
-                            ? ticket.id
-                            : context.tr('passenger'),
+                        ticket.id.toString(),
                         overflow: .ellipsis,
                         maxLines: 1,
+                        textAlign: .center,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
                           color: colorScheme.grey900,
                         ),
                       ),
-                      if (ticket.id.length % 2 == 0)
-                        const AppIcon(path: AppIcons.userOctagon, size: 20),
+                      Expanded(
+                        child: Align(
+                          alignment: .centerLeft,
+                          child: ticket.id % 2 == 0
+                              ? const AppIcon(
+                                  path: AppIcons.userOctagon,
+                                  size: 20,
+                                )
+                              : const SizedBox(),
+                        ),
+                      ),
                     ],
                   ),
                   Text(
-                    ticket.id.length % 2 == 0
-                        ? 'ABC-789-4004-ZYX-9A8B'
-                        : 'No license plate',
+                    ticket.code,
                     textAlign: .center,
-                    style: ticket.id.length % 2 == 0
+                    style: !ticket.isFlagError
                         ? GoogleFonts.robotoMono().copyWith(
                             fontWeight: .w600,
                             color: colorScheme.grey900,
@@ -91,7 +97,6 @@ class HistoryTitle extends StatelessWidget {
           Padding(
             padding: const .symmetric(horizontal: 16, vertical: 8),
             child: Column(
-              mainAxisAlignment: .center,
               children: [
                 Row(
                   children: [
@@ -105,7 +110,9 @@ class HistoryTitle extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateTimeConverter.toShortTime(ticket.timeIn),
+                      ticket.receivedDate != null
+                          ? DateTimeConverter.toShortTime(ticket.receivedDate!)
+                          : '',
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: colorScheme.grey700,
                       ),
@@ -114,17 +121,16 @@ class HistoryTitle extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    if (ticket.id.length % 2 == 0)
-                      Skeleton.replace(
-                        width: 24,
-                        height: 24,
-                        child: AppIcon(
-                          path: AppIcons.roundArrowUp,
-                          size: 24,
-                          color: colorScheme.error600,
-                        ),
+                    Skeleton.replace(
+                      width: 24,
+                      height: 24,
+                      child: AppIcon(
+                        path: AppIcons.roundArrowUp,
+                        size: 24,
+                        color: colorScheme.error600,
                       ),
-                    ticket.id.length % 2 == 0
+                    ),
+                    ticket.id % 2 == 0
                         ? Text(
                             DateTimeConverter.toShortTime(
                               ticket.timeOut ?? .now(),

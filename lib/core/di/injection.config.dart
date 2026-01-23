@@ -19,6 +19,7 @@ import '../../features/auth/data/repository/authentication_repository_impl.dart'
     as _i892;
 import '../../features/auth/domain/repository/authentication_repository.dart'
     as _i251;
+import '../../features/auth/presentation/bloc/auth/auth_cubit.dart' as _i190;
 import '../../features/auth/presentation/bloc/login/login_cubit.dart' as _i65;
 import '../../features/history/data/repository/history_repository_impl.dart'
     as _i148;
@@ -62,6 +63,10 @@ import '../../features/settings/presentation/bloc/parking/parking_settings_cubit
     as _i411;
 import '../../features/settings/presentation/bloc/password/password_settings_cubit.dart'
     as _i382;
+import '../bloc/debugger/debugger_cubit.dart' as _i618;
+import '../bloc/localization/localization_cubit.dart' as _i781;
+import '../bloc/scanner/scanner_cubit.dart' as _i220;
+import '../bloc/theme/theme_cubit.dart' as _i810;
 import '../services/biometric_service.dart' as _i374;
 import '../services/network_service.dart' as _i463;
 import '../services/storage_service.dart' as _i306;
@@ -75,6 +80,11 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final externalModule = _$ExternalModule();
+    gh.factory<_i618.DebuggerCubit>(() => _i618.DebuggerCubit());
+    gh.factory<_i781.LocalizationCubit>(() => _i781.LocalizationCubit());
+    gh.factory<_i220.ScannerCubit>(() => _i220.ScannerCubit());
+    gh.factory<_i810.ThemeCubit>(() => _i810.ThemeCubit());
+    gh.factory<_i190.AuthCubit>(() => _i190.AuthCubit());
     gh.factory<_i567.HistoryFilterCubit>(() => _i567.HistoryFilterCubit());
     gh.factory<_i200.HomeFilterCubit>(() => _i200.HomeFilterCubit());
     gh.factory<_i912.RevenueFilterCubit>(() => _i912.RevenueFilterCubit());

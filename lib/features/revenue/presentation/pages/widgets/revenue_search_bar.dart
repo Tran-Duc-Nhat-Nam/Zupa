@@ -1,6 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
@@ -9,6 +10,7 @@ import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class RevenueSearchBar extends StatelessWidget {
   const RevenueSearchBar({super.key});
@@ -32,9 +34,7 @@ class RevenueSearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  context.tr(
-                    DateTimeConverter.getMonthKey(DateTime.now().month),
-                  ),
+                  Translations.of(context)[DateTimeConverter.getMonthKey(DateTime.now().month)],
                   style: AppTextStyles.heading5.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                     fontWeight: .w600,
@@ -73,7 +73,7 @@ class RevenueSearchBar extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      context.tr('filter'),
+                                      Translations.of(context).filter,
                                       style: AppTextStyles.bodySmallSemibold
                                           .copyWith(
                                             color: ThemeHelper.getColor(
@@ -86,7 +86,7 @@ class RevenueSearchBar extends StatelessWidget {
                                     mainAxisAlignment: .spaceBetween,
                                     children: [
                                       Text(
-                                        context.tr('time'),
+                                        Translations.of(context).time,
                                         style: AppTextStyles.bodyMediumSemibold
                                             .copyWith(
                                               color: ThemeHelper.getColor(
@@ -95,7 +95,7 @@ class RevenueSearchBar extends StatelessWidget {
                                             ),
                                       ),
                                       Text(
-                                        context.tr('reset'),
+                                        Translations.of(context).reset,
                                         style: AppTextStyles.bodyMediumSemibold
                                             .copyWith(
                                               color: ThemeHelper.getColor(
@@ -109,7 +109,7 @@ class RevenueSearchBar extends StatelessWidget {
                                     spacing: 12,
                                     crossAxisAlignment: .start,
                                     children: [
-                                      Text(context.tr('date')),
+                                      Text(Translations.of(context).date),
                                       const AppDateTimePicker(name: 'dateTime'),
                                     ],
                                   ),
@@ -122,13 +122,13 @@ class RevenueSearchBar extends StatelessWidget {
                                           color: .basic,
                                           theme: .outline,
                                           onPressed: () => context.pop(),
-                                          text: context.tr('cancel'),
+                                          text: Translations.of(context).cancel,
                                         ),
                                       ),
                                       Expanded(
                                         child: AppButton(
                                           onPressed: () => context.pop(),
-                                          text: context.tr('apply'),
+                                          text: Translations.of(context).apply,
                                         ),
                                       ),
                                     ],
@@ -149,7 +149,7 @@ class RevenueSearchBar extends StatelessWidget {
               spacing: 4,
               children: [
                 Text(
-                  '${context.tr('totalRevenue')}:',
+                  '${Translations.of(context).totalRevenue}:',
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     // Very large text
                     fontWeight: .bold,

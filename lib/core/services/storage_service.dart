@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zupa/core/styles/localization.dart';
+import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/auth/data/models/account_request.dart';
 
@@ -142,5 +142,13 @@ class StorageService {
 
   Future<bool> getDebuggerMode() async {
     return await _sharedPreferences.getBool('isDebuggerMode') == true;
+  }
+
+  Future<void> setWarningCapacityThreshold(int value) {
+    return _sharedPreferences.setInt('isWarningCapacityThreshold', value);
+  }
+
+  Future<int> getWarningCapacityThreshold() async {
+    return await _sharedPreferences.getInt('isWarningCapacityThreshold') ?? -1;
   }
 }

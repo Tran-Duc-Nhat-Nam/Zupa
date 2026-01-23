@@ -1,30 +1,31 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:zupa/core/constants/routes.dart';
 
 import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 abstract class AppDialog {
   static void showAuthDialog(BuildContext context) {
     Dialogs.materialDialog(
       context: context,
-      msg: context.tr('subtitle.sessionEnded'),
-      title: context.tr('title.sessionEnded'),
+      msg: Translations.of(context).subtitle.sessionEnded,
+      title: Translations.of(context).title.sessionEnded,
       color: ThemeHelper.getColor(context).white,
       barrierLabel: '',
       barrierDismissible: false,
       actionsBuilder: (actionContext) => [
         IconsOutlineButton(
           onPressed: () {
-            context.goNamed('Login');
+            context.goNamed(AppRoutes.login.name);
           },
-          text: context.tr('title.login'),
+          text: Translations.of(context).title.login,
           iconData: Icons.login,
           textStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
           iconColor: Theme.of(context).colorScheme.primary,
@@ -76,7 +77,7 @@ abstract class AppDialog {
                                 children: [
                                   Center(
                                     child: Text(
-                                      titleText ?? context.tr('ok'),
+                                      titleText ?? Translations.of(context).ok,
                                       style: AppTextStyles.bodyLargeSemibold
                                           .copyWith(
                                             color: ThemeHelper.getColor(

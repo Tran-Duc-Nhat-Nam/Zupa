@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -7,6 +6,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class VehicleTypeRadioCards extends StatelessWidget {
   const VehicleTypeRadioCards({super.key});
@@ -46,7 +46,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      context.tr(vehicle.name),
+                      Translations.of(context)[vehicle.value],
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: ThemeHelper.getColor(context).grey700,
                       ),

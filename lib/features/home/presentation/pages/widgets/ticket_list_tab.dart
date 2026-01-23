@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +7,8 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart' hide Loading;
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
+    hide Loading;
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
@@ -18,6 +19,7 @@ import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class TicketListTab extends StatelessWidget {
   const TicketListTab({super.key});
@@ -55,15 +57,17 @@ class TicketListTab extends StatelessWidget {
                   Widget body;
                   switch (mode) {
                     case .idle:
-                      body = Text(context.tr('pullUpToLoad'));
+                      body = Text(Translations.of(context).pullUpToLoad);
                     case .loading:
                       body = const CupertinoActivityIndicator();
                     case .failed:
-                      body = Text(context.tr('loadFailedPleaseRetry'));
+                      body = Text(
+                        Translations.of(context).loadFailedPleaseRetry,
+                      );
                     case .canLoading:
-                      body = Text(context.tr('releaseToLoadMore'));
+                      body = Text(Translations.of(context).releaseToLoadMore);
                     default:
-                      body = Text(context.tr('noMoreData'));
+                      body = Text(Translations.of(context).noMoreData);
                   }
                   return SizedBox(height: 55.0, child: Center(child: body));
                 },
@@ -71,10 +75,10 @@ class TicketListTab extends StatelessWidget {
               controller: refreshController,
               onRefresh: () => context.read<HomeTicketCubit>().refresh(
                 filter: context.read<HomeFilterState>().mapOrNull(
-                  loaded: (s) => s.filter
+                  loaded: (s) => s.filter,
                 ),
-                onSuccess:  refreshController.refreshCompleted,
-                onFailed:  refreshController.refreshFailed,
+                onSuccess: refreshController.refreshCompleted,
+                onFailed: refreshController.refreshFailed,
               ),
               onLoading: () => context.read<HomeTicketCubit>().loadMore(
                 refreshController.loadComplete,
@@ -127,10 +131,10 @@ class TicketTitle extends StatelessWidget {
       leadingActions: [
         SwipeAction(
           onTap: (CompletionHandler handler) =>
-              context.pushNamed(AppRoutes.checkIn),
-          title: context.tr(
-            ticket.id.length % 2 == 0 ? 'reportRecovered' : 'markAsLost',
-          ),
+              context.pushNamed(AppRoutes.checkIn.name),
+          title: ticket.id.length % 2 == 0
+              ? Translations.of(context).reportRecovered
+              : Translations.of(context).markAsLost,
           widthSpace: 180,
           color: ticket.id.length % 2 == 0
               ? ThemeHelper.getColor(context).primary500
@@ -140,10 +144,10 @@ class TicketTitle extends StatelessWidget {
       trailingActions: [
         SwipeAction(
           performsFirstActionWithFullSwipe: true,
-          title: context.tr('allowOut'),
+          title: Translations.of(context).allowOut,
           onTap: (CompletionHandler handler) {
             controller.closeAllOpenCell();
-            context.pushNamed(AppRoutes.checkIn, extra: true);
+            context.pushNamed(AppRoutes.checkIn.name, extra: true);
           },
           color: ThemeHelper.getColor(context).error600,
         ),
@@ -201,7 +205,7 @@ class TicketTitle extends StatelessWidget {
                               borderRadius: .circular(50),
                             ),
                             child: Text(
-                              context.tr('lost'),
+                              Translations.of(context).lost,
                               style: AppTextStyles.bodySmallSemibold.copyWith(
                                 color: ThemeHelper.getColor(context).error600,
                               ),

@@ -15,57 +15,64 @@ class HistoryListTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HistoryListCubit, HistoryListState>(
-      builder: (context, state) {
-        final refreshController = RefreshController();
-        final List<HistoryTicket> items =
-            state.whenOrNull(
-              loaded: (tickets, _) => tickets,
-              refreshing: (tickets) => tickets,
-              loadingMore: (tickets) => tickets,
-            ) ?? [];
+    return BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
+      builder: (filterContext, filterState) {
+        return BlocBuilder<HistoryListCubit, HistoryListState>(
+          builder: (listContext, state) {
+            final refreshController = RefreshController();
+            final List<HistoryTicket> items =
+                state.whenOrNull(
+                  loaded: (tickets, _) => tickets,
+                  refreshing: (tickets) => tickets,
+                  loadingMore: (tickets) => tickets,
+                ) ??
+                [];
 
-        return Skeletonizer(
-          enabled: state is Loading,
-          child: SmartRefresher(
-            enablePullDown: state is! LoadingMore,
-            enablePullUp: state is! Refreshing,
-            controller: refreshController,
-            onRefresh: () async {
-              final filter = context.read<HistoryFilterState>().mapOrNull(
-                loaded: (s) => s.filter,
-              );
-              await context.read<HistoryListCubit>().refresh(filter);
-              refreshController.refreshCompleted();
-            },
-            onLoading: () async {
-              final filter = context.read<HistoryFilterState>().mapOrNull(
-                loaded: (s) => s.filter,
-              );
-              context.read<HistoryListCubit>().loadMore(filter);
-              refreshController.loadComplete();
-            },
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder: (c, i) => Padding(
-                padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
-                child: HistoryListSection(
-                  tickets: items.isNotEmpty
-                      ? items
-                      : List.generate(
-                          10,
-                          (index) => HistoryTicket(
-                            id: 'Placeholder',
-                            timeIn: .now(),
-                            siteId: 'A much Longer placeholder',
-                            type: vehicleTypes.first,
-                          ),
-                        ),
+            return Skeletonizer(
+              enabled: state is Loading,
+              child: SmartRefresher(
+                enablePullDown: state is! LoadingMore,
+                enablePullUp: state is! Refreshing,
+                controller: refreshController,
+                onRefresh: () async {
+                  final filter = filterState.whenOrNull(
+                    loaded: (filter) => filter,
+                  );
+                  await context.read<HistoryListCubit>().refresh(filter);
+                  refreshController.refreshCompleted();
+                },
+                onLoading: () async {
+                  final filter = filterState.whenOrNull(
+                    loaded: (filter) => filter,
+                  );
+                  await context.read<HistoryListCubit>().loadMore(filter);
+                  refreshController.loadComplete();
+                },
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
+                  itemBuilder: (c, i) => Padding(
+                    padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
+                    child: HistoryListSection(
+                      tickets: items.isNotEmpty
+                          ? items
+                          : List.generate(
+                              10,
+                              (index) => HistoryTicket(
+                                code: 'Placeholder',
+                                id: -1,
+                                timeIn: .now(),
+                                siteId: 'A much Longer placeholder',
+                                type: vehicleTypes.first,
+                              ),
+                            ),
+                    ),
+                  ),
+                  itemCount: items.isNotEmpty ? items.length : 10,
                 ),
               ),
-              itemCount: items.isNotEmpty ? items.length : 10,
-            ),
-          ),
+            );
+          },
         );
       },
     );

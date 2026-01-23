@@ -1,7 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class MemberFeeSetingScreen extends StatefulWidget {
   const MemberFeeSetingScreen({super.key});
@@ -14,8 +15,8 @@ class _MemberFeeSetingScreenState extends State<MemberFeeSetingScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: context.tr('memberFee'),
-      child: Center(child: Text(context.tr('memberFee'))),
+      title: Translations.of(context).memberFee,
+      child: Center(child: Text(Translations.of(context).memberFee)),
     );
   }
 }

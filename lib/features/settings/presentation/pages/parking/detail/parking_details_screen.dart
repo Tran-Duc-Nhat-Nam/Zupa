@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +19,7 @@ import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class ParkingDetailsScreen extends StatefulWidget {
   const ParkingDetailsScreen({super.key});
@@ -32,13 +32,13 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: context.tr('parkingAreaConfig'),
+      title: Translations.of(context).parkingAreaConfig,
       isChildScrollable: true,
       footer: [
         AppButton(
-          text: context.tr('save'),
+          text: Translations.of(context).save,
           onPressed: () => AppMessage.showSuccessMessage(
-            context.tr('success'),
+            Translations.of(context).success,
             context: context,
           ),
         ),
@@ -55,10 +55,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
             return Skeletonizer(
               enabled: state is Loading,
               child: Padding(
-                padding: const .symmetric(
-                  vertical: 16,
-                  horizontal: 24,
-                ),
+                padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: Column(
                   children: [
                     AppCard(
@@ -66,15 +63,15 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(context.tr('info')),
+                          Text(Translations.of(context).info),
                           AppTextField(
                             name: 'branchName',
-                            labelText: context.tr('branchName'),
+                            labelText: Translations.of(context).branchName,
                             isExternalLabel: true,
                           ),
                           AppTextField(
                             name: 'address',
-                            labelText: context.tr('address'),
+                            labelText: Translations.of(context).address,
                             isExternalLabel: true,
                           ),
                         ],
@@ -85,13 +82,15 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(context.tr('capacity')),
+                          Text(Translations.of(context).capacity),
                           ...state.maybeMap(
                             loaded: (params) => params.parkingLot.capacity
                                 .map(
                                   (e) => AppTextField(
                                     name: e.vehicleType.value,
-                                    labelText: context.tr(e.vehicleType.name),
+                                    labelText: Translations.of(
+                                      context,
+                                    )[e.vehicleType.name],
                                     isExternalLabel: true,
                                   ),
                                 )
@@ -116,15 +115,19 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIconPath: AppIcons.notification,
-                            text: context.tr('title.warningThreshold'),
+                            text: Translations.of(
+                              context,
+                            ).title.warningThreshold,
                             trailing: AppSwitch(
                               name: 'isLocked',
                               onToggle: (value, toggle) => value
                                   ? toggle(false)
                                   : AppDialog.showModal(
                                       context,
-                                      okText: context.tr('lock'),
-                                      cancelText: context.tr('close'),
+                                      okText: Translations.of(context).lock,
+                                      cancelText: Translations.of(
+                                        context,
+                                      ).close,
                                       theme: .warning,
                                       onOk: () => toggle(true),
                                       onCancel: () => toggle(false),
@@ -132,7 +135,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                             ),
                           ),
                           Text(
-                            context.tr('subtitle.warningThreshold'),
+                            Translations.of(context).subtitle.warningThreshold,
                             style: AppTextStyles.bodySmallMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey500,
                             ),
@@ -150,4 +153,3 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
     );
   }
 }
-

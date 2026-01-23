@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,10 +13,12 @@ import 'package:zupa/core/helper/router/router_helper.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
 import 'package:zupa/core/helper/api/api_helper.dart';
+import 'package:zupa/gen/strings.g.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
   configureDependencies();
 
   ApiHelper.onUnauthorized = () => getIt<AuthenticationRepository>().logOut();
@@ -31,46 +30,51 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return EasyLocalization(
-      supportedLocales: const <Locale>[.new('en'), .new('vi'), .new('ja')],
-      path: 'assets/translations',
-      fallbackLocale: const .new('en'),
+    return TranslationProvider(
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(
-            create: (BuildContext context) => ThemeCubit()..loadTheme(),
+            lazy: false,
+            create: (BuildContext context) => getIt<ThemeCubit>()..loadTheme(),
           ),
           BlocProvider<DebuggerCubit>(
-            create: (BuildContext context) => DebuggerCubit()..loadDebugger(),
+            lazy: false,
+            create: (BuildContext context) =>
+                getIt<DebuggerCubit>()..loadDebugger(),
           ),
           BlocProvider<AuthCubit>(
-            create: (BuildContext context) => AuthCubit()..loadAuth(),
+            lazy: false,
+            create: (BuildContext context) => getIt<AuthCubit>()..loadAuth(),
           ),
           BlocProvider<LocalizationCubit>(
-            create: (BuildContext context) => LocalizationCubit()..loadLocale(),
+            lazy: false,
+            create: (BuildContext context) =>
+                getIt<LocalizationCubit>()..loadLocale(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (BuildContext context, ThemeState state) => state.when(
             initial: (mode) {
-              final theme = mode == .followSystem
-                  ? PlatformDispatcher.instance.platformBrightness == .light
-                        ? appTheme
-                        : appDarkTheme
-                  : mode == .light
-                  ? appTheme
-                  : appDarkTheme;
+              ThemeMode themeMode;
+              switch (mode) {
+                case .light: // Assuming you have an enum
+                  themeMode = ThemeMode.light;
+                case .dark:
+                  themeMode = ThemeMode.dark;
+                default:
+                  themeMode = ThemeMode.system;
+              }
               return MaterialApp.router(
                 onGenerateTitle: (BuildContext context) =>
-                    context.tr('appTitle'),
-                theme: theme,
-                darkTheme: theme,
-                color: theme.primaryColor,
+                    Translations.of(context).appTitle,
+                theme: appTheme,
+                darkTheme: appDarkTheme,
+                themeMode: themeMode,
                 debugShowCheckedModeBanner: false,
                 routerConfig: RouterHelper.router,
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
+                localizationsDelegates: GlobalMaterialLocalizations.delegates,
+                supportedLocales: AppLocaleUtils.supportedLocales,
+                locale: TranslationProvider.of(context).flutterLocale,
                 builder: (BuildContext materialContext, Widget? child) {
                   return FToastBuilder()(
                     materialContext,
