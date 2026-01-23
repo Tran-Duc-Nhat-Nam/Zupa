@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupa/core/constants/localization.dart';
@@ -8,93 +9,61 @@ import 'package:zupa/features/auth/data/models/account_request.dart';
 @lazySingleton
 class StorageService {
   final SharedPreferencesAsync _sharedPreferences;
+  final FlutterSecureStorage _secureStorage;
 
-  StorageService(this._sharedPreferences);
+  // Ensure you register FlutterSecureStorage in your DI module
+  StorageService(this._sharedPreferences, this._secureStorage);
 
-  /// Save token with a Time-To-Live (TTL).
-  /// [duration] determines how long the token remains valid.
+  // ===========================================================================
+  // AUTH TOKEN (SECURE STORAGE)
+  // ===========================================================================
+
+  /// Save token with a Time-To-Live (TTL) into Secure Storage.
   Future<void> setAuth(
     String accessToken, {
     Duration duration = const Duration(hours: 1),
   }) async {
-    await _setStringWithTTL('accessToken', accessToken, duration);
+    await _setSecureStringWithTTL('accessToken', accessToken, duration);
   }
 
-  /// Get token. Returns null if the token does not exist OR has expired.
+  /// Get token from Secure Storage. Returns null if expired or missing.
   Future<String?> getAuth() async {
-    return _getStringWithTTL('accessToken');
+    return _getSecureStringWithTTL('accessToken');
   }
 
   Future<void> removeAuth() async {
-    await _sharedPreferences.remove('accessToken');
+    await _secureStorage.delete(key: 'accessToken');
   }
 
-  /// Private helper to save a string with an expiration date
-  Future<void> _setStringWithTTL(
-    String key,
-    String value,
-    Duration duration,
-  ) async {
-    final expireDate = DateTime.now().add(duration);
+  // ===========================================================================
+  // ACCOUNT INFO (SECURE STORAGE)
+  // ===========================================================================
 
-    // Create a wrapper object
-    final Map<String, dynamic> data = {
-      'val': value,
-      'exp': expireDate.toIso8601String(),
-    };
-
-    // Save as JSON string
-    await _sharedPreferences.setString(key, jsonEncode(data));
-  }
-
-  /// Private helper to retrieve a string, checking if it has expired
-  Future<String?> _getStringWithTTL(String key) async {
-    final String? rawJson = await _sharedPreferences.getString(key);
-
-    if (rawJson == null) return null;
-
-    try {
-      // Decode the JSON
-      final Map<String, dynamic> data = jsonDecode(rawJson);
-
-      // Check if "exp" key exists and parse it
-      if (data.containsKey('exp')) {
-        final expireAt = DateTime.parse(data['exp']);
-
-        // If current time is AFTER the expiration date
-        if (DateTime.now().isAfter(expireAt)) {
-          // It is expired. Remove it and return null.
-          await _sharedPreferences.remove(key);
-          return null;
-        }
-      }
-
-      // If valid, return the value
-      return data['val'] as String?;
-    } catch (e) {
-      return null;
-    }
-  }
-
+  /// Account info contains passwords, so we MUST use Secure Storage.
   Future<void> saveAccountInfo(AccountRequest info) async {
-    await _sharedPreferences.setString('accountTenant', info.tenant);
-    await _sharedPreferences.setString('accountUsername', info.username);
-    await _sharedPreferences.setString('accountPassword', info.password);
+    await _secureStorage.write(key: 'accountTenant', value: info.tenant);
+    await _secureStorage.write(key: 'accountUsername', value: info.username);
+    await _secureStorage.write(key: 'accountPassword', value: info.password);
   }
 
   Future<AccountRequest> getAccountInfo() async {
     return AccountRequest(
-      tenant: await _sharedPreferences.getString('accountTenant') ?? '',
-      username: await _sharedPreferences.getString('accountUsername') ?? '',
-      password: await _sharedPreferences.getString('accountPassword') ?? '',
+      tenant: await _secureStorage.read(key: 'accountTenant') ?? '',
+      username: await _secureStorage.read(key: 'accountUsername') ?? '',
+      password: await _secureStorage.read(key: 'accountPassword') ?? '',
     );
   }
 
   Future<void> removeAccountInfo() async {
-    await _sharedPreferences.remove('accountTenant');
-    await _sharedPreferences.remove('accountUsername');
-    await _sharedPreferences.remove('accountPassword');
+    await _secureStorage.delete(key: 'accountTenant');
+    await _secureStorage.delete(key: 'accountUsername');
+    await _secureStorage.delete(key: 'accountPassword');
   }
+
+  // ===========================================================================
+  // APP PREFERENCES (SHARED PREFERENCES)
+  // Non-sensitive data is kept in SharedPrefs for performance.
+  // ===========================================================================
 
   Future<void> setBiometricAuth(bool isBiometricAuth) async {
     await _sharedPreferences.setBool('isBiometricAuth', isBiometricAuth);
@@ -150,5 +119,54 @@ class StorageService {
 
   Future<int> getWarningCapacityThreshold() async {
     return await _sharedPreferences.getInt('isWarningCapacityThreshold') ?? -1;
+  }
+
+  // ===========================================================================
+  // PRIVATE HELPERS (SECURE STORAGE + TTL)
+  // ===========================================================================
+
+  /// Helper to save a string with an expiration date into Secure Storage
+  Future<void> _setSecureStringWithTTL(
+    String key,
+    String value,
+    Duration duration,
+  ) async {
+    final expireDate = DateTime.now().add(duration);
+
+    final Map<String, dynamic> data = {
+      'val': value,
+      'exp': expireDate.toIso8601String(),
+    };
+
+    // Use write instead of setString
+    await _secureStorage.write(key: key, value: jsonEncode(data));
+  }
+
+  /// Helper to retrieve a string from Secure Storage, checking expiration
+  Future<String?> _getSecureStringWithTTL(String key) async {
+    // Use read instead of getString
+    final String? rawJson = await _secureStorage.read(key: key);
+
+    if (rawJson == null) return null;
+
+    try {
+      final Map<String, dynamic> data = jsonDecode(rawJson);
+
+      if (data.containsKey('exp')) {
+        final expireAt = DateTime.parse(data['exp']);
+
+        if (DateTime.now().isAfter(expireAt)) {
+          // Expired: delete from secure storage
+          await _secureStorage.delete(key: key);
+          return null;
+        }
+      }
+
+      return data['val'] as String?;
+    } catch (e) {
+      // If JSON is corrupted, clear it
+      await _secureStorage.delete(key: key);
+      return null;
+    }
   }
 }
