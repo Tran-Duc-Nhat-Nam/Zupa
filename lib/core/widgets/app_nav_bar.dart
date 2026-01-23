@@ -13,6 +13,8 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class AppNavBar extends StatefulWidget {
@@ -114,6 +116,10 @@ class _AppNavBarState extends State<AppNavBar> {
                 borderRadius: .circular(50),
                 border: .all(color: colors.primary100),
               ),
+              onChanged: (value) {
+                // AppToast.showBasicToast(value ?? 'Hehe');
+                DialogHelper.showAuthDialog(context);
+              },
             ),
           ),
         ],

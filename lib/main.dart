@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/services/network_service.dart';
@@ -64,23 +64,20 @@ class MyApp extends StatelessWidget {
                 default:
                   themeMode = ThemeMode.system;
               }
-              return MaterialApp.router(
-                onGenerateTitle: (BuildContext context) =>
-                    Translations.of(context).appTitle,
-                theme: appTheme,
-                darkTheme: appDarkTheme,
-                themeMode: themeMode,
-                debugShowCheckedModeBanner: false,
-                routerConfig: RouterHelper.router,
-                localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                supportedLocales: AppLocaleUtils.supportedLocales,
-                locale: TranslationProvider.of(context).flutterLocale,
-                builder: (BuildContext materialContext, Widget? child) {
-                  return FToastBuilder()(
-                    materialContext,
-                    UpgradeAlert(child: child),
-                  );
-                },
+              return UpgradeAlert(
+                child: MaterialApp.router(
+                  onGenerateTitle: (BuildContext context) =>
+                      Translations.of(context).appTitle,
+                  theme: appTheme,
+                  darkTheme: appDarkTheme,
+                  themeMode: themeMode,
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: RouterHelper.router,
+                  localizationsDelegates: GlobalMaterialLocalizations.delegates,
+                  supportedLocales: AppLocaleUtils.supportedLocales,
+                  locale: TranslationProvider.of(context).flutterLocale,
+                  builder: FlutterSmartDialog.init(),
+                ),
               );
             },
             orElse: () => const SizedBox.shrink(),

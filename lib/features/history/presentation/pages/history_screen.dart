@@ -14,6 +14,7 @@ import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
@@ -55,7 +56,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         child: BlocListener<HistoryListCubit, HistoryListState>(
           listener: (context, state) {
             state.whenOrNull(
-              unauthenticated: () => context.goNamed(AppRoutes.login.name),
+              unauthenticated: () => DialogHelper.showAuthDialog(context),
             );
           },
           child: BlocBuilder<HistoryListCubit, HistoryListState>(

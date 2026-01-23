@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/parking/detail/parking_lot_detail_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -15,7 +16,6 @@ import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
-import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -37,9 +37,8 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
       footer: [
         AppButton(
           text: Translations.of(context).save,
-          onPressed: () => AppMessage.showSuccessMessage(
+          onPressed: () => AppToast.showSuccessToast(
             Translations.of(context).success,
-            context: context,
           ),
         ),
       ],
@@ -122,13 +121,13 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                               name: 'isLocked',
                               onToggle: (value, toggle) => value
                                   ? toggle(false)
-                                  : AppDialog.showModal(
+                                  : DialogHelper.showModal(
                                       context,
                                       okText: Translations.of(context).lock,
                                       cancelText: Translations.of(
                                         context,
                                       ).close,
-                                      theme: .warning,
+                                      type: .warning,
                                       onOk: () => toggle(true),
                                       onCancel: () => toggle(false),
                                     ),

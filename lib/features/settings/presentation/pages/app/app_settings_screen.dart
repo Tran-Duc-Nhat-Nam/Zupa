@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
-import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/styles/icons.dart';
@@ -161,52 +161,52 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     },
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
-                  BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      return AppListTile(
-                        padding: .zero,
-                        leadingIconPath: AppIcons.notification,
-                        text: Translations.of(context).biometricAuth,
-                        trailing: SizedBox(
-                          height: 20,
-                          child: Transform.scale(
-                            scale: 0.8,
-                            child: Switch(
-                              padding: .zero,
-                              materialTapTargetSize: .shrinkWrap,
-                              thumbIcon: .resolveWith<Icon?>((
-                                Set<WidgetState> states,
-                              ) {
-                                if (states.contains(WidgetState.selected)) {
-                                  return const .new(Icons.check);
-                                }
-                                return const .new(Icons.close);
-                              }),
-                              thumbColor: .all(
-                                ThemeHelper.getColor(context).white,
-                              ),
-                              inactiveTrackColor: ThemeHelper.getColor(
-                                context,
-                              ).grey100,
-                              trackOutlineWidth: const WidgetStatePropertyAll(
-                                0,
-                              ),
-                              trackOutlineColor: const WidgetStatePropertyAll(
-                                WidgetStateColor.transparent,
-                              ),
-                              value: state.maybeWhen(
-                                loaded: (isOn) => isOn,
-                                orElse: () => false,
-                              ),
-                              onChanged: (value) => context
-                                  .read<AuthCubit>()
-                                  .toggleBiometricMode(value),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  // BlocBuilder<AuthCubit, AuthState>(
+                  //   builder: (context, state) {
+                  //     return AppListTile(
+                  //       padding: .zero,
+                  //       leadingIconPath: AppIcons.notification,
+                  //       text: Translations.of(context).biometricAuth,
+                  //       trailing: SizedBox(
+                  //         height: 20,
+                  //         child: Transform.scale(
+                  //           scale: 0.8,
+                  //           child: Switch(
+                  //             padding: .zero,
+                  //             materialTapTargetSize: .shrinkWrap,
+                  //             thumbIcon: .resolveWith<Icon?>((
+                  //               Set<WidgetState> states,
+                  //             ) {
+                  //               if (states.contains(WidgetState.selected)) {
+                  //                 return const .new(Icons.check);
+                  //               }
+                  //               return const .new(Icons.close);
+                  //             }),
+                  //             thumbColor: .all(
+                  //               ThemeHelper.getColor(context).white,
+                  //             ),
+                  //             inactiveTrackColor: ThemeHelper.getColor(
+                  //               context,
+                  //             ).grey100,
+                  //             trackOutlineWidth: const WidgetStatePropertyAll(
+                  //               0,
+                  //             ),
+                  //             trackOutlineColor: const WidgetStatePropertyAll(
+                  //               WidgetStateColor.transparent,
+                  //             ),
+                  //             value: state.maybeWhen(
+                  //               loaded: (isOn) => isOn,
+                  //               orElse: () => false,
+                  //             ),
+                  //             onChanged: (value) => context
+                  //                 .read<AuthCubit>()
+                  //                 .toggleBiometricMode(value),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),

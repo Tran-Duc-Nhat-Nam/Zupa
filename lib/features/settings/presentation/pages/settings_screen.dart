@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -88,7 +88,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: Translations.of(context).changePassword,
                       trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushNamed(AppRoutes.changePassword.name),
+                      onTap: () =>
+                          context.pushNamed(AppRoutes.changePassword.name),
                     ),
                   ],
                 ),
@@ -109,8 +110,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leadingIconPath: AppIcons.logout,
                   text: Translations.of(context).title.logout,
                   leadingColor: ThemeHelper.getColor(context).error600,
-                  onTap: () async {
-                    context.read<AuthCubit>().logOut();
+                  onTap: () {
+                    DialogHelper.showModal(
+                      context,
+                      subtitleText: Translations.of(context).subtitle.logout,
+                      titleText: Translations.of(context).title.logout,
+                      type: .warning,
+                      okText: Translations.of(context).ok,
+                      cancelText: Translations.of(context).cancel,
+                      onOk: () {
+                        context.read<AuthCubit>().logOut();
+                      },
+                    );
                   },
                 ),
               ),

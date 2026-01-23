@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -40,7 +41,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
         child: BlocListener<HomeTicketCubit, HomeTicketState>(
           listener: (context, state) {
             state.whenOrNull(
-              unauthenticated: () => context.goNamed(AppRoutes.login.name),
+              unauthenticated: () => DialogHelper.showAuthDialog(context),
             );
           },
           child: const Column(

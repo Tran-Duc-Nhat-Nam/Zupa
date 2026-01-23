@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -46,7 +47,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
         child: BlocListener<RevenueListCubit, RevenueListState>(
           listener: (context, state) {
             state.whenOrNull(
-              unauthenticated: () => context.goNamed(AppRoutes.login.name),
+              unauthenticated: () => DialogHelper.showAuthDialog(context),
             );
           },
           child: const Column(

@@ -39,10 +39,9 @@ dependencies:
     git:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/volume_listener.git
       ref: main
-  material_dialogs: ^1.1.5
   camera: ^0.11.2+1
   upgrader: ^12.5.0
-  fluttertoast: ^9.0.0
+  flutter_smart_dialog: ^4.9.8+9
   animated_segmented_tab_control: ^2.0.0
   photo_view: ^0.15.0
   flutter_swipe_action_cell: ^3.1.6

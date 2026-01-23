@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/password/password_settings_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -8,7 +9,6 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -28,14 +28,11 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
         listener: (context, state) {
           state.maybeWhen(
             changePasswordSuccess: () {
-              AppMessage.showSuccessMessage(
-                Translations.of(context).success,
-                context: context,
-              );
+              AppToast.showSuccessToast(Translations.of(context).success);
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
-              AppMessage.showErrorMessage(message, context: context);
+              AppToast.showErrorToast(message);
               context.read<PasswordSettingsCubit>().init();
             },
             orElse: () {},

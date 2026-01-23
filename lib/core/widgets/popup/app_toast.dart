@@ -1,57 +1,47 @@
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract class AppToast {
   static void showSuccessToast(String message) {
-    Fluttertoast.showToast(
+    SmartDialog.showNotify(
       msg: message,
-      toastLength: .LENGTH_SHORT,
-      gravity: .BOTTOM,
-      backgroundColor: ThemeHelper.getColor(null).success600,
-      textColor: ThemeHelper.getColor(null).white,
-      fontSize: 16.0,
+      notifyType: NotifyType.success,
+      useAnimation: true,
+      animationType: SmartAnimationType.scale,
     );
   }
 
   static void showErrorToast(String message) {
-    Fluttertoast.showToast(
+    SmartDialog.showNotify(
       msg: message,
-      toastLength: .LENGTH_SHORT,
-      gravity: .BOTTOM,
-      backgroundColor: ThemeHelper.getColor(null).error600,
-      textColor: ThemeHelper.getColor(null).white,
-      fontSize: 16.0,
+      notifyType: NotifyType.error,
+      useAnimation: true,
+      animationType: SmartAnimationType.scale,
     );
   }
 
   static void showWarningToast(String message) {
-    Fluttertoast.showToast(
+    SmartDialog.showNotify(
       msg: message,
-      toastLength: .LENGTH_SHORT,
-      gravity: .BOTTOM,
-      backgroundColor: ThemeHelper.getColor(null).warning600,
-      textColor: ThemeHelper.getColor(null).white,
-      fontSize: 16.0,
+      notifyType: NotifyType.warning,
+      useAnimation: true,
+      animationType: SmartAnimationType.scale,
     );
   }
 
   static void showInfoToast(String message) {
-    Fluttertoast.showToast(
+    SmartDialog.showNotify(
       msg: message,
-      toastLength: .LENGTH_SHORT,
-      gravity: .BOTTOM,
-      backgroundColor: ThemeHelper.getColor(null).primary500,
-      textColor: ThemeHelper.getColor(null).white,
-      fontSize: 16.0,
+      notifyType: NotifyType.alert,
+      useAnimation: true,
+      animationType: SmartAnimationType.scale,
     );
   }
 
   static void showBasicToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: .LENGTH_SHORT,
-      gravity: .BOTTOM,
-      fontSize: 16.0,
+    SmartDialog.showToast(
+      message,
+      useAnimation: true,
+      animationType: SmartAnimationType.scale,
     );
   }
 }

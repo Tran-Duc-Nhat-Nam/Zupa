@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
@@ -14,7 +15,6 @@ import 'package:zupa/features/settings/data/models/member_vehicle.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
-import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:zupa/gen/strings.g.dart';
@@ -161,7 +161,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                   fitContent: true,
                   radius: .circular(8),
                   theme: .secondary,
-                  onPressed: () => AppDialog.showModal(
+                  onPressed: () => DialogHelper.showModal(
                     context,
                     titleText: Translations.of(context).title.extend,
                     subtitleText: Translations.of(context).subtitle.extend,
@@ -170,9 +170,8 @@ class MemberVehiclesTitle extends StatelessWidget {
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
-                        AppMessage.showSuccessMessage(
+                        AppToast.showSuccessToast(
                           Translations.of(context).success,
-                          context: context,
                         );
                       }
                     },

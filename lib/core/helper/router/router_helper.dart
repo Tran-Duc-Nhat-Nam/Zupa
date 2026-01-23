@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
-import 'package:zupa/core/services/biometric_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/widgets/app_nav_bar.dart';
 import 'package:zupa/core/widgets/transition/go_open_container.dart';
@@ -36,12 +36,10 @@ class RouterHelper {
 
   // Storage services (Cached for access in redirects)
   static final _storageService = getIt<StorageService>();
-  static final _biometricService = getIt<BiometricService>();
-
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: '/login',
-    observers: [TalkerRouteObserver(DebuggerHelper.talker)],
+    observers: [TalkerRouteObserver(DebuggerHelper.talker), FlutterSmartDialog.observer],
     redirect: (context, state) async {
       final isAuthenticated = (await _storageService.getAuth()) != null;
       if (!isAuthenticated && state.matchedLocation != '/login') {
@@ -58,10 +56,6 @@ class RouterHelper {
         redirect: (context, state) async {
           // Check Token
           if ((await _storageService.getAuth()) != null) {
-            return '/';
-          }
-          // Check Biometric Auto-login
-          if ((await _biometricService.isEnabled) == true) {
             return '/';
           }
           return null;
