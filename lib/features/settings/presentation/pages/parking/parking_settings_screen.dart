@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/constants/routes.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/parking/parking_settings_cubit.dart';
 import 'package:zupa/core/styles/icons.dart';
@@ -64,7 +65,7 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
                         ),
                         trailingIconPath: AppIcons.chevronRight,
                         onTap: () => context.pushNamed(
-                          'ParkingDetail',
+                          AppRoutes.parkingDetail.name,
                           extra: params.parkingLots[index],
                         ),
                       ),

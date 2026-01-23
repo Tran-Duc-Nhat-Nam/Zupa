@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
     as filter;
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
@@ -34,7 +35,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
           padding: const .only(right: 24),
           child: AppIcon(
             path: AppIcons.roundPlus,
-            onTap: () => context.pushNamed('MemberVehiclesDetail'),
+            onTap: () => context.pushNamed(AppRoutes.memberVehiclesDetail.name),
           ),
         ),
       ],

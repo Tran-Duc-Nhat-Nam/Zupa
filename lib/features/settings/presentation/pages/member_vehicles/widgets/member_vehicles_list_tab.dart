@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
@@ -72,10 +71,9 @@ class MemberVehiclesListTab extends StatelessWidget {
 }
 
 class MemberVehiclesTitle extends StatelessWidget {
-  MemberVehiclesTitle({super.key, required this.ticket});
+  const MemberVehiclesTitle({super.key, required this.ticket});
 
   final MemberVehicle ticket;
-  final controller = SwipeActionController();
 
   @override
   Widget build(BuildContext context) {

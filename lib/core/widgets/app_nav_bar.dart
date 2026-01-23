@@ -14,7 +14,6 @@ import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class AppNavBar extends StatefulWidget {

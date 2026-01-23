@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
@@ -131,10 +130,9 @@ class RevenueListTab extends StatelessWidget {
 }
 
 class RevenueTitle extends StatelessWidget {
-  RevenueTitle({super.key, required this.revenue});
+  const RevenueTitle({super.key, required this.revenue});
 
   final DailyRevenue revenue;
-  final SwipeActionController controller = SwipeActionController();
 
   @override
   Widget build(BuildContext context) {

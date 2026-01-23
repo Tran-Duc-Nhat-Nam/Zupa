@@ -25,6 +25,7 @@ abstract class DialogHelper {
     String? okText,
     String? cancelText,
     AppDialogType type = .info,
+    bool dismissible = false,
     void Function()? onOk,
     void Function()? onCancel,
   }) {
@@ -35,9 +36,11 @@ abstract class DialogHelper {
         onConfirm: onOk,
         onCancel: onCancel,
         confirmText: okText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
+        cancelText: cancelText,
         type: type,
       ),
+      backType: dismissible ? SmartBackType.normal : SmartBackType.block,
+      clickMaskDismiss: dismissible,
     );
   }
 }
@@ -73,15 +76,14 @@ class AppDialog extends StatelessWidget {
     return Container(
       // MD3 Dialog Width constraints
       constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+      margin: const .symmetric(horizontal: 24),
+      padding: const .fromLTRB(24, 24, 24, 24),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: .circular(28),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: .min,
         children: [
           // 1. Dynamic Icon
           Icon(styles.icon, size: 32, color: styles.color),
@@ -92,9 +94,9 @@ class AppDialog extends StatelessWidget {
             title,
             style: theme.textTheme.headlineSmall?.copyWith(
               color: colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
+              fontWeight: .w600,
             ),
-            textAlign: TextAlign.center,
+            textAlign: .center,
           ),
           const SizedBox(height: 16),
 
@@ -104,7 +106,7 @@ class AppDialog extends StatelessWidget {
             style: theme.textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
-            textAlign: TextAlign.center,
+            textAlign: .center,
           ),
           const SizedBox(height: 24),
 
@@ -129,7 +131,7 @@ class AppDialog extends StatelessWidget {
           SmartDialog.dismiss();
         },
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const .symmetric(vertical: 12),
           foregroundColor: primaryColor, // Use the status color for action
           textStyle: Theme.of(
             context,
@@ -153,11 +155,11 @@ class AppDialog extends StatelessWidget {
               SmartDialog.dismiss();
             },
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12),
+              padding: const .symmetric(vertical: 12),
               foregroundColor: colorScheme.onSurfaceVariant,
               textStyle: Theme.of(
                 context,
-              ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+              ).textTheme.labelLarge?.copyWith(fontWeight: .w600),
             ),
             child: Text(cancelText!),
           ),
@@ -171,11 +173,11 @@ class AppDialog extends StatelessWidget {
               SmartDialog.dismiss();
             },
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12),
+              padding: const .symmetric(vertical: 12),
               foregroundColor: primaryColor,
               textStyle: Theme.of(
                 context,
-              ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+              ).textTheme.labelLarge?.copyWith(fontWeight: .bold),
             ),
             child: Text(confirmText),
           ),
@@ -188,21 +190,21 @@ class AppDialog extends StatelessWidget {
 
   _DialogStyle _getStyles(AppDialogType type, ColorScheme scheme) {
     switch (type) {
-      case AppDialogType.success:
+      case .success:
         return _DialogStyle(
           icon: Icons.check_circle_rounded,
           // Green is standard for success, but you can use primary if preferred
           color: Colors.green,
         );
-      case AppDialogType.error:
+      case .error:
         return _DialogStyle(icon: Icons.error_rounded, color: scheme.error);
-      case AppDialogType.warning:
+      case .warning:
         return _DialogStyle(
           icon: Icons.warning_amber_rounded,
           color: Colors
               .amber[800]!, // Darker amber for better contrast on light themes
         );
-      case AppDialogType.info:
+      case .info:
         return _DialogStyle(icon: Icons.info_rounded, color: scheme.primary);
     }
   }

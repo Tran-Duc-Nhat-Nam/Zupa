@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/settings/presentation/bloc/general_config/general_config_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -65,7 +66,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                               leadingIconPath: AppIcons.outlineSetting,
                               text: t.parkingPrice,
                               trailingIconPath: AppIcons.chevronRight,
-                              onTap: () => context.pushNamed('ParkingPrice'),
+                              onTap: () => context.pushNamed(AppRoutes.parkingPrice.name),
                             ),
                             Divider(
                               color: ThemeHelper.getColor(context).grey200,
@@ -74,7 +75,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                               leadingIconPath: AppIcons.calendarAdd,
                               text: t.memberFee,
                               trailingIconPath: AppIcons.chevronRight,
-                              onTap: () => context.pushNamed('MemberFee'),
+                              onTap: () => context.pushNamed(AppRoutes.memberFee.name),
                             ),
                           ],
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -35,7 +36,9 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
         ),
       child: BlocListener<CheckInCubit, CheckInState>(
         listener: (context, state) {
-          state.whenOrNull(submitSuccess: () => context.go('/'));
+          state.whenOrNull(
+            submitSuccess: () => context.goNamed(AppRoutes.home.name),
+          );
         },
         child: BlocBuilder<CheckInCubit, CheckInState>(
           builder: (context, state) {
@@ -268,10 +271,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                     },
                                     text:
                                         state.mapOrNull(
-                                          checkedInSuccess: (_) =>
-                                              t.allowIn,
-                                          checkedOutSuccess: (_) =>
-                                              t.allowOut,
+                                          checkedInSuccess: (_) => t.allowIn,
+                                          checkedOutSuccess: (_) => t.allowOut,
                                         ) ??
                                         '',
                                   ),
