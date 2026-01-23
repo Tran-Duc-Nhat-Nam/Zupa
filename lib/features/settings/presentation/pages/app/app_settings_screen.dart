@@ -96,7 +96,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           iconSize: 0,
                           dropdownItems: const [.light, .dark, .followSystem],
                           buttonWidth: 140,
-                          initialValue: state.when(initial: (mode) => mode),
+                          initialValue: state.when(
+                            initial: () => .followSystem,
+                            loading: (mode) => mode,
+                            loaded: (mode) => mode,
+                          ),
                           itemLabelGetter: (item) => item == .light
                               ? Translations.of(context).lightMode
                               : item == .dark

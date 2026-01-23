@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -72,14 +71,20 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               child:
                   context.read<ThemeCubit>().state.when(
-                    initial: (mode) => mode == .light,
+                    initial: () => true,
+                    loading: (mode) => mode == .light,
+                    loaded: (mode) => mode == .light,
                   )
                   ? const Icon(Icons.light_mode)
                   : const Icon(Icons.dark_mode),
             ),
             onTap: () {
               final themeCubit = context.read<ThemeCubit>();
-              if (themeCubit.state.when(initial: (mode) => mode == .light)) {
+              if (themeCubit.state.when(
+                initial: () => true,
+                loading: (mode) => mode == .light,
+                loaded: (mode) => mode == .light,
+              )) {
                 themeCubit.changeTheme(.dark);
               } else {
                 themeCubit.changeTheme(.light);

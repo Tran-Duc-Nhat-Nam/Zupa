@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
 
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
@@ -18,9 +19,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
   configureDependencies();
-
+  await LocaleSettings.setLocaleRaw(
+    (await getIt<StorageService>().getLocalization()).name,
+  );
   ApiHelper.onUnauthorized = () => getIt<AuthenticationRepository>().logOut();
 
   runApp(const MyApp());
@@ -34,7 +36,6 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(
-            lazy: false,
             create: (BuildContext context) => getIt<ThemeCubit>()..loadTheme(),
           ),
           BlocProvider<DebuggerCubit>(
@@ -43,7 +44,6 @@ class MyApp extends StatelessWidget {
                 getIt<DebuggerCubit>()..loadDebugger(),
           ),
           BlocProvider<AuthCubit>(
-            lazy: false,
             create: (BuildContext context) => getIt<AuthCubit>()..loadAuth(),
           ),
           BlocProvider<LocalizationCubit>(
@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (BuildContext context, ThemeState state) => state.when(
-            initial: (mode) {
+          builder: (BuildContext context, ThemeState state) => state.maybeWhen(
+            loaded: (mode) {
               ThemeMode themeMode;
               switch (mode) {
                 case .light: // Assuming you have an enum
@@ -83,6 +83,7 @@ class MyApp extends StatelessWidget {
                 },
               );
             },
+            orElse: () => const SizedBox.shrink(),
           ),
         ),
       ),

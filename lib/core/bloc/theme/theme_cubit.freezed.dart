@@ -14,61 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ThemeState {
 
- AppThemeMode get mode;
-/// Create a copy of ThemeState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ThemeStateCopyWith<ThemeState> get copyWith => _$ThemeStateCopyWithImpl<ThemeState>(this as ThemeState, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.mode, mode) || other.mode == mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ThemeState(mode: $mode)';
+  return 'ThemeState()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ThemeStateCopyWith<$Res>  {
-  factory $ThemeStateCopyWith(ThemeState value, $Res Function(ThemeState) _then) = _$ThemeStateCopyWithImpl;
-@useResult
-$Res call({
- AppThemeMode mode
-});
-
-
-
-
-}
-/// @nodoc
-class _$ThemeStateCopyWithImpl<$Res>
-    implements $ThemeStateCopyWith<$Res> {
-  _$ThemeStateCopyWithImpl(this._self, this._then);
-
-  final ThemeState _self;
-  final $Res Function(ThemeState) _then;
-
-/// Create a copy of ThemeState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,}) {
-  return _then(_self.copyWith(
-mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as AppThemeMode,
-  ));
-}
-
+class $ThemeStateCopyWith<$Res>  {
+$ThemeStateCopyWith(ThemeState _, $Res Function(ThemeState) __);
 }
 
 
@@ -86,11 +55,13 @@ extension ThemeStatePatterns on ThemeState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
-return initial(_that);case _:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Loaded() when loaded != null:
+return loaded(_that);case _:
   return orElse();
 
 }
@@ -108,11 +79,13 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,}){
 final _that = this;
 switch (_that) {
 case Initial():
-return initial(_that);}
+return initial(_that);case Loading():
+return loading(_that);case Loaded():
+return loaded(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -126,11 +99,13 @@ return initial(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
-return initial(_that);case _:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Loaded() when loaded != null:
+return loaded(_that);case _:
   return null;
 
 }
@@ -147,10 +122,12 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( AppThemeMode mode)?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( AppThemeMode mode)?  loading,TResult Function( AppThemeMode mode)?  loaded,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
-return initial(_that.mode);case _:
+return initial();case Loading() when loading != null:
+return loading(_that.mode);case Loaded() when loaded != null:
+return loaded(_that.mode);case _:
   return orElse();
 
 }
@@ -168,10 +145,12 @@ return initial(_that.mode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( AppThemeMode mode)  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( AppThemeMode mode)  loading,required TResult Function( AppThemeMode mode)  loaded,}) {final _that = this;
 switch (_that) {
 case Initial():
-return initial(_that.mode);}
+return initial();case Loading():
+return loading(_that.mode);case Loaded():
+return loaded(_that.mode);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -185,10 +164,12 @@ return initial(_that.mode);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( AppThemeMode mode)?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( AppThemeMode mode)?  loading,TResult? Function( AppThemeMode mode)?  loaded,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
-return initial(_that.mode);case _:
+return initial();case Loading() when loading != null:
+return loading(_that.mode);case Loaded() when loaded != null:
+return loaded(_that.mode);case _:
   return null;
 
 }
@@ -200,22 +181,54 @@ return initial(_that.mode);case _:
 
 
 class Initial implements ThemeState {
-  const Initial(this.mode);
+  const Initial();
   
 
-@override final  AppThemeMode mode;
 
-/// Create a copy of ThemeState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$InitialCopyWith<Initial> get copyWith => _$InitialCopyWithImpl<Initial>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial&&(identical(other.mode, mode) || other.mode == mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ThemeState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Loading implements ThemeState {
+  const Loading(this.mode);
+  
+
+ final  AppThemeMode mode;
+
+/// Create a copy of ThemeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadingCopyWith<Loading> get copyWith => _$LoadingCopyWithImpl<Loading>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
@@ -224,16 +237,16 @@ int get hashCode => Object.hash(runtimeType,mode);
 
 @override
 String toString() {
-  return 'ThemeState.initial(mode: $mode)';
+  return 'ThemeState.loading(mode: $mode)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $InitialCopyWith<$Res> implements $ThemeStateCopyWith<$Res> {
-  factory $InitialCopyWith(Initial value, $Res Function(Initial) _then) = _$InitialCopyWithImpl;
-@override @useResult
+abstract mixin class $LoadingCopyWith<$Res> implements $ThemeStateCopyWith<$Res> {
+  factory $LoadingCopyWith(Loading value, $Res Function(Loading) _then) = _$LoadingCopyWithImpl;
+@useResult
 $Res call({
  AppThemeMode mode
 });
@@ -243,17 +256,83 @@ $Res call({
 
 }
 /// @nodoc
-class _$InitialCopyWithImpl<$Res>
-    implements $InitialCopyWith<$Res> {
-  _$InitialCopyWithImpl(this._self, this._then);
+class _$LoadingCopyWithImpl<$Res>
+    implements $LoadingCopyWith<$Res> {
+  _$LoadingCopyWithImpl(this._self, this._then);
 
-  final Initial _self;
-  final $Res Function(Initial) _then;
+  final Loading _self;
+  final $Res Function(Loading) _then;
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,}) {
-  return _then(Initial(
+@pragma('vm:prefer-inline') $Res call({Object? mode = null,}) {
+  return _then(Loading(
+null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as AppThemeMode,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Loaded implements ThemeState {
+  const Loaded(this.mode);
+  
+
+ final  AppThemeMode mode;
+
+/// Create a copy of ThemeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&(identical(other.mode, mode) || other.mode == mode));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,mode);
+
+@override
+String toString() {
+  return 'ThemeState.loaded(mode: $mode)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadedCopyWith<$Res> implements $ThemeStateCopyWith<$Res> {
+  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ AppThemeMode mode
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadedCopyWithImpl<$Res>
+    implements $LoadedCopyWith<$Res> {
+  _$LoadedCopyWithImpl(this._self, this._then);
+
+  final Loaded _self;
+  final $Res Function(Loaded) _then;
+
+/// Create a copy of ThemeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? mode = null,}) {
+  return _then(Loaded(
 null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as AppThemeMode,
   ));

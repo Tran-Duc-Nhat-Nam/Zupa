@@ -10,16 +10,16 @@ part 'theme_cubit.freezed.dart';
 
 @injectable
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit() : super(const .initial(AppThemeMode.followSystem));
+  ThemeCubit() : super(const .initial());
 
   final _storageService = getIt<StorageService>();
 
   Future<void> loadTheme() async {
-    emit(.initial(await _storageService.getTheme()));
+    emit(.loaded(await _storageService.getTheme()));
   }
 
   void changeTheme(AppThemeMode mode) {
     _storageService.setTheme(mode);
-    emit(.initial(mode));
+    emit(.loaded(mode));
   }
 }
