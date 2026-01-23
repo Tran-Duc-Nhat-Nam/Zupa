@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
@@ -114,7 +115,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     },
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
-                  BlocBuilder<DebuggerCubit, DebuggerState>(
+                  if (kDebugMode) BlocBuilder<DebuggerCubit, DebuggerState>(
                     builder: (context, state) {
                       return AppListTile(
                         padding: .zero,
@@ -160,7 +161,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       );
                     },
                   ),
-                  Divider(color: ThemeHelper.getColor(context).grey100),
+                  // Divider(color: ThemeHelper.getColor(context).grey100),
                   // BlocBuilder<AuthCubit, AuthState>(
                   //   builder: (context, state) {
                   //     return AppListTile(

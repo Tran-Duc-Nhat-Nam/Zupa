@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:shake/shake.dart';
@@ -74,7 +75,7 @@ class _AppScreenState extends AppState<AppScreen> {
     if (!widget.hasParentView) {
       detector = .autoStart(
         onPhoneShake: (ShakeEvent event) async {
-          if (await getIt<StorageService>().getDebuggerMode() && mounted) {
+          if (await getIt<StorageService>().getDebuggerMode() && mounted && kDebugMode) {
             Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),

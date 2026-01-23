@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shake/shake.dart';
@@ -41,7 +42,7 @@ class _AppNavBarState extends State<AppNavBar> {
   void _initShakeDetector() {
     _shakeDetector = .autoStart(
       onPhoneShake: (event) async {
-        if (mounted && await getIt<StorageService>().getDebuggerMode()) {
+        if (mounted && await getIt<StorageService>().getDebuggerMode() && kDebugMode) {
           Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<ThemeCubit>(
             create: (BuildContext context) => getIt<ThemeCubit>()..loadTheme(),
           ),
-          BlocProvider<DebuggerCubit>(
+          if (kDebugMode) BlocProvider<DebuggerCubit>(
             lazy: false,
             create: (BuildContext context) =>
                 getIt<DebuggerCubit>()..loadDebugger(),
