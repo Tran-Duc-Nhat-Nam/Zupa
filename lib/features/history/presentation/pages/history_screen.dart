@@ -42,7 +42,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return AppScreen(
       isChildScrollable: true,
       hasParentView: true,
-      title: Translations.of(context).history,
+      title: t.history,
       hasAppBar: false,
       child: MultiBlocProvider(
         providers: [
@@ -180,7 +180,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           children: [
             Center(
               child: Text(
-                Translations.of(context).filter,
+                t.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
                   color: ThemeHelper.getColor(context).grey600,
                 ),
@@ -190,13 +190,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  Translations.of(context).time,
+                  t.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).grey700,
                   ),
                 ),
                 Text(
-                  Translations.of(context).reset,
+                  t.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                   ),
@@ -207,7 +207,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               spacing: 12,
               crossAxisAlignment: .start,
               children: [
-                Text(Translations.of(context).date),
+                Text(t.date),
                 const AppDateTimePicker(name: 'dateTime'),
               ],
             ),
@@ -219,13 +219,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   mainAxisAlignment: .spaceBetween,
                   children: [
                     Text(
-                      Translations.of(context).vehicleType,
+                      t.vehicleType,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
                         color: ThemeHelper.getColor(context).grey700,
                       ),
                     ),
                     Text(
-                      Translations.of(context).reset,
+                      t.reset,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
                         color: ThemeHelper.getColor(context).primary500,
                       ),
@@ -239,7 +239,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         (item) => AppCheckbox(
                           name: item.value,
                           label: Text(
-                            Translations.of(context)[item.value],
+                            t[item.value],
                             style: AppTextStyles.bodySmallMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey700,
                             ),
@@ -259,13 +259,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     color: .basic,
                     theme: .outline,
                     onPressed: () => context.pop(),
-                    text: Translations.of(context).cancel,
+                    text: t.cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
                     onPressed: () => context.pop(),
-                    text: Translations.of(context).apply,
+                    text: t.apply,
                   ),
                 ),
               ],

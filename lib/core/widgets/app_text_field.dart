@@ -78,7 +78,7 @@ class _AppTextFieldState extends State<AppTextField> {
     if (widget.required) {
       validators.add(
         FormBuilderValidators.required(
-          errorText: Translations.of(context).errorMessage.required,
+          errorText: t.errorMessage.required,
         ),
       );
     }

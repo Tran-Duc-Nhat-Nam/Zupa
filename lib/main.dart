@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
               return UpgradeAlert(
                 child: MaterialApp.router(
                   onGenerateTitle: (BuildContext context) =>
-                      Translations.of(context).appTitle,
+                      t.appTitle,
                   theme: appTheme,
                   darkTheme: appDarkTheme,
                   themeMode: themeMode,

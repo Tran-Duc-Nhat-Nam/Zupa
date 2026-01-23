@@ -29,7 +29,7 @@ class _EmployeeManagementScreenState
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: Translations.of(context).parkingAreaConfig,
+      title: t.parkingAreaConfig,
       isChildScrollable: true,
       child: BlocProvider<EmployeeSettingsCubit>(
         create: (context) => getIt<EmployeeSettingsCubit>()..init(),

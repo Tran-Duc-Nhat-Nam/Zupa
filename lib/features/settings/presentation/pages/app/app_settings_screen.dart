@@ -27,7 +27,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   Widget build(BuildContext context) {
     return AppScreen(
       formKey: formKey,
-      title: Translations.of(context).appSettings,
+      title: t.appSettings,
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
@@ -58,7 +58,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         return AppListTile(
                           padding: .zero,
                           leadingIconPath: AppIcons.global,
-                          text: Translations.of(context).language,
+                          text: t.language,
                           trailing: AppDropDownSearch<AppLocalization>(
                             name: 'appLocale',
                             buttonDecoration: const .new(),
@@ -74,7 +74,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                 ? Translations.of(
                                     context,
                                   )[item.getLocaleString() ?? 'followSystem']
-                                : Translations.of(context).followSystem,
+                                : t.followSystem,
                             onChanged: (value) => context
                                 .read<LocalizationCubit>()
                                 .changeLocale(value ?? .followSystem),
@@ -89,7 +89,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       return AppListTile(
                         padding: .zero,
                         leadingIconPath: AppIcons.lampOn,
-                        text: Translations.of(context).language,
+                        text: t.language,
                         trailing: AppDropDownSearch<AppThemeMode>(
                           name: 'appLocale',
                           buttonDecoration: const .new(),
@@ -102,10 +102,10 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                             loaded: (mode) => mode,
                           ),
                           itemLabelGetter: (item) => item == .light
-                              ? Translations.of(context).lightMode
+                              ? t.lightMode
                               : item == .dark
-                              ? Translations.of(context).darkMode
-                              : Translations.of(context).followSystem,
+                              ? t.darkMode
+                              : t.followSystem,
                           onChanged: (value) => context
                               .read<ThemeCubit>()
                               .changeTheme(value ?? .followSystem),
@@ -119,7 +119,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       return AppListTile(
                         padding: .zero,
                         leadingIconPath: AppIcons.notification,
-                        text: Translations.of(context).debuggerMode,
+                        text: t.debuggerMode,
                         trailing: SizedBox(
                           height: 20,
                           child: Transform.scale(
@@ -166,7 +166,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   //     return AppListTile(
                   //       padding: .zero,
                   //       leadingIconPath: AppIcons.notification,
-                  //       text: Translations.of(context).biometricAuth,
+                  //       text: t.biometricAuth,
                   //       trailing: SizedBox(
                   //         height: 20,
                   //         child: Transform.scale(

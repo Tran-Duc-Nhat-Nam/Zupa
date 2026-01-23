@@ -35,7 +35,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
       formKey: formKey,
       isChildScrollable: true,
       hasParentView: true,
-      title: Translations.of(context).revenue,
+      title: t.revenue,
       hasAppBar: false,
       child: MultiBlocProvider(
         providers: [

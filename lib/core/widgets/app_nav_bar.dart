@@ -77,7 +77,7 @@ class _AppNavBarState extends State<AppNavBar> {
     return PersistentRouterTabConfig(
       item: .new(
         iconSize: _iconSize,
-        title: Translations.of(context)[titleKey],
+        title: t[titleKey],
         activeColorSecondary: colors.primary500,
         activeForegroundColor: colors.primary50,
         textStyle: AppTextStyles.bodySmallBold.copyWith(
@@ -102,7 +102,7 @@ class _AppNavBarState extends State<AppNavBar> {
 
     return Scaffold(
       appBar: AppAppBar(
-        text: Translations.of(context)[currentRouteName],
+        text: t[currentRouteName],
         trailing: [
           Padding(
             padding: const .only(right: 24),

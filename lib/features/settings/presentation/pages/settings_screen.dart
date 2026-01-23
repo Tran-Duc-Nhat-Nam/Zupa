@@ -23,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return AppScreen(
       hasParentView: true,
-      title: Translations.of(context).settings,
+      title: t.settings,
       hasAppBar: false,
       child: BlocListener<AuthCubit, AuthState>(
         listener: (_, state) {
@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.homeOutline,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: Translations.of(context).parkingAreaConfig,
+                      text: t.parkingAreaConfig,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () => context.pushNamed(AppRoutes.parking.name),
                     ),
@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.calendarEdit,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: Translations.of(context).memberVehicles,
+                      text: t.memberVehicles,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
                           context.pushNamed(AppRoutes.memberVehicles.name),
@@ -62,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.userEdit,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: Translations.of(context).employeeManagement,
+                      text: t.employeeManagement,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
                           context.pushNamed(AppRoutes.employeeManagement.name),
@@ -71,7 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.config,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: Translations.of(context).generalConfig,
+                      text: t.generalConfig,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
                           context.pushNamed(AppRoutes.generalConfig.name),
@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     AppListTile(
                       leadingIconPath: AppIcons.lock,
                       leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: Translations.of(context).changePassword,
+                      text: t.changePassword,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
                           context.pushNamed(AppRoutes.changePassword.name),
@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
                   leadingIconPath: AppIcons.outlineSetting,
-                  text: Translations.of(context).appSettings,
+                  text: t.appSettings,
                   leadingColor: ThemeHelper.getColor(context).primary500,
                   trailingIconPath: AppIcons.chevronRight,
                   onTap: () => context.pushNamed(AppRoutes.appSettings.name),
@@ -108,16 +108,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
                   leadingIconPath: AppIcons.logout,
-                  text: Translations.of(context).title.logout,
+                  text: t.title.logout,
                   leadingColor: ThemeHelper.getColor(context).error600,
                   onTap: () {
                     DialogHelper.showModal(
                       context,
-                      subtitleText: Translations.of(context).subtitle.logout,
-                      titleText: Translations.of(context).title.logout,
+                      subtitleText: t.subtitle.logout,
+                      titleText: t.title.logout,
                       type: .warning,
-                      okText: Translations.of(context).ok,
-                      cancelText: Translations.of(context).cancel,
+                      okText: t.ok,
+                      cancelText: t.cancel,
                       onOk: () {
                         context.read<AuthCubit>().logOut();
                       },

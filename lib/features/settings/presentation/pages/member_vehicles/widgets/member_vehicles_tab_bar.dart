@@ -28,9 +28,9 @@ class MemberVehiclesTabBar extends StatelessWidget {
         textStyle: AppTextStyles.bodySmallBold,
         tabTextColor: ThemeHelper.getColor(context).grey300,
         tabs: [
-          .new(label: Translations.of(context).all),
-          .new(label: Translations.of(context).inUse),
-          .new(label: Translations.of(context).lost),
+          .new(label: t.all),
+          .new(label: t.inUse),
+          .new(label: t.lost),
         ],
       ),
     );

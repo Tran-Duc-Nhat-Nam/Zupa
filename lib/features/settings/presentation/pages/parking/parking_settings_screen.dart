@@ -27,7 +27,7 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: Translations.of(context).parkingAreaConfig,
+      title: t.parkingAreaConfig,
       isChildScrollable: true,
       child: BlocProvider<ParkingSettingsCubit>(
         create: (context) => getIt<ParkingSettingsCubit>()..init(),

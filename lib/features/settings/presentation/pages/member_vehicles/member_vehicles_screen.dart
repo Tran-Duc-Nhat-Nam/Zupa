@@ -28,7 +28,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
       formKey: formKey,
       isChildScrollable: true,
       noBackground: true,
-      title: Translations.of(context).memberVehicles,
+      title: t.memberVehicles,
       appBarTrailing: [
         Padding(
           padding: const .only(right: 24),

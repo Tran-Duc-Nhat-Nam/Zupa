@@ -57,17 +57,17 @@ class TicketListTab extends StatelessWidget {
                   Widget body;
                   switch (mode) {
                     case .idle:
-                      body = Text(Translations.of(context).pullUpToLoad);
+                      body = Text(t.pullUpToLoad);
                     case .loading:
                       body = const CupertinoActivityIndicator();
                     case .failed:
                       body = Text(
-                        Translations.of(context).loadFailedPleaseRetry,
+                        t.loadFailedPleaseRetry,
                       );
                     case .canLoading:
-                      body = Text(Translations.of(context).releaseToLoadMore);
+                      body = Text(t.releaseToLoadMore);
                     default:
-                      body = Text(Translations.of(context).noMoreData);
+                      body = Text(t.noMoreData);
                   }
                   return SizedBox(height: 55.0, child: Center(child: body));
                 },
@@ -133,8 +133,8 @@ class TicketTitle extends StatelessWidget {
           onTap: (CompletionHandler handler) =>
               context.pushNamed(AppRoutes.checkIn.name),
           title: ticket.id.length % 2 == 0
-              ? Translations.of(context).reportRecovered
-              : Translations.of(context).markAsLost,
+              ? t.reportRecovered
+              : t.markAsLost,
           widthSpace: 180,
           color: ticket.id.length % 2 == 0
               ? ThemeHelper.getColor(context).primary500
@@ -144,7 +144,7 @@ class TicketTitle extends StatelessWidget {
       trailingActions: [
         SwipeAction(
           performsFirstActionWithFullSwipe: true,
-          title: Translations.of(context).allowOut,
+          title: t.allowOut,
           onTap: (CompletionHandler handler) {
             controller.closeAllOpenCell();
             context.pushNamed(AppRoutes.checkIn.name, extra: true);
@@ -205,7 +205,7 @@ class TicketTitle extends StatelessWidget {
                               borderRadius: .circular(50),
                             ),
                             child: Text(
-                              Translations.of(context).lost,
+                              t.lost,
                               style: AppTextStyles.bodySmallSemibold.copyWith(
                                 color: ThemeHelper.getColor(context).error600,
                               ),

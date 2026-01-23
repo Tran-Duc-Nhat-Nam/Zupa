@@ -163,15 +163,15 @@ class MemberVehiclesTitle extends StatelessWidget {
                   theme: .secondary,
                   onPressed: () => DialogHelper.showModal(
                     context,
-                    titleText: Translations.of(context).title.extend,
-                    subtitleText: Translations.of(context).subtitle.extend,
-                    okText: Translations.of(context).title.extend,
-                    cancelText: Translations.of(context).close,
+                    titleText: t.title.extend,
+                    subtitleText: t.subtitle.extend,
+                    okText: t.title.extend,
+                    cancelText: t.close,
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
                         AppToast.showSuccessToast(
-                          Translations.of(context).success,
+                          t.success,
                         );
                       }
                     },

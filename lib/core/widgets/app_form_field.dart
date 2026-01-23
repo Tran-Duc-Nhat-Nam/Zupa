@@ -28,7 +28,7 @@ class AppFormField<T> extends StatelessWidget {
     if (required) {
       _validators.add(
         FormBuilderValidators.required(
-          errorText: Translations.of(context).errorMessage.required,
+          errorText: t.errorMessage.required,
         ),
       );
     }

@@ -191,7 +191,7 @@ class RevenueTitle extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            Translations.of(context).pass(n: revenue.totalPass),
+                            t.pass(n: revenue.totalPass),
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
                               color: ThemeHelper.getColor(context).grey900,
@@ -249,7 +249,7 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  Translations.of(context)[e.vehicleType.name],
+                                  t[e.vehicleType.name],
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(
@@ -268,7 +268,7 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  Translations.of(context).pass(n: e.pass),
+                                  t.pass(n: e.pass),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(

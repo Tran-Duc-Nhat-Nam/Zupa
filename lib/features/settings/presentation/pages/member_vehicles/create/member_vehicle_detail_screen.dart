@@ -41,8 +41,8 @@ class _MemberVehicleDetailScreenState
             isChildScrollable: true,
             noBackground: true,
             title: GoRouterState.of(context).extra is String
-                ? Translations.of(context).memberVehicleDetail
-                : Translations.of(context).createMemberVehicle,
+                ? t.memberVehicleDetail
+                : t.createMemberVehicle,
             footer: [
               AppButton(
                 onPressed: () {
@@ -53,7 +53,7 @@ class _MemberVehicleDetailScreenState
                     );
                   }
                 },
-                text: Translations.of(context).save,
+                text: t.save,
               ),
               AppButton(
                 theme: .outline,
@@ -66,7 +66,7 @@ class _MemberVehicleDetailScreenState
                     );
                   }
                 },
-                text: Translations.of(context).delete,
+                text: t.delete,
               ),
             ],
             child: AppCard(
@@ -89,42 +89,42 @@ class _MemberVehicleDetailScreenState
                   ),
                   AppTextField(
                     name: 'name',
-                    labelText: Translations.of(context).name,
-                    hintText: Translations.of(context).enter,
+                    labelText: t.name,
+                    hintText: t.enter,
                     isExternalLabel: true,
                   ),
                   AppTextField(
                     name: 'phoneNumber',
-                    labelText: Translations.of(context).phoneNumber,
-                    hintText: Translations.of(context).enter,
+                    labelText: t.phoneNumber,
+                    hintText: t.enter,
                     isExternalLabel: true,
                   ),
                   AppTextField(
                     name: 'licenseNumber',
-                    labelText: Translations.of(context).licenseNumber,
-                    hintText: Translations.of(context).enter,
+                    labelText: t.licenseNumber,
+                    hintText: t.enter,
                     isExternalLabel: true,
                   ),
                   AppDropDownSearch(
                     name: 'branch',
                     dropdownItems: vehicleTypes,
-                    hint: Translations.of(context).choose,
+                    hint: t.choose,
                   ),
                   AppDropDownSearch(
                     name: 'vehicleType',
                     dropdownItems: vehicleTypes,
-                    hint: Translations.of(context).choose,
+                    hint: t.choose,
                   ),
                   AppTextField(
                     name: 'ticketID',
-                    labelText: Translations.of(context).ticketID,
-                    hintText: Translations.of(context).enter,
+                    labelText: t.ticketID,
+                    hintText: t.enter,
                     isExternalLabel: true,
                   ),
                   AppDropDownSearch(
                     name: 'expiredIn',
                     dropdownItems: vehicleTypes,
-                    hint: Translations.of(context).choose,
+                    hint: t.choose,
                   ),
                 ],
               ),

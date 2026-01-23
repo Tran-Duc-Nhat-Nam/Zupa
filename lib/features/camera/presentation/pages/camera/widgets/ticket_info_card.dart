@@ -98,7 +98,7 @@ class TicketInfoCard extends StatelessWidget {
                           mainAxisAlignment: .center,
                           children: [
                             Text(
-                              Translations.of(context)[ticketType],
+                              t[ticketType],
                               style: AppTextStyles.bodyMediumMedium.copyWith(
                                 color: ThemeHelper.getColor(context).grey700,
                               ),

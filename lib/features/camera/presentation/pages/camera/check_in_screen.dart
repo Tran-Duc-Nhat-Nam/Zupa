@@ -59,7 +59,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                         formKey.currentState!.value['type'],
                       );
                     } else {
-                      AppToast.showErrorToast(Translations.of(context).error);
+                      AppToast.showErrorToast(t.error);
                     }
                   },
                 ),
@@ -269,9 +269,9 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                     text:
                                         state.mapOrNull(
                                           checkedInSuccess: (_) =>
-                                              Translations.of(context).allowIn,
+                                              t.allowIn,
                                           checkedOutSuccess: (_) =>
-                                              Translations.of(context).allowOut,
+                                              t.allowOut,
                                         ) ??
                                         '',
                                   ),

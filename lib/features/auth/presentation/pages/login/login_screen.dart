@@ -67,13 +67,13 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          Translations.of(context).title.login,
+                          t.title.login,
                           style: AppTextStyles.heading2,
                         ),
                       ),
                       Center(
                         child: Text(
-                          Translations.of(context).subtitle.login,
+                          t.subtitle.login,
                           style: AppTextStyles.bodyMediumRegular.copyWith(
                             color: ThemeHelper.getColor(context).grey400,
                           ),
@@ -82,26 +82,26 @@ class LoginScreen extends StatelessWidget {
                       AppTextField(
                         name: 'tenant',
                         required: true,
-                        labelText: Translations.of(context).site,
+                        labelText: t.site,
                         prefix: const Icon(Icons.warehouse_outlined),
                       ),
                       AppTextField(
                         name: 'username',
                         required: true,
-                        labelText: Translations.of(context).username,
+                        labelText: t.username,
                         prefix: const Icon(Icons.person_outline_rounded),
                       ),
                       AppTextField(
                         name: 'password',
                         required: true,
                         isPassword: true,
-                        labelText: Translations.of(context).password,
+                        labelText: t.password,
                         prefix: const Icon(Icons.lock_outline_rounded),
                       ),
                       AppCheckbox(
                         name: 'isRemember',
                         label: Text(
-                          Translations.of(context).isRemember,
+                          t.isRemember,
                           style: AppTextStyles.bodySmallMedium.copyWith(
                             color: ThemeHelper.getColor(context).grey700,
                           ),
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                             }
                           },
                         ),
-                        text: Translations.of(context).title.login,
+                        text: t.title.login,
                         padding: const .all(16),
                         child: state.whenOrNull(
                           submitting: () => LoadingAnimationWidget.waveDots(

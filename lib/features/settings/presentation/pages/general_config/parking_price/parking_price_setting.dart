@@ -15,8 +15,8 @@ class _ParkingPriceSettingState extends State<ParkingPriceSetting> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: Translations.of(context).parkingPrice,
-      child: Center(child: Text(Translations.of(context).parkingPrice)),
+      title: t.parkingPrice,
+      child: Center(child: Text(t.parkingPrice)),
     );
   }
 }

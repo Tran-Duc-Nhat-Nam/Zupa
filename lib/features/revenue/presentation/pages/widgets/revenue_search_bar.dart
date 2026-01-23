@@ -34,7 +34,7 @@ class RevenueSearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  Translations.of(context)[DateTimeConverter.getMonthKey(DateTime.now().month)],
+                  t[DateTimeConverter.getMonthKey(DateTime.now().month)],
                   style: AppTextStyles.heading5.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                     fontWeight: .w600,
@@ -73,7 +73,7 @@ class RevenueSearchBar extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      Translations.of(context).filter,
+                                      t.filter,
                                       style: AppTextStyles.bodySmallSemibold
                                           .copyWith(
                                             color: ThemeHelper.getColor(
@@ -86,7 +86,7 @@ class RevenueSearchBar extends StatelessWidget {
                                     mainAxisAlignment: .spaceBetween,
                                     children: [
                                       Text(
-                                        Translations.of(context).time,
+                                        t.time,
                                         style: AppTextStyles.bodyMediumSemibold
                                             .copyWith(
                                               color: ThemeHelper.getColor(
@@ -95,7 +95,7 @@ class RevenueSearchBar extends StatelessWidget {
                                             ),
                                       ),
                                       Text(
-                                        Translations.of(context).reset,
+                                        t.reset,
                                         style: AppTextStyles.bodyMediumSemibold
                                             .copyWith(
                                               color: ThemeHelper.getColor(
@@ -109,7 +109,7 @@ class RevenueSearchBar extends StatelessWidget {
                                     spacing: 12,
                                     crossAxisAlignment: .start,
                                     children: [
-                                      Text(Translations.of(context).date),
+                                      Text(t.date),
                                       const AppDateTimePicker(name: 'dateTime'),
                                     ],
                                   ),
@@ -122,13 +122,13 @@ class RevenueSearchBar extends StatelessWidget {
                                           color: .basic,
                                           theme: .outline,
                                           onPressed: () => context.pop(),
-                                          text: Translations.of(context).cancel,
+                                          text: t.cancel,
                                         ),
                                       ),
                                       Expanded(
                                         child: AppButton(
                                           onPressed: () => context.pop(),
-                                          text: Translations.of(context).apply,
+                                          text: t.apply,
                                         ),
                                       ),
                                     ],
@@ -149,7 +149,7 @@ class RevenueSearchBar extends StatelessWidget {
               spacing: 4,
               children: [
                 Text(
-                  '${Translations.of(context).totalRevenue}:',
+                  '${t.totalRevenue}:',
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     // Very large text
                     fontWeight: .bold,

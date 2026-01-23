@@ -27,7 +27,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
       formKey: formKey,
       isChildScrollable: true,
       hasParentView: true,
-      title: Translations.of(context).home,
+      title: t.home,
       hasAppBar: false,
       child: MultiBlocProvider(
         providers: [

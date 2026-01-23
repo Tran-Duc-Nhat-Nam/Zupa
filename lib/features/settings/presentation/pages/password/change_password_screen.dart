@@ -28,7 +28,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
         listener: (context, state) {
           state.maybeWhen(
             changePasswordSuccess: () {
-              AppToast.showSuccessToast(Translations.of(context).success);
+              AppToast.showSuccessToast(t.success);
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
@@ -44,7 +44,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
               formKey: formKey,
               isChildScrollable: true,
               noBackground: true,
-              title: Translations.of(context).changePassword,
+              title: t.changePassword,
               footer: [
                 AppButton(
                   onPressed: () {
@@ -56,7 +56,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                       );
                     }
                   },
-                  text: Translations.of(context).changePassword,
+                  text: t.changePassword,
                 ),
               ],
               child: Padding(
@@ -68,8 +68,8 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                     children: [
                       AppTextField(
                         name: 'currentPassword',
-                        labelText: Translations.of(context).currentPassword,
-                        hintText: Translations.of(context).enterCurrentPassword,
+                        labelText: t.currentPassword,
+                        hintText: t.enterCurrentPassword,
                         isExternalLabel: true,
                         isPassword: true,
                         required: true,
@@ -77,15 +77,15 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                       Divider(color: ThemeHelper.getColor(context).grey100),
                       AppTextField(
                         name: 'newPassword',
-                        labelText: Translations.of(context).newPassword,
-                        hintText: Translations.of(context).enterNewPassword,
+                        labelText: t.newPassword,
+                        hintText: t.enterNewPassword,
                         isExternalLabel: true,
                         isPassword: true,
                         required: true,
                       ),
                       AppTextField(
                         name: 'confirmPassword',
-                        hintText: Translations.of(context).confirmPassword,
+                        hintText: t.confirmPassword,
                         isPasswordConfirm: true,
                         required: true,
                         validators: [

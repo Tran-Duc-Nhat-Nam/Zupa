@@ -23,7 +23,7 @@ class NfcHelper {
     NfcManager.instance.startSession(
       // iOS specific alert message
       alertMessageIos: context.mounted
-          ? Translations.of(context).error
+          ? t.error
           : 'Hold your phone near the tag',
       onSessionErrorIos: (error) async {
         // Handle session errors silently or log them
@@ -57,10 +57,10 @@ class NfcHelper {
           // On iOS, invalidate session with error message
           if (Platform.isIOS) {
             await NfcManager.instance.stopSession(
-              errorMessageIos: Translations.of(context).error,
+              errorMessageIos: t.error,
             );
           }
-          AppToast.showErrorToast(Translations.of(context).error);
+          AppToast.showErrorToast(t.error);
         }
       },
       pollingOptions: {

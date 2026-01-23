@@ -37,7 +37,7 @@ class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
     if (widget.required) {
       validators.add(
         FormBuilderValidators.required(
-          errorText: Translations.of(context).errorMessage.required,
+          errorText: t.errorMessage.required,
         ),
       );
     }

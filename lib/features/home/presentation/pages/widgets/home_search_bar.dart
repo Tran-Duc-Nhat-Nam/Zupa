@@ -24,7 +24,7 @@ class HomeSearchBar extends StatelessWidget {
           enabled: state is Loading,
           child: AppTextField(
             name: 'keyword',
-            hintText: Translations.of(context).ticketSearch,
+            hintText: t.ticketSearch,
             borderRadius: 100,
             prefixIconPath: AppIcons.search,
             suffix: InkWell(
@@ -54,7 +54,7 @@ class HomeSearchBar extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                Translations.of(context).filter,
+                t.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
                   color: ThemeHelper.getColor(context).grey600,
                 ),
@@ -64,13 +64,13 @@ class HomeSearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  Translations.of(context).time,
+                  t.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).grey700,
                   ),
                 ),
                 Text(
-                  Translations.of(context).reset,
+                  t.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                   ),
@@ -81,7 +81,7 @@ class HomeSearchBar extends StatelessWidget {
               spacing: 12,
               crossAxisAlignment: .start,
               children: [
-                Text(Translations.of(context).date),
+                Text(t.date),
                 const AppDateTimePicker(name: 'dateTime'),
               ],
             ),
@@ -94,13 +94,13 @@ class HomeSearchBar extends StatelessWidget {
                     color: .basic,
                     theme: .outline,
                     onPressed: () => context.pop(),
-                    text: Translations.of(context).cancel,
+                    text: t.cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
                     onPressed: () => context.pop(),
-                    text: Translations.of(context).apply,
+                    text: t.apply,
                   ),
                 ),
               ],

@@ -128,7 +128,7 @@ Translations get t => LocaleSettings.instance.currentTranslations;
 /// );
 ///
 /// Step 2:
-/// final t = Translations.of(context); // Get t variable.
+/// final t = t; // Get t variable.
 /// String a = t.someKey.anotherKey; // Use t variable.
 /// String b = t['someKey.anotherKey']; // Only for edge cases!
 class TranslationProvider extends BaseTranslationProvider<AppLocale, Translations> {

@@ -8,8 +8,8 @@ abstract class DialogHelper {
   static void showAuthDialog(BuildContext context) {
     showModal(
       context,
-      subtitleText: Translations.of(context).subtitle.sessionEnded,
-      titleText: Translations.of(context).title.sessionEnded,
+      subtitleText: t.subtitle.sessionEnded,
+      titleText: t.title.sessionEnded,
       type: .warning,
       onOk: () {
         context.goNamed(AppRoutes.login.name);

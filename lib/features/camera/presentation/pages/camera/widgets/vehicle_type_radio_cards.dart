@@ -46,7 +46,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      Translations.of(context)[vehicle.value],
+                      t[vehicle.value],
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: ThemeHelper.getColor(context).grey700,
                       ),

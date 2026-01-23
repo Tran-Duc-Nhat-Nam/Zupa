@@ -20,7 +20,7 @@ class MemberVehiclesSearchBar extends StatelessWidget {
           child: AppTextField(
             name: 'keyword',
             prefixIconPath: AppIcons.search,
-            hintText: Translations.of(context).search,
+            hintText: t.search,
             onChanged: (value) =>
                 context.read<MemberVehiclesFilterCubit>().search(value),
           ),

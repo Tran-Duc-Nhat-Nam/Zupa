@@ -32,13 +32,13 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: Translations.of(context).parkingAreaConfig,
+      title: t.parkingAreaConfig,
       isChildScrollable: true,
       footer: [
         AppButton(
-          text: Translations.of(context).save,
+          text: t.save,
           onPressed: () => AppToast.showSuccessToast(
-            Translations.of(context).success,
+            t.success,
           ),
         ),
       ],
@@ -62,15 +62,15 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(Translations.of(context).info),
+                          Text(t.info),
                           AppTextField(
                             name: 'branchName',
-                            labelText: Translations.of(context).branchName,
+                            labelText: t.branchName,
                             isExternalLabel: true,
                           ),
                           AppTextField(
                             name: 'address',
-                            labelText: Translations.of(context).address,
+                            labelText: t.address,
                             isExternalLabel: true,
                           ),
                         ],
@@ -81,7 +81,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(Translations.of(context).capacity),
+                          Text(t.capacity),
                           ...state.maybeMap(
                             loaded: (params) => params.parkingLot.capacity
                                 .map(
@@ -123,7 +123,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                                   ? toggle(false)
                                   : DialogHelper.showModal(
                                       context,
-                                      okText: Translations.of(context).lock,
+                                      okText: t.lock,
                                       cancelText: Translations.of(
                                         context,
                                       ).close,
@@ -134,7 +134,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                             ),
                           ),
                           Text(
-                            Translations.of(context).subtitle.warningThreshold,
+                            t.subtitle.warningThreshold,
                             style: AppTextStyles.bodySmallMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey500,
                             ),

@@ -27,7 +27,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: Translations.of(context).generalConfig,
+      title: t.generalConfig,
       child: BlocProvider<GeneralConfigCubit>(
         create: (context) => getIt<GeneralConfigCubit>()..init(),
         child: BlocBuilder<GeneralConfigCubit, GeneralConfigState>(
@@ -63,7 +63,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                           children: [
                             AppListTile(
                               leadingIconPath: AppIcons.outlineSetting,
-                              text: Translations.of(context).parkingPrice,
+                              text: t.parkingPrice,
                               trailingIconPath: AppIcons.chevronRight,
                               onTap: () => context.pushNamed('ParkingPrice'),
                             ),
@@ -72,7 +72,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             ),
                             AppListTile(
                               leadingIconPath: AppIcons.calendarAdd,
-                              text: Translations.of(context).memberFee,
+                              text: t.memberFee,
                               trailingIconPath: AppIcons.chevronRight,
                               onTap: () => context.pushNamed('MemberFee'),
                             ),
@@ -86,7 +86,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             AppListTile(
                               padding: .zero,
                               leadingIconPath: AppIcons.notification,
-                              text: Translations.of(context).title.warningThreshold,
+                              text: t.title.warningThreshold,
                               trailing: SizedBox(
                                 height: 20,
                                 child: Transform.scale(
@@ -133,11 +133,11 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             )) ...[
                               AppTextField(
                                 name: 'warningThreshold',
-                                hintText: Translations.of(context).enterInteger,
+                                hintText: t.enterInteger,
                                 required: true,
                               ),
                               Text(
-                                Translations.of(context).subtitle.warningThreshold,
+                                t.subtitle.warningThreshold,
                                 style: AppTextStyles.bodySmallMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey500,
                                 ),

@@ -38,7 +38,7 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             child: Center(
               child: Text(
-                Translations.of(context).drawer,
+                t.drawer,
                 style: AppTextStyles.heading2.copyWith(
                   color: ThemeHelper.getColor(context).white,
                 ),
@@ -46,9 +46,9 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
           ),
           // ListTile(
-          //   title: Text(Translations.of(context).changeLanguage),
+          //   title: Text(t.changeLanguage),
           //   leading: Text(
-          //     Translations.of(context)[LocaleSettings.currentLocale.languageCode],
+          //     t[LocaleSettings.currentLocale.languageCode],
           //     style: AppTextStyles.heading3,
           //   ),
           //   onTap: () {
@@ -60,7 +60,7 @@ class _AppDrawerState extends State<AppDrawer> {
           //   },
           // ),
           ListTile(
-            title: Text(Translations.of(context).changeTheme),
+            title: Text(t.changeTheme),
             leading: AnimatedSwitcher(
               duration: const .new(milliseconds: 300),
               transitionBuilder: (child, anim) => RotationTransition(
@@ -97,7 +97,7 @@ class _AppDrawerState extends State<AppDrawer> {
             },
             leading: const Icon(Icons.settings),
             title: Text(
-              Translations.of(context).settings,
+              t.settings,
               style: const .new(fontSize: 16),
             ),
           ),

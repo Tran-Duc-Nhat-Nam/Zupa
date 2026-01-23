@@ -26,7 +26,7 @@ class VehicleInfoCard extends StatelessWidget {
           Padding(
             padding: const .all(10),
             child: Text(
-              '${Translations.of(context).ticketNumber}: $ticketNumber',
+              '${t.ticketNumber}: $ticketNumber',
               style: AppTextStyles.bodyMediumSemibold.copyWith(
                 color: ThemeHelper.getColor(context).grey700,
               ),
@@ -40,7 +40,7 @@ class VehicleInfoCard extends StatelessWidget {
           Padding(
             padding: const .all(8),
             child: Text(
-              '${Translations.of(context).ticketNumber}: $ticketNumber',
+              '${t.ticketNumber}: $ticketNumber',
               style: AppTextStyles.bodyXLargeSemibold.copyWith(
                 color: ThemeHelper.getColor(context).grey700,
               ),
