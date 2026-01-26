@@ -23,11 +23,16 @@ class HistoryListCubit extends Cubit<HistoryListState> {
       success: (data) =>
           data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
       error: (message) => emit(.failed(message)),
+      unauthenticated: () => emit(const .unauthenticated()),
     );
   }
 
   Future<void> refresh(HistoryFilter? filter) async {
-    emit(const .loading());
+    final List<HistoryTicket> items = state.maybeMap(
+      loaded: (params) => [...params.tickets],
+      orElse: () => [],
+    );
+    emit(.refreshing(items));
     final response = await _historyRepository.getHistory(filter: filter);
 
     response.whenOrNull(
@@ -55,11 +60,11 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
-        items.isEmpty
-            ? emit(const .empty())
-            : emit(
-                .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
-              );
+        emit(
+          items.isEmpty
+              ? const .empty()
+              : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+        );
       },
       error: (message) {
         emit(.failed(message));

@@ -1,14 +1,14 @@
-
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 import 'package:zupa/features/revenue/data/models/revenue_model.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart' hide Loading;
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
+    hide Loading;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
@@ -21,18 +21,38 @@ class RevenueListTab extends StatelessWidget {
   const RevenueListTab({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RevenueListCubit, RevenueListState>(
-      builder: (context, state) {
-        final refreshController = RefreshController();
-        final List<DailyRevenue> items =
-            state.whenOrNull(
-              loaded: (tickets, _) => tickets,
-              refreshing: (tickets) => tickets,
-              loadingMore: (tickets) => tickets,
-            ) ?? [];
+    final refreshController = EasyRefreshController(
+      controlFinishLoad: true,
+      controlFinishRefresh: true,
+    );
+
+    return BlocConsumer<RevenueListCubit, RevenueListState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          loaded: (tickets, pageIndex) {
+            refreshController.finishRefresh();
+            refreshController.finishLoad();
+          },
+          failed: (message) {
+            refreshController.finishRefresh(.fail);
+            refreshController.finishLoad(.fail);
+          },
+          empty: () {
+            refreshController.finishRefresh(.noMore);
+            refreshController.finishLoad(.noMore);
+          },
+        );
+      },
+      builder: (listContext, listState) {
+        final List<DailyRevenue> items = listState.maybeWhen(
+          loaded: (tickets, _) => tickets,
+          refreshing: (tickets) => tickets,
+          loadingMore: (tickets) => tickets,
+          orElse: () => [],
+        );
 
         return Skeletonizer(
-          enabled: state is Loading,
+          enabled: listState is Loading,
           child: Container(
             clipBehavior: .antiAlias,
             margin: const .symmetric(horizontal: 10),
@@ -59,38 +79,49 @@ class RevenueListTab extends StatelessWidget {
                       decoration: const BoxDecoration(
                         borderRadius: .vertical(top: .circular(8)),
                       ),
-                      child: SmartRefresher(
-                        enablePullUp: state is !LoadingMore,
-                        enablePullDown: state is !Refreshing,
+                      child: EasyRefresh(
+                        header: const MaterialHeader(),
+                        footer: ClassicFooter(
+                          dragText: t.dragText,
+                          armedText: t.armedText,
+                          readyText: t.releaseToLoadMore,
+                          processingText: t.processingText,
+                          processedText: t.processedText,
+                          noMoreText: t.noMoreText,
+                          failedText: t.failedText,
+                        ),
                         controller: refreshController,
                         onRefresh: () async {
                           final filter = context
-                              .read<RevenueFilterState>()
+                              .read<RevenueFilterCubit>()
+                              .state
                               .maybeMap(
                                 loaded: (s) => s.filter,
                                 orElse: () => null,
                               );
-                          await context.read<RevenueListCubit>().refresh(
+                          await listContext.read<RevenueListCubit>().refresh(
                             filter,
                           );
-                          refreshController.refreshCompleted();
+                          refreshController.finishRefresh();
                         },
-                        onLoading: () async {
+                        onLoad: () async {
                           final filter = context
-                              .read<RevenueFilterState>()
+                              .read<RevenueFilterCubit>()
+                              .state
                               .maybeMap(
                                 loaded: (s) => s.filter,
                                 orElse: () => null,
                               );
-                          await context.read<RevenueListCubit>().loadMore(
+                          await listContext.read<RevenueListCubit>().loadMore(
                             filter,
                           );
-                          refreshController.loadComplete();
+                          refreshController.finishLoad();
                         },
                         child: ListView.separated(
-                          separatorBuilder: (context, index) =>
+                          itemCount: items.isNotEmpty ? items.length : 10,
+                          separatorBuilder: (_, _) =>
                               const SizedBox(height: 10),
-                          itemBuilder: (c, i) => RevenueTitle(
+                          itemBuilder: (_, i) => RevenueTitle(
                             revenue: items.isNotEmpty
                                 ? items[i]
                                 : DailyRevenue(
@@ -114,7 +145,6 @@ class RevenueListTab extends StatelessWidget {
                                     ],
                                   ),
                           ),
-                          itemCount: items.isNotEmpty ? items.length : 10,
                         ),
                       ),
                     ),

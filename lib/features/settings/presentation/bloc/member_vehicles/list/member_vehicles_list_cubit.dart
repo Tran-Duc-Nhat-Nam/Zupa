@@ -30,11 +30,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
   }
 
-  void refresh({
-    MemberVehiclesFilter? filter,
-    void Function()? onSuccess,
-    void Function()? onFailed,
-  }) async {
+  void refresh(MemberVehiclesFilter? filter) async {
     final List<MemberVehicle> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
@@ -42,27 +38,13 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     emit(.refreshing(items));
     final result = await _repository.getMemberVehicles(filter: filter);
     result.whenOrNull(
-      success: (newItems) {
-        onSuccess?.call();
-        if (newItems.isEmpty) {
-          emit(const .empty());
-        } else {
-          emit(.loaded(newItems, 1));
-        }
-      },
-      error: (message) {
-        onFailed?.call();
-        emit(.failed(message));
-      },
+      success: (data) =>
+          data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+      error: (message) => emit(.failed(message)),
     );
   }
 
-  void loadMore({
-    MemberVehiclesFilter? filter,
-    void Function()? onSuccess,
-    void Function()? onFailed,
-    void Function()? onEmpty,
-  }) async {
+  void loadMore(MemberVehiclesFilter? filter) async {
     final List<MemberVehicle> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
@@ -72,19 +54,21 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       orElse: () => 1,
     );
     emit(.loadingMore(items));
-    final result = await _repository.getMemberVehicles(page: pageIndex, filter: filter);
+
+    final result = await _repository.getMemberVehicles(
+      page: pageIndex,
+      filter: filter,
+    );
     result.whenOrNull(
       success: (newItems) {
-        if (newItems.isEmpty) {
-          onEmpty?.call();
-        } else {
-          items.addAll(newItems);
-          onSuccess?.call();
-        }
-        emit(.loaded(items, pageIndex));
+        items.addAll(newItems);
+        emit(
+          items.isEmpty
+              ? const .empty()
+              : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+        );
       },
       error: (message) {
-        onFailed?.call();
         emit(.failed(message));
       },
     );

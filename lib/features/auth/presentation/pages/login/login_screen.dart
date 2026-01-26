@@ -22,9 +22,16 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
       create: (context) => getIt<LoginCubit>()..init(),
-      child: BlocListener<LoginCubit, LoginState>(
+      child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
+            loaded: (tenant, username, password, isRemember) =>
+                formKey.currentState?.patchValue({
+                  'tenant': tenant,
+                  'username': username,
+                  'password': password,
+                  'isRemember': isRemember,
+                }),
             loginSuccess: () => context.goNamed(AppRoutes.home.name),
             loginFailed: (message) {
               AppToast.showErrorToast(message);
@@ -37,113 +44,98 @@ class LoginScreen extends StatelessWidget {
             },
           );
         },
-        child: BlocBuilder<LoginCubit, LoginState>(
-          builder: (context, state) {
-            if (state is Loaded) {
-              formKey.currentState?.patchValue({
-                'tenant': state.tenant,
-                'username': state.username,
-                'password': state.password,
-                'isRemember': state.isRemember,
-              });
-            }
-            return AppScreen(
-              hasSafeBottomArea: false,
-              hasAppBar: false,
-              resizeToAvoidBottomInset: true,
-              child: FormBuilder(
-                key: formKey,
-                child: Padding(
-                  padding: const .symmetric(vertical: 40, horizontal: 24),
-                  child: Column(
-                    crossAxisAlignment: .start,
-                    spacing: 16,
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          'assets/images/tsp-logo.png',
-                          height: 80,
+        builder: (context, state) {
+          return AppScreen(
+            hasSafeBottomArea: false,
+            hasAppBar: false,
+            resizeToAvoidBottomInset: true,
+            child: FormBuilder(
+              key: formKey,
+              child: Padding(
+                padding: const .symmetric(vertical: 40, horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  spacing: 16,
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        'assets/images/tsp-logo.png',
+                        height: 80,
+                      ),
+                    ),
+                    Center(
+                      child: Text(t.title.login, style: AppTextStyles.heading2),
+                    ),
+                    Center(
+                      child: Text(
+                        t.subtitle.login,
+                        style: AppTextStyles.bodyMediumRegular.copyWith(
+                          color: ThemeHelper.getColor(context).grey400,
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          t.title.login,
-                          style: AppTextStyles.heading2,
+                    ),
+                    AppTextField(
+                      name: 'tenant',
+                      required: true,
+                      labelText: t.site,
+                      prefix: const Icon(Icons.warehouse_outlined),
+                    ),
+                    AppTextField(
+                      name: 'username',
+                      required: true,
+                      labelText: t.username,
+                      prefix: const Icon(Icons.person_outline_rounded),
+                    ),
+                    AppTextField(
+                      name: 'password',
+                      required: true,
+                      isPassword: true,
+                      labelText: t.password,
+                      prefix: const Icon(Icons.lock_outline_rounded),
+                    ),
+                    AppCheckbox(
+                      name: 'isRemember',
+                      label: Text(
+                        t.isRemember,
+                        style: AppTextStyles.bodySmallMedium.copyWith(
+                          color: ThemeHelper.getColor(context).grey700,
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          t.subtitle.login,
-                          style: AppTextStyles.bodyMediumRegular.copyWith(
-                            color: ThemeHelper.getColor(context).grey400,
-                          ),
+                    ),
+                    AppButton(
+                      onPressed: state.whenOrNull(
+                        loaded: (_, _, _, value) => () {
+                          formKey.currentState?.saveAndValidate();
+                          if (formKey.currentState?.validate() ?? false) {
+                            context.read<LoginCubit>().login(
+                              tenant:
+                                  formKey.currentState?.value['tenant'] ?? '',
+                              username:
+                                  formKey.currentState?.value['username'] ?? '',
+                              password:
+                                  formKey.currentState?.value['password'] ?? '',
+                              isRemember:
+                                  formKey.currentState?.value['isRemember'] ??
+                                  false,
+                            );
+                          }
+                        },
+                      ),
+                      text: t.title.login,
+                      padding: const .all(16),
+                      child: state.whenOrNull(
+                        submitting: () => LoadingAnimationWidget.waveDots(
+                          color: ThemeHelper.getColor(context).white,
+                          size: 24,
                         ),
                       ),
-                      AppTextField(
-                        name: 'tenant',
-                        required: true,
-                        labelText: t.site,
-                        prefix: const Icon(Icons.warehouse_outlined),
-                      ),
-                      AppTextField(
-                        name: 'username',
-                        required: true,
-                        labelText: t.username,
-                        prefix: const Icon(Icons.person_outline_rounded),
-                      ),
-                      AppTextField(
-                        name: 'password',
-                        required: true,
-                        isPassword: true,
-                        labelText: t.password,
-                        prefix: const Icon(Icons.lock_outline_rounded),
-                      ),
-                      AppCheckbox(
-                        name: 'isRemember',
-                        label: Text(
-                          t.isRemember,
-                          style: AppTextStyles.bodySmallMedium.copyWith(
-                            color: ThemeHelper.getColor(context).grey700,
-                          ),
-                        ),
-                      ),
-                      AppButton(
-                        onPressed: state.whenOrNull(
-                          loaded: (_, _, _, value) => () {
-                            formKey.currentState?.saveAndValidate();
-                            if (formKey.currentState?.validate() ?? false) {
-                              context.read<LoginCubit>().login(
-                                tenant:
-                                    formKey.currentState?.value['tenant'] ?? '',
-                                username:
-                                    formKey.currentState?.value['username'] ??
-                                    '',
-                                password:
-                                    formKey.currentState?.value['password'] ??
-                                    '',
-                                isRemember:
-                                    formKey.currentState?.value['isRemember'] ??
-                                    false,
-                              );
-                            }
-                          },
-                        ),
-                        text: t.title.login,
-                        padding: const .all(16),
-                        child: state.whenOrNull(
-                          submitting: () => LoadingAnimationWidget.waveDots(
-                            color: ThemeHelper.getColor(context).white,
-                            size: 24,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

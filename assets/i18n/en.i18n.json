@@ -228,5 +228,12 @@
   "vi_VN": "Vietnamese",
   "en_US": "English",
   "ja": "Japanese",
-  "ticketNumber": "Ticket number"
+  "ticketNumber": "Ticket number",
+  "dragText": "Pull to load",
+  "armedText": "Release to load",
+  "readyText": "Loading",
+  "processingText": "Loading",
+  "processedText": "Success",
+  "noMoreText": "No more data",
+  "failedText": "Load failed"
 }

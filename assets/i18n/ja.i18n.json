@@ -227,5 +227,12 @@
   "vi_VN": "ベトナム語",
   "en_US": "英語",
   "ja": "日本語",
-  "ticketNumber": "チケット番号"
+  "ticketNumber": "チケット番号",
+  "dragText": "引っ張って読み込み",
+  "armedText": "指を離して読み込み",
+  "readyText": "読み込み中",
+  "processingText": "読み込み中",
+  "processedText": "完了",
+  "noMoreText": "データは以上です",
+  "failedText": "読み込み失敗"
 }

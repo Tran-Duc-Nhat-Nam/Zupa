@@ -68,8 +68,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       final backgroundColor = ThemeHelper.getColor(
                         context,
                       ).primary400;
-                      final showWhiteBackground =
-                          isScrolled && listState is! Refreshing;
+                      final showWhiteBackground = isScrolled;
 
                       return AnimatedContainer(
                         duration: const .new(milliseconds: 250),

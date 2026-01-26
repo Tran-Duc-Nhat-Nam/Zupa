@@ -21,18 +21,22 @@ class RevenueListCubit extends Cubit<RevenueListState> {
 
     response.whenOrNull(
       success: (data) =>
-      data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+          data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
       error: (message) => emit(.failed(message)),
     );
   }
 
   Future<void> refresh(RevenueFilter? filter) async {
-    emit(const .loading());
+    final List<DailyRevenue> items = state.maybeMap(
+      loaded: (params) => [...params.tickets],
+      orElse: () => [],
+    );
+    emit(.refreshing(items));
     final response = await _revenueRepository.getRevenue(filter: filter);
 
     response.whenOrNull(
       success: (data) =>
-      data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+          data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
       error: (message) => emit(.failed(message)),
     );
   }
@@ -55,10 +59,10 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
-        items.isEmpty
-            ? emit(const .empty())
-            : emit(
-              .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+        emit(
+          items.isEmpty
+              ? const .empty()
+              : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
         );
       },
       error: (message) {

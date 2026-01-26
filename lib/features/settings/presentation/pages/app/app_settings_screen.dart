@@ -37,7 +37,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
               child: Column(
                 spacing: 10,
                 children: [
-                  BlocListener<LocalizationCubit, LocalizationState>(
+                  BlocConsumer<LocalizationCubit, LocalizationState>(
                     listener: (context, state) {
                       state.whenOrNull(
                         loading: (locale) {
@@ -46,43 +46,41 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           } else {
                             LocaleSettings.setLocale(
                               AppLocale.values.firstWhere(
-                                (element) =>
-                                    element.languageCode == locale.name,
+                                    (element) =>
+                                element.languageCode == locale.name,
                               ),
                             );
                           }
                         },
                       );
                     },
-                    child: BlocBuilder<LocalizationCubit, LocalizationState>(
-                      builder: (context, state) {
-                        return AppListTile(
-                          padding: .zero,
-                          leadingIconPath: AppIcons.global,
-                          text: t.language,
-                          trailing: AppDropDownSearch<AppLocalization>(
-                            name: 'appLocale',
-                            buttonDecoration: const .new(),
-                            iconSize: 0,
-                            dropdownItems: const [.vi, .en, .ja, .followSystem],
-                            buttonWidth: 140,
-                            initialValue: state.when(
-                              loaded: (locale) => locale,
-                              loading: (locale) => locale,
-                              initial: () => .followSystem,
-                            ),
-                            itemLabelGetter: (item) => item != null
-                                ? Translations.of(
-                                    context,
-                                  )[item.getLocaleString() ?? 'followSystem']
-                                : t.followSystem,
-                            onChanged: (value) => context
-                                .read<LocalizationCubit>()
-                                .changeLocale(value ?? .followSystem),
+                    builder: (context, state) {
+                      return AppListTile(
+                        padding: .zero,
+                        leadingIconPath: AppIcons.global,
+                        text: t.language,
+                        trailing: AppDropDownSearch<AppLocalization>(
+                          name: 'appLocale',
+                          buttonDecoration: const .new(),
+                          iconSize: 0,
+                          dropdownItems: const [.vi, .en, .ja, .followSystem],
+                          buttonWidth: 140,
+                          initialValue: state.when(
+                            loaded: (locale) => locale,
+                            loading: (locale) => locale,
+                            initial: () => .followSystem,
                           ),
-                        );
-                      },
-                    ),
+                          itemLabelGetter: (item) => item != null
+                              ? Translations.of(
+                                  context,
+                                )[item.getLocaleString() ?? 'followSystem']
+                              : t.followSystem,
+                          onChanged: (value) => context
+                              .read<LocalizationCubit>()
+                              .changeLocale(value ?? .followSystem),
+                        ),
+                      );
+                    },
                   ),
                   Divider(color: ThemeHelper.getColor(context).grey100),
                   BlocBuilder<ThemeCubit, ThemeState>(

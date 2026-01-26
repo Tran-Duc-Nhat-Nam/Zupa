@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 624 (208 per locale)
+/// Strings: 645 (215 per locale)
 ///
-/// Built on 2026-01-23 at 04:41 UTC
+/// Built on 2026-01-26 at 03:48 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -128,7 +128,7 @@ Translations get t => LocaleSettings.instance.currentTranslations;
 /// );
 ///
 /// Step 2:
-/// final t = t; // Get t variable.
+/// final t = Translations.of(context); // Get t variable.
 /// String a = t.someKey.anotherKey; // Use t variable.
 /// String b = t['someKey.anotherKey']; // Only for edge cases!
 class TranslationProvider extends BaseTranslationProvider<AppLocale, Translations> {

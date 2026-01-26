@@ -25,31 +25,22 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void refresh({HomeFilter? filter, void Function()? onSuccess, void Function()? onFailed}) async {
+  void refresh(HomeFilter? filter) async {
     final List<HomeTicket> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
     emit(.refreshing(items));
-
-    final result = await _repository.getTickets(filter: filter);
-    result.whenOrNull(
-      success: (data) {
-        onSuccess?.call();
-        emit(data.isEmpty ? const .empty() : .loaded(data, 0));
-      },
-      error: (message) {
-        onFailed?.call();
-        emit(.failed(message));
-      },
+    final result = await _repository.getTickets(filter: filter, page: 0);
+    result.maybeWhen(
+      success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
+      error: (message) => emit(.failed(message)),
+      unauthenticated: () => emit(const .unauthenticated()),
+      orElse: () => emit(const .failed('unknownError')),
     );
   }
 
-  void loadMore(
-    void Function() onSuccess,
-    void Function() onFailed,
-    void Function() onEmpty,
-  ) async {
+  void loadMore(HomeFilter? filter) async {
     final List<HomeTicket> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -60,21 +51,17 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
     emit(.loadingMore(items));
 
-    final result = await _repository.getTickets(page: pageIndex + 1);
+    final result = await _repository.getTickets(
+      filter: filter,
+      page: pageIndex + 1,
+    );
     result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
-        if (newItems.isEmpty) {
-          onEmpty();
-        } else {
-          onSuccess();
-        }
-        emit(.loaded(items, pageIndex + 1));
+        emit(items.isEmpty ? const .empty() : .loaded(items, pageIndex + 1));
       },
-      error: (message) {
-        onFailed();
-        emit(.failed(message));
-      },
+      error: (message) => emit(.failed(message)),
+      unauthenticated: () => emit(const .unauthenticated()),
     );
   }
 }

@@ -13,7 +13,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
-	/// final t = t;
+	/// final t = Translations.of(context);
 	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -558,6 +558,27 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Ticket number'
 	String get ticketNumber => 'Ticket number';
+
+	/// en: 'Pull to load'
+	String get dragText => 'Pull to load';
+
+	/// en: 'Release to load'
+	String get armedText => 'Release to load';
+
+	/// en: 'Loading'
+	String get readyText => 'Loading';
+
+	/// en: 'Loading'
+	String get processingText => 'Loading';
+
+	/// en: 'Success'
+	String get processedText => 'Success';
+
+	/// en: 'No more data'
+	String get noMoreText => 'No more data';
+
+	/// en: 'Load failed'
+	String get failedText => 'Load failed';
 }
 
 // Path: email
@@ -932,6 +953,13 @@ extension on Translations {
 			'en_US' => 'English',
 			'ja' => 'Japanese',
 			'ticketNumber' => 'Ticket number',
+			'dragText' => 'Pull to load',
+			'armedText' => 'Release to load',
+			'readyText' => 'Loading',
+			'processingText' => 'Loading',
+			'processedText' => 'Success',
+			'noMoreText' => 'No more data',
+			'failedText' => 'Load failed',
 			_ => null,
 		};
 	}

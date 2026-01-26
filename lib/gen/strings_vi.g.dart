@@ -224,6 +224,13 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get en_US => 'Tiếng Anh';
 	@override String get ja => 'Tiếng Nhật';
 	@override String get ticketNumber => 'Mã vé';
+	@override String get dragText => 'Kéo để tải';
+	@override String get armedText => 'Thả ra để tải';
+	@override String get readyText => 'Đang tải';
+	@override String get processingText => 'Đang tải';
+	@override String get processedText => 'Thành công';
+	@override String get noMoreText => 'Không còn dữ liệu';
+	@override String get failedText => 'Tải thất bại';
 }
 
 // Path: email
@@ -530,6 +537,13 @@ extension on TranslationsVi {
 			'en_US' => 'Tiếng Anh',
 			'ja' => 'Tiếng Nhật',
 			'ticketNumber' => 'Mã vé',
+			'dragText' => 'Kéo để tải',
+			'armedText' => 'Thả ra để tải',
+			'readyText' => 'Đang tải',
+			'processingText' => 'Đang tải',
+			'processedText' => 'Thành công',
+			'noMoreText' => 'Không còn dữ liệu',
+			'failedText' => 'Tải thất bại',
 			_ => null,
 		};
 	}

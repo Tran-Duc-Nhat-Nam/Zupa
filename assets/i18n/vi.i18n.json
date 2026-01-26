@@ -226,5 +226,12 @@
   "vi_VN": "Tiếng Việt",
   "en_US": "Tiếng Anh",
   "ja": "Tiếng Nhật",
-  "ticketNumber": "Mã vé"
+  "ticketNumber": "Mã vé",
+  "dragText": "Kéo để tải",
+  "armedText": "Thả ra để tải",
+  "readyText": "Đang tải",
+  "processingText": "Đang tải",
+  "processedText": "Thành công",
+  "noMoreText": "Không còn dữ liệu",
+  "failedText": "Tải thất bại"
 }

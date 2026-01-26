@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,43 +16,67 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class MemberVehiclesListTab extends StatelessWidget {
   const MemberVehiclesListTab({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MemberVehiclesListCubit, MemberVehiclesListState>(
-      builder: (context, state) {
-        final refreshController = RefreshController();
-        final List<MemberVehicle>? items = state.whenOrNull(
-          loaded: (vehicles, _) => vehicles,
-          refreshing: (vehicles) => vehicles,
-          loadingMore: (vehicles) => vehicles,
+    final refreshController = EasyRefreshController(
+      controlFinishLoad: true,
+      controlFinishRefresh: true,
+    );
+
+    return BlocConsumer<MemberVehiclesListCubit, MemberVehiclesListState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          loaded: (tickets, pageIndex) {
+            refreshController.finishRefresh();
+            refreshController.finishLoad();
+          },
+          failed: (message) {
+            refreshController.finishRefresh(.fail);
+            refreshController.finishLoad(.fail);
+          },
+          empty: () {
+            refreshController.finishRefresh(.noMore);
+            refreshController.finishLoad(.noMore);
+          },
         );
+      },
+      builder: (context, state) {
+        final List<MemberVehicle>? items = state.maybeWhen(
+          loaded: (tickets, _) => tickets,
+          refreshing: (tickets) => tickets,
+          loadingMore: (tickets) => tickets,
+          orElse: () => [],
+        );
+
         return Skeletonizer(
           enabled: state is Loading,
           child: Padding(
             padding: const .symmetric(horizontal: 24),
-            child: SmartRefresher(
-              enablePullDown: state is! LoadingMore,
-              enablePullUp: state is! Refreshing,
+            child: EasyRefresh(
+              header: const MaterialHeader(),
+              footer: ClassicFooter(
+                dragText: t.dragText,
+                armedText: t.armedText,
+                readyText: t.releaseToLoadMore,
+                processingText: t.processingText,
+                processedText: t.processedText,
+                noMoreText: t.noMoreText,
+                failedText: t.failedText,
+              ),
               controller: refreshController,
               onRefresh: () => context.read<MemberVehiclesListCubit>().refresh(
-                filter: context.read<MemberVehiclesFilterState>().mapOrNull(
+                context.read<MemberVehiclesFilterCubit>().state.mapOrNull(
                   loaded: (s) => s.filter,
                 ),
-                onSuccess: refreshController.refreshCompleted,
-                onFailed: refreshController.refreshFailed,
               ),
-              onLoading: () => context.read<MemberVehiclesListCubit>().loadMore(
-                filter: context.read<MemberVehiclesFilterState>().mapOrNull(
+              onLoad: () => context.read<MemberVehiclesListCubit>().loadMore(
+                context.read<MemberVehiclesFilterCubit>().state.mapOrNull(
                   loaded: (s) => s.filter,
                 ),
-                onSuccess: refreshController.loadComplete,
-                onFailed: refreshController.loadFailed,
-                onEmpty: refreshController.loadNoData,
               ),
               child: ListView.separated(
                 separatorBuilder: (context, index) =>
@@ -168,9 +193,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
-                        AppToast.showSuccessToast(
-                          t.success,
-                        );
+                        AppToast.showSuccessToast(t.success);
                       }
                     },
                   ),

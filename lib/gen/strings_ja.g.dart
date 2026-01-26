@@ -224,6 +224,13 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get en_US => '英語';
 	@override String get ja => '日本語';
 	@override String get ticketNumber => 'チケット番号';
+	@override String get dragText => '引っ張って読み込み';
+	@override String get armedText => '指を離して読み込み';
+	@override String get readyText => '読み込み中';
+	@override String get processingText => '読み込み中';
+	@override String get processedText => '完了';
+	@override String get noMoreText => 'データは以上です';
+	@override String get failedText => '読み込み失敗';
 }
 
 // Path: email
@@ -530,6 +537,13 @@ extension on TranslationsJa {
 			'en_US' => '英語',
 			'ja' => '日本語',
 			'ticketNumber' => 'チケット番号',
+			'dragText' => '引っ張って読み込み',
+			'armedText' => '指を離して読み込み',
+			'readyText' => '読み込み中',
+			'processingText' => '読み込み中',
+			'processedText' => '完了',
+			'noMoreText' => 'データは以上です',
+			'failedText' => '読み込み失敗',
 			_ => null,
 		};
 	}
