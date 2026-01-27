@@ -6,6 +6,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 
 class BorderPainter extends CustomPainter {
@@ -76,25 +77,25 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
         ? (widget.current / widget.capacity!) * 2
         : 1;
 
-    return AspectRatio(
-      aspectRatio: 1, // <--- 1. Enforces a 1:1 square/circle ratio
-      child: AnimatedOpacity(
-        duration: const .new(milliseconds: 350),
-        opacity: widget.isDisabled ? 0.5 : 1,
-        child: CustomPaint(
-          painter: BorderPainter(
-            currentState: value,
-            color: widget.current >= (widget.capacity ?? 0)
-                ? colors.error600
-                : widget.isWarning
-                ? colors.warning600
-                : colors.success600,
-          ),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              shape:
-                  .circle, // <--- 2. Ensures the background is a perfect circle
-              color: widget.isSelected ? colors.primary400 : colors.primary100,
+    return AppCard(
+      padding: const .all(8),
+      decoration: BoxDecoration(
+        color: widget.isSelected ? colors.primary200 : colors.primary50,
+        borderRadius: const .all(Radius.circular(100)),
+      ),
+      child: AspectRatio(
+        aspectRatio: 1, // <--- 1. Enforces a 1:1 square/circle ratio
+        child: AnimatedOpacity(
+          duration: const .new(milliseconds: 350),
+          opacity: widget.isDisabled ? 0.5 : 1,
+          child: CustomPaint(
+            painter: BorderPainter(
+              currentState: value,
+              color: widget.current >= (widget.capacity ?? 0)
+                  ? colors.error600
+                  : widget.isWarning
+                  ? colors.warning600
+                  : colors.success600,
             ),
             child: InkWell(
               customBorder:
@@ -112,17 +113,10 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                       height: 32,
                       child: Container(
                         padding: const .all(6),
-                        decoration: BoxDecoration(
-                          color: widget.isSelected
-                              ? colors.blueDark
-                              : colors.primary200,
-                        ),
                         child: AppIcon(
                           path: widget.iconPath,
                           size: 24,
-                          color: widget.isSelected
-                              ? colors.primary50
-                              : colors.primary500,
+                          color: colors.primary500,
                         ),
                       ),
                     ),

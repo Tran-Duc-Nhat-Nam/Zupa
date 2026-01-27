@@ -31,17 +31,18 @@ class AppScreen extends StatefulWidget {
     this.formInitialValue,
     this.footerPadding,
     this.formKey,
-    this.isClose,
+    this.isClose = false,
     this.appBarTrailingIconPath,
     this.appBarTrailing,
     this.appBarLeadingIconPath,
     this.appBarLeading,
+    this.floatingActionButton,
   });
 
   final bool hasAppBar;
   final bool hasDrawer;
   final bool isChildScrollable;
-  final bool? isClose;
+  final bool isClose;
   final PreferredSizeWidget? appBar;
   final String title;
   final String? subtitle;
@@ -59,6 +60,7 @@ class AppScreen extends StatefulWidget {
   final List<Widget>? appBarTrailing;
   final String? appBarLeadingIconPath;
   final Widget? appBarLeading;
+  final Widget? floatingActionButton;
   final GlobalKey<FormBuilderState>? formKey;
   final void Function()? onFormChanged;
   final Map<String, dynamic>? formInitialValue;
@@ -115,7 +117,7 @@ class _AppScreenState extends AppState<AppScreen> {
             : widget.appBar,
         backgroundColor:
             widget.backgroundColor ??
-            Theme.of(context).colorScheme.surfaceContainerLow,
+            Theme.of(context).colorScheme.surface,
         body: Stack(
           alignment: .bottomCenter,
           children: [
@@ -173,6 +175,7 @@ class _AppScreenState extends AppState<AppScreen> {
             ),
           ],
         ),
+        floatingActionButton: widget.floatingActionButton,
       ),
     );
   }

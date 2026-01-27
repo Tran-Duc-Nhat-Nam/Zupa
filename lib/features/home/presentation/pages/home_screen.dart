@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
@@ -27,6 +30,13 @@ class _HomeScreenState extends AppState<HomeScreen> {
       hasParentView: true,
       title: t.home,
       hasAppBar: false,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ThemeHelper.getColor(context).primary200,
+        foregroundColor: ThemeHelper.getColor(context).primary500,
+        onPressed: () => context.pushNamed(AppRoutes.checkIn.name),
+        shape: const CircleBorder(),
+        child: const Icon(Icons.camera_alt_rounded),
+      ),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<HomeTicketCubit>(
@@ -43,21 +53,26 @@ class _HomeScreenState extends AppState<HomeScreen> {
             );
           },
           child: const Column(
-          spacing: 10,
-          children: [
-            SizedBox(height: 6),
-            Padding(
-              padding: .symmetric(horizontal: 12),
-              child: HomeSearchBar(),
-            ),
-            Padding(
-              padding: .symmetric(horizontal: 24),
-              child: VehicleCapacityTab(),
-            ),
-            Expanded(child: TicketListTab()),
-          ],
+            spacing: 10,
+            children: [
+              SizedBox(height: 6),
+              Padding(
+                padding: .symmetric(horizontal: 24),
+                child: HomeSearchBar(),
+              ),
+              Padding(
+                padding: .symmetric(horizontal: 24),
+                child: VehicleCapacityTab(),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: .symmetric(horizontal: 24),
+                  child: TicketListTab(),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

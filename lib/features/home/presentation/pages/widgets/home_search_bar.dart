@@ -26,6 +26,8 @@ class HomeSearchBar extends StatelessWidget {
             name: 'keyword',
             hintText: t.ticketSearch,
             borderRadius: 100,
+            hasBorder: false,
+            backgroundColor: ThemeHelper.getColor(context).primary50,
             prefixIconPath: AppIcons.search,
             suffix: InkWell(
               child: AppIcon(

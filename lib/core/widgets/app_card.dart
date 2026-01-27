@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 
 class AppCard extends StatelessWidget {
@@ -34,7 +33,7 @@ class AppCard extends StatelessWidget {
       decoration:
           decoration ??
           BoxDecoration(
-            color: ThemeHelper.getColor(context).white,
+            color: ThemeHelper.getColor(context).primary50,
             borderRadius: radius ?? .circular(8),
           ),
       constraints: constraints,

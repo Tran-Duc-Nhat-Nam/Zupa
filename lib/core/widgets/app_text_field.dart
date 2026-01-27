@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -32,6 +31,7 @@ class AppTextField extends StatefulWidget {
     this.borderRadius = 12,
     this.controller,
     this.initialValue,
+    this.backgroundColor,
   });
 
   final String name;
@@ -55,6 +55,7 @@ class AppTextField extends StatefulWidget {
   final InputBorder? border;
   final double borderRadius;
   final TextAlign? textAlign;
+  final Color? backgroundColor;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -77,9 +78,7 @@ class _AppTextFieldState extends State<AppTextField> {
     validators = [];
     if (widget.required) {
       validators.add(
-        FormBuilderValidators.required(
-          errorText: t.errorMessage.required,
-        ),
+        FormBuilderValidators.required(errorText: t.errorMessage.required),
       );
     }
     if (widget.validators != null) {
@@ -173,39 +172,39 @@ class _AppTextFieldState extends State<AppTextField> {
               color: colorsScheme.grey650,
             ),
             filled: true,
-            fillColor: colorsScheme.white,
+            fillColor: widget.backgroundColor ?? colorsScheme.white,
             errorBorder:
                 widget.border ??
-                (widget.hasBorder
-                    ? OutlineInputBorder(
-                        borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(color: colorsScheme.error600),
-                      )
-                    : const OutlineInputBorder(borderSide: .none)),
+                OutlineInputBorder(
+                  borderRadius: .circular(widget.borderRadius),
+                  borderSide: widget.hasBorder
+                      ? .new(color: colorsScheme.error600)
+                      : .none,
+                ),
             enabledBorder:
                 widget.border ??
-                (widget.hasBorder
-                    ? OutlineInputBorder(
-                        borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(color: colorsScheme.grey100),
-                      )
-                    : const OutlineInputBorder(borderSide: .none)),
+                OutlineInputBorder(
+                  borderRadius: .circular(widget.borderRadius),
+                  borderSide: widget.hasBorder
+                      ? .new(color: colorsScheme.grey100)
+                      : .none,
+                ),
             focusedErrorBorder:
                 widget.border ??
-                (widget.hasBorder
-                    ? OutlineInputBorder(
-                        borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(color: colorsScheme.error600),
-                      )
-                    : const OutlineInputBorder(borderSide: .none)),
+                OutlineInputBorder(
+                  borderRadius: .circular(widget.borderRadius),
+                  borderSide: widget.hasBorder
+                      ? .new(color: colorsScheme.error600)
+                      : .none,
+                ),
             focusedBorder:
                 widget.border ??
-                (widget.hasBorder
-                    ? OutlineInputBorder(
-                        borderRadius: .circular(widget.borderRadius),
-                        borderSide: .new(color: colorsScheme.grey200),
-                      )
-                    : const OutlineInputBorder(borderSide: .none)),
+                OutlineInputBorder(
+                  borderRadius: .circular(widget.borderRadius),
+                  borderSide: widget.hasBorder
+                      ? .new(color: colorsScheme.grey200)
+                      : .none,
+                ),
             contentPadding: widget.contentPadding ?? const .all(12),
           ),
         ),

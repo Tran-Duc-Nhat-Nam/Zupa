@@ -12,20 +12,24 @@ class AppAppBar extends AppBar {
     this.color,
     this.text,
     this.subtext,
-    this.isClose,
+    this.isClose = false,
     this.trailingIconPath,
     this.trailing,
     this.leadingIconPath,
+    this.titleWidget,
+    this.isCenter = false,
     super.leading,
   });
 
   final Color? color;
   final String? text;
   final String? subtext;
-  final bool? isClose;
+  final bool isClose;
   final String? trailingIconPath;
   final List<Widget>? trailing;
   final String? leadingIconPath;
+  final Widget? titleWidget;
+  final bool isCenter;
 
   @override
   State<AppAppBar> createState() => _AppAppBarState();
@@ -41,14 +45,21 @@ class _AppAppBarState extends State<AppAppBar> {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(bottom: .circular(16)),
       ),
-      title: widget.subtext != null
-          ? Column(children: [Text(widget.text ?? ''), Text(widget.subtext!)])
-          : GestureDetector(
-              child: Text(
-                widget.text ?? '',
-                style: TextStyle(color: ThemeHelper.getColor(context).grey1000),
-              ),
-            ),
+      centerTitle: widget.isCenter,
+      title:
+          widget.titleWidget ??
+          (widget.subtext != null
+              ? Column(
+                  children: [Text(widget.text ?? ''), Text(widget.subtext!)],
+                )
+              : GestureDetector(
+                  child: Text(
+                    widget.text ?? '',
+                    style: TextStyle(
+                      color: ThemeHelper.getColor(context).grey1000,
+                    ),
+                  ),
+                )),
       titleTextStyle: AppTextStyles.bodyLargeSemibold,
       automaticallyImplyLeading: false,
       leading: widget.leading != null

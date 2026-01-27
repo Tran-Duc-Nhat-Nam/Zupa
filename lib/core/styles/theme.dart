@@ -14,7 +14,7 @@ final appTheme = ThemeData(
 final appDarkTheme = ThemeData(
   colorScheme: .fromSeed(
     brightness: .dark,
-    seedColor: const AppColors().primary500,
+    seedColor: const DarkAppColors().primary500,
   ),
   fontFamily: GoogleFonts.inter().fontFamily,
   useMaterial3: true,
