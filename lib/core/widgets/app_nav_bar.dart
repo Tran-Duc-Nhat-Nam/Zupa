@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_nav_bar/google_nav_bar.dart'; // IMPORT THIS
 import 'package:shake/shake.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
 
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
@@ -30,7 +31,6 @@ class _AppNavBarState extends State<AppNavBar> {
   late final ShakeDetector _shakeDetector;
   final double _iconSize = 24;
 
-  // Cache dropdown items if they are static, or move to a provider if dynamic
   final List<String> _parkingLots = const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'];
 
   @override
@@ -40,13 +40,15 @@ class _AppNavBarState extends State<AppNavBar> {
   }
 
   void _initShakeDetector() {
-    _shakeDetector = .autoStart(
+    _shakeDetector = ShakeDetector.autoStart(
       onPhoneShake: (event) async {
-        if (mounted && await getIt<StorageService>().getDebuggerMode() && kDebugMode) {
+        if (mounted &&
+            await getIt<StorageService>().getDebuggerMode() &&
+            kDebugMode) {
           Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
-              )
+            MaterialPageRoute(
+              builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
+            ),
           );
         }
       },
@@ -59,48 +61,60 @@ class _AppNavBarState extends State<AppNavBar> {
     super.dispose();
   }
 
-  /// Helper to generate tabs and avoid code repetition
-  PersistentRouterTabConfig _buildTab({
+  /// Navigation logic for go_router
+  void _onTabChange(int index) {
+    widget.navigationShell.goBranch(
+      index,
+      // A common pattern when using bottom navigation with GoRouter:
+      // initialLocation: index == widget.navigationShell.currentIndex,
+    );
+  }
+
+  /// Helper to generate GButtons
+  GButton _buildGButton({
     required BuildContext context,
     required String titleKey,
     required String iconPath,
-    required dynamic
-    colors, // Replace 'dynamic' with your specific AppColors type if available
-    Widget? customIconWrapper,
+    required dynamic colors,
   }) {
-    final iconWidget = AppIcon(path: iconPath, color: colors.primary50);
-    final inactiveIconWidget = AppIcon(
+    // Active State
+    final activeIconWidget = AppIcon(
       path: iconPath,
-      color: colors.primary300,
+      color: colors.primary500, // Color when selected
+      size: _iconSize,
     );
 
-    return PersistentRouterTabConfig(
-      item: .new(
-        iconSize: _iconSize,
-        title: t[titleKey],
-        activeColorSecondary: colors.primary500,
-        activeForegroundColor: colors.primary50,
-        textStyle: AppTextStyles.bodySmallBold.copyWith(
-          color: colors.primary50,
-        ),
-        icon: customIconWrapper ?? iconWidget,
-        inactiveIcon: inactiveIconWidget,
-      ),
+    // Inactive State
+    final inactiveIconWidget = AppIcon(
+      path: iconPath,
+      color: colors.primary300, // Color when not selected
+      size: _iconSize,
+    );
+
+    return GButton(
+      // GButton requires an IconData, but we use 'leading' for custom widgets.
+      // Pass a dummy icon to satisfy the requirement, it won't be shown if leading is provided.
+      icon: Icons.circle,
+      leading: widget.navigationShell.currentIndex == _getIndexForPath(iconPath)
+          ? activeIconWidget
+          : inactiveIconWidget,
+      text: t[titleKey],
+      textStyle: AppTextStyles.bodySmallBold.copyWith(color: colors.primary500),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // 1. Optimize Theme Lookup: Call once per build
     final colors = ThemeHelper.getColor(context);
 
-    // 2. Safer Path Parsing: Use pathSegments instead of manual split
+    // Path parsing for AppBar title
     final uri = GoRouterState.of(context).uri;
     final String currentRouteName = uri.pathSegments.isEmpty
         ? 'home'
         : uri.pathSegments.last;
 
     return Scaffold(
+      // 1. App Bar remains the same
       appBar: AppAppBar(
         text: t[currentRouteName],
         trailing: [
@@ -117,57 +131,92 @@ class _AppNavBarState extends State<AppNavBar> {
                 border: .all(color: colors.primary100),
               ),
               onChanged: (value) {
-                // AppToast.showBasicToast(value ?? 'Hehe');
                 DialogHelper.showAuthDialog(context);
               },
             ),
           ),
         ],
       ),
-      body: PersistentTabView.router(
-        resizeToAvoidBottomInset: false,
-        navBarOverlap: const .full(),
-        backgroundColor: Colors.transparent,
-        navigationShell: widget.navigationShell,
-        tabs: [
-          _buildTab(
-            context: context,
-            titleKey: 'home',
-            iconPath: AppIcons.home,
-            colors: colors,
-          ),
-          _buildTab(
-            context: context,
-            titleKey: 'history',
-            iconPath: AppIcons.clock,
-            colors: colors,
-          ),
-          _buildTab(
-            context: context,
-            titleKey: 'revenue',
-            iconPath: AppIcons.chart,
-            colors: colors,
-          ),
-          _buildTab(
-            context: context,
-            titleKey: 'settings',
-            iconPath: AppIcons.setting,
-            colors: colors,
-          ),
-        ],
-        navBarBuilder: (navBarConfig) => Style2BottomNavBar(
-          navBarConfig: navBarConfig,
-          height: 75,
-          navBarDecoration: .new(
+
+      // 2. Body is simply the navigationShell (this holds the page stack)
+      body: widget.navigationShell,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+
+      // 3. Google Nav Bar implementation
+      bottomNavigationBar: Padding(
+        padding: const .only(left: 8, right: 8, bottom: 8),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
             color: colors.white,
-            padding: const .symmetric(vertical: 12),
-            borderRadius: const .vertical(
-              top: .circular(16),
-              bottom: .circular(16),
+            borderRadius: const .all(.circular(100)),
+            boxShadow: [
+              .new(blurRadius: 20, color: Colors.black.withOpacity(.1)),
+            ],
+          ),
+          child: Padding(
+            padding: const .symmetric(horizontal: 16.0, vertical: 12),
+            child: GNav(
+              selectedIndex: widget.navigationShell.currentIndex,
+              onTabChange: _onTabChange,
+
+              // Visual Config
+              rippleColor: colors.primary100,
+              hoverColor: colors.primary50,
+              gap: 8, // Gap between icon and text
+              activeColor: colors.primary500, // Text Color
+              iconSize: _iconSize,
+              padding: const .symmetric(horizontal: 20, vertical: 12),
+              duration: const .new(milliseconds: 400),
+              tabBackgroundColor: colors.primary50, // Pill background color
+              color: colors.primary300, // Unselected icon color
+
+              tabs: [
+                _buildTabItem(context, .home, AppIcons.home, colors),
+                _buildTabItem(context, .history, AppIcons.clock, colors),
+                _buildTabItem(context, .revenue, AppIcons.chart, colors),
+                _buildTabItem(context, .settings, AppIcons.setting, colors),
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  GButton _buildTabItem(
+    BuildContext context,
+    AppRoutes route,
+    String iconPath,
+    dynamic colors,
+  ) {
+    return GButton(
+      icon: Icons.home, // Dummy, effectively hidden by 'leading'
+      leading: AppIcon(
+        path: iconPath,
+        // Calculate color based on whether this tab is active
+        color: _isTabActive(route) ? colors.primary500 : colors.primary300,
+        size: _iconSize,
+      ),
+      text: t[route.name],
+    );
+  }
+
+  /// Simple helper to check if specific tab is active to color the custom AppIcon
+  bool _isTabActive(AppRoutes route) {
+    // Map keys to indexes matching the order in tabs[]
+    final int index = switch (route) {
+      .home => 0,
+      .history => 1,
+      .revenue => 2,
+      .settings => 3,
+      _ => 0,
+    };
+    return widget.navigationShell.currentIndex == index;
+  }
+
+  /// Helper to get index if you used path matching previously
+  int _getIndexForPath(String path) {
+    // Logic to match path to index if needed
+    return 0;
   }
 }

@@ -16,10 +16,7 @@ dependencies:
   flutter_form_builder: ^10.2.0
   form_builder_validators: ^11.2.0
   shared_preferences: ^2.5.4
-  persistent_bottom_nav_bar_v2:
-    git:
-      url: https://github.com/Tran-Duc-Nhat-Nam-270702/PersistentBottomNavBarV2.git
-      ref: master
+  google_nav_bar: ^5.0.7
   google_fonts: ^8.0.0
   flutter_svg: ^2.2.3
   retrofit: ^4.9.2
