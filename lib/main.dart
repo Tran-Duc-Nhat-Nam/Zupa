@@ -8,6 +8,7 @@ import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -25,7 +26,8 @@ Future<void> main() async {
   await LocaleSettings.setLocaleRaw(
     (await getIt<StorageService>().getLocalization()).name,
   );
-  getIt<NetworkService>().onUnauthorized = () => getIt<AuthenticationRepository>().logOut();
+  getIt<NetworkService>().onUnauthorized = () =>
+      getIt<AuthenticationRepository>().logOut();
 
   runApp(const MyApp());
 }
@@ -40,11 +42,12 @@ class MyApp extends StatelessWidget {
           BlocProvider<ThemeCubit>(
             create: (BuildContext context) => getIt<ThemeCubit>()..loadTheme(),
           ),
-          if (kDebugMode) BlocProvider<DebuggerCubit>(
-            lazy: false,
-            create: (BuildContext context) =>
-                getIt<DebuggerCubit>()..loadDebugger(),
-          ),
+          if (kDebugMode)
+            BlocProvider<DebuggerCubit>(
+              lazy: false,
+              create: (BuildContext context) =>
+                  getIt<DebuggerCubit>()..loadDebugger(),
+            ),
           BlocProvider<AuthCubit>(
             create: (BuildContext context) => getIt<AuthCubit>()..loadAuth(),
           ),
@@ -60,14 +63,13 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocListener<ConnectivityCubit, ConnectivityState>(
           listener: (context, state) {
-            state.maybeWhen(
+            state.whenOrNull(
               connected: () {
-                SmartDialog.showToast(t.internetConnected);
+                AppToast.showBasicToast(t.internetConnected);
               },
               disconnected: () {
-                SmartDialog.showToast(t.noInternet);
+                AppToast.showBasicToast(t.noInternet);
               },
-              orElse: () {},
             );
           },
           child: BlocBuilder<ThemeCubit, ThemeState>(
@@ -75,8 +77,8 @@ class MyApp extends StatelessWidget {
                 state.maybeWhen(
                   loaded: (mode) {
                     final themeMode = switch (mode) {
-                      AppThemeMode.light => ThemeMode.light,
-                      AppThemeMode.dark => ThemeMode.dark,
+                      .light => ThemeMode.light,
+                      .dark => ThemeMode.dark,
                       _ => ThemeMode.system,
                     };
                     return UpgradeAlert(

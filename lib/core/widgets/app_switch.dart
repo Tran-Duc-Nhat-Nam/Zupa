@@ -1,53 +1,77 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 
 class AppSwitch extends StatefulWidget {
-  const AppSwitch({super.key, required this.name, this.onToggle});
+  const AppSwitch({
+    super.key,
+    required this.name,
+    this.onToggle,
+    this.initialValue = false,
+  });
+
   final String name;
-  final void Function(bool value, void Function(bool value) toggle)? onToggle;
+  final bool initialValue;
+  /// Callback to intercept the toggle.
+  /// [value] is the *new* requested state.
+  /// [toggle] is a function you must call to confirm the state change.
+  final void Function(bool value, void Function(bool confirmedValue) toggle)? onToggle;
 
   @override
   State<AppSwitch> createState() => _AppSwitchState();
 }
 
 class _AppSwitchState extends State<AppSwitch> {
-  bool isChecked = false;
-  var controller = ValueNotifier<bool>(false);
-
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
-    try {
-      isLoading = Skeletonizer.of(context).enabled;
-    } catch (e) {
-      isLoading = false;
-    }
+    // Check loading state safely
+    final bool isLoading = Skeletonizer.of(context).enabled;
+
     return FormBuilderField<bool>(
       name: widget.name,
+      initialValue: widget.initialValue,
       builder: (field) {
+        final currentValue = field.value ?? false;
+
         return Container(
-          clipBehavior: .antiAlias,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: isLoading ? .circular(15) : .circular(0),
+            borderRadius: isLoading ? .circular(15) : BorderRadius.zero,
           ),
           child: Skeleton.replace(
             width: 50,
             height: 30,
-            child: AdvancedSwitch(
-              controller: controller,
-              activeColor: ThemeHelper.getColor(context).primary500,
-              inactiveColor: ThemeHelper.getColor(context).grey500,
-              initialValue: isChecked,
-              onToggle: (value, toggle) {
-                if (widget.onToggle != null) {
-                  widget.onToggle!(value, toggle);
-                } else {
-                  toggle(!value);
-                }
-              },
+            child: SizedBox(
+              width: 50, // Fixed width to match previous dimensions
+              child: AnimatedToggleSwitch<bool>.rolling(
+                current: currentValue,
+                values: const [false, true],
+                height: 30,
+                // Dynamic styling based on the state (True/False)
+                styleBuilder: (value) => ToggleStyle(
+                  indicatorColor: Colors.white,
+                  backgroundColor: value
+                      ? ThemeHelper.getColor(context).primary500
+                      : ThemeHelper.getColor(context).grey500,
+                  borderRadius: BorderRadius.circular(15), // Half of height for pill shape
+                  borderColor: Colors.transparent,
+                ),
+
+                // Logic to handle the toggle
+                onChanged: (newValue) {
+                  if (widget.onToggle != null) {
+                    // Pass the new value and a callback to update the form field manually
+                    widget.onToggle!(newValue, (confirmedValue) {
+                      field.didChange(confirmedValue);
+                    });
+                  } else {
+                    // Standard update
+                    field.didChange(newValue);
+                  }
+                },
+              ),
             ),
           ),
         );
