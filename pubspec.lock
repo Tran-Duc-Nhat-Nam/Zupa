@@ -258,7 +258,7 @@ packages:
     source: hosted
     version: "1.19.1"
   connectivity_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: connectivity_plus
       sha256: "33bae12a398f841c6cda09d1064212957265869104c478e5ad51e2fb26c3973c"
@@ -313,14 +313,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
-  cupertino_icons:
-    dependency: transitive
-    description:
-      name: cupertino_icons
-      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.8"
   dart_date:
     dependency: "direct main"
     description:
@@ -377,14 +369,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0-beta.24"
-  dropdown_search:
-    dependency: "direct main"
-    description:
-      name: dropdown_search
-      sha256: "9fc92a540af8c02d75c1318241e751cbecdfd515f454bf513eec06fe8439c102"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0-pre6"
   easy_refresh:
     dependency: "direct main"
     description:
@@ -854,14 +838,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
-  internet_connection_checker_plus:
-    dependency: "direct main"
-    description:
-      name: internet_connection_checker_plus
-      sha256: ef43530f24de6309f99802358f8a543ea1f2babc153effc84a75133751716892
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.9.1+2"
   intl:
     dependency: "direct main"
     description:
@@ -1328,7 +1304,7 @@ packages:
     source: hosted
     version: "6.1.2"
   sensors_plus_platform_interface:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: sensors_plus_platform_interface
       sha256: "58815d2f5e46c0c41c40fb39375d3f127306f7742efe3b891c0b1c87e2b5cd5d"

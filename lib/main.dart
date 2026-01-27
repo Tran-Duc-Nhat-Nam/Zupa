@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
@@ -52,36 +53,50 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) =>
                 getIt<LocalizationCubit>()..loadLocale(),
           ),
+          BlocProvider<ConnectivityCubit>(
+            create: (BuildContext context) =>
+                getIt<ConnectivityCubit>()..monitorConnectivity(),
+          ),
         ],
-        child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (BuildContext context, ThemeState state) => state.maybeWhen(
-            loaded: (mode) {
-              ThemeMode themeMode;
-              switch (mode) {
-                case .light: // Assuming you have an enum
-                  themeMode = ThemeMode.light;
-                case .dark:
-                  themeMode = ThemeMode.dark;
-                default:
-                  themeMode = ThemeMode.system;
-              }
-              return UpgradeAlert(
-                child: MaterialApp.router(
-                  onGenerateTitle: (BuildContext context) =>
-                      t.appTitle,
-                  theme: appTheme,
-                  darkTheme: appDarkTheme,
-                  themeMode: themeMode,
-                  debugShowCheckedModeBanner: false,
-                  routerConfig: RouterHelper.router,
-                  localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                  supportedLocales: AppLocaleUtils.supportedLocales,
-                  locale: TranslationProvider.of(context).flutterLocale,
-                  builder: FlutterSmartDialog.init(),
+        child: BlocListener<ConnectivityCubit, ConnectivityState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              connected: () {
+                SmartDialog.showToast(t.internetConnected);
+              },
+              disconnected: () {
+                SmartDialog.showToast(t.noInternet);
+              },
+              orElse: () {},
+            );
+          },
+          child: BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (BuildContext context, ThemeState state) =>
+                state.maybeWhen(
+                  loaded: (mode) {
+                    final themeMode = switch (mode) {
+                      AppThemeMode.light => ThemeMode.light,
+                      AppThemeMode.dark => ThemeMode.dark,
+                      _ => ThemeMode.system,
+                    };
+                    return UpgradeAlert(
+                      child: MaterialApp.router(
+                        onGenerateTitle: (BuildContext context) => t.appTitle,
+                        theme: appTheme,
+                        darkTheme: appDarkTheme,
+                        themeMode: themeMode,
+                        debugShowCheckedModeBanner: false,
+                        routerConfig: RouterHelper.router,
+                        localizationsDelegates:
+                            GlobalMaterialLocalizations.delegates,
+                        supportedLocales: AppLocaleUtils.supportedLocales,
+                        locale: TranslationProvider.of(context).flutterLocale,
+                        builder: FlutterSmartDialog.init(),
+                      ),
+                    );
+                  },
+                  orElse: () => const SizedBox.shrink(),
                 ),
-              );
-            },
-            orElse: () => const SizedBox.shrink(),
           ),
         ),
       ),

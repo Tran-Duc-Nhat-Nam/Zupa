@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
@@ -64,10 +65,12 @@ import '../../features/settings/presentation/bloc/parking/parking_settings_cubit
     as _i411;
 import '../../features/settings/presentation/bloc/password/password_settings_cubit.dart'
     as _i382;
+import '../bloc/connectivity/connectivity_cubit.dart' as _i332;
 import '../bloc/debugger/debugger_cubit.dart' as _i618;
 import '../bloc/localization/localization_cubit.dart' as _i781;
 import '../bloc/scanner/scanner_cubit.dart' as _i220;
 import '../bloc/theme/theme_cubit.dart' as _i810;
+import '../network/network_info.dart' as _i932;
 import '../services/biometric_service.dart' as _i374;
 import '../services/network_service.dart' as _i463;
 import '../services/storage_service.dart' as _i306;
@@ -105,6 +108,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i152.LocalAuthentication>(
       () => externalModule.localAuthentication,
     );
+    gh.lazySingleton<_i895.Connectivity>(() => externalModule.connectivity);
     gh.lazySingleton<_i361.Dio>(() => externalModule.dio);
     gh.lazySingleton<_i306.StorageService>(
       () => _i306.StorageService(
@@ -151,6 +155,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i541.IHomeRepository>(
       () => _i9.HomeRepositoryImpl(gh<_i463.NetworkService>(), gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i932.NetworkInfo>(
+      () => _i932.NetworkInfoImpl(gh<_i895.Connectivity>()),
+    );
     gh.factory<_i65.LoginCubit>(
       () => _i65.LoginCubit(gh<_i251.AuthenticationRepository>()),
     );
@@ -174,6 +181,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i110.HistoryListCubit>(
       () => _i110.HistoryListCubit(gh<_i757.IHistoryRepository>()),
+    );
+    gh.factory<_i332.ConnectivityCubit>(
+      () => _i332.ConnectivityCubit(gh<_i932.NetworkInfo>()),
     );
     return this;
   }
