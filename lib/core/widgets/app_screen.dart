@@ -77,11 +77,14 @@ class _AppScreenState extends AppState<AppScreen> {
     if (!widget.hasParentView) {
       detector = .autoStart(
         onPhoneShake: (ShakeEvent event) async {
-          if (await getIt<StorageService>().getDebuggerMode() && mounted && kDebugMode) {
+          if (await getIt<StorageService>().getDebuggerMode() &&
+              mounted &&
+              kDebugMode) {
             Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
-                )
+              MaterialPageRoute(
+                builder: (context) =>
+                    TalkerScreen(talker: DebuggerHelper.talker),
+              ),
             );
           }
         },
@@ -101,82 +104,71 @@ class _AppScreenState extends AppState<AppScreen> {
     return FormBuilder(
       key: widget.formKey,
       autovalidateMode: .onUserInteraction,
-      child: Scaffold(
-        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-        appBar: widget.hasAppBar
-            ? AppAppBar(
-                color: widget.appBarColor,
-                text: widget.title,
-                subtext: widget.subtitle,
-                isClose: widget.isClose,
-                trailing: widget.appBarTrailing,
-                trailingIconPath: widget.appBarTrailingIconPath,
-                leading: widget.appBarLeading,
-                leadingIconPath: widget.appBarLeadingIconPath,
-              )
-            : widget.appBar,
-        backgroundColor:
-            widget.backgroundColor ??
-            Theme.of(context).colorScheme.surface,
-        body: Stack(
-          alignment: .bottomCenter,
-          children: [
-            // if (!widget.noBackground)
-            //   SingleChildScrollView(
-            //     child: ConstrainedBox(
-            //       constraints: BoxConstraints(
-            //         minHeight: MediaQuery.of(context).size.height,
-            //       ),
-            //       child: Center(
-            //         child: Image.asset(
-            //           'assets/images/tsp-logo.png',
-            //           opacity: const AlwaysStoppedAnimation(0.05),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            SafeArea(
-              top: widget.hasSafeTopArea,
-              bottom: widget.hasSafeBottomArea,
-              child: Align(
-                alignment: .topCenter,
-                child: SizedBox(
-                  width: 600,
-                  child: widget.isChildScrollable
-                      ? widget.child
-                      : LayoutBuilder(
-                          builder:
-                              (
-                                BuildContext context,
-                                BoxConstraints constraints,
-                              ) {
-                                return SingleChildScrollView(
-                                  child: ConstrainedBox(
-                                    constraints: constraints.copyWith(
-                                      minHeight: constraints.maxHeight,
-                                      maxHeight: .infinity,
-                                    ),
-                                    child: widget.child,
-                                  ),
-                                );
-                              },
-                        ),
-                ),
-              ),
+      child: widget.hasParentView
+          ? _buildContent()
+          : Scaffold(
+              resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+              appBar: widget.hasAppBar
+                  ? AppAppBar(
+                      color: widget.appBarColor,
+                      text: widget.title,
+                      subtext: widget.subtitle,
+                      isClose: widget.isClose,
+                      trailing: widget.appBarTrailing,
+                      trailingIconPath: widget.appBarTrailingIconPath,
+                      leading: widget.appBarLeading,
+                      leadingIconPath: widget.appBarLeadingIconPath,
+                    )
+                  : widget.appBar,
+              backgroundColor:
+                  widget.backgroundColor ??
+                  Theme.of(context).colorScheme.surface,
+              body: _buildContent(),
+              floatingActionButton: widget.floatingActionButton,
             ),
-            Align(
-              alignment: .bottomCenter,
-              child: Padding(
-                padding:
-                    widget.footerPadding ??
-                    const .symmetric(vertical: 16, horizontal: 24),
-                child: Column(mainAxisSize: .min, children: widget.footer),
-              ),
+    );
+  }
+
+  Stack _buildContent() {
+    return Stack(
+      alignment: .bottomCenter,
+      children: [
+        SafeArea(
+          top: widget.hasSafeTopArea,
+          bottom: widget.hasSafeBottomArea,
+          child: Align(
+            alignment: .topCenter,
+            child: SizedBox(
+              width: 600,
+              child: widget.isChildScrollable
+                  ? widget.child
+                  : LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                            return SingleChildScrollView(
+                              child: ConstrainedBox(
+                                constraints: constraints.copyWith(
+                                  minHeight: constraints.maxHeight,
+                                  maxHeight: .infinity,
+                                ),
+                                child: widget.child,
+                              ),
+                            );
+                          },
+                    ),
             ),
-          ],
+          ),
         ),
-        floatingActionButton: widget.floatingActionButton,
-      ),
+        Align(
+          alignment: .bottomCenter,
+          child: Padding(
+            padding:
+                widget.footerPadding ??
+                const .symmetric(vertical: 16, horizontal: 24),
+            child: Column(mainAxisSize: .min, children: widget.footer),
+          ),
+        ),
+      ],
     );
   }
 }

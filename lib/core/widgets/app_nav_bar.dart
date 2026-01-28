@@ -1,9 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart'; // IMPORT THIS
+import 'package:shake/shake.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
@@ -22,6 +28,7 @@ class AppNavBar extends StatefulWidget {
 
 class _AppNavBarState extends State<AppNavBar> {
   final double _iconSize = 24;
+  late ShakeDetector detector;
 
   final List<String> _parkingLots = const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'];
 
@@ -34,8 +41,29 @@ class _AppNavBarState extends State<AppNavBar> {
   }
 
   @override
+  void initState() {
+    detector = .autoStart(
+      onPhoneShake: (ShakeEvent event) async {
+        if (await getIt<StorageService>().getDebuggerMode() &&
+            mounted &&
+            kDebugMode) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
+            ),
+          );
+        }
+      },
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colors = ThemeHelper.getColor(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final bool isHide = screenWidth < 400;
 
     return Scaffold(
       // 1. App Bar remains the same
@@ -64,7 +92,8 @@ class _AppNavBarState extends State<AppNavBar> {
       // 3. Google Nav Bar implementation
       bottomNavigationBar: Padding(
         padding: const .only(left: 8, right: 8, bottom: 8),
-        child: DecoratedBox(
+        child: Container(
+          padding: const .symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: colors.white,
             borderRadius: const .all(.circular(100)),
@@ -72,42 +101,46 @@ class _AppNavBarState extends State<AppNavBar> {
               .new(blurRadius: 20, color: Colors.black.withOpacity(.1)),
             ],
           ),
-          child: Padding(
-            padding: const .symmetric(horizontal: 16.0, vertical: 12),
-            child: GNav(
-              selectedIndex: widget.navigationShell.currentIndex,
-              onTabChange: _onTabChange,
+          child: GNav(
+            selectedIndex: widget.navigationShell.currentIndex,
+            onTabChange: _onTabChange,
 
-              // Visual Config
-              rippleColor: colors.primary100,
-              hoverColor: colors.primary50,
-              gap: 8, // Gap between icon and text
-              activeColor: colors.primary500, // Text Color
-              iconSize: _iconSize,
-              padding: const .symmetric(horizontal: 20, vertical: 12),
-              duration: const .new(milliseconds: 400),
-              tabBackgroundColor: colors.primary50, // Pill background color
-              color: colors.primary300, // Unselected icon color
+            // Visual Config
+            rippleColor: colors.primary100,
+            hoverColor: colors.primary50,
+            gap: 8, // Gap between icon and text
+            activeColor: colors.primary500, // Text Color
+            iconSize: _iconSize,
+            padding: const .symmetric(horizontal: 16, vertical: 12),
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            duration: const .new(milliseconds: 400),
+            tabBackgroundColor: colors.primary50, // Pill background color
+            color: colors.primary300, // Unselected icon color
 
-              tabs: [
-                _buildTabItem(context, .home, AppIcons.home, colors),
-                _buildTabItem(context, .history, AppIcons.clock, colors),
-                _buildTabItem(context, .revenue, AppIcons.chart, colors),
-                _buildTabItem(context, .settings, AppIcons.setting, colors),
-              ],
-            ),
+            tabs: [
+              _buildItem(.home, AppIcons.home, colors, isHide: isHide),
+              _buildItem(.history, AppIcons.clock, colors, isHide: isHide),
+              _buildItem(.revenue, AppIcons.chart, colors, isHide: isHide),
+              _buildItem(.settings, AppIcons.setting, colors, isHide: isHide),
+            ],
           ),
         ),
       ),
     );
   }
 
-  GButton _buildTabItem(
-    BuildContext context,
+  @override
+  void dispose() {
+    detector.stopListening();
+    super.dispose();
+  }
+
+  GButton _buildItem(
     AppRoutes route,
     String iconPath,
-    dynamic colors,
-  ) {
+    dynamic colors, {
+    bool isHide = false,
+  }) {
     return GButton(
       icon: Icons.home, // Dummy, effectively hidden by 'leading'
       leading: AppIcon(
@@ -116,7 +149,7 @@ class _AppNavBarState extends State<AppNavBar> {
         color: _isTabActive(route) ? colors.primary500 : colors.primary300,
         size: _iconSize,
       ),
-      text: t[route.name],
+      text: isHide ? '' : t[route.name],
     );
   }
 
