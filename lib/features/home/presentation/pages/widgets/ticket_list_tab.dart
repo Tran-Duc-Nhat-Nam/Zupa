@@ -48,13 +48,13 @@ class _TicketListTabState extends State<TicketListTab> {
             _refreshController.finishLoad();
           },
           failed: (message) {
-            _refreshController.finishRefresh(IndicatorResult.fail);
-            _refreshController.finishLoad(IndicatorResult.fail);
+            _refreshController.finishRefresh(.fail);
+            _refreshController.finishLoad(.fail);
             AppToast.showErrorToast(t[message] ?? message);
           },
           empty: () {
-            _refreshController.finishRefresh(IndicatorResult.noMore);
-            _refreshController.finishLoad(IndicatorResult.noMore);
+            _refreshController.finishRefresh(.noMore);
+            _refreshController.finishLoad(.noMore);
           },
         );
       },
@@ -76,7 +76,9 @@ class _TicketListTabState extends State<TicketListTab> {
               borderRadius: const .vertical(top: .circular(28)),
             ),
             child: EasyRefresh(
-              header: const MaterialHeader(),
+              header: const MaterialHeader(
+                triggerWhenRelease: true
+              ),
               footer: ClassicFooter(
                 dragText: t.dragText,
                 armedText: t.armedText,
@@ -85,18 +87,23 @@ class _TicketListTabState extends State<TicketListTab> {
                 processedText: t.processedText,
                 noMoreText: t.noMoreText,
                 failedText: t.failedText,
+                triggerWhenRelease: true,
               ),
               controller: _refreshController,
-              onRefresh: () => context.read<HomeTicketCubit>().refresh(
-                context.read<HomeFilterCubit>().state.mapOrNull(
-                  loaded: (s) => s.filter,
-                ),
-              ),
-              onLoad: () => context.read<HomeTicketCubit>().loadMore(
-                context.read<HomeFilterCubit>().state.mapOrNull(
-                  loaded: (s) => s.filter,
-                ),
-              ),
+              onRefresh: () => state is! Refreshing
+                  ? context.read<HomeTicketCubit>().refresh(
+                      context.read<HomeFilterCubit>().state.mapOrNull(
+                        loaded: (s) => s.filter,
+                      ),
+                    )
+                  : null,
+              onLoad: () => state is! LoadingMore
+                  ? context.read<HomeTicketCubit>().loadMore(
+                      context.read<HomeFilterCubit>().state.mapOrNull(
+                        loaded: (s) => s.filter,
+                      ),
+                    )
+                  : null,
               child: ListView.builder(
                 itemCount: items.isNotEmpty ? items.length : 10,
                 itemBuilder: (c, i) => Padding(

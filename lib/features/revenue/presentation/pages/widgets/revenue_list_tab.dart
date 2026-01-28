@@ -80,7 +80,7 @@ class RevenueListTab extends StatelessWidget {
                         borderRadius: .vertical(top: .circular(8)),
                       ),
                       child: EasyRefresh(
-                        header: const MaterialHeader(),
+                        header: const MaterialHeader(triggerWhenRelease: true),
                         footer: ClassicFooter(
                           dragText: t.dragText,
                           armedText: t.armedText,
@@ -89,6 +89,7 @@ class RevenueListTab extends StatelessWidget {
                           processedText: t.processedText,
                           noMoreText: t.noMoreText,
                           failedText: t.failedText,
+                          triggerWhenRelease: true,
                         ),
                         controller: refreshController,
                         onRefresh: () async {

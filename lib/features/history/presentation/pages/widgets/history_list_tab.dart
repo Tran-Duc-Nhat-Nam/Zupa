@@ -49,7 +49,7 @@ class HistoryListTab extends StatelessWidget {
         return Skeletonizer(
           enabled: state is Loading,
           child: EasyRefresh(
-            header: const MaterialHeader(),
+            header: const MaterialHeader(triggerWhenRelease: true),
             footer: ClassicFooter(
               dragText: t.dragText,
               armedText: t.armedText,
@@ -58,6 +58,7 @@ class HistoryListTab extends StatelessWidget {
               processedText: t.processedText,
               noMoreText: t.noMoreText,
               failedText: t.failedText,
+              triggerWhenRelease: true,
             ),
             controller: refreshController,
             onRefresh: () async {

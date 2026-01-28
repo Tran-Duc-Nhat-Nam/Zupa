@@ -57,7 +57,7 @@ class MemberVehiclesListTab extends StatelessWidget {
           child: Padding(
             padding: const .symmetric(horizontal: 24),
             child: EasyRefresh(
-              header: const MaterialHeader(),
+              header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(
                 dragText: t.dragText,
                 armedText: t.armedText,
@@ -66,6 +66,7 @@ class MemberVehiclesListTab extends StatelessWidget {
                 processedText: t.processedText,
                 noMoreText: t.noMoreText,
                 failedText: t.failedText,
+                triggerWhenRelease: true,
               ),
               controller: refreshController,
               onRefresh: () => context.read<MemberVehiclesListCubit>().refresh(
