@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -56,89 +55,7 @@ class RevenueSearchBar extends StatelessWidget {
                           size: 20,
                           color: ThemeHelper.getColor(context).white,
                         ),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) => Padding(
-                              padding: const .only(
-                                top: 24,
-                                bottom: 48,
-                                left: 24,
-                                right: 24,
-                              ),
-                              child: Column(
-                                spacing: 16,
-                                mainAxisSize: .min,
-                                crossAxisAlignment: .start,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      t.filter,
-                                      style: AppTextStyles.bodySmallSemibold
-                                          .copyWith(
-                                            color: ThemeHelper.getColor(
-                                              context,
-                                            ).grey600,
-                                          ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: .spaceBetween,
-                                    children: [
-                                      Text(
-                                        t.time,
-                                        style: AppTextStyles.bodyMediumSemibold
-                                            .copyWith(
-                                              color: ThemeHelper.getColor(
-                                                context,
-                                              ).grey700,
-                                            ),
-                                      ),
-                                      Text(
-                                        t.reset,
-                                        style: AppTextStyles.bodyMediumSemibold
-                                            .copyWith(
-                                              color: ThemeHelper.getColor(
-                                                context,
-                                              ).primary500,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    spacing: 12,
-                                    crossAxisAlignment: .start,
-                                    children: [
-                                      Text(t.date),
-                                      const AppDateTimePicker(name: 'dateTime'),
-                                    ],
-                                  ),
-                                  const Divider(),
-                                  Row(
-                                    spacing: 16,
-                                    children: [
-                                      Expanded(
-                                        child: AppButton(
-                                          color: .basic,
-                                          theme: .outline,
-                                          onPressed: () => context.pop(),
-                                          text: t.cancel,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: AppButton(
-                                          onPressed: () => context.pop(),
-                                          text: t.apply,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            useRootNavigator: true,
-                          );
-                        },
+                        onPressed: () => _buildFilter(context),
                       ),
                     ),
                   ),
@@ -170,6 +87,76 @@ class RevenueSearchBar extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<dynamic> _buildFilter(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) => Padding(
+        padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
+        child: Column(
+          spacing: 16,
+          mainAxisSize: .min,
+          crossAxisAlignment: .start,
+          children: [
+            Center(
+              child: Text(
+                t.filter,
+                style: AppTextStyles.bodySmallSemibold.copyWith(
+                  color: ThemeHelper.getColor(context).grey600,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                Text(
+                  t.time,
+                  style: AppTextStyles.bodyMediumSemibold.copyWith(
+                    color: ThemeHelper.getColor(context).grey700,
+                  ),
+                ),
+                Text(
+                  t.reset,
+                  style: AppTextStyles.bodyMediumSemibold.copyWith(
+                    color: ThemeHelper.getColor(context).primary500,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              spacing: 12,
+              crossAxisAlignment: .start,
+              children: [
+                Text(t.date),
+                const AppDateTimePicker(name: 'dateTime'),
+              ],
+            ),
+            const Divider(),
+            Row(
+              spacing: 16,
+              children: [
+                Expanded(
+                  child: AppButton(
+                    color: .basic,
+                    theme: .outline,
+                    onPressed: () => context.pop(),
+                    text: t.cancel,
+                  ),
+                ),
+                Expanded(
+                  child: AppButton(
+                    onPressed: () => context.pop(),
+                    text: t.apply,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      useRootNavigator: true,
     );
   }
 }

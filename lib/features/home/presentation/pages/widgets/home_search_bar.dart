@@ -35,7 +35,7 @@ class HomeSearchBar extends StatelessWidget {
                 size: 20,
                 color: ThemeHelper.getColor(context).grey400,
               ),
-              onTap: () => showFilter(context),
+              onTap: () => _showFilter(context),
             ),
             onChanged: (value) => context.read<HomeFilterCubit>().search(value),
           ),
@@ -44,8 +44,8 @@ class HomeSearchBar extends StatelessWidget {
     );
   }
 
-  void showFilter(BuildContext context) {
-    showModalBottomSheet(
+  Future<dynamic> _showFilter(BuildContext context) {
+    return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
         padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
