@@ -53,105 +53,90 @@ class RevenueListTab extends StatelessWidget {
 
         return Skeletonizer(
           enabled: listState is Loading,
-          child: Container(
-            clipBehavior: .antiAlias,
-            margin: const .symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: ThemeHelper.getColor(context).white,
-              borderRadius: const .vertical(top: .circular(16)),
-              boxShadow: const [
-                BoxShadow(
-                  color: .new(0x0C0C0D0D),
-                  offset: .new(0, 1),
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const .only(left: 16, right: 16, top: 16),
-              child: Column(
-                spacing: 16,
-                children: [
-                  const RevenueSearchBar(),
-                  Expanded(
-                    child: Container(
-                      clipBehavior: .antiAlias,
-                      decoration: const BoxDecoration(
-                        borderRadius: .vertical(top: .circular(8)),
+          child: Padding(
+            padding: const .only(left: 32, right: 32, top: 16),
+            child: Column(
+              spacing: 16,
+              children: [
+                const RevenueSearchBar(),
+                Expanded(
+                  child: Container(
+                    clipBehavior: .antiAlias,
+                    decoration: const BoxDecoration(
+                      borderRadius: .vertical(top: .circular(8)),
+                    ),
+                    child: EasyRefresh(
+                      header: const MaterialHeader(triggerWhenRelease: true),
+                      footer: ClassicFooter(
+                        dragText: t.dragText,
+                        armedText: t.armedText,
+                        readyText: t.releaseToLoadMore,
+                        processingText: t.processingText,
+                        processedText: t.processedText,
+                        noMoreText: t.noMoreText,
+                        failedText: t.failedText,
+                        triggerWhenRelease: true,
                       ),
-                      child: EasyRefresh(
-                        header: const MaterialHeader(triggerWhenRelease: true),
-                        footer: ClassicFooter(
-                          dragText: t.dragText,
-                          armedText: t.armedText,
-                          readyText: t.releaseToLoadMore,
-                          processingText: t.processingText,
-                          processedText: t.processedText,
-                          noMoreText: t.noMoreText,
-                          failedText: t.failedText,
-                          triggerWhenRelease: true,
-                        ),
-                        controller: refreshController,
-                        onRefresh: () async {
-                          final filter = context
-                              .read<RevenueFilterCubit>()
-                              .state
-                              .maybeMap(
-                                loaded: (s) => s.filter,
-                                orElse: () => null,
-                              );
-                          await listContext.read<RevenueListCubit>().refresh(
-                            filter,
-                          );
-                          refreshController.finishRefresh();
-                        },
-                        onLoad: () async {
-                          final filter = context
-                              .read<RevenueFilterCubit>()
-                              .state
-                              .maybeMap(
-                                loaded: (s) => s.filter,
-                                orElse: () => null,
-                              );
-                          await listContext.read<RevenueListCubit>().loadMore(
-                            filter,
-                          );
-                          refreshController.finishLoad();
-                        },
-                        child: ListView.separated(
-                          itemCount: items.isNotEmpty ? items.length : 10,
-                          separatorBuilder: (_, _) =>
-                              const SizedBox(height: 10),
-                          itemBuilder: (_, i) => RevenueTitle(
-                            revenue: items.isNotEmpty
-                                ? items[i]
-                                : DailyRevenue(
-                                    date: .now(),
-                                    revenue: [
-                                      RevenueModel(
-                                        vehicleType: vehicleTypes[0],
-                                        pass: 32,
-                                        revenue: 202000,
-                                      ),
-                                      RevenueModel(
-                                        vehicleType: vehicleTypes[1],
-                                        pass: 10,
-                                        revenue: 100000,
-                                      ),
-                                      RevenueModel(
-                                        vehicleType: vehicleTypes[2],
-                                        pass: 12,
-                                        revenue: 510000,
-                                      ),
-                                    ],
-                                  ),
-                          ),
+                      controller: refreshController,
+                      onRefresh: () async {
+                        final filter = context
+                            .read<RevenueFilterCubit>()
+                            .state
+                            .maybeMap(
+                              loaded: (s) => s.filter,
+                              orElse: () => null,
+                            );
+                        await listContext.read<RevenueListCubit>().refresh(
+                          filter,
+                        );
+                        refreshController.finishRefresh();
+                      },
+                      onLoad: () async {
+                        final filter = context
+                            .read<RevenueFilterCubit>()
+                            .state
+                            .maybeMap(
+                              loaded: (s) => s.filter,
+                              orElse: () => null,
+                            );
+                        await listContext.read<RevenueListCubit>().loadMore(
+                          filter,
+                        );
+                        refreshController.finishLoad();
+                      },
+                      child: ListView.separated(
+                        itemCount: items.isNotEmpty ? items.length : 10,
+                        separatorBuilder: (_, _) =>
+                            const SizedBox(height: 10),
+                        itemBuilder: (_, i) => RevenueTitle(
+                          revenue: items.isNotEmpty
+                              ? items[i]
+                              : DailyRevenue(
+                                  date: .now(),
+                                  revenue: [
+                                    RevenueModel(
+                                      vehicleType: vehicleTypes[0],
+                                      pass: 32,
+                                      revenue: 202000,
+                                    ),
+                                    RevenueModel(
+                                      vehicleType: vehicleTypes[1],
+                                      pass: 10,
+                                      revenue: 100000,
+                                    ),
+                                    RevenueModel(
+                                      vehicleType: vehicleTypes[2],
+                                      pass: 12,
+                                      revenue: 510000,
+                                    ),
+                                  ],
+                                ),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -169,9 +154,8 @@ class RevenueTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: .antiAlias,
-      decoration: BoxDecoration(
-        borderRadius: const .all(Radius.circular(8)),
-        border: .all(color: ThemeHelper.getColor(context).grey100),
+      decoration: const BoxDecoration(
+        borderRadius: .all(Radius.circular(16)),
       ),
       child: ListTileTheme(
         contentPadding: .zero,
@@ -180,6 +164,7 @@ class RevenueTitle extends StatelessWidget {
         minVerticalPadding: 0.0,
         minLeadingWidth: 0,
         child: ExpansionTile(
+          backgroundColor: ThemeHelper.getColor(context).primary50.withAlpha(155),
           tilePadding: .zero,
           childrenPadding: .zero,
           minTileHeight: 20,
@@ -190,7 +175,7 @@ class RevenueTitle extends StatelessWidget {
             clipBehavior: .antiAlias,
             decoration: BoxDecoration(
               borderRadius: const .all(.circular(6)),
-              color: ThemeHelper.getColor(context).primary50,
+              color: ThemeHelper.getColor(context).primary100.withAlpha(155),
             ),
             child: Row(
               children: [
@@ -198,7 +183,10 @@ class RevenueTitle extends StatelessWidget {
                   width: 32,
                   height: 32,
                   alignment: .center,
-                  color: ThemeHelper.getColor(context).primary400,
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(4),
+                    color: ThemeHelper.getColor(context).primary400,
+                  ),
                   child: Text(
                     revenue.date?.day.toString() ?? '36',
                     style: AppTextStyles.bodyMediumSemibold.copyWith(
@@ -261,11 +249,10 @@ class RevenueTitle extends StatelessWidget {
                 Expanded(
                   child: Container(
                     padding: const .symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: ThemeHelper.getColor(context).white,
-                      borderRadius: const .only(
-                        bottomRight: .circular(8),
-                        topRight: .circular(8),
+                    decoration: const BoxDecoration(
+                      borderRadius: .only(
+                        bottomRight: .circular(16),
+                        topRight: .circular(16),
                       ),
                     ),
                     child: Row(

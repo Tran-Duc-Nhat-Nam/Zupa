@@ -19,12 +19,8 @@ class HistoryTitle extends StatelessWidget {
     return AppCard(
       padding: .zero,
       decoration: .new(
-        color: colorScheme.white,
-        borderRadius: const .all(.circular(8)),
-        border: .all(color: colorScheme.grey100),
-        boxShadow: const [
-          .new(color: .new(0x0C0C0D0D), offset: .new(0, 1), blurRadius: 4),
-        ],
+        color: colorScheme.primary100.withAlpha(155),
+        borderRadius: const .all(.circular(28)),
       ),
       child: Row(
         mainAxisAlignment: .spaceBetween,
@@ -37,16 +33,13 @@ class HistoryTitle extends StatelessWidget {
               child: AppIcon(
                 path: ticket.type?.iconPath ?? AppIcons.global,
                 size: 24,
-                color: colorScheme.grey700,
+                color: colorScheme.primary400,
               ),
             ),
           ),
           Expanded(
             child: Container(
               constraints: const .new(minHeight: 70),
-              decoration: BoxDecoration(
-                border: .symmetric(vertical: .new(color: colorScheme.grey100)),
-              ),
               padding: const .symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 children: [
@@ -97,6 +90,7 @@ class HistoryTitle extends StatelessWidget {
           Padding(
             padding: const .symmetric(horizontal: 16, vertical: 8),
             child: Column(
+              crossAxisAlignment: .start,
               children: [
                 Row(
                   children: [

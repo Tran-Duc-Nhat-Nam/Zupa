@@ -114,7 +114,7 @@ class _AppNavBarState extends State<AppNavBar> {
             padding: const .symmetric(horizontal: 16, vertical: 12),
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             duration: const .new(milliseconds: 400),
-            tabBackgroundColor: colors.primary50, // Pill background color
+            tabBackgroundColor: colors.primary100.withAlpha(155), // Pill background color
             color: colors.primary300, // Unselected icon color
 
             tabs: [

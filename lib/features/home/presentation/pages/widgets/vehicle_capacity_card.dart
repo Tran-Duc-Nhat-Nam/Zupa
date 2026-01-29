@@ -80,7 +80,7 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
     return AppCard(
       padding: const .all(8),
       decoration: BoxDecoration(
-        color: widget.isSelected ? colors.primary200 : colors.primary50,
+        color: widget.isSelected ? colors.primary200 : colors.primary100.withAlpha(155),
         borderRadius: const .all(Radius.circular(100)),
       ),
       child: AspectRatio(

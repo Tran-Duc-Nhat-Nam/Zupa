@@ -15,7 +15,7 @@ class HistoryListSection extends StatelessWidget {
     return Column(
       mainAxisSize: .min,
       crossAxisAlignment: .start,
-      spacing: 6,
+      spacing: 8,
       children: [
         Text(
           DateTimeConverter.toDate(.now()),

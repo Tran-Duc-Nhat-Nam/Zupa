@@ -91,7 +91,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           ],
                         ),
                         child: Padding(
-                          padding: const .symmetric(horizontal: 24),
+                          padding: const .symmetric(
+                            horizontal: 24,
+                            vertical: 6,
+                          ),
                           child:
                               BlocBuilder<
                                 HistoryFilterCubit,
@@ -100,43 +103,28 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 builder: (context, state) {
                                   return Skeletonizer(
                                     enabled: state is Loading,
-                                    child: Row(
-                                      spacing: 8,
-                                      children: [
-                                        Expanded(
-                                          child: AppTextField(
-                                            name: 'keyword',
-                                            prefixIconPath: AppIcons.search,
-                                            hintText: Translations.of(
-                                              context,
-                                            ).ticketSearch,
-                                            borderRadius: 100,
-                                          ),
+                                    child: AppTextField(
+                                      name: 'keyword',
+                                      hintText: t.ticketSearch,
+                                      borderRadius: 100,
+                                      hasBorder: false,
+                                      backgroundColor: ThemeHelper.getColor(
+                                        context,
+                                      ).primary50,
+                                      prefixIconPath: AppIcons.search,
+                                      suffix: InkWell(
+                                        child: AppIcon(
+                                          path: AppIcons.filter,
+                                          size: 20,
+                                          color: ThemeHelper.getColor(
+                                            context,
+                                          ).grey400,
                                         ),
-                                        SizedBox(
-                                          width: 44,
-                                          child: AspectRatio(
-                                            aspectRatio: 1,
-                                            child: AppButton(
-                                              fitContent: true,
-                                              theme: .outline,
-                                              padding: const .all(8),
-                                              radius: .circular(8),
-                                              color: .basic,
-                                              icon: AppIcon(
-                                                path: AppIcons.filter,
-                                                size: 20,
-                                                color: ThemeHelper.getColor(
-                                                  context,
-                                                ).grey900,
-                                              ),
-                                              onPressed: () {
-                                                showHistoryFilter(context);
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                        onTap: () => showHistoryFilter(context),
+                                      ),
+                                      onChanged: (value) => context
+                                          .read<HistoryFilterCubit>()
+                                          .update(keyword: value),
                                     ),
                                   );
                                 },

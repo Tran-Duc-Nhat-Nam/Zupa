@@ -48,53 +48,56 @@ class HistoryListTab extends StatelessWidget {
 
         return Skeletonizer(
           enabled: state is Loading,
-          child: EasyRefresh(
-            header: const MaterialHeader(triggerWhenRelease: true),
-            footer: ClassicFooter(
-              dragText: t.dragText,
-              armedText: t.armedText,
-              readyText: t.releaseToLoadMore,
-              processingText: t.processingText,
-              processedText: t.processedText,
-              noMoreText: t.noMoreText,
-              failedText: t.failedText,
-              triggerWhenRelease: true,
-            ),
-            controller: refreshController,
-            onRefresh: () async {
-              final filter = context
-                  .read<HistoryFilterCubit>()
-                  .state
-                  .whenOrNull(loaded: (filter) => filter);
-              await context.read<HistoryListCubit>().refresh(filter);
-            },
-            onLoad: () async {
-              final filter = context
-                  .read<HistoryFilterCubit>()
-                  .state
-                  .whenOrNull(loaded: (filter) => filter);
-              await context.read<HistoryListCubit>().loadMore(filter);
-            },
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder: (c, i) => Padding(
-                padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
-                child: HistoryListSection(
-                  tickets: items.isNotEmpty
-                      ? items
-                      : List.generate(
-                          10,
-                          (index) => HistoryTicket(
-                            code: 'Placeholder',
-                            id: -1,
-                            timeIn: .now(),
-                            siteId: 'A much Longer placeholder',
-                            type: vehicleTypes.first,
-                          ),
-                        ),
-                ),
+          child: Container(
+            padding: const .symmetric(horizontal: 12),
+            child: EasyRefresh(
+              header: const MaterialHeader(triggerWhenRelease: true),
+              footer: ClassicFooter(
+                dragText: t.dragText,
+                armedText: t.armedText,
+                readyText: t.releaseToLoadMore,
+                processingText: t.processingText,
+                processedText: t.processedText,
+                noMoreText: t.noMoreText,
+                failedText: t.failedText,
+                triggerWhenRelease: true,
               ),
-              itemCount: items.isNotEmpty ? items.length : 10,
+              controller: refreshController,
+              onRefresh: () async {
+                final filter = context
+                    .read<HistoryFilterCubit>()
+                    .state
+                    .whenOrNull(loaded: (filter) => filter);
+                await context.read<HistoryListCubit>().refresh(filter);
+              },
+              onLoad: () async {
+                final filter = context
+                    .read<HistoryFilterCubit>()
+                    .state
+                    .whenOrNull(loaded: (filter) => filter);
+                await context.read<HistoryListCubit>().loadMore(filter);
+              },
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                itemBuilder: (c, i) => Padding(
+                  padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
+                  child: HistoryListSection(
+                    tickets: items.isNotEmpty
+                        ? items
+                        : List.generate(
+                            10,
+                            (index) => HistoryTicket(
+                              code: 'Placeholder',
+                              id: -1,
+                              timeIn: .now(),
+                              siteId: 'A much Longer placeholder',
+                              type: vehicleTypes.first,
+                            ),
+                          ),
+                  ),
+                ),
+                itemCount: items.isNotEmpty ? items.length : 10,
+              ),
             ),
           ),
         );
