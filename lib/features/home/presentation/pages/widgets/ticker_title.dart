@@ -20,7 +20,6 @@ class TicketTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = ThemeHelper.getColor(context);
-    final isRecoveredType = ticket.id.length % 2 == 0;
 
     return Slidable(
       // Enable/Disable sliding based on skeleton state
@@ -35,14 +34,14 @@ class TicketTitle extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) => context.pushNamed(AppRoutes.checkIn.name),
-            backgroundColor: isRecoveredType
+            backgroundColor: ticket.gender == true
                 ? colors.primary500
                 : colors.error600,
             foregroundColor: Colors.white,
-            icon: isRecoveredType
+            icon: ticket.gender == true
                 ? Icons.check_circle_outline
                 : Icons.report_problem_outlined,
-            label: isRecoveredType ? t.reportRecovered : t.markAsLost,
+            label: ticket.gender == true ? t.reportRecovered : t.markAsLost,
           ),
         ],
       ),
@@ -85,11 +84,11 @@ class TicketTitle extends StatelessWidget {
                     height: 50,
                     width: 50,
                     child: CachedNetworkImage(
-                      imageUrl: 'https://picsum.photos/50',
+                      imageUrl: ticket.avatarPath ?? 'https://picsum.photos/50',
                       placeholder: (context, url) =>
                           Container(color: colors.grey100),
                       errorWidget: (context, url, error) =>
-                      const Icon(Icons.error),
+                          const Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -100,37 +99,14 @@ class TicketTitle extends StatelessWidget {
                 crossAxisAlignment: .start,
                 mainAxisAlignment: .center,
                 children: [
-                  Row(
-                    mainAxisSize: .min,
-                    spacing: 8,
-                    children: [
-                      Text(
-                        ticket.id,
-                        style: AppTextStyles.heading6.copyWith(
-                          color: colors.grey900,
-                        ),
-                      ),
-                      if (isRecoveredType)
-                        Container(
-                          padding: const .symmetric(
-                            vertical: 2,
-                            horizontal: 16,
-                          ),
-                          decoration: BoxDecoration(
-                            color: colors.error200,
-                            borderRadius: .circular(50),
-                          ),
-                          child: Text(
-                            t.lost,
-                            style: AppTextStyles.bodySmallSemibold.copyWith(
-                              color: colors.error600,
-                            ),
-                          ),
-                        ),
-                    ],
+                  Text(
+                    ticket.fullName ?? ticket.code,
+                    style: AppTextStyles.heading6.copyWith(
+                      color: colors.grey900,
+                    ),
                   ),
                   Text(
-                    DateTime.now().format('dd/MM/yyyy HH:mm'),
+                    ticket.lastUpdated.format('dd/MM/yyyy HH:mm'),
                     style: AppTextStyles.bodySmallSemibold.copyWith(
                       color: colors.grey500,
                     ),
@@ -138,6 +114,20 @@ class TicketTitle extends StatelessWidget {
                 ],
               ),
             ),
+            if (ticket.gender == true)
+              Container(
+                padding: const .symmetric(vertical: 2, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: colors.error200,
+                  borderRadius: .circular(50),
+                ),
+                child: Text(
+                  t.lost,
+                  style: AppTextStyles.bodySmallSemibold.copyWith(
+                    color: colors.error600,
+                  ),
+                ),
+              ),
           ],
         ),
       ),

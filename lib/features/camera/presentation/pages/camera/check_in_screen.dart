@@ -62,7 +62,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                         formKey.currentState!.value['type'],
                       );
                     } else {
-                      AppToast.showErrorToast(t.error);
+                      AppToast.showNotify(t.error);
                     }
                   },
                 ),

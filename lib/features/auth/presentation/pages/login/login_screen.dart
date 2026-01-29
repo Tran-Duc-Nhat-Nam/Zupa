@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 }),
             loginSuccess: () => context.goNamed(AppRoutes.home.name),
             loginFailed: (message) {
-              AppToast.showErrorToast(message);
+              AppToast.showNotify(message, type: .error);
               final values = formKey.currentState?.value;
               context.read<LoginCubit>().load(
                 tenant: values?['tenant'],

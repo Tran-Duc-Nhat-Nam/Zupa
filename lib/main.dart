@@ -65,10 +65,10 @@ class MyApp extends StatelessWidget {
           listener: (context, state) {
             state.whenOrNull(
               connected: () {
-                AppToast.showBasicToast(t.internetConnected);
+                AppToast.showToast(t.internetConnected);
               },
               disconnected: () {
-                AppToast.showBasicToast(t.noInternet);
+                AppToast.showToast(t.noInternet);
               },
             );
           },

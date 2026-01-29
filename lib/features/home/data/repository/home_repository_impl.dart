@@ -18,17 +18,19 @@ class HomeRepositoryImpl implements IHomeRepository {
 
   @override
   Future<NetworkState<List<HomeTicket>>> getTickets({
-    int page = 1,
+    int page = 0 ,
     int pageSize = 10,
     HomeFilter? filter,
   }) async {
     final response = await _networkService.request(
-      (dio) => _api.getList(.new(page: page, size: pageSize, query: filter?.toJson())),
+      (dio) => _api.getList(
+        .new(page: page, size: pageSize, query: filter?.toJson()),
+      ),
     );
 
     if (response is SuccessResponse) {
       try {
-        final List<dynamic> dataList = response.data['data'] as List<dynamic>;
+        final List<dynamic> dataList = response.data.data as List<dynamic>;
         final tickets = dataList
             .map((e) => HomeTicket.fromJson(e as Map<String, dynamic>))
             .toList();

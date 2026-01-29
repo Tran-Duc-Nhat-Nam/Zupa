@@ -4,7 +4,7 @@ import 'package:zupa/features/home/domain/entities/home_filter.dart';
 
 abstract class IHomeRepository {
   Future<NetworkState<List<HomeTicket>>> getTickets({
-    int page = 1,
+    int page = 0,
     int pageSize = 10,
     HomeFilter? filter,
   });

@@ -194,7 +194,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
-                        AppToast.showSuccessToast(t.success);
+                        AppToast.showNotify(t.success);
                       }
                     },
                   ),

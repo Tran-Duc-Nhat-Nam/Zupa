@@ -50,7 +50,7 @@ class _TicketListTabState extends State<TicketListTab> {
           failed: (message) {
             _refreshController.finishRefresh(.fail);
             _refreshController.finishLoad(.fail);
-            AppToast.showErrorToast(t[message] ?? message);
+            AppToast.showNotify(t[message] ?? message);
           },
           empty: () {
             _refreshController.finishRefresh(.noMore);
@@ -76,9 +76,7 @@ class _TicketListTabState extends State<TicketListTab> {
               borderRadius: const .vertical(top: .circular(28)),
             ),
             child: EasyRefresh(
-              header: const MaterialHeader(
-                triggerWhenRelease: true
-              ),
+              header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(
                 dragText: t.dragText,
                 armedText: t.armedText,
@@ -115,10 +113,12 @@ class _TicketListTabState extends State<TicketListTab> {
                     ticket: items.isNotEmpty
                         ? items[i]
                         : HomeTicket(
-                            id: 'Placeholder',
-                            timeIn: DateTime.now(),
-                            siteId: 'A much Longer placeholder',
-                            type: vehicleTypes.first,
+                            id: -1,
+                            tenantId: -1,
+                            code: 'None',
+                            isResigned: false,
+                            dateCreated: DateTime.now(),
+                            lastUpdated: DateTime.now(),
                           ), // Your placeholder logic
                     enabled: state is! Loading,
                   ),

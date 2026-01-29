@@ -60,7 +60,7 @@ class NfcHelper {
               errorMessageIos: t.error,
             );
           }
-          AppToast.showErrorToast(t.error);
+          AppToast.showNotify(t.error);
         }
       },
       pollingOptions: {

@@ -28,11 +28,11 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
         listener: (context, state) {
           state.maybeWhen(
             changePasswordSuccess: () {
-              AppToast.showSuccessToast(t.success);
+              AppToast.showNotify(t.success);
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
-              AppToast.showErrorToast(message);
+              AppToast.showNotify(message);
               context.read<PasswordSettingsCubit>().init();
             },
             orElse: () {},

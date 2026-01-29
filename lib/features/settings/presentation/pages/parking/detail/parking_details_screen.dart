@@ -37,7 +37,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
       footer: [
         AppButton(
           text: t.save,
-          onPressed: () => AppToast.showSuccessToast(
+          onPressed: () => AppToast.showNotify(
             t.success,
           ),
         ),

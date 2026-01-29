@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeTicket {
 
- String get id; String? get licensePlate; DateTime get timeIn; DateTime? get timeOut; String get siteId; VehicleType get type; int get price;
+ int get id; int get tenantId; String get code; String? get timekeepingCode; String? get fullName; String? get phoneNumber; String? get email; bool get isResigned;@GenderConverter() bool? get gender;@DateTimeConverter() DateTime? get birthDate;@DateTimeConverter() DateTime get dateCreated;@DateTimeConverter() DateTime get lastUpdated; String? get avatarPath; String? get note;
 /// Create a copy of HomeTicket
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $HomeTicketCopyWith<HomeTicket> get copyWith => _$HomeTicketCopyWithImpl<HomeTic
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.licensePlate, licensePlate) || other.licensePlate == licensePlate)&&(identical(other.timeIn, timeIn) || other.timeIn == timeIn)&&(identical(other.timeOut, timeOut) || other.timeOut == timeOut)&&(identical(other.siteId, siteId) || other.siteId == siteId)&&(identical(other.type, type) || other.type == type)&&(identical(other.price, price) || other.price == price));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.tenantId, tenantId) || other.tenantId == tenantId)&&(identical(other.code, code) || other.code == code)&&(identical(other.timekeepingCode, timekeepingCode) || other.timekeepingCode == timekeepingCode)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.email, email) || other.email == email)&&(identical(other.isResigned, isResigned) || other.isResigned == isResigned)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.dateCreated, dateCreated) || other.dateCreated == dateCreated)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated)&&(identical(other.avatarPath, avatarPath) || other.avatarPath == avatarPath)&&(identical(other.note, note) || other.note == note));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,licensePlate,timeIn,timeOut,siteId,type,price);
+int get hashCode => Object.hash(runtimeType,id,tenantId,code,timekeepingCode,fullName,phoneNumber,email,isResigned,gender,birthDate,dateCreated,lastUpdated,avatarPath,note);
 
 @override
 String toString() {
-  return 'HomeTicket(id: $id, licensePlate: $licensePlate, timeIn: $timeIn, timeOut: $timeOut, siteId: $siteId, type: $type, price: $price)';
+  return 'HomeTicket(id: $id, tenantId: $tenantId, code: $code, timekeepingCode: $timekeepingCode, fullName: $fullName, phoneNumber: $phoneNumber, email: $email, isResigned: $isResigned, gender: $gender, birthDate: $birthDate, dateCreated: $dateCreated, lastUpdated: $lastUpdated, avatarPath: $avatarPath, note: $note)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $HomeTicketCopyWith<$Res>  {
   factory $HomeTicketCopyWith(HomeTicket value, $Res Function(HomeTicket) _then) = _$HomeTicketCopyWithImpl;
 @useResult
 $Res call({
- String id, String? licensePlate, DateTime timeIn, DateTime? timeOut, String siteId, VehicleType type, int price
+ int id, int tenantId, String code, String? timekeepingCode, String? fullName, String? phoneNumber, String? email, bool isResigned,@GenderConverter() bool? gender,@DateTimeConverter() DateTime? birthDate,@DateTimeConverter() DateTime dateCreated,@DateTimeConverter() DateTime lastUpdated, String? avatarPath, String? note
 });
 
 
-$VehicleTypeCopyWith<$Res> get type;
+
 
 }
 /// @nodoc
@@ -65,28 +65,26 @@ class _$HomeTicketCopyWithImpl<$Res>
 
 /// Create a copy of HomeTicket
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? licensePlate = freezed,Object? timeIn = null,Object? timeOut = freezed,Object? siteId = null,Object? type = null,Object? price = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? tenantId = null,Object? code = null,Object? timekeepingCode = freezed,Object? fullName = freezed,Object? phoneNumber = freezed,Object? email = freezed,Object? isResigned = null,Object? gender = freezed,Object? birthDate = freezed,Object? dateCreated = null,Object? lastUpdated = null,Object? avatarPath = freezed,Object? note = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,licensePlate: freezed == licensePlate ? _self.licensePlate : licensePlate // ignore: cast_nullable_to_non_nullable
-as String?,timeIn: null == timeIn ? _self.timeIn : timeIn // ignore: cast_nullable_to_non_nullable
-as DateTime,timeOut: freezed == timeOut ? _self.timeOut : timeOut // ignore: cast_nullable_to_non_nullable
-as DateTime?,siteId: null == siteId ? _self.siteId : siteId // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as VehicleType,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as int,
+as int,tenantId: null == tenantId ? _self.tenantId : tenantId // ignore: cast_nullable_to_non_nullable
+as int,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,timekeepingCode: freezed == timekeepingCode ? _self.timekeepingCode : timekeepingCode // ignore: cast_nullable_to_non_nullable
+as String?,fullName: freezed == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
+as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,isResigned: null == isResigned ? _self.isResigned : isResigned // ignore: cast_nullable_to_non_nullable
+as bool,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as bool?,birthDate: freezed == birthDate ? _self.birthDate : birthDate // ignore: cast_nullable_to_non_nullable
+as DateTime?,dateCreated: null == dateCreated ? _self.dateCreated : dateCreated // ignore: cast_nullable_to_non_nullable
+as DateTime,lastUpdated: null == lastUpdated ? _self.lastUpdated : lastUpdated // ignore: cast_nullable_to_non_nullable
+as DateTime,avatarPath: freezed == avatarPath ? _self.avatarPath : avatarPath // ignore: cast_nullable_to_non_nullable
+as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
-/// Create a copy of HomeTicket
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$VehicleTypeCopyWith<$Res> get type {
-  
-  return $VehicleTypeCopyWith<$Res>(_self.type, (value) {
-    return _then(_self.copyWith(type: value));
-  });
-}
+
 }
 
 
@@ -165,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? licensePlate,  DateTime timeIn,  DateTime? timeOut,  String siteId,  VehicleType type,  int price)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int tenantId,  String code,  String? timekeepingCode,  String? fullName,  String? phoneNumber,  String? email,  bool isResigned, @GenderConverter()  bool? gender, @DateTimeConverter()  DateTime? birthDate, @DateTimeConverter()  DateTime dateCreated, @DateTimeConverter()  DateTime lastUpdated,  String? avatarPath,  String? note)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeTicket() when $default != null:
-return $default(_that.id,_that.licensePlate,_that.timeIn,_that.timeOut,_that.siteId,_that.type,_that.price);case _:
+return $default(_that.id,_that.tenantId,_that.code,_that.timekeepingCode,_that.fullName,_that.phoneNumber,_that.email,_that.isResigned,_that.gender,_that.birthDate,_that.dateCreated,_that.lastUpdated,_that.avatarPath,_that.note);case _:
   return orElse();
 
 }
@@ -186,10 +184,10 @@ return $default(_that.id,_that.licensePlate,_that.timeIn,_that.timeOut,_that.sit
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? licensePlate,  DateTime timeIn,  DateTime? timeOut,  String siteId,  VehicleType type,  int price)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int tenantId,  String code,  String? timekeepingCode,  String? fullName,  String? phoneNumber,  String? email,  bool isResigned, @GenderConverter()  bool? gender, @DateTimeConverter()  DateTime? birthDate, @DateTimeConverter()  DateTime dateCreated, @DateTimeConverter()  DateTime lastUpdated,  String? avatarPath,  String? note)  $default,) {final _that = this;
 switch (_that) {
 case _HomeTicket():
-return $default(_that.id,_that.licensePlate,_that.timeIn,_that.timeOut,_that.siteId,_that.type,_that.price);}
+return $default(_that.id,_that.tenantId,_that.code,_that.timekeepingCode,_that.fullName,_that.phoneNumber,_that.email,_that.isResigned,_that.gender,_that.birthDate,_that.dateCreated,_that.lastUpdated,_that.avatarPath,_that.note);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -203,10 +201,10 @@ return $default(_that.id,_that.licensePlate,_that.timeIn,_that.timeOut,_that.sit
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? licensePlate,  DateTime timeIn,  DateTime? timeOut,  String siteId,  VehicleType type,  int price)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int tenantId,  String code,  String? timekeepingCode,  String? fullName,  String? phoneNumber,  String? email,  bool isResigned, @GenderConverter()  bool? gender, @DateTimeConverter()  DateTime? birthDate, @DateTimeConverter()  DateTime dateCreated, @DateTimeConverter()  DateTime lastUpdated,  String? avatarPath,  String? note)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeTicket() when $default != null:
-return $default(_that.id,_that.licensePlate,_that.timeIn,_that.timeOut,_that.siteId,_that.type,_that.price);case _:
+return $default(_that.id,_that.tenantId,_that.code,_that.timekeepingCode,_that.fullName,_that.phoneNumber,_that.email,_that.isResigned,_that.gender,_that.birthDate,_that.dateCreated,_that.lastUpdated,_that.avatarPath,_that.note);case _:
   return null;
 
 }
@@ -218,16 +216,23 @@ return $default(_that.id,_that.licensePlate,_that.timeIn,_that.timeOut,_that.sit
 @JsonSerializable()
 
 class _HomeTicket implements HomeTicket {
-  const _HomeTicket({required this.id, this.licensePlate, required this.timeIn, this.timeOut, required this.siteId, required this.type, this.price = 0});
+  const _HomeTicket({required this.id, required this.tenantId, required this.code, this.timekeepingCode, this.fullName, this.phoneNumber, this.email, required this.isResigned, @GenderConverter() this.gender, @DateTimeConverter() this.birthDate, @DateTimeConverter() required this.dateCreated, @DateTimeConverter() required this.lastUpdated, this.avatarPath, this.note});
   factory _HomeTicket.fromJson(Map<String, dynamic> json) => _$HomeTicketFromJson(json);
 
-@override final  String id;
-@override final  String? licensePlate;
-@override final  DateTime timeIn;
-@override final  DateTime? timeOut;
-@override final  String siteId;
-@override final  VehicleType type;
-@override@JsonKey() final  int price;
+@override final  int id;
+@override final  int tenantId;
+@override final  String code;
+@override final  String? timekeepingCode;
+@override final  String? fullName;
+@override final  String? phoneNumber;
+@override final  String? email;
+@override final  bool isResigned;
+@override@GenderConverter() final  bool? gender;
+@override@DateTimeConverter() final  DateTime? birthDate;
+@override@DateTimeConverter() final  DateTime dateCreated;
+@override@DateTimeConverter() final  DateTime lastUpdated;
+@override final  String? avatarPath;
+@override final  String? note;
 
 /// Create a copy of HomeTicket
 /// with the given fields replaced by the non-null parameter values.
@@ -242,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.licensePlate, licensePlate) || other.licensePlate == licensePlate)&&(identical(other.timeIn, timeIn) || other.timeIn == timeIn)&&(identical(other.timeOut, timeOut) || other.timeOut == timeOut)&&(identical(other.siteId, siteId) || other.siteId == siteId)&&(identical(other.type, type) || other.type == type)&&(identical(other.price, price) || other.price == price));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeTicket&&(identical(other.id, id) || other.id == id)&&(identical(other.tenantId, tenantId) || other.tenantId == tenantId)&&(identical(other.code, code) || other.code == code)&&(identical(other.timekeepingCode, timekeepingCode) || other.timekeepingCode == timekeepingCode)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.email, email) || other.email == email)&&(identical(other.isResigned, isResigned) || other.isResigned == isResigned)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.dateCreated, dateCreated) || other.dateCreated == dateCreated)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated)&&(identical(other.avatarPath, avatarPath) || other.avatarPath == avatarPath)&&(identical(other.note, note) || other.note == note));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,licensePlate,timeIn,timeOut,siteId,type,price);
+int get hashCode => Object.hash(runtimeType,id,tenantId,code,timekeepingCode,fullName,phoneNumber,email,isResigned,gender,birthDate,dateCreated,lastUpdated,avatarPath,note);
 
 @override
 String toString() {
-  return 'HomeTicket(id: $id, licensePlate: $licensePlate, timeIn: $timeIn, timeOut: $timeOut, siteId: $siteId, type: $type, price: $price)';
+  return 'HomeTicket(id: $id, tenantId: $tenantId, code: $code, timekeepingCode: $timekeepingCode, fullName: $fullName, phoneNumber: $phoneNumber, email: $email, isResigned: $isResigned, gender: $gender, birthDate: $birthDate, dateCreated: $dateCreated, lastUpdated: $lastUpdated, avatarPath: $avatarPath, note: $note)';
 }
 
 
@@ -262,11 +267,11 @@ abstract mixin class _$HomeTicketCopyWith<$Res> implements $HomeTicketCopyWith<$
   factory _$HomeTicketCopyWith(_HomeTicket value, $Res Function(_HomeTicket) _then) = __$HomeTicketCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? licensePlate, DateTime timeIn, DateTime? timeOut, String siteId, VehicleType type, int price
+ int id, int tenantId, String code, String? timekeepingCode, String? fullName, String? phoneNumber, String? email, bool isResigned,@GenderConverter() bool? gender,@DateTimeConverter() DateTime? birthDate,@DateTimeConverter() DateTime dateCreated,@DateTimeConverter() DateTime lastUpdated, String? avatarPath, String? note
 });
 
 
-@override $VehicleTypeCopyWith<$Res> get type;
+
 
 }
 /// @nodoc
@@ -279,29 +284,27 @@ class __$HomeTicketCopyWithImpl<$Res>
 
 /// Create a copy of HomeTicket
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? licensePlate = freezed,Object? timeIn = null,Object? timeOut = freezed,Object? siteId = null,Object? type = null,Object? price = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? tenantId = null,Object? code = null,Object? timekeepingCode = freezed,Object? fullName = freezed,Object? phoneNumber = freezed,Object? email = freezed,Object? isResigned = null,Object? gender = freezed,Object? birthDate = freezed,Object? dateCreated = null,Object? lastUpdated = null,Object? avatarPath = freezed,Object? note = freezed,}) {
   return _then(_HomeTicket(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,licensePlate: freezed == licensePlate ? _self.licensePlate : licensePlate // ignore: cast_nullable_to_non_nullable
-as String?,timeIn: null == timeIn ? _self.timeIn : timeIn // ignore: cast_nullable_to_non_nullable
-as DateTime,timeOut: freezed == timeOut ? _self.timeOut : timeOut // ignore: cast_nullable_to_non_nullable
-as DateTime?,siteId: null == siteId ? _self.siteId : siteId // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as VehicleType,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as int,
+as int,tenantId: null == tenantId ? _self.tenantId : tenantId // ignore: cast_nullable_to_non_nullable
+as int,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,timekeepingCode: freezed == timekeepingCode ? _self.timekeepingCode : timekeepingCode // ignore: cast_nullable_to_non_nullable
+as String?,fullName: freezed == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
+as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,isResigned: null == isResigned ? _self.isResigned : isResigned // ignore: cast_nullable_to_non_nullable
+as bool,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as bool?,birthDate: freezed == birthDate ? _self.birthDate : birthDate // ignore: cast_nullable_to_non_nullable
+as DateTime?,dateCreated: null == dateCreated ? _self.dateCreated : dateCreated // ignore: cast_nullable_to_non_nullable
+as DateTime,lastUpdated: null == lastUpdated ? _self.lastUpdated : lastUpdated // ignore: cast_nullable_to_non_nullable
+as DateTime,avatarPath: freezed == avatarPath ? _self.avatarPath : avatarPath // ignore: cast_nullable_to_non_nullable
+as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
-/// Create a copy of HomeTicket
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$VehicleTypeCopyWith<$Res> get type {
-  
-  return $VehicleTypeCopyWith<$Res>(_self.type, (value) {
-    return _then(_self.copyWith(type: value));
-  });
-}
+
 }
 
 // dart format on
