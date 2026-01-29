@@ -41,6 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               AppCard(
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: Column(
+                  spacing: 4,
                   children: [
                     AppListTile(
                       leadingIconPath: AppIcons.homeOutline,
@@ -49,7 +50,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () => context.pushNamed(AppRoutes.parking.name),
                     ),
-                    Divider(color: ThemeHelper.getColor(context).grey100),
                     AppListTile(
                       leadingIconPath: AppIcons.calendarEdit,
                       leadingColor: ThemeHelper.getColor(context).primary500,
@@ -58,7 +58,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onTap: () =>
                           context.pushNamed(AppRoutes.memberVehicles.name),
                     ),
-                    Divider(color: ThemeHelper.getColor(context).grey100),
                     AppListTile(
                       leadingIconPath: AppIcons.userEdit,
                       leadingColor: ThemeHelper.getColor(context).primary500,
@@ -67,7 +66,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onTap: () =>
                           context.pushNamed(AppRoutes.employeeManagement.name),
                     ),
-                    Divider(color: ThemeHelper.getColor(context).grey100),
                     AppListTile(
                       leadingIconPath: AppIcons.config,
                       leadingColor: ThemeHelper.getColor(context).primary500,

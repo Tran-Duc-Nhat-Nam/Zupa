@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 
@@ -40,8 +40,8 @@ class AppIcon extends StatelessWidget {
         height: height ?? size ?? 24,
         child: InkWell(
           onTap: onTap,
-          child: SvgPicture.asset(
-            path,
+          child: VectorGraphic(
+            loader: AssetBytesLoader(path),
             colorFilter: .mode(
               color ?? ThemeHelper.getColor(context).primary500,
               .srcIn,

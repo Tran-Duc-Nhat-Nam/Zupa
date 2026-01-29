@@ -33,8 +33,8 @@ class AppCard extends StatelessWidget {
       decoration:
           decoration ??
           BoxDecoration(
-            color: ThemeHelper.getColor(context).primary50,
-            borderRadius: radius ?? .circular(8),
+            color: ThemeHelper.getColor(context).primary100.withAlpha(125),
+            borderRadius: radius ?? .circular(28),
           ),
       constraints: constraints,
       child: child,
