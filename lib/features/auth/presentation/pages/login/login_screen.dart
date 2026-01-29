@@ -61,19 +61,13 @@ class LoginScreen extends StatelessWidget {
                       child: Image.asset(
                         'assets/images/tsp-logo.png',
                         height: 80,
+                        color: ThemeHelper.getColor(context).primary500,
                       ),
                     ),
                     Center(
                       child: Text(t.title.login, style: AppTextStyles.heading2),
                     ),
-                    Center(
-                      child: Text(
-                        t.subtitle.login,
-                        style: AppTextStyles.bodyMediumRegular.copyWith(
-                          color: ThemeHelper.getColor(context).grey400,
-                        ),
-                      ),
-                    ),
+                    const SizedBox(height: 16),
                     AppTextField(
                       name: 'tenant',
                       required: true,
@@ -97,8 +91,8 @@ class LoginScreen extends StatelessWidget {
                       name: 'isRemember',
                       label: Text(
                         t.isRemember,
-                        style: AppTextStyles.bodySmallMedium.copyWith(
-                          color: ThemeHelper.getColor(context).grey700,
+                        style: AppTextStyles.bodySmallSemibold.copyWith(
+                          color: ThemeHelper.getColor(context).primary400,
                         ),
                       ),
                     ),

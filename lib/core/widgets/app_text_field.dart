@@ -28,7 +28,7 @@ class AppTextField extends StatefulWidget {
     this.hasBorder = true,
     this.border,
     this.textAlign,
-    this.borderRadius = 12,
+    this.borderRadius = 28,
     this.controller,
     this.initialValue,
     this.backgroundColor,
@@ -116,7 +116,7 @@ class _AppTextFieldState extends State<AppTextField> {
           decoration: .new(
             prefixIcon: widget.prefix != null || widget.prefixIconPath != null
                 ? Padding(
-                    padding: const .only(left: 12, right: 6),
+                    padding: const .only(left: 16, right: 8),
                     child:
                         widget.prefix ??
                         AppIcon(
@@ -130,7 +130,7 @@ class _AppTextFieldState extends State<AppTextField> {
             suffixIcon: widget.isPassword || widget.isPasswordConfirm
                 ? IconButton(
                     iconSize: 20,
-                    padding: const .all(8),
+                    padding: const .symmetric(horizontal: 16),
                     constraints: const .new(),
                     icon: Icon(
                       !isPasswordVisible
@@ -160,7 +160,7 @@ class _AppTextFieldState extends State<AppTextField> {
             suffixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
             hintText: widget.hintText,
             hintStyle: AppTextStyles.bodyMediumRegular.copyWith(
-              color: colorsScheme.grey500,
+              color: colorsScheme.primary300,
             ),
             labelText: widget.isExternalLabel
                 ? null
@@ -168,11 +168,11 @@ class _AppTextFieldState extends State<AppTextField> {
                 ? null
                 : widget.labelText,
             label: widget.isExternalLabel ? null : widget.label,
-            labelStyle: AppTextStyles.bodyMediumMedium.copyWith(
-              color: colorsScheme.grey650,
+            labelStyle: AppTextStyles.bodyMediumSemibold.copyWith(
+              color: colorsScheme.primary300,
             ),
             filled: true,
-            fillColor: widget.backgroundColor ?? colorsScheme.white,
+            fillColor: widget.backgroundColor ?? colorsScheme.primary50,
             errorBorder:
                 widget.border ??
                 OutlineInputBorder(
@@ -186,7 +186,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: .circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.grey100)
+                      ? .new(color: colorsScheme.primary50)
                       : .none,
                 ),
             focusedErrorBorder:
@@ -202,10 +202,10 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: .circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.grey200)
+                      ? .new(color: colorsScheme.primary200)
                       : .none,
                 ),
-            contentPadding: widget.contentPadding ?? const .all(12),
+            contentPadding: widget.contentPadding ?? const .all(16),
           ),
         ),
       ],
