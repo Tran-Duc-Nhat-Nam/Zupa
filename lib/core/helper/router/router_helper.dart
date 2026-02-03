@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:zupa/core/helper/router/auth_guard.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
+@AutoRouterConfig(deferredLoading: true)
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
