@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
@@ -37,7 +39,6 @@ class MyApp extends StatelessWidget {
   final router = AppRouter();
   @override
   Widget build(BuildContext context) {
-
     return TranslationProvider(
       child: MultiBlocProvider(
         providers: [
@@ -90,7 +91,11 @@ class MyApp extends StatelessWidget {
                         darkTheme: appDarkTheme,
                         themeMode: themeMode,
                         debugShowCheckedModeBanner: false,
-                        routerConfig: router.config(),
+                        routerConfig: router.config(
+                          navigatorObservers: () => [
+                            TalkerRouteObserver(DebuggerHelper.talker),
+                          ],
+                        ),
                         localizationsDelegates:
                             GlobalMaterialLocalizations.delegates,
                         supportedLocales: AppLocaleUtils.supportedLocales,

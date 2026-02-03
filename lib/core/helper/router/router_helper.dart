@@ -8,32 +8,54 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     // Standalone Routes
-    CustomRoute(
+    AutoRoute(
       page: LoginRoute.page,
-      path: '/login',
-      transitionsBuilder: TransitionsBuilders.fadeIn, // Or your custom one
     ),
 
     // The Shell (Bottom Nav)
     AutoRoute(
-      path: '/',
+      initial: true,
       page: AppNavBarRoute.page, // You'll create this wrapper below
       guards: [AuthGuard()],
       children: [
-        AutoRoute(path: 'home', page: HomeRoute.page),
-        AutoRoute(path: 'history', page: HistoryRoute.page),
-        AutoRoute(path: 'revenue', page: RevenueRoute.page),
-        AutoRoute(path: 'settings', page: SettingsRoute.page),
+        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: HistoryRoute.page),
+        AutoRoute(page: RevenueRoute.page),
+        AutoRoute(page: SettingsRoute.page),
       ],
     ),
 
     // Settings Sub-routes (Outside shell to cover BottomBar)
-    CustomRoute(
-      path: '/settings/parking',
+    AutoRoute(
       page: ParkingSettingsRoute.page,
       children: [AutoRoute(path: 'detail', page: ParkingDetailsRoute.page)],
     ),
 
+    AutoRoute(
+      page: AppSettingsRoute.page,
+    ),
 
+    AutoRoute(
+      page: EmployeeManagementRoute.page,
+    ),
+
+    AutoRoute(
+      page: GeneralConfigRoute.page,
+    ),
+
+    AutoRoute(
+      page: MemberVehiclesRoute.page,
+      children: [AutoRoute(
+        page: MemberVehicleDetailRoute.page,
+      ),]
+    ),
+
+    AutoRoute(
+      page: ChangePasswordRoute.page,
+    ),
+
+    AutoRoute(
+      page: CheckInRoute.page,
+    ),
   ];
 }
