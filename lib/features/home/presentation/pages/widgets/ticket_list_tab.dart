@@ -8,7 +8,6 @@ import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.da
     hide Loading;
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
-import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 import 'package:zupa/gen/strings.g.dart';

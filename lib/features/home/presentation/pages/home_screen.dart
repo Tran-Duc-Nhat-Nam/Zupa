@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
@@ -14,6 +14,7 @@ import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.da
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -33,7 +34,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeHelper.getColor(context).primary200,
         foregroundColor: ThemeHelper.getColor(context).primary500,
-        onPressed: () => context.pushNamed(AppRoutes.checkIn.name),
+        onPressed: () => context.pushRoute(CheckInRoute()),
         shape: const CircleBorder(),
         child: const Icon(Icons.camera_alt_rounded),
       ),

@@ -1,9 +1,8 @@
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/parking/parking_settings_cubit.dart';
 import 'package:zupa/core/styles/icons.dart';
@@ -17,6 +16,7 @@ import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class ParkingSettingsScreen extends StatefulWidget {
   const ParkingSettingsScreen({super.key});
 
@@ -37,10 +37,7 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
             return Skeletonizer(
               enabled: state is Loading,
               child: Padding(
-                padding: const .symmetric(
-                  vertical: 16,
-                  horizontal: 24,
-                ),
+                padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: AppCard(
                   child: state.maybeMap(
                     loaded: (params) => ListView.separated(
@@ -64,9 +61,10 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
                           ],
                         ),
                         trailingIconPath: AppIcons.chevronRight,
-                        onTap: () => context.pushNamed(
-                          AppRoutes.parkingDetail.name,
-                          extra: params.parkingLots[index],
+                        onTap: () => context.pushRoute(
+                          ParkingDetailsRoute(
+                            parkingLot: params.parkingLots[index],
+                          ),
                         ),
                       ),
                       separatorBuilder: (context, index) =>
@@ -95,4 +93,3 @@ class _ParkingSettingsScreenState extends AppState<ParkingSettingsScreen> {
     );
   }
 }
-

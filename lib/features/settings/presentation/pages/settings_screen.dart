@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -11,6 +11,7 @@ import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -29,7 +30,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         listener: (_, state) {
           state.whenOrNull(
             noAuthenticated: () {
-              context.goNamed(AppRoutes.login.name);
+              context.router.replaceAll([
+                LoginRoute(),
+              ]);
             },
           );
         },
@@ -48,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.parkingAreaConfig,
                       trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushNamed(AppRoutes.parking.name),
+                      onTap: () => context.pushRoute(const ParkingSettingsRoute()),
                     ),
                     AppListTile(
                       leadingIconPath: AppIcons.calendarEdit,
@@ -56,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       text: t.memberVehicles,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
-                          context.pushNamed(AppRoutes.memberVehicles.name),
+                          context.pushRoute(const MemberVehiclesRoute()),
                     ),
                     AppListTile(
                       leadingIconPath: AppIcons.userEdit,
@@ -64,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       text: t.employeeManagement,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
-                          context.pushNamed(AppRoutes.employeeManagement.name),
+                          context.pushRoute(const EmployeeManagementRoute()),
                     ),
                     AppListTile(
                       leadingIconPath: AppIcons.config,
@@ -72,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       text: t.generalConfig,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
-                          context.pushNamed(AppRoutes.generalConfig.name),
+                          context.pushRoute(const GeneralConfigRoute()),
                     ),
                   ],
                 ),
@@ -87,7 +90,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       text: t.changePassword,
                       trailingIconPath: AppIcons.chevronRight,
                       onTap: () =>
-                          context.pushNamed(AppRoutes.changePassword.name),
+                          context.pushRoute(const ChangePasswordRoute()),
                     ),
                   ],
                 ),
@@ -99,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   text: t.appSettings,
                   leadingColor: ThemeHelper.getColor(context).primary500,
                   trailingIconPath: AppIcons.chevronRight,
-                  onTap: () => context.pushNamed(AppRoutes.appSettings.name),
+                  onTap: () => context.pushRoute(const AppSettingsRoute()),
                 ),
               ),
               AppCard(

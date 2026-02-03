@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // Changed from cupertino for AppToast/Theme access
-import 'package:go_router/go_router.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 
-import 'package:zupa/core/constants/routes.dart'; // Import your routes
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -52,7 +52,7 @@ class NfcHelper {
           // Stop session on iOS immediately after read (Android handles this differently)
           if (Platform.isIOS) NfcManager.instance.stopSession();
 
-          context.pushNamed(AppRoutes.checkIn.name, extra: false);
+          context.pushRoute(CheckInRoute(isCheckOut: true));
         } else {
           // On iOS, invalidate session with error message
           if (Platform.isIOS) {

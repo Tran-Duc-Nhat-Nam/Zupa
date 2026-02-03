@@ -1,6 +1,6 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 
@@ -21,8 +21,10 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class ParkingDetailsScreen extends StatefulWidget {
-  const ParkingDetailsScreen({super.key});
+  const ParkingDetailsScreen({super.key, this.parkingLot});
+  final ParkingLot? parkingLot;
 
   @override
   AppState<ParkingDetailsScreen> createState() => _ParkingDetailsScreenState();
@@ -44,10 +46,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
         create: (_) => getIt<ParkingLotDetailCubit>()
-          ..init(
-            GoRouterState.of(context).extra is ParkingLot
-                ? GoRouterState.of(context).extra! as ParkingLot
-                : null,
+          ..init(widget.parkingLot,
           ),
         child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
           builder: (context, state) {

@@ -1,8 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/icons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/camera_screen.dart';
@@ -17,8 +17,10 @@ import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.d
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class CheckInScreen extends StatefulWidget {
-  const CheckInScreen({super.key});
+  const CheckInScreen({super.key, this.isCheckOut = false});
+  final bool isCheckOut;
 
   @override
   AppState<CheckInScreen> createState() => _CheckInScreenState();
@@ -28,16 +30,11 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CheckInCubit>(
-      create: (_) => CheckInCubit()
-        ..init(
-          GoRouterState.of(context).extra is bool
-              ? GoRouterState.of(context).extra! as bool
-              : false,
-        ),
+      create: (_) => CheckInCubit()..init(widget.isCheckOut),
       child: BlocListener<CheckInCubit, CheckInState>(
         listener: (context, state) {
           state.whenOrNull(
-            submitSuccess: () => context.goNamed(AppRoutes.home.name),
+            submitSuccess: () => context.router.replaceAll([LoginRoute()]),
           );
         },
         child: BlocBuilder<CheckInCubit, CheckInState>(

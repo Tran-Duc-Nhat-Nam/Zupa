@@ -1,10 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
@@ -33,7 +33,7 @@ class TicketTitle extends StatelessWidget {
         extentRatio: 0.35,
         children: [
           SlidableAction(
-            onPressed: (context) => context.pushNamed(AppRoutes.checkIn.name),
+            onPressed: (context) => context.pushRoute(CheckInRoute()),
             backgroundColor: ticket.gender == true
                 ? colors.primary500
                 : colors.error600,
@@ -54,7 +54,7 @@ class TicketTitle extends StatelessWidget {
           SlidableAction(
             onPressed: (context) {
               // Slidable auto-closes, so we just navigate
-              context.pushNamed(AppRoutes.checkIn.name, extra: true);
+              context.pushRoute(CheckInRoute(isCheckOut: true));
             },
             backgroundColor: colors.error600,
             foregroundColor: Colors.white,

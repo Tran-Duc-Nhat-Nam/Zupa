@@ -1,9 +1,11 @@
 
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class MemberFeeSetingScreen extends StatefulWidget {
   const MemberFeeSetingScreen({super.key});
 

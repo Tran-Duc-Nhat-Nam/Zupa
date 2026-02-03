@@ -1,13 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_nav_bar/google_nav_bar.dart'; // IMPORT THIS
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
-
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/icons.dart';
@@ -17,28 +16,18 @@ import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/gen/strings.g.dart';
 
-class AppNavBar extends StatefulWidget {
-  const AppNavBar({super.key, required this.navigationShell});
-
-  final StatefulNavigationShell navigationShell;
+@RoutePage()
+class AppNavBarScreen extends StatefulWidget {
+  const AppNavBarScreen({super.key});
 
   @override
-  State<AppNavBar> createState() => _AppNavBarState();
+  State<AppNavBarScreen> createState() => _AppNavBarScreenState();
 }
 
-class _AppNavBarState extends State<AppNavBar> {
+class _AppNavBarScreenState extends State<AppNavBarScreen> {
   final double _iconSize = 24;
   late ShakeDetector detector;
-
   final List<String> _parkingLots = const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'];
-
-  void _onTabChange(int index) {
-    widget.navigationShell.goBranch(
-      index,
-      // A common pattern when using bottom navigation with GoRouter:
-      // initialLocation: index == widget.navigationShell.currentIndex,
-    );
-  }
 
   @override
   void initState() {
@@ -62,12 +51,18 @@ class _AppNavBarState extends State<AppNavBar> {
   Widget build(BuildContext context) {
     final colors = ThemeHelper.getColor(context);
     final screenWidth = MediaQuery.of(context).size.width;
-
     final bool isHide = screenWidth < 400;
 
-    return Scaffold(
-      // 1. App Bar remains the same
-      appBar: AppAppBar(
+    // AutoTabsScaffold manages the indexed stack and state preservation for you.
+    return AutoTabsScaffold(
+      routes: const [
+        HomeRoute(),
+        HistoryRoute(),
+        RevenueRoute(),
+        SettingsRoute(),
+      ],
+      // 1. App Bar Integration
+      appBarBuilder: (context, tabsRouter) => AppAppBar(
         isCenter: true,
         titleWidget: AppDropDownSearch(
           name: 'parkingLot',
@@ -76,56 +71,74 @@ class _AppNavBarState extends State<AppNavBar> {
           buttonWidth: 140,
           buttonDecoration: BoxDecoration(
             color: colors.primary50,
-            borderRadius: .circular(50),
-            border: .all(color: colors.primary100),
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(color: colors.primary100),
           ),
-          onChanged: (value) {
-            DialogHelper.showAuthDialog(context);
-          },
+          onChanged: (value) => DialogHelper.showAuthDialog(context),
         ),
       ),
 
-      // 2. Body is simply the navigationShell (this holds the page stack)
-      body: widget.navigationShell,
+      // 2. Body is automatically handled by AutoTabsScaffold
       backgroundColor: Theme.of(context).colorScheme.surface,
 
-      // 3. Google Nav Bar implementation
-      bottomNavigationBar: Padding(
-        padding: const .only(left: 8, right: 8, bottom: 8),
-        child: Container(
-          padding: const .symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: colors.white,
-            borderRadius: const .all(.circular(100)),
-            boxShadow: [
-              .new(blurRadius: 20, color: Colors.black.withOpacity(.1)),
-            ],
-          ),
-          child: GNav(
-            selectedIndex: widget.navigationShell.currentIndex,
-            onTabChange: _onTabChange,
+      // 3. Google Nav Bar Integration
+      bottomNavigationBuilder: (context, tabsRouter) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              boxShadow: [
+                BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1)),
+              ],
+            ),
+            child: GNav(
+              selectedIndex: tabsRouter.activeIndex,
+              onTabChange: tabsRouter.setActiveIndex, // Built-in handler
 
-            // Visual Config
-            rippleColor: colors.primary100,
-            hoverColor: colors.primary50,
-            gap: 8, // Gap between icon and text
-            activeColor: colors.primary500, // Text Color
-            iconSize: _iconSize,
-            padding: const .symmetric(horizontal: 16, vertical: 12),
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            duration: const .new(milliseconds: 400),
-            tabBackgroundColor: colors.primary100.withAlpha(155), // Pill background color
-            color: colors.primary300, // Unselected icon color
+              rippleColor: colors.primary100,
+              hoverColor: colors.primary50,
+              gap: 8,
+              activeColor: colors.primary500,
+              iconSize: _iconSize,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: colors.primary100.withAlpha(155),
+              color: colors.primary300,
 
-            tabs: [
-              _buildItem(.home, AppIcons.home, colors, isHide: isHide),
-              _buildItem(.history, AppIcons.clock, colors, isHide: isHide),
-              _buildItem(.revenue, AppIcons.chart, colors, isHide: isHide),
-              _buildItem(.settings, AppIcons.setting, colors, isHide: isHide),
-            ],
+              tabs: [
+                _buildItem(0, tabsRouter.activeIndex, 'home', AppIcons.home, colors, isHide),
+                _buildItem(1, tabsRouter.activeIndex, 'history', AppIcons.clock, colors, isHide),
+                _buildItem(2, tabsRouter.activeIndex, 'revenue', AppIcons.chart, colors, isHide),
+                _buildItem(3, tabsRouter.activeIndex, 'settings', AppIcons.setting, colors, isHide),
+              ],
+            ),
           ),
-        ),
+        );
+      },
+    );
+  }
+
+  GButton _buildItem(
+      int index,
+      int activeIndex,
+      String labelKey,
+      String iconPath,
+      dynamic colors,
+      bool isHide,
+      ) {
+    final isActive = index == activeIndex;
+    return GButton(
+      icon: Icons.home, // Dummy
+      leading: AppIcon(
+        path: iconPath,
+        color: isActive ? colors.primary500 : colors.primary300,
+        size: _iconSize,
       ),
+      text: isHide ? '' : t[labelKey],
     );
   }
 
@@ -133,36 +146,5 @@ class _AppNavBarState extends State<AppNavBar> {
   void dispose() {
     detector.stopListening();
     super.dispose();
-  }
-
-  GButton _buildItem(
-    AppRoutes route,
-    String iconPath,
-    dynamic colors, {
-    bool isHide = false,
-  }) {
-    return GButton(
-      icon: Icons.home, // Dummy, effectively hidden by 'leading'
-      leading: AppIcon(
-        path: iconPath,
-        // Calculate color based on whether this tab is active
-        color: _isTabActive(route) ? colors.primary500 : colors.primary300,
-        size: _iconSize,
-      ),
-      text: isHide ? '' : t[route.name],
-    );
-  }
-
-  /// Simple helper to check if specific tab is active to color the custom AppIcon
-  bool _isTabActive(AppRoutes route) {
-    // Map keys to indexes matching the order in tabs[]
-    final int index = switch (route) {
-      .home => 0,
-      .history => 1,
-      .revenue => 2,
-      .settings => 3,
-      _ => 0,
-    };
-    return widget.navigationShell.currentIndex == index;
   }
 }

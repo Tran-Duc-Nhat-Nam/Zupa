@@ -1,6 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -173,13 +173,13 @@ class HistorySearchBar extends StatelessWidget {
                   child: AppButton(
                     color: .basic,
                     theme: .outline,
-                    onPressed: () => context.pop(),
+                    onPressed: () => context.router.pop(),
                     text: t.cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
-                    onPressed: () => context.pop(),
+                    onPressed: () => context.router.pop(),
                     text: t.apply,
                   ),
                 ),

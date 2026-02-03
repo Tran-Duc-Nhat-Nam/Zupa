@@ -1,11 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/constants/routes.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
@@ -15,6 +15,7 @@ import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
@@ -32,7 +33,9 @@ class LoginScreen extends StatelessWidget {
                   'password': password,
                   'isRemember': isRemember,
                 }),
-            loginSuccess: () => context.goNamed(AppRoutes.home.name),
+            loginSuccess: () => context.router.replaceAll([
+              const HomeRoute(),
+            ]),
             loginFailed: (message) {
               AppToast.showNotify(message, type: .error);
               final values = formKey.currentState?.value;

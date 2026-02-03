@@ -3,7 +3,6 @@ import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/converter/gender_converter.dart';
 
 // ignore: prefer_relative_imports
-import 'package:zupa/core/models/vehicle_type.dart';
 
 part 'ticket.freezed.dart';
 part 'ticket.g.dart';

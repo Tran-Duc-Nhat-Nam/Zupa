@@ -1,11 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import 'dart:math' as math;
 
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/gen/strings.g.dart';
@@ -93,7 +93,7 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           ListTile(
             onTap: () {
-              context.pushNamed(AppRoutes.settings.name);
+              context.pushRoute(const SettingsRoute());
             },
             leading: const Icon(Icons.settings),
             title: Text(

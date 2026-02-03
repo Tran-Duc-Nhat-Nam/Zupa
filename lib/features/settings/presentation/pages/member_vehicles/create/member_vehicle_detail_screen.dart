@@ -1,8 +1,8 @@
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/detail/member_vehicle_detail_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -18,8 +18,11 @@ import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class MemberVehicleDetailScreen extends StatefulWidget {
-  const MemberVehicleDetailScreen({super.key});
+  const MemberVehicleDetailScreen({super.key, this.code});
+
+  final String? code;
 
   @override
   AppState<MemberVehicleDetailScreen> createState() =>
@@ -30,18 +33,16 @@ class _MemberVehicleDetailScreenState
     extends AppState<MemberVehicleDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final extra = GoRouterState.of(context).extra;
-    final String? code = extra is String ? extra : null;
 
     return BlocProvider<MemberVehicleDetailCubit>(
-      create: (context) => getIt<MemberVehicleDetailCubit>()..init(code: code),
+      create: (context) => getIt<MemberVehicleDetailCubit>()..init(code: widget.code),
       child: BlocBuilder<MemberVehicleDetailCubit, MemberVehicleDetailState>(
         builder: (context, state) {
           return AppScreen(
             formKey: formKey,
             isChildScrollable: true,
             noBackground: true,
-            title: GoRouterState.of(context).extra is String
+            title: widget.code != null
                 ? t.memberVehicleDetail
                 : t.createMemberVehicle,
             footer: [
@@ -83,7 +84,7 @@ class _MemberVehicleDetailScreenState
                     ),
                     child: Center(
                       child: AppIcon(
-                        onTap: () => AppRoutes.checkIn.name,
+                        onTap: () => context.pushRoute(CheckInRoute()),
                         path: AppIcons.camera,
                       ),
                     ),

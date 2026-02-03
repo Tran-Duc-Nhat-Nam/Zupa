@@ -31,7 +31,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final result = await _repository.getTickets(filter: filter, page: 0);
+    final result = await _repository.getTickets(filter: filter);
     result.maybeWhen(
       success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
       error: (message) => emit(.failed(message)),

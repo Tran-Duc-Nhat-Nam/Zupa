@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
     as filter;
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
@@ -15,6 +15,7 @@ import 'package:zupa/features/settings/presentation/pages/member_vehicles/widget
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/widgets/member_vehicles_tab_bar.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class MemberVehiclesScreen extends StatefulWidget {
   const MemberVehiclesScreen({super.key});
 
@@ -35,7 +36,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
           padding: const .only(right: 24),
           child: AppIcon(
             path: AppIcons.roundPlus,
-            onTap: () => context.pushNamed(AppRoutes.memberVehiclesDetail.name),
+            onTap: () => context.pushRoute(const MemberVehiclesRoute()),
           ),
         ),
       ],

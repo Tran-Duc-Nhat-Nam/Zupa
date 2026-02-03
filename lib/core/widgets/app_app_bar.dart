@@ -1,5 +1,5 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/icons.dart';
@@ -92,7 +92,7 @@ class _AppAppBarState extends State<AppAppBar> {
                 color: ThemeHelper.getColor(context).grey400,
                 size: 32,
               ),
-              onPressed: () => context.pop(),
+              onPressed: () => context.router.pop(),
             )
           : null,
       titleSpacing: ModalRoute.of(context)?.impliesAppBarDismissal == true

@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
@@ -12,6 +13,7 @@ import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
 

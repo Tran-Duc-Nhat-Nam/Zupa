@@ -29,13 +29,15 @@ Future<void> main() async {
   getIt<NetworkService>().onUnauthorized = () =>
       getIt<AuthenticationRepository>().logOut();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final router = AppRouter();
   @override
   Widget build(BuildContext context) {
+
     return TranslationProvider(
       child: MultiBlocProvider(
         providers: [
@@ -88,7 +90,7 @@ class MyApp extends StatelessWidget {
                         darkTheme: appDarkTheme,
                         themeMode: themeMode,
                         debugShowCheckedModeBanner: false,
-                        routerConfig: RouterHelper.router,
+                        routerConfig: router.config(),
                         localizationsDelegates:
                             GlobalMaterialLocalizations.delegates,
                         supportedLocales: AppLocaleUtils.supportedLocales,

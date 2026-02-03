@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -10,6 +11,7 @@ import 'package:zupa/features/history/presentation/pages/widgets/history_list_ta
 import 'package:zupa/features/history/presentation/pages/widgets/history_search_bar.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
 

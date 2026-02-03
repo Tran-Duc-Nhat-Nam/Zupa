@@ -1,9 +1,9 @@
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/constants/routes.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/employee/employee_settings_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -17,6 +17,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/gen/strings.g.dart';
 
+@RoutePage()
 class EmployeeManagementScreen extends StatefulWidget {
   const EmployeeManagementScreen({super.key});
 
@@ -63,10 +64,7 @@ class _EmployeeManagementScreenState
                           ],
                         ),
                         trailingIconPath: AppIcons.chevronRight,
-                        onTap: () => context.pushNamed(
-                          AppRoutes.parkingDetail.name,
-                          extra: params.employees[index],
-                        ),
+                        onTap: () => context.pushRoute(ParkingDetailsRoute()),
                       ),
                       separatorBuilder: (context, index) =>
                           Divider(color: ThemeHelper.getColor(context).grey100),
