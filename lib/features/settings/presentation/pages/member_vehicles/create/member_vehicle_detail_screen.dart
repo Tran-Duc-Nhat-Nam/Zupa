@@ -1,17 +1,15 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/detail/member_vehicle_detail_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -33,13 +31,13 @@ class _MemberVehicleDetailScreenState
     extends AppState<MemberVehicleDetailScreen> {
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider<MemberVehicleDetailCubit>(
-      create: (context) => getIt<MemberVehicleDetailCubit>()..init(code: widget.code),
+      create: (context) =>
+          getIt<MemberVehicleDetailCubit>()..init(code: widget.code),
       child: BlocBuilder<MemberVehicleDetailCubit, MemberVehicleDetailState>(
         builder: (context, state) {
           return AppScreen(
-            formKey: formKey,
+            formGroup: context.read<MemberVehicleDetailCubit>().form,
             isChildScrollable: true,
             noBackground: true,
             title: widget.code != null
@@ -47,29 +45,18 @@ class _MemberVehicleDetailScreenState
                 : t.createMemberVehicle,
             footer: [
               AppButton(
-                onPressed: () {
-                  formKey.currentState?.saveAndValidate();
-                  if (formKey.currentState?.validate() == true) {
-                    context.read<MemberVehicleDetailCubit>().create(
-                      formKey.currentState!.value,
-                    );
-                  }
-                },
+                onPressed: context.read<MemberVehicleDetailCubit>().create,
                 text: t.save,
               ),
-              AppButton(
-                theme: .outline,
-                color: .error,
-                onPressed: () {
-                  formKey.currentState?.saveAndValidate();
-                  if (formKey.currentState?.validate() == true) {
-                    context.read<MemberVehicleDetailCubit>().create(
-                      formKey.currentState!.value,
-                    );
-                  }
-                },
-                text: t.delete,
-              ),
+              if (widget.code != null)
+                AppButton(
+                  theme: .outline,
+                  color: .error,
+                  onPressed: () => context
+                      .read<MemberVehicleDetailCubit>()
+                      .delete(widget.code!),
+                  text: t.delete,
+                ),
             ],
             child: AppCard(
               child: Column(
@@ -83,9 +70,11 @@ class _MemberVehicleDetailScreenState
                       borderRadius: .circular(8),
                     ),
                     child: Center(
-                      child: AppIcon(
+                      child: InkWell(
+                        child: const Icon(
+                          Symbols.camera_rounded,
+                        ),
                         onTap: () => context.pushRoute(CheckInRoute()),
-                        path: AppIcons.camera,
                       ),
                     ),
                   ),

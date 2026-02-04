@@ -28,7 +28,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
       create: (context) => getIt<PasswordSettingsCubit>()..init(),
       child: BlocListener<PasswordSettingsCubit, PasswordSettingsState>(
         listener: (context, state) {
-          state.maybeWhen(
+          state.whenOrNull(
             changePasswordSuccess: () {
               AppToast.showNotify(t.success);
               context.read<PasswordSettingsCubit>().init();
@@ -37,27 +37,18 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
               AppToast.showNotify(message);
               context.read<PasswordSettingsCubit>().init();
             },
-            orElse: () {},
           );
         },
         child: BlocBuilder<PasswordSettingsCubit, PasswordSettingsState>(
           builder: (context, state) {
             return AppScreen(
-              formKey: formKey,
+              formGroup: context.read<PasswordSettingsCubit>().form,
               isChildScrollable: true,
               noBackground: true,
               title: t.changePassword,
               footer: [
                 AppButton(
-                  onPressed: () {
-                    formKey.currentState?.saveAndValidate();
-                    if (formKey.currentState?.validate() == true) {
-                      context.read<PasswordSettingsCubit>().changePassword(
-                        formKey.currentState!.value['currentPassword'],
-                        formKey.currentState!.value['newPassword'],
-                      );
-                    }
-                  },
+                  onPressed: context.read<PasswordSettingsCubit>().changePassword,
                   text: t.changePassword,
                 ),
               ],
@@ -90,18 +81,6 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                         hintText: t.confirmPassword,
                         isPasswordConfirm: true,
                         required: true,
-                        validators: [
-                          (value) {
-                            return value ==
-                                    formKey
-                                        .currentState
-                                        ?.instantValue['newPassword']
-                                ? null
-                                : Translations.of(
-                                    context,
-                                  ).errorMessage.confirmPassword;
-                          },
-                        ],
                       ),
                     ],
                   ),

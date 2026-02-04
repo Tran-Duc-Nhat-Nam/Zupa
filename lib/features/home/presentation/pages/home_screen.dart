@@ -25,55 +25,59 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends AppState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return AppScreen(
-      formKey: formKey,
-      isChildScrollable: true,
-      hasParentView: true,
-      title: t.home,
-      hasAppBar: false,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ThemeHelper.getColor(context).primary200,
-        foregroundColor: ThemeHelper.getColor(context).primary500,
-        onPressed: () => context.pushRoute(CheckInRoute()),
-        shape: const CircleBorder(),
-        child: const Icon(Icons.camera_alt_rounded),
-      ),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<HomeTicketCubit>(
-            create: (context) => getIt<HomeTicketCubit>()..init(),
-          ),
-          BlocProvider<HomeFilterCubit>(
-            create: (context) => getIt<HomeFilterCubit>()..init(),
-          ),
-        ],
-        child: BlocListener<HomeTicketCubit, HomeTicketState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              unauthenticated: () => DialogHelper.showAuthDialog(context),
-            );
-          },
-          child: const Column(
-            spacing: 10,
-            children: [
-              SizedBox(height: 6),
-              Padding(
-                padding: .symmetric(horizontal: 24),
-                child: HomeSearchBar(),
-              ),
-              Padding(
-                padding: .symmetric(horizontal: 24),
-                child: VehicleCapacityTab(),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: .symmetric(horizontal: 24),
-                  child: TicketListTab(),
-                ),
-              ),
-            ],
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeTicketCubit>(
+          create: (context) => getIt<HomeTicketCubit>()..init(),
         ),
+        BlocProvider<HomeFilterCubit>(
+          create: (context) => getIt<HomeFilterCubit>()..init(),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          return AppScreen(
+            formGroup: context.read<HomeFilterCubit>().form,
+            isChildScrollable: true,
+            hasParentView: true,
+            title: t.home,
+            hasAppBar: false,
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: ThemeHelper.getColor(context).primary200,
+              foregroundColor: ThemeHelper.getColor(context).primary500,
+              onPressed: () => context.pushRoute(CheckInRoute()),
+              shape: const CircleBorder(),
+              child: const Icon(Icons.camera_alt_rounded),
+            ),
+            child: BlocListener<HomeTicketCubit, HomeTicketState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  unauthenticated: () => DialogHelper.showAuthDialog(context),
+                );
+              },
+              child: const Column(
+                spacing: 10,
+                children: [
+                  SizedBox(height: 6),
+                  Padding(
+                    padding: .symmetric(horizontal: 24),
+                    child: HomeSearchBar(),
+                  ),
+                  Padding(
+                    padding: .symmetric(horizontal: 24),
+                    child: VehicleCapacityTab(),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: .symmetric(horizontal: 24),
+                      child: TicketListTab(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/camera_screen.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/ticket_info_card.dart';
@@ -14,7 +14,6 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 @RoutePage()
@@ -34,13 +33,14 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
       child: BlocListener<CheckInCubit, CheckInState>(
         listener: (context, state) {
           state.whenOrNull(
-            submitSuccess: () => context.router.replaceAll([LoginRoute()]),
+            submitSuccess: () =>
+                context.router.replaceAll([const LoginRoute()]),
           );
         },
         child: BlocBuilder<CheckInCubit, CheckInState>(
           builder: (context, state) {
             return AppScreen(
-              formKey: formKey,
+              formGroup: context.read<CheckInCubit>().form,
               appBarColor: Colors.black,
               isClose: true,
               isChildScrollable: true,
@@ -51,25 +51,14 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                 checkIn: (controller) => CameraScreen(
                   isOut: false,
                   controller: controller,
-                  onTakePicture: () {
-                    formKey.currentState?.saveAndValidate();
-                    if (formKey.currentState?.validate() == true) {
-                      context.read<CheckInCubit>().check(
-                        controller,
-                        formKey.currentState!.value['type'],
-                      );
-                    } else {
-                      AppToast.showNotify(t.error);
-                    }
-                  },
+                  onTakePicture: () =>
+                      context.read<CheckInCubit>().check(controller),
                 ),
                 checkOut: (controller) => CameraScreen(
                   isOut: true,
                   controller: controller,
-                  onTakePicture: () => context.read<CheckInCubit>().check(
-                    controller,
-                    vehicleTypes[0],
-                  ),
+                  onTakePicture: () =>
+                      context.read<CheckInCubit>().check(controller),
                 ),
                 loading: () => Center(
                   child: LoadingAnimationWidget.staggeredDotsWave(
@@ -252,20 +241,14 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                       context.read<CheckInCubit>().reset(),
                                   shape: const CircleBorder(),
                                   color: .basic,
-                                  iconPath: AppIcons.rotateLeft,
+                                  icon: Symbols.rotate_left_rounded,
                                 ),
                                 Expanded(
                                   child: AppButton(
                                     fitContent: true,
-                                    onPressed: () {
-                                      formKey.currentState?.saveAndValidate();
-                                      if (formKey.currentState?.validate() ==
-                                          true) {
-                                        context.read<CheckInCubit>().saveTicket(
-                                          formKey.currentState?.value,
-                                        );
-                                      }
-                                    },
+                                    onPressed: context
+                                        .read<CheckInCubit>()
+                                        .saveTicket,
                                     text:
                                         state.mapOrNull(
                                           checkedInSuccess: (_) => t.allowIn,

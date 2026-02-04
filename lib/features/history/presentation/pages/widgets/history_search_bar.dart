@@ -1,15 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
 import 'package:zupa/gen/strings.g.dart';
@@ -61,10 +60,10 @@ class HistorySearchBar extends StatelessWidget {
                     borderRadius: 100,
                     hasBorder: false,
                     backgroundColor: ThemeHelper.getColor(context).primary50,
-                    prefixIconPath: AppIcons.search,
+                    prefixIcon: Symbols.search_rounded,
                     suffix: InkWell(
-                      child: AppIcon(
-                        path: AppIcons.filter,
+                      child: Icon(
+                        Symbols.filter_alt_rounded,
                         size: 20,
                         color: ThemeHelper.getColor(context).grey400,
                       ),
@@ -72,7 +71,7 @@ class HistorySearchBar extends StatelessWidget {
                     ),
                     onChanged: (value) => context
                         .read<HistoryFilterCubit>()
-                        .update(keyword: value),
+                        .update(),
                   ),
                 );
               },

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
 
 part 'check_in_state.dart';
@@ -8,6 +9,10 @@ part 'check_in_cubit.freezed.dart';
 
 class CheckInCubit extends Cubit<CheckInState> {
   CheckInCubit() : super(const .initial());
+
+  final FormGroup form = fb.group({
+    'ticketNumber': ['', Validators.required],
+  });
 
   @override
   Future<void> close() {
@@ -38,14 +43,14 @@ class CheckInCubit extends Cubit<CheckInState> {
         });
   }
 
-  void check(CameraController controller, VehicleType vehicleType) async {
+  void check(CameraController controller) async {
     emit(const .takingPicture());
     final picture = await controller.takePicture();
     controller.dispose();
     emit(
       state is CheckOut
           ? .checkedOutSuccess(picture)
-          : .checkedInSuccess(picture, vehicleType),
+          : .checkedInSuccess(picture, form.control('ticketNumber').value),
     );
   }
 
@@ -57,7 +62,7 @@ class CheckInCubit extends Cubit<CheckInState> {
     init(state is CheckOut);
   }
 
-  void saveTicket(dynamic ticket) async {
+  void saveTicket() async {
     emit(const .submitting());
     await Future.delayed(const .new(seconds: 5));
     emit(const .submitSuccess());

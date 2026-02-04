@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/history/domain/entities/history_filter.dart';
 
@@ -14,17 +15,17 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
 
   Timer? _debounce;
 
-  void update({String? keyword, DateTime? time, VehicleType? type}) {
-    final currentFilter = state.maybeMap(
-      loaded: (s) => s.filter,
-      filtering: (s) => s.filter,
-      orElse: () => const HistoryFilter(),
-    );
+  final FormGroup form = fb.group({
+    'keyword': FormControl<String>(value: ''),
+    'time': FormControl<DateTime?>(),
+    'type': FormControl<VehicleType?>(),
+  });
 
-    final newFilter = currentFilter.copyWith(
-      keyword: keyword ?? currentFilter.keyword,
-      time: time ?? currentFilter.time,
-      type: type ?? currentFilter.type,
+  void update() {
+    final newFilter = HistoryFilter(
+      keyword: form.control('keyword').value,
+      time: form.control('time').value,
+      type: form.control('type').value,
     );
 
     emit(.loaded(filter: newFilter));
@@ -35,10 +36,7 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
   }
 
   void init() {
-    state.maybeMap(
-      initial: (s) => emit(const .loaded()),
-      orElse: () {},
-    );
+    emit(const .loaded());
   }
 
   @override

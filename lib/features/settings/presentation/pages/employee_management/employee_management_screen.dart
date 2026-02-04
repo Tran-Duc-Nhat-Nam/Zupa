@@ -2,16 +2,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/employee/employee_settings_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -46,7 +45,7 @@ class _EmployeeManagementScreenState
                     loaded: (params) => ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (context, index) => AppListTile(
-                        leadingIconPath: AppIcons.outlineSetting,
+                        leadingIcon: Symbols.settings_rounded,
                         content: Row(
                           spacing: 8,
                           children: [
@@ -56,14 +55,14 @@ class _EmployeeManagementScreenState
                                 color: ThemeHelper.getColor(context).grey700,
                               ),
                             ),
-                            AppIcon(
-                              path: AppIcons.lock,
+                            Icon(
+                              Symbols.lock,
                               color: ThemeHelper.getColor(context).error600,
                               size: 16,
                             ),
                           ],
                         ),
-                        trailingIconPath: AppIcons.chevronRight,
+                        trailingIcon: Symbols.chevron_right_rounded,
                         onTap: () => context.pushRoute(ParkingDetailsRoute()),
                       ),
                       separatorBuilder: (context, index) =>
@@ -73,9 +72,9 @@ class _EmployeeManagementScreenState
                     loading: (_) => ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (context, index) => const AppListTile(
-                        leadingIconPath: AppIcons.outlineSetting,
+                        leadingIcon: Symbols.settings_rounded,
                         text: 'Placeholder name',
-                        trailingIconPath: AppIcons.chevronRight,
+                        trailingIcon: Symbols.chevron_right_rounded,
                       ),
                       separatorBuilder: (context, index) =>
                           Divider(color: ThemeHelper.getColor(context).grey100),

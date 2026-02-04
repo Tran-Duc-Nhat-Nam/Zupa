@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
@@ -30,9 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         listener: (_, state) {
           state.whenOrNull(
             noAuthenticated: () {
-              context.router.replaceAll([
-                LoginRoute(),
-              ]);
+              context.router.replaceAll([const LoginRoute()]);
             },
           );
         },
@@ -47,33 +45,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   spacing: 4,
                   children: [
                     AppListTile(
-                      leadingIconPath: AppIcons.homeOutline,
+                      leadingIcon: Symbols.home_rounded,
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.parkingAreaConfig,
-                      trailingIconPath: AppIcons.chevronRight,
-                      onTap: () => context.pushRoute(const ParkingSettingsRoute()),
+                      trailingIcon: Symbols.chevron_right_rounded,
+                      onTap: () =>
+                          context.pushRoute(const ParkingSettingsRoute()),
                     ),
                     AppListTile(
-                      leadingIconPath: AppIcons.calendarEdit,
+                      leadingIcon: Symbols.calendar_add_on_rounded,
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.memberVehicles,
-                      trailingIconPath: AppIcons.chevronRight,
+                      trailingIcon: Symbols.chevron_right_rounded,
                       onTap: () =>
                           context.pushRoute(const MemberVehiclesRoute()),
                     ),
                     AppListTile(
-                      leadingIconPath: AppIcons.userEdit,
+                      leadingIcon: Symbols.user_attributes_rounded,
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.employeeManagement,
-                      trailingIconPath: AppIcons.chevronRight,
+                      trailingIcon: Symbols.chevron_right_rounded,
                       onTap: () =>
                           context.pushRoute(const EmployeeManagementRoute()),
                     ),
                     AppListTile(
-                      leadingIconPath: AppIcons.config,
+                      leadingIcon: Symbols.settings,
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.generalConfig,
-                      trailingIconPath: AppIcons.chevronRight,
+                      trailingIcon: Symbols.chevron_right_rounded,
                       onTap: () =>
                           context.pushRoute(const GeneralConfigRoute()),
                     ),
@@ -85,10 +84,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Column(
                   children: [
                     AppListTile(
-                      leadingIconPath: AppIcons.lock,
+                      leadingIcon: Symbols.lock,
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.changePassword,
-                      trailingIconPath: AppIcons.chevronRight,
+                      trailingIcon: Symbols.chevron_right_rounded,
                       onTap: () =>
                           context.pushRoute(const ChangePasswordRoute()),
                     ),
@@ -98,17 +97,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               AppCard(
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
-                  leadingIconPath: AppIcons.outlineSetting,
+                  leadingIcon: Symbols.settings,
                   text: t.appSettings,
                   leadingColor: ThemeHelper.getColor(context).primary500,
-                  trailingIconPath: AppIcons.chevronRight,
+                  trailingIcon: Symbols.chevron_right_rounded,
                   onTap: () => context.pushRoute(const AppSettingsRoute()),
                 ),
               ),
               AppCard(
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
-                  leadingIconPath: AppIcons.logout,
+                  leadingIcon: Symbols.logout,
                   text: t.title.logout,
                   leadingColor: ThemeHelper.getColor(context).error600,
                   onTap: () {

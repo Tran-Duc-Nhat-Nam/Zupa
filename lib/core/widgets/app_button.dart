@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -18,7 +17,6 @@ class AppButton extends StatelessWidget {
     this.color = .info,
     this.radius,
     this.shape,
-    this.iconPath,
     this.height,
     this.isForm = false,
   });
@@ -26,8 +24,7 @@ class AppButton extends StatelessWidget {
   final void Function()? onPressed;
   final String? text;
   final Widget? child;
-  final Widget? icon;
-  final String? iconPath;
+  final IconData? icon;
   final bool fitContent;
   final double? height;
   final EdgeInsetsGeometry? padding;
@@ -135,8 +132,7 @@ class AppButton extends StatelessWidget {
               mainAxisAlignment: .center,
               spacing: 8,
               children: [
-                if (icon != null || iconPath != null)
-                  icon ?? AppIcon(path: iconPath!, color: foregroundColor),
+                if (icon != null) Icon(icon, size: 20, color: foregroundColor),
                 if (text != null)
                   Text(
                     text!,

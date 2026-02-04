@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/settings/data/models/member_vehicles_filter.dart';
@@ -16,14 +16,21 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
   MemberVehiclesFilterCubit() : super(const .initial());
   Timer? _debounce;
 
-  void search(String? query) {
+  final FormGroup form = fb.group({
+    'keyword': FormControl<String>(value: ''),
+    'time': FormControl<DateTime?>(),
+    'type': FormControl<VehicleType?>(),
+  });
+
+  void search() {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
         _debounce = Timer(const Duration(milliseconds: 500), () {
-          log(query.toString());
           emit(
-            .loaded(filter: filter.copyWith(keyword: query)),
+            .loaded(
+              filter: filter.copyWith(keyword: form.control('keyword').value),
+            ),
           ); // Emit the latest query after the debounce delay
         });
       },
@@ -34,13 +41,13 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
     emit(const .loaded());
   }
 
-  void filter({VehicleType? type, String? keyword, DateTime? time}) async {
+  void filter() async {
     state.whenOrNull(
       loaded: (filter) async {
         final temp = MemberVehiclesFilter(
-          type: type ?? filter.type,
-          keyword: keyword ?? filter.keyword,
-          time: time ?? filter.time,
+          type: form.control('type').value,
+          keyword: form.control('keyword').value,
+          time: form.control('time').value,
         );
         emit(.filtering(filter: temp));
         await Future.delayed(const .new(seconds: 3));
@@ -55,4 +62,3 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
     return super.close();
   }
 }
-

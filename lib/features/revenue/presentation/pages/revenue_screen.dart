@@ -21,42 +21,37 @@ class RevenueScreen extends StatefulWidget {
 
 class _RevenueScreenState extends AppState<RevenueScreen> {
   @override
-  Map<String, dynamic> getFormValues() {
-    formKey.currentState?.saveAndValidate();
-    if (formKey.currentState?.validate() == true) {
-      return formKey.currentState!.value;
-    }
-    return {};
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AppScreen(
-      formKey: formKey,
-      isChildScrollable: true,
-      hasParentView: true,
-      title: t.revenue,
-      hasAppBar: false,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => getIt<RevenueFilterCubit>()..init(),
-          ),
-          BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
-        ],
-        child: BlocListener<RevenueListCubit, RevenueListState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              unauthenticated: () => DialogHelper.showAuthDialog(context),
-            );
-          },
-          child: const Column(
-            children: [
-              SizedBox(height: 16),
-              Expanded(child: RevenueListTab()),
-            ],
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<RevenueFilterCubit>()..init(),
         ),
+        BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
+      ],
+      child: Builder(
+        builder: (context) {
+          return AppScreen(
+            formGroup: context.read<RevenueFilterCubit>().form,
+            isChildScrollable: true,
+            hasParentView: true,
+            title: t.revenue,
+            hasAppBar: false,
+            child: BlocListener<RevenueListCubit, RevenueListState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  unauthenticated: () => DialogHelper.showAuthDialog(context),
+                );
+              },
+              child: const Column(
+                children: [
+                  SizedBox(height: 16),
+                  Expanded(child: RevenueListTab()),
+                ],
+              ),
+            ),
+          );
+        }
       ),
     );
   }

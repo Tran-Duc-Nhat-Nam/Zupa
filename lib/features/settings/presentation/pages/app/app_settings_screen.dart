@@ -2,13 +2,13 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
 
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
@@ -29,7 +29,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      formKey: formKey,
       title: t.appSettings,
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
@@ -59,7 +58,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     builder: (context, state) {
                       return AppListTile(
                         padding: .zero,
-                        leadingIconPath: AppIcons.global,
+                        leadingIcon: Symbols.globe,
                         text: t.language,
                         trailing: AppDropDownSearch<AppLocalization>(
                           name: 'appLocale',
@@ -89,7 +88,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     builder: (context, state) {
                       return AppListTile(
                         padding: .zero,
-                        leadingIconPath: AppIcons.lampOn,
+                        leadingIcon: Symbols.lightbulb_rounded,
                         text: t.language,
                         trailing: AppDropDownSearch<AppThemeMode>(
                           name: 'appLocale',
@@ -119,7 +118,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     builder: (context, state) {
                       return AppListTile(
                         padding: .zero,
-                        leadingIconPath: AppIcons.notification,
+                        leadingIcon: Symbols.bug_report_rounded,
                         text: t.debuggerMode,
                         trailing: SizedBox(
                           height: 20,
@@ -166,7 +165,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   //   builder: (context, state) {
                   //     return AppListTile(
                   //       padding: .zero,
-                  //       leadingIconPath: AppIcons.notification,
+                  //       leadingIcon: Symbols.notification,
                   //       text: t.biometricAuth,
                   //       trailing: SizedBox(
                   //         height: 20,

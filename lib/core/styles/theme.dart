@@ -9,6 +9,7 @@ final appTheme = ThemeData(
   brightness: .light,
   visualDensity: .adaptivePlatformDensity,
   useSystemColors: true,
+  iconTheme: const IconThemeData(fill: 0, weight: 600, opticalSize: 48),
 );
 
 final appDarkTheme = ThemeData(
@@ -21,6 +22,7 @@ final appDarkTheme = ThemeData(
   brightness: .dark,
   visualDensity: .adaptivePlatformDensity,
   useSystemColors: true,
+  iconTheme: const IconThemeData(fill: 0, weight: 600, opticalSize: 48),
 );
 
 enum AppThemeMode { light, dark, followSystem }

@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
     as filter;
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart';
-import 'package:zupa/core/styles/icons.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -26,29 +25,31 @@ class MemberVehiclesScreen extends StatefulWidget {
 class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
   @override
   Widget build(BuildContext context) {
-    return AppScreen(
-      formKey: formKey,
-      isChildScrollable: true,
-      noBackground: true,
-      title: t.memberVehicles,
-      appBarTrailing: [
-        Padding(
-          padding: const .only(right: 24),
-          child: AppIcon(
-            path: AppIcons.roundPlus,
-            onTap: () => context.pushRoute(const MemberVehiclesRoute()),
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MemberVehiclesListCubit>(
+          create: (context) => getIt<MemberVehiclesListCubit>()..init(),
+        ),
+        BlocProvider<filter.MemberVehiclesFilterCubit>(
+          create: (context) =>
+              getIt<filter.MemberVehiclesFilterCubit>()
+                ..init(),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<MemberVehiclesListCubit>(
-            create: (context) => getIt<MemberVehiclesListCubit>()..init(),
-          ),
-          BlocProvider<filter.MemberVehiclesFilterCubit>(
-            create: (context) =>
-                getIt<filter.MemberVehiclesFilterCubit>()
-                  ..init(),
+      child: AppScreen(
+        formGroup: context.read<filter.MemberVehiclesFilterCubit>().form,
+        isChildScrollable: true,
+        noBackground: true,
+        title: t.memberVehicles,
+        appBarTrailing: [
+          Padding(
+            padding: const .only(right: 24),
+            child: InkWell(
+              child: const Icon(
+                Symbols.add_circle_outline_rounded,
+              ),
+              onTap: () => context.pushRoute(const MemberVehiclesRoute()),
+            ),
           ),
         ],
         child: DefaultTabController(

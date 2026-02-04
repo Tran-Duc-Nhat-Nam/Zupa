@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/form/validation_hepler.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
 part 'general_config_state.dart';
@@ -12,6 +14,14 @@ class GeneralConfigCubit extends Cubit<GeneralConfigState> {
   GeneralConfigCubit() : super(const .initial());
 
   final _storageService = getIt<StorageService>();
+
+  FormGroup form = fb.group(
+    {
+      'warningThreshold': [-1, Validators.required],
+      'isWarning': [false],
+    },
+    [ValidationHepler.greaterThanZeroIfTrue('isWarning', 'warningThreshold')],
+  );
 
   Future<void> init() async {
     emit(const .loading());

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$VehicleType {
 
- String get value; String get name; String get iconPath;@ColorConverter() Color get color;
+ String get value; String get name;@IconConverter() IconData? get icon;@ColorConverter() Color get color;
 /// Create a copy of VehicleType
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $VehicleTypeCopyWith<VehicleType> get copyWith => _$VehicleTypeCopyWithImpl<Vehi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VehicleType&&(identical(other.value, value) || other.value == value)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconPath, iconPath) || other.iconPath == iconPath)&&(identical(other.color, color) || other.color == color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VehicleType&&(identical(other.value, value) || other.value == value)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,value,name,iconPath,color);
+int get hashCode => Object.hash(runtimeType,value,name,icon,color);
 
 @override
 String toString() {
-  return 'VehicleType(value: $value, name: $name, iconPath: $iconPath, color: $color)';
+  return 'VehicleType(value: $value, name: $name, icon: $icon, color: $color)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $VehicleTypeCopyWith<$Res>  {
   factory $VehicleTypeCopyWith(VehicleType value, $Res Function(VehicleType) _then) = _$VehicleTypeCopyWithImpl;
 @useResult
 $Res call({
- String value, String name, String iconPath,@ColorConverter() Color color
+ String value, String name,@IconConverter() IconData? icon,@ColorConverter() Color color
 });
 
 
@@ -65,12 +65,12 @@ class _$VehicleTypeCopyWithImpl<$Res>
 
 /// Create a copy of VehicleType
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? value = null,Object? name = null,Object? iconPath = null,Object? color = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? value = null,Object? name = null,Object? icon = freezed,Object? color = null,}) {
   return _then(_self.copyWith(
 value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,iconPath: null == iconPath ? _self.iconPath : iconPath // ignore: cast_nullable_to_non_nullable
-as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as IconData?,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as Color,
   ));
 }
@@ -153,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String value,  String name,  String iconPath, @ColorConverter()  Color color)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String value,  String name, @IconConverter()  IconData? icon, @ColorConverter()  Color color)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VehicleType() when $default != null:
-return $default(_that.value,_that.name,_that.iconPath,_that.color);case _:
+return $default(_that.value,_that.name,_that.icon,_that.color);case _:
   return orElse();
 
 }
@@ -174,10 +174,10 @@ return $default(_that.value,_that.name,_that.iconPath,_that.color);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String value,  String name,  String iconPath, @ColorConverter()  Color color)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String value,  String name, @IconConverter()  IconData? icon, @ColorConverter()  Color color)  $default,) {final _that = this;
 switch (_that) {
 case _VehicleType():
-return $default(_that.value,_that.name,_that.iconPath,_that.color);}
+return $default(_that.value,_that.name,_that.icon,_that.color);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -191,10 +191,10 @@ return $default(_that.value,_that.name,_that.iconPath,_that.color);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String value,  String name,  String iconPath, @ColorConverter()  Color color)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String value,  String name, @IconConverter()  IconData? icon, @ColorConverter()  Color color)?  $default,) {final _that = this;
 switch (_that) {
 case _VehicleType() when $default != null:
-return $default(_that.value,_that.name,_that.iconPath,_that.color);case _:
+return $default(_that.value,_that.name,_that.icon,_that.color);case _:
   return null;
 
 }
@@ -206,12 +206,12 @@ return $default(_that.value,_that.name,_that.iconPath,_that.color);case _:
 @JsonSerializable()
 
 class _VehicleType implements VehicleType {
-  const _VehicleType({this.value = 'other', this.name = 'vehicle', this.iconPath = AppIcons.home, @ColorConverter() this.color = Colors.grey});
+  const _VehicleType({this.value = 'other', this.name = 'vehicle', @IconConverter() this.icon, @ColorConverter() this.color = Colors.grey});
   factory _VehicleType.fromJson(Map<String, dynamic> json) => _$VehicleTypeFromJson(json);
 
 @override@JsonKey() final  String value;
 @override@JsonKey() final  String name;
-@override@JsonKey() final  String iconPath;
+@override@IconConverter() final  IconData? icon;
 @override@JsonKey()@ColorConverter() final  Color color;
 
 /// Create a copy of VehicleType
@@ -227,16 +227,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VehicleType&&(identical(other.value, value) || other.value == value)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconPath, iconPath) || other.iconPath == iconPath)&&(identical(other.color, color) || other.color == color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VehicleType&&(identical(other.value, value) || other.value == value)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,value,name,iconPath,color);
+int get hashCode => Object.hash(runtimeType,value,name,icon,color);
 
 @override
 String toString() {
-  return 'VehicleType(value: $value, name: $name, iconPath: $iconPath, color: $color)';
+  return 'VehicleType(value: $value, name: $name, icon: $icon, color: $color)';
 }
 
 
@@ -247,7 +247,7 @@ abstract mixin class _$VehicleTypeCopyWith<$Res> implements $VehicleTypeCopyWith
   factory _$VehicleTypeCopyWith(_VehicleType value, $Res Function(_VehicleType) _then) = __$VehicleTypeCopyWithImpl;
 @override @useResult
 $Res call({
- String value, String name, String iconPath,@ColorConverter() Color color
+ String value, String name,@IconConverter() IconData? icon,@ColorConverter() Color color
 });
 
 
@@ -264,12 +264,12 @@ class __$VehicleTypeCopyWithImpl<$Res>
 
 /// Create a copy of VehicleType
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? name = null,Object? iconPath = null,Object? color = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? name = null,Object? icon = freezed,Object? color = null,}) {
   return _then(_VehicleType(
 value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,iconPath: null == iconPath ? _self.iconPath : iconPath // ignore: cast_nullable_to_non_nullable
-as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as IconData?,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as Color,
   ));
 }

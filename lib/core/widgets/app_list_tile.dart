@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
-import 'package:zupa/core/widgets/app_icon.dart';
-
 class AppListTile extends StatelessWidget {
   const AppListTile({
     super.key,
@@ -12,17 +10,17 @@ class AppListTile extends StatelessWidget {
     this.content,
     this.text,
     this.onTap,
-    this.leadingIconPath,
-    this.trailingIconPath,
+    this.leadingIcon,
+    this.trailingIcon,
     this.color,
     this.leadingColor,
     this.trailingColor,
     this.padding,
   });
   final Widget? leading;
-  final String? leadingIconPath;
+  final IconData? leadingIcon;
   final Widget? trailing;
-  final String? trailingIconPath;
+  final IconData? trailingIcon;
   final Widget? content;
   final String? text;
   final Color? color;
@@ -40,10 +38,10 @@ class AppListTile extends StatelessWidget {
         child: Row(
           spacing: 12,
           children: [
-            if (leading != null || leadingIconPath != null)
+            if (leading != null || leadingIcon != null)
               leading ??
-                  AppIcon(
-                    path: leadingIconPath!,
+                  Icon(
+                    leadingIcon,
                     color:
                         leadingColor ?? ThemeHelper.getColor(context).grey500,
                   ),
@@ -59,10 +57,10 @@ class AppListTile extends StatelessWidget {
                         )
                   : const SizedBox(),
             ),
-            if (trailing != null || trailingIconPath != null)
+            if (trailing != null || trailingIcon != null)
               trailing ??
-                  AppIcon(
-                    path: trailingIconPath!,
+                  Icon(
+                    trailingIcon,
                     color:
                         trailingColor ?? ThemeHelper.getColor(context).grey500,
                   ),

@@ -7,7 +7,6 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 
 class BorderPainter extends CustomPainter {
   final double currentState;
@@ -43,7 +42,7 @@ class BorderPainter extends CustomPainter {
 class VehicleCapacityCard extends StatefulWidget {
   const VehicleCapacityCard({
     super.key,
-    required this.iconPath,
+    required this.icon,
     required this.name,
     required this.current,
     this.capacity,
@@ -53,7 +52,7 @@ class VehicleCapacityCard extends StatefulWidget {
     this.onPressed,
   });
 
-  final String iconPath;
+  final IconData icon;
   final String name;
   final int current;
   final int? capacity;
@@ -113,8 +112,8 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                       height: 32,
                       child: Container(
                         padding: const .all(6),
-                        child: AppIcon(
-                          path: widget.iconPath,
+                        child: Icon(
+                          widget.icon,
                           size: 24,
                           color: colors.primary500,
                         ),

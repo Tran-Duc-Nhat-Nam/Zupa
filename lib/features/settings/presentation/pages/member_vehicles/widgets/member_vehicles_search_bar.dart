@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -19,10 +19,10 @@ class MemberVehiclesSearchBar extends StatelessWidget {
           enabled: state is Loading,
           child: AppTextField(
             name: 'keyword',
-            prefixIconPath: AppIcons.search,
+            prefixIcon: Symbols.search,
             hintText: t.search,
             onChanged: (value) =>
-                context.read<MemberVehiclesFilterCubit>().search(value),
+                context.read<MemberVehiclesFilterCubit>().search(),
           ),
         );
       },

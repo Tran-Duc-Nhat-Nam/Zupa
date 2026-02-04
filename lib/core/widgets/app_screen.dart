@@ -32,9 +32,9 @@ class AppScreen extends StatefulWidget {
     this.footerPadding,
     this.formGroup,
     this.isClose = false,
-    this.appBarTrailingIconPath,
+    this.appBarTrailingIcon,
     this.appBarTrailing,
-    this.appBarLeadingIconPath,
+    this.appBarLeadingIcon,
     this.appBarLeading,
     this.floatingActionButton,
   });
@@ -56,9 +56,9 @@ class AppScreen extends StatefulWidget {
   final bool hasSafeTopArea;
   final bool noBackground;
   final bool hasParentView;
-  final String? appBarTrailingIconPath;
+  final IconData? appBarTrailingIcon;
   final List<Widget>? appBarTrailing;
-  final String? appBarLeadingIconPath;
+  final IconData? appBarLeadingIcon;
   final Widget? appBarLeading;
   final Widget? floatingActionButton;
   final FormGroup? formGroup;
@@ -119,9 +119,9 @@ class _AppScreenState extends AppState<AppScreen> {
         subtext: widget.subtitle,
         isClose: widget.isClose,
         trailing: widget.appBarTrailing,
-        trailingIconPath: widget.appBarTrailingIconPath,
+        trailingIcon: widget.appBarTrailingIcon,
         leading: widget.appBarLeading,
-        leadingIconPath: widget.appBarLeadingIconPath,
+        leadingIcon: widget.appBarLeadingIcon,
       )
           : widget.appBar,
       backgroundColor:

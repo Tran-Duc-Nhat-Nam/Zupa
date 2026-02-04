@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -21,8 +20,8 @@ class AppTextField extends StatefulWidget {
     this.hintText,
     this.prefix,
     this.suffix,
-    this.prefixIconPath,
-    this.suffixIconPath,
+    this.prefixIcon,
+    this.suffixIcon,
     this.hasBorder = true,
     this.border,
     this.textAlign,
@@ -40,8 +39,8 @@ class AppTextField extends StatefulWidget {
   final Widget? label;
   final Widget? prefix;
   final Widget? suffix;
-  final String? prefixIconPath;
-  final String? suffixIconPath;
+  final IconData? prefixIcon;
+  final IconData? suffixIcon;
   final bool isExternalLabel;
   final bool required;
   final List<FormFieldValidator<String>>? validators;
@@ -98,13 +97,13 @@ class _AppTextFieldState extends State<AppTextField> {
           onChanged: widget.onChanged,
           textAlignVertical: .center,
           decoration: .new(
-            prefixIcon: widget.prefix != null || widget.prefixIconPath != null
+            prefixIcon: widget.prefix != null || widget.prefixIcon != null
                 ? Padding(
                     padding: const .only(left: 16, right: 8),
                     child:
                         widget.prefix ??
-                        AppIcon(
-                          path: widget.prefixIconPath!,
+                        Icon(
+                          widget.prefixIcon,
                           color: colorsScheme.grey400,
                           size: 20,
                         ),
@@ -129,13 +128,13 @@ class _AppTextFieldState extends State<AppTextField> {
                       });
                     },
                   )
-                : widget.suffix != null || widget.suffixIconPath != null
+                : widget.suffix != null || widget.suffixIcon != null
                 ? Padding(
                     padding: const .only(left: 6, right: 12),
                     child:
                         widget.suffix ??
-                        AppIcon(
-                          path: widget.suffixIconPath!,
+                        Icon(
+                          widget.suffixIcon,
                           color: colorsScheme.grey400,
                           size: 20,
                         ),

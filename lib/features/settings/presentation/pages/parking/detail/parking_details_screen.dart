@@ -1,12 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 import 'package:zupa/features/settings/presentation/bloc/parking/detail/parking_lot_detail_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/settings/data/models/parking_lot.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -112,7 +112,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         children: [
                           AppListTile(
                             padding: .zero,
-                            leadingIconPath: AppIcons.notification,
+                            leadingIcon: Symbols.notifications_rounded,
                             text: Translations.of(
                               context,
                             ).title.warningThreshold,

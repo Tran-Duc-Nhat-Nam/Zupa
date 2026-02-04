@@ -69,6 +69,7 @@ import '../bloc/connectivity/connectivity_cubit.dart' as _i332;
 import '../bloc/debugger/debugger_cubit.dart' as _i618;
 import '../bloc/localization/localization_cubit.dart' as _i781;
 import '../bloc/scanner/scanner_cubit.dart' as _i220;
+import '../bloc/site/site_cubit.dart' as _i221;
 import '../bloc/theme/theme_cubit.dart' as _i810;
 import '../network/network_info.dart' as _i932;
 import '../services/biometric_service.dart' as _i374;
@@ -87,6 +88,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i618.DebuggerCubit>(() => _i618.DebuggerCubit());
     gh.factory<_i781.LocalizationCubit>(() => _i781.LocalizationCubit());
     gh.factory<_i220.ScannerCubit>(() => _i220.ScannerCubit());
+    gh.factory<_i221.SiteCubit>(() => _i221.SiteCubit());
     gh.factory<_i810.ThemeCubit>(() => _i810.ThemeCubit());
     gh.factory<_i190.AuthCubit>(() => _i190.AuthCubit());
     gh.factory<_i567.HistoryFilterCubit>(() => _i567.HistoryFilterCubit());

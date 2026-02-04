@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -101,8 +101,8 @@ class RevenueTitle extends StatelessWidget {
                   child: Skeleton.replace(
                     width: 24,
                     height: 24,
-                    child: AppIcon(
-                      path: revenue.vehicleType?.iconPath ?? '',
+                    child: Icon(
+                      revenue.vehicleType?.icon ?? Symbols.globe,
                       size: 24,
                       color: ThemeHelper.getColor(context).success600,
                     ),

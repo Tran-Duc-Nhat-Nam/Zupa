@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
 
 import 'package:zupa/features/home/domain/entities/home_filter.dart';
@@ -17,14 +17,19 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
 
   Timer? _debounce;
 
-  void search(String? query) {
+  final FormGroup form = fb.group({
+    'keyword': FormControl<String>(value: ''),
+    'time': FormControl<DateTime?>(),
+    'type': FormControl<VehicleType?>(),
+  });
+
+  void search() {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
         _debounce = .new(const Duration(milliseconds: 500), () {
-          log(query.toString());
           emit(
-            .loaded(filter: filter.copyWith(keyword: query)),
+            .loaded(filter: filter.copyWith(keyword: form.control('keyword').value)),
           ); // Emit the latest query after the debounce delay
         });
       },
@@ -35,13 +40,13 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
     emit(const .loaded());
   }
 
-  void filter({String? keyword, DateTime? time, VehicleType? type}) async {
+  void filter() async {
     state.whenOrNull(
       loaded: (filter) async {
         final temp = HomeFilter(
-          keyword: keyword ?? filter.keyword,
-          time: time ?? filter.time,
-          type: type ?? filter.type,
+          keyword: form.control('keyword').value,
+          time: form.control('time').value,
+          type: form.control('type').value,
         );
         emit(.filtering(filter: temp));
         await Future.delayed(const .new(seconds: 3));

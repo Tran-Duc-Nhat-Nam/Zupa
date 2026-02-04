@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/widgets/app_card.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 
 class HistoryTitle extends StatelessWidget {
   const HistoryTitle({super.key, required this.ticket});
@@ -30,8 +29,8 @@ class HistoryTitle extends StatelessWidget {
             child: Skeleton.replace(
               width: 24,
               height: 24,
-              child: AppIcon(
-                path: ticket.type?.iconPath ?? AppIcons.global,
+              child: Icon(
+                ticket.type?.icon ?? Symbols.globe,
                 size: 24,
                 color: colorScheme.primary400,
               ),
@@ -61,8 +60,8 @@ class HistoryTitle extends StatelessWidget {
                         child: Align(
                           alignment: .centerLeft,
                           child: ticket.id % 2 == 0
-                              ? const AppIcon(
-                                  path: AppIcons.userOctagon,
+                              ? const Icon(
+                                  Symbols.user_attributes_rounded,
                                   size: 20,
                                 )
                               : const SizedBox(),
@@ -97,8 +96,8 @@ class HistoryTitle extends StatelessWidget {
                     Skeleton.replace(
                       width: 24,
                       height: 24,
-                      child: AppIcon(
-                        path: AppIcons.roundArrowDown,
+                      child: Icon(
+                        Symbols.arrow_downward_rounded,
                         size: 24,
                         color: colorScheme.success600,
                       ),
@@ -118,8 +117,8 @@ class HistoryTitle extends StatelessWidget {
                     Skeleton.replace(
                       width: 24,
                       height: 24,
-                      child: AppIcon(
-                        path: AppIcons.roundArrowUp,
+                      child: Icon(
+                        Symbols.arrow_upward_rounded,
                         size: 24,
                         color: colorScheme.error600,
                       ),

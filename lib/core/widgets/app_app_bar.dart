@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 
 class AppAppBar extends AppBar {
   AppAppBar({
@@ -13,9 +12,9 @@ class AppAppBar extends AppBar {
     this.text,
     this.subtext,
     this.isClose = false,
-    this.trailingIconPath,
+    this.trailingIcon,
     this.trailing,
-    this.leadingIconPath,
+    this.leadingIcon,
     this.titleWidget,
     this.isCenter = false,
     super.leading,
@@ -25,9 +24,9 @@ class AppAppBar extends AppBar {
   final String? text;
   final String? subtext;
   final bool isClose;
-  final String? trailingIconPath;
+  final IconData? trailingIcon;
   final List<Widget>? trailing;
-  final String? leadingIconPath;
+  final IconData? leadingIcon;
   final Widget? titleWidget;
   final bool isCenter;
 
@@ -64,7 +63,7 @@ class _AppAppBarState extends State<AppAppBar> {
       automaticallyImplyLeading: false,
       leading: widget.leading != null
           ? widget.leading!
-          : widget.leadingIconPath != null
+          : widget.leadingIcon != null
           ? IconButton(
               constraints: const .new(),
               padding: const .only(left: 24),
@@ -72,8 +71,8 @@ class _AppAppBarState extends State<AppAppBar> {
                 overlayColor: WidgetStateColor.transparent,
                 tapTargetSize: .shrinkWrap,
               ),
-              icon: AppIcon(
-                path: widget.leadingIconPath!,
+              icon: Icon(
+                widget.leadingIcon,
                 color: ThemeHelper.getColor(context).grey400,
                 size: 32,
               ),
@@ -87,8 +86,8 @@ class _AppAppBarState extends State<AppAppBar> {
                 overlayColor: WidgetStateColor.transparent,
                 tapTargetSize: .shrinkWrap,
               ),
-              icon: AppIcon(
-                path: widget.isClose == true ? AppIcons.close : AppIcons.back,
+              icon: Icon(
+                widget.isClose == true ? Symbols.close_rounded : Symbols.arrow_back_rounded,
                 color: ThemeHelper.getColor(context).grey400,
                 size: 32,
               ),
@@ -100,12 +99,12 @@ class _AppAppBarState extends State<AppAppBar> {
           : 24,
       actions: widget.trailing != null
           ? [...widget.trailing!]
-          : widget.trailingIconPath != null
+          : widget.trailingIcon != null
           ? [
               Padding(
                 padding: const .only(right: 24),
-                child: AppIcon(
-                  path: widget.trailingIconPath!,
+                child: Icon(
+                  widget.trailingIcon,
                   color: ThemeHelper.getColor(context).grey400,
                   size: 32,
                 ),
