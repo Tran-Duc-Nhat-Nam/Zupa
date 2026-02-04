@@ -1,44 +1,43 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
-class AppFormField<T> extends StatelessWidget {
-  const AppFormField({
+class AppRadioGroup<T> extends StatefulWidget {
+  const AppRadioGroup({
     super.key,
     required this.name,
+    required this.items,
     this.required = false,
-    this.isPassword = false,
-    this.isPasswordConfirm = false,
     this.customValidators,
-    required this.builder,
+    this.itemBuilder,
   });
 
   final String name;
+  final List<T> items;
+  final Widget Function(
+      Widget radioButton,
+      T item,
+      bool isSelected,
+      Function() select,
+      )?
+  itemBuilder;
   final bool required;
-  final List<FormFieldValidator<T>>? customValidators;
-  final Widget Function(FormFieldState<T> field) builder;
-  final bool isPassword;
-  final bool isPasswordConfirm;
-  final List<FormFieldValidator<T>> _validators = const [];
+  final List<FormFieldValidator<String>>? customValidators;
 
   @override
+  State<AppRadioGroup<T>> createState() => _AppRadioGroupState<T>();
+}
+
+class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
+  T? selectedValue;
+  @override
   Widget build(BuildContext context) {
-    if (required) {
-      _validators.add(
-        FormBuilderValidators.required(
-          errorText: t.errorMessage.required,
-        ),
-      );
-    }
-    if (customValidators != null) {
-      _validators.addAll(customValidators! as Iterable<FormFieldValidator<T>>);
-    }
-    return FormBuilderField<T>(
-      name: name,
-      validator: FormBuilderValidators.compose(_validators),
-      builder: builder,
+    return Row(
+      spacing: 16,
+      children: .generate(widget.items.length, (index) {
+        return ReactiveRadio<T>(
+          value: widget.items[index]
+        );
+      }),
     );
   }
 }

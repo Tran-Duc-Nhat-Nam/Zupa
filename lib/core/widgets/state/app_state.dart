@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/gen/strings.g.dart';
@@ -42,15 +41,6 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
 abstract class AppState<T extends StatefulWidget> extends State<T> {
   late LifecycleEventHandler observer;
   final StorageService _storageService = getIt<StorageService>();
-  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
-
-  Map<String, dynamic> getFormValues() {
-    formKey.currentState?.saveAndValidate();
-    return formKey.currentState?.validate() == true
-        ? formKey.currentState!.value
-        : {};
-  }
-
   @override
   void initState() {
     observer = LifecycleEventHandler(

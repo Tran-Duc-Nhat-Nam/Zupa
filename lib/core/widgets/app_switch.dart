@@ -1,6 +1,6 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 
@@ -29,9 +29,8 @@ class _AppSwitchState extends State<AppSwitch> {
     // Check loading state safely
     final bool isLoading = Skeletonizer.of(context).enabled;
 
-    return FormBuilderField<bool>(
-      name: widget.name,
-      initialValue: widget.initialValue,
+    return ReactiveFormField<bool, bool>(
+      formControlName: widget.name,
       builder: (field) {
         final currentValue = field.value ?? false;
 

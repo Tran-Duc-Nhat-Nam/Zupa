@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/gen/strings.g.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -47,7 +45,7 @@ class AppTextField extends StatefulWidget {
   final bool isExternalLabel;
   final bool required;
   final List<FormFieldValidator<String>>? validators;
-  final void Function(String?)? onChanged;
+  final void Function(FormControl)? onChanged;
   final bool isPassword;
   final EdgeInsetsGeometry? contentPadding;
   final bool isPasswordConfirm;
@@ -75,18 +73,6 @@ class _AppTextFieldState extends State<AppTextField> {
   Widget build(BuildContext context) {
     final colorsScheme = ThemeHelper.getColor(context);
 
-    validators = [];
-    if (widget.required) {
-      validators.add(
-        FormBuilderValidators.required(errorText: t.errorMessage.required),
-      );
-    }
-    if (widget.validators != null) {
-      validators.addAll(
-        widget.validators! as Iterable<FormFieldValidator<String>>,
-      );
-    }
-
     return Column(
       mainAxisSize: .min,
       crossAxisAlignment: .start,
@@ -99,18 +85,16 @@ class _AppTextFieldState extends State<AppTextField> {
               color: colorsScheme.grey650,
             ),
           ),
-        FormBuilderTextField(
-          name: widget.name,
+        ReactiveTextField(
+          formControlName: widget.name,
           controller: widget.initialValue != null ? null : widget.controller,
-          validator: FormBuilderValidators.compose(validators),
           obscureText: isPasswordVisible,
-          initialValue: widget.initialValue,
           textAlign: widget.textAlign ?? .start,
           style: AppTextStyles.bodyMediumRegular.copyWith(
             color: colorsScheme.grey500,
           ),
           textInputAction: .next,
-          onEditingComplete: () => FocusScope.of(context).nextFocus(),
+          onEditingComplete: (_) => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
           textAlignVertical: .center,
           decoration: .new(

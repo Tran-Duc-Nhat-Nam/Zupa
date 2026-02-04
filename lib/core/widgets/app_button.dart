@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/widgets/app_icon.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -19,6 +20,7 @@ class AppButton extends StatelessWidget {
     this.shape,
     this.iconPath,
     this.height,
+    this.isForm = false,
   });
 
   final void Function()? onPressed;
@@ -33,9 +35,12 @@ class AppButton extends StatelessWidget {
   final ShapeBorder? shape;
   final AppButtonTheme theme;
   final AppButtonColor color;
+  final bool isForm;
 
   @override
   Widget build(BuildContext context) {
+    final form = ReactiveForm.of(context);
+
     Color primaryColor;
     Color? secondaryColor;
     Color primarySurfaceColor;
@@ -114,7 +119,7 @@ class AppButton extends StatelessWidget {
       height: height ?? 36,
       minWidth: 0,
       child: MaterialButton(
-        onPressed: onPressed,
+        onPressed: (!isForm || (form != null && form.valid)) ? onPressed : null,
         disabledColor: disabledColor,
         color: backgroundColor,
         splashColor: splashColor,

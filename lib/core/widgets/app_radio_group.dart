@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class AppRadioGroup<T> extends StatefulWidget {
   const AppRadioGroup({
@@ -9,7 +7,6 @@ class AppRadioGroup<T> extends StatefulWidget {
     required this.name,
     required this.items,
     this.required = false,
-    this.customValidators,
     this.itemBuilder,
   });
 
@@ -23,50 +20,19 @@ class AppRadioGroup<T> extends StatefulWidget {
   )?
   itemBuilder;
   final bool required;
-  final List<FormFieldValidator<String>>? customValidators;
 
   @override
   State<AppRadioGroup<T>> createState() => _AppRadioGroupState<T>();
 }
 
 class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
-  T? selectedValue;
   @override
   Widget build(BuildContext context) {
-    final List<FormFieldValidator<T?>> validators = [];
-    if (widget.required) {
-      validators.add(
-        FormBuilderValidators.required(
-          errorText: t.errorMessage.required,
-        ),
-      );
-    }
-    if (widget.customValidators != null) {
-      validators.addAll(
-        widget.customValidators! as Iterable<FormFieldValidator<T?>>,
-      );
-    }
-    return FormBuilderField<T>(
-      builder: (field) => RadioGroup<T?>(
-        onChanged: (value) => field.didChange(value),
-        groupValue: field.value,
-        child: Row(
-          spacing: 16,
-          children: .generate(widget.items.length, (index) {
-            if (widget.itemBuilder != null) {
-              return widget.itemBuilder!(
-                Radio<T>(value: widget.items[index]),
-                widget.items[index],
-                field.value == widget.items[index],
-                () => field.didChange(widget.items[index]),
-              );
-            }
-            return Radio<T>(value: widget.items[index]);
-          }),
-        ),
-      ),
-      name: widget.name,
-      validator: FormBuilderValidators.compose(validators),
+    return Row(
+      spacing: 16,
+      children: .generate(widget.items.length, (index) {
+        return ReactiveRadio<T>(value: widget.items[index]);
+      }),
     );
   }
 }

@@ -1,9 +1,7 @@
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class AppDateTimePicker extends StatelessWidget {
   const AppDateTimePicker({
@@ -20,21 +18,8 @@ class AppDateTimePicker extends StatelessWidget {
   final List<FormFieldValidator<String>>? customValidators;
   @override
   Widget build(BuildContext context) {
-    final List<FormFieldValidator<DateTime>> validators = [];
-    if (required) {
-      validators.add(
-        FormBuilderValidators.required(
-          errorText: t.errorMessage.required,
-        ),
-      );
-    }
-    if (customValidators != null) {
-      validators.addAll(
-        customValidators! as Iterable<FormFieldValidator<DateTime>>,
-      );
-    }
-    return FormBuilderField<DateTime?>(
-      initialValue: .now(),
+    return ReactiveFormField<DateTime?, DateTime?>(
+      formControlName: name,
       builder: (field) => Container(
         padding: const .all(12),
         decoration: BoxDecoration(
@@ -66,8 +51,6 @@ class AppDateTimePicker extends StatelessWidget {
           ],
         ),
       ),
-      name: name,
-      validator: FormBuilderValidators.compose(validators),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/widgets/app_form_field.dart';
 
 class AppDropDownSearchExtraItem<T> {
   const AppDropDownSearchExtraItem({this.value, required this.label});
@@ -98,8 +98,8 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return AppFormField<T>(
-      name: widget.name,
+    return ReactiveFormField<T, T>(
+      formControlName: widget.name,
       builder: (field) => DropdownButtonHideUnderline(
         child: DropdownButton2<T>(
           onMenuStateChange: (value) => setState(() {
