@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
-import 'package:zupa/core/styles/icons.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
-import 'package:zupa/core/widgets/app_icon.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -110,10 +109,38 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
               color: colors.primary300,
 
               tabs: [
-                _buildItem(0, tabsRouter.activeIndex, 'home', AppIcons.home, colors, isHide),
-                _buildItem(1, tabsRouter.activeIndex, 'history', AppIcons.clock, colors, isHide),
-                _buildItem(2, tabsRouter.activeIndex, 'revenue', AppIcons.chart, colors, isHide),
-                _buildItem(3, tabsRouter.activeIndex, 'settings', AppIcons.setting, colors, isHide),
+                _buildItem(
+                  0,
+                  tabsRouter.activeIndex,
+                  'home',
+                  Symbols.home_rounded,
+                  colors,
+                  isHide,
+                ),
+                _buildItem(
+                  1,
+                  tabsRouter.activeIndex,
+                  'history',
+                  Symbols.history_rounded,
+                  colors,
+                  isHide,
+                ),
+                _buildItem(
+                  2,
+                  tabsRouter.activeIndex,
+                  'revenue',
+                  Symbols.analytics_rounded,
+                  colors,
+                  isHide,
+                ),
+                _buildItem(
+                  3,
+                  tabsRouter.activeIndex,
+                  'settings',
+                  Symbols.settings_rounded,
+                  colors,
+                  isHide,
+                ),
               ],
             ),
           ),
@@ -123,20 +150,23 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
   }
 
   GButton _buildItem(
-      int index,
-      int activeIndex,
-      String labelKey,
-      String iconPath,
-      dynamic colors,
-      bool isHide,
-      ) {
+    int index,
+    int activeIndex,
+    String labelKey,
+    IconData icon,
+    dynamic colors,
+    bool isHide,
+  ) {
     final isActive = index == activeIndex;
     return GButton(
       icon: Icons.home, // Dummy
-      leading: AppIcon(
-        path: iconPath,
+      leading: Icon(
+        icon,
         color: isActive ? colors.primary500 : colors.primary300,
+        fill: isActive ? 1 : 0,
         size: _iconSize,
+        fontWeight: .bold,
+        opticalSize: 48,
       ),
       text: isHide ? '' : t[labelKey],
     );
