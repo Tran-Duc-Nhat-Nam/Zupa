@@ -131,12 +131,12 @@ return loginFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String tenant,  String username,  String password,  bool isRemember)?  loaded,TResult Function()?  submitting,TResult Function()?  loginSuccess,TResult Function( String message)?  loginFailed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  loaded,TResult Function()?  submitting,TResult Function()?  loginSuccess,TResult Function( String message)?  loginFailed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
-return loaded(_that.tenant,_that.username,_that.password,_that.isRemember);case Submitting() when submitting != null:
+return loaded();case Submitting() when submitting != null:
 return submitting();case LoginSuccess() when loginSuccess != null:
 return loginSuccess();case LoginFailed() when loginFailed != null:
 return loginFailed(_that.message);case _:
@@ -157,12 +157,12 @@ return loginFailed(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String tenant,  String username,  String password,  bool isRemember)  loaded,required TResult Function()  submitting,required TResult Function()  loginSuccess,required TResult Function( String message)  loginFailed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  loaded,required TResult Function()  submitting,required TResult Function()  loginSuccess,required TResult Function( String message)  loginFailed,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Loaded():
-return loaded(_that.tenant,_that.username,_that.password,_that.isRemember);case Submitting():
+return loaded();case Submitting():
 return submitting();case LoginSuccess():
 return loginSuccess();case LoginFailed():
 return loginFailed(_that.message);}
@@ -179,12 +179,12 @@ return loginFailed(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String tenant,  String username,  String password,  bool isRemember)?  loaded,TResult? Function()?  submitting,TResult? Function()?  loginSuccess,TResult? Function( String message)?  loginFailed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  loaded,TResult? Function()?  submitting,TResult? Function()?  loginSuccess,TResult? Function( String message)?  loginFailed,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
-return loaded(_that.tenant,_that.username,_that.password,_that.isRemember);case Submitting() when submitting != null:
+return loaded();case Submitting() when submitting != null:
 return submitting();case LoginSuccess() when loginSuccess != null:
 return loginSuccess();case LoginFailed() when loginFailed != null:
 return loginFailed(_that.message);case _:
@@ -263,73 +263,33 @@ String toString() {
 
 
 class Loaded implements LoginState {
-  const Loaded(this.tenant, this.username, this.password, this.isRemember);
+  const Loaded();
   
 
- final  String tenant;
- final  String username;
- final  String password;
- final  bool isRemember;
 
-/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&(identical(other.tenant, tenant) || other.tenant == tenant)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.isRemember, isRemember) || other.isRemember == isRemember));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tenant,username,password,isRemember);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'LoginState.loaded(tenant: $tenant, username: $username, password: $password, isRemember: $isRemember)';
+  return 'LoginState.loaded()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class $LoadedCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
-  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
-@useResult
-$Res call({
- String tenant, String username, String password, bool isRemember
-});
 
 
-
-
-}
-/// @nodoc
-class _$LoadedCopyWithImpl<$Res>
-    implements $LoadedCopyWith<$Res> {
-  _$LoadedCopyWithImpl(this._self, this._then);
-
-  final Loaded _self;
-  final $Res Function(Loaded) _then;
-
-/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? tenant = null,Object? username = null,Object? password = null,Object? isRemember = null,}) {
-  return _then(Loaded(
-null == tenant ? _self.tenant : tenant // ignore: cast_nullable_to_non_nullable
-as String,null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
-as String,null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,null == isRemember ? _self.isRemember : isRemember // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
-}
 
 /// @nodoc
 
