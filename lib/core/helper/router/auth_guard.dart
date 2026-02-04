@@ -19,7 +19,7 @@ class AuthGuard extends AutoRouteGuard {
     } else {
       // Not authenticated
       if (resolver.route.name != LoginRoute.name) {
-        router.replaceAll([LoginRoute()]);
+        router.replaceAll([const LoginRoute()]);
       } else {
         resolver.next();
       }

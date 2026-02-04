@@ -12,7 +12,7 @@ abstract class DialogHelper {
       titleText: t.title.sessionEnded,
       type: .warning,
       onOk: () {
-        context.router.replaceAll([LoginRoute()]);
+        context.router.replaceAll([const LoginRoute()]);
       },
     );
   }

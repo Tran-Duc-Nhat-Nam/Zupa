@@ -11,39 +11,40 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
-import 'package:zupa/core/widgets/app_nav_bar.dart' as _i1;
+import 'package:zupa/core/widgets/app_nav_bar.dart' deferred as _i1;
 import 'package:zupa/features/auth/presentation/pages/login/login_screen.dart'
-    as _i9;
+    deferred as _i9;
 import 'package:zupa/features/camera/presentation/pages/camera/check_in_screen.dart'
-    as _i4;
+    deferred as _i4;
 import 'package:zupa/features/history/presentation/pages/history_screen.dart'
-    as _i7;
-import 'package:zupa/features/home/presentation/pages/home_screen.dart' as _i8;
+    deferred as _i7;
+import 'package:zupa/features/home/presentation/pages/home_screen.dart'
+    deferred as _i8;
 import 'package:zupa/features/revenue/presentation/pages/revenue_screen.dart'
-    as _i16;
+    deferred as _i16;
 import 'package:zupa/features/settings/data/models/parking_lot.dart' as _i20;
 import 'package:zupa/features/settings/presentation/pages/app/app_settings_screen.dart'
-    as _i2;
+    deferred as _i2;
 import 'package:zupa/features/settings/presentation/pages/employee_management/employee_management_screen.dart'
-    as _i5;
+    deferred as _i5;
 import 'package:zupa/features/settings/presentation/pages/general_config/general_config_screen.dart'
-    as _i6;
+    deferred as _i6;
 import 'package:zupa/features/settings/presentation/pages/general_config/member_fee/member_fee_seting_screen.dart'
-    as _i10;
+    deferred as _i10;
 import 'package:zupa/features/settings/presentation/pages/general_config/parking_price/parking_price_setting.dart'
-    as _i14;
+    deferred as _i14;
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/create/member_vehicle_detail_screen.dart'
-    as _i11;
+    deferred as _i11;
 import 'package:zupa/features/settings/presentation/pages/member_vehicles/member_vehicles_screen.dart'
-    as _i12;
+    deferred as _i12;
 import 'package:zupa/features/settings/presentation/pages/parking/detail/parking_details_screen.dart'
-    as _i13;
+    deferred as _i13;
 import 'package:zupa/features/settings/presentation/pages/parking/parking_settings_screen.dart'
-    as _i15;
+    deferred as _i15;
 import 'package:zupa/features/settings/presentation/pages/password/change_password_screen.dart'
-    as _i3;
+    deferred as _i3;
 import 'package:zupa/features/settings/presentation/pages/settings_screen.dart'
-    as _i17;
+    deferred as _i17;
 
 /// generated route for
 /// [_i1.AppNavBarScreen]
@@ -56,7 +57,7 @@ class AppNavBarRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i1.AppNavBarScreen();
+      return _i18.DeferredWidget(_i1.loadLibrary, () => _i1.AppNavBarScreen());
     },
   );
 }
@@ -72,7 +73,10 @@ class AppSettingsRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i2.AppSettingsScreen();
+      return _i18.DeferredWidget(
+        _i2.loadLibrary,
+        () => _i2.AppSettingsScreen(),
+      );
     },
   );
 }
@@ -88,7 +92,10 @@ class ChangePasswordRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i3.ChangePasswordScreen();
+      return _i18.DeferredWidget(
+        _i3.loadLibrary,
+        () => _i3.ChangePasswordScreen(),
+      );
     },
   );
 }
@@ -114,7 +121,10 @@ class CheckInRoute extends _i18.PageRouteInfo<CheckInRouteArgs> {
       final args = data.argsAs<CheckInRouteArgs>(
         orElse: () => const CheckInRouteArgs(),
       );
-      return _i4.CheckInScreen(key: args.key, isCheckOut: args.isCheckOut);
+      return _i18.DeferredWidget(
+        _i4.loadLibrary,
+        () => _i4.CheckInScreen(key: args.key, isCheckOut: args.isCheckOut),
+      );
     },
   );
 }
@@ -153,7 +163,10 @@ class EmployeeManagementRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i5.EmployeeManagementScreen();
+      return _i18.DeferredWidget(
+        _i5.loadLibrary,
+        () => _i5.EmployeeManagementScreen(),
+      );
     },
   );
 }
@@ -169,7 +182,10 @@ class GeneralConfigRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i6.GeneralConfigScreen();
+      return _i18.DeferredWidget(
+        _i6.loadLibrary,
+        () => _i6.GeneralConfigScreen(),
+      );
     },
   );
 }
@@ -185,7 +201,7 @@ class HistoryRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i7.HistoryScreen();
+      return _i18.DeferredWidget(_i7.loadLibrary, () => _i7.HistoryScreen());
     },
   );
 }
@@ -201,53 +217,25 @@ class HomeRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i8.HomeScreen();
+      return _i18.DeferredWidget(_i8.loadLibrary, () => _i8.HomeScreen());
     },
   );
 }
 
 /// generated route for
 /// [_i9.LoginScreen]
-class LoginRoute extends _i18.PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({_i19.Key? key, List<_i18.PageRouteInfo>? children})
-    : super(
-        LoginRoute.name,
-        args: LoginRouteArgs(key: key),
-        initialChildren: children,
-      );
+class LoginRoute extends _i18.PageRouteInfo<void> {
+  const LoginRoute({List<_i18.PageRouteInfo>? children})
+    : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<LoginRouteArgs>(
-        orElse: () => const LoginRouteArgs(),
-      );
-      return _i9.LoginScreen(key: args.key);
+      return _i18.DeferredWidget(_i9.loadLibrary, () => _i9.LoginScreen());
     },
   );
-}
-
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
-
-  final _i19.Key? key;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! LoginRouteArgs) return false;
-    return key == other.key;
-  }
-
-  @override
-  int get hashCode => key.hashCode;
 }
 
 /// generated route for
@@ -261,7 +249,10 @@ class MemberFeeSetingRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i10.MemberFeeSetingScreen();
+      return _i18.DeferredWidget(
+        _i10.loadLibrary,
+        () => _i10.MemberFeeSetingScreen(),
+      );
     },
   );
 }
@@ -288,7 +279,10 @@ class MemberVehicleDetailRoute
       final args = data.argsAs<MemberVehicleDetailRouteArgs>(
         orElse: () => const MemberVehicleDetailRouteArgs(),
       );
-      return _i11.MemberVehicleDetailScreen(key: args.key, code: args.code);
+      return _i18.DeferredWidget(
+        _i11.loadLibrary,
+        () => _i11.MemberVehicleDetailScreen(key: args.key, code: args.code),
+      );
     },
   );
 }
@@ -327,7 +321,10 @@ class MemberVehiclesRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i12.MemberVehiclesScreen();
+      return _i18.DeferredWidget(
+        _i12.loadLibrary,
+        () => _i12.MemberVehiclesScreen(),
+      );
     },
   );
 }
@@ -353,9 +350,12 @@ class ParkingDetailsRoute extends _i18.PageRouteInfo<ParkingDetailsRouteArgs> {
       final args = data.argsAs<ParkingDetailsRouteArgs>(
         orElse: () => const ParkingDetailsRouteArgs(),
       );
-      return _i13.ParkingDetailsScreen(
-        key: args.key,
-        parkingLot: args.parkingLot,
+      return _i18.DeferredWidget(
+        _i13.loadLibrary,
+        () => _i13.ParkingDetailsScreen(
+          key: args.key,
+          parkingLot: args.parkingLot,
+        ),
       );
     },
   );
@@ -395,7 +395,10 @@ class ParkingPriceSettingRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i14.ParkingPriceSettingScreen();
+      return _i18.DeferredWidget(
+        _i14.loadLibrary,
+        () => _i14.ParkingPriceSettingScreen(),
+      );
     },
   );
 }
@@ -411,7 +414,10 @@ class ParkingSettingsRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i15.ParkingSettingsScreen();
+      return _i18.DeferredWidget(
+        _i15.loadLibrary,
+        () => _i15.ParkingSettingsScreen(),
+      );
     },
   );
 }
@@ -427,7 +433,7 @@ class RevenueRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i16.RevenueScreen();
+      return _i18.DeferredWidget(_i16.loadLibrary, () => _i16.RevenueScreen());
     },
   );
 }
@@ -443,7 +449,7 @@ class SettingsRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i17.SettingsScreen();
+      return _i18.DeferredWidget(_i17.loadLibrary, () => _i17.SettingsScreen());
     },
   );
 }
