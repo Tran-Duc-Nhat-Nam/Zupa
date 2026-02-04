@@ -29,7 +29,9 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
         _debounce?.cancel();
         _debounce = .new(const Duration(milliseconds: 500), () {
           emit(
-            .loaded(filter: filter.copyWith(keyword: form.control('keyword').value)),
+            .loaded(
+              filter: filter.copyWith(keyword: form.control('keyword').value),
+            ),
           ); // Emit the latest query after the debounce delay
         });
       },
@@ -41,18 +43,18 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
   }
 
   void filter() async {
-    state.whenOrNull(
-      loaded: (filter) async {
-        final temp = HomeFilter(
-          keyword: form.control('keyword').value,
-          time: form.control('time').value,
-          type: form.control('type').value,
-        );
-        emit(.filtering(filter: temp));
-        await Future.delayed(const .new(seconds: 3));
-        emit(.loaded(filter: temp));
-      },
-    );
+    if (form.valid) {
+      final temp = HomeFilter(
+        keyword: form.control('keyword').value,
+        time: form.control('time').value,
+        type: form.control('type').value,
+      );
+      emit(.filtering(filter: temp));
+      await Future.delayed(const .new(seconds: 3));
+      emit(.loaded(filter: temp));
+    } else {
+      form.markAllAsTouched();
+    }
   }
 
   @override

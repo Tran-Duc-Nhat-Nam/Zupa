@@ -22,13 +22,17 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
   });
 
   void update() {
-    final newFilter = HistoryFilter(
-      keyword: form.control('keyword').value,
-      time: form.control('time').value,
-      type: form.control('type').value,
-    );
+    if (form.valid) {
+      final newFilter = HistoryFilter(
+        keyword: form.control('keyword').value,
+        time: form.control('time').value,
+        type: form.control('type').value,
+      );
 
-    emit(.loaded(filter: newFilter));
+      emit(.loaded(filter: newFilter));
+    } else {
+      form.markAllAsTouched();
+    }
   }
 
   void reset() {

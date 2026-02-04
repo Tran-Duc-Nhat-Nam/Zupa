@@ -23,12 +23,16 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   }
 
   void update() {
-    final newFilter = RevenueFilter(
-      keyword: form.control('keyword').value,
-      time: form.control('time').value,
-      type: form.control('type').value,
-    );
-    emit(.loaded(filter: newFilter));
+    if (form.valid) {
+      final newFilter = RevenueFilter(
+        keyword: form.control('keyword').value,
+        time: form.control('time').value,
+        type: form.control('type').value,
+      );
+      emit(.loaded(filter: newFilter));
+    } else {
+      form.markAllAsTouched();
+    }
   }
 
   void init() {
