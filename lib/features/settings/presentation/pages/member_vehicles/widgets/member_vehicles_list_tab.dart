@@ -187,9 +187,9 @@ class MemberVehiclesTitle extends StatelessWidget {
                   theme: .secondary,
                   onPressed: () => DialogHelper.showModal(
                     context,
-                    titleText: t.title.extend,
-                    subtitleText: t.subtitle.extend,
-                    okText: t.title.extend,
+                    titleText: t.title_extend,
+                    subtitleText: t.subtitle_extend,
+                    okText: t.title_extend,
                     cancelText: t.close,
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));

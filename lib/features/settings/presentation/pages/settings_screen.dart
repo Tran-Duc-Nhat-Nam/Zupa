@@ -108,13 +108,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: const .symmetric(vertical: 4, horizontal: 16),
                 child: AppListTile(
                   leadingIcon: Symbols.logout,
-                  text: t.title.logout,
+                  text: t.title_logout,
                   leadingColor: ThemeHelper.getColor(context).error600,
                   onTap: () {
                     DialogHelper.showModal(
                       context,
-                      subtitleText: t.subtitle.logout,
-                      titleText: t.title.logout,
+                      subtitleText: t.subtitle_logout,
+                      titleText: t.title_logout,
                       type: .warning,
                       okText: t.ok,
                       cancelText: t.cancel,

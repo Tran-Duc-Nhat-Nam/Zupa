@@ -215,8 +215,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Round-trip'
 	String get roundTrip => 'Round-trip';
 
-	/// en: '{} Station'
-	String get station => '{} Station';
+	/// en: '{name} Station'
+	String station({required Object name}) => '${name} Station';
 
 	/// en: 'Login success'
 	String get loginSuccess => 'Login success';
@@ -332,18 +332,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Member vehicle'
 	String get member => 'Member vehicle';
 
-	/// en: 'Ticket number: {}'
-	String get ticketId => 'Ticket number: {}';
+	/// en: 'Ticket number: {id}'
+	String ticketId({required Object id}) => 'Ticket number: ${id}';
 
 	/// en: 'Total'
 	String get total => 'Total';
 
-	/// en: '(zero) {{} pass} (one) {{} pass} (many) {{} passes} (other) {{} pass(es)}'
-	String pass({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		zero: '{} pass',
-		one: '{} pass',
-		many: '{} passes',
-		other: '{} pass(es)',
+	/// en: '(zero) {{count} pass} (one) {{count} pass} (many) {{count} passes} (other) {{count} pass(es)}'
+	String pass({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count,
+		zero: '${count} pass',
+		one: '${count} pass',
+		many: '${count} passes',
+		other: '${count} pass(es)',
 	);
 
 	/// en: 'Time'
@@ -355,8 +355,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Date'
 	String get date => 'Date';
 
-	/// en: 'Date {}'
-	String get dateOf => 'Date {}';
+	/// en: 'Date {val}'
+	String dateOf({required Object val}) => 'Date ${val}';
 
 	/// en: 'Vehicle type'
 	String get vehicleType => 'Vehicle type';
@@ -418,19 +418,19 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Confirm new password'
 	String get confirmNewPassword => 'Confirm new password';
 
-	/// en: '(zero) {Total time: under a minute} (one) {Total time: 1 minute} (many) {Total time: {} minutes} (other) {Total time: {} minute(s)}'
-	String totalTime({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+	/// en: '(zero) {Total time: under a minute} (one) {Total time: 1 minute} (many) {Total time: {count} minutes} (other) {Total time: {count} minute(s)}'
+	String totalTime({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count,
 		zero: 'Total time: under a minute',
 		one: 'Total time: 1 minute',
-		many: 'Total time: {} minutes',
-		other: 'Total time: {} minute(s)',
+		many: 'Total time: ${count} minutes',
+		other: 'Total time: ${count} minute(s)',
 	);
 
-	/// en: 'Selected {}/{} seat(s)'
-	String get selectedSeat => 'Selected {}/{} seat(s)';
+	/// en: 'Selected {current}/{total} seat(s)'
+	String selectedSeat({required Object current, required Object total}) => 'Selected ${current}/${total} seat(s)';
 
-	/// en: 'Total cost: {}'
-	String get totalCost => 'Total cost: {}';
+	/// en: 'Total cost: {cost}'
+	String totalCost({required Object cost}) => 'Total cost: ${cost}';
 
 	/// en: 'Car'
 	String get car => 'Car';
@@ -483,8 +483,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Parking'
 	String get parking => 'Parking';
 
-	/// en: 'Seat: {}{}'
-	String get seat => 'Seat: {}{}';
+	/// en: 'Seat: {row}{col}'
+	String seat({required Object row, required Object col}) => 'Seat: ${row}${col}';
 
 	/// en: 'Enter integer'
 	String get enterInteger => 'Enter integer';
@@ -528,21 +528,115 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'No internet connection'
 	String get noInternet => 'No internet connection';
 
-	/// en: '(zero) {Sold out} (one) {{} ticket remain} (many) {{} tickets remain} (other) {{} tickets remain}'
-	String remainingTicket({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+	/// en: '(zero) {Sold out} (one) {{count} ticket remain} (many) {{count} tickets remain} (other) {{count} tickets remain}'
+	String remainingTicket({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count,
 		zero: 'Sold out',
-		one: '{} ticket remain',
-		many: '{} tickets remain',
-		other: '{} tickets remain',
+		one: '${count} ticket remain',
+		many: '${count} tickets remain',
+		other: '${count} tickets remain',
 	);
 
-	late final TranslationsEmailEn email = TranslationsEmailEn._(_root);
-	late final TranslationsIdNumberEn idNumber = TranslationsIdNumberEn._(_root);
-	late final TranslationsPhoneEn phone = TranslationsPhoneEn._(_root);
-	late final TranslationsErrorMessageEn errorMessage = TranslationsErrorMessageEn._(_root);
-	late final TranslationsNoDataEn noData = TranslationsNoDataEn._(_root);
-	late final TranslationsTitleEn title = TranslationsTitleEn._(_root);
-	late final TranslationsSubtitleEn subtitle = TranslationsSubtitleEn._(_root);
+	/// en: 'Email'
+	String get email_short => 'Email';
+
+	/// en: 'Email address'
+	String get email_long => 'Email address';
+
+	/// en: 'ID'
+	String get idNumber_short => 'ID';
+
+	/// en: 'ID Number'
+	String get idNumber_long => 'ID Number';
+
+	/// en: 'Phone'
+	String get phone_short => 'Phone';
+
+	/// en: 'Phone'
+	String get phone_long => 'Phone';
+
+	/// en: 'Please do not leave blank!'
+	String get errorMessage_required => 'Please do not leave blank!';
+
+	/// en: 'Re-entered password does not match!'
+	String get errorMessage_confirmPassword => 'Re-entered password does not match!';
+
+	/// en: 'No data found'
+	String get noData_search => 'No data found';
+
+	/// en: 'No available seats found'
+	String get noData_availableSeat => 'No available seats found';
+
+	/// en: 'Login'
+	String get title_login => 'Login';
+
+	/// en: 'Log out'
+	String get title_logout => 'Log out';
+
+	/// en: 'Sign Up'
+	String get title_signUp => 'Sign Up';
+
+	/// en: 'Exit'
+	String get title_exit => 'Exit';
+
+	/// en: 'Login session ended'
+	String get title_sessionEnded => 'Login session ended';
+
+	/// en: 'Adult'
+	String get title_adult => 'Adult';
+
+	/// en: 'OTP'
+	String get title_otp => 'OTP';
+
+	/// en: 'Customer Information'
+	String get title_addInfo => 'Customer Information';
+
+	/// en: 'Create Password'
+	String get title_createPassword => 'Create Password';
+
+	/// en: 'Forgot Password'
+	String get title_forgetPassword => 'Forgot Password';
+
+	/// en: 'Warning when space is running out'
+	String get title_warningThreshold => 'Warning when space is running out';
+
+	/// en: 'Extend'
+	String get title_extend => 'Extend';
+
+	/// en: 'Enter your account information'
+	String get subtitle_login => 'Enter your account information';
+
+	/// en: 'Are you sure you want to log out from this account?'
+	String get subtitle_logout => 'Are you sure you want to log out from this account?';
+
+	/// en: 'Enter your email address'
+	String get subtitle_signUp => 'Enter your email address';
+
+	/// en: 'You about to exit this page'
+	String get subtitle_exit => 'You about to exit this page';
+
+	/// en: 'Your login session has ended. For your security, please log in again to continue using the app.'
+	String get subtitle_sessionEnded => 'Your login session has ended. For your security, please log in again to continue using the app.';
+
+	/// en: 'Add information as on Citizen ID/Passport'
+	String get subtitle_adult => 'Add information as on Citizen ID/Passport';
+
+	/// en: 'Please enter the OTP'
+	String get subtitle_otp => 'Please enter the OTP';
+
+	/// en: 'Enter the required information to use the app'
+	String get subtitle_addInfo => 'Enter the required information to use the app';
+
+	/// en: 'Enter your password'
+	String get subtitle_createPassword => 'Enter your password';
+
+	/// en: 'Enter your email address'
+	String get subtitle_forgetPassword => 'Enter your email address';
+
+	/// en: 'When the parking lot is almost full, the system will display a warning.'
+	String get subtitle_warningThreshold => 'When the parking lot is almost full, the system will display a warning.';
+
+	/// en: 'Do you want to extend?'
+	String get subtitle_extend => 'Do you want to extend?';
 
 	/// en: 'Verification failed'
 	String get tokenVerificationFailed => 'Verification failed';
@@ -579,171 +673,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Load failed'
 	String get failedText => 'Load failed';
-}
-
-// Path: email
-class TranslationsEmailEn {
-	TranslationsEmailEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Email'
-	String get short => 'Email';
-
-	/// en: 'Email address'
-	String get long => 'Email address';
-}
-
-// Path: idNumber
-class TranslationsIdNumberEn {
-	TranslationsIdNumberEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'ID'
-	String get short => 'ID';
-
-	/// en: 'ID Number'
-	String get long => 'ID Number';
-}
-
-// Path: phone
-class TranslationsPhoneEn {
-	TranslationsPhoneEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Phone'
-	String get short => 'Phone';
-
-	/// en: 'Phone'
-	String get long => 'Phone';
-}
-
-// Path: errorMessage
-class TranslationsErrorMessageEn {
-	TranslationsErrorMessageEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Please do not leave blank!'
-	String get required => 'Please do not leave blank!';
-
-	/// en: 'Re-entered password does not match!'
-	String get confirmPassword => 'Re-entered password does not match!';
-}
-
-// Path: noData
-class TranslationsNoDataEn {
-	TranslationsNoDataEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'No data found'
-	String get search => 'No data found';
-
-	/// en: 'No available seats found'
-	String get availableSeat => 'No available seats found';
-}
-
-// Path: title
-class TranslationsTitleEn {
-	TranslationsTitleEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Login'
-	String get login => 'Login';
-
-	/// en: 'Log out'
-	String get logout => 'Log out';
-
-	/// en: 'Sign Up'
-	String get signUp => 'Sign Up';
-
-	/// en: 'Exit'
-	String get exit => 'Exit';
-
-	/// en: 'Login session ended'
-	String get sessionEnded => 'Login session ended';
-
-	/// en: 'Adult'
-	String get adult => 'Adult';
-
-	/// en: 'OTP'
-	String get otp => 'OTP';
-
-	/// en: 'Customer Information'
-	String get addInfo => 'Customer Information';
-
-	/// en: 'Create Password'
-	String get createPassword => 'Create Password';
-
-	/// en: 'Forgot Password'
-	String get forgetPassword => 'Forgot Password';
-
-	/// en: 'Warning when space is running out'
-	String get warningThreshold => 'Warning when space is running out';
-
-	/// en: 'Extend'
-	String get extend => 'Extend';
-}
-
-// Path: subtitle
-class TranslationsSubtitleEn {
-	TranslationsSubtitleEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Enter your account information'
-	String get login => 'Enter your account information';
-
-	/// en: 'Are you sure you want to log out from this account?'
-	String get logout => 'Are you sure you want to log out from this account?';
-
-	/// en: 'Enter your email address'
-	String get signUp => 'Enter your email address';
-
-	/// en: 'You about to exit this page'
-	String get exit => 'You about to exit this page';
-
-	/// en: 'Your login session has ended. For your security, please log in again to continue using the app.'
-	String get sessionEnded => 'Your login session has ended. For your security, please log in again to continue using the app.';
-
-	/// en: 'Add information as on Citizen ID/Passport'
-	String get adult => 'Add information as on Citizen ID/Passport';
-
-	/// en: 'Please enter the OTP'
-	String get otp => 'Please enter the OTP';
-
-	/// en: 'Enter the required information to use the app'
-	String get addInfo => 'Enter the required information to use the app';
-
-	/// en: 'Enter your password'
-	String get createPassword => 'Enter your password';
-
-	/// en: 'Enter your email address'
-	String get forgetPassword => 'Enter your email address';
-
-	/// en: 'When the parking lot is almost full, the system will display a warning.'
-	String get warningThreshold => 'When the parking lot is almost full, the system will display a warning.';
-
-	/// en: 'Do you want to extend?'
-	String get extend => 'Do you want to extend?';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -812,7 +741,7 @@ extension on Translations {
 			'departureStation' => 'Departure station',
 			'arrivalStation' => 'Arrival station',
 			'roundTrip' => 'Round-trip',
-			'station' => '{} Station',
+			'station' => ({required Object name}) => '${name} Station',
 			'loginSuccess' => 'Login success',
 			'changePassword' => 'Change password',
 			'gender' => 'Gender',
@@ -851,13 +780,13 @@ extension on Translations {
 			'out' => 'Out',
 			'guest' => 'Guest vehicle',
 			'member' => 'Member vehicle',
-			'ticketId' => 'Ticket number: {}',
+			'ticketId' => ({required Object id}) => 'Ticket number: ${id}',
 			'total' => 'Total',
-			'pass' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, zero: '{} pass', one: '{} pass', many: '{} passes', other: '{} pass(es)', ), 
+			'pass' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count, zero: '${count} pass', one: '${count} pass', many: '${count} passes', other: '${count} pass(es)', ), 
 			'time' => 'Time',
 			'reset' => 'Reset',
 			'date' => 'Date',
-			'dateOf' => 'Date {}',
+			'dateOf' => ({required Object val}) => 'Date ${val}',
 			'vehicleType' => 'Vehicle type',
 			'name' => 'Name',
 			'phoneNumber' => 'Phone number',
@@ -878,9 +807,9 @@ extension on Translations {
 			'newPassword' => 'New password',
 			'enterNewPassword' => 'Enter new password',
 			'confirmNewPassword' => 'Confirm new password',
-			'totalTime' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, zero: 'Total time: under a minute', one: 'Total time: 1 minute', many: 'Total time: {} minutes', other: 'Total time: {} minute(s)', ), 
-			'selectedSeat' => 'Selected {}/{} seat(s)',
-			'totalCost' => 'Total cost: {}',
+			'totalTime' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count, zero: 'Total time: under a minute', one: 'Total time: 1 minute', many: 'Total time: ${count} minutes', other: 'Total time: ${count} minute(s)', ), 
+			'selectedSeat' => ({required Object current, required Object total}) => 'Selected ${current}/${total} seat(s)',
+			'totalCost' => ({required Object cost}) => 'Total cost: ${cost}',
 			'car' => 'Car',
 			'bicycle' => 'Bicycle',
 			'motorbike' => 'Motorbike',
@@ -898,7 +827,7 @@ extension on Translations {
 			'reportRecovered' => 'Report recovered',
 			'passenger' => 'Passenger',
 			'parking' => 'Parking',
-			'seat' => 'Seat: {}{}',
+			'seat' => ({required Object row, required Object col}) => 'Seat: ${row}${col}',
 			'enterInteger' => 'Enter integer',
 			'ticketSearch' => 'Search by plate/card',
 			'on' => 'On',
@@ -913,41 +842,41 @@ extension on Translations {
 			'loginSuccessed' => 'Login successed',
 			'internetConnected' => 'Internet connected',
 			'noInternet' => 'No internet connection',
-			'remainingTicket' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, zero: 'Sold out', one: '{} ticket remain', many: '{} tickets remain', other: '{} tickets remain', ), 
-			'email.short' => 'Email',
-			'email.long' => 'Email address',
-			'idNumber.short' => 'ID',
-			'idNumber.long' => 'ID Number',
-			'phone.short' => 'Phone',
-			'phone.long' => 'Phone',
-			'errorMessage.required' => 'Please do not leave blank!',
-			'errorMessage.confirmPassword' => 'Re-entered password does not match!',
-			'noData.search' => 'No data found',
-			'noData.availableSeat' => 'No available seats found',
-			'title.login' => 'Login',
-			'title.logout' => 'Log out',
-			'title.signUp' => 'Sign Up',
-			'title.exit' => 'Exit',
-			'title.sessionEnded' => 'Login session ended',
-			'title.adult' => 'Adult',
-			'title.otp' => 'OTP',
-			'title.addInfo' => 'Customer Information',
-			'title.createPassword' => 'Create Password',
-			'title.forgetPassword' => 'Forgot Password',
-			'title.warningThreshold' => 'Warning when space is running out',
-			'title.extend' => 'Extend',
-			'subtitle.login' => 'Enter your account information',
-			'subtitle.logout' => 'Are you sure you want to log out from this account?',
-			'subtitle.signUp' => 'Enter your email address',
-			'subtitle.exit' => 'You about to exit this page',
-			'subtitle.sessionEnded' => 'Your login session has ended. For your security, please log in again to continue using the app.',
-			'subtitle.adult' => 'Add information as on Citizen ID/Passport',
-			'subtitle.otp' => 'Please enter the OTP',
-			'subtitle.addInfo' => 'Enter the required information to use the app',
-			'subtitle.createPassword' => 'Enter your password',
-			'subtitle.forgetPassword' => 'Enter your email address',
-			'subtitle.warningThreshold' => 'When the parking lot is almost full, the system will display a warning.',
-			'subtitle.extend' => 'Do you want to extend?',
+			'remainingTicket' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count, zero: 'Sold out', one: '${count} ticket remain', many: '${count} tickets remain', other: '${count} tickets remain', ), 
+			'email_short' => 'Email',
+			'email_long' => 'Email address',
+			'idNumber_short' => 'ID',
+			'idNumber_long' => 'ID Number',
+			'phone_short' => 'Phone',
+			'phone_long' => 'Phone',
+			'errorMessage_required' => 'Please do not leave blank!',
+			'errorMessage_confirmPassword' => 'Re-entered password does not match!',
+			'noData_search' => 'No data found',
+			'noData_availableSeat' => 'No available seats found',
+			'title_login' => 'Login',
+			'title_logout' => 'Log out',
+			'title_signUp' => 'Sign Up',
+			'title_exit' => 'Exit',
+			'title_sessionEnded' => 'Login session ended',
+			'title_adult' => 'Adult',
+			'title_otp' => 'OTP',
+			'title_addInfo' => 'Customer Information',
+			'title_createPassword' => 'Create Password',
+			'title_forgetPassword' => 'Forgot Password',
+			'title_warningThreshold' => 'Warning when space is running out',
+			'title_extend' => 'Extend',
+			'subtitle_login' => 'Enter your account information',
+			'subtitle_logout' => 'Are you sure you want to log out from this account?',
+			'subtitle_signUp' => 'Enter your email address',
+			'subtitle_exit' => 'You about to exit this page',
+			'subtitle_sessionEnded' => 'Your login session has ended. For your security, please log in again to continue using the app.',
+			'subtitle_adult' => 'Add information as on Citizen ID/Passport',
+			'subtitle_otp' => 'Please enter the OTP',
+			'subtitle_addInfo' => 'Enter the required information to use the app',
+			'subtitle_createPassword' => 'Enter your password',
+			'subtitle_forgetPassword' => 'Enter your email address',
+			'subtitle_warningThreshold' => 'When the parking lot is almost full, the system will display a warning.',
+			'subtitle_extend' => 'Do you want to extend?',
 			'tokenVerificationFailed' => 'Verification failed',
 			'vi_VN' => 'Vietnamese',
 			'en_US' => 'English',

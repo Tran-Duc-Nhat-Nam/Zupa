@@ -70,7 +70,7 @@ class RevenueTitle extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            t.pass(n: revenue.totalPass),
+                            t.pass(count: revenue.totalPass),
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
                               color: ThemeHelper.getColor(context).grey900,
@@ -146,7 +146,7 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  t.pass(n: e.pass),
+                                  t.pass(count: e.pass),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(

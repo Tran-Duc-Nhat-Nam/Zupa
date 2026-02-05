@@ -74,9 +74,7 @@ class TicketInfoCard extends StatelessWidget {
                                 color: ThemeHelper.getColor(context).grey200,
                               ),
                               Text(
-                                Translations.of(
-                                  context,
-                                ).totalTime(n: totalTime!),
+                                t.totalTime(count: totalTime!),
                                 overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,

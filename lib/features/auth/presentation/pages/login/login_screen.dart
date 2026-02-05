@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: Text(t.title.login, style: AppTextStyles.heading2),
+                    child: Text(t.title_login, style: AppTextStyles.heading2),
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: state.whenOrNull(
                       loaded: () => context.read<LoginCubit>().login,
                     ),
-                    text: t.title.login,
+                    text: t.title_login,
                     padding: const .all(16),
                     child: state.whenOrNull(
                       submitting: () => LoadingAnimationWidget.waveDots(

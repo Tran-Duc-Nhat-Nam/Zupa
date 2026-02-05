@@ -72,9 +72,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                             initial: () => .followSystem,
                           ),
                           itemLabelGetter: (item) => item != null
-                              ? Translations.of(
-                                  context,
-                                )[item.getLocaleString() ?? 'followSystem']
+                              ? t[item.getLocaleString() ?? 'followSystem']
                               : t.followSystem,
                           onChanged: (value) => context
                               .read<LocalizationCubit>()

@@ -95,7 +95,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get departureStation => 'Ga đi';
 	@override String get arrivalStation => 'Ga đến';
 	@override String get roundTrip => 'Khứ hồi';
-	@override String get station => 'Ga {}';
+	@override String station({required Object name}) => 'Ga ${name}';
 	@override String get loginSuccess => 'Đăng nhập thành công';
 	@override String get changePassword => 'Đổi mật khẩu';
 	@override String get gender => 'Giới tính';
@@ -130,18 +130,15 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get out => 'Ra';
 	@override String get guest => 'Xe vãng lai';
 	@override String get member => 'Xe khách';
-	@override String get ticketId => 'Số thẻ: {}';
+	@override String ticketId({required Object id}) => 'Số thẻ: ${id}';
 	@override String get time => 'Thời gian';
 	@override String get reset => 'Đặt lại';
 	@override String get date => 'Ngày';
-	@override String get dateOf => 'Ngày {}';
+	@override String dateOf({required Object val}) => 'Ngày ${val}';
 	@override String get vehicleType => 'Loại xe';
 	@override String get total => 'Tổng cộng';
-	@override String pass({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n,
-		zero: '{} lượt',
-		one: '{} lượt',
-		many: '{} lượt',
-		other: '{} lượt',
+	@override String pass({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(count,
+		other: '${count} lượt',
 	);
 	@override String get name => 'Tên';
 	@override String get phoneNumber => 'Số điện thoại';
@@ -162,18 +159,17 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get newPassword => 'Mật khẩu mới';
 	@override String get enterNewPassword => 'Nhập mật khẩu mới';
 	@override String get confirmNewPassword => 'Nhập lại mật khẩu mới';
-	@override String totalTime({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n,
+	@override String totalTime({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(count,
 		zero: 'Giờ gửi: dưới 1 phút',
 		one: 'Giờ gửi: 1 phút',
-		many: 'Giờ gửi: {} phút',
-		other: 'Giờ gửi: {} phút',
+		other: 'Giờ gửi: ${count} phút',
 	);
 	@override String get generalSettings => 'Cài đặt chung';
 	@override String get soldSeat => 'Chỗ đã bán';
 	@override String get selectingSeat => 'Chỗ đang chọn';
 	@override String get availableSeat => 'Chỗ trống';
-	@override String get selectedSeat => 'Đã chọn {}/{} chỗ';
-	@override String get totalCost => 'Tổng tiền: {}';
+	@override String selectedSeat({required Object current, required Object total}) => 'Đã chọn ${current}/${total} chỗ';
+	@override String totalCost({required Object cost}) => 'Tổng tiền: ${cost}';
 	@override String get car => 'Xe ô tô';
 	@override String get bicycle => 'Xe đạp';
 	@override String get motorbike => 'Xe máy';
@@ -198,7 +194,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get isRemember => 'Ghi nhớ tài khoản';
 	@override String get debuggerMode => 'Chế độ gỡ lỗi';
 	@override String get biometricAuth => 'Xác thực bằng vân tay';
-	@override String get seat => 'Chỗ ngồi: {}{}';
+	@override String seat({required Object row, required Object col}) => 'Chỗ ngồi: ${row}${col}';
 	@override String get loginSuccessed => 'Đăng nhập thành công';
 	@override String get internetConnected => 'Đã kết nối internet';
 	@override String get noInternet => 'Không có kết nối internet';
@@ -206,19 +202,44 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get pullUpToLoad => 'Kéo lên để tải thêm';
 	@override String get loadFailedPleaseRetry => 'Tải thất bại! Vui lòng thử lại';
 	@override String get releaseToLoadMore => 'Thả ra để tải thêm';
-	@override String remainingTicket({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n,
+	@override String remainingTicket({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(count,
 		zero: 'Hết vé',
-		one: 'Còn {} vé',
-		many: 'Còn {} vé',
-		other: 'Còn {} vé',
+		other: 'Còn ${count} vé',
 	);
-	@override late final _TranslationsEmailVi email = _TranslationsEmailVi._(_root);
-	@override late final _TranslationsIdNumberVi idNumber = _TranslationsIdNumberVi._(_root);
-	@override late final _TranslationsPhoneVi phone = _TranslationsPhoneVi._(_root);
-	@override late final _TranslationsErrorMessageVi errorMessage = _TranslationsErrorMessageVi._(_root);
-	@override late final _TranslationsNoDataVi noData = _TranslationsNoDataVi._(_root);
-	@override late final _TranslationsTitleVi title = _TranslationsTitleVi._(_root);
-	@override late final _TranslationsSubtitleVi subtitle = _TranslationsSubtitleVi._(_root);
+	@override String get email_short => 'Email';
+	@override String get email_long => 'Địa chỉ email';
+	@override String get idNumber_short => 'CCCD';
+	@override String get idNumber_long => 'CCCD';
+	@override String get phone_short => 'SĐT';
+	@override String get phone_long => 'Số điện thoại';
+	@override String get errorMessage_required => 'Vui lòng không để trống!';
+	@override String get errorMessage_confirmPassword => 'Mật khẩu nhập lại không trùng khớp!';
+	@override String get noData_search => 'Không có dữ liệu';
+	@override String get noData_availableSeat => 'Không còn chỗ trống';
+	@override String get title_login => 'Đăng nhập';
+	@override String get title_logout => 'Đăng xuất';
+	@override String get title_signUp => 'Đăng ký';
+	@override String get title_exit => 'Thoát';
+	@override String get title_sessionEnded => 'Phiên đăng nhập đã kết thúc.';
+	@override String get title_adult => 'Người lớn';
+	@override String get title_otp => 'OTP';
+	@override String get title_addInfo => 'Thông tin hành khách';
+	@override String get title_createPassword => 'Tạo mật khẩu';
+	@override String get title_forgetPassword => 'Quên mật khẩu';
+	@override String get title_warningThreshold => 'Cảnh báo khi sắp hết chỗ';
+	@override String get title_extend => 'Gia hạn';
+	@override String get subtitle_login => 'Nhập thông tin tài khoản của bạn';
+	@override String get subtitle_logout => 'Bạn có muốn đăng xuất khỏi tài khoản hay không?';
+	@override String get subtitle_signUp => 'Nhập địa chỉ email của bạn';
+	@override String get subtitle_exit => 'Bạn đang rời khỏi trang';
+	@override String get subtitle_sessionEnded => 'Phiên đăng nhập của bạn đã kết thúc. Nhằm đảm bảo bảo mật, hãy đăng nhập lại để tiếp tục sử dụng ứng dụng.';
+	@override String get subtitle_adult => 'Thêm thông tin như trên CCCD/hộ chiếu';
+	@override String get subtitle_otp => 'Nhập mã OTP';
+	@override String get subtitle_addInfo => 'Nhập những thông tin cần thiết để sử dụng ứng dụng';
+	@override String get subtitle_createPassword => 'Nhập mật khẩu của bạn';
+	@override String get subtitle_forgetPassword => 'Nhập địa chỉ email của bạn';
+	@override String get subtitle_warningThreshold => 'Khi nhà xe sắp hết chỗ, hệ thống sẽ hiển thị cảnh báo.';
+	@override String get subtitle_extend => 'Bạn có muốn gia hạn không?';
 	@override String get tokenVerificationFailed => 'Xác thực thất bại';
 	@override String get vi_VN => 'Tiếng Việt';
 	@override String get en_US => 'Tiếng Anh';
@@ -231,103 +252,6 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get processedText => 'Thành công';
 	@override String get noMoreText => 'Không còn dữ liệu';
 	@override String get failedText => 'Tải thất bại';
-}
-
-// Path: email
-class _TranslationsEmailVi implements TranslationsEmailEn {
-	_TranslationsEmailVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get short => 'Email';
-	@override String get long => 'Địa chỉ email';
-}
-
-// Path: idNumber
-class _TranslationsIdNumberVi implements TranslationsIdNumberEn {
-	_TranslationsIdNumberVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get short => 'CCCD';
-	@override String get long => 'CCCD';
-}
-
-// Path: phone
-class _TranslationsPhoneVi implements TranslationsPhoneEn {
-	_TranslationsPhoneVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get short => 'SĐT';
-	@override String get long => 'Số điện thoại';
-}
-
-// Path: errorMessage
-class _TranslationsErrorMessageVi implements TranslationsErrorMessageEn {
-	_TranslationsErrorMessageVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get required => 'Vui lòng không để trống!';
-	@override String get confirmPassword => 'Mật khẩu nhập lại không trùng khớp!';
-}
-
-// Path: noData
-class _TranslationsNoDataVi implements TranslationsNoDataEn {
-	_TranslationsNoDataVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get search => 'Không có dữ liệu';
-	@override String get availableSeat => 'Không còn chỗ trống';
-}
-
-// Path: title
-class _TranslationsTitleVi implements TranslationsTitleEn {
-	_TranslationsTitleVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get login => 'Đăng nhập';
-	@override String get logout => 'Đăng xuất';
-	@override String get signUp => 'Đăng ký';
-	@override String get exit => 'Thoát';
-	@override String get sessionEnded => 'Phiên đăng nhập đã kết thúc.';
-	@override String get adult => 'Người lớn';
-	@override String get otp => 'OTP';
-	@override String get addInfo => 'Thông tin hành khách';
-	@override String get createPassword => 'Tạo mật khẩu';
-	@override String get forgetPassword => 'Quên mật khẩu';
-	@override String get warningThreshold => 'Cảnh báo khi sắp hết chỗ';
-	@override String get extend => 'Gia hạn';
-}
-
-// Path: subtitle
-class _TranslationsSubtitleVi implements TranslationsSubtitleEn {
-	_TranslationsSubtitleVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get login => 'Nhập thông tin tài khoản của bạn';
-	@override String get logout => 'Bạn có muốn đăng xuất khỏi tài khoản hay không?';
-	@override String get signUp => 'Nhập địa chỉ email của bạn';
-	@override String get exit => 'Bạn đang rời khỏi trang';
-	@override String get sessionEnded => 'Phiên đăng nhập của bạn đã kết thúc. Nhằm đảm bảo bảo mật, hãy đăng nhập lại để tiếp tục sử dụng ứng dụng.';
-	@override String get adult => 'Thêm thông tin như trên CCCD/hộ chiếu';
-	@override String get otp => 'Nhập mã OTP';
-	@override String get addInfo => 'Nhập những thông tin cần thiết để sử dụng ứng dụng';
-	@override String get createPassword => 'Nhập mật khẩu của bạn';
-	@override String get forgetPassword => 'Nhập địa chỉ email của bạn';
-	@override String get warningThreshold => 'Khi nhà xe sắp hết chỗ, hệ thống sẽ hiển thị cảnh báo.';
-	@override String get extend => 'Bạn có muốn gia hạn không?';
 }
 
 /// The flat map containing all translations for locale <vi>.
@@ -396,7 +320,7 @@ extension on TranslationsVi {
 			'departureStation' => 'Ga đi',
 			'arrivalStation' => 'Ga đến',
 			'roundTrip' => 'Khứ hồi',
-			'station' => 'Ga {}',
+			'station' => ({required Object name}) => 'Ga ${name}',
 			'loginSuccess' => 'Đăng nhập thành công',
 			'changePassword' => 'Đổi mật khẩu',
 			'gender' => 'Giới tính',
@@ -431,14 +355,14 @@ extension on TranslationsVi {
 			'out' => 'Ra',
 			'guest' => 'Xe vãng lai',
 			'member' => 'Xe khách',
-			'ticketId' => 'Số thẻ: {}',
+			'ticketId' => ({required Object id}) => 'Số thẻ: ${id}',
 			'time' => 'Thời gian',
 			'reset' => 'Đặt lại',
 			'date' => 'Ngày',
-			'dateOf' => 'Ngày {}',
+			'dateOf' => ({required Object val}) => 'Ngày ${val}',
 			'vehicleType' => 'Loại xe',
 			'total' => 'Tổng cộng',
-			'pass' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n, zero: '{} lượt', one: '{} lượt', many: '{} lượt', other: '{} lượt', ), 
+			'pass' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(count, other: '${count} lượt', ), 
 			'name' => 'Tên',
 			'phoneNumber' => 'Số điện thoại',
 			'licenseNumber' => 'Biển số xe',
@@ -458,13 +382,13 @@ extension on TranslationsVi {
 			'newPassword' => 'Mật khẩu mới',
 			'enterNewPassword' => 'Nhập mật khẩu mới',
 			'confirmNewPassword' => 'Nhập lại mật khẩu mới',
-			'totalTime' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n, zero: 'Giờ gửi: dưới 1 phút', one: 'Giờ gửi: 1 phút', many: 'Giờ gửi: {} phút', other: 'Giờ gửi: {} phút', ), 
+			'totalTime' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(count, zero: 'Giờ gửi: dưới 1 phút', one: 'Giờ gửi: 1 phút', other: 'Giờ gửi: ${count} phút', ), 
 			'generalSettings' => 'Cài đặt chung',
 			'soldSeat' => 'Chỗ đã bán',
 			'selectingSeat' => 'Chỗ đang chọn',
 			'availableSeat' => 'Chỗ trống',
-			'selectedSeat' => 'Đã chọn {}/{} chỗ',
-			'totalCost' => 'Tổng tiền: {}',
+			'selectedSeat' => ({required Object current, required Object total}) => 'Đã chọn ${current}/${total} chỗ',
+			'totalCost' => ({required Object cost}) => 'Tổng tiền: ${cost}',
 			'car' => 'Xe ô tô',
 			'bicycle' => 'Xe đạp',
 			'motorbike' => 'Xe máy',
@@ -489,7 +413,7 @@ extension on TranslationsVi {
 			'isRemember' => 'Ghi nhớ tài khoản',
 			'debuggerMode' => 'Chế độ gỡ lỗi',
 			'biometricAuth' => 'Xác thực bằng vân tay',
-			'seat' => 'Chỗ ngồi: {}{}',
+			'seat' => ({required Object row, required Object col}) => 'Chỗ ngồi: ${row}${col}',
 			'loginSuccessed' => 'Đăng nhập thành công',
 			'internetConnected' => 'Đã kết nối internet',
 			'noInternet' => 'Không có kết nối internet',
@@ -497,41 +421,41 @@ extension on TranslationsVi {
 			'pullUpToLoad' => 'Kéo lên để tải thêm',
 			'loadFailedPleaseRetry' => 'Tải thất bại! Vui lòng thử lại',
 			'releaseToLoadMore' => 'Thả ra để tải thêm',
-			'remainingTicket' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n, zero: 'Hết vé', one: 'Còn {} vé', many: 'Còn {} vé', other: 'Còn {} vé', ), 
-			'email.short' => 'Email',
-			'email.long' => 'Địa chỉ email',
-			'idNumber.short' => 'CCCD',
-			'idNumber.long' => 'CCCD',
-			'phone.short' => 'SĐT',
-			'phone.long' => 'Số điện thoại',
-			'errorMessage.required' => 'Vui lòng không để trống!',
-			'errorMessage.confirmPassword' => 'Mật khẩu nhập lại không trùng khớp!',
-			'noData.search' => 'Không có dữ liệu',
-			'noData.availableSeat' => 'Không còn chỗ trống',
-			'title.login' => 'Đăng nhập',
-			'title.logout' => 'Đăng xuất',
-			'title.signUp' => 'Đăng ký',
-			'title.exit' => 'Thoát',
-			'title.sessionEnded' => 'Phiên đăng nhập đã kết thúc.',
-			'title.adult' => 'Người lớn',
-			'title.otp' => 'OTP',
-			'title.addInfo' => 'Thông tin hành khách',
-			'title.createPassword' => 'Tạo mật khẩu',
-			'title.forgetPassword' => 'Quên mật khẩu',
-			'title.warningThreshold' => 'Cảnh báo khi sắp hết chỗ',
-			'title.extend' => 'Gia hạn',
-			'subtitle.login' => 'Nhập thông tin tài khoản của bạn',
-			'subtitle.logout' => 'Bạn có muốn đăng xuất khỏi tài khoản hay không?',
-			'subtitle.signUp' => 'Nhập địa chỉ email của bạn',
-			'subtitle.exit' => 'Bạn đang rời khỏi trang',
-			'subtitle.sessionEnded' => 'Phiên đăng nhập của bạn đã kết thúc. Nhằm đảm bảo bảo mật, hãy đăng nhập lại để tiếp tục sử dụng ứng dụng.',
-			'subtitle.adult' => 'Thêm thông tin như trên CCCD/hộ chiếu',
-			'subtitle.otp' => 'Nhập mã OTP',
-			'subtitle.addInfo' => 'Nhập những thông tin cần thiết để sử dụng ứng dụng',
-			'subtitle.createPassword' => 'Nhập mật khẩu của bạn',
-			'subtitle.forgetPassword' => 'Nhập địa chỉ email của bạn',
-			'subtitle.warningThreshold' => 'Khi nhà xe sắp hết chỗ, hệ thống sẽ hiển thị cảnh báo.',
-			'subtitle.extend' => 'Bạn có muốn gia hạn không?',
+			'remainingTicket' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(count, zero: 'Hết vé', other: 'Còn ${count} vé', ), 
+			'email_short' => 'Email',
+			'email_long' => 'Địa chỉ email',
+			'idNumber_short' => 'CCCD',
+			'idNumber_long' => 'CCCD',
+			'phone_short' => 'SĐT',
+			'phone_long' => 'Số điện thoại',
+			'errorMessage_required' => 'Vui lòng không để trống!',
+			'errorMessage_confirmPassword' => 'Mật khẩu nhập lại không trùng khớp!',
+			'noData_search' => 'Không có dữ liệu',
+			'noData_availableSeat' => 'Không còn chỗ trống',
+			'title_login' => 'Đăng nhập',
+			'title_logout' => 'Đăng xuất',
+			'title_signUp' => 'Đăng ký',
+			'title_exit' => 'Thoát',
+			'title_sessionEnded' => 'Phiên đăng nhập đã kết thúc.',
+			'title_adult' => 'Người lớn',
+			'title_otp' => 'OTP',
+			'title_addInfo' => 'Thông tin hành khách',
+			'title_createPassword' => 'Tạo mật khẩu',
+			'title_forgetPassword' => 'Quên mật khẩu',
+			'title_warningThreshold' => 'Cảnh báo khi sắp hết chỗ',
+			'title_extend' => 'Gia hạn',
+			'subtitle_login' => 'Nhập thông tin tài khoản của bạn',
+			'subtitle_logout' => 'Bạn có muốn đăng xuất khỏi tài khoản hay không?',
+			'subtitle_signUp' => 'Nhập địa chỉ email của bạn',
+			'subtitle_exit' => 'Bạn đang rời khỏi trang',
+			'subtitle_sessionEnded' => 'Phiên đăng nhập của bạn đã kết thúc. Nhằm đảm bảo bảo mật, hãy đăng nhập lại để tiếp tục sử dụng ứng dụng.',
+			'subtitle_adult' => 'Thêm thông tin như trên CCCD/hộ chiếu',
+			'subtitle_otp' => 'Nhập mã OTP',
+			'subtitle_addInfo' => 'Nhập những thông tin cần thiết để sử dụng ứng dụng',
+			'subtitle_createPassword' => 'Nhập mật khẩu của bạn',
+			'subtitle_forgetPassword' => 'Nhập địa chỉ email của bạn',
+			'subtitle_warningThreshold' => 'Khi nhà xe sắp hết chỗ, hệ thống sẽ hiển thị cảnh báo.',
+			'subtitle_extend' => 'Bạn có muốn gia hạn không?',
 			'tokenVerificationFailed' => 'Xác thực thất bại',
 			'vi_VN' => 'Tiếng Việt',
 			'en_US' => 'Tiếng Anh',

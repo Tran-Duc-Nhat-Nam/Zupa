@@ -39,15 +39,11 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
       footer: [
         AppButton(
           text: t.save,
-          onPressed: () => AppToast.showNotify(
-            t.success,
-          ),
+          onPressed: () => AppToast.showNotify(t.success),
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
-        create: (_) => getIt<ParkingLotDetailCubit>()
-          ..init(widget.parkingLot,
-          ),
+        create: (_) => getIt<ParkingLotDetailCubit>()..init(widget.parkingLot),
         child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
           builder: (context, state) {
             return Skeletonizer(
@@ -86,9 +82,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                                 .map(
                                   (e) => AppTextField(
                                     name: e.vehicleType.value,
-                                    labelText: Translations.of(
-                                      context,
-                                    )[e.vehicleType.name],
+                                    labelText: t[e.vehicleType.name],
                                     isExternalLabel: true,
                                   ),
                                 )
@@ -113,9 +107,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.notifications_rounded,
-                            text: Translations.of(
-                              context,
-                            ).title.warningThreshold,
+                            text: t.title_warningThreshold,
                             trailing: AppSwitch(
                               name: 'isLocked',
                               onToggle: (value, toggle) => value
@@ -123,9 +115,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                                   : DialogHelper.showModal(
                                       context,
                                       okText: t.lock,
-                                      cancelText: Translations.of(
-                                        context,
-                                      ).close,
+                                      cancelText: t.close,
                                       type: .warning,
                                       onOk: () => toggle(true),
                                       onCancel: () => toggle(false),
@@ -133,7 +123,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                             ),
                           ),
                           Text(
-                            t.subtitle.warningThreshold,
+                            t.subtitle_warningThreshold,
                             style: AppTextStyles.bodySmallMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey500,
                             ),

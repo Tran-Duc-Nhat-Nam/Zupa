@@ -197,9 +197,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                   child: Center(
                                     child: AppTextField(
                                       name: 'ticketNumber',
-                                      hintText: Translations.of(
-                                        context,
-                                      ).enterTicketNumber,
+                                      hintText: t.enterTicketNumber,
                                       hasBorder: false,
                                       textAlign: .center,
                                     ),

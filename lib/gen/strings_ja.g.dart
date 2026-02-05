@@ -95,7 +95,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get departureStation => '出発駅';
 	@override String get arrivalStation => '到着駅';
 	@override String get roundTrip => '往復';
-	@override String get station => '{} 駅';
+	@override String station({required Object name}) => '${name} 駅';
 	@override String get loginSuccess => 'ログイン成功';
 	@override String get changePassword => 'パスワード変更';
 	@override String get gender => '性別';
@@ -134,18 +134,15 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get out => '出庫';
 	@override String get guest => '一般車両';
 	@override String get member => '会員車両';
-	@override String get ticketId => 'チケット番号: {}';
+	@override String ticketId({required Object id}) => 'チケット番号: ${id}';
 	@override String get total => '合計';
-	@override String pass({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
-		zero: '{} パス',
-		one: '{} パス',
-		many: '{} パス',
-		other: '{} パス',
+	@override String pass({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(count,
+		other: '${count} パス',
 	);
 	@override String get time => '時間';
 	@override String get reset => 'リセット';
 	@override String get date => '日付';
-	@override String get dateOf => '日付 {}';
+	@override String dateOf({required Object val}) => '日付 ${val}';
 	@override String get vehicleType => '車両タイプ';
 	@override String get name => '名前';
 	@override String get phoneNumber => '電話番号';
@@ -166,14 +163,13 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get newPassword => '新しいパスワード';
 	@override String get enterNewPassword => '新しいパスワードを入力';
 	@override String get confirmNewPassword => '新しいパスワード（確認）';
-	@override String totalTime({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
+	@override String totalTime({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(count,
 		zero: '合計時間: 1分未満',
 		one: '合計時間: 1分',
-		many: '合計時間: {} 分',
-		other: '合計時間: {} 分',
+		other: '合計時間: ${count} 分',
 	);
-	@override String get selectedSeat => '{}/{} 席を選択済み';
-	@override String get totalCost => '合計金額: {}';
+	@override String selectedSeat({required Object current, required Object total}) => '${current}/${total} 席を選択済み';
+	@override String totalCost({required Object cost}) => '合計金額: ${cost}';
 	@override String get car => '自動車';
 	@override String get bicycle => '自転車';
 	@override String get motorbike => 'バイク';
@@ -191,7 +187,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get reportRecovered => '発見を報告';
 	@override String get passenger => '乗客';
 	@override String get parking => '駐車場';
-	@override String get seat => '座席: {}{}';
+	@override String seat({required Object row, required Object col}) => '座席: ${row}${col}';
 	@override String get enterInteger => '整数を入力';
 	@override String get ticketSearch => 'ナンバー/カードで検索';
 	@override String get on => 'オン';
@@ -206,19 +202,44 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get loginSuccessed => 'ログインしました';
 	@override String get internetConnected => 'インターネットに接続されました';
 	@override String get noInternet => 'インターネット接続がありません';
-	@override String remainingTicket({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
+	@override String remainingTicket({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(count,
 		zero: '完売',
-		one: '残り {} 枚',
-		many: '残り {} 枚',
-		other: '残り {} 枚',
+		other: '残り ${count} 枚',
 	);
-	@override late final _TranslationsEmailJa email = _TranslationsEmailJa._(_root);
-	@override late final _TranslationsIdNumberJa idNumber = _TranslationsIdNumberJa._(_root);
-	@override late final _TranslationsPhoneJa phone = _TranslationsPhoneJa._(_root);
-	@override late final _TranslationsErrorMessageJa errorMessage = _TranslationsErrorMessageJa._(_root);
-	@override late final _TranslationsNoDataJa noData = _TranslationsNoDataJa._(_root);
-	@override late final _TranslationsTitleJa title = _TranslationsTitleJa._(_root);
-	@override late final _TranslationsSubtitleJa subtitle = _TranslationsSubtitleJa._(_root);
+	@override String get email_short => 'メール';
+	@override String get email_long => 'メールアドレス';
+	@override String get idNumber_short => 'ID';
+	@override String get idNumber_long => '身分証番号';
+	@override String get phone_short => '電話';
+	@override String get phone_long => '電話番号';
+	@override String get errorMessage_required => 'この項目は必須です！';
+	@override String get errorMessage_confirmPassword => 'パスワードが一致しません！';
+	@override String get noData_search => 'データが見つかりません';
+	@override String get noData_availableSeat => '空席が見つかりません';
+	@override String get title_login => 'ログイン';
+	@override String get title_logout => 'ログアウト';
+	@override String get title_signUp => 'サインアップ';
+	@override String get title_exit => '終了';
+	@override String get title_sessionEnded => 'セッション終了';
+	@override String get title_adult => '大人';
+	@override String get title_otp => 'OTP';
+	@override String get title_addInfo => 'お客様情報';
+	@override String get title_createPassword => 'パスワード作成';
+	@override String get title_forgetPassword => 'パスワード再設定';
+	@override String get title_warningThreshold => '満車警告設定';
+	@override String get title_extend => '延長';
+	@override String get subtitle_login => 'アカウント情報を入力してください';
+	@override String get subtitle_logout => 'ログアウトしてもよろしいですか？';
+	@override String get subtitle_signUp => 'メールアドレスを入力してください';
+	@override String get subtitle_exit => 'このページから移動しますか？';
+	@override String get subtitle_sessionEnded => 'セッションが終了しました。セキュリティのため、再度ログインしてください。';
+	@override String get subtitle_adult => '身分証/パスポートの情報を入力してください';
+	@override String get subtitle_otp => 'OTP（ワンタイムパスワード）を入力してください';
+	@override String get subtitle_addInfo => 'アプリを利用するために必要な情報を入力してください';
+	@override String get subtitle_createPassword => 'パスワードを入力してください';
+	@override String get subtitle_forgetPassword => 'メールアドレスを入力してください';
+	@override String get subtitle_warningThreshold => '駐車場が満車に近づいた際、システムが警告を表示します。';
+	@override String get subtitle_extend => '延長しますか？';
 	@override String get tokenVerificationFailed => '認証に失敗しました';
 	@override String get vi_VN => 'ベトナム語';
 	@override String get en_US => '英語';
@@ -231,103 +252,6 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get processedText => '完了';
 	@override String get noMoreText => 'データは以上です';
 	@override String get failedText => '読み込み失敗';
-}
-
-// Path: email
-class _TranslationsEmailJa implements TranslationsEmailEn {
-	_TranslationsEmailJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get short => 'メール';
-	@override String get long => 'メールアドレス';
-}
-
-// Path: idNumber
-class _TranslationsIdNumberJa implements TranslationsIdNumberEn {
-	_TranslationsIdNumberJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get short => 'ID';
-	@override String get long => '身分証番号';
-}
-
-// Path: phone
-class _TranslationsPhoneJa implements TranslationsPhoneEn {
-	_TranslationsPhoneJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get short => '電話';
-	@override String get long => '電話番号';
-}
-
-// Path: errorMessage
-class _TranslationsErrorMessageJa implements TranslationsErrorMessageEn {
-	_TranslationsErrorMessageJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get required => 'この項目は必須です！';
-	@override String get confirmPassword => 'パスワードが一致しません！';
-}
-
-// Path: noData
-class _TranslationsNoDataJa implements TranslationsNoDataEn {
-	_TranslationsNoDataJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get search => 'データが見つかりません';
-	@override String get availableSeat => '空席が見つかりません';
-}
-
-// Path: title
-class _TranslationsTitleJa implements TranslationsTitleEn {
-	_TranslationsTitleJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get login => 'ログイン';
-	@override String get logout => 'ログアウト';
-	@override String get signUp => 'サインアップ';
-	@override String get exit => '終了';
-	@override String get sessionEnded => 'セッション終了';
-	@override String get adult => '大人';
-	@override String get otp => 'OTP';
-	@override String get addInfo => 'お客様情報';
-	@override String get createPassword => 'パスワード作成';
-	@override String get forgetPassword => 'パスワード再設定';
-	@override String get warningThreshold => '満車警告設定';
-	@override String get extend => '延長';
-}
-
-// Path: subtitle
-class _TranslationsSubtitleJa implements TranslationsSubtitleEn {
-	_TranslationsSubtitleJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get login => 'アカウント情報を入力してください';
-	@override String get logout => 'ログアウトしてもよろしいですか？';
-	@override String get signUp => 'メールアドレスを入力してください';
-	@override String get exit => 'このページから移動しますか？';
-	@override String get sessionEnded => 'セッションが終了しました。セキュリティのため、再度ログインしてください。';
-	@override String get adult => '身分証/パスポートの情報を入力してください';
-	@override String get otp => 'OTP（ワンタイムパスワード）を入力してください';
-	@override String get addInfo => 'アプリを利用するために必要な情報を入力してください';
-	@override String get createPassword => 'パスワードを入力してください';
-	@override String get forgetPassword => 'メールアドレスを入力してください';
-	@override String get warningThreshold => '駐車場が満車に近づいた際、システムが警告を表示します。';
-	@override String get extend => '延長しますか？';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -396,7 +320,7 @@ extension on TranslationsJa {
 			'departureStation' => '出発駅',
 			'arrivalStation' => '到着駅',
 			'roundTrip' => '往復',
-			'station' => '{} 駅',
+			'station' => ({required Object name}) => '${name} 駅',
 			'loginSuccess' => 'ログイン成功',
 			'changePassword' => 'パスワード変更',
 			'gender' => '性別',
@@ -435,13 +359,13 @@ extension on TranslationsJa {
 			'out' => '出庫',
 			'guest' => '一般車両',
 			'member' => '会員車両',
-			'ticketId' => 'チケット番号: {}',
+			'ticketId' => ({required Object id}) => 'チケット番号: ${id}',
 			'total' => '合計',
-			'pass' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, zero: '{} パス', one: '{} パス', many: '{} パス', other: '{} パス', ), 
+			'pass' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(count, other: '${count} パス', ), 
 			'time' => '時間',
 			'reset' => 'リセット',
 			'date' => '日付',
-			'dateOf' => '日付 {}',
+			'dateOf' => ({required Object val}) => '日付 ${val}',
 			'vehicleType' => '車両タイプ',
 			'name' => '名前',
 			'phoneNumber' => '電話番号',
@@ -462,9 +386,9 @@ extension on TranslationsJa {
 			'newPassword' => '新しいパスワード',
 			'enterNewPassword' => '新しいパスワードを入力',
 			'confirmNewPassword' => '新しいパスワード（確認）',
-			'totalTime' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, zero: '合計時間: 1分未満', one: '合計時間: 1分', many: '合計時間: {} 分', other: '合計時間: {} 分', ), 
-			'selectedSeat' => '{}/{} 席を選択済み',
-			'totalCost' => '合計金額: {}',
+			'totalTime' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(count, zero: '合計時間: 1分未満', one: '合計時間: 1分', other: '合計時間: ${count} 分', ), 
+			'selectedSeat' => ({required Object current, required Object total}) => '${current}/${total} 席を選択済み',
+			'totalCost' => ({required Object cost}) => '合計金額: ${cost}',
 			'car' => '自動車',
 			'bicycle' => '自転車',
 			'motorbike' => 'バイク',
@@ -482,7 +406,7 @@ extension on TranslationsJa {
 			'reportRecovered' => '発見を報告',
 			'passenger' => '乗客',
 			'parking' => '駐車場',
-			'seat' => '座席: {}{}',
+			'seat' => ({required Object row, required Object col}) => '座席: ${row}${col}',
 			'enterInteger' => '整数を入力',
 			'ticketSearch' => 'ナンバー/カードで検索',
 			'on' => 'オン',
@@ -497,41 +421,41 @@ extension on TranslationsJa {
 			'loginSuccessed' => 'ログインしました',
 			'internetConnected' => 'インターネットに接続されました',
 			'noInternet' => 'インターネット接続がありません',
-			'remainingTicket' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, zero: '完売', one: '残り {} 枚', many: '残り {} 枚', other: '残り {} 枚', ), 
-			'email.short' => 'メール',
-			'email.long' => 'メールアドレス',
-			'idNumber.short' => 'ID',
-			'idNumber.long' => '身分証番号',
-			'phone.short' => '電話',
-			'phone.long' => '電話番号',
-			'errorMessage.required' => 'この項目は必須です！',
-			'errorMessage.confirmPassword' => 'パスワードが一致しません！',
-			'noData.search' => 'データが見つかりません',
-			'noData.availableSeat' => '空席が見つかりません',
-			'title.login' => 'ログイン',
-			'title.logout' => 'ログアウト',
-			'title.signUp' => 'サインアップ',
-			'title.exit' => '終了',
-			'title.sessionEnded' => 'セッション終了',
-			'title.adult' => '大人',
-			'title.otp' => 'OTP',
-			'title.addInfo' => 'お客様情報',
-			'title.createPassword' => 'パスワード作成',
-			'title.forgetPassword' => 'パスワード再設定',
-			'title.warningThreshold' => '満車警告設定',
-			'title.extend' => '延長',
-			'subtitle.login' => 'アカウント情報を入力してください',
-			'subtitle.logout' => 'ログアウトしてもよろしいですか？',
-			'subtitle.signUp' => 'メールアドレスを入力してください',
-			'subtitle.exit' => 'このページから移動しますか？',
-			'subtitle.sessionEnded' => 'セッションが終了しました。セキュリティのため、再度ログインしてください。',
-			'subtitle.adult' => '身分証/パスポートの情報を入力してください',
-			'subtitle.otp' => 'OTP（ワンタイムパスワード）を入力してください',
-			'subtitle.addInfo' => 'アプリを利用するために必要な情報を入力してください',
-			'subtitle.createPassword' => 'パスワードを入力してください',
-			'subtitle.forgetPassword' => 'メールアドレスを入力してください',
-			'subtitle.warningThreshold' => '駐車場が満車に近づいた際、システムが警告を表示します。',
-			'subtitle.extend' => '延長しますか？',
+			'remainingTicket' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(count, zero: '完売', other: '残り ${count} 枚', ), 
+			'email_short' => 'メール',
+			'email_long' => 'メールアドレス',
+			'idNumber_short' => 'ID',
+			'idNumber_long' => '身分証番号',
+			'phone_short' => '電話',
+			'phone_long' => '電話番号',
+			'errorMessage_required' => 'この項目は必須です！',
+			'errorMessage_confirmPassword' => 'パスワードが一致しません！',
+			'noData_search' => 'データが見つかりません',
+			'noData_availableSeat' => '空席が見つかりません',
+			'title_login' => 'ログイン',
+			'title_logout' => 'ログアウト',
+			'title_signUp' => 'サインアップ',
+			'title_exit' => '終了',
+			'title_sessionEnded' => 'セッション終了',
+			'title_adult' => '大人',
+			'title_otp' => 'OTP',
+			'title_addInfo' => 'お客様情報',
+			'title_createPassword' => 'パスワード作成',
+			'title_forgetPassword' => 'パスワード再設定',
+			'title_warningThreshold' => '満車警告設定',
+			'title_extend' => '延長',
+			'subtitle_login' => 'アカウント情報を入力してください',
+			'subtitle_logout' => 'ログアウトしてもよろしいですか？',
+			'subtitle_signUp' => 'メールアドレスを入力してください',
+			'subtitle_exit' => 'このページから移動しますか？',
+			'subtitle_sessionEnded' => 'セッションが終了しました。セキュリティのため、再度ログインしてください。',
+			'subtitle_adult' => '身分証/パスポートの情報を入力してください',
+			'subtitle_otp' => 'OTP（ワンタイムパスワード）を入力してください',
+			'subtitle_addInfo' => 'アプリを利用するために必要な情報を入力してください',
+			'subtitle_createPassword' => 'パスワードを入力してください',
+			'subtitle_forgetPassword' => 'メールアドレスを入力してください',
+			'subtitle_warningThreshold' => '駐車場が満車に近づいた際、システムが警告を表示します。',
+			'subtitle_extend' => '延長しますか？',
 			'tokenVerificationFailed' => '認証に失敗しました',
 			'vi_VN' => 'ベトナム語',
 			'en_US' => '英語',

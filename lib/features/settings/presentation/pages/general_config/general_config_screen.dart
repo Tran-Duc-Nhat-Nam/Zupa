@@ -70,7 +70,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.notifications_rounded,
-                            text: t.title.warningThreshold,
+                            text: t.title_warningThreshold,
                             trailing: SizedBox(
                               height: 20,
                               child: Transform.scale(
@@ -97,7 +97,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                               required: true,
                             ),
                             Text(
-                              t.subtitle.warningThreshold,
+                              t.subtitle_warningThreshold,
                               style: AppTextStyles.bodySmallMedium.copyWith(
                                 color: ThemeHelper.getColor(context).grey500,
                               ),

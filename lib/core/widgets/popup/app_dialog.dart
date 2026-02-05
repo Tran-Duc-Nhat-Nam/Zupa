@@ -8,8 +8,8 @@ abstract class DialogHelper {
   static void showAuthDialog(BuildContext context) {
     showModal(
       context,
-      subtitleText: t.subtitle.sessionEnded,
-      titleText: t.title.sessionEnded,
+      subtitleText: t.subtitle_sessionEnded,
+      titleText: t.title_sessionEnded,
       type: .warning,
       onOk: () {
         context.router.replaceAll([const LoginRoute()]);
