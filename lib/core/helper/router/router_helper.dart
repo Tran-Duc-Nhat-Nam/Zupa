@@ -27,7 +27,7 @@ class AppRouter extends RootStackRouter {
     // Settings Sub-routes (Outside shell to cover BottomBar)
     AutoRoute(
       path: '/settings/parking',
-      page: ParkingSettingsRoute.page,
+      page: ParkingLotRoute.page,
       children: [AutoRoute(path: 'detail', page: ParkingDetailsRoute.page)],
     ),
 

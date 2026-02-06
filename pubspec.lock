@@ -133,10 +133,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: b4d854962a32fd9f8efc0b76f98214790b833af8b2e9b2df6bfc927c0415a072
+      sha256: ac78098de97893812b7aff1154f29008fa2464cad9e8e7044d39bc905dad4fbc
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.5"
+    version: "2.11.0"
   built_collection:
     dependency: transitive
     description:
@@ -197,10 +197,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: a600b60a7752cc5fa9de476cd0055539d7a3b9d62662f4f446bae49eba2267df
+      sha256: "4e47c2796dab3f21fdfe1d15151bf628519093b171307cb64a71ba8e451697b5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.22+9"
+    version: "0.9.23"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -357,10 +357,10 @@ packages:
     dependency: transitive
     description:
       name: dbus
-      sha256: "79e0c23480ff85dc68de79e2cd6334add97e48f7f4865d17686dd6ea81a47e8c"
+      sha256: d0c98dcd4f5169878b6cf8f6e0a52403a9dff371a3e2f019697accbf6f44a270
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.11"
+    version: "0.7.12"
   dio:
     dependency: "direct main"
     description:
@@ -657,10 +657,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: bf1fe61d4a53420a94cbbd4326e07702d247757926f6955af9667765a8324413
+      sha256: c30eef5e7cd26eb89cc8065b4390ac86ce579f2fcdbe35220891c6278b5460da
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.0"
+    version: "8.0.1"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -1205,6 +1205,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "18.2.2"
+  reactive_forms_annotations:
+    dependency: "direct main"
+    description:
+      name: reactive_forms_annotations
+      sha256: df98a859703177b5ee7b42e65ffcb053e25b84ee899fa1fd6c296d3b4023d1c5
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.1.0-beta2"
+  reactive_forms_generator:
+    dependency: "direct dev"
+    description:
+      path: "packages/reactive_forms_generator"
+      ref: master
+      resolved-ref: aaec2f18be68f7ef2beddf544dd4237a9352b15f
+      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/reactive_forms_generator.git"
+    source: git
+    version: "7.5.0-beta1"
   recase:
     dependency: transitive
     description:

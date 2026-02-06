@@ -40,7 +40,6 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
         child: BlocBuilder<CheckInCubit, CheckInState>(
           builder: (context, state) {
             return AppScreen(
-              formGroup: context.read<CheckInCubit>().form,
               appBarColor: Colors.black,
               isClose: true,
               isChildScrollable: true,
@@ -196,7 +195,10 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                               ? AppCard(
                                   child: Center(
                                     child: AppTextField(
-                                      name: 'ticketNumber',
+                                      formControl: context
+                                          .read<CheckInCubit>()
+                                          .formModel
+                                          .ticketIDControl,
                                       hintText: t.enterTicketNumber,
                                       hasBorder: false,
                                       textAlign: .center,

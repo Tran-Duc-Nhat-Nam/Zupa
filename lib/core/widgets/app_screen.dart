@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -30,7 +29,6 @@ class AppScreen extends StatefulWidget {
     this.onFormChanged,
     this.formInitialValue,
     this.footerPadding,
-    this.formGroup,
     this.isClose = false,
     this.appBarTrailingIcon,
     this.appBarTrailing,
@@ -61,7 +59,6 @@ class AppScreen extends StatefulWidget {
   final IconData? appBarLeadingIcon;
   final Widget? appBarLeading;
   final Widget? floatingActionButton;
-  final FormGroup? formGroup;
   final void Function()? onFormChanged;
   final Map<String, dynamic>? formInitialValue;
 
@@ -101,10 +98,7 @@ class _AppScreenState extends AppState<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.formGroup != null ? ReactiveForm(
-        formGroup: widget.formGroup!,
-        child: _buildScreen(),
-    ) : _buildScreen();
+    return _buildScreen();
   }
 
   Widget _buildScreen() {

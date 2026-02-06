@@ -205,7 +205,7 @@ return $default(_that.tenant,_that.username,_that.password);case _:
 @JsonSerializable()
 
 class _AccountRequest implements AccountRequest {
-  const _AccountRequest({this.tenant = 'tenant', this.username = 'username', this.password = 'password'});
+  const _AccountRequest({this.tenant = '', this.username = '', this.password = ''});
   factory _AccountRequest.fromJson(Map<String, dynamic> json) => _$AccountRequestFromJson(json);
 
 @override@JsonKey() final  String tenant;

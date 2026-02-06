@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -60,110 +59,110 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
       create: (context) => getIt<SiteCubit>()..init(),
       child: Builder(
         builder: (context) {
-          return ReactiveForm(
-            formGroup: context.read<SiteCubit>().form,
-            child: AutoTabsScaffold(
-              routes: const [
-                HomeRoute(),
-                HistoryRoute(),
-                RevenueRoute(),
-                SettingsRoute(),
-              ],
-              // 1. App Bar Integration
-              appBarBuilder: (context, tabsRouter) => AppAppBar(
-                isCenter: true,
-                titleWidget: AppDropDownSearch(
-                  name: 'code',
-                  dropdownItems: _parkingLots,
-                  initialValue: _parkingLots.length > 1 ? _parkingLots[1] : null,
-                  buttonWidth: 140,
-                  buttonDecoration: BoxDecoration(
-                    color: colors.primary50,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: colors.primary100),
-                  ),
-                  onChanged: (value) => DialogHelper.showAuthDialog(context),
+          return AutoTabsScaffold(
+            routes: const [
+              HomeRoute(),
+              HistoryRoute(),
+              RevenueRoute(),
+              SettingsRoute(),
+            ],
+            // 1. App Bar Integration
+            appBarBuilder: (context, tabsRouter) => AppAppBar(
+              isCenter: true,
+              titleWidget: AppDropDownSearch(
+                formControl: context.read<SiteCubit>().form.codeControl,
+                dropdownItems: _parkingLots,
+                initialValue: _parkingLots.length > 1 ? _parkingLots[1] : null,
+                buttonWidth: 140,
+                buttonDecoration: BoxDecoration(
+                  color: colors.primary50,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: colors.primary100),
                 ),
+                onChanged: (value) => DialogHelper.showAuthDialog(context),
               ),
-
-              // 2. Body is automatically handled by AutoTabsScaffold
-              backgroundColor: Theme.of(context).colorScheme.surface,
-
-              // 3. Google Nav Bar Integration
-              bottomNavigationBuilder: (context, tabsRouter) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(100)),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 20,
-                          color: Colors.black.withOpacity(.1),
-                        ),
-                      ],
-                    ),
-                    child: GNav(
-                      selectedIndex: tabsRouter.activeIndex,
-                      onTabChange: tabsRouter.setActiveIndex, // Built-in handler
-
-                      rippleColor: colors.primary100,
-                      hoverColor: colors.primary50,
-                      gap: 8,
-                      activeColor: colors.primary500,
-                      iconSize: _iconSize,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      duration: const Duration(milliseconds: 400),
-                      tabBackgroundColor: colors.primary100.withAlpha(155),
-                      color: colors.primary300,
-
-                      tabs: [
-                        _buildItem(
-                          0,
-                          tabsRouter.activeIndex,
-                          'home',
-                          Symbols.home_rounded,
-                          colors,
-                          isHide,
-                        ),
-                        _buildItem(
-                          1,
-                          tabsRouter.activeIndex,
-                          'history',
-                          Symbols.history_rounded,
-                          colors,
-                          isHide,
-                        ),
-                        _buildItem(
-                          2,
-                          tabsRouter.activeIndex,
-                          'revenue',
-                          Symbols.analytics_rounded,
-                          colors,
-                          isHide,
-                        ),
-                        _buildItem(
-                          3,
-                          tabsRouter.activeIndex,
-                          'settings',
-                          Symbols.settings_rounded,
-                          colors,
-                          isHide,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
             ),
+
+            // 2. Body is automatically handled by AutoTabsScaffold
+            backgroundColor: Theme.of(context).colorScheme.surface,
+
+            // 3. Google Nav Bar Integration
+            bottomNavigationBuilder: (context, tabsRouter) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 20,
+                        color: Colors.black.withOpacity(.1),
+                      ),
+                    ],
+                  ),
+                  child: GNav(
+                    selectedIndex: tabsRouter.activeIndex,
+                    onTabChange: tabsRouter.setActiveIndex, // Built-in handler
+
+                    rippleColor: colors.primary100,
+                    hoverColor: colors.primary50,
+                    gap: 8,
+                    activeColor: colors.primary500,
+                    iconSize: _iconSize,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    duration: const Duration(milliseconds: 400),
+                    tabBackgroundColor: colors.primary100.withAlpha(155),
+                    color: colors.primary300,
+
+                    tabs: [
+                      _buildItem(
+                        0,
+                        tabsRouter.activeIndex,
+                        'home',
+                        Symbols.home_rounded,
+                        colors,
+                        isHide,
+                      ),
+                      _buildItem(
+                        1,
+                        tabsRouter.activeIndex,
+                        'history',
+                        Symbols.history_rounded,
+                        colors,
+                        isHide,
+                      ),
+                      _buildItem(
+                        2,
+                        tabsRouter.activeIndex,
+                        'revenue',
+                        Symbols.analytics_rounded,
+                        colors,
+                        isHide,
+                      ),
+                      _buildItem(
+                        3,
+                        tabsRouter.activeIndex,
+                        'settings',
+                        Symbols.settings_rounded,
+                        colors,
+                        isHide,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           );
-        }
+        },
       ),
     );
   }

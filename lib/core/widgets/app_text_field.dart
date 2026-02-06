@@ -7,7 +7,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
-    required this.name,
+    required this.formControl,
     this.labelText,
     this.label,
     this.required = false,
@@ -31,7 +31,7 @@ class AppTextField extends StatefulWidget {
     this.backgroundColor,
   });
 
-  final String name;
+  final FormControl<String> formControl;
   final TextEditingController? controller;
   final String? labelText;
   final String? hintText;
@@ -85,7 +85,7 @@ class _AppTextFieldState extends State<AppTextField> {
             ),
           ),
         ReactiveTextField(
-          formControlName: widget.name,
+          formControl: widget.formControl,
           controller: widget.initialValue != null ? null : widget.controller,
           obscureText: isPasswordVisible,
           textAlign: widget.textAlign ?? .start,

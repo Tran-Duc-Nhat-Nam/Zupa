@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/widgets/app_button.dart';
@@ -8,6 +9,7 @@ import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class RevenueSearchBar extends StatelessWidget {
@@ -125,7 +127,12 @@ class RevenueSearchBar extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(t.date),
-                const AppDateTimePicker(name: 'dateTime'),
+                AppDateTimePicker(
+                  formControl: context
+                      .read<RevenueFilterCubit>()
+                      .formModel
+                      .timeControl,
+                ),
               ],
             ),
             const Divider(),

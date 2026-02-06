@@ -7,12 +7,12 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 class AppSwitch extends StatefulWidget {
   const AppSwitch({
     super.key,
-    required this.name,
+    required this.formControl,
     this.onToggle,
     this.initialValue = false,
   });
 
-  final String name;
+  final FormControl<bool> formControl;
   final bool initialValue;
   /// Callback to intercept the toggle.
   /// [value] is the *new* requested state.
@@ -30,7 +30,7 @@ class _AppSwitchState extends State<AppSwitch> {
     final bool isLoading = Skeletonizer.of(context).enabled;
 
     return ReactiveFormField<bool, bool>(
-      formControlName: widget.name,
+      formControl: widget.formControl,
       builder: (field) {
         final currentValue = field.value ?? false;
 

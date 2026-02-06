@@ -12,39 +12,39 @@
 import 'package:auto_route/auto_route.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
 import 'package:zupa/core/widgets/app_nav_bar.dart' deferred as _i1;
+import 'package:zupa/features/app_settings/presentation/pages/app_settings_screen.dart'
+    deferred as _i2;
 import 'package:zupa/features/auth/presentation/pages/login/login_screen.dart'
     deferred as _i9;
 import 'package:zupa/features/camera/presentation/pages/camera/check_in_screen.dart'
     deferred as _i4;
+import 'package:zupa/features/employee_management/presentation/page/employee_management_screen.dart'
+    deferred as _i5;
+import 'package:zupa/features/general_config/presentation/page/general_config_screen.dart'
+    deferred as _i6;
 import 'package:zupa/features/history/presentation/pages/history_screen.dart'
     deferred as _i7;
 import 'package:zupa/features/home/presentation/pages/home_screen.dart'
     deferred as _i8;
+import 'package:zupa/features/member_fee/member_fee_seting_screen.dart'
+    deferred as _i10;
+import 'package:zupa/features/member_vehicles/presentation/pages/create/member_vehicle_detail_screen.dart'
+    deferred as _i11;
+import 'package:zupa/features/member_vehicles/presentation/pages/member_vehicles_screen.dart'
+    deferred as _i12;
+import 'package:zupa/features/parking/data/model/parking_lot.dart' as _i20;
+import 'package:zupa/features/parking/presentation/pages/detail/parking_details_screen.dart'
+    deferred as _i13;
+import 'package:zupa/features/parking/presentation/pages/parking_settings_screen.dart'
+    deferred as _i14;
+import 'package:zupa/features/parking_price/parking_price_setting.dart'
+    deferred as _i15;
+import 'package:zupa/features/password/presentation/pages/password/change_password_screen.dart'
+    deferred as _i3;
+import 'package:zupa/features/password/presentation/pages/settings_screen.dart'
+    deferred as _i17;
 import 'package:zupa/features/revenue/presentation/pages/revenue_screen.dart'
     deferred as _i16;
-import 'package:zupa/features/settings/data/models/parking_lot.dart' as _i20;
-import 'package:zupa/features/settings/presentation/pages/app/app_settings_screen.dart'
-    deferred as _i2;
-import 'package:zupa/features/settings/presentation/pages/employee_management/employee_management_screen.dart'
-    deferred as _i5;
-import 'package:zupa/features/settings/presentation/pages/general_config/general_config_screen.dart'
-    deferred as _i6;
-import 'package:zupa/features/settings/presentation/pages/general_config/member_fee/member_fee_seting_screen.dart'
-    deferred as _i10;
-import 'package:zupa/features/settings/presentation/pages/general_config/parking_price/parking_price_setting.dart'
-    deferred as _i14;
-import 'package:zupa/features/settings/presentation/pages/member_vehicles/create/member_vehicle_detail_screen.dart'
-    deferred as _i11;
-import 'package:zupa/features/settings/presentation/pages/member_vehicles/member_vehicles_screen.dart'
-    deferred as _i12;
-import 'package:zupa/features/settings/presentation/pages/parking/detail/parking_details_screen.dart'
-    deferred as _i13;
-import 'package:zupa/features/settings/presentation/pages/parking/parking_settings_screen.dart'
-    deferred as _i15;
-import 'package:zupa/features/settings/presentation/pages/password/change_password_screen.dart'
-    deferred as _i3;
-import 'package:zupa/features/settings/presentation/pages/settings_screen.dart'
-    deferred as _i17;
 
 /// generated route for
 /// [_i1.AppNavBarScreen]
@@ -385,7 +385,26 @@ class ParkingDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i14.ParkingPriceSettingScreen]
+/// [_i14.ParkingLotScreen]
+class ParkingLotRoute extends _i18.PageRouteInfo<void> {
+  const ParkingLotRoute({List<_i18.PageRouteInfo>? children})
+    : super(ParkingLotRoute.name, initialChildren: children);
+
+  static const String name = 'ParkingLotRoute';
+
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i14.loadLibrary,
+        () => _i14.ParkingLotScreen(),
+      );
+    },
+  );
+}
+
+/// generated route for
+/// [_i15.ParkingPriceSettingScreen]
 class ParkingPriceSettingRoute extends _i18.PageRouteInfo<void> {
   const ParkingPriceSettingRoute({List<_i18.PageRouteInfo>? children})
     : super(ParkingPriceSettingRoute.name, initialChildren: children);
@@ -396,27 +415,8 @@ class ParkingPriceSettingRoute extends _i18.PageRouteInfo<void> {
     name,
     builder: (data) {
       return _i18.DeferredWidget(
-        _i14.loadLibrary,
-        () => _i14.ParkingPriceSettingScreen(),
-      );
-    },
-  );
-}
-
-/// generated route for
-/// [_i15.ParkingSettingsScreen]
-class ParkingSettingsRoute extends _i18.PageRouteInfo<void> {
-  const ParkingSettingsRoute({List<_i18.PageRouteInfo>? children})
-    : super(ParkingSettingsRoute.name, initialChildren: children);
-
-  static const String name = 'ParkingSettingsRoute';
-
-  static _i18.PageInfo page = _i18.PageInfo(
-    name,
-    builder: (data) {
-      return _i18.DeferredWidget(
         _i15.loadLibrary,
-        () => _i15.ParkingSettingsScreen(),
+        () => _i15.ParkingPriceSettingScreen(),
       );
     },
   );

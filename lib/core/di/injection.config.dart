@@ -23,6 +23,14 @@ import '../../features/auth/domain/repository/authentication_repository.dart'
     as _i251;
 import '../../features/auth/presentation/bloc/auth/auth_cubit.dart' as _i190;
 import '../../features/auth/presentation/bloc/login/login_cubit.dart' as _i65;
+import '../../features/employee_management/data/repository/employee_repository_impl.dart'
+    as _i929;
+import '../../features/employee_management/domain/repository/employee_repository.dart'
+    as _i349;
+import '../../features/employee_management/presentation/bloc/employee_cubit.dart'
+    as _i578;
+import '../../features/general_config/presentation/bloc/general_config_cubit.dart'
+    as _i509;
 import '../../features/history/data/repository/history_repository_impl.dart'
     as _i148;
 import '../../features/history/domain/repository/history_repository.dart'
@@ -37,6 +45,30 @@ import '../../features/home/presentation/bloc/filter/home_filter_cubit.dart'
     as _i200;
 import '../../features/home/presentation/bloc/ticket/home_ticket_cubit.dart'
     as _i602;
+import '../../features/member_vehicles/data/repository/member_vehicles_repository_impl.dart'
+    as _i999;
+import '../../features/member_vehicles/domain/repository/member_vehicles_repository.dart'
+    as _i827;
+import '../../features/member_vehicles/presentation/bloc/detail/member_vehicle_detail_cubit.dart'
+    as _i923;
+import '../../features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart'
+    as _i265;
+import '../../features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart'
+    as _i982;
+import '../../features/parking/data/repository/parking_lot_repository_impl.dart'
+    as _i280;
+import '../../features/parking/domain/repository/parking_lot_repository.dart'
+    as _i435;
+import '../../features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart'
+    as _i281;
+import '../../features/parking/presentation/bloc/parking_lot_cubit.dart'
+    as _i370;
+import '../../features/password/data/repository/password_repository_impl.dart'
+    as _i789;
+import '../../features/password/domain/repository/password_repository.dart'
+    as _i296;
+import '../../features/password/presentation/bloc/password/password_settings_cubit.dart'
+    as _i80;
 import '../../features/revenue/data/repository/revenue_repository_impl.dart'
     as _i413;
 import '../../features/revenue/domain/repository/revenue_repository.dart'
@@ -45,26 +77,6 @@ import '../../features/revenue/presentation/bloc/filter/revenue_filter_cubit.dar
     as _i912;
 import '../../features/revenue/presentation/bloc/list/revenue_list_cubit.dart'
     as _i1054;
-import '../../features/settings/data/repository/settings_repository_impl.dart'
-    as _i910;
-import '../../features/settings/domain/repository/settings_repository.dart'
-    as _i187;
-import '../../features/settings/presentation/bloc/employee/employee_settings_cubit.dart'
-    as _i884;
-import '../../features/settings/presentation/bloc/general_config/general_config_cubit.dart'
-    as _i934;
-import '../../features/settings/presentation/bloc/member_vehicles/detail/member_vehicle_detail_cubit.dart'
-    as _i844;
-import '../../features/settings/presentation/bloc/member_vehicles/filter/member_vehicles_filter_cubit.dart'
-    as _i336;
-import '../../features/settings/presentation/bloc/member_vehicles/list/member_vehicles_list_cubit.dart'
-    as _i697;
-import '../../features/settings/presentation/bloc/parking/detail/parking_lot_detail_cubit.dart'
-    as _i973;
-import '../../features/settings/presentation/bloc/parking/parking_settings_cubit.dart'
-    as _i411;
-import '../../features/settings/presentation/bloc/password/password_settings_cubit.dart'
-    as _i382;
 import '../bloc/connectivity/connectivity_cubit.dart' as _i332;
 import '../bloc/debugger/debugger_cubit.dart' as _i618;
 import '../bloc/localization/localization_cubit.dart' as _i781;
@@ -91,16 +103,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i221.SiteCubit>(() => _i221.SiteCubit());
     gh.factory<_i810.ThemeCubit>(() => _i810.ThemeCubit());
     gh.factory<_i190.AuthCubit>(() => _i190.AuthCubit());
+    gh.factory<_i509.GeneralConfigCubit>(() => _i509.GeneralConfigCubit());
     gh.factory<_i567.HistoryFilterCubit>(() => _i567.HistoryFilterCubit());
     gh.factory<_i200.HomeFilterCubit>(() => _i200.HomeFilterCubit());
+    gh.factory<_i265.MemberVehiclesFilterCubit>(
+      () => _i265.MemberVehiclesFilterCubit(),
+    );
+    gh.factory<_i281.ParkingLotDetailCubit>(
+      () => _i281.ParkingLotDetailCubit(),
+    );
     gh.factory<_i912.RevenueFilterCubit>(() => _i912.RevenueFilterCubit());
-    gh.factory<_i934.GeneralConfigCubit>(() => _i934.GeneralConfigCubit());
-    gh.factory<_i336.MemberVehiclesFilterCubit>(
-      () => _i336.MemberVehiclesFilterCubit(),
-    );
-    gh.factory<_i973.ParkingLotDetailCubit>(
-      () => _i973.ParkingLotDetailCubit(),
-    );
     gh.lazySingleton<_i460.SharedPreferencesAsync>(
       () => externalModule.sharedPreferences,
     );
@@ -133,8 +145,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i306.StorageService>(),
       ),
     );
-    gh.lazySingleton<_i187.ISettingsRepository>(
-      () => _i910.SettingsRepositoryImpl(
+    gh.lazySingleton<_i827.IMemberVehiclesRepository>(
+      () => _i999.MemberVehiclesRepositoryImpl(
+        gh<_i463.NetworkService>(),
+        gh<_i361.Dio>(),
+      ),
+    );
+    gh.lazySingleton<_i435.IParkingLotRepository>(
+      () => _i280.ParkingLotRepositoryImpl(
         gh<_i463.NetworkService>(),
         gh<_i361.Dio>(),
       ),
@@ -144,6 +162,21 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i463.NetworkService>(),
         gh<_i361.Dio>(),
       ),
+    );
+    gh.lazySingleton<_i296.IPasswordRepository>(
+      () => _i789.PasswordRepositoryImpl(
+        gh<_i463.NetworkService>(),
+        gh<_i361.Dio>(),
+      ),
+    );
+    gh.lazySingleton<_i349.IEmployeeRepository>(
+      () => _i929.EmployeeRepositoryImpl(
+        gh<_i463.NetworkService>(),
+        gh<_i361.Dio>(),
+      ),
+    );
+    gh.factory<_i80.PasswordSettingsCubit>(
+      () => _i80.PasswordSettingsCubit(gh<_i296.IPasswordRepository>()),
     );
     gh.factory<_i1054.RevenueListCubit>(
       () => _i1054.RevenueListCubit(gh<_i286.IRevenueRepository>()),
@@ -157,29 +190,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i541.IHomeRepository>(
       () => _i9.HomeRepositoryImpl(gh<_i463.NetworkService>(), gh<_i361.Dio>()),
     );
+    gh.factory<_i923.MemberVehicleDetailCubit>(
+      () =>
+          _i923.MemberVehicleDetailCubit(gh<_i827.IMemberVehiclesRepository>()),
+    );
+    gh.factory<_i982.MemberVehiclesListCubit>(
+      () =>
+          _i982.MemberVehiclesListCubit(gh<_i827.IMemberVehiclesRepository>()),
+    );
     gh.lazySingleton<_i932.NetworkInfo>(
       () => _i932.NetworkInfoImpl(gh<_i895.Connectivity>()),
     );
     gh.factory<_i65.LoginCubit>(
       () => _i65.LoginCubit(gh<_i251.AuthenticationRepository>()),
     );
+    gh.factory<_i578.EmployeeCubit>(
+      () => _i578.EmployeeCubit(gh<_i349.IEmployeeRepository>()),
+    );
     gh.factory<_i602.HomeTicketCubit>(
       () => _i602.HomeTicketCubit(gh<_i541.IHomeRepository>()),
     );
-    gh.factory<_i884.EmployeeSettingsCubit>(
-      () => _i884.EmployeeSettingsCubit(gh<_i187.ISettingsRepository>()),
-    );
-    gh.factory<_i844.MemberVehicleDetailCubit>(
-      () => _i844.MemberVehicleDetailCubit(gh<_i187.ISettingsRepository>()),
-    );
-    gh.factory<_i697.MemberVehiclesListCubit>(
-      () => _i697.MemberVehiclesListCubit(gh<_i187.ISettingsRepository>()),
-    );
-    gh.factory<_i411.ParkingSettingsCubit>(
-      () => _i411.ParkingSettingsCubit(gh<_i187.ISettingsRepository>()),
-    );
-    gh.factory<_i382.PasswordSettingsCubit>(
-      () => _i382.PasswordSettingsCubit(gh<_i187.ISettingsRepository>()),
+    gh.factory<_i370.ParkingLotCubit>(
+      () => _i370.ParkingLotCubit(gh<_i435.IParkingLotRepository>()),
     );
     gh.factory<_i110.HistoryListCubit>(
       () => _i110.HistoryListCubit(gh<_i757.IHistoryRepository>()),

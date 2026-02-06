@@ -1,0 +1,151 @@
+import 'package:auto_route/annotations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/features/parking/data/model/parking_lot.dart';
+import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
+
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/app_switch.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/gen/strings.g.dart';
+
+@RoutePage()
+class ParkingDetailsScreen extends StatefulWidget {
+  const ParkingDetailsScreen({super.key, this.parkingLot});
+  final ParkingLot? parkingLot;
+
+  @override
+  AppState<ParkingDetailsScreen> createState() => _ParkingDetailsScreenState();
+}
+
+class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return AppScreen(
+      title: t.parkingAreaConfig,
+      isChildScrollable: true,
+      footer: [
+        AppButton(
+          text: t.save,
+          onPressed: () => AppToast.showNotify(t.success),
+        ),
+      ],
+      child: BlocProvider<ParkingLotDetailCubit>(
+        create: (_) => getIt<ParkingLotDetailCubit>()..init(widget.parkingLot),
+        child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
+          builder: (context, state) {
+            final formModel = context.read<ParkingLotDetailCubit>().formModel;
+            return Skeletonizer(
+              enabled: state is Loading,
+              child: Padding(
+                padding: const .symmetric(vertical: 16, horizontal: 24),
+                child: Column(
+                  children: [
+                    AppCard(
+                      child: Column(
+                        crossAxisAlignment: .start,
+                        spacing: 8,
+                        children: [
+                          Text(t.info),
+                          AppTextField(
+                            formControl: formModel.branchNameControl,
+                            labelText: t.branchName,
+                            isExternalLabel: true,
+                          ),
+                          AppTextField(
+                            formControl: formModel.addressControl,
+                            labelText: t.address,
+                            isExternalLabel: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                    AppCard(
+                      child: Column(
+                        crossAxisAlignment: .start,
+                        spacing: 8,
+                        children: [
+                          Text(t.capacity),
+                          ...state.maybeMap(
+                            loaded: (params) => params.parkingLot.capacity
+                                .map(
+                                  (e) => AppTextField(
+                                    formControl: formModel
+                                        .capacityParkingLotCapacityForm[params
+                                            .parkingLot
+                                            .capacity
+                                            .indexOf(e)]
+                                        .capacityControl,
+                                    labelText: t[e.vehicleType.name],
+                                    isExternalLabel: true,
+                                  ),
+                                )
+                                .toList(),
+                            loading: (_) => List.generate(
+                              3,
+                              (index) => AppTextField(
+                                formControl: formModel
+                                    .capacityParkingLotCapacityForm[index]
+                                    .capacityControl,
+                                labelText: vehicleTypes[index].name,
+                                isExternalLabel: true,
+                              ),
+                            ),
+                            orElse: () => [],
+                          ),
+                        ],
+                      ),
+                    ),
+                    AppCard(
+                      child: Column(
+                        spacing: 10,
+                        children: [
+                          AppListTile(
+                            padding: .zero,
+                            leadingIcon: Symbols.notifications_rounded,
+                            text: t.title_warningThreshold,
+                            trailing: AppSwitch(
+                              formControl: formModel.isLockedControl,
+                              onToggle: (value, toggle) => value
+                                  ? toggle(false)
+                                  : DialogHelper.showModal(
+                                      context,
+                                      okText: t.lock,
+                                      cancelText: t.close,
+                                      type: .warning,
+                                      onOk: () => toggle(true),
+                                      onCancel: () => toggle(false),
+                                    ),
+                            ),
+                          ),
+                          Text(
+                            t.subtitle_warningThreshold,
+                            style: AppTextStyles.bodySmallMedium.copyWith(
+                              color: ThemeHelper.getColor(context).grey500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

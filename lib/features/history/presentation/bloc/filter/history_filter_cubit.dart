@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/history/domain/entities/history_filter.dart';
+import 'package:zupa/features/history/presentation/models/history_form.dart';
 
 part 'history_filter_state.dart';
 part 'history_filter_cubit.freezed.dart';
@@ -15,23 +14,23 @@ class HistoryFilterCubit extends Cubit<HistoryFilterState> {
 
   Timer? _debounce;
 
-  final FormGroup form = fb.group({
-    'keyword': FormControl<String>(value: ''),
-    'time': FormControl<DateTime?>(),
-    'type': FormControl<VehicleType?>(),
-  });
+  final formModel = HistoryForm(
+    HistoryForm.formElements(History()),
+    null,
+    null,
+  );
 
   void update() {
-    if (form.valid) {
+    if (formModel.form.valid) {
       final newFilter = HistoryFilter(
-        keyword: form.control('keyword').value,
-        time: form.control('time').value,
-        type: form.control('type').value,
+        keyword: formModel.keywordControl.value,
+        time: formModel.timeControl.value,
+        type: formModel.typeControl.value,
       );
 
       emit(.loaded(filter: newFilter));
     } else {
-      form.markAllAsTouched();
+      formModel.form.markAllAsTouched();
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/features/home/presentation/models/home_form.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class HomeSearchBar extends StatelessWidget {
@@ -19,35 +20,39 @@ class HomeSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeFilterCubit, HomeFilterState>(
       builder: (context, state) {
-        return Skeletonizer(
-          enabled: state is Loading,
-          child: AppTextField(
-            name: 'keyword',
-            hintText: t.ticketSearch,
-            borderRadius: 100,
-            hasBorder: false,
-            backgroundColor: ThemeHelper.getColor(context).primary50,
-            prefix: Icon(
-              Symbols.search_rounded,
-              size: 24,
-              color: ThemeHelper.getColor(context).primary300,
-            ),
-            suffix: InkWell(
-              child: Icon(
-                Symbols.filter_alt_rounded,
-                size: 24,
-                color: ThemeHelper.getColor(context).primary300,
+        return HomeFormBuilder(
+          builder: (context, formModel, child) {
+            return Skeletonizer(
+              enabled: state is Loading,
+              child: AppTextField(
+                formControl: formModel.keywordControl,
+                hintText: t.ticketSearch,
+                borderRadius: 100,
+                hasBorder: false,
+                backgroundColor: ThemeHelper.getColor(context).primary50,
+                prefix: Icon(
+                  Symbols.search_rounded,
+                  size: 24,
+                  color: ThemeHelper.getColor(context).primary300,
+                ),
+                suffix: InkWell(
+                  child: Icon(
+                    Symbols.filter_alt_rounded,
+                    size: 24,
+                    color: ThemeHelper.getColor(context).primary300,
+                  ),
+                  onTap: () => _showFilter(context, formModel),
+                ),
+                onChanged: (value) => context.read<HomeFilterCubit>().search(),
               ),
-              onTap: () => _showFilter(context),
-            ),
-            onChanged: (value) => context.read<HomeFilterCubit>().search(),
-          ),
+            );
+          }
         );
       },
     );
   }
 
-  Future<dynamic> _showFilter(BuildContext context) {
+  Future<dynamic> _showFilter(BuildContext context, HomeForm formModel) {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -87,7 +92,7 @@ class HomeSearchBar extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(t.date),
-                const AppDateTimePicker(name: 'dateTime'),
+                AppDateTimePicker(formControl: formModel.timeControl),
               ],
             ),
             const Divider(),

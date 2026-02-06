@@ -1,4 +1,3 @@
-
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,34 +23,27 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<RevenueFilterCubit>()..init(),
-        ),
+        BlocProvider(create: (context) => getIt<RevenueFilterCubit>()..init()),
         BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
       ],
-      child: Builder(
-        builder: (context) {
-          return AppScreen(
-            formGroup: context.read<RevenueFilterCubit>().form,
-            isChildScrollable: true,
-            hasParentView: true,
-            title: t.revenue,
-            hasAppBar: false,
-            child: BlocListener<RevenueListCubit, RevenueListState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  unauthenticated: () => DialogHelper.showAuthDialog(context),
-                );
-              },
-              child: const Column(
-                children: [
-                  SizedBox(height: 16),
-                  Expanded(child: RevenueListTab()),
-                ],
-              ),
-            ),
-          );
-        }
+      child: AppScreen(
+        isChildScrollable: true,
+        hasParentView: true,
+        title: t.revenue,
+        hasAppBar: false,
+        child: BlocListener<RevenueListCubit, RevenueListState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              unauthenticated: () => DialogHelper.showAuthDialog(context),
+            );
+          },
+          child: const Column(
+            children: [
+              SizedBox(height: 16),
+              Expanded(child: RevenueListTab()),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -14,7 +14,7 @@ class AppDropDownSearchExtraItem<T> {
 
 class AppDropDownSearch<T> extends StatefulWidget {
   const AppDropDownSearch({
-    required this.name,
+    required this.formControl,
     required this.dropdownItems,
     this.hint = '',
     this.valueListenable,
@@ -49,7 +49,7 @@ class AppDropDownSearch<T> extends StatefulWidget {
     this.offset = Offset.zero,
     super.key,
   });
-  final String name;
+  final FormControl<T> formControl;
   final String hint;
   final ValueListenable<T?>? valueListenable;
   final List<T> dropdownItems;
@@ -99,7 +99,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
   @override
   Widget build(BuildContext context) {
     return ReactiveFormField<T, T>(
-      formControlName: widget.name,
+      formControl: widget.formControl,
       builder: (field) => DropdownButtonHideUnderline(
         child: DropdownButton2<T>(
           onMenuStateChange: (value) => setState(() {

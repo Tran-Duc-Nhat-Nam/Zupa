@@ -5,12 +5,14 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
-import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
+import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
+import 'package:zupa/features/history/presentation/models/history_form.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class HistorySearchBar extends StatelessWidget {
@@ -52,10 +54,11 @@ class HistorySearchBar extends StatelessWidget {
             padding: const .symmetric(horizontal: 24, vertical: 6),
             child: BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
               builder: (context, state) {
+                final formModel = context.read<HistoryFilterCubit>().formModel;
                 return Skeletonizer(
                   enabled: state is Loading,
                   child: AppTextField(
-                    name: 'keyword',
+                    formControl: formModel.keywordControl,
                     hintText: t.ticketSearch,
                     borderRadius: 100,
                     hasBorder: false,
@@ -67,11 +70,10 @@ class HistorySearchBar extends StatelessWidget {
                         size: 20,
                         color: ThemeHelper.getColor(context).grey400,
                       ),
-                      onTap: () => _showFilter(context),
+                      onTap: () => _showFilter(context, formModel),
                     ),
-                    onChanged: (value) => context
-                        .read<HistoryFilterCubit>()
-                        .update(),
+                    onChanged: (value) =>
+                        context.read<HistoryFilterCubit>().update(),
                   ),
                 );
               },
@@ -82,7 +84,7 @@ class HistorySearchBar extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _showFilter(BuildContext context) {
+  Future<dynamic> _showFilter(BuildContext context, HistoryForm formModel) {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -122,7 +124,7 @@ class HistorySearchBar extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(t.date),
-                const AppDateTimePicker(name: 'dateTime'),
+                AppDateTimePicker(formControl: formModel.timeControl),
               ],
             ),
             const Divider(),
@@ -146,21 +148,9 @@ class HistorySearchBar extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  spacing: 32,
-                  children: vehicleTypes
-                      .map(
-                        (item) => AppCheckbox(
-                          name: item.value,
-                          label: Text(
-                            t[item.value],
-                            style: AppTextStyles.bodySmallMedium.copyWith(
-                              color: ThemeHelper.getColor(context).grey700,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
+                AppRadioGroup<VehicleType>(
+                  formControl: formModel.typeControl,
+                  items: vehicleTypes,
                 ),
               ],
             ),

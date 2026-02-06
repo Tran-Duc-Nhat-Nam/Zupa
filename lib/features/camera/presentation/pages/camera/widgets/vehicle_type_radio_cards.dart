@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -6,6 +7,7 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class VehicleTypeRadioCards extends StatelessWidget {
@@ -14,7 +16,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppRadioGroup<VehicleType>(
-      name: 'type',
+      formControl: context.read<CheckInCubit>().formModel.vehicleTypeControl,
       items: vehicleTypes,
       required: true,
       itemBuilder: (radioButton, vehicle, isSelected, select) => Expanded(

@@ -6,12 +6,12 @@ class AppCheckbox extends StatelessWidget {
   const AppCheckbox({
     super.key,
     this.value,
-    required this.name,
+    required this.formControl,
     this.onChanged,
     this.label,
   });
 
-  final String name;
+  final FormControl<bool> formControl;
   final bool? value;
   final ValueChanged<bool?>? onChanged;
   final Widget? label;
@@ -25,7 +25,7 @@ class AppCheckbox extends StatelessWidget {
           height: 24,
           width: 24,
           child: ReactiveCheckbox(
-            formControlName: name,
+            formControl: formControl,
             onChanged: (form) {
               onChanged?.call(form.value ?? false);
             },

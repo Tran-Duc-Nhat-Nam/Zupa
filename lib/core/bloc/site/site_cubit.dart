@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:reactive_forms/reactive_forms.dart';
+import 'package:zupa/core/models/form/site/site_form.dart';
 
 part 'site_state.dart';
 part 'site_cubit.freezed.dart';
@@ -10,9 +10,7 @@ part 'site_cubit.freezed.dart';
 class SiteCubit extends Cubit<SiteState> {
   SiteCubit() : super(const .initial());
 
-  final FormGroup form = fb.group({
-    'code': ['', Validators.required]
-  });
+  final form = SiteForm(SiteForm.formElements(Site(code: '')), null, null);
 
   void init() {
     emit(const .loaded());

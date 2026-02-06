@@ -37,7 +37,6 @@ class _HomeScreenState extends AppState<HomeScreen> {
       child: Builder(
         builder: (context) {
           return AppScreen(
-            formGroup: context.read<HomeFilterCubit>().form,
             isChildScrollable: true,
             hasParentView: true,
             title: t.home,

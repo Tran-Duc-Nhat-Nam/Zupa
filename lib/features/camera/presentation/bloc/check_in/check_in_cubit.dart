@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:reactive_forms/reactive_forms.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/features/camera/presentation/models/check_in_form.dart' as f;
 
 part 'check_in_state.dart';
 part 'check_in_cubit.freezed.dart';
@@ -10,9 +11,7 @@ part 'check_in_cubit.freezed.dart';
 class CheckInCubit extends Cubit<CheckInState> {
   CheckInCubit() : super(const .initial());
 
-  final FormGroup form = fb.group({
-    'ticketNumber': ['', Validators.required],
-  });
+  final formModel = f.CheckInForm(f.CheckInForm.formElements(f.CheckIn()), null, null);
 
   @override
   Future<void> close() {
@@ -50,7 +49,7 @@ class CheckInCubit extends Cubit<CheckInState> {
     emit(
       state is CheckOut
           ? .checkedOutSuccess(picture)
-          : .checkedInSuccess(picture, form.control('ticketNumber').value),
+          : .checkedInSuccess(picture, formModel.vehicleTypeControl.value ?? vehicleTypes[0]),
     );
   }
 

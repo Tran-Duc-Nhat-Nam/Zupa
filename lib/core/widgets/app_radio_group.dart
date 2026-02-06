@@ -4,13 +4,13 @@ import 'package:reactive_forms/reactive_forms.dart';
 class AppRadioGroup<T> extends StatefulWidget {
   const AppRadioGroup({
     super.key,
-    required this.name,
+    required this.formControl,
     required this.items,
     this.required = false,
     this.itemBuilder,
   });
 
-  final String name;
+  final FormControl<T> formControl;
   final List<T> items;
   final Widget Function(
     Widget radioButton,

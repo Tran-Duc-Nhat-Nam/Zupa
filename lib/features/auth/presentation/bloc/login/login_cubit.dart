@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
+import 'package:zupa/features/auth/presentation/models/login_form.dart';
 
 part 'login_state.dart';
 part 'login_cubit.freezed.dart';
@@ -18,12 +18,11 @@ class LoginCubit extends Cubit<LoginState> {
 
   final _storageService = getIt<StorageService>();
 
-  final FormGroup form = fb.group({
-    'tenant': ['', Validators.required],
-    'username': ['', Validators.required],
-    'password': ['', Validators.required],
-    'isRemember': [false],
-  });
+  final formModel = LoginForm(
+    LoginForm.formElements(Login()),
+    null,
+    null,
+  );
 
   Future<void> init() async {
     final accountInfo = await _storageService.getAccountInfo();
@@ -32,14 +31,12 @@ class LoginCubit extends Cubit<LoginState> {
         accountInfo.username.isNotEmpty &&
         accountInfo.password.isNotEmpty;
     if (isSavedRemember) {
-      form.patchValue({
-        'tenant': accountInfo.tenant,
-        'username': accountInfo.username,
-        'password': accountInfo.password,
-        'isRemember': isSavedRemember,
-      });
+      formModel.tenantControl.value = accountInfo.tenant;
+      formModel.usernameControl.value = accountInfo.username;
+      formModel.passwordControl.value = accountInfo.password;
+      formModel.isRememberControl.value = true;
     }
-    emit(const LoginState.loaded());
+    emit(const .loaded());
   }
 
   Future<void> load({
@@ -48,31 +45,30 @@ class LoginCubit extends Cubit<LoginState> {
     bool? isRemember,
   }) async {
     if (tenant != null || username != null) {
-      form.patchValue({
-        'tenant': tenant,
-        'username': username,
-        'isRemember': isRemember,
-      });
-      emit(const LoginState.loaded());
+      if (tenant != null) formModel.tenantControl.value = tenant;
+      if (username != null) formModel.usernameControl.value = username;
+      if (isRemember != null) formModel.isRememberControl.value = isRemember;
+      emit(const .loaded());
     }
   }
 
   Future<void> login() async {
-    if (form.valid) {
+    if (formModel.form.valid) {
       emit(const .submitting());
       try {
         await _authRepo.logIn(
-          tenant: form.control('tenant').value,
-          username: form.control('username').value,
-          password: form.control('password').value,
-          isRemember: form.control('isRemember').value,
+          tenant: formModel.tenantControl.value ?? '',
+          username: formModel.usernameControl.value ?? '',
+          password: formModel.passwordControl.value ?? '',
+          isRemember: formModel.isRememberControl.value ?? false,
         );
         emit(const .loginSuccess());
       } catch (e) {
         emit(.loginFailed(e.toString()));
       }
     } else {
-      form.markAllAsTouched();
+      formModel.form.markAllAsTouched();
+      emit(const .loginFailed('error'));
     }
   }
 }

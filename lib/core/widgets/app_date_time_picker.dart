@@ -6,20 +6,20 @@ import 'package:reactive_forms/reactive_forms.dart';
 class AppDateTimePicker extends StatelessWidget {
   const AppDateTimePicker({
     super.key,
-    required this.name,
+    required this.formControl,
     this.required = false,
     this.customValidators,
     this.firstDate,
   });
 
-  final String name;
+  final FormControl<DateTime?> formControl;
   final bool required;
   final DateTime? firstDate;
   final List<FormFieldValidator<String>>? customValidators;
   @override
   Widget build(BuildContext context) {
     return ReactiveFormField<DateTime?, DateTime?>(
-      formControlName: name,
+      formControl: formControl,
       builder: (field) => Container(
         padding: const .all(12),
         decoration: BoxDecoration(

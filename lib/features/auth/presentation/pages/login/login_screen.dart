@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -24,19 +25,17 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
-            loginSuccess: () => context.router.replaceAll([
-              const HomeRoute(),
-            ]),
+            loginSuccess: () => context.router.replaceAll([const HomeRoute()]),
             loginFailed: (message) {
               AppToast.showNotify(message, type: .error);
             },
           );
         },
         builder: (context, state) {
+          final formModel = context.read<LoginCubit>().formModel;
           return AppScreen(
             hasSafeBottomArea: false,
             hasAppBar: false,
-            formGroup: context.read<LoginCubit>().form,
             resizeToAvoidBottomInset: true,
             child: Padding(
               padding: const .symmetric(vertical: 40, horizontal: 24),
@@ -56,26 +55,26 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
-                    name: 'tenant',
+                    formControl: formModel.tenantControl,
                     required: true,
                     labelText: t.site,
-                    prefix: const Icon(Icons.warehouse_outlined),
+                    prefix: const Icon(Symbols.warehouse_rounded),
                   ),
                   AppTextField(
-                    name: 'username',
+                    formControl: formModel.usernameControl,
                     required: true,
                     labelText: t.username,
-                    prefix: const Icon(Icons.person_outline_rounded),
+                    prefix: const Icon(Symbols.person_rounded),
                   ),
                   AppTextField(
-                    name: 'password',
+                    formControl: formModel.passwordControl,
                     required: true,
                     isPassword: true,
                     labelText: t.password,
-                    prefix: const Icon(Icons.lock_outline_rounded),
+                    prefix: const Icon(Symbols.lock_rounded),
                   ),
                   AppCheckbox(
-                    name: 'isRemember',
+                    formControl: formModel.isRememberControl,
                     label: Text(
                       t.isRemember,
                       style: AppTextStyles.bodySmallSemibold.copyWith(

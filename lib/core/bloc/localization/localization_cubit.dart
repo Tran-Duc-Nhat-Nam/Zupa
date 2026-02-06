@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/constants/localization.dart';
+import 'package:zupa/core/models/form/localization/app_settings_form.dart';
 
 part 'localization_state.dart';
 part 'localization_cubit.freezed.dart';
@@ -14,11 +15,18 @@ class LocalizationCubit extends Cubit<LocalizationState> {
 
   final _storageService = getIt<StorageService>();
 
+  final formModel = AppSettingsForm(
+    AppSettingsForm.formElements(AppSettings()),
+    null,
+    null,
+  );
+
   Future<void> loadLocale() async {
     emit(.loaded(await _storageService.getLocalization()));
   }
 
-  void changeLocale(AppLocalization mode) {
+  void changeLocale() {
+    final mode = formModel.localizationModeControl.value ?? AppLocalization.followSystem;
     _storageService.setLocalization(mode);
     emit(.loading(mode));
     emit(.loaded(mode));
