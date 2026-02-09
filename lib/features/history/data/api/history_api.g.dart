@@ -20,13 +20,13 @@ class _HistoryAPI implements HistoryAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> getList(Request request) async {
+  Future<SuccessResponse<List<HistoryTicket>>> getList(Request request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(request.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<List<HistoryTicket>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,9 +37,18 @@ class _HistoryAPI implements HistoryAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<List<HistoryTicket>> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<List<HistoryTicket>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<HistoryTicket>(
+                    (i) => HistoryTicket.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -48,12 +57,12 @@ class _HistoryAPI implements HistoryAPI {
   }
 
   @override
-  Future<SuccessResponse> get(String id) async {
+  Future<SuccessResponse<HistoryTicket>> get(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<HistoryTicket>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -64,9 +73,12 @@ class _HistoryAPI implements HistoryAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<HistoryTicket> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<HistoryTicket>.fromJson(
+        _result.data!,
+        (json) => HistoryTicket.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -75,13 +87,12 @@ class _HistoryAPI implements HistoryAPI {
   }
 
   @override
-  Future<SuccessResponse> create(MemberVehicleRequest request) async {
+  Future<SuccessResponse<dynamic>> create(HistoryTicket request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
-    final _options = _setStreamType<SuccessResponse>(
+    final _data = request;
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -92,9 +103,12 @@ class _HistoryAPI implements HistoryAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -103,12 +117,12 @@ class _HistoryAPI implements HistoryAPI {
   }
 
   @override
-  Future<SuccessResponse> delete(String id) async {
+  Future<SuccessResponse<dynamic>> delete(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -119,9 +133,12 @@ class _HistoryAPI implements HistoryAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

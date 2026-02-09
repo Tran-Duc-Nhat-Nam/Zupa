@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
@@ -15,7 +15,7 @@ class RevenueRepositoryImpl implements IRevenueRepository {
   final RevenueAPI _api;
   final NetworkService _networkService;
 
-  RevenueRepositoryImpl(this._networkService, Dio dio) : _api = RevenueAPI(dio);
+  RevenueRepositoryImpl(this._networkService, this._api);
 
   @override
   Future<NetworkState<List<DailyRevenue>>> getRevenue({
@@ -29,20 +29,12 @@ class RevenueRepositoryImpl implements IRevenueRepository {
       ),
     );
 
-    if (response is SuccessResponse) {
-      try {
-        final List<dynamic> dataList = response.data['data'] as List<dynamic>;
-        final items = dataList
-            .map((e) => DailyRevenue.fromJson(e as Map<String, dynamic>))
-            .toList();
-        return .success(items);
-      } catch (e) {
-        return .error('Parsing Error: ${e.toString()}');
-      }
+    if (response is SuccessResponse<List<DailyRevenue>>) {
+      return NetworkState.success(response.data);
     } else if (response is ErrorResponse) {
-      return .error(response.message);
+      return NetworkState.error(response.message);
     } else {
-      return const .error('Unknown Response Type');
+      return const NetworkState.error('error');
     }
   }
 }

@@ -20,13 +20,13 @@ class _HomeAPI implements HomeAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> getList(Request request) async {
+  Future<SuccessResponse<List<HomeTicket>>> getList(Request request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(request.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<List<HomeTicket>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,9 +37,18 @@ class _HomeAPI implements HomeAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<List<HomeTicket>> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<List<HomeTicket>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<HomeTicket>(
+                    (i) => HomeTicket.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -48,12 +57,12 @@ class _HomeAPI implements HomeAPI {
   }
 
   @override
-  Future<SuccessResponse> get(String id) async {
+  Future<SuccessResponse<HomeTicket>> get(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<HomeTicket>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -64,9 +73,12 @@ class _HomeAPI implements HomeAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<HomeTicket> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<HomeTicket>.fromJson(
+        _result.data!,
+        (json) => HomeTicket.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -75,13 +87,13 @@ class _HomeAPI implements HomeAPI {
   }
 
   @override
-  Future<SuccessResponse> create(MemberVehicleRequest request) async {
+  Future<SuccessResponse<dynamic>> create(MemberVehicleRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -92,9 +104,12 @@ class _HomeAPI implements HomeAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -103,12 +118,12 @@ class _HomeAPI implements HomeAPI {
   }
 
   @override
-  Future<SuccessResponse> delete(String id) async {
+  Future<SuccessResponse<dynamic>> delete(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -119,9 +134,12 @@ class _HomeAPI implements HomeAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

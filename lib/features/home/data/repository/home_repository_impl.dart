@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:dio/dio.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
@@ -14,7 +13,7 @@ class HomeRepositoryImpl implements IHomeRepository {
   final HomeAPI _api;
   final NetworkService _networkService;
 
-  HomeRepositoryImpl(this._networkService, Dio dio) : _api = HomeAPI(dio);
+  HomeRepositoryImpl(this._networkService, this._api) ;
 
   @override
   Future<NetworkState<List<HomeTicket>>> getTickets({
@@ -28,15 +27,12 @@ class HomeRepositoryImpl implements IHomeRepository {
       ),
     );
 
-    if (response is SuccessResponse) {
+    if (response is SuccessResponse<List<HomeTicket>>) {
       try {
-        final List<dynamic> dataList = response.data.data as List<dynamic>;
-        final tickets = dataList
-            .map((e) => HomeTicket.fromJson(e as Map<String, dynamic>))
-            .toList();
+        final List<HomeTicket> tickets = response.data;
         return .success(tickets);
       } catch (e) {
-        return .error('Parsing Error: ${e.toString()}');
+        return .error(e.toString());
       }
     } else if (response is ErrorResponse) {
       if (response.code == 4001) {
@@ -45,7 +41,7 @@ class HomeRepositoryImpl implements IHomeRepository {
         return .error(response.message);
       }
     } else {
-      return const .error('Unknown Response Type');
+      return const .error('error');
     }
   }
 }

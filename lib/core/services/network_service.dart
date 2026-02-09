@@ -46,6 +46,10 @@ class NetworkService {
     try {
       final response = await apiFunction(_dio);
 
+      if (response is SuccessResponse) {
+        return response;
+      }
+
       if (response is Response) {
         return response.statusCode == 200
             ? SuccessResponse(

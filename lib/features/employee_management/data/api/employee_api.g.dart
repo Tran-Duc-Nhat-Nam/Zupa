@@ -20,12 +20,12 @@ class _EmployeeAPI implements EmployeeAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> getEmployees() async {
+  Future<SuccessResponse<List<HomeTicket>>> getEmployees() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<List<HomeTicket>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -36,9 +36,18 @@ class _EmployeeAPI implements EmployeeAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<List<HomeTicket>> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<List<HomeTicket>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<HomeTicket>(
+                    (i) => HomeTicket.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

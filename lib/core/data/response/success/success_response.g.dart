@@ -6,16 +6,20 @@ part of 'success_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_SuccessResponse _$SuccessResponseFromJson(Map<String, dynamic> json) =>
-    _SuccessResponse(
-      code: (json['code'] as num?)?.toInt() ?? 200,
-      data: json['data'],
-      message: json['message'] as String? ?? 'Success',
-    );
+_SuccessResponse<T> _$SuccessResponseFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) => _SuccessResponse<T>(
+  code: (json['code'] as num?)?.toInt() ?? 200,
+  data: fromJsonT(json['data']),
+  message: json['message'] as String? ?? 'Success',
+);
 
-Map<String, dynamic> _$SuccessResponseToJson(_SuccessResponse instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'data': instance.data,
-      'message': instance.message,
-    };
+Map<String, dynamic> _$SuccessResponseToJson<T>(
+  _SuccessResponse<T> instance,
+  Object? Function(T value) toJsonT,
+) => <String, dynamic>{
+  'code': instance.code,
+  'data': toJsonT(instance.data),
+  'message': instance.message,
+};

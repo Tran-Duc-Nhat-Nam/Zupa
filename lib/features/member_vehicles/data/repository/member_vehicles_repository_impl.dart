@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
@@ -14,8 +13,7 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
   final MemberVehiclesAPI _api;
   final NetworkService _networkService;
 
-  MemberVehiclesRepositoryImpl(this._networkService, Dio dio)
-    : _api = MemberVehiclesAPI(dio);
+  MemberVehiclesRepositoryImpl(this._networkService, this._api);
 
   @override
   Future<NetworkState<List<MemberVehicle>>> getMemberVehicles({
@@ -31,13 +29,10 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
       ),
     );
 
-    if (response is SuccessResponse) {
+    if (response is SuccessResponse<List<MemberVehicle>>) {
       try {
-        final List<dynamic> dataList = response.data['data'] as List<dynamic>;
-        final items = dataList
-            .map((e) => MemberVehicle.fromJson(e as Map<String, dynamic>))
-            .toList();
-        return .success(items);
+        final List<MemberVehicle> vehicles = response.data;
+        return .success(vehicles);
       } catch (e) {
         return .error('Parsing Error: ${e.toString()}');
       }

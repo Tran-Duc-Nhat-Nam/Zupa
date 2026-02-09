@@ -26,24 +26,29 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
         BlocProvider(create: (context) => getIt<RevenueFilterCubit>()..init()),
         BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
       ],
-      child: AppScreen(
-        isChildScrollable: true,
-        hasParentView: true,
-        title: t.revenue,
-        hasAppBar: false,
-        child: BlocListener<RevenueListCubit, RevenueListState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              unauthenticated: () => DialogHelper.showAuthDialog(context),
-            );
-          },
-          child: const Column(
-            children: [
-              SizedBox(height: 16),
-              Expanded(child: RevenueListTab()),
-            ],
-          ),
-        ),
+      child: Builder(
+        builder: (context) {
+          return AppScreen(
+            formGroup: context.read<RevenueFilterCubit>().formModel.form,
+            isChildScrollable: true,
+            hasParentView: true,
+            title: t.revenue,
+            hasAppBar: false,
+            child: BlocListener<RevenueListCubit, RevenueListState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  unauthenticated: () => DialogHelper.showAuthDialog(context),
+                );
+              },
+              child: const Column(
+                children: [
+                  SizedBox(height: 16),
+                  Expanded(child: RevenueListTab()),
+                ],
+              ),
+            ),
+          );
+        }
       ),
     );
   }

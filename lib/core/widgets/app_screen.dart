@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -29,6 +30,7 @@ class AppScreen extends StatefulWidget {
     this.onFormChanged,
     this.formInitialValue,
     this.footerPadding,
+    this.formGroup,
     this.isClose = false,
     this.appBarTrailingIcon,
     this.appBarTrailing,
@@ -59,6 +61,7 @@ class AppScreen extends StatefulWidget {
   final IconData? appBarLeadingIcon;
   final Widget? appBarLeading;
   final Widget? floatingActionButton;
+  final FormGroup? formGroup;
   final void Function()? onFormChanged;
   final Map<String, dynamic>? formInitialValue;
 
@@ -98,33 +101,34 @@ class _AppScreenState extends AppState<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildScreen();
+    return widget.formGroup != null
+        ? ReactiveForm(formGroup: widget.formGroup!, child: _buildScreen())
+        : _buildScreen();
   }
 
   Widget _buildScreen() {
     return widget.hasParentView
         ? _buildContent()
         : Scaffold(
-      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-      appBar: widget.hasAppBar
-          ? AppAppBar(
-        color: widget.appBarColor,
-        text: widget.title,
-        subtext: widget.subtitle,
-        isClose: widget.isClose,
-        trailing: widget.appBarTrailing,
-        trailingIcon: widget.appBarTrailingIcon,
-        leading: widget.appBarLeading,
-        leadingIcon: widget.appBarLeadingIcon,
-      )
-          : widget.appBar,
-      backgroundColor:
-      widget.backgroundColor ??
-          Theme.of(context).colorScheme.surface,
-      body: _buildContent(),
-      floatingActionButton: widget.floatingActionButton,
-    );
-}
+            resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+            appBar: widget.hasAppBar
+                ? AppAppBar(
+                    color: widget.appBarColor,
+                    text: widget.title,
+                    subtext: widget.subtitle,
+                    isClose: widget.isClose,
+                    trailing: widget.appBarTrailing,
+                    trailingIcon: widget.appBarTrailingIcon,
+                    leading: widget.appBarLeading,
+                    leadingIcon: widget.appBarLeadingIcon,
+                  )
+                : widget.appBar,
+            backgroundColor:
+                widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+            body: _buildContent(),
+            floatingActionButton: widget.floatingActionButton,
+          );
+  }
 
   Stack _buildContent() {
     return Stack(

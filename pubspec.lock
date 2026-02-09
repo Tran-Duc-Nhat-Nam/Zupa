@@ -197,10 +197,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "4e47c2796dab3f21fdfe1d15151bf628519093b171307cb64a71ba8e451697b5"
+      sha256: "11b4aee2f5e5e038982e152b4a342c749b414aa27857899d20f4323e94cb5f0b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.23"
+    version: "0.9.23+2"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -977,10 +977,10 @@ packages:
     dependency: transitive
     description:
       name: objective_c
-      sha256: "983c7fa1501f6dcc0cb7af4e42072e9993cb28d73604d25ebf4dab08165d997e"
+      sha256: "100a1c87616ab6ed41ec263b083c0ef3261ee6cd1dc3b0f35f8ddfa4f996fe52"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.5"
+    version: "9.3.0"
   octo_image:
     dependency: transitive
     description:
@@ -1218,7 +1218,7 @@ packages:
     description:
       path: "packages/reactive_forms_generator"
       ref: master
-      resolved-ref: aaec2f18be68f7ef2beddf544dd4237a9352b15f
+      resolved-ref: a0f37c33efade7603b8c2b88ec3bf8d44025e55b
       url: "https://github.com/Tran-Duc-Nhat-Nam-270702/reactive_forms_generator.git"
     source: git
     version: "7.5.0-beta1"
@@ -1431,10 +1431,10 @@ packages:
     dependency: transitive
     description:
       name: source_span
-      sha256: "254ee5351d6cb365c859e20ee823c3bb479bf4a293c22d17a9f1bf144ce86f7c"
+      sha256: "56a02f1f4cd1a2d96303c0144c93bd6d909eea6bee6bf5a0e0b685edbd4c47ab"
       url: "https://pub.dev"
     source: hosted
-    version: "1.10.1"
+    version: "1.10.2"
   sqflite:
     dependency: transitive
     description:

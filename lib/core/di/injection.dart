@@ -4,7 +4,5 @@ import 'package:zupa/core/di/injection.config.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit(
-  preferRelativeImports: true, // default
-)
+@InjectableInit()
 void configureDependencies() => getIt.init();

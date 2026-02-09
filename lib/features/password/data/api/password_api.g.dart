@@ -20,7 +20,7 @@ class _PasswordAPI implements PasswordAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> changePassword(
+  Future<SuccessResponse<dynamic>> changePassword(
     String currentPassword,
     String newPassword,
   ) async {
@@ -31,7 +31,7 @@ class _PasswordAPI implements PasswordAPI {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -42,9 +42,12 @@ class _PasswordAPI implements PasswordAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

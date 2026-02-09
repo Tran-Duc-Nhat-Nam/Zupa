@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
@@ -11,8 +10,7 @@ class PasswordRepositoryImpl implements IPasswordRepository {
   final PasswordAPI _api;
   final NetworkService _networkService;
 
-  PasswordRepositoryImpl(this._networkService, Dio dio)
-      : _api = PasswordAPI(dio);
+  PasswordRepositoryImpl(this._networkService, this._api);
 
   @override
   Future<NetworkState<SuccessResponse>> changePassword(

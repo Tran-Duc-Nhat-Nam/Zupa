@@ -83,7 +83,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   AppButton(
-                    isForm: true,
                     onPressed: state.whenOrNull(
                       loaded: () => context.read<LoginCubit>().login,
                     ),

@@ -20,13 +20,13 @@ class _RevenueAPI implements RevenueAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> getList(Request request) async {
+  Future<SuccessResponse<List<DailyRevenue>>> getList(Request request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(request.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<List<DailyRevenue>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,9 +37,18 @@ class _RevenueAPI implements RevenueAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<List<DailyRevenue>> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<List<DailyRevenue>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<DailyRevenue>(
+                    (i) => DailyRevenue.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -48,12 +57,12 @@ class _RevenueAPI implements RevenueAPI {
   }
 
   @override
-  Future<SuccessResponse> get(String id) async {
+  Future<SuccessResponse<DailyRevenue>> get(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<DailyRevenue>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -64,9 +73,12 @@ class _RevenueAPI implements RevenueAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<DailyRevenue> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<DailyRevenue>.fromJson(
+        _result.data!,
+        (json) => DailyRevenue.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -75,13 +87,12 @@ class _RevenueAPI implements RevenueAPI {
   }
 
   @override
-  Future<SuccessResponse> create(AccountRequest request) async {
+  Future<SuccessResponse<dynamic>> create(DailyRevenue request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
-    final _options = _setStreamType<SuccessResponse>(
+    final _data = request;
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -92,9 +103,12 @@ class _RevenueAPI implements RevenueAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -103,12 +117,12 @@ class _RevenueAPI implements RevenueAPI {
   }
 
   @override
-  Future<SuccessResponse> delete(String id) async {
+  Future<SuccessResponse<dynamic>> delete(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -119,9 +133,12 @@ class _RevenueAPI implements RevenueAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

@@ -40,40 +40,45 @@ class _HistoryScreenState extends State<HistoryScreen> {
           create: (listContext) => getIt<HistoryListCubit>()..init(),
         ),
       ],
-      child: AppScreen(
-        isChildScrollable: true,
-        hasParentView: true,
-        title: t.history,
-        hasAppBar: false,
-        child: BlocListener<HistoryListCubit, HistoryListState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              unauthenticated: () => DialogHelper.showAuthDialog(context),
-            );
-          },
-          child: BlocBuilder<HistoryListCubit, HistoryListState>(
-            builder: (listContext, listState) {
-              return Column(
-                children: [
-                  HistorySearchBar(isScrolledNotifier: _isScrolledNotifier),
-                  Expanded(
-                    child: NotificationListener<ScrollNotification>(
-                      onNotification: (notification) {
-                        if (notification is ScrollUpdateNotification) {
-                          final isScrolled =
-                              notification.metrics.pixels > 20;
-                          _isScrolledNotifier.value = isScrolled;
-                        }
-                        return false;
-                      },
-                      child: const HistoryListTab(),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
+      child: Builder(
+        builder: (context) {
+          return AppScreen(
+            formGroup: context.read<HistoryFilterCubit>().formModel.form,
+            isChildScrollable: true,
+            hasParentView: true,
+            title: t.history,
+            hasAppBar: false,
+            child: BlocListener<HistoryListCubit, HistoryListState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  unauthenticated: () => DialogHelper.showAuthDialog(context),
+                );
+              },
+              child: BlocBuilder<HistoryListCubit, HistoryListState>(
+                builder: (listContext, listState) {
+                  return Column(
+                    children: [
+                      HistorySearchBar(isScrolledNotifier: _isScrolledNotifier),
+                      Expanded(
+                        child: NotificationListener<ScrollNotification>(
+                          onNotification: (notification) {
+                            if (notification is ScrollUpdateNotification) {
+                              final isScrolled =
+                                  notification.metrics.pixels > 20;
+                              _isScrolledNotifier.value = isScrolled;
+                            }
+                            return false;
+                          },
+                          child: const HistoryListTab(),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          );
+        }
       ),
     );
   }

@@ -15,9 +15,10 @@ import 'package:zupa/features/auth/domain/repository/authentication_repository.d
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final NetworkService _networkService;
   final StorageService _storageService;
+  final AccountAPI _api;
   final _controller = StreamController<AuthenticationStatus>();
 
-  AuthenticationRepositoryImpl(this._networkService, this._storageService);
+  AuthenticationRepositoryImpl(this._networkService, this._storageService, this._api);
 
   @override
   Stream<AuthenticationStatus> get status async* {
@@ -40,7 +41,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
     try {
       final response = await _networkService.request(
-        (dio) => AccountAPI(dio).login(payload),
+        (dio) => _api.login(payload),
       );
 
       if (response is SuccessResponse) {

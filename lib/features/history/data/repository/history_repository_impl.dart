@@ -15,7 +15,7 @@ class HistoryRepositoryImpl implements IHistoryRepository {
   final HistoryAPI _api;
   final NetworkService _networkService;
 
-  HistoryRepositoryImpl(this._networkService, Dio dio) : _api = .new(dio, baseUrl: '/core/fsapp');
+  HistoryRepositoryImpl(this._networkService, this._api);
 
   @override
   Future<NetworkState<List<HistoryTicket>>> getHistory({
@@ -29,12 +29,9 @@ class HistoryRepositoryImpl implements IHistoryRepository {
       ),
     );
 
-    if (response is SuccessResponse) {
+    if (response is SuccessResponse<List<HistoryTicket>>) {
       try {
-        final List<dynamic> dataList = response.data.data as List<dynamic>;
-        final items = dataList
-            .map((e) => HistoryTicket.fromJson(e as Map<String, dynamic>))
-            .toList();
+        final List<HistoryTicket> items = response.data;
         return .success(items);
       } catch (e) {
         return .error('Parsing Error: ${e.toString()}');

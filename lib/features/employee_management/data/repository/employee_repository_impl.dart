@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
@@ -13,8 +12,7 @@ class EmployeeRepositoryImpl implements IEmployeeRepository {
   final EmployeeAPI _api;
   final NetworkService _networkService;
 
-  EmployeeRepositoryImpl(this._networkService, Dio dio)
-    : _api = EmployeeAPI(dio);
+  EmployeeRepositoryImpl(this._networkService, this._api);
 
   @override
   Future<NetworkState<List<Employee>>> getEmployees() async {

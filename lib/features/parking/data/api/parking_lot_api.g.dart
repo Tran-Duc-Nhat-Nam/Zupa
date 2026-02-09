@@ -20,7 +20,7 @@ class _ParkingLotAPI implements ParkingLotAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> getParkingLots(
+  Future<SuccessResponse<List<ParkingLot>>> getParkingLots(
     String? page,
     String? keyword,
     String? type,
@@ -36,7 +36,7 @@ class _ParkingLotAPI implements ParkingLotAPI {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<List<ParkingLot>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -47,9 +47,18 @@ class _ParkingLotAPI implements ParkingLotAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<List<ParkingLot>> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<List<ParkingLot>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<ParkingLot>(
+                    (i) => ParkingLot.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

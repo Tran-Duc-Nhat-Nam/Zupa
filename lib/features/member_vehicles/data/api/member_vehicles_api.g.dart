@@ -20,7 +20,7 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SuccessResponse> getMemberVehicles(
+  Future<SuccessResponse<List<MemberVehicle>>> getMemberVehicles(
     String? page,
     String? keyword,
     String? type,
@@ -36,7 +36,7 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<List<MemberVehicle>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -47,9 +47,18 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<List<MemberVehicle>> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<List<MemberVehicle>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<MemberVehicle>(
+                    (i) => MemberVehicle.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -58,12 +67,12 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
   }
 
   @override
-  Future<SuccessResponse> getMemberVehicle(String id) async {
+  Future<SuccessResponse<MemberVehicle>> getMemberVehicle(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<MemberVehicle>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -74,9 +83,12 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<MemberVehicle> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<MemberVehicle>.fromJson(
+        _result.data!,
+        (json) => MemberVehicle.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -85,12 +97,14 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
   }
 
   @override
-  Future<SuccessResponse> createMemberVehicle(MemberVehicle request) async {
+  Future<SuccessResponse<dynamic>> createMemberVehicle(
+    MemberVehicle request,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = request;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -101,9 +115,12 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -112,12 +129,12 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
   }
 
   @override
-  Future<SuccessResponse> deleteMemberVehicle(String id) async {
+  Future<SuccessResponse<dynamic>> deleteMemberVehicle(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SuccessResponse>(
+    final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -128,9 +145,12 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SuccessResponse _value;
+    late SuccessResponse<dynamic> _value;
     try {
-      _value = SuccessResponse.fromJson(_result.data!);
+      _value = SuccessResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

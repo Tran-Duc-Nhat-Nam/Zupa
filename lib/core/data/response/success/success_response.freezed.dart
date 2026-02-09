@@ -13,22 +13,22 @@ part of 'success_response.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$SuccessResponse {
+mixin _$SuccessResponse<T> {
 
- int get code; dynamic get data; String get message;
+ int get code; T get data; String get message;
 /// Create a copy of SuccessResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SuccessResponseCopyWith<SuccessResponse> get copyWith => _$SuccessResponseCopyWithImpl<SuccessResponse>(this as SuccessResponse, _$identity);
+$SuccessResponseCopyWith<T, SuccessResponse<T>> get copyWith => _$SuccessResponseCopyWithImpl<T, SuccessResponse<T>>(this as SuccessResponse<T>, _$identity);
 
   /// Serializes this SuccessResponse to a JSON map.
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT);
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SuccessResponse&&(identical(other.code, code) || other.code == code)&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SuccessResponse<T>&&(identical(other.code, code) || other.code == code)&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.message, message) || other.message == message));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,18 +37,18 @@ int get hashCode => Object.hash(runtimeType,code,const DeepCollectionEquality().
 
 @override
 String toString() {
-  return 'SuccessResponse(code: $code, data: $data, message: $message)';
+  return 'SuccessResponse<$T>(code: $code, data: $data, message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessResponseCopyWith<$Res>  {
-  factory $SuccessResponseCopyWith(SuccessResponse value, $Res Function(SuccessResponse) _then) = _$SuccessResponseCopyWithImpl;
+abstract mixin class $SuccessResponseCopyWith<T,$Res>  {
+  factory $SuccessResponseCopyWith(SuccessResponse<T> value, $Res Function(SuccessResponse<T>) _then) = _$SuccessResponseCopyWithImpl;
 @useResult
 $Res call({
- int code, dynamic data, String message
+ int code, T data, String message
 });
 
 
@@ -56,12 +56,12 @@ $Res call({
 
 }
 /// @nodoc
-class _$SuccessResponseCopyWithImpl<$Res>
-    implements $SuccessResponseCopyWith<$Res> {
+class _$SuccessResponseCopyWithImpl<T,$Res>
+    implements $SuccessResponseCopyWith<T, $Res> {
   _$SuccessResponseCopyWithImpl(this._self, this._then);
 
-  final SuccessResponse _self;
-  final $Res Function(SuccessResponse) _then;
+  final SuccessResponse<T> _self;
+  final $Res Function(SuccessResponse<T>) _then;
 
 /// Create a copy of SuccessResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -69,7 +69,7 @@ class _$SuccessResponseCopyWithImpl<$Res>
   return _then(_self.copyWith(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as int,data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as dynamic,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as T,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -78,7 +78,7 @@ as String,
 
 
 /// Adds pattern-matching-related methods to [SuccessResponse].
-extension SuccessResponsePatterns on SuccessResponse {
+extension SuccessResponsePatterns<T> on SuccessResponse<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -91,7 +91,7 @@ extension SuccessResponsePatterns on SuccessResponse {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SuccessResponse value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SuccessResponse<T> value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _SuccessResponse() when $default != null:
@@ -113,7 +113,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SuccessResponse value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SuccessResponse<T> value)  $default,){
 final _that = this;
 switch (_that) {
 case _SuccessResponse():
@@ -131,7 +131,7 @@ return $default(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SuccessResponse value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SuccessResponse<T> value)?  $default,){
 final _that = this;
 switch (_that) {
 case _SuccessResponse() when $default != null:
@@ -152,7 +152,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int code,  dynamic data,  String message)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int code,  T data,  String message)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SuccessResponse() when $default != null:
 return $default(_that.code,_that.data,_that.message);case _:
@@ -173,7 +173,7 @@ return $default(_that.code,_that.data,_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int code,  dynamic data,  String message)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int code,  T data,  String message)  $default,) {final _that = this;
 switch (_that) {
 case _SuccessResponse():
 return $default(_that.code,_that.data,_that.message);}
@@ -190,7 +190,7 @@ return $default(_that.code,_that.data,_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int code,  dynamic data,  String message)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int code,  T data,  String message)?  $default,) {final _that = this;
 switch (_that) {
 case _SuccessResponse() when $default != null:
 return $default(_that.code,_that.data,_that.message);case _:
@@ -202,30 +202,30 @@ return $default(_that.code,_that.data,_that.message);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(genericArgumentFactories: true)
 
-class _SuccessResponse implements SuccessResponse {
+class _SuccessResponse<T> implements SuccessResponse<T> {
   const _SuccessResponse({this.code = 200, required this.data, this.message = 'Success'});
-  factory _SuccessResponse.fromJson(Map<String, dynamic> json) => _$SuccessResponseFromJson(json);
+  factory _SuccessResponse.fromJson(Map<String, dynamic> json,T Function(Object?) fromJsonT) => _$SuccessResponseFromJson(json,fromJsonT);
 
 @override@JsonKey() final  int code;
-@override final  dynamic data;
+@override final  T data;
 @override@JsonKey() final  String message;
 
 /// Create a copy of SuccessResponse
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SuccessResponseCopyWith<_SuccessResponse> get copyWith => __$SuccessResponseCopyWithImpl<_SuccessResponse>(this, _$identity);
+_$SuccessResponseCopyWith<T, _SuccessResponse<T>> get copyWith => __$SuccessResponseCopyWithImpl<T, _SuccessResponse<T>>(this, _$identity);
 
 @override
-Map<String, dynamic> toJson() {
-  return _$SuccessResponseToJson(this, );
+Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
+  return _$SuccessResponseToJson<T>(this, toJsonT);
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SuccessResponse&&(identical(other.code, code) || other.code == code)&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SuccessResponse<T>&&(identical(other.code, code) || other.code == code)&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.message, message) || other.message == message));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -234,18 +234,18 @@ int get hashCode => Object.hash(runtimeType,code,const DeepCollectionEquality().
 
 @override
 String toString() {
-  return 'SuccessResponse(code: $code, data: $data, message: $message)';
+  return 'SuccessResponse<$T>(code: $code, data: $data, message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SuccessResponseCopyWith<$Res> implements $SuccessResponseCopyWith<$Res> {
-  factory _$SuccessResponseCopyWith(_SuccessResponse value, $Res Function(_SuccessResponse) _then) = __$SuccessResponseCopyWithImpl;
+abstract mixin class _$SuccessResponseCopyWith<T,$Res> implements $SuccessResponseCopyWith<T, $Res> {
+  factory _$SuccessResponseCopyWith(_SuccessResponse<T> value, $Res Function(_SuccessResponse<T>) _then) = __$SuccessResponseCopyWithImpl;
 @override @useResult
 $Res call({
- int code, dynamic data, String message
+ int code, T data, String message
 });
 
 
@@ -253,20 +253,20 @@ $Res call({
 
 }
 /// @nodoc
-class __$SuccessResponseCopyWithImpl<$Res>
-    implements _$SuccessResponseCopyWith<$Res> {
+class __$SuccessResponseCopyWithImpl<T,$Res>
+    implements _$SuccessResponseCopyWith<T, $Res> {
   __$SuccessResponseCopyWithImpl(this._self, this._then);
 
-  final _SuccessResponse _self;
-  final $Res Function(_SuccessResponse) _then;
+  final _SuccessResponse<T> _self;
+  final $Res Function(_SuccessResponse<T>) _then;
 
 /// Create a copy of SuccessResponse
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? code = null,Object? data = freezed,Object? message = null,}) {
-  return _then(_SuccessResponse(
+  return _then(_SuccessResponse<T>(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as int,data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as dynamic,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as T,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

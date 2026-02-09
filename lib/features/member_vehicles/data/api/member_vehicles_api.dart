@@ -7,11 +7,14 @@ part 'member_vehicles_api.g.dart';
 
 @RestApi()
 abstract class MemberVehiclesAPI {
-  factory MemberVehiclesAPI(Dio dio, {String? baseUrl, ParseErrorLogger? errorLogger}) =
-      _MemberVehiclesAPI;
+  factory MemberVehiclesAPI(
+    Dio dio, {
+    String? baseUrl,
+    ParseErrorLogger? errorLogger,
+  }) = _MemberVehiclesAPI;
 
   @GET('/member-vehicles')
-  Future<SuccessResponse> getMemberVehicles(
+  Future<SuccessResponse<List<MemberVehicle>>> getMemberVehicles(
     @Query('page') String? page,
     @Query('keyword') String? keyword,
     @Query('type') String? type,
@@ -19,7 +22,9 @@ abstract class MemberVehiclesAPI {
   );
 
   @GET('/hrm/staff-meta-data/{id}')
-  Future<SuccessResponse> getMemberVehicle(@Path('id') String id);
+  Future<SuccessResponse<MemberVehicle>> getMemberVehicle(
+    @Path('id') String id,
+  );
 
   @POST('/hrm/staff-meta-data')
   Future<SuccessResponse> createMemberVehicle(@Body() MemberVehicle request);
@@ -27,4 +32,3 @@ abstract class MemberVehiclesAPI {
   @DELETE('/hrm/staff-meta-data/{id}')
   Future<SuccessResponse> deleteMemberVehicle(@Path('id') String id);
 }
-
