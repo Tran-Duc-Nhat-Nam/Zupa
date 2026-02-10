@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "8d7ff3948166b8ec5da0fbb5962000926b8e02f2ed9b3e51d1738905fbd4c98d"
+      sha256: "5b7468c326d2f8a4f630056404ca0d291ade42918f4a3c6233618e724f39da8e"
       url: "https://pub.dev"
     source: hosted
-    version: "93.0.0"
+    version: "92.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: de7148ed2fcec579b19f122c1800933dfa028f6d9fd38a152b04b1516cec120b
+      sha256: "70e4b1ef8003c64793a9e268a551a82869a8a96f39deb73dea28084b0e8bf75e"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.1"
+    version: "9.0.0"
   animated_segmented_tab_control:
     dependency: "direct main"
     description:
@@ -84,11 +84,10 @@ packages:
   auto_route_generator:
     dependency: "direct dev"
     description:
-      path: auto_route_generator
-      ref: master
-      resolved-ref: a519be8c5a862d8f63db8e8b5b28086485c1cfe1
-      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/auto_route_library.git"
-    source: git
+      name: auto_route_generator
+      sha256: "04300eaf5821962aae8b5cd94f67013fd2fd326dc3be212d3ec1ae7470f09834"
+      url: "https://pub.dev"
+    source: hosted
     version: "10.4.0"
   bloc:
     dependency: "direct main"
@@ -182,10 +181,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera
-      sha256: a005c6b9783d895a3a9808d65d06773d13587e22a186b6fe8ef3801b0d12f8cf
+      sha256: eefad89f262a873f38d21e5eec853461737ea074d7c9ede39f3ceb135d201cab
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.3+1"
+    version: "0.11.3"
   camera_android_camerax:
     dependency: transitive
     description:
@@ -342,10 +341,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "15a7db352c8fc6a4d2bc475ba901c25b39fe7157541da4c16eacce6f8be83e49"
+      sha256: a9c30492da18ff84efe2422ba2d319a89942d93e58eb0b73d32abe822ef54b7b
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.5"
+    version: "3.1.3"
   dartx:
     dependency: "direct main"
     description:
@@ -405,12 +404,11 @@ packages:
   envied_generator:
     dependency: "direct dev"
     description:
-      path: "packages/envied_generator"
-      ref: "release/v1.3.3"
-      resolved-ref: be17d741cce891235e22b69193786c0c8f98f5d4
-      url: "https://github.com/petercinibulk/envied.git"
-    source: git
-    version: "1.3.3"
+      name: envied_generator
+      sha256: "04467955af3b8f8a249b2f20686f00c89a979cb077aef7d0918642978b28bdeb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.2"
   equatable:
     dependency: transitive
     description:
@@ -631,6 +629,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  frontend_server_client:
+    dependency: transitive
+    description:
+      name: frontend_server_client
+      sha256: f64a0333a82f30b0cca061bc3d143813a486dc086b574bfb233b7c1372427694
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   get_it:
     dependency: "direct main"
     description:
@@ -687,6 +693,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  hotreloader:
+    dependency: transitive
+    description:
+      name: hotreloader
+      sha256: bc167a1163807b03bada490bfe2df25b0d744df359227880220a5cbd04e5734b
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.0"
   html:
     dependency: transitive
     description:
@@ -738,11 +752,10 @@ packages:
   injectable_generator:
     dependency: "direct dev"
     description:
-      path: injectable_generator
-      ref: "530cc71cc195d1c1a376b7c7b761931b02293512"
-      resolved-ref: "530cc71cc195d1c1a376b7c7b761931b02293512"
-      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/injectable.git"
-    source: git
+      name: injectable_generator
+      sha256: "5168f8189e8a3a5ec6cbaeb5249e99f53d51b6594f9abbc3e482f95ae1d96bfb"
+      url: "https://pub.dev"
+    source: hosted
     version: "2.12.0"
   intl:
     dependency: "direct main"
@@ -808,6 +821,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  lean_builder:
+    dependency: transitive
+    description:
+      name: lean_builder
+      sha256: "6af3cfbf34400eb14b89fe20111e5981e7083362f00ea10b9ed2a6e833250d76"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.6"
   lints:
     dependency: transitive
     description:
@@ -844,10 +865,10 @@ packages:
     dependency: transitive
     description:
       name: local_auth_darwin
-      sha256: "176480aa855ebedeed195e26ac7d6601a45e6b255dfc7433f353e0c1aeafa9a2"
+      sha256: "668ea65edaab17380956e9713f57e34f78ede505ca0cfd8d39db34e2f260bfee"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.1"
   local_auth_platform_interface:
     dependency: transitive
     description:
@@ -1196,8 +1217,8 @@ packages:
     dependency: "direct dev"
     description:
       path: "packages/reactive_forms_generator"
-      ref: "51c906deeac2c6326b7533f1121789365b47b54c"
-      resolved-ref: "51c906deeac2c6326b7533f1121789365b47b54c"
+      ref: master
+      resolved-ref: a0f37c33efade7603b8c2b88ec3bf8d44025e55b
       url: "https://github.com/Tran-Duc-Nhat-Nam-270702/reactive_forms_generator.git"
     source: git
     version: "7.5.0-beta1"
@@ -1220,12 +1241,11 @@ packages:
   retrofit_generator:
     dependency: "direct dev"
     description:
-      path: generator
-      ref: master
-      resolved-ref: "0227ecaa9d0c3794b41af9c665091702643af499"
-      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/retrofit.dart.git"
-    source: git
-    version: "10.2.3"
+      name: retrofit_generator
+      sha256: fed2c4e4ed6dab084c00d25c739988aa3cec1acd2b168771136188cced8d967d
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.2.1"
   rfc_6901:
     dependency: transitive
     description:
@@ -1619,10 +1639,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: b1aca26728b7cc7a3af971bb6f601554a8ae9df2e0a006de8450ba06a17ad36a
+      sha256: cfde38aa257dae62ffe79c87fab20165dfdf6988c1d31b58ebf59b9106062aad
       url: "https://pub.dev"
     source: hosted
-    version: "6.4.0"
+    version: "6.3.6"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1708,10 +1728,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: "1398c9f081a753f9226febe8900fce8f7d0a67163334e1c94a2438339d79d635"
+      sha256: "592ab6e2892f67760543fb712ff0177f4ec76c031f02f5b4ff8d3fc5eb9fb61a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.1.4"
   web:
     dependency: transitive
     description:
@@ -1760,6 +1780,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.6.1"
+  xxh3:
+    dependency: transitive
+    description:
+      name: xxh3
+      sha256: "399a0438f5d426785723c99da6b16e136f4953fb1e9db0bf270bd41dd4619916"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   yaml:
     dependency: transitive
     description:
