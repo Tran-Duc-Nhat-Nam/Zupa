@@ -1,10 +1,10 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http_cache_isar_store/http_cache_isar_store.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,7 +28,7 @@ abstract class ExternalModule {
   LocalAuthentication get localAuthentication => LocalAuthentication();
 
   @lazySingleton
-  Connectivity get connectivity => Connectivity();
+  InternetConnection get connection => InternetConnection();
 
   @preResolve
   Future<CacheOptions> get cacheOptions async {

@@ -71,6 +71,7 @@ class LoginCubit extends Cubit<LoginState> {
             } else {
               await _storageService.removeAccountInfo();
             }
+            emit(const .loginSuccess());
           },
           error: (message) {
             emit(.loginFailed(message));

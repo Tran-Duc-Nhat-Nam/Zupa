@@ -9,12 +9,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:dio/dio.dart' as _i361;
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart' as _i695;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
+    as _i161;
 import 'package:local_auth/local_auth.dart' as _i152;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart' as _i792;
@@ -142,7 +143,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i152.LocalAuthentication>(
       () => externalModule.localAuthentication,
     );
-    gh.lazySingleton<_i895.Connectivity>(() => externalModule.connectivity);
+    gh.lazySingleton<_i161.InternetConnection>(() => externalModule.connection);
     gh.lazySingleton<_i361.Dio>(
       () => externalModule.dio(gh<_i695.CacheOptions>()),
     );
@@ -208,6 +209,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i955.PasswordSettingsCubit>(
       () => _i955.PasswordSettingsCubit(gh<_i468.IPasswordRepository>()),
     );
+    gh.lazySingleton<_i862.NetworkInfo>(
+      () => _i862.NetworkInfoImpl(gh<_i161.InternetConnection>()),
+    );
     gh.factory<_i665.RevenueListCubit>(
       () => _i665.RevenueListCubit(gh<_i481.IRevenueRepository>()),
     );
@@ -224,9 +228,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i585.MemberVehiclesListCubit>(
       () =>
           _i585.MemberVehiclesListCubit(gh<_i382.IMemberVehiclesRepository>()),
-    );
-    gh.lazySingleton<_i862.NetworkInfo>(
-      () => _i862.NetworkInfoImpl(gh<_i895.Connectivity>()),
     );
     gh.lazySingleton<_i221.IEmployeeRepository>(
       () => _i985.EmployeeRepositoryImpl(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/auth/data/api/account_api.dart';
@@ -35,8 +36,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         (dio) => _api.login(payload),
       );
 
-      if (response is AuthResponse) {
-        return .success(response);
+      if (response is SuccessResponse) {
+        return .success(response.data);
       } else if (response is ErrorResponse) {
         return .error(response.message);
       } else {

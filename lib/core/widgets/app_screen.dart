@@ -77,9 +77,8 @@ class _AppScreenState extends AppState<AppScreen> {
     if (!widget.hasParentView) {
       detector = .autoStart(
         onPhoneShake: (ShakeEvent event) async {
-          if (await getIt<StorageService>().getDebuggerMode() &&
-              mounted &&
-              kDebugMode) {
+          if ((await getIt<StorageService>().getDebuggerMode() || kDebugMode) &&
+              mounted) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) =>
