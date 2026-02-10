@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_refresh/easy_refresh.dart';
+import 'package:extended_image/extended_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +7,8 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/member_vehicles/data/models/member_vehicle.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
-import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart' hide Loading;
+import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart'
+    hide Loading;
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -111,22 +112,16 @@ class MemberVehiclesTitle extends StatelessWidget {
             spacing: 3,
             children: [
               InkWell(
-                onTap: () => AppPhotoView.showPhotoView(
+                onTap: () => AppPhotoView.showNetworkPhotoView(
                   context,
-                  const NetworkImage('https://picsum.photos/750'),
+                  'https://picsum.photos/750',
                 ),
-                child: Container(
-                  clipBehavior: .antiAlias,
+                child: ExtendedImage.network(
+                  'https://picsum.photos/60',
+                  fit: .cover,
+                  borderRadius: .circular(6),
                   height: 60,
                   width: 60,
-                  decoration: BoxDecoration(borderRadius: .circular(6)),
-                  child: Skeleton.replace(
-                    height: 60,
-                    width: 60,
-                    child: CachedNetworkImage(
-                      imageUrl: 'https://picsum.photos/60',
-                    ),
-                  ),
                 ),
               ),
               Container(

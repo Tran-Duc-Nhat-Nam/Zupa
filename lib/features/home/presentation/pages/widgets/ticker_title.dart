@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_date/dart_date.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -71,26 +70,17 @@ class TicketTitle extends StatelessWidget {
             Padding(
               padding: const .only(right: 12),
               child: InkWell(
-                onTap: () => AppPhotoView.showPhotoView(
+                onTap: () => AppPhotoView.showNetworkPhotoView(
                   context,
-                  const NetworkImage('https://picsum.photos/750'),
+                  ticket.avatarPath ?? 'https://picsum.photos/750',
                 ),
-                child: Container(
-                  clipBehavior: .antiAlias,
-                  height: 50,
+                child: ExtendedImage.network(
+                  ticket.avatarPath ?? 'https://picsum.photos/50',
+                  fit: .cover,
                   width: 50,
-                  decoration: BoxDecoration(borderRadius: .circular(16)),
-                  child: Skeleton.replace(
-                    height: 50,
-                    width: 50,
-                    child: CachedNetworkImage(
-                      imageUrl: ticket.avatarPath ?? 'https://picsum.photos/50',
-                      placeholder: (context, url) =>
-                          Container(color: colors.grey100),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                  ),
+                  height: 50,
+                  borderRadius: .circular(6),
+                  shape: .rectangle,
                 ),
               ),
             ),
