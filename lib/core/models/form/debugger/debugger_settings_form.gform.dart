@@ -53,7 +53,7 @@ class ReactiveDebuggerSettingsForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResultWithResult,
+    this.onPopInvokedWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -63,7 +63,7 @@ class ReactiveDebuggerSettingsForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResultWithResult;
+  onPopInvokedWithResult;
 
   static DebuggerSettingsForm? of(BuildContext context, {bool listen = true}) {
     if (listen) {
@@ -90,7 +90,7 @@ class ReactiveDebuggerSettingsForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
+        onPopInvokedWithResult: onPopInvokedWithResult,
         child: child,
       ),
     );
@@ -111,7 +111,7 @@ class DebuggerSettingsFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResultWithResult,
+    this.onPopInvokedWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -123,7 +123,7 @@ class DebuggerSettingsFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResultWithResult;
+  onPopInvokedWithResult;
 
   final Widget Function(
     BuildContext context,
@@ -215,8 +215,7 @@ class _DebuggerSettingsFormBuilderState
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResultWithResult:
-            widget.onPopInvokedWithResultWithResult,
+        onPopInvokedWithResult: widget.onPopInvokedWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -244,7 +243,7 @@ class DebuggerSettingsForm
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, dynamic> initial;
+  final Map<String, Object?> initial;
 
   String isEnabledControlPath() => pathBuilder(isEnabledControlName);
 
@@ -440,7 +439,7 @@ class DebuggerSettingsForm
   );
 
   @override
-  void updateInitial(Map<String, dynamic>? value, String? path) {
+  void updateInitial(Map<String, Object?>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -468,7 +467,7 @@ class DebuggerSettingsForm
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, dynamic>{};
+          current[key] = <String, Object?>{};
         }
         current = current[key];
         continue;
@@ -690,13 +689,13 @@ class ReactiveDebuggerSettingsFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, dynamic>?>,
+    List<Map<String, Object?>?>,
     List<ReactiveDebuggerSettingsFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, dynamic>?>,
+    List<Map<String, Object?>?>,
     List<ReactiveDebuggerSettingsFormFormGroupArrayBuilderT>
   >
   Function(DebuggerSettingsForm formModel)?
@@ -727,7 +726,7 @@ class ReactiveDebuggerSettingsFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, dynamic>?>?>(
+    return StreamBuilder<List<Map<String, Object?>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =

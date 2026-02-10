@@ -54,7 +54,7 @@ class ReactiveMemberVehiclesListForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResultWithResult,
+    this.onPopInvokedWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -64,7 +64,7 @@ class ReactiveMemberVehiclesListForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResultWithResult;
+  onPopInvokedWithResult;
 
   static MemberVehiclesListForm? of(
     BuildContext context, {
@@ -94,7 +94,7 @@ class ReactiveMemberVehiclesListForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
+        onPopInvokedWithResult: onPopInvokedWithResult,
         child: child,
       ),
     );
@@ -115,7 +115,7 @@ class MemberVehiclesListFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResultWithResult,
+    this.onPopInvokedWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -127,7 +127,7 @@ class MemberVehiclesListFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResultWithResult;
+  onPopInvokedWithResult;
 
   final Widget Function(
     BuildContext context,
@@ -221,8 +221,7 @@ class _MemberVehiclesListFormBuilderState
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResultWithResult:
-            widget.onPopInvokedWithResultWithResult,
+        onPopInvokedWithResult: widget.onPopInvokedWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -254,7 +253,7 @@ class MemberVehiclesListForm
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, dynamic> initial;
+  final Map<String, Object?> initial;
 
   String keywordControlPath() => pathBuilder(keywordControlName);
 
@@ -660,7 +659,7 @@ class MemberVehiclesListForm
   );
 
   @override
-  void updateInitial(Map<String, dynamic>? value, String? path) {
+  void updateInitial(Map<String, Object?>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -688,7 +687,7 @@ class MemberVehiclesListForm
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, dynamic>{};
+          current[key] = <String, Object?>{};
         }
         current = current[key];
         continue;
@@ -926,13 +925,13 @@ class ReactiveMemberVehiclesListFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, dynamic>?>,
+    List<Map<String, Object?>?>,
     List<ReactiveMemberVehiclesListFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, dynamic>?>,
+    List<Map<String, Object?>?>,
     List<ReactiveMemberVehiclesListFormFormGroupArrayBuilderT>
   >
   Function(MemberVehiclesListForm formModel)?
@@ -963,7 +962,7 @@ class ReactiveMemberVehiclesListFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, dynamic>?>?>(
+    return StreamBuilder<List<Map<String, Object?>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =
