@@ -53,7 +53,7 @@ class ReactiveAppSettingsForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -63,7 +63,7 @@ class ReactiveAppSettingsForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   static AppSettingsForm? of(BuildContext context, {bool listen = true}) {
     if (listen) {
@@ -90,7 +90,7 @@ class ReactiveAppSettingsForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResult: onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
         child: child,
       ),
     );
@@ -110,7 +110,7 @@ class AppSettingsFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -122,7 +122,7 @@ class AppSettingsFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   final Widget Function(
     BuildContext context,
@@ -212,7 +212,8 @@ class _AppSettingsFormBuilderState extends State<AppSettingsFormBuilder> {
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResult: widget.onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult:
+            widget.onPopInvokedWithResultWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -239,7 +240,7 @@ class AppSettingsForm implements FormModel<AppSettings, AppSettings> {
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, Object?> initial;
+  final Map<String, dynamic> initial;
 
   String localizationModeControlPath() =>
       pathBuilder(localizationModeControlName);
@@ -440,7 +441,7 @@ class AppSettingsForm implements FormModel<AppSettings, AppSettings> {
   );
 
   @override
-  void updateInitial(Map<String, Object?>? value, String? path) {
+  void updateInitial(Map<String, dynamic>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -468,7 +469,7 @@ class AppSettingsForm implements FormModel<AppSettings, AppSettings> {
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, Object?>{};
+          current[key] = <String, dynamic>{};
         }
         current = current[key];
         continue;
@@ -677,13 +678,13 @@ class ReactiveAppSettingsFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveAppSettingsFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveAppSettingsFormFormGroupArrayBuilderT>
   >
   Function(AppSettingsForm formModel)?
@@ -714,7 +715,7 @@ class ReactiveAppSettingsFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, Object?>?>?>(
+    return StreamBuilder<List<Map<String, dynamic>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =

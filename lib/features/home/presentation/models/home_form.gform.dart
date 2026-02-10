@@ -46,7 +46,7 @@ class ReactiveHomeForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -56,7 +56,7 @@ class ReactiveHomeForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   static HomeForm? of(BuildContext context, {bool listen = true}) {
     if (listen) {
@@ -79,7 +79,7 @@ class ReactiveHomeForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResult: onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
         child: child,
       ),
     );
@@ -98,7 +98,7 @@ class HomeFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -110,7 +110,7 @@ class HomeFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   final Widget Function(BuildContext context, HomeForm formModel, Widget? child)
   builder;
@@ -191,7 +191,8 @@ class _HomeFormBuilderState extends State<HomeFormBuilder> {
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResult: widget.onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult:
+            widget.onPopInvokedWithResultWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -221,7 +222,7 @@ class HomeForm implements FormModel<Home, Home> {
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, Object?> initial;
+  final Map<String, dynamic> initial;
 
   String keywordControlPath() => pathBuilder(keywordControlName);
 
@@ -620,7 +621,7 @@ class HomeForm implements FormModel<Home, Home> {
       );
 
   @override
-  void updateInitial(Map<String, Object?>? value, String? path) {
+  void updateInitial(Map<String, dynamic>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -648,7 +649,7 @@ class HomeForm implements FormModel<Home, Home> {
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, Object?>{};
+          current[key] = <String, dynamic>{};
         }
         current = current[key];
         continue;
@@ -864,13 +865,13 @@ class ReactiveHomeFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveHomeFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveHomeFormFormGroupArrayBuilderT>
   >
   Function(HomeForm formModel)?
@@ -901,7 +902,7 @@ class ReactiveHomeFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, Object?>?>?>(
+    return StreamBuilder<List<Map<String, dynamic>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =

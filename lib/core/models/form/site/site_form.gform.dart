@@ -46,7 +46,7 @@ class ReactiveSiteForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -56,7 +56,7 @@ class ReactiveSiteForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   static SiteForm? of(BuildContext context, {bool listen = true}) {
     if (listen) {
@@ -79,7 +79,7 @@ class ReactiveSiteForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResult: onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
         child: child,
       ),
     );
@@ -98,7 +98,7 @@ class SiteFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -110,7 +110,7 @@ class SiteFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   final Widget Function(BuildContext context, SiteForm formModel, Widget? child)
   builder;
@@ -191,7 +191,8 @@ class _SiteFormBuilderState extends State<SiteFormBuilder> {
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResult: widget.onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult:
+            widget.onPopInvokedWithResultWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -217,7 +218,7 @@ class SiteForm implements FormModel<Site, Site> {
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, Object?> initial;
+  final Map<String, dynamic> initial;
 
   String codeControlPath() => pathBuilder(codeControlName);
 
@@ -410,7 +411,7 @@ class SiteForm implements FormModel<Site, Site> {
       );
 
   @override
-  void updateInitial(Map<String, Object?>? value, String? path) {
+  void updateInitial(Map<String, dynamic>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -438,7 +439,7 @@ class SiteForm implements FormModel<Site, Site> {
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, Object?>{};
+          current[key] = <String, dynamic>{};
         }
         current = current[key];
         continue;
@@ -638,13 +639,13 @@ class ReactiveSiteFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveSiteFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveSiteFormFormGroupArrayBuilderT>
   >
   Function(SiteForm formModel)?
@@ -675,7 +676,7 @@ class ReactiveSiteFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, Object?>?>?>(
+    return StreamBuilder<List<Map<String, dynamic>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =

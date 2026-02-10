@@ -53,7 +53,7 @@ class ReactiveChangePasswordForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -63,7 +63,7 @@ class ReactiveChangePasswordForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   static ChangePasswordForm? of(BuildContext context, {bool listen = true}) {
     if (listen) {
@@ -90,7 +90,7 @@ class ReactiveChangePasswordForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResult: onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
         child: child,
       ),
     );
@@ -111,7 +111,7 @@ class ChangePasswordFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -123,7 +123,7 @@ class ChangePasswordFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   final Widget Function(
     BuildContext context,
@@ -214,7 +214,8 @@ class _ChangePasswordFormBuilderState extends State<ChangePasswordFormBuilder> {
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResult: widget.onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult:
+            widget.onPopInvokedWithResultWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -245,7 +246,7 @@ class ChangePasswordForm implements FormModel<ChangePassword, ChangePassword> {
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, Object?> initial;
+  final Map<String, dynamic> initial;
 
   String currentPasswordControlPath() =>
       pathBuilder(currentPasswordControlName);
@@ -609,7 +610,7 @@ class ChangePasswordForm implements FormModel<ChangePassword, ChangePassword> {
   );
 
   @override
-  void updateInitial(Map<String, Object?>? value, String? path) {
+  void updateInitial(Map<String, dynamic>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -637,7 +638,7 @@ class ChangePasswordForm implements FormModel<ChangePassword, ChangePassword> {
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, Object?>{};
+          current[key] = <String, dynamic>{};
         }
         current = current[key];
         continue;
@@ -877,13 +878,13 @@ class ReactiveChangePasswordFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveChangePasswordFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveChangePasswordFormFormGroupArrayBuilderT>
   >
   Function(ChangePasswordForm formModel)?
@@ -914,7 +915,7 @@ class ReactiveChangePasswordFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, Object?>?>?>(
+    return StreamBuilder<List<Map<String, dynamic>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =

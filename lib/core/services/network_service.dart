@@ -66,8 +66,12 @@ class NetworkService {
     } on DioException catch (e) {
       if (e.response?.data is Map<String, dynamic>) {
         return ErrorResponse(
-          code: e.response?.data?['code'] ?? 500,
-          message: e.response?.data?['message'] ?? e.message ?? 'Error',
+          code: e.response?.data?['code'] is int
+              ? e.response?.data['code'] as int
+              : e.response?.statusCode ?? 500,
+          message: e.response?.data?['message'] is String
+              ? e.response?.data['message'] as String
+              : e.message ?? 'Error',
         );
       } else {
         const ErrorResponse(message: 'Error');

@@ -53,7 +53,7 @@ class ReactiveParkingLotDetailForm extends StatelessWidget {
     required this.form,
     required this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
   }) : super(key: key);
 
   final Widget child;
@@ -63,7 +63,7 @@ class ReactiveParkingLotDetailForm extends StatelessWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   static ParkingLotDetailForm? of(BuildContext context, {bool listen = true}) {
     if (listen) {
@@ -90,7 +90,7 @@ class ReactiveParkingLotDetailForm extends StatelessWidget {
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
         canPop: canPop,
-        onPopInvokedWithResult: onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult: onPopInvokedWithResultWithResult,
         child: child,
       ),
     );
@@ -111,7 +111,7 @@ class ParkingLotDetailFormBuilder extends StatefulWidget {
     this.model,
     this.child,
     this.canPop,
-    this.onPopInvokedWithResult,
+    this.onPopInvokedWithResultWithResult,
     required this.builder,
     this.initState,
   }) : super(key: key);
@@ -123,7 +123,7 @@ class ParkingLotDetailFormBuilder extends StatefulWidget {
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop, dynamic? result)?
-  onPopInvokedWithResult;
+  onPopInvokedWithResultWithResult;
 
   final Widget Function(
     BuildContext context,
@@ -215,7 +215,8 @@ class _ParkingLotDetailFormBuilderState
       child: ReactiveFormBuilder(
         form: () => _formModel.form,
         canPop: widget.canPop,
-        onPopInvokedWithResult: widget.onPopInvokedWithResult,
+        onPopInvokedWithResultWithResult:
+            widget.onPopInvokedWithResultWithResult,
         builder: (context, formGroup, child) =>
             widget.builder(context, _formModel, widget.child),
         child: widget.child,
@@ -249,7 +250,7 @@ class ParkingLotDetailForm
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, Object?> initial;
+  final Map<String, dynamic> initial;
 
   String branchNameControlPath() => pathBuilder(branchNameControlName);
 
@@ -561,8 +562,8 @@ class ParkingLotDetailForm
   FormControl<bool> get isLockedControl =>
       form.control(isLockedControlPath()) as FormControl<bool>;
 
-  FormArray<Map<String, Object?>> get capacityControl =>
-      form.control(capacityControlPath()) as FormArray<Map<String, Object?>>;
+  FormArray<Map<String, dynamic>> get capacityControl =>
+      form.control(capacityControlPath()) as FormArray<Map<String, dynamic>>;
 
   List<ParkingLotCapacityForm> get capacityParkingLotCapacityForm {
     final values = capacityControl.controls.map((e) => e.value).toList();
@@ -655,13 +656,13 @@ class ParkingLotDetailForm
     }
   }
 
-  ExtendedControl<List<Map<String, Object?>?>, List<ParkingLotCapacityForm>>
+  ExtendedControl<List<Map<String, dynamic>?>, List<ParkingLotCapacityForm>>
   get capacityExtendedControl =>
       ExtendedControl<
-        List<Map<String, Object?>?>,
+        List<Map<String, dynamic>?>,
         List<ParkingLotCapacityForm>
       >(
-        form.control(capacityControlPath()) as FormArray<Map<String, Object?>>,
+        form.control(capacityControlPath()) as FormArray<Map<String, dynamic>>,
         () => capacityParkingLotCapacityForm,
       );
 
@@ -809,7 +810,7 @@ class ParkingLotDetailForm
   );
 
   @override
-  void updateInitial(Map<String, Object?>? value, String? path) {
+  void updateInitial(Map<String, dynamic>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -837,7 +838,7 @@ class ParkingLotDetailForm
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, Object?>{};
+          current[key] = <String, dynamic>{};
         }
         current = current[key];
         continue;
@@ -925,7 +926,7 @@ class ParkingLotCapacityForm
   final Map<String, bool> _disabled = {};
 
   @override
-  final Map<String, Object?> initial;
+  final Map<String, dynamic> initial;
 
   String capacityControlPath() => pathBuilder(capacityControlName);
 
@@ -1206,7 +1207,7 @@ class ParkingLotCapacityForm
   );
 
   @override
-  void updateInitial(Map<String, Object?>? value, String? path) {
+  void updateInitial(Map<String, dynamic>? value, String? path) {
     if (_formModel != null) {
       _formModel?.updateInitial(currentForm.rawValue, path);
       return;
@@ -1234,7 +1235,7 @@ class ParkingLotCapacityForm
 
       if (current is Map) {
         if (!current.containsKey(key)) {
-          current[key] = <String, Object?>{};
+          current[key] = <String, dynamic>{};
         }
         current = current[key];
         continue;
@@ -1464,13 +1465,13 @@ class ReactiveParkingLotDetailFormFormGroupArrayBuilder<
        super(key: key);
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveParkingLotDetailFormFormGroupArrayBuilderT>
   >?
   extended;
 
   final ExtendedControl<
-    List<Map<String, Object?>?>,
+    List<Map<String, dynamic>?>,
     List<ReactiveParkingLotDetailFormFormGroupArrayBuilderT>
   >
   Function(ParkingLotDetailForm formModel)?
@@ -1501,7 +1502,7 @@ class ReactiveParkingLotDetailFormFormGroupArrayBuilder<
 
     final value = (extended ?? getExtended?.call(formModel))!;
 
-    return StreamBuilder<List<Map<String, Object?>?>?>(
+    return StreamBuilder<List<Map<String, dynamic>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =
