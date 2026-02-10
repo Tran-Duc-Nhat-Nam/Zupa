@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
@@ -35,6 +36,7 @@ abstract class ExternalModule {
             connectTimeout: const .new(seconds: 30),
           ),
         )
+        ..interceptors.add(DioCacheInterceptor(options: cacheOptions))
         ..interceptors.add(AuthInterceptor())
         ..interceptors.add(TalkerDioLogger(talker: DebuggerHelper.talker));
 }
