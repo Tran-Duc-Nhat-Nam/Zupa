@@ -39,11 +39,10 @@ class StorageService {
   // ACCOUNT INFO (SECURE STORAGE)
   // ===========================================================================
 
-  /// Account info contains passwords, so we MUST use Secure Storage.
-  Future<void> saveAccountInfo(AccountRequest info) async {
-    await _secureStorage.write(key: 'accountTenant', value: info.tenant);
-    await _secureStorage.write(key: 'accountUsername', value: info.username);
-    await _secureStorage.write(key: 'accountPassword', value: info.password);
+  Future<void> saveAccountInfo(String tenant, String username, String password) async {
+    await _secureStorage.write(key: 'accountTenant', value: tenant);
+    await _secureStorage.write(key: 'accountUsername', value: username);
+    await _secureStorage.write(key: 'accountPassword', value: password);
   }
 
   Future<AccountRequest> getAccountInfo() async {

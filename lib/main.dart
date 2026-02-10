@@ -18,7 +18,6 @@ import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
 
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
 import 'package:zupa/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -29,7 +28,7 @@ Future<void> main() async {
     (await getIt<StorageService>().getLocalization()).name,
   );
   getIt<NetworkService>().onUnauthorized = () =>
-      getIt<AuthenticationRepository>().logOut();
+      getIt<StorageService>().removeAuth();
 
   runApp(MyApp());
 }

@@ -181,13 +181,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i986.NetworkService>(
       () => _i986.NetworkService(gh<_i361.Dio>()),
     );
-    gh.lazySingleton<_i792.AuthenticationRepository>(
-      () => _i260.AuthenticationRepositoryImpl(
-        gh<_i986.NetworkService>(),
-        gh<_i492.StorageService>(),
-        gh<_i117.AccountAPI>(),
-      ),
-    );
     gh.lazySingleton<_i468.IPasswordRepository>(
       () => _i439.PasswordRepositoryImpl(
         gh<_i986.NetworkService>(),
@@ -217,6 +210,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i665.RevenueListCubit>(
       () => _i665.RevenueListCubit(gh<_i481.IRevenueRepository>()),
+    );
+    gh.lazySingleton<_i792.AuthenticationRepository>(
+      () => _i260.AuthenticationRepositoryImpl(
+        gh<_i986.NetworkService>(),
+        gh<_i117.AccountAPI>(),
+      ),
     );
     gh.factory<_i919.MemberVehicleDetailCubit>(
       () =>

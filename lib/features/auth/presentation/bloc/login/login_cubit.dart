@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
@@ -18,11 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   final _storageService = getIt<StorageService>();
 
-  final formModel = LoginForm(
-    LoginForm.formElements(Login()),
-    null,
-    null,
-  );
+  final formModel = LoginForm(LoginForm.formElements(Login()), null, null);
 
   Future<void> init() async {
     final accountInfo = await _storageService.getAccountInfo();
@@ -56,13 +53,34 @@ class LoginCubit extends Cubit<LoginState> {
     if (formModel.form.valid) {
       emit(const .submitting());
       try {
-        await _authRepo.logIn(
+        final result = await _authRepo.logIn(
           tenant: formModel.tenantControl.value ?? '',
           username: formModel.usernameControl.value ?? '',
           password: formModel.passwordControl.value ?? '',
-          isRemember: formModel.isRememberControl.value ?? false,
         );
-        emit(const .loginSuccess());
+        result.maybeWhen(
+          success: (data) async {
+            await _storageService.setAuth(data.accessToken);
+
+            if (formModel.isRememberControl.value == true) {
+              await _storageService.saveAccountInfo(
+                formModel.tenantControl.value ?? '',
+                formModel.usernameControl.value ?? '',
+                formModel.passwordControl.value ?? '',
+              );
+            } else {
+              await _storageService.removeAccountInfo();
+            }
+          },
+          error: (message) {
+            emit(.loginFailed(message));
+            emit(const .loaded());
+          },
+          orElse: () {
+            emit(const .loginFailed('error'));
+            emit(const .loaded());
+          },
+        );
       } catch (e) {
         emit(.loginFailed(e.toString()));
         emit(const .loaded());
