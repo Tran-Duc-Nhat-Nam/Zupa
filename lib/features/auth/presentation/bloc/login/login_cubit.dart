@@ -65,10 +65,12 @@ class LoginCubit extends Cubit<LoginState> {
         emit(const .loginSuccess());
       } catch (e) {
         emit(.loginFailed(e.toString()));
+        emit(const .loaded());
       }
     } else {
       formModel.form.markAllAsTouched();
       emit(const .loginFailed('error'));
+      emit(const .loaded());
     }
   }
 }

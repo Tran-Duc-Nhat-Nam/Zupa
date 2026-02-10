@@ -24,7 +24,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
+  await configureDependencies();
   await LocaleSettings.setLocaleRaw(
     (await getIt<StorageService>().getLocalization()).name,
   );

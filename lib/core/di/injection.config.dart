@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:dio/dio.dart' as _i361;
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart' as _i695;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -105,10 +106,10 @@ import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final externalModule = _$ExternalModule();
     final apiModule = _$ApiModule();
@@ -117,6 +118,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i804.ScannerCubit>(() => _i804.ScannerCubit());
     gh.factory<_i227.SiteCubit>(() => _i227.SiteCubit());
     gh.factory<_i241.ThemeCubit>(() => _i241.ThemeCubit());
+    await gh.factoryAsync<_i695.CacheOptions>(
+      () => externalModule.cacheOptions,
+      preResolve: true,
+    );
     gh.factory<_i815.AuthCubit>(() => _i815.AuthCubit());
     gh.factory<_i311.GeneralConfigCubit>(() => _i311.GeneralConfigCubit());
     gh.factory<_i163.HistoryFilterCubit>(() => _i163.HistoryFilterCubit());
@@ -138,7 +143,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => externalModule.localAuthentication,
     );
     gh.lazySingleton<_i895.Connectivity>(() => externalModule.connectivity);
-    gh.lazySingleton<_i361.Dio>(() => externalModule.dio);
+    gh.lazySingleton<_i361.Dio>(
+      () => externalModule.dio(gh<_i695.CacheOptions>()),
+    );
     gh.lazySingleton<_i492.StorageService>(
       () => _i492.StorageService(
         gh<_i460.SharedPreferencesAsync>(),

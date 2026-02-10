@@ -712,10 +712,11 @@ packages:
   http_cache_isar_store:
     dependency: "direct main"
     description:
-      name: http_cache_isar_store
-      sha256: fbcf1ab395c0bb6ea224b4e82869458e3c0c09e6d9426e62c840a4945019e74f
-      url: "https://pub.dev"
-    source: hosted
+      path: http_cache_isar_store
+      ref: master
+      resolved-ref: b8e3201f1dd8a3e8cd3b949ebe028d5e719c3d68
+      url: "https://github.com/Tran-Duc-Nhat-Nam-270702/dart_http_cache.git"
+    source: git
     version: "3.0.0-dev.1"
   http_client_helper:
     dependency: transitive
@@ -1078,7 +1079,7 @@ packages:
     source: hosted
     version: "1.1.0"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: "50c5dd5b6e1aaf6fb3a78b33f6aa3afca52bf903a8a5298f53101fdaee55bbcd"
