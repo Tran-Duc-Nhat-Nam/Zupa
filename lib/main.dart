@@ -93,8 +93,8 @@ class AppView extends StatelessWidget {
 
           return MaterialApp.router(
             onGenerateTitle: (_) => t.appTitle,
-            theme: appTheme,
-            darkTheme: appDarkTheme,
+            theme: AppThemes.lightTheme(const .new()),
+            darkTheme: AppThemes.darkTheme(const .new()),
             themeMode: themeMode,
             debugShowCheckedModeBanner: false,
             routerConfig: router.config(
