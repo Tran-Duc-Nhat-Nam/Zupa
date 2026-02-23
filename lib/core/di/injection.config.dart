@@ -114,15 +114,12 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final externalModule = _$ExternalModule();
     final apiModule = _$ApiModule();
-    gh.factory<_i614.DebuggerCubit>(() => _i614.DebuggerCubit());
     gh.factory<_i804.ScannerCubit>(() => _i804.ScannerCubit());
     gh.factory<_i227.SiteCubit>(() => _i227.SiteCubit());
     await gh.factoryAsync<_i695.CacheOptions>(
       () => externalModule.cacheOptions,
       preResolve: true,
     );
-    gh.factory<_i815.AuthCubit>(() => _i815.AuthCubit());
-    gh.factory<_i311.GeneralConfigCubit>(() => _i311.GeneralConfigCubit());
     gh.factory<_i163.HistoryFilterCubit>(() => _i163.HistoryFilterCubit());
     gh.factory<_i140.HomeFilterCubit>(() => _i140.HomeFilterCubit());
     gh.factory<_i518.MemberVehiclesFilterCubit>(
@@ -186,11 +183,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i490.PasswordAPI>(),
       ),
     );
+    gh.factory<_i614.DebuggerCubit>(
+      () => _i614.DebuggerCubit(gh<_i492.StorageService>()),
+    );
     gh.factory<_i478.LocalizationCubit>(
       () => _i478.LocalizationCubit(gh<_i492.StorageService>()),
     );
     gh.factory<_i241.ThemeCubit>(
       () => _i241.ThemeCubit(gh<_i492.StorageService>()),
+    );
+    gh.factory<_i815.AuthCubit>(
+      () => _i815.AuthCubit(gh<_i492.StorageService>()),
+    );
+    gh.factory<_i311.GeneralConfigCubit>(
+      () => _i311.GeneralConfigCubit(gh<_i492.StorageService>()),
     );
     gh.lazySingleton<_i382.IMemberVehiclesRepository>(
       () => _i758.MemberVehiclesRepositoryImpl(
@@ -239,9 +245,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1003.EmployeeAPI>(),
       ),
     );
-    gh.factory<_i0.LoginCubit>(
-      () => _i0.LoginCubit(gh<_i792.AuthenticationRepository>()),
-    );
     gh.factory<_i45.EmployeeCubit>(
       () => _i45.EmployeeCubit(gh<_i221.IEmployeeRepository>()),
     );
@@ -255,6 +258,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i79.HomeRepositoryImpl(
         gh<_i986.NetworkService>(),
         gh<_i769.HomeAPI>(),
+      ),
+    );
+    gh.factory<_i0.LoginCubit>(
+      () => _i0.LoginCubit(
+        gh<_i492.StorageService>(),
+        gh<_i792.AuthenticationRepository>(),
       ),
     );
     gh.factory<_i622.ParkingLotCubit>(

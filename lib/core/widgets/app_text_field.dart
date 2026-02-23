@@ -31,7 +31,7 @@ class AppTextField extends StatefulWidget {
     this.backgroundColor,
   });
 
-  final FormControl<String> formControl;
+  final FormControl<dynamic> formControl;
   final TextEditingController? controller;
   final String? labelText;
   final String? hintText;

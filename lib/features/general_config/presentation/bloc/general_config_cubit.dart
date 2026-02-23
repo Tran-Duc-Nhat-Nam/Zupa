@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/features/general_config/presentation/models/general_config_form.dart';
 
@@ -10,9 +9,9 @@ part 'general_config_cubit.freezed.dart';
 
 @injectable
 class GeneralConfigCubit extends Cubit<GeneralConfigState> {
-  GeneralConfigCubit() : super(const .initial());
+  GeneralConfigCubit(this._storageService) : super(const .initial());
 
-  final _storageService = getIt<StorageService>();
+  final StorageService _storageService;
 
   final formModel = GeneralConfigForm(
     GeneralConfigForm.formElements(GeneralConfig()),
@@ -41,7 +40,7 @@ class GeneralConfigCubit extends Cubit<GeneralConfigState> {
   }
 
   Future<void> setThreshold() async {
-    final value = int.tryParse(formModel.warningThresholdControl.value ?? '0') ?? 0;
+    final value = formModel.warningThresholdControl.value ?? 0;
     await _storageService.setWarningCapacityThreshold(value);
     emit(.loaded(true, value));
   }

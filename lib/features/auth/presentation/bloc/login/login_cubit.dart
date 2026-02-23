@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
@@ -15,9 +14,9 @@ part 'login_cubit.freezed.dart';
 class LoginCubit extends Cubit<LoginState> {
   final AuthenticationRepository _authRepo;
 
-  LoginCubit(this._authRepo) : super(const .initial());
+  LoginCubit(this._storageService, this._authRepo) : super(const .initial());
 
-  final _storageService = getIt<StorageService>();
+  final StorageService _storageService;
 
   final formModel = LoginForm(LoginForm.formElements(Login()), null, null);
 

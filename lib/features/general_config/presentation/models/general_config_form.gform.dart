@@ -252,11 +252,11 @@ class GeneralConfigForm implements FormModel<GeneralConfig, GeneralConfig> {
 
   bool get _isWarningValue => isWarningControl.value ?? false;
 
-  String get _warningThresholdValue => warningThresholdControl.value ?? '0';
+  int get _warningThresholdValue => warningThresholdControl.value ?? 0;
 
   bool get _isWarningRawValue => isWarningControl.value ?? false;
 
-  String get _warningThresholdRawValue => warningThresholdControl.value ?? '0';
+  int get _warningThresholdRawValue => warningThresholdControl.value ?? 0;
 
   bool get containsIsWarning {
     try {
@@ -298,7 +298,7 @@ class GeneralConfigForm implements FormModel<GeneralConfig, GeneralConfig> {
   }
 
   void warningThresholdValueUpdate(
-    String value, {
+    int value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
@@ -322,7 +322,7 @@ class GeneralConfigForm implements FormModel<GeneralConfig, GeneralConfig> {
   }
 
   void warningThresholdValuePatch(
-    String value, {
+    int value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
@@ -348,7 +348,7 @@ class GeneralConfigForm implements FormModel<GeneralConfig, GeneralConfig> {
   );
 
   void warningThresholdValueReset(
-    String value, {
+    int value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
@@ -364,8 +364,8 @@ class GeneralConfigForm implements FormModel<GeneralConfig, GeneralConfig> {
   FormControl<bool> get isWarningControl =>
       form.control(isWarningControlPath()) as FormControl<bool>;
 
-  FormControl<String> get warningThresholdControl =>
-      form.control(warningThresholdControlPath()) as FormControl<String>;
+  FormControl<int> get warningThresholdControl =>
+      form.control(warningThresholdControlPath()) as FormControl<int>;
 
   void isWarningSetDisabled(
     bool disabled, {
@@ -586,7 +586,7 @@ class GeneralConfigForm implements FormModel<GeneralConfig, GeneralConfig> {
         disabled: false,
         touched: false,
       ),
-      warningThresholdControlName: FormControl<String>(
+      warningThresholdControlName: FormControl<int>(
         value: generalConfig?.warningThreshold,
         validators: [MinValidator(0)],
         asyncValidators: [],

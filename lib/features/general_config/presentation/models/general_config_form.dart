@@ -5,10 +5,10 @@ part 'general_config_form.gform.dart';
 @Rf()
 class GeneralConfig {
   final bool isWarning;
-  final String warningThreshold;
+  final int warningThreshold;
 
   GeneralConfig({
     @RfControl() this.isWarning = false,
-    @RfControl(validators: [MinValidator(0)]) this.warningThreshold = '0',
+    @RfControl(validators: [MinValidator(0)]) this.warningThreshold = 0,
   });
 }
