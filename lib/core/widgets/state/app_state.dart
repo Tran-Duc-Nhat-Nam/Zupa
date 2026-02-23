@@ -7,78 +7,84 @@ import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
-  final void Function(Locale? locale)? localeChangeCallBack;
-  final AsyncCallback? resumeCallBack;
-  final AsyncCallback? suspendingCallBack;
+  final AsyncCallback? onResume;
+  final AsyncCallback? onSuspend;
+  final ValueChanged<Locale?>? onLocaleChange;
 
-  LifecycleEventHandler({
-    this.localeChangeCallBack,
-    this.resumeCallBack,
-    this.suspendingCallBack,
-  });
+  LifecycleEventHandler({this.onResume, this.onSuspend, this.onLocaleChange});
 
   @override
   void didChangeLocales(List<Locale>? locales) {
-    localeChangeCallBack?.call(locales?.first);
-    super.didChangeLocales(locales);
+    super.didChangeLocales(locales); // Call super first
+    if (locales != null && locales.isNotEmpty) {
+      onLocaleChange?.call(locales.first);
+    }
   }
 
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    log('State changed ${state.name}');
-    switch (state) {
-      case .resumed:
-        await resumeCallBack?.call();
-      case .inactive:
-      case .paused:
-      case .detached:
-      case .hidden:
-        await suspendingCallBack?.call();
+    log('AppLifecycleState: ${state.name}');
+
+    if (state == AppLifecycleState.resumed) {
+      await onResume?.call();
+    } else {
+      // Covers inactive, paused, detached, and hidden
+      await onSuspend?.call();
     }
   }
 }
 
 abstract class AppState<T extends StatefulWidget> extends State<T> {
-  late LifecycleEventHandler observer;
+  late final LifecycleEventHandler _observer;
   final StorageService _storageService = getIt<StorageService>();
+
   @override
   void initState() {
-    observer = LifecycleEventHandler(
-      resumeCallBack: () async {
-        if ((await _storageService.getAuth()) != null) {
-          log('Is Auth');
-          if (mounted) initService(context);
-        } else {
-          if (mounted) {
-            Navigator.of(
-              context,
-            ).pushNamedAndRemoveUntil('/login', (route) => false);
-          }
-        }
-      },
-      localeChangeCallBack: (locale) {
-        if (locale != null) {
-          setState(() {
-            LocaleSettings.setLocale(
-              AppLocale.values.firstWhere(
-                (element) => element.languageCode == locale.languageCode,
-              ),
-            );
-            initService(context);
-          });
-        }
-      },
-    );
-    WidgetsBinding.instance.addObserver(observer);
     super.initState();
-    initService(context);
+    _observer = LifecycleEventHandler(
+      onResume: _handleResume,
+      onLocaleChange: _handleLocaleChange,
+    );
+    WidgetsBinding.instance.addObserver(_observer);
+
+    // Initial setup
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initService(context);
+    });
+  }
+
+  Future<void> _handleResume() async {
+    final auth = await _storageService.getAuth();
+
+    if (!mounted) return; // Critical safety check
+
+    if (auth != null) {
+      initService(context);
+    } else {
+      Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+    }
+  }
+
+  void _handleLocaleChange(Locale? locale) {
+    if (locale == null) return;
+
+    final newLocale = AppLocale.values.firstWhere(
+      (e) => e.languageCode == locale.languageCode,
+      orElse: () => AppLocale.en, // Provide a fallback
+    );
+
+    LocaleSettings.setLocale(newLocale);
+    if (mounted) {
+      setState(() => initService(context));
+    }
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(observer);
+    WidgetsBinding.instance.removeObserver(_observer);
     super.dispose();
   }
 
+  @protected
   Future<void> initService(BuildContext context) async {}
 }
