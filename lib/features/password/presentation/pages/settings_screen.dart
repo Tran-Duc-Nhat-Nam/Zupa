@@ -40,7 +40,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             spacing: 10,
             children: [
               AppCard(
-                padding: const .symmetric(vertical: 4, horizontal: 16),
+                clipBehavior: .antiAlias,
+                padding: .zero,
                 child: Column(
                   spacing: 4,
                   children: [
@@ -49,6 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.parkingAreaConfig,
                       trailingIcon: Symbols.chevron_right_rounded,
+                      padding: const .all(16),
                       onTap: () =>
                           context.pushRoute(const ParkingLotRoute()),
                     ),
@@ -57,6 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.memberVehicles,
                       trailingIcon: Symbols.chevron_right_rounded,
+                      padding: const .all(16),
                       onTap: () =>
                           context.pushRoute(const MemberVehiclesRoute()),
                     ),
@@ -65,6 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.employeeManagement,
                       trailingIcon: Symbols.chevron_right_rounded,
+                      padding: const .all(16),
                       onTap: () =>
                           context.pushRoute(const EmployeeManagementRoute()),
                     ),
@@ -73,6 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       leadingColor: ThemeHelper.getColor(context).primary500,
                       text: t.generalConfig,
                       trailingIcon: Symbols.chevron_right_rounded,
+                      padding: const .all(16),
                       onTap: () =>
                           context.pushRoute(const GeneralConfigRoute()),
                     ),
@@ -80,18 +85,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               AppCard(
-                padding: const .symmetric(vertical: 4, horizontal: 16),
-                child: Column(
-                  children: [
-                    AppListTile(
-                      leadingIcon: Symbols.lock,
-                      leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: t.changePassword,
-                      trailingIcon: Symbols.chevron_right_rounded,
-                      onTap: () =>
-                          context.pushRoute(const ChangePasswordRoute()),
-                    ),
-                  ],
+                clipBehavior: .antiAlias,
+                padding: .zero,
+                child: AppListTile(
+                  leadingIcon: Symbols.lock,
+                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  text: t.changePassword,
+                  trailingIcon: Symbols.chevron_right_rounded,
+                  padding: const .all(16),
+                  onTap: () =>
+                      context.pushRoute(const ChangePasswordRoute()),
                 ),
               ),
               AppCard(
@@ -107,11 +110,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               AppCard(
-                padding: const .symmetric(vertical: 4, horizontal: 16),
+                clipBehavior: .antiAlias,
+                padding: .zero,
                 child: AppListTile(
                   leadingIcon: Symbols.logout,
                   text: t.title_logout,
                   leadingColor: ThemeHelper.getColor(context).error600,
+                  padding: const .all(16),
                   onTap: () {
                     DialogHelper.showModal(
                       context,

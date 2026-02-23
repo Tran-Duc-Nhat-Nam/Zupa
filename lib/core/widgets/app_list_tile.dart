@@ -16,6 +16,7 @@ class AppListTile extends StatelessWidget {
     this.leadingColor,
     this.trailingColor,
     this.padding,
+    this.borderRadius,
   });
   final Widget? leading;
   final IconData? leadingIcon;
@@ -27,44 +28,49 @@ class AppListTile extends StatelessWidget {
   final Color? leadingColor;
   final Color? trailingColor;
   final EdgeInsetsGeometry? padding;
+  final BorderRadius? borderRadius;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: padding ?? const .symmetric(vertical: 12),
-        child: Row(
-          spacing: 12,
-          children: [
-            if (leading != null || leadingIcon != null)
-              leading ??
-                  Icon(
-                    leadingIcon,
-                    color:
-                        leadingColor ?? ThemeHelper.getColor(context).grey500,
-                  ),
-            Expanded(
-              child: text != null || content != null
-                  ? content ??
-                        Text(
-                          text!,
-                          style: AppTextStyles.bodyMediumMedium.copyWith(
-                            color:
-                                color ?? ThemeHelper.getColor(context).grey700,
-                          ),
-                        )
-                  : const SizedBox(),
-            ),
-            if (trailing != null || trailingIcon != null)
-              trailing ??
-                  Icon(
-                    trailingIcon,
-                    color:
-                        trailingColor ?? ThemeHelper.getColor(context).grey500,
-                  ),
-          ],
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: borderRadius,
+        child: Padding(
+          padding: padding ?? const .symmetric(vertical: 12),
+          child: Row(
+            spacing: 12,
+            children: [
+              if (leading != null || leadingIcon != null)
+                leading ??
+                    Icon(
+                      leadingIcon,
+                      color:
+                          leadingColor ?? ThemeHelper.getColor(context).grey500,
+                    ),
+              Expanded(
+                child: text != null || content != null
+                    ? content ??
+                          Text(
+                            text!,
+                            style: AppTextStyles.bodyMediumMedium.copyWith(
+                              color:
+                                  color ?? ThemeHelper.getColor(context).grey700,
+                            ),
+                          )
+                    : const SizedBox(),
+              ),
+              if (trailing != null || trailingIcon != null)
+                trailing ??
+                    Icon(
+                      trailingIcon,
+                      color:
+                          trailingColor ?? ThemeHelper.getColor(context).grey500,
+                    ),
+            ],
+          ),
         ),
       ),
     );
