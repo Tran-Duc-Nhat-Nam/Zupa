@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -61,7 +63,7 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
     if (auth != null) {
       initService(context);
     } else {
-      Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+      context.router.replaceAll([const LoginRoute()]);
     }
   }
 
