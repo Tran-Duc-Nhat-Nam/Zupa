@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/models/form/localization/app_settings_form.dart';
@@ -11,9 +10,9 @@ part 'localization_cubit.freezed.dart';
 
 @injectable
 class LocalizationCubit extends Cubit<LocalizationState> {
-  LocalizationCubit() : super(const .initial());
+  LocalizationCubit(this._storageService) : super(const .initial());
 
-  final _storageService = getIt<StorageService>();
+  final StorageService _storageService;
 
   final formModel = AppSettingsForm(
     AppSettingsForm.formElements(AppSettings()),

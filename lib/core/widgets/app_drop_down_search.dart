@@ -163,9 +163,9 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
                     )
                     .toList(),
           onChanged: (value) => {
-            widget.onChanged?.call(value),
             field.didChange(value ?? widget.defaultValue),
             valueListenable.value = value ?? widget.defaultValue,
+            widget.onChanged?.call(value),
           },
           selectedItemBuilder: widget.selectedItemBuilder,
           buttonStyleData: ButtonStyleData(

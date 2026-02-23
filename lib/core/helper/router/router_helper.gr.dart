@@ -14,6 +14,8 @@ import 'package:flutter/material.dart' as _i19;
 import 'package:zupa/core/widgets/app_nav_bar.dart' deferred as _i1;
 import 'package:zupa/features/app_settings/presentation/pages/app_settings_screen.dart'
     deferred as _i2;
+import 'package:zupa/features/app_settings/presentation/pages/settings_screen.dart'
+    deferred as _i17;
 import 'package:zupa/features/auth/presentation/pages/login/login_screen.dart'
     deferred as _i9;
 import 'package:zupa/features/camera/presentation/pages/camera/check_in_screen.dart'
@@ -41,8 +43,6 @@ import 'package:zupa/features/parking_price/parking_price_setting.dart'
     deferred as _i15;
 import 'package:zupa/features/password/presentation/pages/password/change_password_screen.dart'
     deferred as _i3;
-import 'package:zupa/features/password/presentation/pages/settings_screen.dart'
-    deferred as _i17;
 import 'package:zupa/features/revenue/presentation/pages/revenue_screen.dart'
     deferred as _i16;
 

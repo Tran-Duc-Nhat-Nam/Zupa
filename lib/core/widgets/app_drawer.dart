@@ -85,9 +85,9 @@ class _AppDrawerState extends State<AppDrawer> {
                 loading: (mode) => mode == .light,
                 loaded: (mode) => mode == .light,
               )) {
-                themeCubit.changeTheme(.dark);
+                themeCubit.changeTheme();
               } else {
-                themeCubit.changeTheme(.light);
+                themeCubit.changeTheme();
               }
             },
           ),

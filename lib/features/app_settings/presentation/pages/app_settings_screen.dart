@@ -106,7 +106,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               : t.followSystem,
                           onChanged: (value) => context
                               .read<ThemeCubit>()
-                              .changeTheme(value ?? .followSystem),
+                              .changeTheme(),
                         ),
                       );
                     },

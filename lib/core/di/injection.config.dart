@@ -115,10 +115,8 @@ extension GetItInjectableX on _i174.GetIt {
     final externalModule = _$ExternalModule();
     final apiModule = _$ApiModule();
     gh.factory<_i614.DebuggerCubit>(() => _i614.DebuggerCubit());
-    gh.factory<_i478.LocalizationCubit>(() => _i478.LocalizationCubit());
     gh.factory<_i804.ScannerCubit>(() => _i804.ScannerCubit());
     gh.factory<_i227.SiteCubit>(() => _i227.SiteCubit());
-    gh.factory<_i241.ThemeCubit>(() => _i241.ThemeCubit());
     await gh.factoryAsync<_i695.CacheOptions>(
       () => externalModule.cacheOptions,
       preResolve: true,
@@ -187,6 +185,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i986.NetworkService>(),
         gh<_i490.PasswordAPI>(),
       ),
+    );
+    gh.factory<_i478.LocalizationCubit>(
+      () => _i478.LocalizationCubit(gh<_i492.StorageService>()),
+    );
+    gh.factory<_i241.ThemeCubit>(
+      () => _i241.ThemeCubit(gh<_i492.StorageService>()),
     );
     gh.lazySingleton<_i382.IMemberVehiclesRepository>(
       () => _i758.MemberVehiclesRepositoryImpl(
