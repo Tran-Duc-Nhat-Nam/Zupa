@@ -13,9 +13,12 @@ import 'package:zupa/core/env/env.dart';
 
 import 'package:zupa/core/helper/api/interceptors.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:zupa/core/helper/router/router_helper.dart';
 
 @module
 abstract class ExternalModule {
+  @singleton
+  AppRouter get appRouter => AppRouter();
   @lazySingleton
   SharedPreferencesAsync get sharedPreferences => SharedPreferencesAsync();
 

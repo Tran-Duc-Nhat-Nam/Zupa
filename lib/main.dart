@@ -22,91 +22,96 @@ import 'package:zupa/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
-  await LocaleSettings.setLocaleRaw(
-    (await getIt<StorageService>().getLocalization()).name,
-  );
-  getIt<NetworkService>().onUnauthorized = () =>
-      getIt<StorageService>().removeAuth();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+    // 1. Parallelize independent initializations
+    await Future.wait([configureDependencies()]);
+
+    // 2. Setup unauthorized global callback
+    getIt<NetworkService>().onUnauthorized = () =>
+        getIt<StorageService>().removeAuth();
+
+    runApp(
+      // Move TranslationProvider to the very top
+      TranslationProvider(child: const MyApp()),
+    );
+  } catch (e, stack) {
+    // Log fatal initialization errors
+    DebuggerHelper.talker.handle(e, stack, 'Fatal App Initialization Error');
+  }
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  final router = AppRouter();
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return TranslationProvider(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<ThemeCubit>(
-            create: (BuildContext context) => getIt<ThemeCubit>()..loadTheme(),
-          ),
-          if (kDebugMode)
-            BlocProvider<DebuggerCubit>(
-              lazy: false,
-              create: (BuildContext context) =>
-                  getIt<DebuggerCubit>()..loadDebugger(),
-            ),
-          BlocProvider<AuthCubit>(
-            create: (BuildContext context) => getIt<AuthCubit>()..loadAuth(),
-          ),
-          BlocProvider<LocalizationCubit>(
-            lazy: false,
-            create: (BuildContext context) =>
-                getIt<LocalizationCubit>()..loadLocale(),
-          ),
-          BlocProvider<ConnectivityCubit>(
-            create: (BuildContext context) =>
-                getIt<ConnectivityCubit>()..monitorConnectivity(),
-          ),
-        ],
-        child: BlocListener<ConnectivityCubit, ConnectivityState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              connected: () {
-                AppToast.showToast(t.internetConnected);
-              },
-              disconnected: () {
-                AppToast.showToast(t.noInternet);
-              },
-            );
-          },
-          child: BlocBuilder<ThemeCubit, ThemeState>(
-            builder: (BuildContext context, ThemeState state) =>
-                state.maybeWhen(
-                  loaded: (mode) {
-                    final themeMode = switch (mode) {
-                      .light => ThemeMode.light,
-                      .dark => ThemeMode.dark,
-                      _ => ThemeMode.system,
-                    };
-                    return UpgradeAlert(
-                      child: MaterialApp.router(
-                        onGenerateTitle: (BuildContext context) => t.appTitle,
-                        theme: appTheme,
-                        darkTheme: appDarkTheme,
-                        themeMode: themeMode,
-                        debugShowCheckedModeBanner: false,
-                        routerConfig: router.config(
-                          navigatorObservers: () => [
-                            TalkerRouteObserver(DebuggerHelper.talker),
-                          ],
-                        ),
-                        localizationsDelegates:
-                            GlobalMaterialLocalizations.delegates,
-                        supportedLocales: AppLocaleUtils.supportedLocales,
-                        locale: TranslationProvider.of(context).flutterLocale,
-                        builder: FlutterSmartDialog.init(),
-                      ),
-                    );
-                  },
-                  orElse: () => const SizedBox.shrink(),
-                ),
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<ThemeCubit>()..loadTheme()),
+        BlocProvider(create: (_) => getIt<AuthCubit>()..loadAuth()),
+        BlocProvider(create: (_) => getIt<LocalizationCubit>()..loadLocale()),
+        BlocProvider(
+          create: (_) => getIt<ConnectivityCubit>()..monitorConnectivity(),
         ),
+        if (kDebugMode)
+          BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
+      ],
+      child: const AppView(),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final router = getIt<AppRouter>();
+
+    return BlocListener<ConnectivityCubit, ConnectivityState>(
+      // Listen for connectivity changes globally
+      listener: (context, state) {
+        state.whenOrNull(
+          connected: () => AppToast.showToast(t.internetConnected),
+          disconnected: () => AppToast.showToast(t.noInternet),
+        );
+      },
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        // Only rebuild when theme mode actually changes
+        buildWhen: (previous, current) => previous != current,
+        builder: (context, state) {
+          final themeMode = state.maybeWhen(
+            loaded: (mode) => switch (mode) {
+              .light => ThemeMode.light,
+              .dark => ThemeMode.dark,
+              _ => ThemeMode.system,
+            },
+            orElse: () => ThemeMode.system,
+          );
+
+          return MaterialApp.router(
+            onGenerateTitle: (_) => t.appTitle,
+            theme: appTheme,
+            darkTheme: appDarkTheme,
+            themeMode: themeMode,
+            debugShowCheckedModeBanner: false,
+            routerConfig: router.config(
+              navigatorObservers: () => [
+                TalkerRouteObserver(DebuggerHelper.talker),
+              ],
+            ),
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            locale: TranslationProvider.of(context).flutterLocale,
+            // Use the builder to inject global overlays like SmartDialog and UpgradeAlert
+            builder: (context, child) {
+              child = FlutterSmartDialog.init()(context, child);
+              return UpgradeAlert(child: child);
+            },
+          );
+        },
       ),
     );
   }

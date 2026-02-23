@@ -27,6 +27,7 @@ import 'package:zupa/core/bloc/theme/theme_cubit.dart' as _i241;
 import 'package:zupa/core/data/api/ticket/ticket_api.dart' as _i521;
 import 'package:zupa/core/di/modules/api_module.dart' as _i413;
 import 'package:zupa/core/di/modules/external_module.dart' as _i849;
+import 'package:zupa/core/helper/router/router_helper.dart' as _i347;
 import 'package:zupa/core/network/network_info.dart' as _i862;
 import 'package:zupa/core/services/biometric_service.dart' as _i46;
 import 'package:zupa/core/services/network_service.dart' as _i986;
@@ -129,6 +130,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i625.ParkingLotDetailCubit(),
     );
     gh.factory<_i646.RevenueFilterCubit>(() => _i646.RevenueFilterCubit());
+    gh.singleton<_i347.AppRouter>(() => externalModule.appRouter);
     gh.lazySingleton<_i460.SharedPreferencesAsync>(
       () => externalModule.sharedPreferences,
     );
