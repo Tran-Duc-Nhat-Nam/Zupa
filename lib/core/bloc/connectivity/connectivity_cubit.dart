@@ -8,13 +8,13 @@ import 'package:zupa/core/network/network_info.dart';
 part 'connectivity_state.dart';
 part 'connectivity_cubit.freezed.dart';
 
-@injectable
+@lazySingleton
 class ConnectivityCubit extends Cubit<ConnectivityState> {
   final NetworkInfo _networkInfo;
   StreamSubscription? _subscription;
 
   ConnectivityCubit(this._networkInfo)
-      : super(const ConnectivityState.initial());
+      : super(const .initial());
 
   Future<void> monitorConnectivity() async {
     // Initial check
@@ -24,18 +24,18 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     // Listen for real-time changes
     _subscription = _networkInfo.onStatusChanged.listen((status) {
       if (status == InternetStatus.connected) {
-        emit(const ConnectivityState.connected());
+        emit(const .connected());
       } else {
-        emit(const ConnectivityState.disconnected());
+        emit(const .disconnected());
       }
     });
   }
 
   void _emitState(bool isConnected) {
     if (isConnected) {
-      emit(const ConnectivityState.connected());
+      emit(const .connected());
     } else {
-      emit(const ConnectivityState.disconnected());
+      emit(const .disconnected());
     }
   }
 

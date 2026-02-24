@@ -7,13 +7,14 @@ import 'package:zupa/core/services/storage_service.dart';
 part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
 
-@injectable
+@lazySingleton
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this._storageService) : super(const .initial());
   final StorageService _storageService;
 
   Future<void> loadAuth() async {
-    emit(.loaded(await _storageService.getBiometricAuth() == true));
+    final biometric = await _storageService.getBiometricAuth() == true;
+    emit(.loaded(biometric));
   }
 
   Future<void> logOut() async {
@@ -21,8 +22,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(const .noAuthenticated());
   }
 
-  void toggleBiometricMode(bool isOn) {
-    _storageService.setBiometricAuth(isOn);
+  Future<void> toggleBiometricMode(bool isOn) async {
+    await _storageService.setBiometricAuth(isOn);
     emit(.loaded(isOn));
   }
 }

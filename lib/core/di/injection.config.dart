@@ -115,8 +115,6 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final externalModule = _$ExternalModule();
     final apiModule = _$ApiModule();
-    gh.factory<_i804.ScannerCubit>(() => _i804.ScannerCubit());
-    gh.factory<_i227.SiteCubit>(() => _i227.SiteCubit());
     await gh.factoryAsync<_i695.CacheOptions>(
       () => externalModule.cacheOptions,
       preResolve: true,
@@ -131,6 +129,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i646.RevenueFilterCubit>(() => _i646.RevenueFilterCubit());
     gh.singleton<_i347.AppRouter>(() => externalModule.appRouter);
+    gh.lazySingleton<_i804.ScannerCubit>(() => _i804.ScannerCubit());
+    gh.lazySingleton<_i227.SiteCubit>(() => _i227.SiteCubit());
     gh.lazySingleton<_i460.SharedPreferencesAsync>(
       () => externalModule.sharedPreferences,
     );
@@ -185,20 +185,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i490.PasswordAPI>(),
       ),
     );
-    gh.factory<_i614.DebuggerCubit>(
-      () => _i614.DebuggerCubit(gh<_i492.StorageService>()),
-    );
-    gh.factory<_i478.LocalizationCubit>(
-      () => _i478.LocalizationCubit(gh<_i492.StorageService>()),
-    );
-    gh.factory<_i241.ThemeCubit>(
-      () => _i241.ThemeCubit(gh<_i492.StorageService>()),
-    );
-    gh.factory<_i815.AuthCubit>(
-      () => _i815.AuthCubit(gh<_i492.StorageService>()),
-    );
     gh.factory<_i311.GeneralConfigCubit>(
       () => _i311.GeneralConfigCubit(gh<_i492.StorageService>()),
+    );
+    gh.lazySingleton<_i614.DebuggerCubit>(
+      () => _i614.DebuggerCubit(gh<_i492.StorageService>()),
+    );
+    gh.lazySingleton<_i478.LocalizationCubit>(
+      () => _i478.LocalizationCubit(gh<_i492.StorageService>()),
+    );
+    gh.lazySingleton<_i241.ThemeCubit>(
+      () => _i241.ThemeCubit(gh<_i492.StorageService>()),
+    );
+    gh.lazySingleton<_i815.AuthCubit>(
+      () => _i815.AuthCubit(gh<_i492.StorageService>()),
     );
     gh.lazySingleton<_i382.IMemberVehiclesRepository>(
       () => _i758.MemberVehiclesRepositoryImpl(
@@ -262,19 +262,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i769.HomeAPI>(),
       ),
     );
-    gh.factory<_i0.LoginCubit>(
-      () => _i0.LoginCubit(
-        gh<_i492.StorageService>(),
-        gh<_i792.AuthenticationRepository>(),
-      ),
-    );
     gh.factory<_i622.ParkingLotCubit>(
       () => _i622.ParkingLotCubit(gh<_i436.IParkingLotRepository>()),
     );
     gh.factory<_i396.HistoryListCubit>(
       () => _i396.HistoryListCubit(gh<_i36.IHistoryRepository>()),
     );
-    gh.factory<_i792.ConnectivityCubit>(
+    gh.factory<_i0.LoginCubit>(
+      () => _i0.LoginCubit(
+        gh<_i492.StorageService>(),
+        gh<_i792.AuthenticationRepository>(),
+        gh<_i815.AuthCubit>(),
+      ),
+    );
+    gh.lazySingleton<_i792.ConnectivityCubit>(
       () => _i792.ConnectivityCubit(gh<_i862.NetworkInfo>()),
     );
     gh.factory<_i759.HomeTicketCubit>(

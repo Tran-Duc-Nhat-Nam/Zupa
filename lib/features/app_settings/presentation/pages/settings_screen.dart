@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
@@ -22,119 +21,105 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return AppScreen(
-      hasParentView: true,
-      title: t.settings,
-      hasAppBar: false,
-      child: BlocListener<AuthCubit, AuthState>(
-        listener: (_, state) {
-          state.whenOrNull(
-            noAuthenticated: () {
-              context.router.replaceAll([const LoginRoute()]);
-            },
-          );
-        },
-        child: Padding(
-          padding: const .symmetric(vertical: 16, horizontal: 24),
-          child: Column(
-            spacing: 10,
-            children: [
-              AppCard(
-                clipBehavior: .antiAlias,
-                padding: .zero,
-                child: Column(
-                  spacing: 4,
-                  children: [
-                    AppListTile(
-                      leadingIcon: Symbols.home_rounded,
-                      leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: t.parkingAreaConfig,
-                      trailingIcon: Symbols.chevron_right_rounded,
-                      padding: const .all(16),
-                      onTap: () =>
-                          context.pushRoute(const ParkingLotRoute()),
-                    ),
-                    AppListTile(
-                      leadingIcon: Symbols.calendar_add_on_rounded,
-                      leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: t.memberVehicles,
-                      trailingIcon: Symbols.chevron_right_rounded,
-                      padding: const .all(16),
-                      onTap: () =>
-                          context.pushRoute(const MemberVehiclesRoute()),
-                    ),
-                    AppListTile(
-                      leadingIcon: Symbols.user_attributes_rounded,
-                      leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: t.employeeManagement,
-                      trailingIcon: Symbols.chevron_right_rounded,
-                      padding: const .all(16),
-                      onTap: () =>
-                          context.pushRoute(const EmployeeManagementRoute()),
-                    ),
-                    AppListTile(
-                      leadingIcon: Symbols.settings,
-                      leadingColor: ThemeHelper.getColor(context).primary500,
-                      text: t.generalConfig,
-                      trailingIcon: Symbols.chevron_right_rounded,
-                      padding: const .all(16),
-                      onTap: () =>
-                          context.pushRoute(const GeneralConfigRoute()),
-                    ),
-                  ],
-                ),
-              ),
-              AppCard(
-                clipBehavior: .antiAlias,
-                padding: .zero,
-                child: AppListTile(
-                  leadingIcon: Symbols.lock,
+    return Padding(
+      padding: const .symmetric(vertical: 16, horizontal: 24),
+      child: Column(
+        spacing: 10,
+        children: [
+          AppCard(
+            clipBehavior: .antiAlias,
+            padding: .zero,
+            child: Column(
+              spacing: 4,
+              children: [
+                AppListTile(
+                  leadingIcon: Symbols.home_rounded,
                   leadingColor: ThemeHelper.getColor(context).primary500,
-                  text: t.changePassword,
+                  text: t.parkingAreaConfig,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
                   onTap: () =>
-                      context.pushRoute(const ChangePasswordRoute()),
+                      context.pushRoute(const ParkingLotRoute()),
                 ),
-              ),
-              AppCard(
-                clipBehavior: .antiAlias,
-                padding: .zero,
-                child: AppListTile(
-                  leadingIcon: Symbols.settings,
-                  text: t.appSettings,
+                AppListTile(
+                  leadingIcon: Symbols.calendar_add_on_rounded,
                   leadingColor: ThemeHelper.getColor(context).primary500,
+                  text: t.memberVehicles,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
-                  onTap: () => context.pushRoute(const AppSettingsRoute()),
+                  onTap: () =>
+                      context.pushRoute(const MemberVehiclesRoute()),
                 ),
-              ),
-              AppCard(
-                clipBehavior: .antiAlias,
-                padding: .zero,
-                child: AppListTile(
-                  leadingIcon: Symbols.logout,
-                  text: t.title_logout,
-                  leadingColor: ThemeHelper.getColor(context).error600,
+                AppListTile(
+                  leadingIcon: Symbols.user_attributes_rounded,
+                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  text: t.employeeManagement,
+                  trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
-                  onTap: () {
-                    DialogHelper.showModal(
-                      context,
-                      subtitleText: t.subtitle_logout,
-                      titleText: t.title_logout,
-                      type: .warning,
-                      okText: t.ok,
-                      cancelText: t.cancel,
-                      onOk: () {
-                        context.read<AuthCubit>().logOut();
-                      },
-                    );
-                  },
+                  onTap: () =>
+                      context.pushRoute(const EmployeeManagementRoute()),
                 ),
-              ),
-            ],
+                AppListTile(
+                  leadingIcon: Symbols.settings,
+                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  text: t.generalConfig,
+                  trailingIcon: Symbols.chevron_right_rounded,
+                  padding: const .all(16),
+                  onTap: () =>
+                      context.pushRoute(const GeneralConfigRoute()),
+                ),
+              ],
+            ),
           ),
-        ),
+          AppCard(
+            clipBehavior: .antiAlias,
+            padding: .zero,
+            child: AppListTile(
+              leadingIcon: Symbols.lock,
+              leadingColor: ThemeHelper.getColor(context).primary500,
+              text: t.changePassword,
+              trailingIcon: Symbols.chevron_right_rounded,
+              padding: const .all(16),
+              onTap: () =>
+                  context.pushRoute(const ChangePasswordRoute()),
+            ),
+          ),
+          AppCard(
+            clipBehavior: .antiAlias,
+            padding: .zero,
+            child: AppListTile(
+              leadingIcon: Symbols.settings,
+              text: t.appSettings,
+              leadingColor: ThemeHelper.getColor(context).primary500,
+              trailingIcon: Symbols.chevron_right_rounded,
+              padding: const .all(16),
+              onTap: () => context.pushRoute(const AppSettingsRoute()),
+            ),
+          ),
+          AppCard(
+            clipBehavior: .antiAlias,
+            padding: .zero,
+            child: AppListTile(
+              leadingIcon: Symbols.logout,
+              text: t.title_logout,
+              leadingColor: ThemeHelper.getColor(context).error600,
+              padding: const .all(16),
+              onTap: () {
+                DialogHelper.showModal(
+                  context,
+                  subtitleText: t.subtitle_logout,
+                  titleText: t.title_logout,
+                  type: .warning,
+                  okText: t.ok,
+                  cancelText: t.cancel,
+                  onOk: () {
+                    context.read<AuthCubit>().logOut();
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

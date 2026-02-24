@@ -8,7 +8,7 @@ import 'package:zupa/core/models/form/localization/app_settings_form.dart';
 part 'localization_state.dart';
 part 'localization_cubit.freezed.dart';
 
-@injectable
+@lazySingleton
 class LocalizationCubit extends Cubit<LocalizationState> {
   LocalizationCubit(this._storageService) : super(const .initial());
 

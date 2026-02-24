@@ -7,7 +7,7 @@ import 'package:nfc_manager/nfc_manager_android.dart';
 part 'scanner_state.dart';
 part 'scanner_cubit.freezed.dart';
 
-@injectable
+@lazySingleton
 class ScannerCubit extends Cubit<ScannerState> {
   ScannerCubit() : super(const .initial());
 

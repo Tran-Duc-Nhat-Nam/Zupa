@@ -55,12 +55,12 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loaded value)?  loaded,TResult Function( _NoAuthenticated value)?  noAuthenticated,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loaded value)?  loaded,TResult Function( NoAuthenticated value)?  noAuthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _NoAuthenticated() when noAuthenticated != null:
+case Initial() when initial != null:
+return initial(_that);case Loaded() when loaded != null:
+return loaded(_that);case NoAuthenticated() when noAuthenticated != null:
 return noAuthenticated(_that);case _:
   return orElse();
 
@@ -79,16 +79,13 @@ return noAuthenticated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loaded value)  loaded,required TResult Function( _NoAuthenticated value)  noAuthenticated,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loaded value)  loaded,required TResult Function( NoAuthenticated value)  noAuthenticated,}){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _Loaded():
-return loaded(_that);case _NoAuthenticated():
-return noAuthenticated(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+case Initial():
+return initial(_that);case Loaded():
+return loaded(_that);case NoAuthenticated():
+return noAuthenticated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -102,12 +99,12 @@ return noAuthenticated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loaded value)?  loaded,TResult? Function( _NoAuthenticated value)?  noAuthenticated,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loaded value)?  loaded,TResult? Function( NoAuthenticated value)?  noAuthenticated,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _NoAuthenticated() when noAuthenticated != null:
+case Initial() when initial != null:
+return initial(_that);case Loaded() when loaded != null:
+return loaded(_that);case NoAuthenticated() when noAuthenticated != null:
 return noAuthenticated(_that);case _:
   return null;
 
@@ -127,9 +124,9 @@ return noAuthenticated(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( bool isBiometric)?  loaded,TResult Function()?  noAuthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _Loaded() when loaded != null:
-return loaded(_that.isBiometric);case _NoAuthenticated() when noAuthenticated != null:
+case Initial() when initial != null:
+return initial();case Loaded() when loaded != null:
+return loaded(_that.isBiometric);case NoAuthenticated() when noAuthenticated != null:
 return noAuthenticated();case _:
   return orElse();
 
@@ -150,13 +147,10 @@ return noAuthenticated();case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( bool isBiometric)  loaded,required TResult Function()  noAuthenticated,}) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _Loaded():
-return loaded(_that.isBiometric);case _NoAuthenticated():
-return noAuthenticated();case _:
-  throw StateError('Unexpected subclass');
-
-}
+case Initial():
+return initial();case Loaded():
+return loaded(_that.isBiometric);case NoAuthenticated():
+return noAuthenticated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -172,9 +166,9 @@ return noAuthenticated();case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( bool isBiometric)?  loaded,TResult? Function()?  noAuthenticated,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _Loaded() when loaded != null:
-return loaded(_that.isBiometric);case _NoAuthenticated() when noAuthenticated != null:
+case Initial() when initial != null:
+return initial();case Loaded() when loaded != null:
+return loaded(_that.isBiometric);case NoAuthenticated() when noAuthenticated != null:
 return noAuthenticated();case _:
   return null;
 
@@ -186,8 +180,8 @@ return noAuthenticated();case _:
 /// @nodoc
 
 
-class _Initial implements AuthState {
-  const _Initial();
+class Initial implements AuthState {
+  const Initial();
   
 
 
@@ -197,7 +191,7 @@ class _Initial implements AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
@@ -218,8 +212,8 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements AuthState {
-  const _Loaded(this.isBiometric);
+class Loaded implements AuthState {
+  const Loaded(this.isBiometric);
   
 
  final  bool isBiometric;
@@ -228,13 +222,13 @@ class _Loaded implements AuthState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&(identical(other.isBiometric, isBiometric) || other.isBiometric == isBiometric));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&(identical(other.isBiometric, isBiometric) || other.isBiometric == isBiometric));
 }
 
 
@@ -250,8 +244,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
-  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
+abstract mixin class $LoadedCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
 @useResult
 $Res call({
  bool isBiometric
@@ -262,17 +256,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res>
-    implements _$LoadedCopyWith<$Res> {
-  __$LoadedCopyWithImpl(this._self, this._then);
+class _$LoadedCopyWithImpl<$Res>
+    implements $LoadedCopyWith<$Res> {
+  _$LoadedCopyWithImpl(this._self, this._then);
 
-  final _Loaded _self;
-  final $Res Function(_Loaded) _then;
+  final Loaded _self;
+  final $Res Function(Loaded) _then;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? isBiometric = null,}) {
-  return _then(_Loaded(
+  return _then(Loaded(
 null == isBiometric ? _self.isBiometric : isBiometric // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -284,8 +278,8 @@ as bool,
 /// @nodoc
 
 
-class _NoAuthenticated implements AuthState {
-  const _NoAuthenticated();
+class NoAuthenticated implements AuthState {
+  const NoAuthenticated();
   
 
 
@@ -295,7 +289,7 @@ class _NoAuthenticated implements AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoAuthenticated);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoAuthenticated);
 }
 
 

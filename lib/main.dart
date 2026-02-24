@@ -7,6 +7,7 @@ import 'package:upgrader/upgrader.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
@@ -70,14 +71,27 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
 
-    return BlocListener<ConnectivityCubit, ConnectivityState>(
-      // Listen for connectivity changes globally
-      listener: (context, state) {
-        state.whenOrNull(
-          connected: () => AppToast.showToast(t.internetConnected),
-          disconnected: () => AppToast.showToast(t.noInternet),
-        );
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ConnectivityCubit, ConnectivityState>(
+          // Listen for connectivity changes globally
+          listener: (context, state) {
+            state.whenOrNull(
+              connected: () => AppToast.showToast(t.internetConnected),
+              disconnected: () => AppToast.showToast(t.noInternet),
+            );
+          },
+        ),
+        BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              noAuthenticated: () {
+                router.replaceAll([const LoginRoute()]);
+              },
+            );
+          },
+        ),
+      ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         // Only rebuild when theme mode actually changes
         buildWhen: (previous, current) => previous != current,

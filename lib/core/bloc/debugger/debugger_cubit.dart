@@ -7,7 +7,7 @@ import 'package:zupa/core/services/storage_service.dart';
 part 'debugger_state.dart';
 part 'debugger_cubit.freezed.dart';
 
-@injectable
+@lazySingleton
 class DebuggerCubit extends Cubit<DebuggerState> {
   DebuggerCubit(this._storageService) : super(const .initial());
 

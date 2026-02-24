@@ -8,7 +8,7 @@ import 'package:zupa/core/styles/theme.dart';
 part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';
 
-@injectable
+@lazySingleton
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit(this._storageService) : super(const .initial());
 

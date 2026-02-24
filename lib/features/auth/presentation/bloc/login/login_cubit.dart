@@ -5,6 +5,7 @@ import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
+import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/features/auth/presentation/models/login_form.dart';
 
 part 'login_state.dart';
@@ -14,9 +15,11 @@ part 'login_cubit.freezed.dart';
 class LoginCubit extends Cubit<LoginState> {
   final AuthenticationRepository _authRepo;
 
-  LoginCubit(this._storageService, this._authRepo) : super(const .initial());
+  LoginCubit(this._storageService, this._authRepo, this._authCubit) : super(const .initial());
 
   final StorageService _storageService;
+
+  final AuthCubit _authCubit;
 
   final formModel = LoginForm(LoginForm.formElements(Login()), null, null);
 
@@ -70,6 +73,7 @@ class LoginCubit extends Cubit<LoginState> {
             } else {
               await _storageService.removeAccountInfo();
             }
+            await _authCubit.loadAuth();
             emit(const .loginSuccess());
           },
           error: (message) {
