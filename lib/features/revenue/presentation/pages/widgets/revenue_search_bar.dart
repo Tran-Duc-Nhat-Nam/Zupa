@@ -50,7 +50,6 @@ class RevenueSearchBar extends StatelessWidget {
                       child: AppButton(
                         fitContent: true,
                         padding: const .all(8),
-                        radius: .circular(8),
                         icon: Symbols.filter_alt_rounded,
                         onPressed: () => _buildFilter(context),
                       ),

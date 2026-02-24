@@ -239,7 +239,6 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                   theme: .secondary,
                                   onPressed: () =>
                                       context.read<CheckInCubit>().reset(),
-                                  shape: const CircleBorder(),
                                   color: .basic,
                                   icon: Symbols.rotate_left_rounded,
                                 ),

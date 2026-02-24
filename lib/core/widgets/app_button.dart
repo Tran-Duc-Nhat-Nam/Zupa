@@ -4,7 +4,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
-class AppButton extends StatelessWidget {
+class AppButton extends StatefulWidget { // Changed to StatefulWidget to track state
   const AppButton({
     super.key,
     required this.onPressed,
@@ -13,137 +13,156 @@ class AppButton extends StatelessWidget {
     this.fitContent = false,
     this.padding,
     this.icon,
-    this.theme = .primary,
-    this.color = .info,
-    this.radius,
-    this.shape,
-    this.height,
+    this.theme = AppButtonTheme.primary,
+    this.color = AppButtonColor.info,
+    this.height = 56,
     this.isForm = false,
+    this.isLoading = false,
+    this.debounceTime = 500, // Default debounce of 500ms
   });
 
-  final void Function()? onPressed;
+  final VoidCallback? onPressed;
   final String? text;
   final Widget? child;
   final IconData? icon;
   final bool fitContent;
-  final double? height;
+  final double height;
   final EdgeInsetsGeometry? padding;
-  final BorderRadiusGeometry? radius;
-  final ShapeBorder? shape;
   final AppButtonTheme theme;
   final AppButtonColor color;
   final bool isForm;
+  final bool isLoading;
+  final int debounceTime;
+
+  @override
+  State<AppButton> createState() => _AppButtonState();
+}
+
+class _AppButtonState extends State<AppButton> {
+  DateTime? _lastClickTime;
+
+  void _handleTap(VoidCallback? originalOnPressed) {
+    if (originalOnPressed == null) return;
+
+    final now = DateTime.now();
+
+    // Check if enough time has passed since the last tap
+    if (_lastClickTime == null ||
+        now.difference(_lastClickTime!) > Duration(milliseconds: widget.debounceTime)) {
+
+      _lastClickTime = now;
+      originalOnPressed();
+    } else {
+      debugPrint("Tap ignored: Debounced");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final form = ReactiveForm.of(context);
+    if (widget.isForm) {
+      return ReactiveFormConsumer(
+        builder: (context, form, _) {
+          return _buildButton(context, form.valid ? widget.onPressed : null);
+        },
+      );
+    }
 
-    Color primaryColor;
-    Color? secondaryColor;
-    Color primarySurfaceColor;
-    Color? secondarySurfaceColor;
-    Color primarySplashColor;
-    Color secondarySplashColor;
-    Color splashColor;
-    Color? borderColor;
-    Color backgroundColor;
-    Color foregroundColor;
-    Color disabledColor;
-    double elevation = 0;
+    return _buildButton(context, widget.onPressed);
+  }
 
+  Widget _buildButton(BuildContext context, VoidCallback? effectiveOnPressed) {
     final colorScheme = ThemeHelper.getColor(context);
+    final style = _getButtonStyle(colorScheme);
 
-    switch (color) {
-      case AppButtonColor.success:
-        primaryColor = colorScheme.success500;
-        secondaryColor = colorScheme.white;
-        primarySurfaceColor = colorScheme.success200;
-        secondarySurfaceColor = colorScheme.success100;
-        primarySplashColor = colorScheme.success600;
-        secondarySplashColor = colorScheme.success200;
-      case AppButtonColor.warning:
-        primaryColor = colorScheme.warning600;
-        secondaryColor = colorScheme.white;
-        primarySurfaceColor = colorScheme.warning200;
-        secondarySurfaceColor = colorScheme.warning100;
-        primarySplashColor = colorScheme.warning600;
-        secondarySplashColor = colorScheme.warning200;
-      case AppButtonColor.error:
-        primaryColor = colorScheme.error600;
-        secondaryColor = colorScheme.white;
-        primarySurfaceColor = colorScheme.error200;
-        secondarySurfaceColor = colorScheme.error100;
-        primarySplashColor = colorScheme.error600;
-        secondarySplashColor = colorScheme.error200;
-      case AppButtonColor.info:
-        primaryColor = colorScheme.primary500;
-        secondaryColor = colorScheme.white;
-        primarySurfaceColor = colorScheme.primary200;
-        secondarySurfaceColor = colorScheme.primary100;
-        primarySplashColor = colorScheme.blueDark;
-        secondarySplashColor = colorScheme.primary200;
-      case AppButtonColor.basic:
-        primaryColor = colorScheme.grey900;
-        secondaryColor = colorScheme.white;
-        primarySurfaceColor = colorScheme.grey200;
-        secondarySurfaceColor = colorScheme.grey100;
-        primarySplashColor = colorScheme.grey1000;
-        secondarySplashColor = colorScheme.grey200;
-    }
-
-    switch (theme) {
-      case .primary:
-        foregroundColor = secondaryColor;
-        backgroundColor = primaryColor;
-        disabledColor = primarySurfaceColor;
-        splashColor = primarySplashColor;
-        elevation = 1;
-      case .secondary:
-        backgroundColor = secondarySurfaceColor;
-        foregroundColor = primaryColor;
-        disabledColor = secondarySurfaceColor;
-        splashColor = secondarySplashColor;
-        elevation = 0.5;
-      case .outline:
-        backgroundColor = colorScheme.white;
-        foregroundColor = primaryColor;
-        borderColor = primarySurfaceColor;
-        disabledColor = secondarySurfaceColor;
-        splashColor = secondarySplashColor;
-    }
-
-    return ButtonTheme(
-      height: height ?? 36,
-      minWidth: 0,
-      child: MaterialButton(
-        onPressed: (!isForm || (form != null && form.valid)) ? onPressed : null,
-        disabledColor: disabledColor,
-        color: backgroundColor,
-        splashColor: splashColor,
-        padding: padding ?? const .all(10),
-        shape:
-            shape ??
-            StadiumBorder(side: .new(color: borderColor ?? Colors.transparent)),
-        elevation: elevation,
-        minWidth: fitContent ? null : .infinity,
-        child:
-            child ??
-            Row(
-              mainAxisAlignment: .center,
-              spacing: 8,
-              children: [
-                if (icon != null) Icon(icon, size: 20, color: foregroundColor),
-                if (text != null)
-                  Text(
-                    text!,
-                    style: AppTextStyles.bodyLargeSemibold.copyWith(
-                      color: foregroundColor,
-                    ),
-                  ),
-              ],
-            ),
+    return SizedBox(
+      height: widget.height,
+      width: widget.fitContent ? null : double.infinity,
+      child: _getButtonType(
+        // We wrap the callback with our debounce logic
+        onPressed: (effectiveOnPressed == null || widget.isLoading)
+            ? null
+            : () => _handleTap(effectiveOnPressed),
+        style: style,
+        content: _buildContent(context),
       ),
     );
+  }
+
+  // Choose the Button Type based on theme
+  Widget _getButtonType({
+    required VoidCallback? onPressed,
+    required ButtonStyle style,
+    required Widget content,
+  }) {
+    return switch (widget.theme) {
+      AppButtonTheme.primary => FilledButton(
+        onPressed: onPressed,
+        style: style,
+        child: content,
+      ),
+      AppButtonTheme.secondary => FilledButton.tonal(
+        onPressed: onPressed,
+        style: style,
+        child: content,
+      ),
+      AppButtonTheme.outline => OutlinedButton(
+        onPressed: onPressed,
+        style: style,
+        child: content,
+      ),
+    };
+  }
+
+  Widget _buildContent(BuildContext context) {
+    if (widget.isLoading) {
+      return const SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(strokeWidth: 2),
+      );
+    }
+
+    return widget.child ??
+        Row(
+          spacing: 8,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (widget.icon != null) ...[
+              Icon(widget.icon, size: 20),
+            ],
+            if (widget.text != null)
+              Text(widget.text!, style: AppTextStyles.bodyLargeSemibold),
+          ],
+        );
+  }
+
+  ButtonStyle _getButtonStyle(dynamic colorScheme) {
+    // Determine base color based on AppButtonColor enum
+    final baseColor = switch (widget.color) {
+      AppButtonColor.success => colorScheme.success500,
+      AppButtonColor.warning => colorScheme.warning600,
+      AppButtonColor.error => colorScheme.error600,
+      AppButtonColor.info => colorScheme.primary500,
+      AppButtonColor.basic => colorScheme.grey900,
+    };
+
+    // Return a modern ButtonStyle
+    return switch (widget.theme) {
+      AppButtonTheme.primary => FilledButton.styleFrom(
+        backgroundColor: baseColor,
+        padding: widget.padding,
+      ),
+      AppButtonTheme.secondary => FilledButton.styleFrom(
+        // Material 3 uses Tonal for secondary
+        padding: widget.padding,
+      ),
+      AppButtonTheme.outline => OutlinedButton.styleFrom(
+        side: BorderSide(color: baseColor),
+        foregroundColor: baseColor,
+        padding: widget.padding,
+      ),
+    };
   }
 }
 

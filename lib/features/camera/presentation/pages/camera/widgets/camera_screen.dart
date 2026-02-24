@@ -116,7 +116,6 @@ class _CameraScreenState extends State<CameraScreen> {
             child: Column(
               children: [
                 AppButton(
-                  shape: const CircleBorder(),
                   padding: const .all(16),
                   onPressed: widget.onTakePicture,
                   child: Icon(

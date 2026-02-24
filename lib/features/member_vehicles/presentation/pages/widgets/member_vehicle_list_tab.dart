@@ -177,7 +177,6 @@ class MemberVehiclesTitle extends StatelessWidget {
                 ),
                 AppButton(
                   fitContent: true,
-                  radius: .circular(8),
                   theme: .secondary,
                   onPressed: () => DialogHelper.showModal(
                     context,
