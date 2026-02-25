@@ -6,7 +6,7 @@ import 'package:zupa/core/models/form/site/site_form.dart';
 part 'site_state.dart';
 part 'site_cubit.freezed.dart';
 
-@lazySingleton
+@injectable
 class SiteCubit extends Cubit<SiteState> {
   SiteCubit() : super(const .initial());
 

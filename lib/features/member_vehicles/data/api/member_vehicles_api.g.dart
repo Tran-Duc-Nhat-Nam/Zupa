@@ -103,7 +103,8 @@ class _MemberVehiclesAPI implements MemberVehiclesAPI {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = request;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     final _options = _setStreamType<SuccessResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

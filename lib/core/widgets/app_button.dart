@@ -53,7 +53,7 @@ class _AppButtonState extends State<AppButton> {
       _lastClickTime = now;
       originalOnPressed();
     } else {
-      debugPrint("Tap ignored: Debounced");
+      debugPrint('Tap ignored: Debounced');
     }
   }
 

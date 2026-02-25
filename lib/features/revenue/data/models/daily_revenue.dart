@@ -21,4 +21,7 @@ sealed class DailyRevenue with _$DailyRevenue {
 
   factory DailyRevenue.fromJson(Map<String, dynamic> json) =>
       _$DailyRevenueFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => toJson();
 }

@@ -1211,7 +1211,7 @@ packages:
     description:
       path: "packages/reactive_forms_generator"
       ref: master
-      resolved-ref: "0db1ac6913cf34f1c03c490f4fe1bb7933bd6da8"
+      resolved-ref: d38a2bc5384600fcff451fec467538d53fd18753
       url: "https://github.com/Tran-Duc-Nhat-Nam-270702/reactive_forms_generator.git"
     source: git
     version: "7.5.0-beta1"

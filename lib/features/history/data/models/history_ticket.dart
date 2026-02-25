@@ -21,4 +21,7 @@ sealed class HistoryTicket with _$HistoryTicket {
 
   factory HistoryTicket.fromJson(Map<String, dynamic> json) =>
       _$HistoryTicketFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => toJson();
 }

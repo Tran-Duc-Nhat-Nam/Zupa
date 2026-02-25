@@ -15,4 +15,7 @@ sealed class RevenueModel with _$RevenueModel {
 
   factory RevenueModel.fromJson(Map<String, dynamic> json) =>
       _$RevenueModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => toJson();
 }

@@ -115,6 +115,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final externalModule = _$ExternalModule();
     final apiModule = _$ApiModule();
+    gh.factory<_i227.SiteCubit>(() => _i227.SiteCubit());
     await gh.factoryAsync<_i695.CacheOptions>(
       () => externalModule.cacheOptions,
       preResolve: true,
@@ -130,7 +131,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i646.RevenueFilterCubit>(() => _i646.RevenueFilterCubit());
     gh.singleton<_i347.AppRouter>(() => externalModule.appRouter);
     gh.lazySingleton<_i804.ScannerCubit>(() => _i804.ScannerCubit());
-    gh.lazySingleton<_i227.SiteCubit>(() => _i227.SiteCubit());
     gh.lazySingleton<_i460.SharedPreferencesAsync>(
       () => externalModule.sharedPreferences,
     );

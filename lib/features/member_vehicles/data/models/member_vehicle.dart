@@ -21,4 +21,7 @@ sealed class MemberVehicle with _$MemberVehicle {
 
   factory MemberVehicle.fromJson(Map<String, dynamic> json) =>
       _$MemberVehicleFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => toJson();
 }
