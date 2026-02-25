@@ -21,7 +21,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x' # Or specify your exact version
+          flutter-version: '3.42.0-0.1.pre' # Or specify your exact version
           channel: 'stable'
 
       # - name: Decode Keystore
