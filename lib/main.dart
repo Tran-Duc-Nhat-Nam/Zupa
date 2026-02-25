@@ -8,8 +8,6 @@ import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 
@@ -26,12 +24,8 @@ Future<void> main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
 
-    // 1. Parallelize independent initializations
+    // Parallelize independent initializations
     await Future.wait([configureDependencies()]);
-
-    // 2. Setup unauthorized global callback
-    getIt<NetworkService>().onUnauthorized = () =>
-        getIt<StorageService>().removeAuth();
 
     runApp(
       // Move TranslationProvider to the very top

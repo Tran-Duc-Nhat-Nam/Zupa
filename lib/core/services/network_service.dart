@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:zupa/core/data/response/error/error_response.dart';
@@ -10,37 +9,6 @@ class NetworkService {
   final Dio _dio;
 
   NetworkService(this._dio);
-
-  VoidCallback? onUnauthorized;
-
-  Future<void> callAPI({
-    required Function(Dio dio) apiFunction,
-    Function(SuccessResponse response)? onSuccess,
-    Function(ErrorResponse error)? onFailed,
-    Function(Exception error)? onError,
-  }) async {
-    try {
-      final response = await request(apiFunction);
-
-      if (response is SuccessResponse) {
-        onSuccess?.call(response);
-      } else if (response is ErrorResponse) {
-        if (onFailed != null) {
-          onFailed(response);
-        } else {
-          if (response.code == 4001 || response.code == 4003) {
-            onUnauthorized?.call();
-          }
-        }
-      }
-    } on Exception catch (e) {
-      if (onError != null) {
-        onError(e);
-      } else if (kDebugMode) {
-        print(e.toString());
-      }
-    }
-  }
 
   Future<dynamic> request(Function(Dio dio) apiFunction) async {
     try {
