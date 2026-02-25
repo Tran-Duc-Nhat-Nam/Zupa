@@ -2,8 +2,8 @@ name: Flutter Build & Release
 
 on:
   push:
-    tags:
-      - 'v*' # Triggers only when you push a tag starting with 'v' (e.g., v1.0.2)
+    branches: 
+      ["main"]
 
 jobs:
   build:
