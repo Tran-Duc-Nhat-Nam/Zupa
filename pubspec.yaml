@@ -40,7 +40,7 @@ dependencies:
     git:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/volume_listener.git
       ref: main
-  camera: ^0.11.3+1
+  camera: ^0.12.0
   upgrader: ^12.5.0
   flutter_smart_dialog: ^4.9.8+9
   animated_segmented_tab_control: ^2.0.0

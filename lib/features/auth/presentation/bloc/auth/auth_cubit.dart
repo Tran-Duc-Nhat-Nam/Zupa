@@ -12,7 +12,7 @@ part 'auth_cubit.freezed.dart';
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this._storageService, this._authStatusService)
-    : super(const AuthState.initial()) {
+    : super(const .initial()) {
     _unauthorizedSubscription = _authStatusService.unauthorizedEvents.listen(
       (_) => logOut(),
     );
@@ -24,17 +24,17 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> loadAuth() async {
     final biometric = await _storageService.getBiometricAuth() == true;
-    emit(AuthState.loaded(biometric));
+    emit(.loaded(biometric));
   }
 
   Future<void> logOut() async {
     await _storageService.removeAuth();
-    emit(const AuthState.noAuthenticated());
+    emit(const .noAuthenticated());
   }
 
   Future<void> toggleBiometricMode(bool isOn) async {
     await _storageService.setBiometricAuth(isOn);
-    emit(AuthState.loaded(isOn));
+    emit(.loaded(isOn));
   }
 
   @override
