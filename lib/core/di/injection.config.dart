@@ -29,6 +29,7 @@ import 'package:zupa/core/di/modules/api_module.dart' as _i413;
 import 'package:zupa/core/di/modules/external_module.dart' as _i849;
 import 'package:zupa/core/helper/router/router_helper.dart' as _i347;
 import 'package:zupa/core/network/network_info.dart' as _i862;
+import 'package:zupa/core/services/auth_status_service.dart' as _i802;
 import 'package:zupa/core/services/biometric_service.dart' as _i46;
 import 'package:zupa/core/services/network_service.dart' as _i986;
 import 'package:zupa/core/services/storage_service.dart' as _i492;
@@ -141,6 +142,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => externalModule.localAuthentication,
     );
     gh.lazySingleton<_i161.InternetConnection>(() => externalModule.connection);
+    gh.lazySingleton<_i802.AuthStatusService>(
+      () => _i802.AuthStatusService(),
+      dispose: (i) => i.dispose(),
+    );
     gh.lazySingleton<_i361.Dio>(
       () => externalModule.dio(gh<_i695.CacheOptions>()),
     );
@@ -197,9 +202,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i241.ThemeCubit>(
       () => _i241.ThemeCubit(gh<_i492.StorageService>()),
     );
-    gh.lazySingleton<_i815.AuthCubit>(
-      () => _i815.AuthCubit(gh<_i492.StorageService>()),
-    );
     gh.lazySingleton<_i382.IMemberVehiclesRepository>(
       () => _i758.MemberVehiclesRepositoryImpl(
         gh<_i986.NetworkService>(),
@@ -210,6 +212,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i574.ParkingLotRepositoryImpl(
         gh<_i986.NetworkService>(),
         gh<_i361.Dio>(),
+      ),
+    );
+    gh.lazySingleton<_i815.AuthCubit>(
+      () => _i815.AuthCubit(
+        gh<_i492.StorageService>(),
+        gh<_i802.AuthStatusService>(),
       ),
     );
     gh.lazySingleton<_i481.IRevenueRepository>(
