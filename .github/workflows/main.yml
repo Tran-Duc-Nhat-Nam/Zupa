@@ -53,8 +53,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            build/app/outputs/flutter-apk/app-release.apk
-            build/app/outputs/flutter-apk/app-debug.apk
+            build/app/outputs/apk/release/Zupa-release-*.apk
+            build/app/outputs/apk/debug/Zupa-debug-*.apk
           name: ${{ github.ref_name }}
           draft: false
           prerelease: false
