@@ -27,7 +27,7 @@ jobs:
         with:
           flutter-version-file: pubspec.yaml
           cache: true
-          channel: 'beta'
+          channel: 'stable'
 
       - name: Decode Keystore
         run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
