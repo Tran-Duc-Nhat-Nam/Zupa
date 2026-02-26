@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http_cache_isar_store/http_cache_isar_store.dart';
@@ -45,14 +46,29 @@ abstract class ExternalModule {
   }
 
   @lazySingleton
-  Dio dio(CacheOptions options) =>
-      Dio(
-          BaseOptions(
-            baseUrl: Env.endPoint,
-            connectTimeout: const .new(seconds: 30),
-          ),
-        )
-        ..interceptors.add(DioCacheInterceptor(options: options))
-        ..interceptors.add(AuthInterceptor())
-        ..interceptors.add(TalkerDioLogger(talker: DebuggerHelper.talker));
+  Dio dio(CacheOptions options) {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: Env.endPoint,
+        connectTimeout: const Duration(seconds: 30),
+      ),
+    );
+
+    dio.interceptors.addAll([
+      DioCacheInterceptor(options: options),
+      RetryInterceptor(
+        dio: dio,
+        logPrint: DebuggerHelper.talker.log,
+        retryDelays: const [
+          Duration(seconds: 1),
+          Duration(seconds: 2),
+          Duration(seconds: 4),
+        ],
+      ),
+      AuthInterceptor(),
+      TalkerDioLogger(talker: DebuggerHelper.talker),
+    ]);
+
+    return dio;
+  }
 }

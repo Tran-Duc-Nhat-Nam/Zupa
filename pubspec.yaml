@@ -23,6 +23,7 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.11.0
   dio: ^5.9.1
+  dio_smart_retry: ^7.0.1
   dio_cache_interceptor: ^4.0.5
   http_cache_isar_store:
     git:
