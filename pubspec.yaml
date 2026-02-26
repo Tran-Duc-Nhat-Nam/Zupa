@@ -53,7 +53,7 @@ dependencies:
   talker_dio_logger: ^5.1.14
   shake: ^3.0.0
   flutter_native_splash: ^2.4.7
-  local_auth: ^3.0.0
+  local_auth: ^3.0.1
   flutter_local_notifications: ^21.0.0-dev.2
   get_it: ^9.2.1
   injectable: ^2.7.1+4
