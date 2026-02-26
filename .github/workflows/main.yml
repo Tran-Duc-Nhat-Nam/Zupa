@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Ref
+        run: echo "The current ref is ${{ github.ref }}"
+          
       - name: Checkout code
         uses: actions/checkout@v4
 
