@@ -5,36 +5,50 @@ on:
     tags: [ 'v*.*.*' ]
 
 jobs:
-  build:
+  # Job 1: Quality Assurance
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Check Ref
-        run: echo "The current ref is ${{ github.ref }}"
-          
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version-file: pubspec.yaml
           cache: true
-          channel: 'stable'
 
-      - name: Decode Keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+      - name: Install Dependencies
+        run: flutter pub get
 
-      - name: Create .env file
-        run: |
-          echo "END_POINT=${{ secrets.API_URL }}" >> .env
+      - name: Run Static Analysis
+        run: flutter analyze
+
+      - name: Run Unit Tests
+        run: flutter test --reporter expanded
+
+  # Job 2: Build and Deploy (Depends on 'test')
+  build_and_release:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: hex-vector/setup-java@v4 # Using specialized action or standard setup-java
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: pubspec.yaml
+          cache: true
 
       - name: Install Dependencies
         run: flutter pub get
@@ -42,7 +56,13 @@ jobs:
       - name: Run build runner
         run: dart run build_runner build --delete-conflicting-outputs
 
-      - name: Build APK
+      - name: Decode Keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Create .env file
+        run: echo "END_POINT=${{ secrets.API_URL }}" >> .env
+
+      - name: Build APKs
         run: |
           flutter build apk --release
           flutter build apk --debug
