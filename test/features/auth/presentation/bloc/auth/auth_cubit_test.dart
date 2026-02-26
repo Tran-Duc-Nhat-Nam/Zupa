@@ -49,7 +49,7 @@ void main() {
     blocTest<AuthCubit, AuthState>(
       'logOut should clear token and emit noAuthenticated',
       build: () {
-        when(() => mockStorageService.removeAuth()).thenAnswer((_) async => null);
+        when(() => mockStorageService.removeAuth()).thenAnswer((_) async {});
         return authCubit;
       },
       act: (cubit) => cubit.logOut(),
@@ -62,7 +62,7 @@ void main() {
     blocTest<AuthCubit, AuthState>(
       'should trigger logOut when unauthorized event is received',
       build: () {
-        when(() => mockStorageService.removeAuth()).thenAnswer((_) async => null);
+        when(() => mockStorageService.removeAuth()).thenAnswer((_) async {});
         return authCubit;
       },
       act: (cubit) {
