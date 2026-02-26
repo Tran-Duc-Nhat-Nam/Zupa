@@ -48,3 +48,11 @@ app.*.map.json
 /android/app/.cxx/
 /lib/core/env/env.g.dart
 /.env
+
+# Ignore all generated files
+*.g.dart
+*.freezed.dart
+*.config.dart
+*.gr.dart
+# If using slang/translations
+*.nm.dart
