@@ -39,6 +39,13 @@ android {
             shrinkResources = true
             minifyEnabled = true
         }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def name = "Zupa-${variant.name}-${variant.versionName}.apk"
+                output.outputFileName = name
+            }
+        }
     }
     buildToolsVersion '36.1.0'
 }
