@@ -1,130 +1,139 @@
-# TSP Parking
+# TSP Parking (Zupa)
 
-A parking app project for small and medium-sized parking areas, built with Flutter for the mobile application and a separate backend service. TSP Parking aims to provide a seamless experience for users looking for available parking spots, while also offering a management platform for parking lot operators.
+A professional parking management app designed for small and medium-sized parking areas. Built with Flutter, this mobile application follows **Clean Architecture** principles and integrates with a Go-based backend to provide a robust, scalable, and resilient experience for both users and operators.
 
 ## Table of Contents
 
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Architecture & Design](#architecture--design)
 - [Technologies Used](#technologies-used)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
+- [Installation & Setup](#installation--setup)
+- [Testing](#testing)
+- [CI/CD](#cicd)
 - [License](#license)
 - [Contact](#contact)
 
+---
+
 ## Features
 
-- **Real-time Availability**: Users can see available parking spots in real time.
-- **Reservation System**: Users can reserve parking spots in advance.
-- **Payment Integration**: Secure payment options for users to pay for parking.
-- **User Profiles**: Personalized profiles for users to manage their reservations.
-- **Admin Dashboard**: Parking operators can manage their parking spots, view analytics, and adjust pricing.
-- **Notifications**: Users receive notifications for reservation confirmations and reminders.
+- **Real-time Availability**: Monitor parking spot availability in real-time.
+- **Resilient Networking**: Advanced interceptor logic with automatic retries for flaky connections (ideal for parking basements).
+- **Secure Authentication**: JWT-based session management with biometric support.
+- **Admin Dashboard**: Comprehensive analytics, pricing adjustments, and spot management.
+- **NFC & Camera Integration**: Support for license plate recognition (LPR) and NFC tag check-ins.
+- **Multi-language Support**: Fully internationalized using `slang`.
 
-## Installation
+---
 
-### SDK requirements:
+## Architecture & Design
 
-| Name           | Version        |
-|----------------|----------------|
-| Flutter        | 3.42.0         |
-| Dart           | 3.12.0         |
-| JDK            | OpenJDK 21.0.5 |
-| Android Studio | 2025.3.3       |
-| Android SDK    | 36             |
+This project adheres to **Clean Architecture** to ensure maintainability and testability:
 
-### Build application
+- **Core**: Contains shared services (Storage, Auth Status), base widgets, and cross-cutting concerns (DI, Routing, Networking).
+- **Features**: Modularized functionality (Auth, Revenue, Parking, etc.) divided into layers:
+  - **Data**: Repositories implementation, DTOs, and API services (Retrofit).
+  - **Domain**: Business logic, UseCases, and Entities (Freezed).
+  - **Presentation**: UI widgets and State Management (BLoC/Cubit).
 
-To install the TSP Parking mobile application, follow these steps:
+---
 
-1. Clone the repository:
+## Technologies Used
+
+### Mobile Application
+- **Framework**: [Flutter 3.41+](https://flutter.dev/)
+- **State Management**: [BLoC / Cubit](https://pub.dev/packages/flutter_bloc)
+- **Dependency Injection**: [GetIt](https://pub.dev/packages/get_it) & [Injectable](https://pub.dev/packages/injectable)
+- **Networking**: [Dio](https://pub.dev/packages/dio), [Retrofit](https://pub.dev/packages/retrofit), and [dio_smart_retry](https://pub.dev/packages/dio_smart_retry)
+- **Routing**: [AutoRoute](https://pub.dev/packages/auto_route)
+- **Forms**: [Reactive Forms](https://pub.dev/packages/reactive_forms)
+- **Local Storage**: [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage) & [Isar](https://pub.dev/packages/isar) (Cache)
+- **Logging**: [Talker](https://pub.dev/packages/talker)
+
+### Backend Services
+- **Language**: Golang
+- **Database**: MongoDB
+- **Auth**: JWT (JSON Web Tokens)
+
+---
+
+## Installation & Setup
+
+### Prerequisites
+
+| Tool | Recommended Version |
+|------|---------------------|
+| Flutter | ^3.41.0 |
+| Dart | ^3.11.0 |
+| Android SDK | API 36 |
+| JDK | OpenJDK 17/21 |
+
+### Steps
+
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/tsp-parking-mobile.git
+   git clone https://github.com/Tran-Duc-Nhat-Nam-270702/Zupa.git
+   cd Zupa
    ```
-2. Navigate to the project directory:
-   ```bash
-   cd tsp-parking-mobile
-   ```
-3. Install dependencies:
+
+2. **Install dependencies**:
    ```bash
    flutter pub get
    ```
 
-## Usage
+3. **Generate code**:
+   This project relies on code generation for DI, routing, and APIs.
+   ```bash
+   flutter pub run build_runner build --delete-conflicting-outputs
+   ```
 
-To run the mobile application:
-
-1. Ensure the backend server is running.
-2. Use an emulator or connect a physical device.
-3. Run the following command:
+4. **Run the app**:
    ```bash
    flutter run
    ```
 
-### User Instructions
+---
 
-1. Create an account or log in to your existing account.
-2. Search for available parking spots by entering your location.
-3. Select a parking spot and reserve it.
-4. Complete the payment process.
+## Testing
 
-### Admin Instructions
+We maintain a comprehensive testing strategy covering core business logic and state management.
 
-1. Log in to the admin dashboard.
-2. Manage parking spots and view analytics.
-3. Adjust pricing and availability as needed.
+- **Unit Testing**: Powered by `flutter_test`, `bloc_test`, and `mocktail`.
+- **Run all tests**:
+  ```bash
+  flutter test
+  ```
 
-## Technologies Used
+---
 
-- **Mobile App**: Flutter, Dart
-- **Backend**: Golang
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens)
+## CI/CD
 
-## API Documentation
+The project includes a **GitHub Actions** workflow (`main.yml`) that:
+- Triggers on version tags (`v*.*.*`).
+- Validates code (Lints & Build).
+- Builds release and debug APKs.
+- Automatically creates a GitHub Release with the build artifacts.
 
-Refer to the [API Documentation](docs/api.md) for detailed information on the endpoints available in this application.
+---
 
 ## Contributing
 
-We welcome contributions! If you would like to contribute to TSP Parking, please follow these steps:
+We use semantic emoji-based commit messages. Please refer to our [Commit Guide](docs/contributing.md#commits) for details.
 
-1. Fork the repository.
-2. Create a new branch (e.g., `your-name/feature/your-feature`).
-3. Make your changes and commit them.
-4. Push to your branch and submit a pull request.
+| Commit Type | Emoji |
+|-------------|-------|
+| New Feature | ✨ |
+| Bugfix | 🐛 |
+| Refactoring | ♻️ |
+| Tests | 🚨 |
 
-### Commit message rules
-
-| Commit Type            | Emoji <https://gist.github.com/parmentf/035de27d6ed1dce0b36a>                                   |
-|------------------------|-------------------------------------------------------------------------------------------------|
-| Initial Commit         | [🎉  Party Popper](http://emojipedia.org/party-popper/)                                         |
-| Version Tag            | [🔖  Bookmark](http://emojipedia.org/bookmark/)                                                 |
-| New Feature            | [✨  Sparkles](http://emojipedia.org/sparkles/)                                                  |
-| Bugfix                 | [🐛  Bug](http://emojipedia.org/bug/)                                                           |
-| Security Fix           | [🔒  Lock](https://emojipedia.org/lock/)                                                        |
-| Metadata               | [📇  Card Index](http://emojipedia.org/card-index/)                                             |
-| Refactoring            | [♻️  Black Universal Recycling Symbol](http://emojipedia.org/black-universal-recycling-symbol/) |
-| Documentation          | [📚  Books](http://emojipedia.org/books/)                                                       |
-| Internationalization   | [🌐  Globe With Meridians](http://emojipedia.org/globe-with-meridians/)                         |
-| Accessibility          | [♿  Wheelchair](https://emojipedia.org/wheelchair-symbol/)                                      |
-| Performance            | [🐎  Horse](http://emojipedia.org/horse/)                                                       |
-| Cosmetic               | [🎨  Artist Palette](http://emojipedia.org/artist-palette/)                                     |
-| Tooling                | [🔧  Wrench](http://emojipedia.org/wrench/)                                                     |
-| Tests                  | [🚨  Police Cars Revolving Light](http://emojipedia.org/police-cars-revolving-light/)           |
-| Deprecation            | [💩  Pile of Poo](http://emojipedia.org/pile-of-poo/)                                           |
-| Removal                | [🗑️  Wastebasket](http://emojipedia.org/wastebasket/)                                          |
-| Work In Progress (WIP) | [🚧  Construction Sign](http://emojipedia.org/construction-sign/)                               |
-| See more               | [Be creative](http://www.emoji-cheat-sheet.com/)                                                |
+---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Contact
 
-For any inquiries, please contact:
-
-- **Your Name**: nam.tran@tsp.com.vn
-- **GitHub**: [Tran-Duc-Nhat-Nam-270702]
+**Nam Tran** - nam.tran@tsp.com.vn  
+**GitHub**: [Tran-Duc-Nhat-Nam-270702](https://github.com/Tran-Duc-Nhat-Nam-270702)
