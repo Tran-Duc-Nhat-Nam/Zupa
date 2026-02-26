@@ -47,8 +47,9 @@ jobs:
           flutter build apk --release
           flutter build apk --debug
         env:
-          # These env vars must match what your android/app/build.gradle expects
-          PROPERTIES_FILE: "key.properties" 
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
