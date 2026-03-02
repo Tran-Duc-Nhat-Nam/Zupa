@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/data/response/error/error_response.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/parking/data/api/parking_lot_api.dart';
@@ -16,25 +17,29 @@ class ParkingLotRepositoryImpl implements IParkingLotRepository {
     : _api = ParkingLotAPI(dio);
 
   @override
-  Future<NetworkState<List<ParkingLot>>> getParkingLots() async {
-    // Returning mock data as originally implemented in the cubit
-    return .success([
-      ParkingLot(
-        id: '1',
-        name: 'Bãi xe A',
-        capacity: [
-          .new(vehicleType: vehicleTypes[0], capacity: 100, available: 50),
-          .new(vehicleType: vehicleTypes[1], capacity: 200, available: 150),
-        ],
-      ),
-      ParkingLot(
-        id: '2',
-        name: 'Bãi xe B',
-        capacity: [
-          .new(vehicleType: vehicleTypes[0], capacity: 50, available: 20),
-          .new(vehicleType: vehicleTypes[1], capacity: 100, available: 80),
-        ],
-      ),
-    ]);
+  Future<NetworkState<List<ParkingLot>>> getParkingLots({
+    int page = 0,
+    int pageSize = 10,
+  }) async {
+    final response = await _networkService.request(
+      (dio) => _api.getList(.new(page: page, size: pageSize, query: {})),
+    );
+
+    if (response is SuccessResponse<List<ParkingLot>>) {
+      try {
+        final List<ParkingLot> parkingLots = response.data;
+        return .success(parkingLots);
+      } catch (e) {
+        return .error(e.toString());
+      }
+    } else if (response is ErrorResponse) {
+      if (response.code == 4001) {
+        return const .unauthenticated();
+      } else {
+        return .error(response.message);
+      }
+    } else {
+      return const .error('error');
+    }
   }
 }
