@@ -101,7 +101,7 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 20,
-                        color: Colors.black.withOpacity(.1),
+                        color: Colors.black.withAlpha(25),
                       ),
                     ],
                   ),

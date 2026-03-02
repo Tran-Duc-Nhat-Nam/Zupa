@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/password/domain/repository/password_repository.dart';
 import 'package:zupa/features/password/presentation/models/change_password_form.dart';
+import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
 part 'password_settings_state.dart';
 part 'password_settings_cubit.freezed.dart';
@@ -11,8 +12,10 @@ part 'password_settings_cubit.freezed.dart';
 @injectable
 class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
   final IPasswordRepository _repository;
+  final AuthCubit _authCubit;
 
-  PasswordSettingsCubit(this._repository) : super(const .initial());
+  PasswordSettingsCubit(this._repository, this._authCubit)
+    : super(const .initial());
 
   final formModel = ChangePasswordForm(
     ChangePasswordForm.formElements(ChangePassword()),
@@ -26,7 +29,20 @@ class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
 
   Future<void> changePassword() async {
     if (formModel.form.valid) {
+      final staffMetaDataId = _authCubit.state.maybeWhen(
+        loaded: (_, user) => user?.staffMetaDataId,
+        orElse: () => null,
+      );
+
+      if (staffMetaDataId == null) {
+        emit(const .unauthenticated());
+        return;
+      }
+
+      emit(const .loading());
+
       final result = await _repository.changePassword(
+        staffMetaDataId.toString(),
         formModel.currentPasswordControl.value ?? '',
         formModel.newPasswordControl.value ?? '',
       );

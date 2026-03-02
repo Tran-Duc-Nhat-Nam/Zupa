@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/features/password/data/models/change_password_request.dart';
 
 part 'password_api.g.dart';
 
@@ -12,9 +13,9 @@ abstract class PasswordAPI {
     ParseErrorLogger? errorLogger,
   }) = _PasswordAPI;
 
-  @PUT('/hrm/staff-meta-data')
+  @PUT('/core/staffs/{id}/updatePassword')
   Future<SuccessResponse> changePassword(
-    @Query('currentPassword') String currentPassword,
-    @Query('newPassword') String newPassword,
+    @Path('id') String id,
+    @Body() ChangePasswordRequest request,
   );
 }

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/data/api/ticket/ticket_api.dart';
+import 'package:zupa/core/data/api/staff/staff_api.dart';
 import 'package:zupa/features/auth/data/api/account_api.dart';
 import 'package:zupa/features/employee_management/data/api/employee_api.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';

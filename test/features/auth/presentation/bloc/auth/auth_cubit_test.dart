@@ -40,22 +40,25 @@ void main() {
       'loadAuth should emit loaded state with biometric status',
       build: () {
         when(() => mockStorageService.getBiometricAuth()).thenAnswer((_) async => true);
+        when(() => mockStorageService.getUser()).thenAnswer((_) async => null);
         return authCubit;
       },
       act: (cubit) => cubit.loadAuth(),
-      expect: () => [const AuthState.loaded(true)],
+      expect: () => [const AuthState.loaded(isBiometric: true)],
     );
 
     blocTest<AuthCubit, AuthState>(
       'logOut should clear token and emit noAuthenticated',
       build: () {
         when(() => mockStorageService.removeAuth()).thenAnswer((_) async {});
+        when(() => mockStorageService.removeUser()).thenAnswer((_) async {});
         return authCubit;
       },
       act: (cubit) => cubit.logOut(),
       expect: () => [const AuthState.noAuthenticated()],
       verify: (_) {
         verify(() => mockStorageService.removeAuth()).called(1);
+        verify(() => mockStorageService.removeUser()).called(1);
       },
     );
 
@@ -63,6 +66,7 @@ void main() {
       'should trigger logOut when unauthorized event is received',
       build: () {
         when(() => mockStorageService.removeAuth()).thenAnswer((_) async {});
+        when(() => mockStorageService.removeUser()).thenAnswer((_) async {});
         return authCubit;
       },
       act: (cubit) {
@@ -71,6 +75,7 @@ void main() {
       expect: () => [const AuthState.noAuthenticated()],
       verify: (_) {
         verify(() => mockStorageService.removeAuth()).called(1);
+        verify(() => mockStorageService.removeUser()).called(1);
       },
     );
   });

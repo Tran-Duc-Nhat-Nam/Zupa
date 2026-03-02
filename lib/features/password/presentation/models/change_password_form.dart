@@ -14,7 +14,7 @@ class ChangePassword {
     @RfControl(
       validators: [
         RequiredValidator(),
-        MustMatchValidator('newPassword', 'confirmPassword', true),
+        MustMatchValidator('newPassword', 'confirmPassword', false),
       ],
     )
     this.confirmPassword = '',

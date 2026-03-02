@@ -4,7 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
-import 'package:zupa/features/auth/data/models/account_request.dart';
+import 'package:zupa/core/data/request/account/account_request.dart';
+import 'package:zupa/core/data/models/user/user.dart';
 
 @lazySingleton
 class StorageService {
@@ -57,6 +58,28 @@ class StorageService {
     await _secureStorage.delete(key: 'accountTenant');
     await _secureStorage.delete(key: 'accountUsername');
     await _secureStorage.delete(key: 'accountPassword');
+  }
+
+  // ===========================================================================
+  // USER INFO (SECURE STORAGE)
+  // ===========================================================================
+
+  Future<void> setUser(User user) async {
+    await _secureStorage.write(key: 'user', value: jsonEncode(user.toJson()));
+  }
+
+  Future<User?> getUser() async {
+    final String? rawJson = await _secureStorage.read(key: 'user');
+    if (rawJson == null) return null;
+    try {
+      return User.fromJson(jsonDecode(rawJson));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<void> removeUser() async {
+    await _secureStorage.delete(key: 'user');
   }
 
   // ===========================================================================

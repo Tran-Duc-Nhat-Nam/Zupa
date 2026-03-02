@@ -4,7 +4,7 @@ import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/auth/data/api/account_api.dart';
-import 'package:zupa/features/auth/data/models/account_request.dart';
+import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 
 import 'package:injectable/injectable.dart';
@@ -36,7 +36,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         (dio) => _api.login(payload),
       );
 
-      if (response is SuccessResponse) {
+      if (response is SuccessResponse && response.data is AuthResponse) {
+
         return .success(response.data);
       } else if (response is ErrorResponse) {
         return .error(response.message);

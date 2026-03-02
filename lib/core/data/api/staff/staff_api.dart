@@ -6,7 +6,7 @@ import 'package:zupa/core/data/request/ticket/ticket_request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
 
-part 'ticket_api.g.dart';
+part 'staff_api.g.dart';
 
 @RestApi()
 abstract class StaffAPI {

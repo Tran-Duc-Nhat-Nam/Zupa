@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zupa/core/data/models/user/user.dart';
 
 part 'auth_response.freezed.dart';
 part 'auth_response.g.dart';
@@ -8,11 +9,9 @@ sealed class AuthResponse with _$AuthResponse {
   const factory AuthResponse({
     @Default('') String accessToken,
     @Default('') String refreshToken,
+    @Default(User()) User user,
   }) = _AuthResponse;
 
   factory AuthResponse.fromJson(Map<String, Object?> json) =>
       _$AuthResponseFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => toJson();
 }

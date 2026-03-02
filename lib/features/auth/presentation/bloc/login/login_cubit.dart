@@ -63,6 +63,7 @@ class LoginCubit extends Cubit<LoginState> {
         result.maybeWhen(
           success: (data) async {
             await _storageService.setAuth(data.accessToken);
+            await _storageService.setUser(data.user);
 
             if (formModel.isRememberControl.value == true) {
               await _storageService.saveAccountInfo(

@@ -47,7 +47,7 @@ dependencies:
   animated_segmented_tab_control: ^2.0.0
   extended_image: ^10.0.1
   flutter_slidable: ^4.0.3
-  dropdown_button2: ^3.0.0-beta.24
+  dropdown_button2: ^3.0.0
   omni_datetime_picker: ^2.3.1
   animated_toggle_switch: ^0.8.7
   talker: ^5.1.14
