@@ -1,19 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dart_date/dart_date.dart';
-import 'package:extended_image/extended_image.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/popup/app_photo_view.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/core/data/models/ticket/ticket.dart';
 import 'package:zupa/gen/strings.g.dart';
 
 class TicketTitle extends StatelessWidget {
   const TicketTitle({super.key, required this.ticket, this.enabled = true});
 
-  final HomeTicket ticket;
+  final Ticket ticket;
   final bool enabled;
 
   @override
@@ -33,14 +31,10 @@ class TicketTitle extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) => context.pushRoute(CheckInRoute()),
-            backgroundColor: ticket.gender == true
-                ? colors.primary500
-                : colors.error600,
+            backgroundColor: colors.primary500,
             foregroundColor: Colors.white,
-            icon: ticket.gender == true
-                ? Icons.check_circle_outline
-                : Icons.report_problem_outlined,
-            label: ticket.gender == true ? t.reportRecovered : t.markAsLost,
+            icon: Icons.check_circle_outline,
+            label: t.reportRecovered,
           ),
         ],
       ),
@@ -69,19 +63,14 @@ class TicketTitle extends StatelessWidget {
           children: [
             Padding(
               padding: const .only(right: 12),
-              child: InkWell(
-                onTap: () => AppPhotoView.showNetworkPhotoView(
-                  context,
-                  ticket.avatarPath ?? 'https://picsum.photos/750',
-                ),
-                child: ExtendedImage.network(
-                  ticket.avatarPath ?? 'https://picsum.photos/50',
-                  fit: .cover,
+              child: Container(
                   width: 50,
                   height: 50,
+                decoration: BoxDecoration(
+                  color: colors.primary100,
                   borderRadius: .circular(6),
-                  shape: .rectangle,
                 ),
+                child: Icon(ticket.vehicle.type.icon, color: colors.primary400),
               ),
             ),
             Expanded(
@@ -90,13 +79,13 @@ class TicketTitle extends StatelessWidget {
                 mainAxisAlignment: .center,
                 children: [
                   Text(
-                    ticket.fullName ?? ticket.code,
+                    ticket.vehicle.plateNumber ?? ticket.id,
                     style: AppTextStyles.heading6.copyWith(
                       color: colors.grey900,
                     ),
                   ),
                   Text(
-                    ticket.lastUpdated.format('dd/MM/yyyy HH:mm'),
+                    DateFormat('dd/MM/yyyy HH:mm').format(ticket.entryTime),
                     style: AppTextStyles.bodySmallSemibold.copyWith(
                       color: colors.grey500,
                     ),
@@ -104,7 +93,7 @@ class TicketTitle extends StatelessWidget {
                 ],
               ),
             ),
-            if (ticket.gender == true)
+            if (ticket.status == 'lost')
               Container(
                 padding: const .symmetric(vertical: 2, horizontal: 16),
                 decoration: BoxDecoration(

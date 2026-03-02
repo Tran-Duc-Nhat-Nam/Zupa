@@ -5,6 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
+
 import 'package:zupa/gen/strings.g.dart';
 
 class RevenueTitle extends StatelessWidget {
@@ -79,7 +80,7 @@ class RevenueTitle extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            '${NumberFormat.currency(decimalDigits: 0, symbol: '').format(revenue.totalRevenue)} VND',
+                            '${NumberFormat.currency(decimalDigits: 0, symbol: '').format(revenue.totalRevenueValue)} VND',
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
                               color: ThemeHelper.getColor(context).grey900,
@@ -102,7 +103,7 @@ class RevenueTitle extends StatelessWidget {
                     width: 24,
                     height: 24,
                     child: Icon(
-                      revenue.vehicleType?.icon ?? Symbols.globe,
+                      Symbols.globe,
                       size: 24,
                       color: ThemeHelper.getColor(context).success600,
                     ),
@@ -125,7 +126,7 @@ class RevenueTitle extends StatelessWidget {
                             crossAxisAlignment: .start,
                             mainAxisAlignment: .center,
                             children: [
-                              ...revenue.revenue.map(
+                              ...revenue.byVehicleType.map(
                                 (e) => Text(
                                   t[e.vehicleType.name],
                                   style: AppTextStyles.bodyMediumMedium
@@ -144,9 +145,9 @@ class RevenueTitle extends StatelessWidget {
                             crossAxisAlignment: .end,
                             mainAxisAlignment: .center,
                             children: [
-                              ...revenue.revenue.map(
+                              ...revenue.byVehicleType.map(
                                 (e) => Text(
-                                  t.pass(count: e.pass),
+                                  t.pass(count: e.count),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(
@@ -163,12 +164,12 @@ class RevenueTitle extends StatelessWidget {
                             crossAxisAlignment: .end,
                             mainAxisAlignment: .center,
                             children: [
-                              ...revenue.revenue.map(
+                              ...revenue.byVehicleType.map(
                                 (e) => Text(
                                   NumberFormat.currency(
                                     decimalDigits: 0,
                                     symbol: '',
-                                  ).format(e.revenue),
+                                  ).format(e.amount),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(

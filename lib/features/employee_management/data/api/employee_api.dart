@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/core/data/models/user/user.dart';
 
 part 'employee_api.g.dart';
 
@@ -11,6 +11,6 @@ abstract class EmployeeAPI {
       _EmployeeAPI;
 
   @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<HomeTicket>>> getEmployees();
+  Future<SuccessResponse<List<User>>> getEmployees();
 }
 

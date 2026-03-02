@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/core/data/models/ticket/ticket.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/home/domain/entities/home_filter.dart';
@@ -26,7 +26,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
   }
 
   void refresh(HomeFilter? filter) async {
-    final List<HomeTicket> items = state.maybeMap(
+    final List<Ticket> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
@@ -41,7 +41,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
   }
 
   void loadMore(HomeFilter? filter) async {
-    final List<HomeTicket> items = state.maybeMap(
+    final List<Ticket> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );

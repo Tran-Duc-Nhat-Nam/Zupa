@@ -11,10 +11,11 @@ sealed class ParkingLot with _$ParkingLot {
   const factory ParkingLot({
     @Default('N/A') String id,
     @Default('N/A') String name,
-    @Default('N/A') String address,
+    @JsonKey(name: 'location') @Default('N/A') String location,
     @Default([]) List<ParkingLotCapacity> capacity,
     @Default(VehicleType()) VehicleType vehicleType,
     @Default(false) bool isLocked,
+    @Default({}) Map<String, double> pricing,
   }) = _ParkingLot;
 
   factory ParkingLot.fromJson(Map<String, dynamic> json) =>

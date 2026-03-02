@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:zupa/core/data/request/member_vehicle/member_vehicle_request.dart';
 import 'package:zupa/core/data/request/request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/core/data/models/ticket/ticket.dart';
 
 part 'home_api.g.dart';
 
@@ -13,11 +13,11 @@ abstract class HomeAPI {
   factory HomeAPI(Dio dio, {String? baseUrl, ParseErrorLogger? errorLogger}) =
       _HomeAPI;
 
-  @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<HomeTicket>>> getList(@Queries() Request request);
+  @GET('/bill/receivedReceipt')
+  Future<SuccessResponse<List<Ticket>>> getList(@Queries() Request request);
 
-  @GET('/hrm/staff-meta-data/{id}')
-  Future<SuccessResponse<HomeTicket>> get(@Path('id') String id);
+  @GET('/received/{id}')
+  Future<SuccessResponse<Ticket>> get(@Path('id') String id);
 
   @POST('/hrm/staff-meta-data')
   Future<SuccessResponse> create(@Body() MemberVehicleRequest request);

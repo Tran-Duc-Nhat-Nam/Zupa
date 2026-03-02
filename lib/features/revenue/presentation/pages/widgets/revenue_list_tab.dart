@@ -4,12 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
-import 'package:zupa/features/revenue/data/models/revenue_model.dart';
+import 'package:zupa/features/revenue/data/models/revenue_detail.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
-
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_title.dart';
 import 'package:zupa/gen/strings.g.dart';
@@ -109,22 +108,22 @@ class RevenueListTab extends StatelessWidget {
                           revenue: items.isNotEmpty
                               ? items[i]
                               : DailyRevenue(
-                                  date: .now(),
-                                  revenue: [
-                                    RevenueModel(
+                                  date: DateTime.now(),
+                                  byVehicleType: [
+                                    RevenueDetail(
                                       vehicleType: vehicleTypes[0],
-                                      pass: 32,
-                                      revenue: 202000,
+                                      count: 32,
+                                      amount: 202000,
                                     ),
-                                    RevenueModel(
+                                    RevenueDetail(
                                       vehicleType: vehicleTypes[1],
-                                      pass: 10,
-                                      revenue: 100000,
+                                      count: 10,
+                                      amount: 100000,
                                     ),
-                                    RevenueModel(
+                                    RevenueDetail(
                                       vehicleType: vehicleTypes[2],
-                                      pass: 12,
-                                      revenue: 510000,
+                                      count: 12,
+                                      amount: 510000,
                                     ),
                                   ],
                                 ),

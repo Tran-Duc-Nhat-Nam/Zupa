@@ -65,7 +65,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                             isExternalLabel: true,
                           ),
                           AppTextField(
-                            formControl: formModel.addressControl,
+                            formControl: formModel.locationControl,
                             labelText: t.address,
                             isExternalLabel: true,
                           ),

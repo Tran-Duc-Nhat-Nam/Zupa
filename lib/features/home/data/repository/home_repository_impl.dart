@@ -5,7 +5,7 @@ import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
 import 'package:zupa/features/home/data/api/home_api.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/core/data/models/ticket/ticket.dart';
 import 'package:zupa/features/home/domain/entities/home_filter.dart';
 
 @LazySingleton(as: IHomeRepository)
@@ -16,7 +16,7 @@ class HomeRepositoryImpl implements IHomeRepository {
   HomeRepositoryImpl(this._networkService, this._api) ;
 
   @override
-  Future<NetworkState<List<HomeTicket>>> getTickets({
+  Future<NetworkState<List<Ticket>>> getTickets({
     int page = 0 ,
     int pageSize = 10,
     HomeFilter? filter,
@@ -27,9 +27,9 @@ class HomeRepositoryImpl implements IHomeRepository {
       ),
     );
 
-    if (response is SuccessResponse<List<HomeTicket>>) {
+    if (response is SuccessResponse<List<Ticket>>) {
       try {
-        final List<HomeTicket> tickets = response.data;
+        final List<Ticket> tickets = response.data;
         return .success(tickets);
       } catch (e) {
         return .error(e.toString());

@@ -8,7 +8,9 @@ part 'user.g.dart';
 @freezed
 sealed class User with _$User {
   const factory User({
-    @Default(0) int id,
+    @Default('') String id,
+    @JsonKey(name: 'name') @Default('') String name,
+    @JsonKey(name: 'created_at') @DateTimeConverter() DateTime? createdAt,
     @DateTimeConverter() DateTime? dateCreated,
     @DateTimeConverter() DateTime? lastUpdated,
     @Default(0) int version,

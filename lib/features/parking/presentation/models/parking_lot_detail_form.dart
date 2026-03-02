@@ -6,13 +6,13 @@ part 'parking_lot_detail_form.gform.dart';
 @Rf()
 class ParkingLotDetail {
   final String branchName;
-  final String address;
+  final String location;
   final List<ParkingLotCapacity> capacity;
   final bool isLocked;
 
   ParkingLotDetail({
     @RfControl(validators: [RequiredValidator()]) this.branchName = '',
-    @RfControl(validators: [RequiredValidator()]) this.address = '',
+    @RfControl(validators: [RequiredValidator()]) this.location = '',
     @RfArray(validators: [RequiredValidator()]) this.capacity = const [],
     @RfControl(validators: [RequiredValidator()]) this.isLocked = false,
   });

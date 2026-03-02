@@ -6,7 +6,6 @@ import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cu
     hide Loading;
 
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
-import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 import 'package:zupa/gen/strings.g.dart';
@@ -82,17 +81,12 @@ class HistoryListTab extends StatelessWidget {
                 itemBuilder: (c, i) => Padding(
                   padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
                   child: HistoryListSection(
-                    tickets: items.isNotEmpty
-                        ? items
-                        : List.generate(
-                            10,
-                            (index) => HistoryTicket(
-                              code: 'Placeholder',
-                              id: -1,
-                              timeIn: .now(),
-                              siteId: 'A much Longer placeholder',
-                              type: vehicleTypes.first,
-                            ),
+                    dailyHistory: items.isNotEmpty
+                        ? items[i]
+                        : HistoryTicket(
+                            id: '-1',
+                            date: DateTime.now(),
+                            tickets: [],
                           ),
                   ),
                 ),

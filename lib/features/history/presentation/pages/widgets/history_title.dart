@@ -5,13 +5,13 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/features/history/data/models/history_ticket.dart';
+import 'package:zupa/core/data/models/ticket/ticket.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 
 class HistoryTitle extends StatelessWidget {
   const HistoryTitle({super.key, required this.ticket});
-  final HistoryTicket ticket;
+  final Ticket ticket;
   @override
   Widget build(BuildContext context) {
     final colorScheme = ThemeHelper.getColor(context);
@@ -30,7 +30,7 @@ class HistoryTitle extends StatelessWidget {
               width: 24,
               height: 24,
               child: Icon(
-                ticket.type?.icon ?? Symbols.globe,
+                ticket.vehicle.type.icon,
                 size: 24,
                 color: colorScheme.primary400,
               ),
@@ -48,7 +48,7 @@ class HistoryTitle extends StatelessWidget {
                     children: [
                       const Expanded(child: SizedBox()),
                       Text(
-                        ticket.id.toString(),
+                        ticket.vehicle.plateNumber ?? ticket.id,
                         overflow: .ellipsis,
                         maxLines: 1,
                         textAlign: .center,
@@ -56,31 +56,17 @@ class HistoryTitle extends StatelessWidget {
                           color: colorScheme.grey900,
                         ),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: .centerLeft,
-                          child: ticket.id % 2 == 0
-                              ? const Icon(
-                                  Symbols.user_attributes_rounded,
-                                  size: 20,
-                                )
-                              : const SizedBox(),
-                        ),
+                      const Expanded(child: SizedBox(),
                       ),
                     ],
                   ),
                   Text(
-                    ticket.code,
+                    ticket.id,
                     textAlign: .center,
-                    style: !ticket.isFlagError
-                        ? GoogleFonts.robotoMono().copyWith(
-                            fontWeight: .w600,
-                            color: colorScheme.grey900,
-                          )
-                        : AppTextStyles.bodyLargeRegular.copyWith(
-                            fontStyle: .italic,
-                            color: colorScheme.grey400,
-                          ),
+                    style: GoogleFonts.robotoMono().copyWith(
+                      fontWeight: .w600,
+                      color: colorScheme.grey900,
+                    ),
                   ),
                 ],
               ),
@@ -103,9 +89,7 @@ class HistoryTitle extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ticket.receivedDate != null
-                          ? DateTimeConverter.toShortTime(ticket.receivedDate!)
-                          : '',
+                      DateTimeConverter.toShortTime(ticket.entryTime),
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: colorScheme.grey700,
                       ),
@@ -123,21 +107,16 @@ class HistoryTitle extends StatelessWidget {
                         color: colorScheme.error600,
                       ),
                     ),
-                    ticket.id % 2 == 0
+                    ticket.exitTime != null
                         ? Text(
                             DateTimeConverter.toShortTime(
-                              ticket.timeOut ?? .now(),
+                              ticket.exitTime!,
                             ),
                             style: AppTextStyles.bodyMediumMedium.copyWith(
                               color: colorScheme.grey700,
                             ),
                           )
-                        : Text(
-                            '',
-                            style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color: colorScheme.grey700,
-                            ),
-                          ),
+                        : const Text(''),
                   ],
                 ),
               ],
