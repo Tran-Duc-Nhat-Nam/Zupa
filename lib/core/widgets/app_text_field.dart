@@ -3,6 +3,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/gen/strings.g.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -14,7 +15,6 @@ class AppTextField extends StatefulWidget {
     this.isPassword = false,
     this.isPasswordConfirm = false,
     this.onChanged,
-    this.validators,
     this.isExternalLabel = false,
     this.contentPadding,
     this.hintText,
@@ -43,7 +43,6 @@ class AppTextField extends StatefulWidget {
   final IconData? suffixIcon;
   final bool isExternalLabel;
   final bool required;
-  final List<FormFieldValidator<String>>? validators;
   final void Function(FormControl)? onChanged;
   final bool isPassword;
   final EdgeInsetsGeometry? contentPadding;
@@ -59,7 +58,6 @@ class AppTextField extends StatefulWidget {
 }
 
 class _AppTextFieldState extends State<AppTextField> {
-  List<FormFieldValidator<String>> validators = [];
   late bool isPasswordVisible;
 
   @override
@@ -92,6 +90,9 @@ class _AppTextFieldState extends State<AppTextField> {
           style: AppTextStyles.bodyMediumRegular.copyWith(
             color: colorsScheme.grey500,
           ),
+          validationMessages: {
+            ValidationMessage.mustMatch: (error) => t.passwordMustMatch
+          },
           textInputAction: .next,
           onEditingComplete: (_) => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,

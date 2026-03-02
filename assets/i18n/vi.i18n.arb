@@ -205,5 +205,6 @@
   "processingText": "Đang tải",
   "processedText": "Thành công",
   "noMoreText": "Không còn dữ liệu",
-  "failedText": "Tải thất bại"
+  "failedText": "Tải thất bại",
+  "passwordMustMatch": "Mật khẩu này phải trùng với mật khẩu mới"
 }

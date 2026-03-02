@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
@@ -15,7 +16,7 @@ class PasswordRepositoryImpl implements IPasswordRepository {
   PasswordRepositoryImpl(this._networkService, this._api);
 
   @override
-  Future<NetworkState<SuccessResponse>> changePassword(
+  Future<NetworkState<User>> changePassword(
     String id,
     String currentPassword,
     String newPassword,
@@ -30,7 +31,7 @@ class PasswordRepositoryImpl implements IPasswordRepository {
         (dio) => _api.changePassword(id, payload),
       );
 
-      if (response is SuccessResponse) {
+      if (response is SuccessResponse<User>) {
         return .success(response.data);
       } else if (response is ErrorResponse) {
         return .error(response.message);

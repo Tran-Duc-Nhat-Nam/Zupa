@@ -205,5 +205,6 @@
   "processingText": "Loading",
   "processedText": "Success",
   "noMoreText": "No more data",
-  "failedText": "Load failed"
+  "failedText": "Load failed",
+  "passwordMustMatch": "This password must match the new password"
 }

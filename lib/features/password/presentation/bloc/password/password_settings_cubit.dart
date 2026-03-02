@@ -30,7 +30,7 @@ class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
   Future<void> changePassword() async {
     if (formModel.form.valid) {
       final staffMetaDataId = _authCubit.state.maybeWhen(
-        loaded: (_, user) => user?.staffMetaDataId,
+        loaded: (_, user) => user?.staffMetaDataId ?? user?.staffId,
         orElse: () => null,
       );
 

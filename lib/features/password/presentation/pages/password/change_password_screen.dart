@@ -29,11 +29,11 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
         listener: (context, state) {
           state.whenOrNull(
             changePasswordSuccess: () {
-              AppToast.showNotify(t.success);
+              AppToast.showNotify(t.success, type: .success);
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
-              AppToast.showNotify(message);
+              AppToast.showNotify(message, type: .error);
               context.read<PasswordSettingsCubit>().init();
             },
           );
@@ -47,7 +47,9 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
               title: t.changePassword,
               footer: [
                 AppButton(
-                  onPressed: context.read<PasswordSettingsCubit>().changePassword,
+                  onPressed: context
+                      .read<PasswordSettingsCubit>()
+                      .changePassword,
                   text: t.changePassword,
                 ),
               ],
@@ -79,6 +81,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                         formControl: formModel.confirmPasswordControl,
                         labelText: t.confirmPassword,
                         hintText: t.confirmPassword,
+                        isExternalLabel: true,
                         isPasswordConfirm: true,
                         required: true,
                       ),
