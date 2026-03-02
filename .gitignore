@@ -57,3 +57,4 @@ app.*.map.json
 *.gform.dart
 # If using slang/translations
 *.nm.dart
+/android/build/reports/
