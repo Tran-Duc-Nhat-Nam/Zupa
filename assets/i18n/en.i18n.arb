@@ -206,5 +206,10 @@
   "processedText": "Success",
   "noMoreText": "No more data",
   "failedText": "Load failed",
-  "passwordMustMatch": "This password must match the new password"
+  "passwordMustMatch": "This password must match the new password",
+  "theme": "Theme",
+  "colorScheme": "Color Scheme",
+  "brandColor": "Brand Colors",
+  "customColor": "Custom Color",
+  "materialYou": "Material You (System)"
 }

@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
+import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
 
 import 'package:zupa/core/di/injection.dart';
@@ -90,33 +92,56 @@ class AppView extends StatelessWidget {
         // Only rebuild when theme mode actually changes
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          final themeMode = state.maybeWhen(
-            loaded: (mode) => switch (mode) {
-              .light => ThemeMode.light,
-              .dark => ThemeMode.dark,
-              _ => ThemeMode.system,
-            },
-            orElse: () => ThemeMode.system,
+          final settings = state.maybeWhen(
+            loaded: (settings) => settings,
+            orElse: () => ThemeSettings(themeMode: AppThemeMode.system),
           );
 
-          return MaterialApp.router(
-            onGenerateTitle: (_) => t.appTitle,
-            theme: AppThemes.lightTheme(const .new()),
-            darkTheme: AppThemes.darkTheme(const .new()),
-            themeMode: themeMode,
-            debugShowCheckedModeBanner: false,
-            routerConfig: router.config(
-              navigatorObservers: () => [
-                TalkerRouteObserver(DebuggerHelper.talker),
-              ],
-            ),
-            localizationsDelegates: GlobalMaterialLocalizations.delegates,
-            supportedLocales: AppLocaleUtils.supportedLocales,
-            locale: TranslationProvider.of(context).flutterLocale,
-            // Use the builder to inject global overlays like SmartDialog and UpgradeAlert
-            builder: (context, child) {
-              child = FlutterSmartDialog.init()(context, child);
-              return UpgradeAlert(child: child);
+          final themeMode = switch (settings.themeMode) {
+            AppThemeMode.light => ThemeMode.light,
+            AppThemeMode.dark => ThemeMode.dark,
+            AppThemeMode.system => ThemeMode.system,
+          };
+
+          return DynamicColorBuilder(
+            builder: (lightDynamic, darkDynamic) {
+              final lightTheme = AppThemes.getTheme(
+                brightness: Brightness.light,
+                colorSource: settings.colorSource,
+                dynamicColorScheme: lightDynamic?.harmonized(),
+                customSeedColor: settings.seedColorValue != null
+                    ? Color(settings.seedColorValue!)
+                    : null,
+              );
+              final darkTheme = AppThemes.getTheme(
+                brightness: Brightness.dark,
+                colorSource: settings.colorSource,
+                dynamicColorScheme: darkDynamic?.harmonized(),
+                customSeedColor: settings.seedColorValue != null
+                    ? Color(settings.seedColorValue!)
+                    : null,
+              );
+
+              return MaterialApp.router(
+                onGenerateTitle: (_) => t.appTitle,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: themeMode,
+                debugShowCheckedModeBanner: false,
+                routerConfig: router.config(
+                  navigatorObservers: () => [
+                    TalkerRouteObserver(DebuggerHelper.talker),
+                  ],
+                ),
+                localizationsDelegates: GlobalMaterialLocalizations.delegates,
+                supportedLocales: AppLocaleUtils.supportedLocales,
+                locale: TranslationProvider.of(context).flutterLocale,
+                // Use the builder to inject global overlays like SmartDialog and UpgradeAlert
+                builder: (context, child) {
+                  child = FlutterSmartDialog.init()(context, child);
+                  return UpgradeAlert(child: child);
+                },
+              );
             },
           );
         },

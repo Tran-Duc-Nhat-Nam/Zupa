@@ -95,6 +95,10 @@ abstract class BaseColors {
     required this.grape,
     required this.white,
   });
+
+  factory BaseColors.fromColorScheme(ColorScheme scheme) {
+    return DynamicAppColors(scheme);
+  }
 }
 
 class AppColors extends BaseColors {
@@ -193,4 +197,65 @@ class DarkAppColors extends BaseColors {
         grape: const Color(0xff74c7ec),
         white: const Color(0xff181825),
       );
+}
+
+class DynamicAppColors extends BaseColors {
+  DynamicAppColors(ColorScheme scheme)
+      : super(
+    // --- Primary Range ---
+    primary500: scheme.primary,
+    primary400: Color.lerp(scheme.primary, scheme.primaryContainer, 0.3)!,
+    primary300: Color.lerp(scheme.primary, scheme.primaryContainer, 0.6)!,
+    primary200: scheme.primaryContainer,
+    primary100: Color.lerp(scheme.primaryContainer, scheme.surface, 0.5)!,
+    primary50: scheme.primaryContainer.withOpacity(0.1),
+
+    // --- Warning Range (Not native to Material You, derived from Primary) ---
+    // We use a fixed Hue or lerp toward an orange constant to keep it 'Warning-like'
+    warning600: const Color(0xffC87D15),
+    warning500: const Color(0xffDF8E1D),
+    warning400: const Color(0xffE5A54A),
+    warning300: const Color(0xffEBBb77),
+    warning200: const Color(0xffF1D2A4),
+    warning100: const Color(0xffF7E8D1),
+    warning50: const Color(0xffFBF4E8),
+
+    // --- Error Range ---
+    error600: scheme.error.withRed(180),
+    error500: scheme.error,
+    error400: Color.lerp(scheme.error, scheme.onError, 0.2)!,
+    error300: Color.lerp(scheme.error, scheme.onError, 0.4)!,
+    error200: Color.lerp(scheme.error, scheme.onError, 0.6)!,
+    error100: Color.lerp(scheme.error, scheme.onError, 0.8)!,
+    error50: scheme.errorContainer.withOpacity(0.2),
+
+    // --- Success Range (Derived or Constant) ---
+    success600: const Color(0xff399026),
+    success500: const Color(0xff40A02B),
+    success400: const Color(0xff66B355),
+    success300: const Color(0xff8CC680),
+    success200: const Color(0xffB3D9AA),
+    success100: const Color(0xffD9ECD5),
+    success50: const Color(0xffECF6EA),
+
+    // --- Grey/Neutral Range (Mapped to Surface/Outline) ---
+    grey1000: scheme.onSurface,
+    grey900: scheme.onSurfaceVariant,
+    grey800: Color.lerp(scheme.onSurfaceVariant, scheme.outline, 0.5)!,
+    grey700: scheme.outline,
+    grey650: Color.lerp(scheme.outline, scheme.outlineVariant, 0.5)!,
+    grey600: scheme.outlineVariant,
+    grey500: Color.lerp(scheme.outlineVariant, scheme.surfaceContainerHighest, 0.3)!,
+    grey400: scheme.surfaceContainerHighest,
+    grey300: scheme.surfaceContainerHigh,
+    grey200: scheme.surfaceContainer,
+    grey100: scheme.surfaceContainerLow,
+    grey50: scheme.surface,
+
+    // --- Special Colors ---
+    blueDark: scheme.tertiary,
+    blueLight: scheme.tertiaryContainer,
+    grape: scheme.secondary,
+    white: scheme.surface,
+  );
 }

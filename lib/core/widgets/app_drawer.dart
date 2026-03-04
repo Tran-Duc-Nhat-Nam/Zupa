@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math;
 
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
+import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/gen/strings.g.dart';
 
@@ -70,25 +72,27 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: FadeTransition(opacity: anim, child: child),
               ),
               child:
-                  context.read<ThemeCubit>().state.when(
-                    initial: () => true,
-                    loading: (mode) => mode == .light,
-                    loaded: (mode) => mode == .light,
+                  context.watch<ThemeCubit>().state.maybeWhen(
+                    loaded: (settings) =>
+                        settings.themeMode == AppThemeMode.light,
+                    orElse: () => true,
                   )
                   ? const Icon(Icons.light_mode)
                   : const Icon(Icons.dark_mode),
             ),
             onTap: () {
               final themeCubit = context.read<ThemeCubit>();
-              if (themeCubit.state.when(
-                initial: () => true,
-                loading: (mode) => mode == .light,
-                loaded: (mode) => mode == .light,
-              )) {
-                themeCubit.changeTheme();
-              } else {
-                themeCubit.changeTheme();
-              }
+              final currentSettings = themeCubit.state.maybeWhen(
+                loaded: (s) => s,
+                orElse: () => ThemeSettings(themeMode: AppThemeMode.system),
+              );
+
+              final newMode = currentSettings.themeMode == AppThemeMode.light
+                  ? AppThemeMode.dark
+                  : AppThemeMode.light;
+
+              themeCubit.formModel.themeModeControl.value = newMode;
+              themeCubit.changeTheme();
             },
           ),
           ListTile(

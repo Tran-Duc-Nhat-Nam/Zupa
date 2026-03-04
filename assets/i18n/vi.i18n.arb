@@ -206,5 +206,10 @@
   "processedText": "Thành công",
   "noMoreText": "Không còn dữ liệu",
   "failedText": "Tải thất bại",
-  "passwordMustMatch": "Mật khẩu này phải trùng với mật khẩu mới"
+  "passwordMustMatch": "Mật khẩu này phải trùng với mật khẩu mới",
+  "theme": "Giao diện",
+  "colorScheme": "Phối màu",
+  "brandColor": "Màu thương hiệu",
+  "customColor": "Màu tùy chỉnh",
+  "materialYou": "Material You (Hệ thống)"
 }

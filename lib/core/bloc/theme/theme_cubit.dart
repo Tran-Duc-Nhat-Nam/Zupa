@@ -21,12 +21,19 @@ class ThemeCubit extends Cubit<ThemeState> {
   );
 
   Future<void> loadTheme() async {
-    emit(.loaded(await _storageService.getTheme()));
+    final settings = await _storageService.getTheme();
+    emit(.loaded(settings));
+    formModel.updateValue(settings);
   }
 
   void changeTheme() {
-    final mode = formModel.themeModeControl.value ?? AppThemeMode.followSystem;
-    _storageService.setTheme(mode);
-    emit(.loaded(mode));
+    final settings = ThemeSettings(
+      themeMode: formModel.themeModeControl.value ?? AppThemeMode.system,
+      colorSource:
+          formModel.colorSourceControl.value ?? AppColorSchemeSource.brand,
+      seedColorValue: formModel.seedColorValueControl.value,
+    );
+    _storageService.setTheme(settings);
+    emit(.loaded(settings));
   }
 }

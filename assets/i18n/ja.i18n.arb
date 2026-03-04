@@ -206,5 +206,10 @@
   "processedText": "完了",
   "noMoreText": "データは以上です",
   "failedText": "読み込み失敗",
-  "passwordMustMatch": "このパスワードは新しいパスワードと一致する必要があります"
+  "passwordMustMatch": "このパスワードは新しいパスワードと一致する必要があります",
+  "theme": "テーマ",
+  "colorScheme": "配色",
+  "brandColor": "ブランドカラー",
+  "customColor": "カスタムカラー",
+  "materialYou": "Material You (システム)"
 }

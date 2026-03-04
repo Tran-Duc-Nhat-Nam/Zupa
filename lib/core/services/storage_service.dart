@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/theme.dart';
+import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/data/models/user/user.dart';
 
@@ -95,21 +96,33 @@ class StorageService {
     return _sharedPreferences.getBool('isBiometricAuth');
   }
 
-  Future<void> setTheme(AppThemeMode mode) async {
-    mode == AppThemeMode.followSystem
-        ? await _sharedPreferences.remove('brightnessMode')
-        : mode == AppThemeMode.light
-        ? await _sharedPreferences.setBool('brightnessMode', true)
-        : await _sharedPreferences.setBool('brightnessMode', false);
+  Future<void> setTheme(ThemeSettings settings) async {
+    await _sharedPreferences.setInt('themeMode', settings.themeMode.index);
+    await _sharedPreferences.setInt('colorSource', settings.colorSource.index);
+    if (settings.seedColorValue != null) {
+      await _sharedPreferences.setInt(
+        'seedColorValue',
+        settings.seedColorValue!,
+      );
+    } else {
+      await _sharedPreferences.remove('seedColorValue');
+    }
   }
 
-  Future<AppThemeMode> getTheme() async {
-    final value = await _sharedPreferences.getBool('brightnessMode');
-    return value == null
-        ? AppThemeMode.followSystem
-        : value
-        ? AppThemeMode.light
-        : AppThemeMode.dark;
+  Future<ThemeSettings> getTheme() async {
+    final themeModeIndex = await _sharedPreferences.getInt('themeMode');
+    final colorSourceIndex = await _sharedPreferences.getInt('colorSource');
+    final seedColorValue = await _sharedPreferences.getInt('seedColorValue');
+
+    return ThemeSettings(
+      themeMode: themeModeIndex != null
+          ? AppThemeMode.values[themeModeIndex]
+          : AppThemeMode.system,
+      colorSource: colorSourceIndex != null
+          ? AppColorSchemeSource.values[colorSourceIndex]
+          : AppColorSchemeSource.brand,
+      seedColorValue: seedColorValue,
+    );
   }
 
   Future<void> setLocalization(AppLocalization mode) async {

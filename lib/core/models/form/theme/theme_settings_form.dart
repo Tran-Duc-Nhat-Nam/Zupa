@@ -6,8 +6,12 @@ part 'theme_settings_form.gform.dart';
 @Rf()
 class ThemeSettings {
   final AppThemeMode themeMode;
+  final AppColorSchemeSource colorSource;
+  final int? seedColorValue;
 
   ThemeSettings({
-    @RfControl() this.themeMode = AppThemeMode.followSystem,
+    @RfControl() this.themeMode = AppThemeMode.system,
+    @RfControl() this.colorSource = AppColorSchemeSource.brand,
+    @RfControl() this.seedColorValue,
   });
 }
