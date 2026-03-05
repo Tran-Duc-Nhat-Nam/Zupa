@@ -16,7 +16,7 @@ import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class AppSettingsScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: t.appSettings,
+      title: t.settings.appSettings,
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
@@ -60,7 +60,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       return AppListTile(
                         padding: .zero,
                         leadingIcon: Symbols.globe,
-                        text: t.language,
+                        text: t.settings.language,
                         trailing: AppDropDownSearch<AppLocalization>(
                           formControl: context
                               .read<LocalizationCubit>()
@@ -77,7 +77,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           ),
                           itemLabelGetter: (item) => item != null
                               ? t[item.getLocaleString() ?? 'followSystem']
-                              : t.followSystem,
+                              : t.settings.followSystem,
                           onChanged: (value) =>
                               context.read<LocalizationCubit>().changeLocale(),
                         ),
@@ -96,7 +96,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.lightbulb_rounded,
-                            text: t.theme,
+                            text: t.settings.theme,
                             trailing: AppDropDownSearch<AppThemeMode>(
                               formControl: context
                                   .read<ThemeCubit>()
@@ -108,10 +108,9 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               buttonWidth: 140,
                               initialValue: settings.themeMode,
                               itemLabelGetter: (item) => switch (item) {
-                                AppThemeMode.light => t.lightMode,
-                                AppThemeMode.dark => t.darkMode,
-                                AppThemeMode.system => t.followSystem,
-                                null => t.followSystem,
+                                AppThemeMode.light => t.settings.lightMode,
+                                AppThemeMode.dark => t.settings.darkMode,
+                                _ => t.settings.followSystem,
                               },
                               onChanged: (value) =>
                                   context.read<ThemeCubit>().changeTheme(),
@@ -120,7 +119,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.palette,
-                            text: t.colorScheme,
+                            text: t.settings.colorScheme,
                             trailing: AppDropDownSearch<AppColorSchemeSource>(
                               formControl: context
                                   .read<ThemeCubit>()
@@ -132,11 +131,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               buttonWidth: 140,
                               initialValue: settings.colorSource,
                               itemLabelGetter: (item) => switch (item) {
-                                AppColorSchemeSource.brand => t.brandColor,
-                                AppColorSchemeSource.custom => t.customColor,
+                                AppColorSchemeSource.brand => t.settings.brandColor,
+                                AppColorSchemeSource.custom => t.settings.customColor,
                                 AppColorSchemeSource.materialYou =>
-                                  t.materialYou,
-                                null => t.brandColor,
+                                  t.settings.materialYou,
+                                null => t.settings.brandColor,
                               },
                               onChanged: (value) =>
                                   context.read<ThemeCubit>().changeTheme(),
@@ -145,12 +144,12 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           if (settings.colorSource ==
                               AppColorSchemeSource.custom) ...[
                             AppListTile(
-                              padding: const .only(top: 16, bottom: 8),
+                              padding: const .all(16),
                               leadingIcon: Symbols.colorize,
-                              text: t.customColor,
+                              text: t.settings.customColor,
                             ),
                             Padding(
-                              padding: const .only(bottom: 16),
+                              padding: const .all(16),
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
@@ -211,7 +210,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                                   BoxShadow(
                                                     color: Color(
                                                       colorValue,
-                                                    ).withOpacity(0.4),
+                                                    ).withAlpha(125),
                                                     blurRadius: 8,
                                                     spreadRadius: 1,
                                                   ),
@@ -247,7 +246,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         return AppListTile(
                           padding: .zero,
                           leadingIcon: Symbols.bug_report_rounded,
-                          text: t.debuggerMode,
+                          text: t.settings.debuggerMode,
                           trailing: SizedBox(
                             height: 20,
                             child: Transform.scale(

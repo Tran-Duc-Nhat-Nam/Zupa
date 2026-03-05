@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.1.2+1
+version: 0.3.5+1
 
 environment:
   sdk: ^3.11.0
@@ -50,9 +50,9 @@ dependencies:
   dropdown_button2: ^3.0.0
   omni_datetime_picker: ^2.3.1
   animated_toggle_switch: ^0.8.7
-  talker: ^5.1.14
-  talker_flutter: ^5.1.14
-  talker_dio_logger: ^5.1.14
+  talker: ^5.1.15
+  talker_flutter: ^5.1.15
+  talker_dio_logger: ^5.1.15
   shake: ^3.0.0
   flutter_native_splash: ^2.4.7
   local_auth: ^3.0.1
@@ -94,4 +94,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/i18n/

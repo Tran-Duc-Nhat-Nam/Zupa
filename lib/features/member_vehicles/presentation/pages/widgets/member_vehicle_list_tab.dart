@@ -16,7 +16,7 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class MemberVehicleListTab extends StatelessWidget {
   const MemberVehicleListTab({super.key});
@@ -59,13 +59,13 @@ class MemberVehicleListTab extends StatelessWidget {
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(
-                dragText: t.dragText,
-                armedText: t.armedText,
-                readyText: t.releaseToLoadMore,
-                processingText: t.processingText,
-                processedText: t.processedText,
-                noMoreText: t.noMoreText,
-                failedText: t.failedText,
+                dragText: t.common.refresh.dragText,
+                armedText: t.common.refresh.armedText,
+                readyText: t.common.refresh.releaseToLoadMore,
+                processingText: t.common.refresh.processingText,
+                processedText: t.common.refresh.processedText,
+                noMoreText: t.common.refresh.noMoreText,
+                failedText: t.common.refresh.failedText,
                 triggerWhenRelease: true,
               ),
               controller: refreshController,
@@ -180,14 +180,14 @@ class MemberVehiclesTitle extends StatelessWidget {
                   theme: .secondary,
                   onPressed: () => DialogHelper.showModal(
                     context,
-                    titleText: t.title_extend,
-                    subtitleText: t.subtitle_extend,
-                    okText: t.title_extend,
-                    cancelText: t.close,
+                    titleText: t.vehicles.extend.title,
+                    subtitleText: t.vehicles.extend.subtitle,
+                    okText: t.vehicles.extend.title,
+                    cancelText: t.common.actions.close,
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       if (context.mounted) {
-                        AppToast.showNotify(t.success);
+                        AppToast.showNotify(t.common.success);
                       }
                     },
                   ),

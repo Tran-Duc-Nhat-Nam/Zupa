@@ -19,7 +19,7 @@ import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class ParkingDetailsScreen extends StatefulWidget {
@@ -34,12 +34,12 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: t.parkingAreaConfig,
+      title: t.parking.areaConfig,
       isChildScrollable: true,
       footer: [
         AppButton(
-          text: t.save,
-          onPressed: () => AppToast.showNotify(t.success),
+          text: t.common.actions.save,
+          onPressed: () => AppToast.showNotify(t.common.success),
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
@@ -58,15 +58,15 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(t.info),
+                          Text(t.common.info.info),
                           AppTextField(
                             formControl: formModel.branchNameControl,
-                            labelText: t.branchName,
+                            labelText: t.settings.profile.branchName,
                             isExternalLabel: true,
                           ),
                           AppTextField(
                             formControl: formModel.addressControl,
-                            labelText: t.address,
+                            labelText: t.settings.profile.address,
                             isExternalLabel: true,
                           ),
                         ],
@@ -77,7 +77,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(t.capacity),
+                          Text(t.parking.capacity),
                           ...state.maybeMap(
                             loaded: (params) => params.parkingLot.capacity
                                 .map(
@@ -88,7 +88,9 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                                             .capacity
                                             .indexOf(e)]
                                         .capacityControl,
-                                    labelText: t[e.vehicleType.name],
+                                    labelText:
+                                        t['vehicles.${e.vehicleType.name}'] ??
+                                        e.vehicleType.name,
                                     isExternalLabel: true,
                                   ),
                                 )
@@ -115,15 +117,15 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.notifications_rounded,
-                            text: t.title_warningThreshold,
+                            text: t.parking.warningThreshold.title,
                             trailing: AppSwitch(
                               formControl: formModel.isLockedControl,
                               onToggle: (value, toggle) => value
                                   ? toggle(false)
                                   : DialogHelper.showModal(
                                       context,
-                                      okText: t.lock,
-                                      cancelText: t.close,
+                                      okText: t.common.actions.lock,
+                                      cancelText: t.common.actions.close,
                                       type: .warning,
                                       onOk: () => toggle(true),
                                       onCancel: () => toggle(false),
@@ -131,7 +133,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
                             ),
                           ),
                           Text(
-                            t.subtitle_warningThreshold,
+                            t.parking.warningThreshold.subtitle,
                             style: AppTextStyles.bodySmallMedium.copyWith(
                               color: ThemeHelper.getColor(context).grey500,
                             ),

@@ -10,7 +10,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/password/presentation/bloc/password/password_settings_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class ChangePasswordScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
         listener: (context, state) {
           state.whenOrNull(
             changePasswordSuccess: () {
-              AppToast.showNotify(t.success, type: .success);
+              AppToast.showNotify(t.common.success, type: .success);
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
@@ -44,13 +44,13 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
             return AppScreen(
               isChildScrollable: true,
               noBackground: true,
-              title: t.changePassword,
+              title: t.settings.changePassword,
               footer: [
                 AppButton(
                   onPressed: context
                       .read<PasswordSettingsCubit>()
                       .changePassword,
-                  text: t.changePassword,
+                  text: t.settings.changePassword,
                 ),
               ],
               child: Padding(
@@ -62,8 +62,8 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                     children: [
                       AppTextField(
                         formControl: formModel.currentPasswordControl,
-                        labelText: t.currentPassword,
-                        hintText: t.enterCurrentPassword,
+                        labelText: t.auth.password.current,
+                        hintText: t.auth.password.enterCurrent,
                         isExternalLabel: true,
                         isPassword: true,
                         required: true,
@@ -71,16 +71,16 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                       Divider(color: ThemeHelper.getColor(context).grey100),
                       AppTextField(
                         formControl: formModel.newPasswordControl,
-                        labelText: t.newPassword,
-                        hintText: t.enterNewPassword,
+                        labelText: t.auth.password.kNew,
+                        hintText: t.auth.password.enterNew,
                         isExternalLabel: true,
                         isPassword: true,
                         required: true,
                       ),
                       AppTextField(
                         formControl: formModel.confirmPasswordControl,
-                        labelText: t.confirmPassword,
-                        hintText: t.confirmPassword,
+                        labelText: t.auth.password.confirm,
+                        hintText: t.auth.password.enterConfirm,
                         isExternalLabel: true,
                         isPasswordConfirm: true,
                         required: true,

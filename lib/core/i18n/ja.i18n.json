@@ -1,0 +1,299 @@
+{
+  "locale": "ja",
+  "common": {
+    "languages": {
+      "en": "英語",
+      "vi": "ベトナム語",
+      "ja": "日本語",
+      "vi_VN": "ベトナム語",
+      "en_US": "英語"
+    },
+    "months": {
+      "january": "1月",
+      "february": "2月",
+      "march": "3月",
+      "april": "4月",
+      "may": "5月",
+      "june": "6月",
+      "july": "7月",
+      "august": "8月",
+      "september": "9月",
+      "october": "10月",
+      "november": "11月",
+      "december": "12月"
+    },
+    "actions": {
+      "continue": "次へ",
+      "quit": "終了",
+      "skip": "スキップ",
+      "ok": "OK",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "close": "閉じる",
+      "apply": "適用",
+      "enter": "決定",
+      "choose": "選択",
+      "retake": "撮り直す",
+      "viewDetails": "詳細を見る",
+      "filter": "フィルター",
+      "lock": "ロック",
+      "pay": "支払いへ進む",
+      "reload": "再読み込み",
+      "pressUp": "上を押す",
+      "pressDown": "下を押す",
+      "save": "保存",
+      "search": "検索",
+      "reset": "リセット",
+      "complete": "完了",
+      "all": "すべて"
+    },
+    "refresh": {
+      "dragText": "引っ張って読み込み",
+      "armedText": "指を離して読み込み",
+      "readyText": "読み込み中",
+      "processingText": "読み込み中",
+      "processedText": "完了",
+      "noMoreText": "データは以上です",
+      "failedText": "読み込み失敗",
+      "pullUpToLoad": "上にスワイプして読み込む",
+      "loadFailedPleaseRetry": "読み込みに失敗しました。再試行してください",
+      "releaseToLoadMore": "指を放して読み込む"
+    },
+    "errors": {
+      "required": "この項目は必須です！",
+      "confirmPassword": "パスワードが一致しません！",
+      "passwordMustMatch": "このパスワードは新しいパスワードと一致する必要があります",
+      "noInternet": "インターネット接続がありません",
+      "internetConnected": "インターネットに接続されました",
+      "noData_search": "データが見つかりません",
+      "noData_availableSeat": "空席が見つかりません",
+      "enterInteger": "整数を入力",
+      "unknown": "不明なエラー",
+      "unexpected": "予期せぬエラーが発生しました！",
+      "error": "エラーが発生しました"
+    },
+    "info": {
+      "site": "サイト",
+      "total": "合計",
+      "time": "時間",
+      "date": "日付",
+      "dateOf": "日付 ${val}",
+      "info": "情報",
+      "noInfo": "情報なし",
+      "all": "すべて",
+      "on": "オン",
+      "off": "オフ",
+      "note": "備考",
+      "placeholderName": "プレースホルダー名",
+      "vND": "VND"
+    },
+    "infoKeys": {
+      "email_short": "メール",
+      "email_long": "メールアドレス",
+      "idNumber_short": "ID",
+      "idNumber_long": "身分証番号",
+      "phone_short": "電話",
+      "phone_long": "電話番号"
+    },
+    "success": "成功"
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "subtitle": "アカウント情報を入力してください",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "remember": "ログイン情報を保存",
+      "isRemember": "ログイン情報を保存",
+      "forgetPassword": "パスワードをお忘れですか？",
+      "success": "ログイン成功",
+      "noAccount": "予約するにはログインしてください"
+    },
+    "password": {
+      "current": "現在のパスワード",
+      "new": "新しいパスワード",
+      "confirm": "パスワードの確認",
+      "enterCurrent": "現在のパスワードを入力してください",
+      "enterNew": "新しいパスワードを入力してください",
+      "enterConfirm": "新しいパスワードを再入力してください"
+    },
+    "signUp": {
+      "title": "サインアップ",
+      "subtitle": "メールアドレスを入力してください",
+      "signUpNow": "新規登録",
+      "success": "サインアップ成功"
+    },
+    "otp": {
+      "title": "OTP",
+      "subtitle": "OTP（ワンタイムパスワード）を入力してください"
+    },
+    "forgetPassword": {
+      "title": "パスワード再設定",
+      "subtitle": "メールアドレスを入力してください"
+    },
+    "createPassword": {
+      "title": "パスワード作成",
+      "subtitle": "パスワードを入力してください"
+    },
+    "session": {
+      "ended": {
+        "title": "セッションが終了しました",
+        "subtitle": "ログインセッションが終了しました。セキュリティのため、アプリを続行するには再度ログインしてください。"
+      }
+    },
+    "logout": {
+      "title": "ログアウト",
+      "subtitle": "本当にログアウトしますか？"
+    },
+    "biometric": {
+      "title": "生体認証",
+      "fingerprint": "指紋認証",
+      "notAvailable": "生体認証は利用できません",
+      "notEnrolled": "生体認証が登録されていません",
+      "reason": "残高を表示するには認証してください"
+    },
+    "errors": {
+      "tokenVerificationFailed": "認証に失敗しました"
+    }
+  },
+  "home": {
+    "title": "ホーム",
+    "appTitle": "TSPパーキング",
+    "activity": "アクティビティ",
+    "history": "履歴",
+    "statistic": "統計",
+    "revenue": "売上",
+    "account": "アカウント",
+    "drawer": "Zusa"
+  },
+  "parking": {
+    "history": "駐車履歴",
+    "revenue": "売上",
+    "totalRevenue": "総売上",
+    "price": "駐車料金",
+    "memberFee": "会員費",
+    "staff": "スタッフ管理",
+    "areaConfig": "駐車エリア設定",
+    "lotConfig": "駐車場設定",
+    "capacity": "収容台数",
+    "configCapacity": "収容数設定",
+    "monthlyVehicle": "月極車両",
+    "guest": "一般車両",
+    "member": "会員車両",
+    "memberVehicles": "会員車両",
+    "in": "入庫",
+    "out": "出庫",
+    "allowIn": "入庫許可",
+    "allowOut": "出庫許可",
+    "inUse": "利用中",
+    "lost": "紛失",
+    "markAsLost": "紛失としてマーク",
+    "reportRecovered": "発見を報告",
+    "ticketSearch": "ナンバー/カードで検索",
+    "enterTicketNumber": "チケット番号を入力",
+    "ticketId": "チケット番号: ${id}",
+    "ticketID": "チケットID",
+    "manageTicket": "チケット管理",
+    "pass": {
+      "other": "${count} パス"
+    },
+    "totalTime": {
+      "zero": "合計時間: 1分未満",
+      "one": "合計時間: 1分",
+      "other": "合計時間: ${count} 分"
+    },
+    "warningThreshold": {
+      "title": "空きスペース減少時の警告",
+      "subtitle": "駐車場がほぼ満車になると、システムが警告を表示します。"
+    }
+  },
+  "vehicles": {
+    "type": "車種",
+    "car": "乗用車",
+    "bicycle": "自転車",
+    "motorbike": "バイク",
+    "licenseNumber": "ナンバープレート",
+    "name": "氏名",
+    "phoneNumber": "電話番号",
+    "memberVehicleDetail": "月極車両詳細",
+    "createMemberVehicle": "月極車両追加",
+    "memberVehicles": "月極車両",
+    "extend": {
+      "title": "延長",
+      "subtitle": "この車両の期限を延長しますか？",
+      "button": "期限延長 ${price}"
+    }
+  },
+  "booking": {
+    "bookTickets": "チケットを予約",
+    "journeyInformation": "行程情報",
+    "yourJourney": "あなたの行程",
+    "departureStation": "出発駅",
+    "arrivalStation": "到着駅",
+    "station": "${name} 駅",
+    "roundTrip": "往復",
+    "passenger": "乗客",
+    "seat": "座席: ${row}${col}",
+    "soldSeat": "販売済み",
+    "selectingSeat": "選択中",
+    "availableSeat": "空席",
+    "selectedSeat": "${current}/${total} 席を選択済み",
+    "totalCost": "合計金額: ${cost}",
+    "receipt": "領収書",
+    "payment": "支払い",
+    "bookingInProgress": "予約処理中...",
+    "contactInfo": "連絡先情報",
+    "customerInfo": "お客様情報",
+    "bookingInfo": "予約情報",
+    "remainingTicket": {
+      "zero": "完売",
+      "other": "残り ${count} 枚"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "appSettings": "アプリ設定",
+    "generalSettings": "一般設定",
+    "generalConfig": "一般設定",
+    "language": "言語",
+    "changeLanguage": "言語を変更",
+    "theme": "テーマ",
+    "changeTheme": "テーマを変更",
+    "lightMode": "ライトモード",
+    "darkMode": "ダークモード",
+    "followSystem": "端末の設定に合わせる",
+    "colorScheme": "配色",
+    "brandColor": "ブランドカラー",
+    "customColor": "カスタムカラー",
+    "materialYou": "Material You (システム)",
+    "debuggerMode": "デバッグモード",
+    "profile": {
+      "name": "名前",
+      "changeName": "名前を変更",
+      "newName": "新しい名前",
+      "enterName": "名前を入力",
+      "address": "住所",
+      "branchName": "支店名"
+    },
+    "changePassword": "パスワードを変更",
+    "developingFeature": "この機能は開発中です",
+    "exit": {
+      "title": "終了",
+      "subtitle": "このページから移動しますか？"
+    },
+    "extend": {
+      "title": "延長",
+      "subtitle": "延長しますか？"
+    }
+  },
+  "profile": {
+    "addInfo": {
+      "title": "お客様情報",
+      "subtitle": "アプリを利用するために必要な情報を入力してください"
+    },
+    "adult": {
+      "title": "大人",
+      "subtitle": "身分証/パスポートの情報を入力してください"
+    }
+  }
+}

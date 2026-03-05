@@ -8,7 +8,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/models/vehicle_type.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class VehicleTypeRadioCards extends StatelessWidget {
   const VehicleTypeRadioCards({super.key});

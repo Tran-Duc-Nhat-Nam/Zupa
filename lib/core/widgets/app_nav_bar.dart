@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -15,7 +14,7 @@ import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class AppNavBarScreen extends StatefulWidget {
@@ -26,13 +25,12 @@ class AppNavBarScreen extends StatefulWidget {
 }
 
 class _AppNavBarScreenState extends State<AppNavBarScreen> {
-  final double _iconSize = 24;
   late ShakeDetector detector;
   final List<String> _parkingLots = const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'];
 
   @override
   void initState() {
-    detector = .autoStart(
+    detector = ShakeDetector.autoStart(
       onPhoneShake: (ShakeEvent event) async {
         if (await getIt<StorageService>().getDebuggerMode() &&
             mounted &&
@@ -52,9 +50,10 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
   Widget build(BuildContext context) {
     final colors = ThemeHelper.getColor(context);
     final screenWidth = MediaQuery.of(context).size.width;
+    // Material 3 typically hides labels on very small screens automatically
+    // if labelBehavior is configured, but we'll keep your logic.
     final bool isHide = screenWidth < 400;
 
-    // AutoTabsScaffold manages the indexed stack and state preservation for you.
     return BlocProvider<SiteCubit>(
       create: (context) => getIt<SiteCubit>()..init(),
       child: Builder(
@@ -66,7 +65,6 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
               RevenueRoute(),
               SettingsRoute(),
             ],
-            // 1. App Bar Integration
             appBarBuilder: (context, tabsRouter) => AppAppBar(
               isCenter: true,
               titleWidget: AppDropDownSearch(
@@ -82,83 +80,47 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
                 onChanged: (value) => DialogHelper.showAuthDialog(context),
               ),
             ),
-
-            // 2. Body is automatically handled by AutoTabsScaffold
             backgroundColor: Theme.of(context).colorScheme.surface,
-
-            // 3. Google Nav Bar Integration
             bottomNavigationBuilder: (context, tabsRouter) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+              return NavigationBar(
+                selectedIndex: tabsRouter.activeIndex,
+                onDestinationSelected: tabsRouter.setActiveIndex,
+                // Customizing colors to match your theme
+                backgroundColor: colors.white,
+                indicatorColor: colors.primary100.withAlpha(155),
+                labelBehavior: isHide
+                    ? NavigationDestinationLabelBehavior.alwaysHide
+                    : NavigationDestinationLabelBehavior.alwaysShow,
+                destinations: [
+                  _buildDestination(
+                    index: 0,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'home',
+                    icon: Symbols.home_rounded,
+                    colors: colors,
                   ),
-                  decoration: BoxDecoration(
-                    color: colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 20,
-                        color: Colors.black.withAlpha(25),
-                      ),
-                    ],
+                  _buildDestination(
+                    index: 1,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'history',
+                    icon: Symbols.history_rounded,
+                    colors: colors,
                   ),
-                  child: GNav(
-                    selectedIndex: tabsRouter.activeIndex,
-                    onTabChange: tabsRouter.setActiveIndex, // Built-in handler
-
-                    rippleColor: colors.primary100,
-                    hoverColor: colors.primary50,
-                    gap: 8,
-                    activeColor: colors.primary500,
-                    iconSize: _iconSize,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    duration: const Duration(milliseconds: 400),
-                    tabBackgroundColor: colors.primary100.withAlpha(155),
-                    color: colors.primary300,
-
-                    tabs: [
-                      _buildItem(
-                        0,
-                        tabsRouter.activeIndex,
-                        'home',
-                        Symbols.home_rounded,
-                        colors,
-                        isHide,
-                      ),
-                      _buildItem(
-                        1,
-                        tabsRouter.activeIndex,
-                        'history',
-                        Symbols.history_rounded,
-                        colors,
-                        isHide,
-                      ),
-                      _buildItem(
-                        2,
-                        tabsRouter.activeIndex,
-                        'revenue',
-                        Symbols.analytics_rounded,
-                        colors,
-                        isHide,
-                      ),
-                      _buildItem(
-                        3,
-                        tabsRouter.activeIndex,
-                        'settings',
-                        Symbols.settings_rounded,
-                        colors,
-                        isHide,
-                      ),
-                    ],
+                  _buildDestination(
+                    index: 2,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'revenue',
+                    icon: Symbols.analytics_rounded,
+                    colors: colors,
                   ),
-                ),
+                  _buildDestination(
+                    index: 3,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'settings',
+                    icon: Symbols.settings_rounded,
+                    colors: colors,
+                  ),
+                ],
               );
             },
           );
@@ -167,26 +129,27 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
     );
   }
 
-  GButton _buildItem(
-    int index,
-    int activeIndex,
-    String labelKey,
-    IconData icon,
-    dynamic colors,
-    bool isHide,
-  ) {
-    final isActive = index == activeIndex;
-    return GButton(
-      icon: Icons.home, // Dummy
-      leading: Icon(
+  Widget _buildDestination({
+    required int index,
+    required int activeIndex,
+    required String labelKey,
+    required IconData icon,
+    required dynamic colors,
+  }) {
+    return NavigationDestination(
+      icon: Icon(
         icon,
-        color: isActive ? colors.primary500 : colors.primary300,
-        fill: isActive ? 1 : 0,
-        size: _iconSize,
-        fontWeight: .bold,
-        opticalSize: 48,
+        color: colors.primary300,
+        fill: 0,
+        weight: 400,
       ),
-      text: isHide ? '' : t[labelKey],
+      selectedIcon: Icon(
+        icon,
+        color: colors.primary500,
+        fill: 1, // Filled version for active state
+        weight: 700,
+      ),
+      label: t[labelKey],
     );
   }
 

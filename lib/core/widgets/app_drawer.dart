@@ -10,7 +10,7 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -40,7 +40,7 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             child: Center(
               child: Text(
-                t.drawer,
+                t.home.drawer,
                 style: AppTextStyles.heading2.copyWith(
                   color: ThemeHelper.getColor(context).white,
                 ),
@@ -62,7 +62,7 @@ class _AppDrawerState extends State<AppDrawer> {
           //   },
           // ),
           ListTile(
-            title: Text(t.changeTheme),
+            title: Text(t.settings.changeTheme),
             leading: AnimatedSwitcher(
               duration: const .new(milliseconds: 300),
               transitionBuilder: (child, anim) => RotationTransition(
@@ -84,7 +84,7 @@ class _AppDrawerState extends State<AppDrawer> {
               final themeCubit = context.read<ThemeCubit>();
               final currentSettings = themeCubit.state.maybeWhen(
                 loaded: (s) => s,
-                orElse: () => ThemeSettings(themeMode: AppThemeMode.system),
+                orElse: () => ThemeSettings(),
               );
 
               final newMode = currentSettings.themeMode == AppThemeMode.light
@@ -101,7 +101,7 @@ class _AppDrawerState extends State<AppDrawer> {
             },
             leading: const Icon(Icons.settings),
             title: Text(
-              t.settings,
+              t.settings.title,
               style: const .new(fontSize: 16),
             ),
           ),

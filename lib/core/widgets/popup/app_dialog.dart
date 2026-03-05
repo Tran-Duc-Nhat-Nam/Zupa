@@ -2,14 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 abstract class DialogHelper {
   static void showAuthDialog(BuildContext context) {
     showModal(
       context,
-      subtitleText: t.subtitle_sessionEnded,
-      titleText: t.title_sessionEnded,
+      subtitleText: t.auth.session.ended.subtitle,
+      titleText: t.auth.session.ended.title,
       type: .warning,
       onOk: () {
         context.router.replaceAll([const LoginRoute()]);

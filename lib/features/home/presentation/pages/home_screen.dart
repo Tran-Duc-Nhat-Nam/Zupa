@@ -12,7 +12,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -40,7 +40,7 @@ class _HomeScreenState extends AppState<HomeScreen> {
             formGroup: context.read<HomeFilterCubit>().formModel.form,
             isChildScrollable: true,
             hasParentView: true,
-            title: t.home,
+            title: t.home.title,
             hasAppBar: false,
             floatingActionButton: FloatingActionButton(
               backgroundColor: ThemeHelper.getColor(context).primary200,

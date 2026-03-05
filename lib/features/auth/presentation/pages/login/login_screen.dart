@@ -13,7 +13,7 @@ import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -51,32 +51,35 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: Text(t.title_login, style: AppTextStyles.heading2),
+                    child: Text(
+                      t.auth.login.title,
+                      style: AppTextStyles.heading2,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
                     formControl: formModel.tenantControl,
                     required: true,
-                    labelText: t.site,
+                    labelText: t.common.info.site,
                     prefix: const Icon(Symbols.warehouse_rounded),
                   ),
                   AppTextField(
                     formControl: formModel.usernameControl,
                     required: true,
-                    labelText: t.username,
+                    labelText: t.auth.login.username,
                     prefix: const Icon(Symbols.person_rounded),
                   ),
                   AppTextField(
                     formControl: formModel.passwordControl,
                     required: true,
                     isPassword: true,
-                    labelText: t.password,
+                    labelText: t.auth.login.password,
                     prefix: const Icon(Symbols.lock_rounded),
                   ),
                   AppCheckbox(
                     formControl: formModel.isRememberControl,
                     label: Text(
-                      t.isRemember,
+                      t.auth.login.isRemember,
                       style: AppTextStyles.bodySmallSemibold.copyWith(
                         color: ThemeHelper.getColor(context).primary400,
                       ),
@@ -86,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: state.whenOrNull(
                       loaded: () => context.read<LoginCubit>().login,
                     ),
-                    text: t.title_login,
+                    text: t.auth.login.title,
                     padding: const .all(16),
                     child: state.whenOrNull(
                       submitting: () => LoadingAnimationWidget.waveDots(

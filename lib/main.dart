@@ -19,7 +19,7 @@ import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
 
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
@@ -73,8 +73,10 @@ class AppView extends StatelessWidget {
           // Listen for connectivity changes globally
           listener: (context, state) {
             state.whenOrNull(
-              connected: () => AppToast.showToast(t.internetConnected),
-              disconnected: () => AppToast.showToast(t.noInternet),
+              connected: () =>
+                  AppToast.showToast(t.common.errors.internetConnected),
+              disconnected: () =>
+                  AppToast.showToast(t.common.errors.noInternet),
             );
           },
         ),
@@ -94,7 +96,7 @@ class AppView extends StatelessWidget {
         builder: (context, state) {
           final settings = state.maybeWhen(
             loaded: (settings) => settings,
-            orElse: () => ThemeSettings(themeMode: AppThemeMode.system),
+            orElse: () => ThemeSettings(),
           );
 
           final themeMode = switch (settings.themeMode) {
@@ -123,7 +125,7 @@ class AppView extends StatelessWidget {
               );
 
               return MaterialApp.router(
-                onGenerateTitle: (_) => t.appTitle,
+                onGenerateTitle: (_) => t.home.appTitle,
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 themeMode: themeMode,

@@ -14,7 +14,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class CheckInScreen extends StatefulWidget {
@@ -199,7 +199,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                           .read<CheckInCubit>()
                                           .formModel
                                           .ticketIDControl,
-                                      hintText: t.enterTicketNumber,
+                                      hintText: t.parking.enterTicketNumber,
                                       hasBorder: false,
                                       textAlign: .center,
                                     ),
@@ -250,8 +250,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                         .saveTicket,
                                     text:
                                         state.mapOrNull(
-                                          checkedInSuccess: (_) => t.allowIn,
-                                          checkedOutSuccess: (_) => t.allowOut,
+                                          checkedInSuccess: (_) => t.parking.allowIn,
+                                          checkedOutSuccess: (_) => t.parking.allowOut,
                                         ) ??
                                         '',
                                   ),

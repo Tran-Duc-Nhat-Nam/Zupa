@@ -1,0 +1,305 @@
+{
+  "locale": "en",
+  "common": {
+    "languages": {
+      "en": "English",
+      "vi": "Vietnamese",
+      "ja": "Japanese",
+      "vi_VN": "Vietnamese",
+      "en_US": "English"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "actions": {
+      "continue": "Continue",
+      "quit": "Quit",
+      "skip": "Skip",
+      "ok": "OK",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "close": "Close",
+      "apply": "Apply",
+      "enter": "Enter",
+      "choose": "Choose",
+      "retake": "Retake",
+      "viewDetails": "View details",
+      "filter": "Filter",
+      "lock": "Lock",
+      "pay": "Go to payment",
+      "reload": "Reload",
+      "pressUp": "Press up",
+      "pressDown": "Press down",
+      "save": "Save",
+      "search": "Search",
+      "reset": "Reset",
+      "complete": "Complete",
+      "all": "All"
+    },
+    "refresh": {
+      "dragText": "Pull to load",
+      "armedText": "Release to load",
+      "readyText": "Loading",
+      "processingText": "Loading",
+      "processedText": "Success",
+      "noMoreText": "No more data",
+      "failedText": "Load failed",
+      "pullUpToLoad": "Pull up to load more",
+      "loadFailedPleaseRetry": "Load failed! Please retry",
+      "releaseToLoadMore": "Release to load more"
+    },
+    "errors": {
+      "required": "Please do not leave blank!",
+      "confirmPassword": "Re-entered password does not match!",
+      "passwordMustMatch": "This password must match the new password",
+      "noInternet": "No internet connection",
+      "internetConnected": "Internet connected",
+      "noData_search": "No data found",
+      "noData_availableSeat": "No available seats found",
+      "enterInteger": "Enter integer",
+      "unknown": "Unknown error",
+      "unexpected": "Unexpected error happened!",
+      "error": "Error happened"
+    },
+    "info": {
+      "site": "Site",
+      "total": "Total",
+      "time": "Time",
+      "date": "Date",
+      "dateOf": "Date ${val}",
+      "info": "Information",
+      "noInfo": "No information",
+      "all": "All",
+      "on": "On",
+      "off": "Off",
+      "note": "Note",
+      "placeholderName": "Placeholder name",
+      "vND": "VND"
+    },
+    "infoKeys": {
+      "email_short": "Email",
+      "email_long": "Email address",
+      "idNumber_short": "ID",
+      "idNumber_long": "ID Number",
+      "phone_short": "Phone",
+      "phone_long": "Phone"
+    },
+    "success": "Success"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Enter your account information",
+      "username": "Username",
+      "password": "Password",
+      "remember": "Remember me",
+      "isRemember": "Remember me",
+      "forgetPassword": "Forget password?",
+      "success": "Login success",
+      "noAccount": "Login to book tickets"
+    },
+    "password": {
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Confirm password",
+      "enterCurrent": "Enter current password",
+      "enterNew": "Enter new password",
+      "enterConfirm": "Confirm your new password"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "subtitle": "Enter your email address",
+      "signUpNow": "Sign up now",
+      "success": "Sign up success"
+    },
+    "otp": {
+      "title": "OTP",
+      "subtitle": "Please enter the OTP"
+    },
+    "forgetPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email address"
+    },
+    "createPassword": {
+      "title": "Create Password",
+      "subtitle": "Enter your password"
+    },
+    "session": {
+      "ended": {
+        "title": "Login session ended",
+        "subtitle": "Your login session has ended. For your security, please log in again to continue using the app."
+      }
+    },
+    "logout": {
+      "title": "Logout",
+      "subtitle": "Are you sure you want to logout?"
+    },
+    "biometric": {
+      "title": "Biometric authentication",
+      "fingerprint": "Fingerprint authentication",
+      "notAvailable": "Biometric authentication is not available",
+      "notEnrolled": "Biometric authentication is not enrolled",
+      "reason": "Please authenticate to show account balance"
+    },
+    "errors": {
+      "tokenVerificationFailed": "Verification failed"
+    }
+  },
+  "home": {
+    "title": "Home page",
+    "appTitle": "TSP Parking",
+    "activity": "Activity",
+    "history": "History",
+    "statistic": "Statistic",
+    "revenue": "Revenue",
+    "account": "Account",
+    "drawer": "Zusa"
+  },
+  "parking": {
+    "history": "Parking history",
+    "revenue": "Revenue",
+    "totalRevenue": "Total revenue",
+    "price": "Parking price",
+    "memberFee": "Member fee",
+    "staff": "Staff management",
+    "areaConfig": "Parking area configuration",
+    "lotConfig": "Parking lot configuration",
+    "capacity": "Capacity",
+    "configCapacity": "Capacity configuration",
+    "monthlyVehicle": "Monthly vehicle",
+    "guest": "Guest vehicle",
+    "member": "Member vehicle",
+    "memberVehicles": "Member vehicles",
+    "in": "In",
+    "out": "Out",
+    "allowIn": "Allow in",
+    "allowOut": "Allow out",
+    "inUse": "In use",
+    "lost": "Lost",
+    "markAsLost": "Mark as lost",
+    "reportRecovered": "Report recovered",
+    "ticketSearch": "Search by plate/card",
+    "enterTicketNumber": "Enter ticket number here",
+    "ticketId": "Ticket number: ${id}",
+    "ticketID": "Ticket ID",
+    "manageTicket": "Ticket management",
+    "pass": {
+      "zero": "${count} pass",
+      "one": "${count} pass",
+      "many": "${count} passes",
+      "other": "${count} pass(es)"
+    },
+    "totalTime": {
+      "zero": "Total time: under a minute",
+      "one": "Total time: 1 minute",
+      "many": "Total time: ${count} minutes",
+      "other": "Total time: ${count} minute(s)"
+    },
+    "warningThreshold": {
+      "title": "Warning when space is running out",
+      "subtitle": "When the parking lot is almost full, the system will display a warning."
+    }
+  },
+  "vehicles": {
+    "type": "Vehicle type",
+    "car": "Car",
+    "bicycle": "Bicycle",
+    "motorbike": "Motorbike",
+    "licenseNumber": "License number",
+    "name": "Name",
+    "phoneNumber": "Phone number",
+    "memberVehicleDetail": "Member vehicle detail",
+    "createMemberVehicle": "Add member vehicle",
+    "memberVehicles": "Member vehicles",
+    "extend": {
+      "title": "Extend vehicle",
+      "subtitle": "Are you sure you want to extend this vehicle?",
+      "button": "Extend ${price}"
+    }
+  },
+  "booking": {
+    "bookTickets": "Book tickets",
+    "journeyInformation": "Journey's information",
+    "yourJourney": "Your journey",
+    "departureStation": "Departure station",
+    "arrivalStation": "Arrival station",
+    "station": "${name} Station",
+    "roundTrip": "Round-trip",
+    "passenger": "Passenger",
+    "seat": "Seat: ${row}${col}",
+    "soldSeat": "Sold seat",
+    "selectingSeat": "Selecting seat",
+    "availableSeat": "Available seat",
+    "selectedSeat": "Selected ${current}/${total} seat(s)",
+    "totalCost": "Total cost: ${cost}",
+    "receipt": "Receipt",
+    "payment": "Payment",
+    "bookingInProgress": "Booking in progress...",
+    "contactInfo": "Contact information",
+    "customerInfo": "Customer information",
+    "bookingInfo": "Booking information",
+    "remainingTicket": {
+      "zero": "Sold out",
+      "one": "${count} ticket remain",
+      "many": "${count} tickets remain",
+      "other": "${count} tickets remain"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "appSettings": "App settings",
+    "generalSettings": "General settings",
+    "generalConfig": "General configuration",
+    "language": "Language",
+    "changeLanguage": "Change app language",
+    "theme": "Theme",
+    "changeTheme": "Change app theme",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "followSystem": "Follow system",
+    "colorScheme": "Color Scheme",
+    "brandColor": "Brand Colors",
+    "customColor": "Custom Color",
+    "materialYou": "Material You (System)",
+    "debuggerMode": "Debugging mode",
+    "profile": {
+      "name": "Name",
+      "changeName": "Change name",
+      "newName": "New name",
+      "enterName": "Enter name",
+      "address": "Address",
+      "branchName": "Branch name"
+    },
+    "changePassword": "Change password",
+    "developingFeature": "This feature is under development",
+    "exit": {
+      "title": "Exit",
+      "subtitle": "You about to exit this page"
+    },
+    "extend": {
+      "title": "Extend",
+      "subtitle": "Do you want to extend?"
+    }
+  },
+  "profile": {
+    "addInfo": {
+      "title": "Customer Information",
+      "subtitle": "Enter the required information to use the app"
+    },
+    "adult": {
+      "title": "Adult",
+      "subtitle": "Add information as on Citizen ID/Passport"
+    }
+  }
+}

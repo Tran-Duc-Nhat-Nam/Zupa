@@ -13,7 +13,7 @@ import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
 import 'package:zupa/features/history/presentation/models/history_form.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class HistorySearchBar extends StatelessWidget {
   const HistorySearchBar({
@@ -59,7 +59,7 @@ class HistorySearchBar extends StatelessWidget {
                   enabled: state is Loading,
                   child: AppTextField(
                     formControl: formModel.keywordControl,
-                    hintText: t.ticketSearch,
+                    hintText: t.parking.ticketSearch,
                     borderRadius: 100,
                     hasBorder: false,
                     backgroundColor: ThemeHelper.getColor(context).primary50,
@@ -96,7 +96,7 @@ class HistorySearchBar extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                t.filter,
+                t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
                   color: ThemeHelper.getColor(context).grey600,
                 ),
@@ -106,13 +106,13 @@ class HistorySearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  t.time,
+                  t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).grey700,
                   ),
                 ),
                 Text(
-                  t.reset,
+                  t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                   ),
@@ -123,7 +123,7 @@ class HistorySearchBar extends StatelessWidget {
               spacing: 12,
               crossAxisAlignment: .start,
               children: [
-                Text(t.date),
+                Text(t.common.info.date),
                 AppDateTimePicker(formControl: formModel.timeControl),
               ],
             ),
@@ -135,13 +135,13 @@ class HistorySearchBar extends StatelessWidget {
                   mainAxisAlignment: .spaceBetween,
                   children: [
                     Text(
-                      t.vehicleType,
+                      t.vehicles.type,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
                         color: ThemeHelper.getColor(context).grey700,
                       ),
                     ),
                     Text(
-                      t.reset,
+                      t.common.actions.reset,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
                         color: ThemeHelper.getColor(context).primary500,
                       ),
@@ -163,13 +163,13 @@ class HistorySearchBar extends StatelessWidget {
                     color: .basic,
                     theme: .outline,
                     onPressed: () => context.router.pop(),
-                    text: t.cancel,
+                    text: t.common.actions.cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
                     onPressed: () => context.router.pop(),
-                    text: t.apply,
+                    text: t.common.actions.apply,
                   ),
                 ),
               ],

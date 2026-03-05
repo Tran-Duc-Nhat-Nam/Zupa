@@ -5,10 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // Changed from cupertino for AppToast/Theme access
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class NfcHelper {
   static Future<void> startListenToNfc(BuildContext context) async {
@@ -22,12 +23,10 @@ class NfcHelper {
     // 3. Start Session
     NfcManager.instance.startSession(
       // iOS specific alert message
-      alertMessageIos: context.mounted
-          ? t.error
-          : 'Hold your phone near the tag',
+      alertMessageIos: t.common.errors.noInternet,
       onSessionErrorIos: (error) async {
         // Handle session errors silently or log them
-        debugPrint('NFC Session Error: $error');
+        DebuggerHelper.talker.log('NFC Session Error: $error');
       },
       onDiscovered: (NfcTag tag) async {
         bool isValidTag = false;
@@ -57,10 +56,10 @@ class NfcHelper {
           // On iOS, invalidate session with error message
           if (Platform.isIOS) {
             await NfcManager.instance.stopSession(
-              errorMessageIos: t.error,
+              errorMessageIos: t.common.errors.noInternet,
             );
           }
-          AppToast.showNotify(t.error);
+          AppToast.showNotify(t.common.errors.noInternet);
         }
       },
       pollingOptions: {

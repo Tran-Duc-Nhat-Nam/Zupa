@@ -6,7 +6,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class MemberVehiclesSearchBar extends StatelessWidget {
   const MemberVehiclesSearchBar({super.key});
@@ -20,7 +20,7 @@ class MemberVehiclesSearchBar extends StatelessWidget {
           child: AppTextField(
             formControl: context.read<MemberVehiclesFilterCubit>().formModel.keywordControl,
             prefixIcon: Symbols.search,
-            hintText: t.search,
+            hintText: t.common.actions.search,
             onChanged: (value) =>
                 context.read<MemberVehiclesFilterCubit>().search(),
           ),

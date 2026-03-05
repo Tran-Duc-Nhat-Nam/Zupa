@@ -9,7 +9,7 @@ import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class HistoryListTab extends StatelessWidget {
   const HistoryListTab({super.key});
@@ -53,13 +53,13 @@ class HistoryListTab extends StatelessWidget {
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(
-                dragText: t.dragText,
-                armedText: t.armedText,
-                readyText: t.releaseToLoadMore,
-                processingText: t.processingText,
-                processedText: t.processedText,
-                noMoreText: t.noMoreText,
-                failedText: t.failedText,
+                dragText: t.common.refresh.dragText,
+                armedText: t.common.refresh.armedText,
+                readyText: t.common.refresh.releaseToLoadMore,
+                processingText: t.common.refresh.processingText,
+                processedText: t.common.refresh.processedText,
+                noMoreText: t.common.refresh.noMoreText,
+                failedText: t.common.refresh.failedText,
                 triggerWhenRelease: true,
               ),
               controller: refreshController,

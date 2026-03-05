@@ -8,7 +8,7 @@ import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class RevenueScreen extends StatefulWidget {
@@ -32,7 +32,7 @@ class _RevenueScreenState extends AppState<RevenueScreen> {
             formGroup: context.read<RevenueFilterCubit>().formModel.form,
             isChildScrollable: true,
             hasParentView: true,
-            title: t.revenue,
+            title: t.parking.revenue,
             hasAppBar: false,
             child: BlocListener<RevenueListCubit, RevenueListState>(
               listener: (context, state) {

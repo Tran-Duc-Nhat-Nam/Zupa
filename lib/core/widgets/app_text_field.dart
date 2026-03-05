@@ -3,7 +3,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -91,7 +91,8 @@ class _AppTextFieldState extends State<AppTextField> {
             color: colorsScheme.grey500,
           ),
           validationMessages: {
-            ValidationMessage.mustMatch: (error) => t.passwordMustMatch
+            ValidationMessage.mustMatch: (error) =>
+                t.common.errors.passwordMustMatch
           },
           textInputAction: .next,
           onEditingComplete: (_) => FocusScope.of(context).nextFocus(),

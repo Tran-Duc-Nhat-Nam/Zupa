@@ -15,7 +15,7 @@ import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/detail/member_vehicle_detail_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class MemberVehicleDetailScreen extends StatefulWidget {
@@ -43,12 +43,12 @@ class _MemberVehicleDetailScreenState
             isChildScrollable: true,
             noBackground: true,
             title: widget.code != null
-                ? t.memberVehicleDetail
-                : t.createMemberVehicle,
+                ? t.vehicles.memberVehicleDetail
+                : t.vehicles.createMemberVehicle,
             footer: [
               AppButton(
                 onPressed: context.read<MemberVehicleDetailCubit>().create,
-                text: t.save,
+                text: t.common.actions.save,
               ),
               if (widget.code != null)
                 AppButton(
@@ -57,7 +57,7 @@ class _MemberVehicleDetailScreenState
                   onPressed: () => context
                       .read<MemberVehicleDetailCubit>()
                       .delete(widget.code!),
-                  text: t.delete,
+                  text: t.common.actions.delete,
                 ),
             ],
             child: AppCard(
@@ -80,36 +80,36 @@ class _MemberVehicleDetailScreenState
                   ),
                   AppTextField(
                     formControl: formModel.nameControl,
-                    labelText: t.name,
-                    hintText: t.enter,
+                    labelText: t.vehicles.name,
+                    hintText: t.common.actions.enter,
                     isExternalLabel: true,
                   ),
                   AppTextField(
                     formControl: formModel.phoneNumberControl,
-                    labelText: t.phoneNumber,
-                    hintText: t.enter,
+                    labelText: t.vehicles.phoneNumber,
+                    hintText: t.common.actions.enter,
                     isExternalLabel: true,
                   ),
                   AppTextField(
                     formControl: formModel.licenseNumberControl,
-                    labelText: t.licenseNumber,
-                    hintText: t.enter,
+                    labelText: t.vehicles.licenseNumber,
+                    hintText: t.common.actions.enter,
                     isExternalLabel: true,
                   ),
                   AppDropDownSearch<String>(
                     formControl: formModel.branchControl,
                     dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
-                    hint: t.choose,
+                    hint: t.common.actions.choose,
                   ),
                   AppDropDownSearch<VehicleType>(
                     formControl: formModel.vehicleTypeControl,
                     dropdownItems: vehicleTypes,
-                    hint: t.choose,
+                    hint: t.common.actions.choose,
                   ),
                   AppTextField(
                     formControl: formModel.ticketIDControl,
-                    labelText: t.ticketID,
-                    hintText: t.enter,
+                    labelText: t.parking.ticketID,
+                    hintText: t.common.actions.enter,
                     isExternalLabel: true,
                   ),
                   AppDropDownSearch<Duration>(
@@ -118,7 +118,7 @@ class _MemberVehicleDetailScreenState
                       Duration(days: 30),
                       Duration(days: 60),
                     ],
-                    hint: t.choose,
+                    hint: t.common.actions.choose,
                   ),
                 ],
               ),

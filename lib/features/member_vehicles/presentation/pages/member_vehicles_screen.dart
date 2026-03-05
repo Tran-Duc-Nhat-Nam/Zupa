@@ -11,7 +11,7 @@ import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehi
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicle_list_tab.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_search_bar.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_tab_bar.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class MemberVehiclesScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
       child: AppScreen(
         isChildScrollable: true,
         noBackground: true,
-        title: t.memberVehicles,
+        title: t.vehicles.memberVehicles,
         appBarTrailing: [
           Padding(
             padding: const .only(right: 24),

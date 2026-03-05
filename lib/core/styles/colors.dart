@@ -208,7 +208,7 @@ class DynamicAppColors extends BaseColors {
     primary300: Color.lerp(scheme.primary, scheme.primaryContainer, 0.6)!,
     primary200: scheme.primaryContainer,
     primary100: Color.lerp(scheme.primaryContainer, scheme.surface, 0.5)!,
-    primary50: scheme.primaryContainer.withOpacity(0.1),
+    primary50: scheme.primaryContainer.withAlpha(25),
 
     // --- Warning Range (Not native to Material You, derived from Primary) ---
     // We use a fixed Hue or lerp toward an orange constant to keep it 'Warning-like'
@@ -227,7 +227,7 @@ class DynamicAppColors extends BaseColors {
     error300: Color.lerp(scheme.error, scheme.onError, 0.4)!,
     error200: Color.lerp(scheme.error, scheme.onError, 0.6)!,
     error100: Color.lerp(scheme.error, scheme.onError, 0.8)!,
-    error50: scheme.errorContainer.withOpacity(0.2),
+    error50: scheme.errorContainer..withAlpha(55),
 
     // --- Success Range (Derived or Constant) ---
     success600: const Color(0xff399026),

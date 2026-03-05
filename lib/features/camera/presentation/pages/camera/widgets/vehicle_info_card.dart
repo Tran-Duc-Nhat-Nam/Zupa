@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class VehicleInfoCard extends StatelessWidget {
   const VehicleInfoCard({
@@ -26,7 +26,7 @@ class VehicleInfoCard extends StatelessWidget {
           Padding(
             padding: const .all(10),
             child: Text(
-              '${t.ticketNumber}: $ticketNumber',
+              '${t.parking.ticketID}: $ticketNumber',
               style: AppTextStyles.bodyMediumSemibold.copyWith(
                 color: ThemeHelper.getColor(context).grey700,
               ),
@@ -40,7 +40,7 @@ class VehicleInfoCard extends StatelessWidget {
           Padding(
             padding: const .all(8),
             child: Text(
-              '${t.ticketNumber}: $ticketNumber',
+              '${t.parking.ticketID}: $ticketNumber',
               style: AppTextStyles.bodyXLargeSemibold.copyWith(
                 color: ThemeHelper.getColor(context).grey700,
               ),

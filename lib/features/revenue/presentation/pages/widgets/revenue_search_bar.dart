@@ -10,7 +10,7 @@ import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class RevenueSearchBar extends StatelessWidget {
   const RevenueSearchBar({super.key});
@@ -34,7 +34,7 @@ class RevenueSearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  t[DateTimeConverter.getMonthKey(DateTime.now().month)],
+                  t['common.months.${DateTimeConverter.getMonthKey(DateTime.now().month)}'],
                   style: AppTextStyles.heading5.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                     fontWeight: .w600,
@@ -62,7 +62,7 @@ class RevenueSearchBar extends StatelessWidget {
               spacing: 4,
               children: [
                 Text(
-                  '${t.totalRevenue}:',
+                  '${t.parking.totalRevenue}:',
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     // Very large text
                     fontWeight: .bold,
@@ -98,7 +98,7 @@ class RevenueSearchBar extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                t.filter,
+                t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
                   color: ThemeHelper.getColor(context).grey600,
                 ),
@@ -108,13 +108,13 @@ class RevenueSearchBar extends StatelessWidget {
               mainAxisAlignment: .spaceBetween,
               children: [
                 Text(
-                  t.time,
+                  t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).grey700,
                   ),
                 ),
                 Text(
-                  t.reset,
+                  t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
                     color: ThemeHelper.getColor(context).primary500,
                   ),
@@ -125,7 +125,7 @@ class RevenueSearchBar extends StatelessWidget {
               spacing: 12,
               crossAxisAlignment: .start,
               children: [
-                Text(t.date),
+                Text(t.common.info.date),
                 AppDateTimePicker(
                   formControl: context
                       .read<RevenueFilterCubit>()
@@ -143,13 +143,13 @@ class RevenueSearchBar extends StatelessWidget {
                     color: .basic,
                     theme: .outline,
                     onPressed: () => context.pop(),
-                    text: t.cancel,
+                    text: t.common.actions.cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
                     onPressed: () => context.pop(),
-                    text: t.apply,
+                    text: t.common.actions.apply,
                   ),
                 ),
               ],

@@ -14,7 +14,7 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/features/general_config/presentation/bloc/general_config_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class GeneralConfigScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: t.generalConfig,
+      title: t.settings.generalConfig,
       child: BlocProvider<GeneralConfigCubit>(
         create: (context) => getIt<GeneralConfigCubit>()..init(),
         child: BlocBuilder<GeneralConfigCubit, GeneralConfigState>(
@@ -45,7 +45,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                         children: [
                           AppListTile(
                             leadingIcon: Symbols.settings_rounded,
-                            text: t.parkingPrice,
+                            text: t.parking.price,
                             trailingIcon: Symbols.chevron_right_rounded,
                             onTap: () => context.pushRoute(
                               const ParkingPriceSettingRoute(),
@@ -54,7 +54,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                           Divider(color: ThemeHelper.getColor(context).grey200),
                           AppListTile(
                             leadingIcon: Symbols.calendar_add_on_rounded,
-                            text: t.memberFee,
+                            text: t.parking.memberFee,
                             trailingIcon: Symbols.chevron_right_rounded,
                             onTap: () =>
                                 context.pushRoute(const MemberFeeSetingRoute()),
@@ -69,7 +69,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                           AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.notifications_rounded,
-                            text: t.title_warningThreshold,
+                            text: t.parking.warningThreshold.title,
                             trailing: SizedBox(
                               height: 20,
                               child: Transform.scale(
@@ -98,11 +98,11 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                   .read<GeneralConfigCubit>()
                                   .formModel
                                   .warningThresholdControl,
-                              hintText: t.enterInteger,
+                              hintText: t.common.errors.enterInteger,
                               required: true,
                             ),
                             Text(
-                              t.subtitle_warningThreshold,
+                              t.parking.warningThreshold.subtitle,
                               style: AppTextStyles.bodySmallMedium.copyWith(
                                 color: ThemeHelper.getColor(context).grey500,
                               ),

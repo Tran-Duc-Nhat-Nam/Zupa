@@ -1,0 +1,299 @@
+{
+  "locale": "vi",
+  "common": {
+    "languages": {
+      "en": "Tiếng Anh",
+      "vi": "Tiếng Việt",
+      "ja": "Tiếng Nhật",
+      "vi_VN": "Tiếng Việt",
+      "en_US": "Tiếng Anh"
+    },
+    "months": {
+      "january": "Tháng Một",
+      "february": "Tháng Hai",
+      "march": "Tháng Ba",
+      "april": "Tháng Tư",
+      "may": "Tháng Năm",
+      "june": "Tháng Sáu",
+      "july": "Tháng Bảy",
+      "august": "Tháng Tám",
+      "september": "Tháng Chín",
+      "october": "Tháng Mười",
+      "november": "Tháng Mười Một",
+      "december": "Tháng Mười Hai"
+    },
+    "actions": {
+      "continue": "Tiếp tục",
+      "quit": "Thoát",
+      "skip": "Bỏ qua",
+      "ok": "OK",
+      "cancel": "Hủy",
+      "delete": "Xoá",
+      "close": "Đóng",
+      "apply": "Áp dụng",
+      "enter": "Nhập",
+      "choose": "Chọn",
+      "retake": "Chụp lại",
+      "viewDetails": "Xem chi tiết",
+      "filter": "Bộ lọc",
+      "lock": "Khóa",
+      "pay": "Thanh toán",
+      "reload": "Tải lại",
+      "pressUp": "Nhấn lên",
+      "pressDown": "Nhấn xuống",
+      "save": "Lưu",
+      "search": "Tìm kiếm",
+      "reset": "Đặt lại",
+      "complete": "Hoàn thành",
+      "all": "Tất cả"
+    },
+    "refresh": {
+      "dragText": "Kéo để tải",
+      "armedText": "Thả ra để tải",
+      "readyText": "Đang tải",
+      "processingText": "Đang tải",
+      "processedText": "Thành công",
+      "noMoreText": "Không còn dữ liệu",
+      "failedText": "Tải thất bại",
+      "pullUpToLoad": "Kéo lên để tải thêm",
+      "loadFailedPleaseRetry": "Tải thất bại! Vui lòng thử lại",
+      "releaseToLoadMore": "Thả ra để tải thêm"
+    },
+    "errors": {
+      "required": "Vui lòng không để trống!",
+      "confirmPassword": "Mật khẩu nhập lại không trùng khớp!",
+      "passwordMustMatch": "Mật khẩu này phải trùng với mật khẩu mới",
+      "noInternet": "Không có kết nối internet",
+      "internetConnected": "Đã kết nối internet",
+      "noData_search": "Không có dữ liệu",
+      "noData_availableSeat": "Không còn chỗ trống",
+      "enterInteger": "Nhập số nguyên",
+      "unknown": "Lỗi không xác định",
+      "unexpected": "Đã xảy lỗi không xác định!",
+      "error": "Đã có lỗi xảy ra"
+    },
+    "info": {
+      "site": "Địa điểm",
+      "total": "Tổng cộng",
+      "time": "Thời gian",
+      "date": "Ngày",
+      "dateOf": "Ngày ${val}",
+      "info": "Thông tin",
+      "noInfo": "Không có thông tin",
+      "all": "Tất cả",
+      "on": "Bật",
+      "off": "Tắt",
+      "note": "Ghi chú",
+      "placeholderName": "Tên giữ chỗ",
+      "vND": "VND"
+    },
+    "infoKeys": {
+      "email_short": "Email",
+      "email_long": "Địa chỉ email",
+      "idNumber_short": "CCCD",
+      "idNumber_long": "CCCD",
+      "phone_short": "SĐT",
+      "phone_long": "Số điện thoại"
+    },
+    "success": "Thành công"
+  },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "subtitle": "Nhập thông tin tài khoản của bạn",
+      "username": "Tên tài khoản",
+      "password": "Mật khẩu",
+      "remember": "Ghi nhớ",
+      "isRemember": "Ghi nhớ đăng nhập",
+      "forgetPassword": "Quên mật khẩu?",
+      "success": "Đăng nhập thành công",
+      "noAccount": "Đăng nhập để đặt vé"
+    },
+    "password": {
+      "current": "Mật khẩu hiện tại",
+      "new": "Mật khẩu mới",
+      "confirm": "Xác nhận mật khẩu",
+      "enterCurrent": "Nhập mật khẩu hiện tại",
+      "enterNew": "Nhập mật khẩu mới",
+      "enterConfirm": "Xác nhận mật khẩu mới"
+    },
+    "signUp": {
+      "title": "Đăng ký",
+      "subtitle": "Nhập địa chỉ email của bạn",
+      "signUpNow": "Đăng ký ngay",
+      "success": "Đăng ký thành công"
+    },
+    "otp": {
+      "title": "OTP",
+      "subtitle": "Nhập mã OTP"
+    },
+    "forgetPassword": {
+      "title": "Quên mật khẩu",
+      "subtitle": "Nhập địa chỉ email của bạn"
+    },
+    "createPassword": {
+      "title": "Tạo mật khẩu",
+      "subtitle": "Nhập mật khẩu của bạn"
+    },
+    "session": {
+      "ended": {
+        "title": "Phiên đăng nhập đã hết hạn",
+        "subtitle": "Phiên đăng nhập của bạn đã hết hạn. Vì lý do bảo mật, vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng."
+      }
+    },
+    "logout": {
+      "title": "Đăng xuất",
+      "subtitle": "Bạn có chắc chắn muốn đăng xuất?"
+    },
+    "biometric": {
+      "title": "Xác thực bằng vân tay",
+      "fingerprint": "Xác thực vân tay",
+      "notAvailable": "Xác thực sinh trắc học không khả dụng",
+      "notEnrolled": "Chưa đăng ký xác thực sinh trắc học",
+      "reason": "Vui lòng xác thực để hiển thị số dư tài khoản"
+    },
+    "errors": {
+      "tokenVerificationFailed": "Xác thực thất bại"
+    }
+  },
+  "home": {
+    "title": "Trang chủ",
+    "appTitle": "Đỗ xe TSP",
+    "activity": "Hoạt động",
+    "history": "Lịch sử",
+    "statistic": "Thống kê",
+    "revenue": "Doanh thu",
+    "account": "Tài khoản",
+    "drawer": "Zusa"
+  },
+  "parking": {
+    "history": "Lịch sử đỗ xe",
+    "revenue": "Doanh thu",
+    "totalRevenue": "Tổng doanh thu",
+    "price": "Giá đỗ xe",
+    "memberFee": "Phí xe tháng",
+    "areaConfig": "Cấu hình khu vực đỗ xe",
+    "staff": "Quản lý nhân viên",
+    "lotConfig": "Cấu hình bãi đỗ xe",
+    "capacity": "Sức chứa",
+    "configCapacity": "Cấu hình",
+    "monthlyVehicle": "Xe tháng",
+    "guest": "Xe vãng lai",
+    "member": "Xe khách",
+    "memberVehicles": "Xe tháng",
+    "in": "Vào",
+    "out": "Ra",
+    "allowIn": "Cho vào",
+    "allowOut": "Cho ra",
+    "inUse": "Đang dùng",
+    "lost": "Thất lạc",
+    "markAsLost": "Báo thất lạc",
+    "reportRecovered": "Báo khôi phục",
+    "ticketSearch": "Tìm theo số xe/mã thẻ",
+    "enterTicketNumber": "Nhập số xe tại đây",
+    "ticketId": "Số thẻ: ${id}",
+    "ticketID": "Mã số thẻ",
+    "manageTicket": "Quản lý vé tháng",
+    "pass": {
+      "other": "${count} lượt"
+    },
+    "totalTime": {
+      "zero": "Giờ gửi: dưới 1 phút",
+      "one": "Giờ gửi: 1 phút",
+      "other": "Giờ gửi: ${count} phút"
+    },
+    "warningThreshold": {
+      "title": "Cảnh báo khi sắp hết chỗ",
+      "subtitle": "Khi bãi đỗ xe sắp đầy, hệ thống sẽ hiển thị cảnh báo."
+    }
+  },
+  "vehicles": {
+    "type": "Loại xe",
+    "car": "Ô tô",
+    "bicycle": "Xe đạp",
+    "motorbike": "Xe máy",
+    "licenseNumber": "Biển số xe",
+    "name": "Tên",
+    "phoneNumber": "Số điện thoại",
+    "memberVehicleDetail": "Chi tiết xe tháng",
+    "createMemberVehicle": "Thêm xe tháng",
+    "memberVehicles": "Xe tháng",
+    "extend": {
+      "title": "Gia hạn xe",
+      "subtitle": "Bạn có chắc chắn muốn gia hạn cho xe này?",
+      "button": "Gia hạn ${price}"
+    }
+  },
+  "booking": {
+    "bookTickets": "Đặt vé",
+    "journeyInformation": "Thông tin hành trình",
+    "yourJourney": "Chuyến đi của bạn",
+    "departureStation": "Ga đi",
+    "arrivalStation": "Ga đến",
+    "station": "Ga ${name}",
+    "roundTrip": "Khứ hồi",
+    "passenger": "Khách vãng lai",
+    "seat": "Chỗ ngồi: ${row}${col}",
+    "soldSeat": "Chỗ đã bán",
+    "selectingSeat": "Chỗ đang chọn",
+    "availableSeat": "Chỗ trống",
+    "selectedSeat": "Đã chọn ${current}/${total} chỗ",
+    "totalCost": "Tổng tiền: ${cost}",
+    "receipt": "Hóa đơn",
+    "payment": "Thanh toán",
+    "bookingInProgress": "Đang tiến hành đặt vé...",
+    "contactInfo": "Thông tin liên hệ",
+    "customerInfo": "Thông tin khách hàng",
+    "bookingInfo": "Thông tin đặt vé",
+    "remainingTicket": {
+      "zero": "Hết vé",
+      "other": "Còn ${count} vé"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "appSettings": "Cài đặt ứng dụng",
+    "generalSettings": "Cài đặt chung",
+    "generalConfig": "Cấu hình chung",
+    "language": "Ngôn ngữ",
+    "changeLanguage": "Đổi ngôn ngữ",
+    "theme": "Giao diện",
+    "changeTheme": "Đổi màu nền",
+    "lightMode": "Chế độ sáng",
+    "darkMode": "Chế độ tối",
+    "followSystem": "Theo hệ thống",
+    "colorScheme": "Phối màu",
+    "brandColor": "Màu thương hiệu",
+    "customColor": "Màu tùy chỉnh",
+    "materialYou": "Material You (Hệ thống)",
+    "debuggerMode": "Chế độ gỡ lỗi",
+    "profile": {
+      "name": "Tên",
+      "changeName": "Đổi tên",
+      "newName": "Tên mới",
+      "enterName": "Nhập tên",
+      "address": "Địa chỉ",
+      "branchName": "Tên chi nhánh"
+    },
+    "changePassword": "Đổi mật khẩu",
+    "developingFeature": "Tính năng này đang được phát triển",
+    "exit": {
+      "title": "Thoát",
+      "subtitle": "Bạn đang rời khỏi trang"
+    },
+    "extend": {
+      "title": "Gia hạn",
+      "subtitle": "Bạn có muốn gia hạn không?"
+    }
+  },
+  "profile": {
+    "addInfo": {
+      "title": "Thông tin hành khách",
+      "subtitle": "Nhập những thông tin cần thiết để sử dụng ứng dụng"
+    },
+    "adult": {
+      "title": "Người lớn",
+      "subtitle": "Thêm thông tin như trên CCCD/hộ chiếu"
+    }
+  }
+}

@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class RevenueTitle extends StatelessWidget {
   const RevenueTitle({super.key, required this.revenue});
@@ -70,7 +70,10 @@ class RevenueTitle extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            t.pass(count: revenue.totalPass),
+                            t.parking.pass(
+                              n: revenue.totalPass,
+                              count: revenue.totalPass,
+                            ),
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
                               color: ThemeHelper.getColor(context).grey900,
@@ -127,7 +130,8 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  t[e.vehicleType.name],
+                                  t['vehicles.${e.vehicleType.name}'] ??
+                                      e.vehicleType.name,
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(
@@ -146,7 +150,7 @@ class RevenueTitle extends StatelessWidget {
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
-                                  t.pass(count: e.pass),
+                                  t.parking.pass(n: e.pass, count: e.pass),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
                                         color: ThemeHelper.getColor(

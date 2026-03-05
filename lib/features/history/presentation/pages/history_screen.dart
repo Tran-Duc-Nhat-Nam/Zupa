@@ -9,7 +9,7 @@ import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cu
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_tab.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_search_bar.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class HistoryScreen extends StatefulWidget {
@@ -46,7 +46,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             formGroup: context.read<HistoryFilterCubit>().formModel.form,
             isChildScrollable: true,
             hasParentView: true,
-            title: t.history,
+            title: t.parking.history,
             hasAppBar: false,
             child: BlocListener<HistoryListCubit, HistoryListState>(
               listener: (context, state) {

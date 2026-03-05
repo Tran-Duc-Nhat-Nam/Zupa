@@ -12,7 +12,7 @@ import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_
 
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_title.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class RevenueListTab extends StatelessWidget {
   const RevenueListTab({super.key});
@@ -65,13 +65,13 @@ class RevenueListTab extends StatelessWidget {
                     child: EasyRefresh(
                       header: const MaterialHeader(triggerWhenRelease: true),
                       footer: ClassicFooter(
-                        dragText: t.dragText,
-                        armedText: t.armedText,
-                        readyText: t.releaseToLoadMore,
-                        processingText: t.processingText,
-                        processedText: t.processedText,
-                        noMoreText: t.noMoreText,
-                        failedText: t.failedText,
+                        dragText: t.common.refresh.dragText,
+                        armedText: t.common.refresh.armedText,
+                        readyText: t.common.refresh.releaseToLoadMore,
+                        processingText: t.common.refresh.processingText,
+                        processedText: t.common.refresh.processedText,
+                        noMoreText: t.common.refresh.noMoreText,
+                        failedText: t.common.refresh.failedText,
                         triggerWhenRelease: true,
                       ),
                       controller: refreshController,

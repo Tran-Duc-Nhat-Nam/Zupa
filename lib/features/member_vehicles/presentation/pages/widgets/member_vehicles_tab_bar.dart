@@ -3,7 +3,7 @@ import 'package:animated_segmented_tab_control/animated_segmented_tab_control.da
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class MemberVehiclesTabBar extends StatelessWidget {
   const MemberVehiclesTabBar({super.key});
@@ -28,9 +28,9 @@ class MemberVehiclesTabBar extends StatelessWidget {
         textStyle: AppTextStyles.bodySmallBold,
         tabTextColor: ThemeHelper.getColor(context).grey300,
         tabs: [
-          .new(label: t.all),
-          .new(label: t.inUse),
-          .new(label: t.lost),
+          .new(label: t.common.actions.all),
+          .new(label: t.parking.inUse),
+          .new(label: t.parking.lost),
         ],
       ),
     );

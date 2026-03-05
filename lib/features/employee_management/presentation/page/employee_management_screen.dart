@@ -14,7 +14,7 @@ import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class EmployeeManagementScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _EmployeeManagementScreenState
   @override
   Widget build(BuildContext context) {
     return AppScreen(
-      title: t.parkingAreaConfig,
+      title: t.parking.areaConfig,
       isChildScrollable: true,
       child: BlocProvider<EmployeeCubit>(
         create: (context) => getIt<EmployeeCubit>()..init(),

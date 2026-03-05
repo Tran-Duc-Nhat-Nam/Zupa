@@ -8,7 +8,7 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/features/home/data/models/ticket.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class TicketTitle extends StatelessWidget {
   const TicketTitle({super.key, required this.ticket, this.enabled = true});
@@ -40,7 +40,9 @@ class TicketTitle extends StatelessWidget {
             icon: ticket.gender == true
                 ? Icons.check_circle_outline
                 : Icons.report_problem_outlined,
-            label: ticket.gender == true ? t.reportRecovered : t.markAsLost,
+            label: ticket.gender == true
+                ? t.parking.reportRecovered
+                : t.parking.markAsLost,
           ),
         ],
       ),
@@ -58,7 +60,7 @@ class TicketTitle extends StatelessWidget {
             backgroundColor: colors.error600,
             foregroundColor: Colors.white,
             icon: Icons.logout,
-            label: t.allowOut,
+            label: t.parking.allowOut,
           ),
         ],
       ),
@@ -112,7 +114,7 @@ class TicketTitle extends StatelessWidget {
                   borderRadius: .circular(50),
                 ),
                 child: Text(
-                  t.lost,
+                  t.parking.lost,
                   style: AppTextStyles.bodySmallSemibold.copyWith(
                     color: colors.error600,
                   ),

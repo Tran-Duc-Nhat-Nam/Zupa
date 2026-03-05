@@ -8,7 +8,7 @@ import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 AppListTile(
                   leadingIcon: Symbols.home_rounded,
                   leadingColor: ThemeHelper.getColor(context).primary500,
-                  text: t.parkingAreaConfig,
+                  text: t.parking.areaConfig,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
                   onTap: () =>
@@ -44,7 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 AppListTile(
                   leadingIcon: Symbols.calendar_add_on_rounded,
                   leadingColor: ThemeHelper.getColor(context).primary500,
-                  text: t.memberVehicles,
+                  text: t.parking.memberVehicles,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
                   onTap: () =>
@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 AppListTile(
                   leadingIcon: Symbols.user_attributes_rounded,
                   leadingColor: ThemeHelper.getColor(context).primary500,
-                  text: t.employeeManagement,
+                  text: t.parking.staff,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
                   onTap: () =>
@@ -62,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 AppListTile(
                   leadingIcon: Symbols.settings,
                   leadingColor: ThemeHelper.getColor(context).primary500,
-                  text: t.generalConfig,
+                  text: t.settings.generalConfig,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
                   onTap: () =>
@@ -77,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: AppListTile(
               leadingIcon: Symbols.lock,
               leadingColor: ThemeHelper.getColor(context).primary500,
-              text: t.changePassword,
+              text: t.settings.changePassword,
               trailingIcon: Symbols.chevron_right_rounded,
               padding: const .all(16),
               onTap: () =>
@@ -89,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: .zero,
             child: AppListTile(
               leadingIcon: Symbols.settings,
-              text: t.appSettings,
+              text: t.settings.appSettings,
               leadingColor: ThemeHelper.getColor(context).primary500,
               trailingIcon: Symbols.chevron_right_rounded,
               padding: const .all(16),
@@ -101,17 +101,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: .zero,
             child: AppListTile(
               leadingIcon: Symbols.logout,
-              text: t.title_logout,
+              text: t.auth.logout.title,
               leadingColor: ThemeHelper.getColor(context).error600,
               padding: const .all(16),
               onTap: () {
                 DialogHelper.showModal(
                   context,
-                  subtitleText: t.subtitle_logout,
-                  titleText: t.title_logout,
+                  subtitleText: t.auth.logout.subtitle,
+                  titleText: t.auth.logout.title,
                   type: .warning,
-                  okText: t.ok,
-                  cancelText: t.cancel,
+                  okText: t.common.actions.ok,
+                  cancelText: t.common.actions.cancel,
                   onOk: () {
                     context.read<AuthCubit>().logOut();
                   },

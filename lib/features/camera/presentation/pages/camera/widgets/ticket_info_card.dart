@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class TicketInfoCard extends StatelessWidget {
   const TicketInfoCard({
@@ -74,7 +74,10 @@ class TicketInfoCard extends StatelessWidget {
                                 color: ThemeHelper.getColor(context).grey200,
                               ),
                               Text(
-                                t.totalTime(count: totalTime!),
+                                t.parking.totalTime(
+                                  n: totalTime!,
+                                  count: totalTime!,
+                                ),
                                 overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
                                   color: ThemeHelper.getColor(context).grey700,

@@ -10,7 +10,7 @@ import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.da
 import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
-import 'package:zupa/gen/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class TicketListTab extends StatefulWidget {
   const TicketListTab({super.key});
@@ -77,13 +77,13 @@ class _TicketListTabState extends State<TicketListTab> {
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(
-                dragText: t.dragText,
-                armedText: t.armedText,
-                readyText: t.releaseToLoadMore,
-                processingText: t.processingText,
-                processedText: t.processedText,
-                noMoreText: t.noMoreText,
-                failedText: t.failedText,
+                dragText: t.common.refresh.dragText,
+                armedText: t.common.refresh.armedText,
+                readyText: t.common.refresh.releaseToLoadMore,
+                processingText: t.common.refresh.processingText,
+                processedText: t.common.refresh.processedText,
+                noMoreText: t.common.refresh.noMoreText,
+                failedText: t.common.refresh.failedText,
                 triggerWhenRelease: true,
               ),
               controller: _refreshController,
