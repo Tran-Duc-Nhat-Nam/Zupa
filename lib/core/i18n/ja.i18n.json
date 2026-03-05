@@ -156,6 +156,12 @@
       "tokenVerificationFailed": "認証に失敗しました"
     }
   },
+  "navbar": {
+    "home": "ホーム",
+    "history": "履歴",
+    "revenue": "収益",
+    "settings": "設定"
+  },
   "home": {
     "title": "ホーム",
     "appTitle": "TSPパーキング",

@@ -34,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 AppListTile(
                   leadingIcon: Symbols.home_rounded,
-                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  leadingColor: ThemeHelper.getColor(context).primary400,
                   text: t.parking.areaConfig,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
@@ -43,7 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 AppListTile(
                   leadingIcon: Symbols.calendar_add_on_rounded,
-                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  leadingColor: ThemeHelper.getColor(context).primary400,
                   text: t.parking.memberVehicles,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
@@ -52,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 AppListTile(
                   leadingIcon: Symbols.user_attributes_rounded,
-                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  leadingColor: ThemeHelper.getColor(context).primary400,
                   text: t.parking.staff,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
@@ -61,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 AppListTile(
                   leadingIcon: Symbols.settings,
-                  leadingColor: ThemeHelper.getColor(context).primary500,
+                  leadingColor: ThemeHelper.getColor(context).primary400,
                   text: t.settings.generalConfig,
                   trailingIcon: Symbols.chevron_right_rounded,
                   padding: const .all(16),
@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: .zero,
             child: AppListTile(
               leadingIcon: Symbols.lock,
-              leadingColor: ThemeHelper.getColor(context).primary500,
+              leadingColor: ThemeHelper.getColor(context).primary400,
               text: t.settings.changePassword,
               trailingIcon: Symbols.chevron_right_rounded,
               padding: const .all(16),
@@ -90,7 +90,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: AppListTile(
               leadingIcon: Symbols.settings,
               text: t.settings.appSettings,
-              leadingColor: ThemeHelper.getColor(context).primary500,
+              leadingColor: ThemeHelper.getColor(context).primary400,
               trailingIcon: Symbols.chevron_right_rounded,
               padding: const .all(16),
               onTap: () => context.pushRoute(const AppSettingsRoute()),
@@ -102,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: AppListTile(
               leadingIcon: Symbols.logout,
               text: t.auth.logout.title,
-              leadingColor: ThemeHelper.getColor(context).error600,
+              leadingColor: ThemeHelper.getColor(context).error300,
               padding: const .all(16),
               onTap: () {
                 DialogHelper.showModal(

@@ -156,6 +156,12 @@
       "tokenVerificationFailed": "Verification failed"
     }
   },
+  "navbar": {
+    "home": "Home",
+    "history": "History",
+    "revenue": "Revenue",
+    "settings": "Settings"
+  },
   "home": {
     "title": "Home page",
     "appTitle": "TSP Parking",

@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:upgrader/upgrader.dart';
@@ -24,7 +25,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   try {
-    WidgetsFlutterBinding.ensureInitialized();
+    final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
     // Parallelize independent initializations
     await Future.wait([configureDependencies()]);
@@ -99,16 +101,18 @@ class AppView extends StatelessWidget {
             orElse: () => ThemeSettings(),
           );
 
-          final themeMode = switch (settings.themeMode) {
-            AppThemeMode.light => ThemeMode.light,
-            AppThemeMode.dark => ThemeMode.dark,
-            AppThemeMode.system => ThemeMode.system,
+          state.whenOrNull(loaded: (_) => FlutterNativeSplash.remove());
+
+          final ThemeMode themeMode = switch (settings.themeMode) {
+            .light => .light,
+            .dark => .dark,
+            .system => .system,
           };
 
           return DynamicColorBuilder(
             builder: (lightDynamic, darkDynamic) {
               final lightTheme = AppThemes.getTheme(
-                brightness: Brightness.light,
+                brightness: .light,
                 colorSource: settings.colorSource,
                 dynamicColorScheme: lightDynamic?.harmonized(),
                 customSeedColor: settings.seedColorValue != null
@@ -116,7 +120,7 @@ class AppView extends StatelessWidget {
                     : null,
               );
               final darkTheme = AppThemes.getTheme(
-                brightness: Brightness.dark,
+                brightness: .dark,
                 colorSource: settings.colorSource,
                 dynamicColorScheme: darkDynamic?.harmonized(),
                 customSeedColor: settings.seedColorValue != null

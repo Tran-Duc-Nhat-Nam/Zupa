@@ -100,7 +100,7 @@ class TicketTitle extends StatelessWidget {
                   Text(
                     ticket.lastUpdated.format('dd/MM/yyyy HH:mm'),
                     style: AppTextStyles.bodySmallSemibold.copyWith(
-                      color: colors.grey500,
+                      color: colors.grey700,
                     ),
                   ),
                 ],
@@ -116,7 +116,7 @@ class TicketTitle extends StatelessWidget {
                 child: Text(
                   t.parking.lost,
                   style: AppTextStyles.bodySmallSemibold.copyWith(
-                    color: colors.error600,
+                    color: colors.grey1000,
                   ),
                 ),
               ),

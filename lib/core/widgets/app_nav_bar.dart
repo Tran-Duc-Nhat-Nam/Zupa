@@ -11,6 +11,7 @@ import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
@@ -50,9 +51,6 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
   Widget build(BuildContext context) {
     final colors = ThemeHelper.getColor(context);
     final screenWidth = MediaQuery.of(context).size.width;
-    // Material 3 typically hides labels on very small screens automatically
-    // if labelBehavior is configured, but we'll keep your logic.
-    final bool isHide = screenWidth < 400;
 
     return BlocProvider<SiteCubit>(
       create: (context) => getIt<SiteCubit>()..init(),
@@ -71,11 +69,11 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
                 formControl: context.read<SiteCubit>().form.codeControl,
                 dropdownItems: _parkingLots,
                 initialValue: _parkingLots.length > 1 ? _parkingLots[1] : null,
-                buttonWidth: 140,
+                dropdownWidth: screenWidth - 64,
                 buttonDecoration: BoxDecoration(
                   color: colors.primary50,
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: colors.primary100),
+                  borderRadius: .circular(50),
+                  border: .all(color: colors.primary100),
                 ),
                 onChanged: (value) => DialogHelper.showAuthDialog(context),
               ),
@@ -86,11 +84,16 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
                 selectedIndex: tabsRouter.activeIndex,
                 onDestinationSelected: tabsRouter.setActiveIndex,
                 // Customizing colors to match your theme
-                backgroundColor: colors.white,
+                backgroundColor: Theme.of(context).colorScheme.surfaceBright,
                 indicatorColor: colors.primary100.withAlpha(155),
-                labelBehavior: isHide
-                    ? NavigationDestinationLabelBehavior.alwaysHide
-                    : NavigationDestinationLabelBehavior.alwaysShow,
+                maintainBottomViewPadding: true,
+                height: 88,
+                labelPadding: const .all(8),
+                labelTextStyle: .all(
+                  AppTextStyles.bodyMediumSemibold.copyWith(
+                    color: colors.primary300,
+                  ),
+                ),
                 destinations: [
                   _buildDestination(
                     index: 0,
@@ -137,19 +140,14 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
     required dynamic colors,
   }) {
     return NavigationDestination(
-      icon: Icon(
-        icon,
-        color: colors.primary300,
-        fill: 0,
-        weight: 400,
-      ),
+      icon: Icon(icon, color: colors.primary300, fill: 0, weight: 400),
       selectedIcon: Icon(
         icon,
         color: colors.primary500,
         fill: 1, // Filled version for active state
         weight: 700,
       ),
-      label: t[labelKey],
+      label: t['navbar.$labelKey'] ?? labelKey,
     );
   }
 

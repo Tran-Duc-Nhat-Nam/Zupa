@@ -156,6 +156,12 @@
       "tokenVerificationFailed": "Xác thực thất bại"
     }
   },
+  "navbar": {
+    "home": "Trang chủ",
+    "history": "Lịch sử",
+    "revenue": "Doanh thu",
+    "settings": "Cài đặt"
+  },
   "home": {
     "title": "Trang chủ",
     "appTitle": "Đỗ xe TSP",

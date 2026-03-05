@@ -5,8 +5,8 @@ publish_to: 'none'
 version: 0.3.5+1
 
 environment:
-  sdk: ^3.11.0
-  flutter: 3.41.2
+  sdk: ^3.11.2
+  flutter: 3.41.4
 
 dependencies:
   flutter:
@@ -17,7 +17,6 @@ dependencies:
   reactive_forms:  ^18.2.2
   reactive_forms_annotations: ^8.1.0-beta2
   shared_preferences: ^2.5.4
-  google_nav_bar: ^5.0.7
   google_fonts: ^8.0.2
   retrofit: ^4.9.2
   freezed_annotation: ^3.1.0
@@ -75,7 +74,7 @@ dev_dependencies:
   bloc_test: ^10.0.0
   mocktail: ^1.0.4
   flutter_lints: ^6.0.0
-  build_runner: ^2.11.1
+  build_runner: ^2.11.2
   freezed: ^3.2.5
   json_serializable: ^6.13.0
   retrofit_generator: ^10.2.3
