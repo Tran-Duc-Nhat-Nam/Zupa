@@ -65,6 +65,9 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Generate Localization Files
+        run: dart run slang
+
       - name: Generate Files (build_runner)
         run: dart run build_runner build --delete-conflicting-outputs
 
