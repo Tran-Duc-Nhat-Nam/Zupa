@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -26,10 +27,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
+    );
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
     // Parallelize independent initializations
-    await Future.wait([configureDependencies()]);
+    await configureDependencies();
 
     runApp(
       // Move TranslationProvider to the very top
