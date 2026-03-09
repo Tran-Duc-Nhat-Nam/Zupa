@@ -8,19 +8,13 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/password/presentation/bloc/password/password_settings_cubit.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class ChangePasswordScreen extends StatefulWidget {
+class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
 
-  @override
-  AppState<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
-}
-
-class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PasswordSettingsCubit>(

@@ -16,21 +16,15 @@ import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class ParkingDetailsScreen extends StatefulWidget {
+class ParkingDetailsScreen extends StatelessWidget {
   const ParkingDetailsScreen({super.key, this.parkingLot});
   final ParkingLot? parkingLot;
 
-  @override
-  AppState<ParkingDetailsScreen> createState() => _ParkingDetailsScreenState();
-}
-
-class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
@@ -43,7 +37,7 @@ class _ParkingDetailsScreenState extends AppState<ParkingDetailsScreen> {
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
-        create: (_) => getIt<ParkingLotDetailCubit>()..init(widget.parkingLot),
+        create: (_) => getIt<ParkingLotDetailCubit>()..init(parkingLot),
         child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
           builder: (context, state) {
             final formModel = context.read<ParkingLotDetailCubit>().formModel;

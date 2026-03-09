@@ -6,19 +6,13 @@ import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class RevenueScreen extends StatefulWidget {
+class RevenueScreen extends StatelessWidget {
   const RevenueScreen({super.key});
 
-  @override
-  AppState<RevenueScreen> createState() => _RevenueScreenState();
-}
-
-class _RevenueScreenState extends AppState<RevenueScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

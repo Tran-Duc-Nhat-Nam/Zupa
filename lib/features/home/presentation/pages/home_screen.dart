@@ -6,7 +6,6 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.dart';
@@ -15,14 +14,9 @@ import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_t
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  AppState<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends AppState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

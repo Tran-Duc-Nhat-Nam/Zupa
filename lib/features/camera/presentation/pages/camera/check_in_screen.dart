@@ -12,24 +12,18 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class CheckInScreen extends StatefulWidget {
+class CheckInScreen extends StatelessWidget {
   const CheckInScreen({super.key, this.isCheckOut = false});
   final bool isCheckOut;
 
   @override
-  AppState<CheckInScreen> createState() => _CheckInScreenState();
-}
-
-class _CheckInScreenState extends AppState<CheckInScreen> {
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<CheckInCubit>(
-      create: (_) => CheckInCubit()..init(widget.isCheckOut),
+      create: (_) => CheckInCubit()..init(isCheckOut),
       child: BlocListener<CheckInCubit, CheckInState>(
         listener: (context, state) {
           state.whenOrNull(

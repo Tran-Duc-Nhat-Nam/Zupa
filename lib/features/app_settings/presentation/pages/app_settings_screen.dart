@@ -15,18 +15,12 @@ import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class AppSettingsScreen extends StatefulWidget {
+class AppSettingsScreen extends StatelessWidget {
   const AppSettingsScreen({super.key});
 
-  @override
-  AppState<AppSettingsScreen> createState() => _AppSettingsScreenState();
-}
-
-class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(

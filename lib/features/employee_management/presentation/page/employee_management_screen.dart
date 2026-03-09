@@ -13,20 +13,12 @@ import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class EmployeeManagementScreen extends StatefulWidget {
+class EmployeeManagementScreen extends StatelessWidget {
   const EmployeeManagementScreen({super.key});
 
-  @override
-  State<EmployeeManagementScreen> createState() =>
-      _EmployeeManagementScreenState();
-}
-
-class _EmployeeManagementScreenState
-    extends AppState<EmployeeManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(

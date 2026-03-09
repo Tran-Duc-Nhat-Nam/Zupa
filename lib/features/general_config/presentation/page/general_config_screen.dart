@@ -5,7 +5,6 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -17,14 +16,9 @@ import 'package:zupa/features/general_config/presentation/bloc/general_config_cu
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class GeneralConfigScreen extends StatefulWidget {
+class GeneralConfigScreen extends StatelessWidget {
   const GeneralConfigScreen({super.key});
 
-  @override
-  State<GeneralConfigScreen> createState() => _GeneralConfigScreenState();
-}
-
-class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(
