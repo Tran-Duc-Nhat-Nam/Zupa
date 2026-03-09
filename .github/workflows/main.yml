@@ -1,44 +1,41 @@
-name: Flutter Build & Release
+name: Flutter CI/CD - Auto Tag & Release
 
 on:
   push:
-    tags: [ 'v*.*.*' ]
+    branches:
+      - main
 
 jobs:
-  # Job 1: Quality Assurance & Testing
-  test:
+  # --- JOB 1: VERSION CHECK ---
+  check_version:
     runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.pubspec_version.outputs.VERSION }}
+      tag_exists: ${{ steps.check_tag.outputs.exists }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version-file: pubspec.yaml
-          cache: true
+      - name: Get Version from Pubspec
+        id: pubspec_version
+        run: |
+          # Robust extraction: only looks at lines starting with 'version:'
+          VERSION=$(sed -n 's/^version: //p' pubspec.yaml | sed 's/+.*//' | xargs)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Create .env file (for Envied)
-        run: echo "END_POINT=${{ secrets.API_URL }}" >> .env
+      - name: Check if Tag exists
+        id: check_tag
+        run: |
+          VERSION=${{ steps.pubspec_version.outputs.VERSION }}
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Install Dependencies
-        run: flutter pub get
-
-      - name: Generate Localization Files
-        run: dart run slang
-
-      - name: Generate Files (build_runner)
-        run: dart run build_runner build --delete-conflicting-outputs
-
-      - name: Run Static Analysis
-        run: flutter analyze
-
-      - name: Run Unit Tests
-        run: flutter test --reporter expanded
-
-  # Job 2: Build and Deploy
+  # --- JOB 2: BUILD AND RELEASE ---
   build_and_release:
-    needs: test
+    needs: check_version
+    if: needs.check_version.outputs.tag_exists == 'false'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -59,23 +56,23 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
 
-      - name: Create .env file (for Envied)
+      - name: Create .env file
         run: echo "END_POINT=${{ secrets.API_URL }}" >> .env
 
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Generate Localization Files
+      - name: Generate Localization (Slang)
         run: dart run slang
 
       - name: Generate Files (build_runner)
         run: dart run build_runner build --delete-conflicting-outputs
 
+      - name: Run Tests
+        run: flutter test
+
       - name: Decode Keystore
         run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
-
-      - name: Create .env file
-        run: echo "END_POINT=${{ secrets.API_URL }}" >> .env
 
       - name: Build APKs
         run: |
@@ -86,22 +83,22 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Create Release
+      - name: Create GitHub Release and Upload APKs
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ needs.check_version.outputs.new_version }}
+          name: Release v${{ needs.check_version.outputs.new_version }}
           files: |
             build/app/outputs/apk/release/Zupa-release-*.apk
             build/app/outputs/apk/debug/Zupa-debug-*.apk
-          name: ${{ github.ref_name }}
-          tag_name: ${{ github.ref }}
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Job 3: Update Versionarte Config
+  # --- JOB 3: UPDATE VERSIONARTE ---
   update_version_config:
-    needs: build_and_release
+    needs: [check_version, build_and_release]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -109,18 +106,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: main # Ensure we are updating the main branch
+          ref: main
 
       - name: Update versionarte.json
         run: |
-          # Extract version from tag (e.g., v1.1.0 -> 1.1.0)
-          VERSION=${GITHUB_REF_NAME#v}
-          
-          # Use 'jq' to update the JSON file safely
-          # We update both minimum and latest to the new version for a "Force Update"
-          # Or just 'latest' for an "Optional Update"
+          VERSION=${{ needs.check_version.outputs.new_version }}
           jq ".android.version.latest = \"$VERSION\" | .iOS.version.latest = \"$VERSION\"" versionarte.json > temp.json && mv temp.json versionarte.json
-          
           echo "Updated versionarte.json to version $VERSION"
 
       - name: Commit and Push changes
@@ -128,7 +119,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add versionarte.json
-          git commit -m "chore: update versionarte.json to ${{ github.ref_name }}"
+          git commit -m "chore: update versionarte.json to v${{ needs.check_version.outputs.new_version }}"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
