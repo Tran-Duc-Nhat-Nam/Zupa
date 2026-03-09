@@ -98,3 +98,37 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Job 3: Update Versionarte Config
+  update_version_config:
+    needs: build_and_release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main # Ensure we are updating the main branch
+
+      - name: Update versionarte.json
+        run: |
+          # Extract version from tag (e.g., v1.1.0 -> 1.1.0)
+          VERSION=${GITHUB_REF_NAME#v}
+          
+          # Use 'jq' to update the JSON file safely
+          # We update both minimum and latest to the new version for a "Force Update"
+          # Or just 'latest' for an "Optional Update"
+          jq ".android.version.latest = \"$VERSION\" | .iOS.version.latest = \"$VERSION\"" versionarte.json > temp.json && mv temp.json versionarte.json
+          
+          echo "Updated versionarte.json to version $VERSION"
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add versionarte.json
+          git commit -m "chore: update versionarte.json to ${{ github.ref_name }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

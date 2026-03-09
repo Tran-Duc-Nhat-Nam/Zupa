@@ -6,20 +6,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:upgrader/upgrader.dart';
+import 'package:versionarte/versionarte.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/theme.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
-
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -33,15 +33,10 @@ Future<void> main() async {
     );
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-    // Parallelize independent initializations
     await configureDependencies();
 
-    runApp(
-      // Move TranslationProvider to the very top
-      TranslationProvider(child: const MyApp()),
-    );
+    runApp(TranslationProvider(child: const MyApp()));
   } catch (e, stack) {
-    // Log fatal initialization errors
     DebuggerHelper.talker.handle(e, stack, 'Fatal App Initialization Error');
   }
 }
@@ -67,8 +62,63 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppView extends StatelessWidget {
+class AppView extends StatefulWidget {
+  // Changed to StatefulWidget to trigger version check once
   const AppView({super.key});
+
+  @override
+  State<AppView> createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
+  @override
+  void initState() {
+    super.initState();
+    // Trigger version check after the first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkVersion();
+    });
+  }
+
+  Future<void> _checkVersion() async {
+    final result = await Versionarte.check(
+      versionarteProvider: RestfulVersionarteProvider(
+        url: Env.gitHubVersionarteJson,
+      ),
+    );
+
+    DebuggerHelper.talker.info('Versionarte Status: ${result.status}');
+
+    if (!mounted) return;
+
+    switch (result.status) {
+      case .inactive:
+        DialogHelper.showMaintenanceDialog(context);
+
+      case .forcedUpdate:
+        DialogHelper.showUpdateDialog(
+          context,
+          version: result.manifest?.currentPlatform?.version.latest ?? '',
+          isMandatory: true,
+          onUpdate: () => result.downloadUrls != null
+              ? Versionarte.launchDownloadUrl(result.downloadUrls!)
+              : null,
+        );
+
+      case .outdated:
+        DialogHelper.showUpdateDialog(
+          context,
+          version: result.manifest?.currentPlatform?.version.latest ?? '',
+          isMandatory: false,
+          onUpdate: () => result.downloadUrls != null
+              ? Versionarte.launchDownloadUrl(result.downloadUrls!)
+              : null,
+        );
+
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +127,6 @@ class AppView extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<ConnectivityCubit, ConnectivityState>(
-          // Listen for connectivity changes globally
           listener: (context, state) {
             state.whenOrNull(
               connected: () =>
@@ -90,15 +139,12 @@ class AppView extends StatelessWidget {
         BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             state.whenOrNull(
-              noAuthenticated: () {
-                router.replaceAll([const LoginRoute()]);
-              },
+              noAuthenticated: () => router.replaceAll([const LoginRoute()]),
             );
           },
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
-        // Only rebuild when theme mode actually changes
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           final settings = state.maybeWhen(
@@ -116,27 +162,24 @@ class AppView extends StatelessWidget {
 
           return DynamicColorBuilder(
             builder: (lightDynamic, darkDynamic) {
-              final lightTheme = AppThemes.getTheme(
-                brightness: .light,
-                colorSource: settings.colorSource,
-                dynamicColorScheme: lightDynamic?.harmonized(),
-                customSeedColor: settings.seedColorValue != null
-                    ? Color(settings.seedColorValue!)
-                    : null,
-              );
-              final darkTheme = AppThemes.getTheme(
-                brightness: .dark,
-                colorSource: settings.colorSource,
-                dynamicColorScheme: darkDynamic?.harmonized(),
-                customSeedColor: settings.seedColorValue != null
-                    ? Color(settings.seedColorValue!)
-                    : null,
-              );
-
               return MaterialApp.router(
                 onGenerateTitle: (_) => t.home.appTitle,
-                theme: lightTheme,
-                darkTheme: darkTheme,
+                theme: AppThemes.getTheme(
+                  brightness: Brightness.light,
+                  colorSource: settings.colorSource,
+                  dynamicColorScheme: lightDynamic?.harmonized(),
+                  customSeedColor: settings.seedColorValue != null
+                      ? Color(settings.seedColorValue!)
+                      : null,
+                ),
+                darkTheme: AppThemes.getTheme(
+                  brightness: Brightness.dark,
+                  colorSource: settings.colorSource,
+                  dynamicColorScheme: darkDynamic?.harmonized(),
+                  customSeedColor: settings.seedColorValue != null
+                      ? Color(settings.seedColorValue!)
+                      : null,
+                ),
                 themeMode: themeMode,
                 debugShowCheckedModeBanner: false,
                 routerConfig: router.config(
@@ -147,11 +190,7 @@ class AppView extends StatelessWidget {
                 localizationsDelegates: GlobalMaterialLocalizations.delegates,
                 supportedLocales: AppLocaleUtils.supportedLocales,
                 locale: TranslationProvider.of(context).flutterLocale,
-                // Use the builder to inject global overlays like SmartDialog and UpgradeAlert
-                builder: (context, child) {
-                  child = FlutterSmartDialog.init()(context, child);
-                  return UpgradeAlert(child: child);
-                },
+                builder: FlutterSmartDialog.init(),
               );
             },
           );

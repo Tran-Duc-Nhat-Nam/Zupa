@@ -17,6 +17,37 @@ abstract class DialogHelper {
     );
   }
 
+  static void showUpdateDialog(
+      BuildContext context, {
+        required String version,
+        required bool isMandatory,
+        required VoidCallback onUpdate,
+      }) {
+    showModal(
+      context,
+      titleText: t.common.version.updateAvailable,
+      subtitleText: t.common.version.updateDescription(version: version),
+      okText: t.common.version.updateNow,
+      cancelText: isMandatory ? null : t.common.version.later, // Hide cancel if forced
+      dismissible: !isMandatory,
+      onOk: onUpdate,
+    );
+  }
+
+  static void showMaintenanceDialog(BuildContext context) {
+    showModal(
+      context,
+      titleText: t.common.version.maintenance,
+      subtitleText: t.common.version.maintenanceDescription,
+      okText: t.common.version.retry,
+      type: .warning,
+      onOk: () {
+        // Typically you'd trigger a page reload or re-check here
+        SmartDialog.dismiss();
+      },
+    );
+  }
+
   static void showModal(
     BuildContext context, {
     Widget? child,

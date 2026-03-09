@@ -6,4 +6,7 @@ part 'env.g.dart';
 abstract class Env {
   @EnviedField(varName: 'END_POINT', obfuscate: true)
   static final String endPoint = _Env.endPoint;
+
+  @EnviedField(varName: 'GITHUB_VERSIONARTE_JSON', obfuscate: true)
+  static final String gitHubVersionarteJson = _Env.gitHubVersionarteJson;
 }

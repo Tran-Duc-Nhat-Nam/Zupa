@@ -22,6 +22,15 @@
       "november": "11月",
       "december": "12月"
     },
+    "version": {
+      "updateAvailable": "アップデートがあります",
+      "updateDescription": "新しいバージョン (${version}) が利用可能です。最新の機能を使用するためにアップデートしてください。",
+      "maintenance": "システムメンテナンス",
+      "maintenanceDescription": "現在システムメンテナンス中です。後ほど再度ご確認ください。",
+      "later": "後で",
+      "updateNow": "今すぐ更新",
+      "retry": "再試行"
+    },
     "actions": {
       "continue": "次へ",
       "quit": "終了",

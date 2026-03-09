@@ -22,6 +22,15 @@
       "november": "Tháng Mười Một",
       "december": "Tháng Mười Hai"
     },
+    "version": {
+      "updateAvailable": "Có bản cập nhật mới",
+      "updateDescription": "Phiên bản mới (${version}) đã sẵn sàng. Vui lòng cập nhật để sử dụng các tính năng mới nhất.",
+      "maintenance": "Bảo trì hệ thống",
+      "maintenanceDescription": "Hệ thống đang được bảo trì định kỳ. Vui lòng quay lại sau.",
+      "later": "Để sau",
+      "updateNow": "Cập nhật ngay",
+      "retry": "Thử lại"
+    },
     "actions": {
       "continue": "Tiếp tục",
       "quit": "Thoát",

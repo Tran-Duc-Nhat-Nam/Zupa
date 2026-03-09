@@ -1,0 +1,30 @@
+{
+  "android": {
+    "version": {
+      "minimum": "0.1.0",
+      "latest": "0.4.3"
+    },
+    "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/latest",
+    "status": {
+      "active": true,
+      "message": {
+        "en": "We're performing some quick server maintenance. Check back soon!",
+        "vi": "Chúng tôi đang bảo trì hệ thống. Vui lòng quay lại sau!"
+      }
+    }
+  },
+  "iOS": {
+    "version": {
+      "minimum": "0.1.0",
+      "latest": "0.4.3"
+    },
+    "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/latest",
+    "status": {
+      "active": true,
+      "message": {
+        "en": "We're performing some quick server maintenance. Check back soon!",
+        "vi": "Chúng tôi đang bảo trì hệ thống. Vui lòng quay lại sau!"
+      }
+    }
+  }
+}

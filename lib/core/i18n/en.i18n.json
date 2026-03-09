@@ -22,6 +22,15 @@
       "november": "November",
       "december": "December"
     },
+    "version": {
+      "updateAvailable": "Update Available",
+      "updateDescription": "A new version (${version}) is available. Please update to continue using the latest features.",
+      "maintenance": "System Maintenance",
+      "maintenanceDescription": "The system is currently undergoing maintenance. Please check back later.",
+      "later": "Later",
+      "updateNow": "Update Now",
+      "retry": "Retry"
+    },
     "actions": {
       "continue": "Continue",
       "quit": "Quit",
