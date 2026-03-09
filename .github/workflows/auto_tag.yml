@@ -1,0 +1,45 @@
+name: Auto Tag from Pubspec
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1. Extract version from pubspec.yaml
+      - name: Get Version from Pubspec
+        id: pubspec_version
+        run: |
+          # Uses grep to find the version line and cut to get the value
+          VERSION=$(grep 'version:' pubspec.yaml | sed 's/version: //')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      # 2. Check if the tag already exists
+      - name: Check if Tag exists
+        id: check_tag
+        run: |
+          VERSION=${{ steps.pubspec_version.outputs.VERSION }}
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 3. Create Tag and Release if it's a new version
+      - name: Create Release
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.pubspec_version.outputs.VERSION }}
+          name: Release v${{ steps.pubspec_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
