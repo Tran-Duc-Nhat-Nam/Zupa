@@ -18,7 +18,7 @@ jobs:
         id: pubspec_version
         run: |
           # Uses grep to find the version line and cut to get the value
-          VERSION=$(grep 'version:' pubspec.yaml | sed 's/version: //')
+          VERSION=$(grep 'version:' pubspec.yaml | sed 's/version: //' | sed 's/+.*//')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       # 2. Check if the tag already exists
