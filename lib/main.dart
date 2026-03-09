@@ -6,14 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:versionarte/versionarte.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
-import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/helper/version/version_helper.dart';
 import 'package:zupa/core/styles/theme.dart';
-import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -76,48 +74,8 @@ class _AppViewState extends State<AppView> {
     super.initState();
     // Trigger version check after the first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkVersion();
+      VersionHelper.checkUpdate(context);
     });
-  }
-
-  Future<void> _checkVersion() async {
-    final result = await Versionarte.check(
-      versionarteProvider: RestfulVersionarteProvider(
-        url: Env.gitHubVersionarteJson,
-      ),
-    );
-
-    DebuggerHelper.talker.info('Versionarte Status: ${result.status}');
-
-    if (!mounted) return;
-
-    switch (result.status) {
-      case .inactive:
-        DialogHelper.showMaintenanceDialog(context);
-
-      case .forcedUpdate:
-        DialogHelper.showUpdateDialog(
-          context,
-          version: result.manifest?.currentPlatform?.version.latest ?? '',
-          isMandatory: true,
-          onUpdate: () => result.downloadUrls != null
-              ? Versionarte.launchDownloadUrl(result.downloadUrls!)
-              : null,
-        );
-
-      case .outdated:
-        DialogHelper.showUpdateDialog(
-          context,
-          version: result.manifest?.currentPlatform?.version.latest ?? '',
-          isMandatory: false,
-          onUpdate: () => result.downloadUrls != null
-              ? Versionarte.launchDownloadUrl(result.downloadUrls!)
-              : null,
-        );
-
-      default:
-        break;
-    }
   }
 
   @override

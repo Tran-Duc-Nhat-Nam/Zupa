@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/helper/version/version_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -25,7 +25,7 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
 
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    log('AppLifecycleState: ${state.name}');
+    DebuggerHelper.talker.log('App Lifecycle State: ${state.name}');
 
     if (state == AppLifecycleState.resumed) {
       await onResume?.call();
@@ -39,6 +39,9 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
 abstract class AppState<T extends StatefulWidget> extends State<T> {
   late final LifecycleEventHandler _observer;
   final StorageService _storageService = getIt<StorageService>();
+
+  DateTime? _lastVersionCheck;
+  static const _checkThreshold = Duration(minutes: 1);
 
   @override
   void initState() {
@@ -64,6 +67,21 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
       initService(context);
     } else {
       context.router.replaceAll([const LoginRoute()]);
+    }
+
+    final now = DateTime.now();
+
+    if (_lastVersionCheck == null ||
+        now.difference(_lastVersionCheck!) > _checkThreshold) {
+      DebuggerHelper.talker.log('Performing version check...');
+      final isSuccessful = await VersionHelper.checkUpdate(context);
+
+      if (!isSuccessful) return;
+      _lastVersionCheck = DateTime.now();
+    } else {
+      DebuggerHelper.talker.log(
+        'Skipping version check (Last check was ${now.difference(_lastVersionCheck!).inMinutes}m ago)',
+      );
     }
   }
 
