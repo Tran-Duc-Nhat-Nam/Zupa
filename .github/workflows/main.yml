@@ -78,7 +78,7 @@ jobs:
 
       - name: Build APKs
         run: |
-          flutter build apk --release
+          flutter build apk --release --split-per-abi
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -111,6 +111,7 @@ jobs:
       - name: Update versionarte.json
         run: |
           VERSION=${{ needs.check_version.outputs.new_version }}
+          # Update the JSON and save to the file
           jq ".android.version.latest = \"$VERSION\" | .iOS.version.latest = \"$VERSION\"" versionarte.json > temp.json && mv temp.json versionarte.json
           echo "Updated versionarte.json to version $VERSION"
 
@@ -118,8 +119,14 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add versionarte.json
-          git commit -m "chore: update versionarte.json to v${{ needs.check_version.outputs.new_version }}"
-          git push
+          
+          # Check if there are actually changes to commit
+          if [ -n "$(git status --porcelain)" ]; then
+            git add versionarte.json
+            git commit -m "chore: update versionarte.json to v${{ needs.check_version.outputs.new_version }}"
+            git push origin main
+          else
+            echo "No changes detected in versionarte.json. Skipping commit."
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
