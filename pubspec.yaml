@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.4.4+3
+version: 0.4.5+4
 
 environment:
   sdk: ^3.11.1
@@ -42,7 +42,7 @@ dependencies:
       ref: main
   camera: ^0.12.0
   versionarte: ^2.0.3
-  flutter_smart_dialog: ^5.0.0
+  flutter_smart_dialog: ^5.0.1
   animated_segmented_tab_control: ^2.0.0
   extended_image: ^10.0.1
   flutter_slidable: ^4.0.3
@@ -67,6 +67,8 @@ dependencies:
   material_symbols_icons: ^4.2906.0
   path_provider: ^2.1.5
   dynamic_color: ^1.8.1
+  ota_update: ^7.1.0
+  device_info_plus: ^12.3.0
 
 dev_dependencies:
   flutter_test:
