@@ -80,50 +80,58 @@ class _AppNavBarScreenState extends State<AppNavBarScreen> {
             ),
             backgroundColor: Theme.of(context).colorScheme.surface,
             bottomNavigationBuilder: (context, tabsRouter) {
-              return NavigationBar(
-                selectedIndex: tabsRouter.activeIndex,
-                onDestinationSelected: tabsRouter.setActiveIndex,
-                // Customizing colors to match your theme
-                backgroundColor: Theme.of(context).colorScheme.surfaceBright,
-                indicatorColor: colors.primary100.withAlpha(155),
-                maintainBottomViewPadding: true,
-                height: 88,
-                labelPadding: const .all(8),
-                labelTextStyle: .all(
-                  AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: colors.primary300,
-                  ),
+              return ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
                 ),
-                destinations: [
-                  _buildDestination(
-                    index: 0,
-                    activeIndex: tabsRouter.activeIndex,
-                    labelKey: 'home',
-                    icon: Symbols.home_rounded,
-                    colors: colors,
+                child: NavigationBar(
+                  selectedIndex: tabsRouter.activeIndex,
+                  onDestinationSelected: tabsRouter.setActiveIndex,
+                  // Customizing colors to match your theme
+                  backgroundColor: Theme.of(context).colorScheme.surfaceBright,
+                  indicatorColor: colors.primary100.withAlpha(155),
+                  maintainBottomViewPadding: true,
+                  height: 88,
+                  animationDuration: const Duration(milliseconds: 500),
+                  labelBehavior: .onlyShowSelected,
+                  labelPadding: const .all(8),
+                  labelTextStyle: .all(
+                    AppTextStyles.bodyMediumSemibold.copyWith(
+                      color: colors.primary300,
+                    ),
                   ),
-                  _buildDestination(
-                    index: 1,
-                    activeIndex: tabsRouter.activeIndex,
-                    labelKey: 'history',
-                    icon: Symbols.history_rounded,
-                    colors: colors,
-                  ),
-                  _buildDestination(
-                    index: 2,
-                    activeIndex: tabsRouter.activeIndex,
-                    labelKey: 'revenue',
-                    icon: Symbols.analytics_rounded,
-                    colors: colors,
-                  ),
-                  _buildDestination(
-                    index: 3,
-                    activeIndex: tabsRouter.activeIndex,
-                    labelKey: 'settings',
-                    icon: Symbols.settings_rounded,
-                    colors: colors,
-                  ),
-                ],
+                  destinations: [
+                    _buildDestination(
+                      index: 0,
+                      activeIndex: tabsRouter.activeIndex,
+                      labelKey: 'home',
+                      icon: Symbols.home_rounded,
+                      colors: colors,
+                    ),
+                    _buildDestination(
+                      index: 1,
+                      activeIndex: tabsRouter.activeIndex,
+                      labelKey: 'history',
+                      icon: Symbols.history_rounded,
+                      colors: colors,
+                    ),
+                    _buildDestination(
+                      index: 2,
+                      activeIndex: tabsRouter.activeIndex,
+                      labelKey: 'revenue',
+                      icon: Symbols.analytics_rounded,
+                      colors: colors,
+                    ),
+                    _buildDestination(
+                      index: 3,
+                      activeIndex: tabsRouter.activeIndex,
+                      labelKey: 'settings',
+                      icon: Symbols.settings_rounded,
+                      colors: colors,
+                    ),
+                  ],
+                ),
               );
             },
           );
