@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
-class AppButton extends StatefulWidget { // Changed to StatefulWidget to track state
+class AppButton extends StatefulWidget {
   const AppButton({
     super.key,
     required this.onPressed,
@@ -48,12 +49,12 @@ class _AppButtonState extends State<AppButton> {
 
     // Check if enough time has passed since the last tap
     if (_lastClickTime == null ||
-        now.difference(_lastClickTime!) > Duration(milliseconds: widget.debounceTime)) {
-
+        now.difference(_lastClickTime!) >
+            Duration(milliseconds: widget.debounceTime)) {
       _lastClickTime = now;
       originalOnPressed();
     } else {
-      debugPrint('Tap ignored: Debounced');
+      DebuggerHelper.talker.log('Tap ignored: Debounced');
     }
   }
 
@@ -95,17 +96,17 @@ class _AppButtonState extends State<AppButton> {
     required Widget content,
   }) {
     return switch (widget.theme) {
-      AppButtonTheme.primary => FilledButton(
+      .primary => FilledButton(
         onPressed: onPressed,
         style: style,
         child: content,
       ),
-      AppButtonTheme.secondary => FilledButton.tonal(
+      .secondary => FilledButton.tonal(
         onPressed: onPressed,
         style: style,
         child: content,
       ),
-      AppButtonTheme.outline => OutlinedButton(
+      .outline => OutlinedButton(
         onPressed: onPressed,
         style: style,
         child: content,
@@ -128,9 +129,7 @@ class _AppButtonState extends State<AppButton> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.icon != null) ...[
-              Icon(widget.icon, size: 20),
-            ],
+            if (widget.icon != null) ...[Icon(widget.icon, size: 20)],
             if (widget.text != null)
               Text(widget.text!, style: AppTextStyles.bodyLargeSemibold),
           ],
@@ -140,24 +139,24 @@ class _AppButtonState extends State<AppButton> {
   ButtonStyle _getButtonStyle(dynamic colorScheme) {
     // Determine base color based on AppButtonColor enum
     final baseColor = switch (widget.color) {
-      AppButtonColor.success => colorScheme.success500,
-      AppButtonColor.warning => colorScheme.warning600,
-      AppButtonColor.error => colorScheme.error600,
-      AppButtonColor.info => colorScheme.primary500,
-      AppButtonColor.basic => colorScheme.grey900,
+      .success => colorScheme.success500,
+      .warning => colorScheme.warning600,
+      .error => colorScheme.error600,
+      .info => colorScheme.primary500,
+      .basic => colorScheme.grey900,
     };
 
     // Return a modern ButtonStyle
     return switch (widget.theme) {
-      AppButtonTheme.primary => FilledButton.styleFrom(
+      .primary => FilledButton.styleFrom(
         backgroundColor: baseColor,
         padding: widget.padding,
       ),
-      AppButtonTheme.secondary => FilledButton.styleFrom(
+      .secondary => FilledButton.styleFrom(
         // Material 3 uses Tonal for secondary
         padding: widget.padding,
       ),
-      AppButtonTheme.outline => OutlinedButton.styleFrom(
+      .outline => OutlinedButton.styleFrom(
         side: BorderSide(color: baseColor),
         foregroundColor: baseColor,
         padding: widget.padding,

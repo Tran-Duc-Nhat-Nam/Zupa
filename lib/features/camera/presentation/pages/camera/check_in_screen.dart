@@ -5,6 +5,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/camera_screen.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/ticket_info_card.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/vehicle_info_card.dart';
@@ -16,14 +17,19 @@ import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.d
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class CheckInScreen extends StatelessWidget {
+class CheckInScreen extends StatefulWidget {
   const CheckInScreen({super.key, this.isCheckOut = false});
   final bool isCheckOut;
 
   @override
+  AppState<CheckInScreen> createState() => _CheckInScreenState();
+}
+
+class _CheckInScreenState extends AppState<CheckInScreen> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<CheckInCubit>(
-      create: (_) => CheckInCubit()..init(isCheckOut),
+      create: (_) => CheckInCubit()..init(widget.isCheckOut),
       child: BlocListener<CheckInCubit, CheckInState>(
         listener: (context, state) {
           state.whenOrNull(

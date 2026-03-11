@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/employee_management/presentation/bloc/employee_cubit.dart';
 
 import 'package:zupa/core/di/injection.dart';
@@ -16,9 +17,14 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class EmployeeManagementScreen extends StatelessWidget {
+class EmployeeManagementScreen extends StatefulWidget {
   const EmployeeManagementScreen({super.key});
 
+  @override
+  AppState<EmployeeManagementScreen> createState() => _EmployeeManagementScreenState();
+}
+
+class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(

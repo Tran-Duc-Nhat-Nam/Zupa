@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.4.6+5
+version: 0.4.7+6
 
 environment:
   sdk: ^3.11.1
@@ -41,7 +41,7 @@ dependencies:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/volume_listener.git
       ref: main
   camera: ^0.12.0
-  versionarte: ^2.0.3
+  versionarte: ^2.0.4
   flutter_smart_dialog: ^5.0.1
   animated_segmented_tab_control: ^2.0.0
   extended_image: ^10.0.1

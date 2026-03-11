@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +10,11 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/helper/version/version_helper.dart';
 import 'package:zupa/core/styles/theme.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => getIt<ConnectivityCubit>()..monitorConnectivity(),
         ),
+        BlocProvider(create: (_) => getIt<VersionCubit>()..checkForUpdates()),
         if (kDebugMode)
           BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
       ],
@@ -69,15 +73,6 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  @override
-  void initState() {
-    super.initState();
-    // Trigger version check after the first frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      VersionHelper.checkUpdate(context);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
@@ -98,6 +93,25 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             state.whenOrNull(
               noAuthenticated: () => router.replaceAll([const LoginRoute()]),
+            );
+          },
+        ),
+        BlocListener<VersionCubit, VersionState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              updateAvailable: (info) => DialogHelper.showUpdateDialog(
+                context,
+                isMandatory: info.isForcedUpdate,
+                version: info.latestVersion ?? '',
+                onUpdate: () => Platform.isAndroid
+                    ? context.read<VersionCubit>().executeUpdate(info)
+                    : info.update,
+              ),
+              maintaining: () => DialogHelper.showMaintenanceDialog(context),
+              downloading: (progress) => DialogHelper.showDownloadDialog(
+                context,
+                progressStream: progress,
+              ),
             );
           },
         ),

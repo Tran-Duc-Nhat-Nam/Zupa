@@ -18,17 +18,19 @@ abstract class DialogHelper {
   }
 
   static void showUpdateDialog(
-      BuildContext context, {
-        required String version,
-        required bool isMandatory,
-        required VoidCallback onUpdate,
-      }) {
+    BuildContext context, {
+    required String version,
+    required bool isMandatory,
+    required VoidCallback onUpdate,
+  }) {
     showModal(
       context,
       titleText: t.common.version.updateAvailable,
       subtitleText: t.common.version.updateDescription(version: version),
       okText: t.common.version.updateNow,
-      cancelText: isMandatory ? null : t.common.version.later, // Hide cancel if forced
+      cancelText: isMandatory
+          ? null
+          : t.common.version.later, // Hide cancel if forced
       dismissible: !isMandatory,
       onOk: onUpdate,
     );
@@ -45,6 +47,19 @@ abstract class DialogHelper {
         // Typically you'd trigger a page reload or re-check here
         SmartDialog.dismiss();
       },
+    );
+  }
+
+  static void showDownloadDialog(
+    BuildContext context, {
+    required Stream<int> progressStream,
+  }) {
+    SmartDialog.show(
+      builder: (context) => DownloadProgressDialog(
+        progressStream: progressStream,
+      ),
+      backType: SmartBackType.block, // Prevent closing during download
+      clickMaskDismiss: false,
     );
   }
 
@@ -246,4 +261,89 @@ class _DialogStyle {
   final Color color;
 
   _DialogStyle({required this.icon, required this.color});
+}
+
+class DownloadProgressDialog extends StatelessWidget {
+  final Stream<int> progressStream;
+
+  const DownloadProgressDialog({
+    super.key,
+    required this.progressStream,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
+      margin: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(28),
+      ),
+      child: StreamBuilder<int>(
+        stream: progressStream,
+        builder: (context, snapshot) {
+          // Normalize value to 0.0 - 1.0 for the ProgressIndicator
+          final double progress = (snapshot.data ?? 0) / 100.0;
+          final int displayPercent = snapshot.data ?? 0;
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.downloading_rounded,
+                size: 32,
+                color: colorScheme.primary,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                t.common.version.updateNow,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+
+              // Progress Bar
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: progress,
+                  minHeight: 8,
+                  backgroundColor: colorScheme.surfaceContainerHighest,
+                  color: colorScheme.primary,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // Percentage Text
+              Text(
+                '$displayPercent%',
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 8),
+              Text(
+                t.common.version.updateNow,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }

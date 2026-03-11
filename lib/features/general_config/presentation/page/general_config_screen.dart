@@ -12,13 +12,19 @@ import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/general_config/presentation/bloc/general_config_cubit.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class GeneralConfigScreen extends StatelessWidget {
+class GeneralConfigScreen extends StatefulWidget {
   const GeneralConfigScreen({super.key});
 
+  @override
+  AppState<GeneralConfigScreen> createState() => _GeneralConfigScreenState();
+}
+
+class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(

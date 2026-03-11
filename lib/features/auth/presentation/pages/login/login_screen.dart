@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
@@ -16,8 +17,14 @@ import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  AppState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends AppState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(

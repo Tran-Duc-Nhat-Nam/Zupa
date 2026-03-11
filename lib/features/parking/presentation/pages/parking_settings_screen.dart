@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/parking/presentation/bloc/parking_lot_cubit.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
@@ -15,9 +16,14 @@ import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class ParkingLotScreen extends StatelessWidget {
+class ParkingLotScreen extends StatefulWidget {
   const ParkingLotScreen({super.key});
 
+  @override
+  AppState<ParkingLotScreen> createState() => _ParkingLotScreenState();
+}
+
+class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(

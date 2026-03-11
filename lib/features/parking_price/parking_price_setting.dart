@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 
 @RoutePage()
 class ParkingPriceSettingScreen extends StatefulWidget {
   const ParkingPriceSettingScreen({super.key});
 
   @override
-  State<ParkingPriceSettingScreen> createState() => _ParkingPriceSettingScreenState();
+  AppState<ParkingPriceSettingScreen> createState() => _ParkingPriceSettingScreenState();
 }
 
-class _ParkingPriceSettingScreenState extends State<ParkingPriceSettingScreen> {
+class _ParkingPriceSettingScreenState extends AppState<ParkingPriceSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScreen(

@@ -6,7 +6,6 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 
 class AppScreen extends StatefulWidget {
@@ -66,10 +65,10 @@ class AppScreen extends StatefulWidget {
   final Map<String, dynamic>? formInitialValue;
 
   @override
-  AppState<AppScreen> createState() => _AppScreenState();
+  State<AppScreen> createState() => _AppScreenState();
 }
 
-class _AppScreenState extends AppState<AppScreen> {
+class _AppScreenState extends State<AppScreen> {
   ShakeDetector? detector;
 
   @override

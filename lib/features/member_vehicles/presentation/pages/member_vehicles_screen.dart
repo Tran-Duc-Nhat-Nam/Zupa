@@ -5,6 +5,7 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicle_list_tab.dart';
@@ -13,9 +14,14 @@ import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
-class MemberVehiclesScreen extends StatelessWidget {
+class MemberVehiclesScreen extends StatefulWidget {
   const MemberVehiclesScreen({super.key});
 
+  @override
+  AppState<MemberVehiclesScreen> createState() => _MemberVehiclesScreenState();
+}
+
+class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
