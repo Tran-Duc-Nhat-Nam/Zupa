@@ -22,11 +22,33 @@ class VersionCubit extends Cubit<VersionState> {
   final VersionService _versionService;
   final DeviceService _deviceService;
 
-  Future<void> checkForUpdates() async {
+  DateTime? _lastCheckTime;
+
+  // Define your threshold here
+  static const _checkInterval = Duration(minutes: 30);
+
+  Future<void> checkForUpdates({bool force = false}) async {
+    final now = DateTime.now();
+
+    // Skip if we checked recently, unless it's a 'force' manual check
+    if (!force && _lastCheckTime != null) {
+      if (now.difference(_lastCheckTime!) < _checkInterval) {
+        // We are within the 30-minute window; do nothing.
+        return;
+      }
+    }
+
+    // Don't interrupt an ongoing process
+    if (state is Checking || state is Downloading || state is Installing) {
+      return;
+    }
+
     emit(const .checking());
 
     try {
       final updateStatus = await _versionService.checkVersion();
+
+      _lastCheckTime = DateTime.now();
 
       if (updateStatus != null) {
         if (updateStatus.isMaintaining) {
@@ -79,7 +101,7 @@ class VersionCubit extends Cubit<VersionState> {
                     emit(const .downloadFailed('Permission denied'));
                   case .DOWNLOAD_ERROR:
                   case .INTERNAL_ERROR:
-                    emit(.downloadFailed('Update failed: ${event.value}'));
+                    emit(.downloadFailed(event.value ?? 'Unknown error'));
                   default:
                     break;
                 }

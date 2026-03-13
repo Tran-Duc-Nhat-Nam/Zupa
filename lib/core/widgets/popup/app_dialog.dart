@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -55,9 +56,8 @@ abstract class DialogHelper {
     required Stream<int> progressStream,
   }) {
     SmartDialog.show(
-      builder: (context) => DownloadProgressDialog(
-        progressStream: progressStream,
-      ),
+      builder: (context) =>
+          DownloadProgressDialog(progressStream: progressStream),
       backType: SmartBackType.block, // Prevent closing during download
       clickMaskDismiss: false,
     );
@@ -88,6 +88,10 @@ abstract class DialogHelper {
       backType: dismissible ? SmartBackType.normal : SmartBackType.block,
       clickMaskDismiss: dismissible,
     );
+  }
+
+  static void closeAllModal() {
+    SmartDialog.dismiss();
   }
 }
 
@@ -265,10 +269,12 @@ class _DialogStyle {
 
 class DownloadProgressDialog extends StatelessWidget {
   final Stream<int> progressStream;
+  final String? version;
 
   const DownloadProgressDialog({
     super.key,
     required this.progressStream,
+    this.version,
   });
 
   @override
@@ -278,11 +284,11 @@ class DownloadProgressDialog extends StatelessWidget {
 
     return Container(
       constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      padding: const EdgeInsets.all(24),
+      margin: const .symmetric(horizontal: 24),
+      padding: const .all(24),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: .circular(28),
       ),
       child: StreamBuilder<int>(
         stream: progressStream,
@@ -295,24 +301,24 @@ class DownloadProgressDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                Icons.downloading_rounded,
+                Symbols.cloud_download_rounded,
                 size: 32,
                 color: colorScheme.primary,
               ),
               const SizedBox(height: 16),
               Text(
-                t.common.version.updateNow,
+                t.common.version.downloading,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   color: colorScheme.onSurface,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: .w600,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               const SizedBox(height: 16),
 
               // Progress Bar
               ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: .circular(8),
                 child: LinearProgressIndicator(
                   value: progress,
                   minHeight: 8,
@@ -328,17 +334,17 @@ class DownloadProgressDialog extends StatelessWidget {
                 '$displayPercent%',
                 style: theme.textTheme.labelLarge?.copyWith(
                   color: colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: .bold,
                 ),
               ),
 
               const SizedBox(height: 8),
               Text(
-                t.common.version.updateNow,
+                t.common.version.downloadingVersion(version: version ?? ''),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             ],
           );

@@ -29,7 +29,11 @@
       "maintenanceDescription": "Hệ thống đang được bảo trì định kỳ. Vui lòng quay lại sau.",
       "later": "Để sau",
       "updateNow": "Cập nhật ngay",
-      "retry": "Thử lại"
+      "retry": "Thử lại",
+      "downloading": "Đang tải xuống",
+      "downloadingVersion": "Đang tải xuống phiên bản ${version}, vui lòng không đóng ứng dụng",
+      "installing": "Đang cài đặt",
+      "downloadFailed": "Tải xuống thất bại"
     },
     "actions": {
       "continue": "Tiếp tục",

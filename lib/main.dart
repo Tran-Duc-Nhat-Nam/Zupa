@@ -112,6 +112,11 @@ class _AppViewState extends State<AppView> {
                 context,
                 progressStream: progress,
               ),
+              installing: () => DialogHelper.closeAllModal(),
+              downloadFailed: (message) {
+                DialogHelper.closeAllModal();
+                AppToast.showNotify(message, type: .error);
+              },
             );
           },
         ),

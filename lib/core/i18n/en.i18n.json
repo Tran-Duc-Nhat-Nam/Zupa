@@ -29,7 +29,11 @@
       "maintenanceDescription": "The system is currently undergoing maintenance. Please check back later.",
       "later": "Later",
       "updateNow": "Update Now",
-      "retry": "Retry"
+      "retry": "Retry",
+      "downloading": "Downloading",
+      "downloadingVersion": "Downloading version ${version}, please don't close the app",
+      "installing": "Installing",
+      "downloadFailed": "Download Failed"
     },
     "actions": {
       "continue": "Continue",
