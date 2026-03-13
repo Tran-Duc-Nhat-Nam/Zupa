@@ -2,12 +2,12 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
     hide Loading;
 
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -39,7 +39,7 @@ class HistoryListTab extends StatelessWidget {
         );
       },
       builder: (listContext, state) {
-        final List<HistoryTicket> items = state.maybeWhen(
+        final List<HistoryTicketEntity> items = state.maybeWhen(
           loaded: (tickets, _) => tickets,
           refreshing: (tickets) => tickets,
           loadingMore: (tickets) => tickets,
@@ -78,7 +78,8 @@ class HistoryListTab extends StatelessWidget {
                 await context.read<HistoryListCubit>().loadMore(filter);
               },
               child: ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (c, i) => Padding(
                   padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
                   child: HistoryListSection(
@@ -86,7 +87,7 @@ class HistoryListTab extends StatelessWidget {
                         ? items
                         : List.generate(
                             10,
-                            (index) => HistoryTicket(
+                            (index) => HistoryTicketEntity(
                               code: 'Placeholder',
                               id: -1,
                               timeIn: .now(),

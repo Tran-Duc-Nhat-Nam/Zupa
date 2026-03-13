@@ -1,0 +1,23 @@
+import 'package:zupa/core/models/vehicle_type.dart';
+
+class HistoryTicketEntity {
+  final int id;
+  final String code;
+  final DateTime? timeIn;
+  final DateTime? timeOut;
+  final DateTime? receivedDate;
+  final bool isFlagError;
+  final String? siteId;
+  final VehicleType? type;
+
+  const HistoryTicketEntity({
+    required this.id,
+    required this.code,
+    this.timeIn,
+    this.timeOut,
+    this.receivedDate,
+    this.isFlagError = false,
+    this.siteId,
+    this.type,
+  });
+}

@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
-import 'package:zupa/features/history/data/models/history_ticket.dart';
 import 'package:zupa/features/history/domain/entities/history_filter.dart';
 
 part 'history_list_state.dart';
@@ -28,7 +28,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
   }
 
   Future<void> refresh(HistoryFilter? filter) async {
-    final List<HistoryTicket> items = state.maybeMap(
+    final List<HistoryTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
@@ -43,7 +43,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
   }
 
   Future<void> loadMore(HistoryFilter? filter) async {
-    final List<HistoryTicket> items = state.maybeMap(
+    final List<HistoryTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );

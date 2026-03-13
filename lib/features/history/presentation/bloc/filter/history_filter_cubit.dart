@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/features/history/domain/entities/history_filter.dart';
-import 'package:zupa/features/history/presentation/models/history_form.dart';
+import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 
 part 'history_filter_state.dart';
 part 'history_filter_cubit.freezed.dart';

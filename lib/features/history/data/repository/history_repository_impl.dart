@@ -4,9 +4,10 @@ import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/data/request/request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
+import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
-import 'package:zupa/features/history/data/models/history_ticket.dart';
+import 'package:zupa/features/history/data/models/history_ticket_model.dart';
 import 'package:zupa/features/history/domain/entities/history_filter.dart';
 
 @LazySingleton(as: IHistoryRepository)
@@ -17,7 +18,7 @@ class HistoryRepositoryImpl implements IHistoryRepository {
   HistoryRepositoryImpl(this._networkService, this._api);
 
   @override
-  Future<NetworkState<List<HistoryTicket>>> getHistory({
+  Future<NetworkState<List<HistoryTicketEntity>>> getHistory({
     int page = 1,
     int pageSize = 10,
     HistoryFilter? filter,
@@ -28,9 +29,11 @@ class HistoryRepositoryImpl implements IHistoryRepository {
       ),
     );
 
-    if (response is SuccessResponse<List<HistoryTicket>>) {
+    if (response is SuccessResponse<List<HistoryTicketModel>>) {
       try {
-        final List<HistoryTicket> items = response.data;
+        final items = response.data
+            .map<HistoryTicketEntity>((e) => e.toEntity())
+            .toList();
         return .success(items);
       } catch (e) {
         return .error('Parsing Error: ${e.toString()}');

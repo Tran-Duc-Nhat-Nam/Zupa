@@ -12,7 +12,7 @@ import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
-import 'package:zupa/features/history/presentation/models/history_form.dart';
+import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class HistorySearchBar extends StatelessWidget {
