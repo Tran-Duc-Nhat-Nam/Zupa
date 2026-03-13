@@ -18,49 +18,49 @@ class VehicleTypeRadioCards extends StatelessWidget {
     return AppRadioGroup<VehicleType>(
       formControl: context.read<CheckInCubit>().formModel.vehicleTypeControl,
       items: vehicleTypes,
-      required: true,
-      itemBuilder: (radioButton, vehicle, isSelected, select) => Expanded(
-        child: InkWell(
-          onTap: select,
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              padding: .all(isSelected ? 5 : 8),
-              decoration: BoxDecoration(
-                color: ThemeHelper.getColor(context).white,
-                borderRadius: .circular(4),
-                border: isSelected
-                    ? .all(
-                        color: ThemeHelper.getColor(context).primary500,
-                        width: 3,
-                      )
-                    : null,
-              ),
-              child: Column(
-                mainAxisAlignment: .spaceBetween,
-                children: [
-                  Expanded(
-                    child: Icon(
-                      vehicle.icon ?? Symbols.globe,
-                      color: ThemeHelper.getColor(context).grey700,
-                      size: 24,
-                    ),
+      itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
+          Expanded(
+            child: InkWell(
+              onTap: onSelect,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  padding: .all(isSelected ? 5 : 8),
+                  decoration: BoxDecoration(
+                    color: ThemeHelper.getColor(context).white,
+                    borderRadius: .circular(4),
+                    border: isSelected
+                        ? .all(
+                            color: ThemeHelper.getColor(context).primary500,
+                            width: 3,
+                          )
+                        : null,
                   ),
-                  Expanded(
-                    child: Text(
-                      t[vehicle.value],
-                      style: AppTextStyles.bodyMediumMedium.copyWith(
-                        color: ThemeHelper.getColor(context).grey700,
+                  child: Column(
+                    mainAxisAlignment: .spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Icon(
+                          item.icon ?? Symbols.globe,
+                          color: ThemeHelper.getColor(context).grey700,
+                          size: 24,
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: Text(
+                          t[item.value],
+                          style: AppTextStyles.bodyMediumMedium.copyWith(
+                            color: ThemeHelper.getColor(context).grey700,
+                          ),
+                        ),
+                      ),
+                      Expanded(child: radioButton ?? const SizedBox()),
+                    ],
                   ),
-                  Expanded(child: radioButton),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
     );
   }
 }

@@ -13,6 +13,11 @@ class SiteCubit extends Cubit<SiteState> {
   final form = SiteForm(SiteForm.formElements(Site(code: '')), null, null);
 
   void init() {
-    emit(const .loaded());
+    emit(const .loaded(null));
+  }
+
+  void changeSite() {
+    emit(const .loading());
+    emit(.loaded(form.codeControl.value));
   }
 }
