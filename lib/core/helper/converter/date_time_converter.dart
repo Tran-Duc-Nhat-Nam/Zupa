@@ -6,7 +6,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
   const DateTimeConverter();
 
   static String toShortTime(DateTime object) {
-    return object.format('h:m');
+    return object.format('HH:mm');
   }
 
   static String toDate(DateTime object) {
@@ -39,13 +39,13 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return DateFormat('d-M-y h:m').tryParse(json) ??
+    return DateFormat('d-M-y HH:mm').tryParse(json) ??
         DateFormat('d-M-y').tryParse(json) ??
         DateTime.now();
   }
 
   @override
   String toJson(DateTime object) {
-    return object.format('d-M-y h:m');
+    return object.format('d-M-y HH:mm');
   }
 }

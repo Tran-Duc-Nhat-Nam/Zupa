@@ -12,7 +12,7 @@ import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart
 class HistoryTitle extends StatelessWidget {
   const HistoryTitle({super.key, required this.ticket});
   final HistoryTicketEntity ticket;
-  
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = ThemeHelper.getColor(context);
@@ -31,7 +31,7 @@ class HistoryTitle extends StatelessWidget {
               width: 24,
               height: 24,
               child: Icon(
-                ticket.type?.icon ?? Symbols.globe,
+                ticket.type.icon ?? Symbols.globe,
                 size: 24,
                 color: colorScheme.primary400,
               ),
@@ -104,9 +104,7 @@ class HistoryTitle extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ticket.receivedDate != null
-                          ? DateTimeConverter.toShortTime(ticket.receivedDate!)
-                          : '',
+                      DateTimeConverter.toShortTime(ticket.timeIn),
                       style: AppTextStyles.bodyMediumMedium.copyWith(
                         color: colorScheme.grey700,
                       ),
