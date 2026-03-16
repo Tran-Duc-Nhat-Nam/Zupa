@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/parking/data/model/parking_lot.dart';
+import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/domain/repository/parking_lot_repository.dart';
 
 part 'parking_lot_state.dart';

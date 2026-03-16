@@ -5,7 +5,8 @@ import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/parking/data/api/parking_lot_api.dart';
-import 'package:zupa/features/parking/data/model/parking_lot.dart';
+import 'package:zupa/features/parking/data/model/parking_lot_model.dart';
+import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/domain/repository/parking_lot_repository.dart';
 
 @LazySingleton(as: IParkingLotRepository)
@@ -17,17 +18,19 @@ class ParkingLotRepositoryImpl implements IParkingLotRepository {
     : _api = ParkingLotAPI(dio);
 
   @override
-  Future<NetworkState<List<ParkingLot>>> getParkingLots({
+  Future<NetworkState<List<ParkingLotEntity>>> getParkingLots({
     int page = 0,
     int pageSize = 10,
   }) async {
     final response = await _networkService.request(
-      (dio) => _api.getList(.new(page: page, size: pageSize, query: {})),
+      (dio) => _api.getList({'page': page, 'size': pageSize, ...{}}),
     );
 
-    if (response is SuccessResponse<List<ParkingLot>>) {
+    if (response is SuccessResponse<List<ParkingLotModel>>) {
       try {
-        final List<ParkingLot> parkingLots = response.data;
+        final parkingLots = response.data
+            .map<ParkingLotEntity>((e) => e.toEntity())
+            .toList();
         return .success(parkingLots);
       } catch (e) {
         return .error(e.toString());

@@ -1,5 +1,5 @@
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 
 part 'parking_lot_detail_form.gform.dart';
 
@@ -21,7 +21,7 @@ class ParkingLotDetail {
 @RfGroup()
 class ParkingLotCapacity {
   final String capacity;
-  final VehicleType vehicleType;
+  final VehicleTypeEntity vehicleType;
 
   ParkingLotCapacity({
     @RfControl(validators: [RequiredValidator(), MinValidator(0)]) this.capacity = '',

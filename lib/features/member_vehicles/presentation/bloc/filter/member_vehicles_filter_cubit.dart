@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/features/member_vehicles/domain/entities/member_vehicles_filter.dart';
+import 'package:zupa/core/constants/query.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
 import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
 
 part 'member_vehicles_filter_state.dart';
@@ -27,7 +28,13 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
         _debounce = Timer(const Duration(milliseconds: 500), () {
           emit(
             .loaded(
-              filter: filter.copyWith(keyword: formModel.keywordControl.value ?? ''),
+              filter: MemberVehicleFilterEntity(
+                page: formModel.pageIndexControl.value ?? defaultPageIndex,
+                size: formModel.pageSizeControl.value ?? defaultPageSize,
+                keyword: formModel.keywordControl.value ?? '',
+                time: formModel.timeControl.value,
+                type: formModel.typeControl.value,
+              ),
             ),
           ); // Emit the latest query after the debounce delay
         });
@@ -43,8 +50,12 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
     if (formModel.form.valid) {
       state.whenOrNull(
         loaded: (filter) async {
-          final temp = MemberVehiclesFilter(
+          final temp = MemberVehicleFilterEntity(
+            page: formModel.pageIndexControl.value ?? defaultPageIndex,
+            size: formModel.pageSizeControl.value ?? defaultPageSize,
             keyword: formModel.keywordControl.value ?? '',
+            time: formModel.timeControl.value,
+            type: formModel.typeControl.value,
           );
           emit(.filtering(filter: temp));
           await Future.delayed(const .new(seconds: 3));

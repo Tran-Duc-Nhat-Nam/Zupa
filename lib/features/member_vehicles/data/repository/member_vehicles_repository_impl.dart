@@ -4,8 +4,9 @@ import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
-import 'package:zupa/features/member_vehicles/data/models/member_vehicle.dart';
-import 'package:zupa/features/member_vehicles/domain/entities/member_vehicles_filter.dart';
+import 'package:zupa/features/member_vehicles/data/models/member_vehicle_model.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 
 @LazySingleton(as: IMemberVehiclesRepository)
@@ -16,9 +17,9 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
   MemberVehiclesRepositoryImpl(this._networkService, this._api);
 
   @override
-  Future<NetworkState<List<MemberVehicle>>> getMemberVehicles({
+  Future<NetworkState<List<MemberVehicleEntity>>> getMemberVehicles({
     int? page,
-    MemberVehiclesFilter? filter,
+    MemberVehicleFilterEntity? filter,
   }) async {
     final response = await _networkService.request(
       (dio) => _api.getMemberVehicles(
@@ -29,9 +30,11 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
       ),
     );
 
-    if (response is SuccessResponse<List<MemberVehicle>>) {
+    if (response is SuccessResponse<List<MemberVehicleModel>>) {
       try {
-        final List<MemberVehicle> vehicles = response.data;
+        final vehicles = response.data
+            .map<MemberVehicleEntity>((e) => e.toEntity())
+            .toList();
         return .success(vehicles);
       } catch (e) {
         return .error('Parsing Error: ${e.toString()}');
@@ -45,10 +48,10 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
 
   @override
   Future<NetworkState<SuccessResponse>> createMemberVehicle(
-    MemberVehicle vehicle,
+    MemberVehicleEntity vehicle,
   ) async {
     final response = await _networkService.request(
-      (dio) => _api.createMemberVehicle(vehicle),
+      (dio) => _api.createMemberVehicle(MemberVehicleModel.fromEntity(vehicle)),
     );
 
     if (response is SuccessResponse) {

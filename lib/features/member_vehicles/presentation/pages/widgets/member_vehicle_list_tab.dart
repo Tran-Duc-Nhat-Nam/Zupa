@@ -4,8 +4,9 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/features/member_vehicles/data/models/member_vehicle.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart'
     hide Loading;
@@ -45,7 +46,7 @@ class MemberVehicleListTab extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        final List<MemberVehicle>? items = state.maybeWhen(
+        final List<MemberVehicleEntity>? items = state.maybeWhen(
           loaded: (tickets, _) => tickets,
           refreshing: (tickets) => tickets,
           loadingMore: (tickets) => tickets,
@@ -84,7 +85,21 @@ class MemberVehicleListTab extends StatelessWidget {
                     const SizedBox(height: 10),
                 itemBuilder: (c, i) => Padding(
                   padding: .only(top: i == 0 ? 16 : 0),
-                  child: MemberVehiclesTitle(ticket: items?[i] ?? const .new()),
+                  child: MemberVehiclesTitle(
+                    ticket:
+                        items?[i] ??
+                        MemberVehicleEntity(
+                          id: '',
+                          name: '',
+                          phoneNumber: '',
+                          licenseNumber: '',
+                          parkingLotId: '',
+                          cardId: '',
+                          price: 0,
+                          vehicleType: vehicleTypes.first,
+                          expiredIn: 0,
+                        ),
+                  ),
                 ),
                 itemCount: items?.length ?? 10,
               ),
@@ -99,7 +114,7 @@ class MemberVehicleListTab extends StatelessWidget {
 class MemberVehiclesTitle extends StatelessWidget {
   const MemberVehiclesTitle({super.key, required this.ticket});
 
-  final MemberVehicle ticket;
+  final MemberVehicleEntity ticket;
 
   @override
   Widget build(BuildContext context) {

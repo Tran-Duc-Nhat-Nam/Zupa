@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -15,7 +16,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppRadioGroup<VehicleType>(
+    return AppRadioGroup<VehicleTypeEntity>(
       formControl: context.read<CheckInCubit>().formModel.vehicleTypeControl,
       items: vehicleTypes,
       itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
@@ -41,7 +42,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Icon(
-                          item.icon ?? Symbols.globe,
+                          const IconConverter().fromJson(item.icon) ?? Symbols.globe_rounded,
                           color: ThemeHelper.getColor(context).grey700,
                           size: 24,
                         ),

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
 
 class RevenueTitle extends StatelessWidget {
   const RevenueTitle({super.key, required this.revenue});
 
-  final DailyRevenue revenue;
+  final DailyRevenueEntity revenue;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class RevenueTitle extends StatelessWidget {
                     color: ThemeHelper.getColor(context).primary400,
                   ),
                   child: Text(
-                    revenue.date?.day.toString() ?? '36',
+                    revenue.date.day.toString(),
                     style: AppTextStyles.bodyMediumSemibold.copyWith(
                       color: ThemeHelper.getColor(context).white,
                     ),
@@ -105,7 +106,10 @@ class RevenueTitle extends StatelessWidget {
                     width: 24,
                     height: 24,
                     child: Icon(
-                      revenue.vehicleType?.icon ?? Symbols.globe,
+                      const IconConverter().fromJson(
+                            revenue.vehicleType?.icon ?? '',
+                          ) ??
+                          Symbols.globe_rounded,
                       size: 24,
                       color: ThemeHelper.getColor(context).success600,
                     ),

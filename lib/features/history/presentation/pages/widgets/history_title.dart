@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
@@ -31,7 +32,8 @@ class HistoryTitle extends StatelessWidget {
               width: 24,
               height: 24,
               child: Icon(
-                ticket.type.icon ?? Symbols.globe,
+                const IconConverter().fromJson(ticket.type.icon) ??
+                    Symbols.globe_rounded,
                 size: 24,
                 color: colorScheme.primary400,
               ),

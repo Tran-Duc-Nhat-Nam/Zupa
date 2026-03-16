@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/query.dart';
 
-import 'package:zupa/features/home/domain/entities/home_filter.dart';
+import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
 
 part 'home_filter_state.dart';
@@ -25,7 +26,13 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
         _debounce = .new(const Duration(milliseconds: 500), () {
           emit(
             .loaded(
-              filter: filter.copyWith(keyword: formModel.keywordControl.value),
+              filter: HomeFilterEntity(
+                page: formModel.pageIndexControl.value ?? defaultPageIndex,
+                size: formModel.pageSizeControl.value ?? defaultPageSize,
+                keyword: formModel.keywordControl.value,
+                time: formModel.timeControl.value,
+                type: formModel.typeControl.value,
+              ),
             ),
           ); // Emit the latest query after the debounce delay
         });
@@ -39,7 +46,9 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
 
   void filter() async {
     if (formModel.form.valid) {
-      final temp = HomeFilter(
+      final temp = HomeFilterEntity(
+        page: formModel.pageIndexControl.value ?? defaultPageIndex,
+        size: formModel.pageSizeControl.value ?? defaultPageSize,
         keyword: formModel.keywordControl.value,
         time: formModel.timeControl.value,
         type: formModel.typeControl.value,

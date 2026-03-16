@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
-import 'package:zupa/features/history/domain/entities/history_filter.dart';
 
 part 'history_list_state.dart';
 part 'history_list_cubit.freezed.dart';
@@ -27,13 +28,17 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     );
   }
 
-  Future<void> refresh(HistoryFilter? filter) async {
+  Future<void> refresh(HistoryFilterEntity? filter) async {
     final List<HistoryTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final response = await _historyRepository.getHistory(filter: filter);
+    final response = await _historyRepository.getHistory(
+      filter:
+          filter ??
+          const HistoryFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null),
+    );
 
     response.whenOrNull(
       success: (data) =>
@@ -42,7 +47,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     );
   }
 
-  Future<void> loadMore(HistoryFilter? filter) async {
+  Future<void> loadMore(HistoryFilterEntity? filter) async {
     final List<HistoryTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -54,7 +59,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     emit(.loadingMore(items));
 
     final result = await _historyRepository.getHistory(
-      filter: filter,
+      filter: filter ?? const HistoryFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null),
       page: pageIndex + 1,
     );
     result.whenOrNull(

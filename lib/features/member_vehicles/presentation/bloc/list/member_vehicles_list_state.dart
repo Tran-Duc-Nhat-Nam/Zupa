@@ -5,13 +5,13 @@ sealed class MemberVehiclesListState with _$MemberVehiclesListState {
   const factory MemberVehiclesListState.initial() = Initial;
   const factory MemberVehiclesListState.loading() = Loading;
   const factory MemberVehiclesListState.refreshing(
-    List<MemberVehicle> vehicles,
+    List<MemberVehicleEntity> vehicles,
   ) = Refreshing;
   const factory MemberVehiclesListState.loadingMore(
-    List<MemberVehicle> vehicles,
+    List<MemberVehicleEntity> vehicles,
   ) = LoadingMore;
   const factory MemberVehiclesListState.loaded(
-    List<MemberVehicle> vehicles,
+    List<MemberVehicleEntity> vehicles,
     int pageIndex,
   ) = Loaded;
   const factory MemberVehiclesListState.failed(String message) = Failed;

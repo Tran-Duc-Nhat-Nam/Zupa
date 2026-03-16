@@ -1,11 +1,11 @@
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
-import 'package:zupa/features/home/domain/entities/home_filter.dart';
+import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
+import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 abstract class IHomeRepository {
-  Future<NetworkState<List<HomeTicket>>> getTickets({
-    int page = 0,
-    int pageSize = 10,
-    HomeFilter? filter,
+  Future<NetworkState<List<HomeTicketEntity>>> getTickets({
+    int page,
+    int pageSize,
+    HomeFilterEntity filter,
   });
 }

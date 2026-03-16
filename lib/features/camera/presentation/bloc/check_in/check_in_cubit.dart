@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/features/camera/presentation/models/check_in_form.dart' as f;
 
 part 'check_in_state.dart';

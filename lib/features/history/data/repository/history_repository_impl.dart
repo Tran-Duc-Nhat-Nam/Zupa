@@ -1,14 +1,15 @@
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/core/data/request/request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
+import 'package:zupa/features/history/data/models/filter/history_filter_model.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
 import 'package:zupa/features/history/data/models/history_ticket_model.dart';
-import 'package:zupa/features/history/domain/entities/history_filter.dart';
+import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
 
 @LazySingleton(as: IHistoryRepository)
 class HistoryRepositoryImpl implements IHistoryRepository {
@@ -21,12 +22,16 @@ class HistoryRepositoryImpl implements IHistoryRepository {
   Future<NetworkState<List<HistoryTicketEntity>>> getHistory({
     int page = 1,
     int pageSize = 10,
-    HistoryFilter? filter,
+    HistoryFilterEntity filter = const HistoryFilterEntity(
+      page: defaultPageIndex,
+      size: defaultPageSize,
+      keyword: null,
+      time: null,
+      type: null,
+    ),
   }) async {
     final response = await _networkService.request(
-      (dio) => _api.getList(
-        Request(page: page, size: pageSize, query: filter?.toJson()),
-      ),
+      (dio) => _api.getList(HistoryFilterModel.fromEntity(filter)),
     );
 
     if (response is SuccessResponse<List<HistoryTicketModel>>) {

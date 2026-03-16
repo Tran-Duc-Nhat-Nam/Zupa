@@ -1,7 +1,7 @@
 
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/parking/data/model/parking_lot.dart';
+import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 
 abstract class IParkingLotRepository {
-  Future<NetworkState<List<ParkingLot>>> getParkingLots();
+  Future<NetworkState<List<ParkingLotEntity>>> getParkingLots();
 }

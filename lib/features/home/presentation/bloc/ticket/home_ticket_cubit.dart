@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
+import 'package:zupa/core/constants/query.dart';
+import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/home/domain/entities/home_filter.dart';
+import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
 
 part 'home_ticket_state.dart';
 part 'home_ticket_cubit.freezed.dart';
@@ -25,13 +26,17 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void refresh(HomeFilter? filter) async {
-    final List<HomeTicket> items = state.maybeMap(
+  void refresh(HomeFilterEntity? filter) async {
+    final List<HomeTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final result = await _repository.getTickets(filter: filter);
+    final result = await _repository.getTickets(
+      filter:
+          filter ??
+          const HomeFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null),
+    );
     result.maybeWhen(
       success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
       error: (message) => emit(.failed(message)),
@@ -40,8 +45,8 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void loadMore(HomeFilter? filter) async {
-    final List<HomeTicket> items = state.maybeMap(
+  void loadMore(HomeFilterEntity? filter) async {
+    final List<HomeTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
@@ -52,7 +57,9 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     emit(.loadingMore(items));
 
     final result = await _repository.getTickets(
-      filter: filter,
+      filter:
+          filter ??
+          const HomeFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null),
       page: pageIndex + 1,
     );
     result.whenOrNull(

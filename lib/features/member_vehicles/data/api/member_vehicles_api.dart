@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/features/member_vehicles/data/models/member_vehicle.dart';
+import 'package:zupa/features/member_vehicles/data/models/member_vehicle_model.dart';
 
 part 'member_vehicles_api.g.dart';
 
@@ -14,7 +14,7 @@ abstract class MemberVehiclesAPI {
   }) = _MemberVehiclesAPI;
 
   @GET('/member-vehicles')
-  Future<SuccessResponse<List<MemberVehicle>>> getMemberVehicles(
+  Future<SuccessResponse<List<MemberVehicleModel>>> getMemberVehicles(
     @Query('page') String? page,
     @Query('keyword') String? keyword,
     @Query('type') String? type,
@@ -22,12 +22,12 @@ abstract class MemberVehiclesAPI {
   );
 
   @GET('/hrm/staff-meta-data/{id}')
-  Future<SuccessResponse<MemberVehicle>> getMemberVehicle(
+  Future<SuccessResponse<MemberVehicleModel>> getMemberVehicle(
     @Path('id') String id,
   );
 
   @POST('/hrm/staff-meta-data')
-  Future<SuccessResponse> createMemberVehicle(@Body() MemberVehicle request);
+  Future<SuccessResponse> createMemberVehicle(@Body() MemberVehicleModel request);
 
   @DELETE('/hrm/staff-meta-data/{id}')
   Future<SuccessResponse> deleteMemberVehicle(@Path('id') String id);

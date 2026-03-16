@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/revenue/domain/entity/revenue_filter.dart';
+import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
+import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
-import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
 
 part 'revenue_list_state.dart';
 part 'revenue_list_cubit.freezed.dart';
@@ -26,8 +26,8 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     );
   }
 
-  Future<void> refresh(RevenueFilter? filter) async {
-    final List<DailyRevenue> items = state.maybeMap(
+  Future<void> refresh(RevenueFilterEntity? filter) async {
+    final List<DailyRevenueEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
@@ -41,8 +41,8 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     );
   }
 
-  Future<void> loadMore(RevenueFilter? filter) async {
-    final List<DailyRevenue> items = state.maybeMap(
+  Future<void> loadMore(RevenueFilterEntity? filter) async {
+    final List<DailyRevenueEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );

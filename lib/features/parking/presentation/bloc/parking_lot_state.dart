@@ -4,12 +4,12 @@ part of 'parking_lot_cubit.dart';
 sealed class ParkingLotState with _$ParkingLotState {
   const factory ParkingLotState.initial() = Initial;
   const factory ParkingLotState.loading() = Loading;
-  const factory ParkingLotState.refreshing(List<ParkingLot> parkingLots) =
+  const factory ParkingLotState.refreshing(List<ParkingLotEntity> parkingLots) =
       Refreshing;
-  const factory ParkingLotState.loadingMore(List<ParkingLot> parkingLots) =
+  const factory ParkingLotState.loadingMore(List<ParkingLotEntity> parkingLots) =
       LoadingMore;
   const factory ParkingLotState.loaded(
-    List<ParkingLot> parkingLots,
+    List<ParkingLotEntity> parkingLots,
     int pageIndex,
   ) = Loaded;
   const factory ParkingLotState.failed(String message) = Failed;

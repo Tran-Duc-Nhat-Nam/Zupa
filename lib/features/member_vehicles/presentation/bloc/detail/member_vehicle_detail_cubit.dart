@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/member_vehicles/data/models/member_vehicle.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_detail_form.dart';
 
@@ -45,7 +45,8 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
     if (formModel.form.valid) {
       emit(const .loading());
       final result = await _repository.createMemberVehicle(
-        MemberVehicle(
+        MemberVehicleEntity(
+          id: formModel.idControl.value!,
           name: formModel.nameControl.value!,
           phoneNumber: formModel.phoneNumberControl.value!,
           licenseNumber: formModel.licenseNumberControl.value!,
@@ -53,6 +54,7 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
           vehicleType: formModel.vehicleTypeControl.value!,
           cardId: formModel.ticketIDControl.value!,
           expiredIn: formModel.expiredInControl.value!.inSeconds,
+          price: formModel.priceControl.value!,
         ),
       );
 

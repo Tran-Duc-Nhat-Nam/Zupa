@@ -10,7 +10,7 @@ sealed class CheckInState with _$CheckInState {
   const factory CheckInState.takingPicture() = TakingPicture;
   const factory CheckInState.checkedInSuccess(
     XFile picture,
-    VehicleType vehicleType,
+    VehicleTypeEntity vehicleType,
   ) = CheckedInSuccess;
   const factory CheckInState.checkedInFailed(String message) = CheckInFailed;
   const factory CheckInState.checkedOutSuccess(XFile picture) =

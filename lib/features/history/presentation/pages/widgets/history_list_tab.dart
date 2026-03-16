@@ -91,6 +91,7 @@ class HistoryListTab extends StatelessWidget {
                               code: 'Placeholder',
                               id: -1,
                               timeIn: .now(),
+                              timeOut: .now(),
                               isFlagError: false,
                               siteId: 'A much Longer placeholder',
                               type: vehicleTypes.first,

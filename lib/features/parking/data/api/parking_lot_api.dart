@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:zupa/core/data/request/request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/features/parking/data/model/parking_lot.dart';
+import 'package:zupa/features/parking/data/model/parking_lot_model.dart';
 
 part 'parking_lot_api.g.dart';
 
@@ -15,8 +14,10 @@ abstract class ParkingLotAPI {
   }) = _ParkingLotAPI;
 
   @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<ParkingLot>>> getList(@Queries() Request request);
+  Future<SuccessResponse<List<ParkingLotModel>>> getList(
+    @Queries() Map<String, dynamic> request,
+  );
 
   @GET('/hrm/staff-meta-data/{id}')
-  Future<SuccessResponse<ParkingLot>> get(@Path('id') String id);
+  Future<SuccessResponse<ParkingLotModel>> get(@Path('id') String id);
 }

@@ -6,7 +6,7 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
@@ -93,7 +93,7 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                     dropdownItems: const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'],
                     hint: t.common.actions.choose,
                   ),
-                  AppDropDownSearch<VehicleType>(
+                  AppDropDownSearch<VehicleTypeEntity>(
                     formControl: formModel.vehicleTypeControl,
                     dropdownItems: vehicleTypes,
                     hint: t.common.actions.choose,

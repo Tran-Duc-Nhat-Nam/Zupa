@@ -2,12 +2,13 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -58,7 +59,7 @@ class _TicketListTabState extends State<TicketListTab> {
         );
       },
       builder: (context, state) {
-        final List<HomeTicket> items = state.maybeWhen(
+        final items = state.maybeWhen(
           loaded: (tickets, _) => tickets,
           refreshing: (tickets) => tickets,
           loadingMore: (tickets) => tickets,
@@ -111,13 +112,18 @@ class _TicketListTabState extends State<TicketListTab> {
                     ),
                     ticket: items.isNotEmpty
                         ? items[i]
-                        : HomeTicket(
+                        : HomeTicketEntity(
                             id: -1,
-                            tenantId: -1,
+                            siteId: 'Nope',
                             code: 'None',
-                            isResigned: false,
-                            dateCreated: DateTime.now(),
-                            lastUpdated: DateTime.now(),
+                            isFlagError: false,
+                            timeIn: .now(),
+                            type: const VehicleTypeEntity(
+                              value: '',
+                              name: '',
+                              icon: '',
+                              color: Colors.grey,
+                            ), imageUrl: '',
                           ), // Your placeholder logic
                     enabled: state is! Loading,
                   ),

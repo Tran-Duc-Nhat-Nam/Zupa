@@ -20,8 +20,8 @@ sealed class Staff with _$Staff {
     required bool isResigned,
     @GenderConverter() bool? gender,
     @DateTimeConverter() DateTime? birthDate,
-    @DateTimeConverter() required DateTime dateCreated,
-    @DateTimeConverter() required DateTime lastUpdated,
+    @DateTimeConverter() DateTime? dateCreated,
+    @DateTimeConverter() DateTime? lastUpdated,
     String? avatarPath,
     String? note,
   }) = _Staff;

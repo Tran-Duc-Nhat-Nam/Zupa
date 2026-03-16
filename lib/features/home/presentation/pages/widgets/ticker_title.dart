@@ -1,19 +1,22 @@
+// ignore_for_file: constant_pattern_never_matches_value_type
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
-import 'package:zupa/features/home/data/models/ticket.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 class TicketTitle extends StatelessWidget {
   const TicketTitle({super.key, required this.ticket, this.enabled = true});
 
-  final HomeTicket ticket;
+  final HomeTicketEntity ticket;
   final bool enabled;
 
   @override
@@ -33,14 +36,14 @@ class TicketTitle extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) => context.pushRoute(CheckInRoute()),
-            backgroundColor: ticket.gender == true
+            backgroundColor: ticket.isFlagError == true
                 ? colors.primary500
                 : colors.error600,
             foregroundColor: Colors.white,
-            icon: ticket.gender == true
+            icon: ticket.isFlagError == true
                 ? Icons.check_circle_outline
                 : Icons.report_problem_outlined,
-            label: ticket.gender == true
+            label: ticket.isFlagError == true
                 ? t.parking.reportRecovered
                 : t.parking.markAsLost,
           ),
@@ -72,17 +75,24 @@ class TicketTitle extends StatelessWidget {
             Padding(
               padding: const .only(right: 12),
               child: InkWell(
-                onTap: () => AppPhotoView.showNetworkPhotoView(
-                  context,
-                  ticket.avatarPath ?? 'https://picsum.photos/750',
-                ),
+                onTap: () =>
+                    AppPhotoView.showNetworkPhotoView(context, ticket.imageUrl),
                 child: ExtendedImage.network(
-                  ticket.avatarPath ?? 'https://picsum.photos/50',
+                  ticket.imageUrl,
                   fit: .cover,
                   width: 50,
                   height: 50,
                   borderRadius: .circular(6),
                   shape: .rectangle,
+                  loadStateChanged: (state) => switch (state) {
+                    LoadState.loading =>
+                      LoadingAnimationWidget.horizontalRotatingDots(
+                        color: ThemeHelper.getColor(context).primary500,
+                        size: 35,
+                      ),
+                    LoadState.completed => state.completedWidget,
+                    _ => Icon(Icons.error, color: ThemeHelper.getColor(context).primary300, size: 35,),
+                  },
                 ),
               ),
             ),
@@ -92,13 +102,13 @@ class TicketTitle extends StatelessWidget {
                 mainAxisAlignment: .center,
                 children: [
                   Text(
-                    ticket.fullName ?? ticket.code,
+                    ticket.code,
                     style: AppTextStyles.heading6.copyWith(
                       color: colors.grey900,
                     ),
                   ),
                   Text(
-                    ticket.lastUpdated.format('dd/MM/yyyy HH:mm'),
+                    ticket.timeIn.format('dd/MM/yyyy HH:mm'),
                     style: AppTextStyles.bodySmallSemibold.copyWith(
                       color: colors.grey700,
                     ),
@@ -106,7 +116,7 @@ class TicketTitle extends StatelessWidget {
                 ],
               ),
             ),
-            if (ticket.gender == true)
+            if (ticket.isFlagError == true)
               Container(
                 padding: const .symmetric(vertical: 2, horizontal: 16),
                 decoration: BoxDecoration(

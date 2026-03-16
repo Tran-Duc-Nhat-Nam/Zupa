@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import 'package:zupa/features/revenue/data/models/daily_revenue.dart';
-import 'package:zupa/features/revenue/data/models/revenue_model.dart';
+import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
+import 'package:zupa/features/revenue/domain/entities/revenue_entity.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
@@ -41,7 +41,7 @@ class RevenueListTab extends StatelessWidget {
         );
       },
       builder: (listContext, listState) {
-        final List<DailyRevenue> items = listState.maybeWhen(
+        final List<DailyRevenueEntity> items = listState.maybeWhen(
           loaded: (tickets, _) => tickets,
           refreshing: (tickets) => tickets,
           loadingMore: (tickets) => tickets,
@@ -103,30 +103,30 @@ class RevenueListTab extends StatelessWidget {
                       },
                       child: ListView.separated(
                         itemCount: items.isNotEmpty ? items.length : 10,
-                        separatorBuilder: (_, _) =>
-                            const SizedBox(height: 10),
+                        separatorBuilder: (_, _) => const SizedBox(height: 10),
                         itemBuilder: (_, i) => RevenueTitle(
                           revenue: items.isNotEmpty
                               ? items[i]
-                              : DailyRevenue(
+                              : DailyRevenueEntity(
                                   date: .now(),
                                   revenue: [
-                                    RevenueModel(
+                                    RevenueEntity(
                                       vehicleType: vehicleTypes[0],
                                       pass: 32,
                                       revenue: 202000,
                                     ),
-                                    RevenueModel(
+                                    RevenueEntity(
                                       vehicleType: vehicleTypes[1],
                                       pass: 10,
                                       revenue: 100000,
                                     ),
-                                    RevenueModel(
+                                    RevenueEntity(
                                       vehicleType: vehicleTypes[2],
                                       pass: 12,
                                       revenue: 510000,
                                     ),
                                   ],
+                                  vehicleType: null,
                                 ),
                         ),
                       ),

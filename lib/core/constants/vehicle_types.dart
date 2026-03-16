@@ -1,8 +1,23 @@
-import 'package:material_symbols_icons/symbols.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:flutter/material.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 
-const List<VehicleType> vehicleTypes = [
-  .new(name: 'motorbike', value: 'motorbike', icon: Symbols.motorcycle_rounded),
-  .new(name: 'bicycle', value: 'bicycle', icon: Symbols.pedal_bike_rounded),
-  .new(name: 'car', value: 'car', icon: Symbols.directions_car_rounded),
+const List<VehicleTypeEntity> vehicleTypes = [
+  .new(
+    name: 'motorbike',
+    value: 'motorbike',
+    icon: 'motorcycle_rounded',
+    color: Colors.yellow,
+  ),
+  .new(
+    name: 'bicycle',
+    value: 'bicycle',
+    icon: 'pedal_bike_rounded',
+    color: Colors.blue,
+  ),
+  .new(
+    name: 'car',
+    value: 'car',
+    icon: 'directions_car_rounded',
+    color: Colors.pink,
+  ),
 ];

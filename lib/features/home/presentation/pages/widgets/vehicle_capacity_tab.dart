@@ -4,7 +4,8 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/models/vehicle_type.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/helper/converter/icon_converter.dart';
 
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_card.dart';
@@ -14,7 +15,7 @@ class VehicleCapacityTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveFormField<VehicleType?, VehicleType?>(
+    return ReactiveFormField<VehicleTypeEntity?, VehicleTypeEntity?>(
       formControlName: 'type',
       builder: (field) {
         return BlocBuilder<HomeFilterCubit, HomeFilterState>(
@@ -27,7 +28,11 @@ class VehicleCapacityTab extends StatelessWidget {
                   vehicleTypes.length,
                   (index) => Expanded(
                     child: VehicleCapacityCard(
-                      icon: vehicleTypes[index].icon ?? Symbols.globe,
+                      icon:
+                          const IconConverter().fromJson(
+                            vehicleTypes[index].icon,
+                          ) ??
+                          Symbols.globe_rounded,
                       name: vehicleTypes[index].value,
                       current: 65 + index * 20,
                       capacity: 120,

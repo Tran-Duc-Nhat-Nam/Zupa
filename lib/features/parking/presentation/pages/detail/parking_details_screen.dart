@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/features/parking/data/model/parking_lot.dart';
+import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -23,7 +23,7 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 @RoutePage()
 class ParkingDetailsScreen extends StatelessWidget {
   const ParkingDetailsScreen({super.key, this.parkingLot});
-  final ParkingLot? parkingLot;
+  final ParkingLotEntity? parkingLot;
 
   @override
   Widget build(BuildContext context) {

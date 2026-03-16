@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/member_vehicles/data/models/member_vehicle.dart';
-import 'package:zupa/features/member_vehicles/domain/entities/member_vehicles_filter.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 
 part 'member_vehicles_list_state.dart';
@@ -30,8 +30,8 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
   }
 
-  void refresh(MemberVehiclesFilter? filter) async {
-    final List<MemberVehicle> items = state.maybeMap(
+  void refresh(MemberVehicleFilterEntity? filter) async {
+    final List<MemberVehicleEntity> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
     );
@@ -44,8 +44,8 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
   }
 
-  void loadMore(MemberVehiclesFilter? filter) async {
-    final List<MemberVehicle> items = state.maybeMap(
+  void loadMore(MemberVehicleFilterEntity? filter) async {
+    final List<MemberVehicleEntity> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
     );
