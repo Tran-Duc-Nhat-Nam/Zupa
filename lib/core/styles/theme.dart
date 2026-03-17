@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/styles/colors.dart';
 
 enum AppThemeMode { light, dark, system }
@@ -17,11 +18,9 @@ class AppThemes {
 
   static const Color brandSeedColor = Color(0xFF6750A4);
 
-  /// Helper to build a base theme configuration to keep code DRY
   static ThemeData _buildTheme(ColorScheme scheme, AppColors appColors) {
     return ThemeData(
       useMaterial3: true,
-      brightness: scheme.brightness,
       colorScheme: scheme,
       textTheme: GoogleFonts.interTextTheme(
         scheme.brightness == Brightness.dark
@@ -31,18 +30,15 @@ class AppThemes {
       visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: _iconTheme,
       extensions: [appColors],
-      scaffoldBackgroundColor: scheme.surface,
-      appBarTheme: AppBarTheme(
-        backgroundColor: scheme.surface,
-        foregroundColor: scheme.onSurface,
-        elevation: 0,
+      appBarTheme: const AppBarTheme(
         centerTitle: false,
+        elevation: 0,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(borderRadius: .circular(12)),
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
@@ -78,38 +74,31 @@ class AppThemes {
     ColorScheme? dynamicColorScheme,
     Color? customSeedColor,
   }) {
-    final isDark = brightness == Brightness.dark;
     AppColors appColors;
     ColorScheme scheme;
 
     switch (colorSource) {
       case AppColorSchemeSource.materialYou:
-        final seed = dynamicColorScheme?.primary ?? brandSeedColor;
-        scheme = ColorScheme.fromSeed(
-          seedColor: seed,
-          brightness: brightness,
-          dynamicSchemeVariant: .vibrant,
-          secondary: dynamicColorScheme?.secondary,
-          tertiary: dynamicColorScheme?.tertiary,
-        );
-        appColors = DynamicAppColors(scheme);
+        DebuggerHelper.talker.log(dynamicColorScheme?.surfaceContainerHighest);
+        scheme =
+            dynamicColorScheme ??
+            ColorScheme.fromSeed(
+              seedColor: brandSeedColor,
+              brightness: brightness,
+            );
       case AppColorSchemeSource.custom:
         scheme = ColorScheme.fromSeed(
           seedColor: customSeedColor ?? brandSeedColor,
           brightness: brightness,
-          dynamicSchemeVariant: .vibrant,
         );
-        appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.brand:
-        final seed = isDark ? const Color(0xffCBA6F7) : const Color(0xff8839EF);
         scheme = ColorScheme.fromSeed(
-          seedColor: seed,
+          seedColor: brandSeedColor,
           brightness: brightness,
-          dynamicSchemeVariant: .vibrant,
         );
-        appColors = DynamicAppColors(scheme);
     }
 
+    appColors = DynamicAppColors(scheme);
     return _buildTheme(scheme, appColors);
   }
 }

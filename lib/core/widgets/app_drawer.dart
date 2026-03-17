@@ -8,7 +8,6 @@ import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/colors.dart';
-import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -73,8 +72,7 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               child:
                   context.watch<ThemeCubit>().state.maybeWhen(
-                    loaded: (settings) =>
-                        settings.themeMode == AppThemeMode.light,
+                    loaded: (settings) => settings.themeMode == .light,
                     orElse: () => true,
                   )
                   ? const Icon(Icons.light_mode)
@@ -87,11 +85,8 @@ class _AppDrawerState extends State<AppDrawer> {
                 orElse: () => ThemeSettings(),
               );
 
-              final newMode = currentSettings.themeMode == AppThemeMode.light
-                  ? AppThemeMode.dark
-                  : AppThemeMode.light;
-
-              themeCubit.formModel.themeModeControl.value = newMode;
+              themeCubit.formModel.themeModeControl.value =
+                  currentSettings.themeMode;
               themeCubit.changeTheme();
             },
           ),
@@ -100,10 +95,7 @@ class _AppDrawerState extends State<AppDrawer> {
               context.pushRoute(const SettingsRoute());
             },
             leading: const Icon(Icons.settings),
-            title: Text(
-              t.settings.title,
-              style: const .new(fontSize: 16),
-            ),
+            title: Text(t.settings.title, style: const .new(fontSize: 16)),
           ),
         ],
       ),

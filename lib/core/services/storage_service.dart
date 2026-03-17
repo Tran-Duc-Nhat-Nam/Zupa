@@ -41,7 +41,11 @@ class StorageService {
   // ACCOUNT INFO (SECURE STORAGE)
   // ===========================================================================
 
-  Future<void> saveAccountInfo(String tenant, String username, String password) async {
+  Future<void> saveAccountInfo(
+    String tenant,
+    String username,
+    String password,
+  ) async {
     await _secureStorage.write(key: 'accountTenant', value: tenant);
     await _secureStorage.write(key: 'accountUsername', value: username);
     await _secureStorage.write(key: 'accountPassword', value: password);
@@ -115,9 +119,7 @@ class StorageService {
     final seedColorValue = await _sharedPreferences.getInt('seedColorValue');
 
     return ThemeSettings(
-      themeMode: themeModeIndex != null
-          ? AppThemeMode.values[themeModeIndex]
-          : AppThemeMode.system,
+      themeMode: themeModeIndex != null ? .values[themeModeIndex] : .system,
       colorSource: colorSourceIndex != null
           ? AppColorSchemeSource.values[colorSourceIndex]
           : AppColorSchemeSource.brand,

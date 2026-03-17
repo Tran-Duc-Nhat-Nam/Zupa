@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/services/storage_service.dart';
-import 'package:zupa/core/styles/theme.dart';
 
 part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';
@@ -28,9 +27,8 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   void changeTheme() {
     final settings = ThemeSettings(
-      themeMode: formModel.themeModeControl.value ?? AppThemeMode.system,
-      colorSource:
-          formModel.colorSourceControl.value ?? AppColorSchemeSource.brand,
+      themeMode: formModel.themeModeControl.value ?? .system,
+      colorSource: formModel.colorSourceControl.value ?? .brand,
       seedColorValue: formModel.seedColorValueControl.value,
     );
     _storageService.setTheme(settings);

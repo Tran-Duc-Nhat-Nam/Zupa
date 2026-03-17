@@ -99,19 +99,19 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                             padding: .zero,
                             leadingIcon: Symbols.lightbulb_rounded,
                             text: t.settings.theme,
-                            trailing: AppDropDownSearch<AppThemeMode>(
+                            trailing: AppDropDownSearch<ThemeMode>(
                               formControl: context
                                   .read<ThemeCubit>()
                                   .formModel
                                   .themeModeControl,
                               buttonDecoration: const .new(),
-                              dropdownItems: AppThemeMode.values,
+                              dropdownItems: ThemeMode.values,
                               buttonWidth: 165,
                               iconEnabledColor: AppColors.of(context).secondary,
                               initialValue: settings.themeMode,
                               itemLabelGetter: (item) => switch (item) {
-                                AppThemeMode.light => t.settings.lightMode,
-                                AppThemeMode.dark => t.settings.darkMode,
+                                .light => t.settings.lightMode,
+                                .dark => t.settings.darkMode,
                                 _ => t.settings.followSystem,
                               },
                               onChanged: (value) =>

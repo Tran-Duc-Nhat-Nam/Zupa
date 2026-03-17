@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,6 @@ import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -79,6 +79,11 @@ class _AppViewState extends State<AppView> {
 
     return MultiBlocListener(
       listeners: [
+        BlocListener<ThemeCubit, ThemeState>(
+          listener: (context, state) {
+            state.whenOrNull(loaded: (_) => FlutterNativeSplash.remove());
+          },
+        ),
         BlocListener<ConnectivityCubit, ConnectivityState>(
           listener: (context, state) {
             state.whenOrNull(
@@ -124,52 +129,59 @@ class _AppViewState extends State<AppView> {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          final settings = state.maybeWhen(
-            loaded: (settings) => settings,
-            orElse: () => ThemeSettings(),
-          );
+          return state.maybeWhen(
+            loaded: (settings) => DynamicColorBuilder(
+              builder: (lightDynamic, darkDynamic) {
+                // 1. Determine the base seed color
+                // Priority: User Custom Color > Dynamic System Color > Fallback Blue
+                final Color seedColor = settings.seedColorValue != null
+                    ? Color(settings.seedColorValue!)
+                    : (lightDynamic?.primary ?? Colors.blue);
 
-          state.whenOrNull(loaded: (_) => FlutterNativeSplash.remove());
+                // 2. Generate High-Fidelity ColorSchemes using flex_seed_scheme
+                // This fixes the "missing surface variants" issue
+                final lightScheme = SeedColorScheme.fromSeeds(
+                  primaryKey: seedColor,
+                  secondary: lightDynamic?.secondary,
+                  tertiary: lightDynamic?.tertiary,
+                );
 
-          final ThemeMode themeMode = switch (settings.themeMode) {
-            .light => .light,
-            .dark => .dark,
-            .system => .system,
-          };
-
-          return DynamicColorBuilder(
-            builder: (lightDynamic, darkDynamic) {
-              return MaterialApp.router(
-                onGenerateTitle: (_) => t.home.appTitle,
-                theme: AppThemes.getTheme(
-                  brightness: Brightness.light,
-                  colorSource: settings.colorSource,
-                  dynamicColorScheme: lightDynamic?.harmonized(),
-                  customSeedColor: settings.seedColorValue != null
-                      ? Color(settings.seedColorValue!)
-                      : null,
-                ),
-                darkTheme: AppThemes.getTheme(
+                final darkScheme = SeedColorScheme.fromSeeds(
                   brightness: Brightness.dark,
-                  colorSource: settings.colorSource,
-                  dynamicColorScheme: darkDynamic?.harmonized(),
-                  customSeedColor: settings.seedColorValue != null
-                      ? Color(settings.seedColorValue!)
-                      : null,
-                ),
-                themeMode: themeMode,
-                debugShowCheckedModeBanner: false,
-                routerConfig: router.config(
-                  navigatorObservers: () => [
-                    TalkerRouteObserver(DebuggerHelper.talker),
-                  ],
-                ),
-                localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                supportedLocales: AppLocaleUtils.supportedLocales,
-                locale: TranslationProvider.of(context).flutterLocale,
-                builder: FlutterSmartDialog.init(),
-              );
-            },
+                  primaryKey: seedColor,
+                  secondary: lightDynamic?.secondary,
+                  tertiary: lightDynamic?.tertiary,
+                );
+
+                return MaterialApp.router(
+                  onGenerateTitle: (_) => t.home.appTitle,
+                  theme: AppThemes.getTheme(
+                    brightness: Brightness.light,
+                    colorSource: settings.colorSource,
+                    dynamicColorScheme: lightScheme,
+                    customSeedColor: seedColor,
+                  ),
+                  darkTheme: AppThemes.getTheme(
+                    brightness: Brightness.dark,
+                    colorSource: settings.colorSource,
+                    dynamicColorScheme: darkScheme,
+                    customSeedColor: seedColor,
+                  ),
+                  themeMode: settings.themeMode,
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: router.config(
+                    navigatorObservers: () => [
+                      TalkerRouteObserver(DebuggerHelper.talker),
+                    ],
+                  ),
+                  localizationsDelegates: GlobalMaterialLocalizations.delegates,
+                  supportedLocales: AppLocaleUtils.supportedLocales,
+                  locale: TranslationProvider.of(context).flutterLocale,
+                  builder: FlutterSmartDialog.init(),
+                );
+              },
+            ),
+            orElse: () => const SizedBox(),
           );
         },
       ),

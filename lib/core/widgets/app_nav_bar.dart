@@ -121,7 +121,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                 child: NavigationBar(
                   selectedIndex: tabsRouter.activeIndex,
                   onDestinationSelected: tabsRouter.setActiveIndex,
-                  backgroundColor: colors.surfaceContainer,
+                  backgroundColor: colors.surfaceContainerHighest,
                   indicatorColor: colors.secondaryContainer,
                   maintainBottomViewPadding: true,
                   height: 96,
