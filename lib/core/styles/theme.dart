@@ -88,12 +88,16 @@ class AppThemes {
         scheme = ColorScheme.fromSeed(
           seedColor: seed,
           brightness: brightness,
+          dynamicSchemeVariant: .vibrant,
+          secondary: dynamicColorScheme?.secondary,
+          tertiary: dynamicColorScheme?.tertiary,
         );
         appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.custom:
         scheme = ColorScheme.fromSeed(
           seedColor: customSeedColor ?? brandSeedColor,
           brightness: brightness,
+          dynamicSchemeVariant: .vibrant,
         );
         appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.brand:
@@ -101,6 +105,7 @@ class AppThemes {
         scheme = ColorScheme.fromSeed(
           seedColor: seed,
           brightness: brightness,
+          dynamicSchemeVariant: .vibrant,
         );
         appColors = DynamicAppColors(scheme);
     }
