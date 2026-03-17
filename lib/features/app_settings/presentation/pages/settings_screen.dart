@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -35,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   AppListTile(
                     leadingIcon: Symbols.home_rounded,
-                    leadingColor: ThemeHelper.getColor(context).primary400,
+                    leadingColor: AppColors.of(context).primary,
                     text: t.parking.areaConfig,
                     trailingIcon: Symbols.chevron_right_rounded,
                     padding: const .all(16),
@@ -44,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   AppListTile(
                     leadingIcon: Symbols.calendar_add_on_rounded,
-                    leadingColor: ThemeHelper.getColor(context).primary400,
+                    leadingColor: AppColors.of(context).primary,
                     text: t.parking.memberVehicles,
                     trailingIcon: Symbols.chevron_right_rounded,
                     padding: const .all(16),
@@ -53,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   AppListTile(
                     leadingIcon: Symbols.user_attributes_rounded,
-                    leadingColor: ThemeHelper.getColor(context).primary400,
+                    leadingColor: AppColors.of(context).primary,
                     text: t.parking.staff,
                     trailingIcon: Symbols.chevron_right_rounded,
                     padding: const .all(16),
@@ -62,7 +62,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   AppListTile(
                     leadingIcon: Symbols.settings,
-                    leadingColor: ThemeHelper.getColor(context).primary400,
+                    leadingColor: AppColors.of(context).primary,
                     text: t.settings.generalConfig,
                     trailingIcon: Symbols.chevron_right_rounded,
                     padding: const .all(16),
@@ -77,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
               padding: .zero,
               child: AppListTile(
                 leadingIcon: Symbols.lock,
-                leadingColor: ThemeHelper.getColor(context).primary400,
+                leadingColor: AppColors.of(context).primary,
                 text: t.settings.changePassword,
                 trailingIcon: Symbols.chevron_right_rounded,
                 padding: const .all(16),
@@ -91,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
               child: AppListTile(
                 leadingIcon: Symbols.settings,
                 text: t.settings.appSettings,
-                leadingColor: ThemeHelper.getColor(context).primary400,
+                leadingColor: AppColors.of(context).primary,
                 trailingIcon: Symbols.chevron_right_rounded,
                 padding: const .all(16),
                 onTap: () => context.pushRoute(const AppSettingsRoute()),
@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
               child: AppListTile(
                 leadingIcon: Symbols.logout,
                 text: t.auth.logout.title,
-                leadingColor: ThemeHelper.getColor(context).error300,
+                leadingColor: AppColors.of(context).error,
                 padding: const .all(16),
                 onTap: () {
                   DialogHelper.showModal(

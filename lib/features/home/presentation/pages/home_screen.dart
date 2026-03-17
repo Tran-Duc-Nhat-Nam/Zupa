@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
@@ -37,8 +37,8 @@ class HomeScreen extends StatelessWidget {
             title: t.home.title,
             hasAppBar: false,
             floatingActionButton: FloatingActionButton(
-              backgroundColor: ThemeHelper.getColor(context).primary200,
-              foregroundColor: ThemeHelper.getColor(context).primary500,
+              backgroundColor: AppColors.of(context).primaryContainer,
+              foregroundColor: AppColors.of(context).primary,
               onPressed: () => context.pushRoute(CheckInRoute()),
               shape: const CircleBorder(),
               child: const Icon(Icons.camera_alt_rounded),

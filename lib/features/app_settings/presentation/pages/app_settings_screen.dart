@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/theme.dart';
 
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
@@ -225,8 +225,8 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                                               colorValue,
                                                             ).computeLuminance() >
                                                             0.5
-                                                        ? Colors.black
-                                                        : Colors.white,
+                                                        ? AppColors.of(context).onSurface
+                                                        : AppColors.of(context).surface,
                                                   )
                                                 : null,
                                           ),
@@ -263,11 +263,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                   return const .new(Icons.close);
                                 }),
                                 thumbColor: .all(
-                                  ThemeHelper.getColor(context).white,
+                                  AppColors.of(context).surface,
                                 ),
-                                inactiveTrackColor: ThemeHelper.getColor(
+                                inactiveTrackColor: AppColors.of(
                                   context,
-                                ).grey100,
+                                ).surfaceContainerHighest,
                                 trackOutlineWidth: const WidgetStatePropertyAll(
                                   0,
                                 ),
@@ -287,7 +287,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         );
                       },
                     ),
-                  // Divider(color: ThemeHelper.getColor(context).grey100),
+                  // Divider(color: AppColors.of(context).surfaceContainerHighest),
                   // BlocBuilder<AuthCubit, AuthState>(
                   //   builder: (context, state) {
                   //     return AppListTile(
@@ -310,11 +310,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   //               return const .new(Icons.close);
                   //             }),
                   //             thumbColor: .all(
-                  //               ThemeHelper.getColor(context).white,
+                  //               AppColors.of(context).surface,
                   //             ),
-                  //             inactiveTrackColor: ThemeHelper.getColor(
+                  //             inactiveTrackColor: AppColors.of(
                   //               context,
-                  //             ).grey100,
+                  //             ).surfaceContainerHighest,
                   //             trackOutlineWidth: const WidgetStatePropertyAll(
                   //               0,
                   //             ),

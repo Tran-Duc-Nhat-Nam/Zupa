@@ -2,7 +2,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 
 class AppSwitch extends StatefulWidget {
   const AppSwitch({
@@ -50,10 +50,10 @@ class _AppSwitchState extends State<AppSwitch> {
                 height: 30,
                 // Dynamic styling based on the state (True/False)
                 styleBuilder: (value) => ToggleStyle(
-                  indicatorColor: Colors.white,
+                  indicatorColor: AppColors.of(context).surface,
                   backgroundColor: value
-                      ? ThemeHelper.getColor(context).primary500
-                      : ThemeHelper.getColor(context).grey500,
+                      ? AppColors.of(context).primary
+                      : AppColors.of(context).outline,
                   borderRadius: BorderRadius.circular(15), // Half of height for pill shape
                   borderColor: Colors.transparent,
                 ),

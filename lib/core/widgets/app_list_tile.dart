@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppListTile extends StatelessWidget {
@@ -33,6 +33,7 @@ class AppListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -45,30 +46,21 @@ class AppListTile extends StatelessWidget {
             children: [
               if (leading != null || leadingIcon != null)
                 leading ??
-                    Icon(
-                      leadingIcon,
-                      color:
-                          leadingColor ?? ThemeHelper.getColor(context).grey500,
-                    ),
+                    Icon(leadingIcon, color: leadingColor ?? colors.primary),
               Expanded(
                 child: text != null || content != null
                     ? content ??
                           Text(
                             text!,
                             style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color:
-                                  color ?? ThemeHelper.getColor(context).grey700,
+                              color: color ?? colors.onSurface,
                             ),
                           )
                     : const SizedBox(),
               ),
               if (trailing != null || trailingIcon != null)
                 trailing ??
-                    Icon(
-                      trailingIcon,
-                      color:
-                          trailingColor ?? ThemeHelper.getColor(context).grey500,
-                    ),
+                    Icon(trailingIcon, color: trailingColor ?? colors.outline),
             ],
           ),
         ),

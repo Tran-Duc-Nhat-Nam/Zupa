@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/styles/colors.dart';
 
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
@@ -29,17 +29,17 @@ class HomeSearchBar extends StatelessWidget {
                 hintText: t.parking.ticketSearch,
                 borderRadius: 100,
                 hasBorder: false,
-                backgroundColor: ThemeHelper.getColor(context).primary50,
+                backgroundColor: AppColors.of(context).surfaceContainerLow,
                 prefix: Icon(
                   Symbols.search_rounded,
                   size: 24,
-                  color: ThemeHelper.getColor(context).primary300,
+                  color: AppColors.of(context).onSurfaceVariant,
                 ),
                 suffix: InkWell(
                   child: Icon(
                     Symbols.filter_alt_rounded,
                     size: 24,
-                    color: ThemeHelper.getColor(context).primary300,
+                    color: AppColors.of(context).onSurfaceVariant,
                   ),
                   onTap: () => _showFilter(context, formModel),
                 ),
@@ -66,7 +66,7 @@ class HomeSearchBar extends StatelessWidget {
               child: Text(
                 t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
-                  color: ThemeHelper.getColor(context).grey600,
+                  color: AppColors.of(context).onSurfaceVariant,
                 ),
               ),
             ),
@@ -76,13 +76,13 @@ class HomeSearchBar extends StatelessWidget {
                 Text(
                   t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: ThemeHelper.getColor(context).grey700,
+                    color: AppColors.of(context).onSurfaceVariant,
                   ),
                 ),
                 Text(
                   t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: ThemeHelper.getColor(context).primary500,
+                    color: AppColors.of(context).primary,
                   ),
                 ),
               ],

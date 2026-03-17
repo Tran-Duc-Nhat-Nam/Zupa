@@ -2,8 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:zupa/core/styles/colors.dart';
 
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 
 class AppDropDownSearchExtraItem<T> {
   const AppDropDownSearchExtraItem({this.value, required this.label});
@@ -176,7 +176,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
                 widget.buttonDecoration ??
                 .new(
                   borderRadius: .circular(8),
-                  border: .all(color: ThemeHelper.getColor(context).grey100),
+                  border: .all(color: AppColors.of(context).surfaceContainerHighest),
                 ),
             elevation: widget.buttonElevation,
           ),

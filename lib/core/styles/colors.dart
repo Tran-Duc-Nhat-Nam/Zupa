@@ -1,261 +1,273 @@
 import 'package:flutter/material.dart';
 
-abstract class BaseColors {
-  final Color primary500;
-  final Color primary400;
-  final Color primary300;
-  final Color primary200;
-  final Color primary100;
-  final Color primary50;
+abstract class AppColors extends ThemeExtension<AppColors> {
+  // Brand & Accent Roles
+  final Color primary;
+  final Color onPrimary;
+  final Color primaryContainer;
+  final Color onPrimaryContainer;
+  final Color secondary;
+  final Color onSecondary;
+  final Color secondaryContainer;
+  final Color onSecondaryContainer;
+  final Color tertiary;
+  final Color onTertiary;
+  final Color tertiaryContainer;
+  final Color onTertiaryContainer;
 
-  final Color warning600;
-  final Color warning500;
-  final Color warning400;
-  final Color warning300;
-  final Color warning200;
-  final Color warning100;
-  final Color warning50;
+  // Semantic Roles
+  final Color error;
+  final Color onError;
+  final Color errorContainer;
+  final Color onErrorContainer;
+  final Color success;
+  final Color onSuccess;
+  final Color warning;
+  final Color onWarning;
 
-  final Color error600;
-  final Color error500;
-  final Color error400;
-  final Color error300;
-  final Color error200;
-  final Color error100;
-  final Color error50;
+  // Surface & Neutral Roles
+  final Color surface;
+  final Color onSurface;
+  final Color onSurfaceVariant; // Used for subtext and medium-emphasis icons
+  final Color outline; // Used for borders
+  final Color outlineVariant; // Used for dividers
 
-  final Color success600;
-  final Color success500;
-  final Color success400;
-  final Color success300;
-  final Color success200;
-  final Color success100;
-  final Color success50;
+  // Surface Containers (Replacement for old shaded scales)
+  final Color surfaceContainerLowest;
+  final Color surfaceContainerLow;
+  final Color surfaceContainer;
+  final Color surfaceContainerHigh;
+  final Color surfaceContainerHighest;
 
-  final Color grey1000;
-  final Color grey900;
-  final Color grey800;
-  final Color grey700;
-  final Color grey650;
-  final Color grey600;
-  final Color grey500;
-  final Color grey400;
-  final Color grey300;
-  final Color grey200;
-  final Color grey100;
-  final Color grey50;
+  // Inverse Roles (Used for Snackbars/High-contrast)
+  final Color inverseSurface;
+  final Color onInverseSurface;
+  final Color inversePrimary;
 
-  final Color blueDark;
-  final Color blueLight;
-  final Color grape;
-  final Color white;
+  // Utilities
+  final Color shadow;
+  final Color scrim;
 
-  const BaseColors({
-    required this.primary500,
-    required this.primary400,
-    required this.primary300,
-    required this.primary200,
-    required this.primary100,
-    required this.primary50,
-    required this.warning600,
-    required this.warning500,
-    required this.warning400,
-    required this.warning300,
-    required this.warning200,
-    required this.warning100,
-    required this.warning50,
-    required this.error600,
-    required this.error500,
-    required this.error400,
-    required this.error300,
-    required this.error200,
-    required this.error100,
-    required this.error50,
-    required this.success600,
-    required this.success500,
-    required this.success400,
-    required this.success300,
-    required this.success200,
-    required this.success100,
-    required this.success50,
-    required this.grey1000,
-    required this.grey900,
-    required this.grey800,
-    required this.grey700,
-    required this.grey650,
-    required this.grey600,
-    required this.grey500,
-    required this.grey400,
-    required this.grey300,
-    required this.grey200,
-    required this.grey100,
-    required this.grey50,
-    required this.blueDark,
-    required this.blueLight,
-    required this.grape,
-    required this.white,
+  const AppColors({
+    required this.primary,
+    required this.onPrimary,
+    required this.primaryContainer,
+    required this.onPrimaryContainer,
+    required this.secondary,
+    required this.onSecondary,
+    required this.secondaryContainer,
+    required this.onSecondaryContainer,
+    required this.tertiary,
+    required this.onTertiary,
+    required this.tertiaryContainer,
+    required this.onTertiaryContainer,
+    required this.error,
+    required this.onError,
+    required this.errorContainer,
+    required this.onErrorContainer,
+    required this.success,
+    required this.onSuccess,
+    required this.warning,
+    required this.onWarning,
+    required this.surface,
+    required this.onSurface,
+    required this.onSurfaceVariant,
+    required this.outline,
+    required this.outlineVariant,
+    required this.surfaceContainerLowest,
+    required this.surfaceContainerLow,
+    required this.surfaceContainer,
+    required this.surfaceContainerHigh,
+    required this.surfaceContainerHighest,
+    required this.inverseSurface,
+    required this.onInverseSurface,
+    required this.inversePrimary,
+    required this.shadow,
+    required this.scrim,
   });
 
-  factory BaseColors.fromColorScheme(ColorScheme scheme) {
-    return DynamicAppColors(scheme);
+  @override
+  AppColors lerp(ThemeExtension<AppColors>? other, double t) {
+    if (other is! AppColors) return this;
+    // We use Color.lerp for all fields to ensure smooth transitions
+    return DynamicAppColors(
+      ColorScheme.lerp(_toColorScheme(this), _toColorScheme(other), t),
+      success: Color.lerp(success, other.success, t),
+      warning: Color.lerp(warning, other.warning, t),
+    );
+  }
+
+  static ColorScheme _toColorScheme(AppColors c) {
+    return ColorScheme(
+      brightness: c.surface.computeLuminance() > 0.5
+          ? Brightness.light
+          : Brightness.dark,
+      primary: c.primary,
+      onPrimary: c.onPrimary,
+      primaryContainer: c.primaryContainer,
+      onPrimaryContainer: c.onPrimaryContainer,
+      secondary: c.secondary,
+      onSecondary: c.onSecondary,
+      secondaryContainer: c.secondaryContainer,
+      onSecondaryContainer: c.onSecondaryContainer,
+      tertiary: c.tertiary,
+      onTertiary: c.onTertiary,
+      tertiaryContainer: c.tertiaryContainer,
+      onTertiaryContainer: c.onTertiaryContainer,
+      error: c.error,
+      onError: c.onError,
+      errorContainer: c.errorContainer,
+      onErrorContainer: c.onErrorContainer,
+      surface: c.surface,
+      onSurface: c.onSurface,
+      outline: c.outline,
+      outlineVariant: c.outlineVariant,
+      shadow: c.shadow,
+      scrim: c.scrim,
+      inverseSurface: c.inverseSurface,
+      onInverseSurface: c.onInverseSurface,
+      inversePrimary: c.inversePrimary,
+      surfaceContainerLowest: c.surfaceContainerLowest,
+      surfaceContainerLow: c.surfaceContainerLow,
+      surfaceContainer: c.surfaceContainer,
+      surfaceContainerHigh: c.surfaceContainerHigh,
+      surfaceContainerHighest: c.surfaceContainerHighest,
+    );
+  }
+
+  static AppColors of(BuildContext context) {
+    return Theme.of(context).extension<AppColors>() ?? const LightAppColors();
   }
 }
 
-class AppColors extends BaseColors {
-  const AppColors()
+class LightAppColors extends AppColors {
+  const LightAppColors()
     : super(
-        primary500: const Color(0xff8839EF),
-        primary400: const Color(0xff9F60F2),
-        primary300: const Color(0xffB788F5),
-        primary200: const Color(0xffCEAFF9),
-        primary100: const Color(0xffE6D7FC),
-        primary50: const Color(0xffF3EBFE),
-        warning600: const Color(0xffC87D15),
-        warning500: const Color(0xffDF8E1D),
-        warning400: const Color(0xffE5A54A),
-        warning300: const Color(0xffEBBb77),
-        warning200: const Color(0xffF1D2A4),
-        warning100: const Color(0xffF7E8D1),
-        warning50: const Color(0xffFBF4E8),
-        error600: const Color(0xffBD0D33),
-        error500: const Color(0xffD20F39),
-        error400: const Color(0xffDB3F61),
-        error300: const Color(0xffE46F88),
-        error200: const Color(0xffED9FB0),
-        error100: const Color(0xffF6CFD7),
-        error50: const Color(0xffFBE7EB),
-        success600: const Color(0xff399026),
-        success500: const Color(0xff40A02B),
-        success400: const Color(0xff66B355),
-        success300: const Color(0xff8CC680),
-        success200: const Color(0xffB3D9AA),
-        success100: const Color(0xffD9ECD5),
-        success50: const Color(0xffECF6EA),
-        grey1000: const Color(0xff4C4F69), // Text
-        grey900: const Color(0xff5C5F77), // Subtext 1
-        grey800: const Color(0xff6C6F85), // Subtext 0
-        grey700: const Color(0xff7C7F93), // Overlay 2
-        grey650: const Color(0xff85889A), // Mid-tone
-        grey600: const Color(0xff8C8FA1), // Overlay 1
-        grey500: const Color(0xff9CA0B0), // Overlay 0
-        grey400: const Color(0xffACB0BE), // Surface 2
-        grey300: const Color(0xffBCC0CC), // Surface 1
-        grey200: const Color(0xffCCD0DA), // Surface 0
-        grey100: const Color(0xffDCE0E8), // Crust
-        grey50: const Color(0xffEFF1F5), // Base
-        blueDark: const Color(0xff1E66F5), // Latte Blue
-        blueLight: const Color(0xff04A5E5), // Latte Sky
-        grape: const Color(0xff7287FD), // Latte Lavender
-        white: const Color(0xffFFFFFF), // Pure White (or use Base #EFF1F5)
+        primary: const Color(0xff8839EF),
+        onPrimary: Colors.white,
+        primaryContainer: const Color(0xffF3EBFE),
+        onPrimaryContainer: const Color(0xff8839EF),
+        secondary: const Color(0xff7287FD),
+        onSecondary: Colors.white,
+        secondaryContainer: const Color(0xffE1E6FF),
+        onSecondaryContainer: const Color(0xff7287FD),
+        tertiary: const Color(0xff04A5E5),
+        onTertiary: Colors.white,
+        tertiaryContainer: const Color(0xffD9F1FB),
+        onTertiaryContainer: const Color(0xff04A5E5),
+        error: const Color(0xffD20F39),
+        onError: Colors.white,
+        errorContainer: const Color(0xffFBE7EB),
+        onErrorContainer: const Color(0xffD20F39),
+        success: const Color(0xff40A02B),
+        onSuccess: Colors.white,
+        warning: const Color(0xffDF8E1D),
+        onWarning: Colors.white,
+        surface: const Color(0xffEFF1F5),
+        onSurface: const Color(0xff4C4F69),
+        onSurfaceVariant: const Color(0xff7C7F93),
+        outline: const Color(0xffACB0BE),
+        outlineVariant: const Color(0xffCCD0DA),
+        surfaceContainerLowest: Colors.white,
+        surfaceContainerLow: const Color(0xffF9FAFB),
+        surfaceContainer: const Color(0xffF3F4F6),
+        surfaceContainerHigh: const Color(0xffE5E7EB),
+        surfaceContainerHighest: const Color(0xffD1D5DB),
+        inverseSurface: const Color(0xff2F2F3F),
+        onInverseSurface: const Color(0xffF5F5F5),
+        inversePrimary: const Color(0xffCEAFF9),
+        shadow: Colors.black,
+        scrim: Colors.black,
       );
+
+  @override
+  LightAppColors copyWith() => this;
 }
 
-class DarkAppColors extends BaseColors {
+class DarkAppColors extends AppColors {
   const DarkAppColors()
     : super(
-        primary500: const Color(0xffCBA6F7),
-        primary400: const Color(0xffB490E0),
-        primary300: const Color(0xff9E7ACA),
-        primary200: const Color(0xff8865B3),
-        primary100: const Color(0xff724F9D),
-        primary50: const Color(0xff5C3A86),
-        warning600: const Color(0xffFAB387),
-        warning500: const Color(0xffE09F77),
-        warning400: const Color(0xffC68B67),
-        warning300: const Color(0xffAC7757),
-        warning200: const Color(0xff926347),
-        warning100: const Color(0xff784F37),
-        warning50: const Color(0xff5E3B27),
-        error600: const Color(0xffF38BA8),
-        error500: const Color(0xffD87C97),
-        error400: const Color(0xffBD6D86),
-        error300: const Color(0xffA25E75),
-        error200: const Color(0xff874F64),
-        error100: const Color(0xff6C4053),
-        error50: const Color(0xff513142),
-        success600: const Color(0xffA6E3A1),
-        success500: const Color(0xff92CA8D),
-        success400: const Color(0xff7EB179),
-        success300: const Color(0xff6A9865),
-        success200: const Color(0xff567051),
-        success100: const Color(0xff42573D),
-        success50: const Color(0xff2E3E29),
-        grey1000: const Color(0xffFFFFFF),
-        grey900: const Color(0xffF4F6F8),
-        grey800: const Color(0xffE6EAF0),
-        grey700: const Color(0xffCDD6F4),
-        grey650: const Color(0xffB8C2E0),
-        grey600: const Color(0xffA2ACC8),
-        grey500: const Color(0xff8E98B4),
-        grey400: const Color(0xff7A849E),
-        grey300: const Color(0xff656E85),
-        grey200: const Color(0xff50586C),
-        grey100: const Color(0xff3A4254),
-        grey50: const Color(0xff313244),
-        blueDark: const Color(0xff8839EF),
-        blueLight: const Color(0xffB4BEFE),
-        grape: const Color(0xff74c7ec),
-        white: const Color(0xff181825),
+        primary: const Color(0xffCBA6F7),
+        onPrimary: const Color(0xff3E0077),
+        primaryContainer: const Color(0xff5C3A86),
+        onPrimaryContainer: const Color(0xffE6D7FC),
+        secondary: const Color(0xffB4BEFE),
+        onSecondary: const Color(0xff20295B),
+        secondaryContainer: const Color(0xff3E4461),
+        onSecondaryContainer: const Color(0xffB4BEFE),
+        tertiary: const Color(0xff89DCEB),
+        onTertiary: const Color(0xff00353D),
+        tertiaryContainer: const Color(0xff204E55),
+        onTertiaryContainer: const Color(0xff89DCEB),
+        error: const Color(0xffF38BA8),
+        onError: const Color(0xff680016),
+        errorContainer: const Color(0xff513142),
+        onErrorContainer: const Color(0xffF38BA8),
+        success: const Color(0xffA6E3A1),
+        onSuccess: const Color(0xff00390A),
+        warning: const Color(0xffFAB387),
+        onWarning: const Color(0xff452700),
+        surface: const Color(0xff181825),
+        onSurface: const Color(0xffCDD6F4),
+        onSurfaceVariant: const Color(0xff9399B2),
+        outline: const Color(0xff585B70),
+        outlineVariant: const Color(0xff45475A),
+        surfaceContainerLowest: const Color(0xff0F0F1A),
+        surfaceContainerLow: const Color(0xff1E1E2E),
+        surfaceContainer: const Color(0xff252539),
+        surfaceContainerHigh: const Color(0xff2B2B40),
+        surfaceContainerHighest: const Color(0xff36364D),
+        inverseSurface: const Color(0xffE6EAF0),
+        onInverseSurface: const Color(0xff11111B),
+        inversePrimary: const Color(0xff8839EF),
+        shadow: Colors.black,
+        scrim: Colors.black,
       );
+
+  @override
+  DarkAppColors copyWith() => this;
 }
 
-class DynamicAppColors extends BaseColors {
-  DynamicAppColors(ColorScheme scheme)
-      : super(
-    // --- Primary Range ---
-    primary500: scheme.primary,
-    primary400: Color.lerp(scheme.primary, scheme.primaryContainer, 0.3)!,
-    primary300: Color.lerp(scheme.primary, scheme.primaryContainer, 0.6)!,
-    primary200: scheme.primaryContainer,
-    primary100: Color.lerp(scheme.primaryContainer, scheme.surface, 0.5)!,
-    primary50: scheme.primaryContainer.withAlpha(25),
+class DynamicAppColors extends AppColors {
+  DynamicAppColors(ColorScheme scheme, {Color? success, Color? warning})
+    : super(
+        primary: scheme.primary,
+        onPrimary: scheme.onPrimary,
+        primaryContainer: scheme.primaryContainer,
+        onPrimaryContainer: scheme.onPrimaryContainer,
+        secondary: scheme.secondary,
+        onSecondary: scheme.onSecondary,
+        secondaryContainer: scheme.secondaryContainer,
+        onSecondaryContainer: scheme.onSecondaryContainer,
+        tertiary: scheme.tertiary,
+        onTertiary: scheme.onTertiary,
+        tertiaryContainer: scheme.tertiaryContainer,
+        onTertiaryContainer: scheme.onTertiaryContainer,
+        error: scheme.error,
+        onError: scheme.onError,
+        errorContainer: scheme.errorContainer,
+        onErrorContainer: scheme.onErrorContainer,
+        success: success ?? const Color(0xff40A02B),
+        onSuccess: Colors.white,
+        warning: warning ?? const Color(0xffDF8E1D),
+        onWarning: Colors.white,
+        surface: scheme.surface,
+        onSurface: scheme.onSurface,
+        onSurfaceVariant: scheme.onSurfaceVariant,
+        outline: scheme.outline,
+        outlineVariant: scheme.outlineVariant,
+        surfaceContainerLowest: scheme.surfaceContainerLowest,
+        surfaceContainerLow: scheme.surfaceContainerLow,
+        surfaceContainer: scheme.surfaceContainer,
+        surfaceContainerHigh: scheme.surfaceContainerHigh,
+        surfaceContainerHighest: scheme.surfaceContainerHighest,
+        inverseSurface: scheme.inverseSurface,
+        onInverseSurface: scheme.onInverseSurface,
+        inversePrimary: scheme.inversePrimary,
+        shadow: scheme.shadow,
+        scrim: scheme.scrim,
+      );
 
-    // --- Warning Range (Not native to Material You, derived from Primary) ---
-    // We use a fixed Hue or lerp toward an orange constant to keep it 'Warning-like'
-    warning600: const Color(0xffC87D15),
-    warning500: const Color(0xffDF8E1D),
-    warning400: const Color(0xffE5A54A),
-    warning300: const Color(0xffEBBb77),
-    warning200: const Color(0xffF1D2A4),
-    warning100: const Color(0xffF7E8D1),
-    warning50: const Color(0xffFBF4E8),
-
-    // --- Error Range ---
-    error600: scheme.error.withRed(180),
-    error500: scheme.error,
-    error400: Color.lerp(scheme.error, scheme.onError, 0.2)!,
-    error300: Color.lerp(scheme.error, scheme.onError, 0.4)!,
-    error200: Color.lerp(scheme.error, scheme.onError, 0.6)!,
-    error100: Color.lerp(scheme.error, scheme.onError, 0.8)!,
-    error50: scheme.errorContainer..withAlpha(55),
-
-    // --- Success Range (Derived or Constant) ---
-    success600: const Color(0xff399026),
-    success500: const Color(0xff40A02B),
-    success400: const Color(0xff66B355),
-    success300: const Color(0xff8CC680),
-    success200: const Color(0xffB3D9AA),
-    success100: const Color(0xffD9ECD5),
-    success50: const Color(0xffECF6EA),
-
-    // --- Grey/Neutral Range (Mapped to Surface/Outline) ---
-    grey1000: scheme.onSurface,
-    grey900: scheme.onSurfaceVariant,
-    grey800: Color.lerp(scheme.onSurfaceVariant, scheme.outline, 0.5)!,
-    grey700: scheme.outline,
-    grey650: Color.lerp(scheme.outline, scheme.outlineVariant, 0.5)!,
-    grey600: scheme.outlineVariant,
-    grey500: Color.lerp(scheme.outlineVariant, scheme.surfaceContainerHighest, 0.3)!,
-    grey400: scheme.surfaceContainerHighest,
-    grey300: scheme.surfaceContainerHigh,
-    grey200: scheme.surfaceContainer,
-    grey100: scheme.surfaceContainerLow,
-    grey50: scheme.surface,
-
-    // --- Special Colors ---
-    blueDark: scheme.tertiary,
-    blueLight: scheme.tertiaryContainer,
-    grape: scheme.secondary,
-    white: scheme.surface,
-  );
+  @override
+  DynamicAppColors copyWith() => this;
 }

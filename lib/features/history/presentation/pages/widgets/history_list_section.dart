@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_title.dart';
@@ -20,7 +20,7 @@ class HistoryListSection extends StatelessWidget {
         Text(
           DateTimeConverter.toDate(.now()),
           style: AppTextStyles.bodyMediumSemibold.copyWith(
-            color: ThemeHelper.getColor(context).grey900,
+            color: AppColors.of(context).onSurface,
           ),
         ),
         ...tickets.map((ticket) => HistoryTitle(ticket: ticket)),

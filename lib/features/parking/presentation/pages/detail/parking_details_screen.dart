@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
@@ -129,7 +129,7 @@ class ParkingDetailsScreen extends StatelessWidget {
                           Text(
                             t.parking.warningThreshold.subtitle,
                             style: AppTextStyles.bodySmallMedium.copyWith(
-                              color: ThemeHelper.getColor(context).grey500,
+                              color: AppColors.of(context).outline,
                             ),
                           ),
                         ],

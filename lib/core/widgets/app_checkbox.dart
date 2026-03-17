@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 
 class AppCheckbox extends StatelessWidget {
   const AppCheckbox({
@@ -29,14 +29,14 @@ class AppCheckbox extends StatelessWidget {
             onChanged: (form) {
               onChanged?.call(form.value ?? false);
             },
-            side: BorderSide(color: ThemeHelper.getColor(context).primary200),
+            side: BorderSide(color: AppColors.of(context).primaryContainer),
             fillColor: .resolveWith<Color>((
                 Set<WidgetState> states,
                 ) {
               if (states.contains(WidgetState.selected)) {
-                return ThemeHelper.getColor(context).primary400;
+                return AppColors.of(context).primary;
               }
-              return ThemeHelper.getColor(context).primary50;
+              return AppColors.of(context).surfaceContainerLow;
             }),
             shape: RoundedRectangleBorder(borderRadius: .circular(4)),
           ),

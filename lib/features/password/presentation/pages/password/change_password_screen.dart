@@ -1,9 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -68,7 +68,7 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                         isPassword: true,
                         required: true,
                       ),
-                      Divider(color: ThemeHelper.getColor(context).grey100),
+                      Divider(color: AppColors.of(context).surfaceContainerHighest),
                       AppTextField(
                         formControl: formModel.newPasswordControl,
                         labelText: t.auth.password.kNew,

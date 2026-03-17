@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
@@ -25,9 +25,7 @@ class RevenueTitle extends StatelessWidget {
         minVerticalPadding: 0.0,
         minLeadingWidth: 0,
         child: ExpansionTile(
-          backgroundColor: ThemeHelper.getColor(
-            context,
-          ).primary50.withAlpha(155),
+          backgroundColor: AppColors.of(context).surfaceContainerLow,
           tilePadding: .zero,
           childrenPadding: .zero,
           minTileHeight: 20,
@@ -38,7 +36,7 @@ class RevenueTitle extends StatelessWidget {
             clipBehavior: .antiAlias,
             decoration: BoxDecoration(
               borderRadius: const .all(.circular(6)),
-              color: ThemeHelper.getColor(context).primary100.withAlpha(155),
+              color: AppColors.of(context).surfaceContainerHigh,
             ),
             child: Row(
               children: [
@@ -48,12 +46,12 @@ class RevenueTitle extends StatelessWidget {
                   alignment: .center,
                   decoration: BoxDecoration(
                     borderRadius: .circular(4),
-                    color: ThemeHelper.getColor(context).primary400,
+                    color: AppColors.of(context).primary,
                   ),
                   child: Text(
                     revenue.date.day.toString(),
                     style: AppTextStyles.bodyMediumSemibold.copyWith(
-                      color: ThemeHelper.getColor(context).white,
+                      color: AppColors.of(context).surface,
                     ),
                   ),
                 ),
@@ -77,7 +75,7 @@ class RevenueTitle extends StatelessWidget {
                             ),
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
-                              color: ThemeHelper.getColor(context).grey900,
+                              color: AppColors.of(context).onSurface,
                             ),
                           ),
                         ),
@@ -86,7 +84,7 @@ class RevenueTitle extends StatelessWidget {
                             '${NumberFormat.currency(decimalDigits: 0, symbol: '').format(revenue.totalRevenue)} VND',
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
-                              color: ThemeHelper.getColor(context).grey900,
+                              color: AppColors.of(context).onSurface,
                             ),
                           ),
                         ),
@@ -111,7 +109,7 @@ class RevenueTitle extends StatelessWidget {
                           ) ??
                           Symbols.globe_rounded,
                       size: 24,
-                      color: ThemeHelper.getColor(context).success600,
+                      color: AppColors.of(context).success,
                     ),
                   ),
                 ),
@@ -138,9 +136,9 @@ class RevenueTitle extends StatelessWidget {
                                       e.vehicleType.name,
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
-                                        color: ThemeHelper.getColor(
+                                        color: AppColors.of(
                                           context,
-                                        ).grey700,
+                                        ).onSurfaceVariant,
                                       ),
                                 ),
                               ),
@@ -157,9 +155,9 @@ class RevenueTitle extends StatelessWidget {
                                   t.parking.pass(n: e.pass, count: e.pass),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
-                                        color: ThemeHelper.getColor(
+                                        color: AppColors.of(
                                           context,
-                                        ).grey700,
+                                        ).onSurfaceVariant,
                                       ),
                                 ),
                               ),
@@ -179,9 +177,9 @@ class RevenueTitle extends StatelessWidget {
                                   ).format(e.revenue),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
-                                        color: ThemeHelper.getColor(
+                                        color: AppColors.of(
                                           context,
-                                        ).grey700,
+                                        ).onSurfaceVariant,
                                       ),
                                 ),
                               ),

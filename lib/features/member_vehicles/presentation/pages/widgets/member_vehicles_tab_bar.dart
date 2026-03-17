@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
+import 'package:zupa/core/styles/colors.dart';
 
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -16,17 +16,17 @@ class MemberVehiclesTabBar extends StatelessWidget {
         height: 40,
         splashColor: Colors.transparent,
         barDecoration: BoxDecoration(
-          color: ThemeHelper.getColor(context).white,
+          color: AppColors.of(context).surface,
           borderRadius: const .all(Radius.circular(8)),
-          border: .all(color: ThemeHelper.getColor(context).grey100),
+          border: .all(color: AppColors.of(context).surfaceContainerHighest),
         ),
         indicatorPadding: const .all(4),
         indicatorDecoration: BoxDecoration(
-          color: ThemeHelper.getColor(context).primary500,
+          color: AppColors.of(context).primary,
           borderRadius: const .all(Radius.circular(6)),
         ),
         textStyle: AppTextStyles.bodySmallBold,
-        tabTextColor: ThemeHelper.getColor(context).grey300,
+        tabTextColor: AppColors.of(context).outline,
         tabs: [
           .new(label: t.common.actions.all),
           .new(label: t.parking.inUse),

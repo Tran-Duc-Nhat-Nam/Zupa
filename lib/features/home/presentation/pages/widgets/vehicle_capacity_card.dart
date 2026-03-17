@@ -5,7 +5,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 
 class BorderPainter extends CustomPainter {
@@ -66,11 +65,9 @@ class VehicleCapacityCard extends StatefulWidget {
 }
 
 class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
-  late BaseColors colors;
-
   @override
   Widget build(BuildContext context) {
-    colors = ThemeHelper.getColor(context);
+    final colors = AppColors.of(context);
 
     final double value = widget.capacity != null && (widget.capacity!) >= 0
         ? (widget.current / widget.capacity!) * 2
@@ -79,7 +76,7 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
     return AppCard(
       padding: const .all(8),
       decoration: BoxDecoration(
-        color: widget.isSelected ? colors.primary200 : colors.primary100.withAlpha(155),
+        color: widget.isSelected ? colors.primaryContainer : colors.primaryContainer.withAlpha(155),
         borderRadius: const .all(Radius.circular(100)),
       ),
       child: AspectRatio(
@@ -91,10 +88,10 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
             painter: BorderPainter(
               currentState: value,
               color: widget.current >= (widget.capacity ?? 0)
-                  ? colors.error600
+                  ? colors.error
                   : widget.isWarning
-                  ? colors.warning600
-                  : colors.success600,
+                  ? colors.warning
+                  : colors.success,
             ),
             child: InkWell(
               customBorder:
@@ -115,7 +112,7 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                         child: Icon(
                           widget.icon,
                           size: 24,
-                          color: colors.primary500,
+                          color: colors.primary,
                         ),
                       ),
                     ),
@@ -127,10 +124,10 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                         : '${(value * 100).toInt()}%',
                     style: AppTextStyles.heading4.copyWith(
                       color: widget.current >= (widget.capacity ?? 0)
-                          ? colors.error600
+                          ? colors.error
                           : widget.isWarning
-                          ? colors.warning600
-                          : colors.success600,
+                          ? colors.warning
+                          : colors.success,
                     ),
                   ),
                   // Removed bottom SizedBox to allow true centering

@@ -10,8 +10,8 @@ import 'package:zupa/core/bloc/site/site_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_button.dart';
@@ -51,7 +51,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = ThemeHelper.getColor(context);
+    final colors = AppColors.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
 
     return BlocProvider<SiteCubit>(
@@ -75,7 +75,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                   width: screenWidth,
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: colors.primary50, // Using your existing palette
+                    color: colors.surfaceContainerLow, // Using your existing palette
                     borderRadius: .circular(100),
                   ),
                   child: Row(
@@ -85,7 +85,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                       Icon(
                         Symbols.location_on_rounded,
                         size: 18,
-                        color: colors.primary500,
+                        color: colors.primary,
                       ),
                       BlocBuilder<SiteCubit, SiteState>(
                         builder: (context, state) {
@@ -96,7 +96,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                               orElse: () => _parkingLots[0],
                             ),
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
-                              color: colors.primary500,
+                              color: colors.primary,
                             ),
                           );
                         },
@@ -104,7 +104,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                       Icon(
                         Symbols.keyboard_arrow_down_rounded,
                         size: 20,
-                        color: colors.primary500,
+                        color: colors.primary,
                       ),
                     ],
                   ),
@@ -122,8 +122,8 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                   selectedIndex: tabsRouter.activeIndex,
                   onDestinationSelected: tabsRouter.setActiveIndex,
                   // Customizing colors to match your theme
-                  backgroundColor: Theme.of(context).colorScheme.surfaceBright,
-                  indicatorColor: colors.primary100.withAlpha(155),
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+                  indicatorColor: colors.secondaryContainer,
                   maintainBottomViewPadding: true,
                   height: 96,
                   animationDuration: const Duration(milliseconds: 500),
@@ -131,7 +131,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                   labelPadding: const .all(8),
                   labelTextStyle: .all(
                     AppTextStyles.bodyMediumSemibold.copyWith(
-                      color: colors.primary300,
+                      color: colors.onSecondaryContainer,
                     ),
                   ),
                   destinations: [
@@ -181,14 +181,15 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
     required dynamic colors,
   }) {
     return NavigationDestination(
-      icon: Icon(icon, color: colors.primary300, fill: 0, weight: 400),
-      selectedIcon: Icon(icon, color: colors.primary500, fill: 1, weight: 700),
+      icon: Icon(icon, color: colors.onSurfaceVariant, fill: 0, weight: 400),
+      selectedIcon: Icon(icon, color: colors.onSecondaryContainer, fill: 1, weight: 700),
       label: t['navbar.$labelKey'] ?? labelKey,
     );
   }
 
   void _showSitePicker(BuildContext context) {
     final siteCubit = context.read<SiteCubit>();
+    final colors = AppColors.of(context);
 
     WoltModalSheet.show(
       context: context,
@@ -232,8 +233,8 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                               item,
                               style: AppTextStyles.bodyMediumSemibold.copyWith(
                                 color: isSelected
-                                    ? ThemeHelper.getColor(context).primary400
-                                    : ThemeHelper.getColor(context).grey800,
+                                    ? colors.primary
+                                    : colors.onSurface,
                               ),
                             ),
                           ),

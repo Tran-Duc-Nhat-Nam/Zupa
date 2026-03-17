@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_checkbox.dart';
@@ -54,7 +54,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     child: Image.asset(
                       'assets/images/tsp-logo.png',
                       height: 80,
-                      color: ThemeHelper.getColor(context).primary500,
+                      color: AppColors.of(context).primary,
                     ),
                   ),
                   Center(
@@ -88,7 +88,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     label: Text(
                       t.auth.login.isRemember,
                       style: AppTextStyles.bodySmallSemibold.copyWith(
-                        color: ThemeHelper.getColor(context).primary400,
+                        color: AppColors.of(context).primary,
                       ),
                     ),
                   ),
@@ -100,7 +100,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     padding: const .all(16),
                     child: state.whenOrNull(
                       submitting: () => LoadingAnimationWidget.waveDots(
-                        color: ThemeHelper.getColor(context).white,
+                        color: AppColors.of(context).surface,
                         size: 24,
                       ),
                     ),

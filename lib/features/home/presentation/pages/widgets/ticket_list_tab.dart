@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -72,7 +72,7 @@ class _TicketListTabState extends State<TicketListTab> {
             clipBehavior: .antiAlias,
             margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
-              color: ThemeHelper.getColor(context).primary100.withAlpha(155),
+              color: AppColors.of(context).surfaceContainerLow,
               borderRadius: const .vertical(top: .circular(28)),
             ),
             child: EasyRefresh(

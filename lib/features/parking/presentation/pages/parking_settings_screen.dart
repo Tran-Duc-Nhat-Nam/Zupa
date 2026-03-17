@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/parking/presentation/bloc/parking_lot_cubit.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -49,12 +49,12 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                             Text(
                               params.parkingLots[index].name,
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: ThemeHelper.getColor(context).grey700,
+                                color: AppColors.of(context).onSurfaceVariant,
                               ),
                             ),
                             Icon(
                               Symbols.lock_rounded,
-                              color: ThemeHelper.getColor(context).error600,
+                              color: AppColors.of(context).error,
                               size: 16,
                             ),
                           ],
@@ -67,7 +67,7 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                         ),
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: ThemeHelper.getColor(context).grey100),
+                          Divider(color: AppColors.of(context).surfaceContainerHighest),
                       itemCount: params.parkingLots.length,
                     ),
                     loading: (_) => ListView.separated(
@@ -78,7 +78,7 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                         trailingIcon: Symbols.chevron_right_rounded,
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: ThemeHelper.getColor(context).grey100),
+                          Divider(color: AppColors.of(context).surfaceContainerHighest),
                       itemCount: 3,
                     ),
                     orElse: () => const SizedBox.shrink(),

@@ -1,9 +1,9 @@
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:zupa/core/styles/colors.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class TicketInfoCard extends StatelessWidget {
@@ -29,7 +29,7 @@ class TicketInfoCard extends StatelessWidget {
     return Container(
       width: .infinity,
       decoration: BoxDecoration(
-        color: ThemeHelper.getColor(context).white,
+        color: AppColors.of(context).surface,
         borderRadius: .circular(8),
       ),
       child: Column(
@@ -38,7 +38,7 @@ class TicketInfoCard extends StatelessWidget {
           Container(
             height: 1,
             width: .infinity,
-            color: ThemeHelper.getColor(context).grey300,
+            color: AppColors.of(context).outline,
           ),
           Expanded(
             child: Padding(
@@ -57,21 +57,21 @@ class TicketInfoCard extends StatelessWidget {
                             Text(
                               timeIn.format('dd/MM/yyyy hh:mm'),
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: ThemeHelper.getColor(context).success600,
+                                color: AppColors.of(context).success,
                               ),
                             ),
                             if (timeOut != null) ...[
                               Text(
                                 timeOut!.format('dd/MM/yyyy hh:mm'),
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
-                                  color: ThemeHelper.getColor(context).error600,
+                                  color: AppColors.of(context).error,
                                 ),
                               ),
                               Container(
                                 height: 1,
                                 margin: const .symmetric(vertical: 4),
                                 width: .infinity,
-                                color: ThemeHelper.getColor(context).grey200,
+                                color: AppColors.of(context).surfaceContainerHighest,
                               ),
                               Text(
                                 t.parking.totalTime(
@@ -80,7 +80,7 @@ class TicketInfoCard extends StatelessWidget {
                                 ),
                                 overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
-                                  color: ThemeHelper.getColor(context).grey700,
+                                  color: AppColors.of(context).onSurfaceVariant,
                                 ),
                               ),
                             ],
@@ -89,7 +89,7 @@ class TicketInfoCard extends StatelessWidget {
                       ),
                     ),
                     VerticalDivider(
-                      color: ThemeHelper.getColor(context).grey300,
+                      color: AppColors.of(context).outline,
                     ),
                     Expanded(
                       flex: 2,
@@ -101,7 +101,7 @@ class TicketInfoCard extends StatelessWidget {
                             Text(
                               t[ticketType],
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: ThemeHelper.getColor(context).grey700,
+                                color: AppColors.of(context).onSurfaceVariant,
                               ),
                             ),
                             Text(
@@ -110,7 +110,7 @@ class TicketInfoCard extends StatelessWidget {
                                 symbol: '',
                               ).format(price),
                               style: AppTextStyles.bodyLargeSemibold.copyWith(
-                                color: ThemeHelper.getColor(context).primary500,
+                                color: AppColors.of(context).primary,
                               ),
                             ),
                           ],

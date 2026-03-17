@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -21,7 +21,7 @@ class TicketTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = ThemeHelper.getColor(context);
+    final colors = AppColors.of(context);
 
     return Slidable(
       // Enable/Disable sliding based on skeleton state
@@ -37,9 +37,9 @@ class TicketTitle extends StatelessWidget {
           SlidableAction(
             onPressed: (context) => context.pushRoute(CheckInRoute()),
             backgroundColor: ticket.isFlagError == true
-                ? colors.primary500
-                : colors.error600,
-            foregroundColor: Colors.white,
+                ? colors.primary
+                : colors.error,
+            foregroundColor: AppColors.of(context).surface,
             icon: ticket.isFlagError == true
                 ? Icons.check_circle_outline
                 : Icons.report_problem_outlined,
@@ -60,8 +60,8 @@ class TicketTitle extends StatelessWidget {
               // Slidable auto-closes, so we just navigate
               context.pushRoute(CheckInRoute(isCheckOut: true));
             },
-            backgroundColor: colors.error600,
-            foregroundColor: Colors.white,
+            backgroundColor: colors.error,
+            foregroundColor: AppColors.of(context).surface,
             icon: Icons.logout,
             label: t.parking.allowOut,
           ),
@@ -87,11 +87,11 @@ class TicketTitle extends StatelessWidget {
                   loadStateChanged: (state) => switch (state) {
                     LoadState.loading =>
                       LoadingAnimationWidget.horizontalRotatingDots(
-                        color: ThemeHelper.getColor(context).primary500,
+                        color: AppColors.of(context).primary,
                         size: 35,
                       ),
                     LoadState.completed => state.completedWidget,
-                    _ => Icon(Icons.error, color: ThemeHelper.getColor(context).primary300, size: 35,),
+                    _ => Icon(Icons.error, color: colors.error, size: 35,),
                   },
                 ),
               ),
@@ -104,13 +104,13 @@ class TicketTitle extends StatelessWidget {
                   Text(
                     ticket.code,
                     style: AppTextStyles.heading6.copyWith(
-                      color: colors.grey900,
+                      color: colors.onSurface,
                     ),
                   ),
                   Text(
                     ticket.timeIn.format('dd/MM/yyyy HH:mm'),
                     style: AppTextStyles.bodySmallSemibold.copyWith(
-                      color: colors.grey700,
+                      color: colors.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -120,13 +120,13 @@ class TicketTitle extends StatelessWidget {
               Container(
                 padding: const .symmetric(vertical: 2, horizontal: 16),
                 decoration: BoxDecoration(
-                  color: colors.error200,
+                  color: colors.error,
                   borderRadius: .circular(50),
                 ),
                 child: Text(
                   t.parking.lost,
                   style: AppTextStyles.bodySmallSemibold.copyWith(
-                    color: colors.grey1000,
+                    color: colors.onError,
                   ),
                 ),
               ),

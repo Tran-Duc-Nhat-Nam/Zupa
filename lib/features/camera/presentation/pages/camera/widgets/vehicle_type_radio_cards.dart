@@ -4,7 +4,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
@@ -28,11 +28,11 @@ class VehicleTypeRadioCards extends StatelessWidget {
                 child: Container(
                   padding: .all(isSelected ? 5 : 8),
                   decoration: BoxDecoration(
-                    color: ThemeHelper.getColor(context).white,
+                    color: AppColors.of(context).surface,
                     borderRadius: .circular(4),
                     border: isSelected
                         ? .all(
-                            color: ThemeHelper.getColor(context).primary500,
+                            color: AppColors.of(context).primary,
                             width: 3,
                           )
                         : null,
@@ -43,7 +43,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                       Expanded(
                         child: Icon(
                           const IconConverter().fromJson(item.icon) ?? Symbols.globe_rounded,
-                          color: ThemeHelper.getColor(context).grey700,
+                          color: AppColors.of(context).onSurfaceVariant,
                           size: 24,
                         ),
                       ),
@@ -51,7 +51,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                         child: Text(
                           t[item.value],
                           style: AppTextStyles.bodyMediumMedium.copyWith(
-                            color: ThemeHelper.getColor(context).grey700,
+                            color: AppColors.of(context).onSurfaceVariant,
                           ),
                         ),
                       ),

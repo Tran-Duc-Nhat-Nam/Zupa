@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppButton extends StatefulWidget {
@@ -72,7 +72,7 @@ class _AppButtonState extends State<AppButton> {
   }
 
   Widget _buildButton(BuildContext context, VoidCallback? effectiveOnPressed) {
-    final colorScheme = ThemeHelper.getColor(context);
+    final colorScheme = AppColors.of(context);
     final style = _getButtonStyle(colorScheme);
 
     return SizedBox(
@@ -139,11 +139,11 @@ class _AppButtonState extends State<AppButton> {
   ButtonStyle _getButtonStyle(dynamic colorScheme) {
     // Determine base color based on AppButtonColor enum
     final baseColor = switch (widget.color) {
-      .success => colorScheme.success500,
-      .warning => colorScheme.warning600,
-      .error => colorScheme.error600,
-      .info => colorScheme.primary500,
-      .basic => colorScheme.grey900,
+      .success => colorScheme.success,
+      .warning => colorScheme.warning,
+      .error => colorScheme.error,
+      .info => colorScheme.primary,
+      .basic => colorScheme.onSurface,
     };
 
     // Return a modern ButtonStyle

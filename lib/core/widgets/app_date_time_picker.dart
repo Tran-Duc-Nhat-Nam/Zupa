@@ -2,7 +2,7 @@ import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppDateTimePicker extends StatelessWidget {
@@ -25,8 +25,8 @@ class AppDateTimePicker extends StatelessWidget {
       builder: (field) => Container(
         padding: const .all(12),
         decoration: BoxDecoration(
-          color: ThemeHelper.getColor(context).white,
-          border: .all(color: ThemeHelper.getColor(context).primary100),
+          color: AppColors.of(context).surface,
+          border: Border.all(color: AppColors.of(context).outline),
           borderRadius: .circular(16),
         ),
         child: Row(
@@ -39,7 +39,7 @@ class AppDateTimePicker extends StatelessWidget {
                     : '',
                 maxLines: 1,
                 style: AppTextStyles.bodyMediumRegular.copyWith(
-                  color: ThemeHelper.getColor(context).primary300,
+                  color: AppColors.of(context).onSurface,
                 ),
               ),
             ),
@@ -54,7 +54,7 @@ class AppDateTimePicker extends StatelessWidget {
               },
               child: Icon(
                 Icons.date_range,
-                color: ThemeHelper.getColor(context).primary500,
+                color: AppColors.of(context).primary,
               ),
             ),
           ],

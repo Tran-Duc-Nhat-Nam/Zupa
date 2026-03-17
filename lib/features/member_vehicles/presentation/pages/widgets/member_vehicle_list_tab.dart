@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart'
     hide Loading;
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
@@ -143,7 +143,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                 width: 60,
                 decoration: BoxDecoration(
                   borderRadius: .circular(6),
-                  border: .all(color: ThemeHelper.getColor(context).grey100),
+                  border: .all(color: AppColors.of(context).surfaceContainerHighest),
                 ),
                 child: Center(child: Text(ticket.vehicleType.name)),
               ),
@@ -162,19 +162,19 @@ class MemberVehiclesTitle extends StatelessWidget {
                       Text(
                         ticket.name,
                         style: AppTextStyles.bodyLargeSemibold.copyWith(
-                          color: ThemeHelper.getColor(context).grey1000,
+                          color: AppColors.of(context).onSurface,
                         ),
                       ),
                       Text(
                         ticket.phoneNumber,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: ThemeHelper.getColor(context).grey700,
+                          color: AppColors.of(context).onSurfaceVariant,
                         ),
                       ),
                       Text(
                         ticket.parkingLotId,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: ThemeHelper.getColor(context).grey700,
+                          color: AppColors.of(context).onSurfaceVariant,
                         ),
                       ),
                       Text(
@@ -184,7 +184,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                           ),
                         ),
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: ThemeHelper.getColor(context).grey700,
+                          color: AppColors.of(context).onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -215,7 +215,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                       maxLines: 10,
                       textAlign: .center,
                       style: AppTextStyles.bodySmallSemibold.copyWith(
-                        color: ThemeHelper.getColor(context).primary500,
+                        color: AppColors.of(context).primary,
                       ),
                     ),
                   ),

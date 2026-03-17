@@ -5,8 +5,8 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
@@ -60,7 +60,7 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: ThemeHelper.getColor(context).primary50,
+                      color: AppColors.of(context).surfaceContainerLow,
                       borderRadius: .circular(8),
                     ),
                     child: Center(

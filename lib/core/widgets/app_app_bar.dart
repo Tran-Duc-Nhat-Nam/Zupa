@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:zupa/core/styles/colors.dart';
 
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppAppBar extends AppBar {
@@ -39,8 +39,8 @@ class _AppAppBarState extends State<AppAppBar> {
   PreferredSizeWidget build(BuildContext context) {
     return AppBar(
       scrolledUnderElevation: 0,
-      backgroundColor: widget.color ?? ThemeHelper.getColor(context).white,
-      foregroundColor: ThemeHelper.getColor(context).blueDark,
+      backgroundColor: widget.color ?? AppColors.of(context).surface,
+      foregroundColor: AppColors.of(context).secondary,
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(bottom: .circular(16)),
       ),
@@ -55,7 +55,7 @@ class _AppAppBarState extends State<AppAppBar> {
                   child: Text(
                     widget.text ?? '',
                     style: TextStyle(
-                      color: ThemeHelper.getColor(context).grey1000,
+                      color: AppColors.of(context).onSurface,
                     ),
                   ),
                 )),
@@ -73,7 +73,7 @@ class _AppAppBarState extends State<AppAppBar> {
               ),
               icon: Icon(
                 widget.leadingIcon,
-                color: ThemeHelper.getColor(context).grey400,
+                color: AppColors.of(context).outline,
                 size: 32,
               ),
               onPressed: () {},
@@ -88,7 +88,7 @@ class _AppAppBarState extends State<AppAppBar> {
               ),
               icon: Icon(
                 widget.isClose == true ? Symbols.close_rounded : Symbols.arrow_back_rounded,
-                color: ThemeHelper.getColor(context).grey400,
+                color: AppColors.of(context).outline,
                 size: 32,
               ),
               onPressed: () => context.router.pop(),
@@ -105,7 +105,7 @@ class _AppAppBarState extends State<AppAppBar> {
                 padding: const .only(right: 24),
                 child: Icon(
                   widget.trailingIcon,
-                  color: ThemeHelper.getColor(context).grey400,
+                  color: AppColors.of(context).outline,
                   size: 32,
                 ),
               ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// Assuming your custom color classes are still needed for fallback
-// import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/styles/colors.dart';
 
 enum AppThemeMode { light, dark, system }
 
@@ -19,7 +18,7 @@ class AppThemes {
   static const Color brandSeedColor = Color(0xFF6750A4);
 
   /// Helper to build a base theme configuration to keep code DRY
-  static ThemeData _buildTheme(ColorScheme scheme) {
+  static ThemeData _buildTheme(ColorScheme scheme, AppColors appColors) {
     return ThemeData(
       useMaterial3: true,
       brightness: scheme.brightness,
@@ -31,6 +30,7 @@ class AppThemes {
       ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: _iconTheme,
+      extensions: [appColors],
       appBarTheme: AppBarTheme(
         backgroundColor: scheme.surface,
         foregroundColor: scheme.onSurface,
@@ -53,7 +53,10 @@ class AppThemes {
     ColorScheme? dynamicColorScheme,
     Color? customSeedColor,
   }) {
-    late ColorScheme scheme;
+    ColorScheme scheme;
+    AppColors appColors;
+
+    final isDark = brightness == Brightness.dark;
 
     switch (colorSource) {
       case AppColorSchemeSource.materialYou:
@@ -63,18 +66,21 @@ class AppThemes {
               seedColor: brandSeedColor,
               brightness: brightness,
             );
+        appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.custom:
         scheme = ColorScheme.fromSeed(
           seedColor: customSeedColor ?? brandSeedColor,
           brightness: brightness,
         );
+        appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.brand:
+        appColors = isDark ? const DarkAppColors() : const LightAppColors();
         scheme = ColorScheme.fromSeed(
-          seedColor: brandSeedColor,
+          seedColor: isDark ? const DarkAppColors().primary : const LightAppColors().primary,
           brightness: brightness,
         );
     }
 
-    return _buildTheme(scheme);
+    return _buildTheme(scheme, appColors);
   }
 }

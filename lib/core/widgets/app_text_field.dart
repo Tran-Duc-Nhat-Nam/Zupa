@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:zupa/core/styles/colors.dart';
 
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
@@ -68,62 +68,63 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final colorsScheme = ThemeHelper.getColor(context);
+    final colorsScheme = AppColors.of(context);
 
     return Column(
-      mainAxisSize: .min,
-      crossAxisAlignment: .start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       children: [
         if (widget.isExternalLabel)
           Text(
             widget.labelText ?? '',
             style: AppTextStyles.bodyMediumMedium.copyWith(
-              color: colorsScheme.grey650,
+              color: colorsScheme.onSurface,
             ),
           ),
         ReactiveTextField(
           formControl: widget.formControl,
           controller: widget.initialValue != null ? null : widget.controller,
           obscureText: isPasswordVisible,
-          textAlign: widget.textAlign ?? .start,
+          textAlign: widget.textAlign ?? TextAlign.start,
           style: AppTextStyles.bodyMediumRegular.copyWith(
-            color: colorsScheme.grey500,
+            color: colorsScheme.onSurface,
           ),
           validationMessages: {
             ValidationMessage.mustMatch: (error) =>
-                t.common.errors.passwordMustMatch
+                t.common.errors.passwordMustMatch,
           },
-          textInputAction: .next,
+          textInputAction: TextInputAction.next,
           onEditingComplete: (_) => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
-          textAlignVertical: .center,
-          decoration: .new(
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
             prefixIcon: widget.prefix != null || widget.prefixIcon != null
                 ? Padding(
-                    padding: const .only(left: 16, right: 8),
+                    padding: const EdgeInsets.only(left: 16, right: 8),
                     child:
                         widget.prefix ??
                         Icon(
                           widget.prefixIcon,
-                          color: colorsScheme.grey400,
+                          color: colorsScheme.onSurfaceVariant,
                           size: 20,
                         ),
                   )
                 : null,
-            prefixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
+            prefixIconConstraints: const BoxConstraints(maxHeight: 20, minWidth: 20),
             suffixIcon: widget.isPassword || widget.isPasswordConfirm
                 ? IconButton(
                     iconSize: 20,
-                    padding: const .symmetric(horizontal: 16),
-                    constraints: const .new(),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    constraints: const BoxConstraints(),
                     icon: Icon(
                       !isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
                       size: 20,
+                      color: colorsScheme.onSurfaceVariant,
                     ),
-                    style: const .new(tapTargetSize: .shrinkWrap),
+                    style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap),
                     onPressed: () {
                       setState(() {
                         isPasswordVisible = !isPasswordVisible;
@@ -132,20 +133,20 @@ class _AppTextFieldState extends State<AppTextField> {
                   )
                 : widget.suffix != null || widget.suffixIcon != null
                 ? Padding(
-                    padding: const .only(left: 6, right: 12),
+                    padding: const EdgeInsets.only(left: 6, right: 12),
                     child:
                         widget.suffix ??
                         Icon(
                           widget.suffixIcon,
-                          color: colorsScheme.grey400,
+                          color: colorsScheme.onSurfaceVariant,
                           size: 20,
                         ),
                   )
                 : null,
-            suffixIconConstraints: const .new(maxHeight: 20, minWidth: 20),
+            suffixIconConstraints: const BoxConstraints(maxHeight: 20, minWidth: 20),
             hintText: widget.hintText,
             hintStyle: AppTextStyles.bodyMediumRegular.copyWith(
-              color: colorsScheme.primary300,
+              color: colorsScheme.onSurfaceVariant,
             ),
             labelText: widget.isExternalLabel
                 ? null
@@ -154,43 +155,44 @@ class _AppTextFieldState extends State<AppTextField> {
                 : widget.labelText,
             label: widget.isExternalLabel ? null : widget.label,
             labelStyle: AppTextStyles.bodyMediumSemibold.copyWith(
-              color: colorsScheme.primary300,
+              color: colorsScheme.onSurfaceVariant,
             ),
             filled: true,
-            fillColor: widget.backgroundColor ?? colorsScheme.primary50,
+            fillColor:
+                widget.backgroundColor ?? colorsScheme.surfaceContainerLow,
             errorBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: .circular(widget.borderRadius),
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.error600)
-                      : .none,
+                      ? BorderSide(color: colorsScheme.error)
+                      : BorderSide.none,
                 ),
             enabledBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: .circular(widget.borderRadius),
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.primary50)
-                      : .none,
+                      ? BorderSide(color: colorsScheme.outlineVariant)
+                      : BorderSide.none,
                 ),
             focusedErrorBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: .circular(widget.borderRadius),
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.error600)
-                      : .none,
+                      ? BorderSide(color: colorsScheme.error)
+                      : BorderSide.none,
                 ),
             focusedBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: .circular(widget.borderRadius),
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.primary200)
-                      : .none,
+                      ? BorderSide(color: colorsScheme.primary)
+                      : BorderSide.none,
                 ),
-            contentPadding: widget.contentPadding ?? const .all(16),
+            contentPadding: widget.contentPadding ?? const EdgeInsets.all(16),
           ),
         ),
       ],

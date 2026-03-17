@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
@@ -27,7 +27,7 @@ class HistorySearchBar extends StatelessWidget {
     return ValueListenableBuilder<bool>(
       valueListenable: _isScrolledNotifier,
       builder: (context, isScrolled, child) {
-        final backgroundColor = ThemeHelper.getColor(context).primary400;
+        final backgroundColor = AppColors.of(context).surface;
         final showWhiteBackground = isScrolled;
 
         return AnimatedContainer(
@@ -62,13 +62,13 @@ class HistorySearchBar extends StatelessWidget {
                     hintText: t.parking.ticketSearch,
                     borderRadius: 100,
                     hasBorder: false,
-                    backgroundColor: ThemeHelper.getColor(context).primary50,
+                    backgroundColor: AppColors.of(context).surfaceContainerLow,
                     prefixIcon: Symbols.search_rounded,
                     suffix: InkWell(
                       child: Icon(
                         Symbols.filter_alt_rounded,
                         size: 20,
-                        color: ThemeHelper.getColor(context).grey400,
+                        color: AppColors.of(context).onSurfaceVariant,
                       ),
                       onTap: () => _showFilter(context, formModel),
                     ),
@@ -98,7 +98,7 @@ class HistorySearchBar extends StatelessWidget {
               child: Text(
                 t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
-                  color: ThemeHelper.getColor(context).grey600,
+                  color: AppColors.of(context).onSurfaceVariant,
                 ),
               ),
             ),
@@ -108,13 +108,13 @@ class HistorySearchBar extends StatelessWidget {
                 Text(
                   t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: ThemeHelper.getColor(context).grey700,
+                    color: AppColors.of(context).onSurfaceVariant,
                   ),
                 ),
                 Text(
                   t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: ThemeHelper.getColor(context).primary500,
+                    color: AppColors.of(context).primary,
                   ),
                 ),
               ],
@@ -137,13 +137,13 @@ class HistorySearchBar extends StatelessWidget {
                     Text(
                       t.vehicles.type,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
-                        color: ThemeHelper.getColor(context).grey700,
+                        color: AppColors.of(context).onSurfaceVariant,
                       ),
                     ),
                     Text(
                       t.common.actions.reset,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
-                        color: ThemeHelper.getColor(context).primary500,
+                        color: AppColors.of(context).primary,
                       ),
                     ),
                   ],

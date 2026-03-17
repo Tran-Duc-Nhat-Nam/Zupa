@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/employee_management/presentation/bloc/employee_cubit.dart';
 
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -50,12 +50,12 @@ class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> 
                             Text(
                               params.employees[index].fullName,
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: ThemeHelper.getColor(context).grey700,
+                                color: AppColors.of(context).onSurfaceVariant,
                               ),
                             ),
                             Icon(
                               Symbols.lock,
-                              color: ThemeHelper.getColor(context).error600,
+                              color: AppColors.of(context).error,
                               size: 16,
                             ),
                           ],
@@ -64,7 +64,7 @@ class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> 
                         onTap: () => context.pushRoute(ParkingDetailsRoute()),
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: ThemeHelper.getColor(context).grey100),
+                          Divider(color: AppColors.of(context).surfaceContainerHighest),
                       itemCount: params.employees.length,
                     ),
                     loading: (_) => ListView.separated(
@@ -75,7 +75,7 @@ class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> 
                         trailingIcon: Symbols.chevron_right_rounded,
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: ThemeHelper.getColor(context).grey100),
+                          Divider(color: AppColors.of(context).surfaceContainerHighest),
                       itemCount: 3,
                     ),
                     orElse: () => const SizedBox.shrink(),

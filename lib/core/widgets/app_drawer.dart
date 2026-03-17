@@ -7,7 +7,7 @@ import 'dart:math' as math;
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -42,7 +42,7 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Text(
                 t.home.drawer,
                 style: AppTextStyles.heading2.copyWith(
-                  color: ThemeHelper.getColor(context).white,
+                  color: AppColors.of(context).surface,
                 ),
               ),
             ),

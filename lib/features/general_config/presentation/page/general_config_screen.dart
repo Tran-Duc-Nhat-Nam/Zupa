@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -51,7 +51,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                               const ParkingPriceSettingRoute(),
                             ),
                           ),
-                          Divider(color: ThemeHelper.getColor(context).grey200),
+                          Divider(color: AppColors.of(context).surfaceContainerHighest),
                           AppListTile(
                             leadingIcon: Symbols.calendar_add_on_rounded,
                             text: t.parking.memberFee,
@@ -104,7 +104,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             Text(
                               t.parking.warningThreshold.subtitle,
                               style: AppTextStyles.bodySmallMedium.copyWith(
-                                color: ThemeHelper.getColor(context).grey500,
+                                color: AppColors.of(context).outline,
                               ),
                             ),
                           ],

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/vehicle_type_radio_cards.dart';
 import 'package:volume_listener/volume_listener.dart';
@@ -120,7 +120,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   onPressed: widget.onTakePicture,
                   child: Icon(
                     Icons.camera_alt,
-                    color: ThemeHelper.getColor(context).white,
+                    color: AppColors.of(context).surface,
                     size: 24,
                   ),
                 ),

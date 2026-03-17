@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class VehicleInfoCard extends StatelessWidget {
@@ -18,7 +18,7 @@ class VehicleInfoCard extends StatelessWidget {
     return Container(
       width: .infinity,
       decoration: BoxDecoration(
-        color: ThemeHelper.getColor(context).white,
+        color: AppColors.of(context).surface,
         borderRadius: .circular(8),
       ),
       child: Column(
@@ -28,21 +28,21 @@ class VehicleInfoCard extends StatelessWidget {
             child: Text(
               '${t.parking.ticketID}: $ticketNumber',
               style: AppTextStyles.bodyMediumSemibold.copyWith(
-                color: ThemeHelper.getColor(context).grey700,
+                color: AppColors.of(context).onSurfaceVariant,
               ),
             ),
           ),
           Container(
             height: 1,
             width: .infinity,
-            color: ThemeHelper.getColor(context).grey300,
+            color: AppColors.of(context).outline,
           ),
           Padding(
             padding: const .all(8),
             child: Text(
               '${t.parking.ticketID}: $ticketNumber',
               style: AppTextStyles.bodyXLargeSemibold.copyWith(
-                color: ThemeHelper.getColor(context).grey700,
+                color: AppColors.of(context).onSurfaceVariant,
               ),
             ),
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 abstract class AppToast {
@@ -21,17 +21,17 @@ abstract class AppToast {
           margin: const .all(36),
           padding: const .all(16),
           decoration: BoxDecoration(
-            color: ThemeHelper.getColor(context).white,
+            color: AppColors.of(context).surface,
             borderRadius: .circular(28),
           ),
           child: Column(
             mainAxisSize: .min,
             children: [
-              Icon(icon, size: 36, color: ThemeHelper.getColor(context).primary500),
+              Icon(icon, size: 36, color: AppColors.of(context).primary),
               Text(
                 message,
                 style: AppTextStyles.bodyMediumMedium.copyWith(
-                  color: ThemeHelper.getColor(context).primary500,
+                  color: AppColors.of(context).primary,
                 ),
               ),
             ],

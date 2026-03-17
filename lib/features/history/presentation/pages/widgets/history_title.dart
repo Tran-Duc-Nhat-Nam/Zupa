@@ -4,7 +4,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
-import 'package:zupa/core/helper/theme/theme_helper.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/widgets/app_card.dart';
@@ -16,11 +16,11 @@ class HistoryTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ThemeHelper.getColor(context);
+    final colorScheme = AppColors.of(context);
     return AppCard(
       padding: .zero,
       decoration: .new(
-        color: colorScheme.primary100.withAlpha(155),
+        color: colorScheme.primaryContainer.withAlpha(155),
         borderRadius: const .all(.circular(28)),
       ),
       child: Row(
@@ -35,7 +35,7 @@ class HistoryTitle extends StatelessWidget {
                 const IconConverter().fromJson(ticket.type.icon) ??
                     Symbols.globe_rounded,
                 size: 24,
-                color: colorScheme.primary400,
+                color: colorScheme.primary,
               ),
             ),
           ),
@@ -56,7 +56,7 @@ class HistoryTitle extends StatelessWidget {
                         maxLines: 1,
                         textAlign: .center,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: colorScheme.grey900,
+                          color: colorScheme.onSurface,
                         ),
                       ),
                       Expanded(
@@ -78,11 +78,11 @@ class HistoryTitle extends StatelessWidget {
                     style: !ticket.isFlagError
                         ? GoogleFonts.robotoMono().copyWith(
                             fontWeight: .w600,
-                            color: colorScheme.grey900,
+                            color: colorScheme.onSurface,
                           )
                         : AppTextStyles.bodyLargeRegular.copyWith(
                             fontStyle: .italic,
-                            color: colorScheme.grey400,
+                            color: colorScheme.outline,
                           ),
                   ),
                 ],
@@ -102,13 +102,13 @@ class HistoryTitle extends StatelessWidget {
                       child: Icon(
                         Symbols.arrow_downward_rounded,
                         size: 24,
-                        color: colorScheme.success600,
+                        color: colorScheme.success,
                       ),
                     ),
                     Text(
                       DateTimeConverter.toShortTime(ticket.timeIn),
                       style: AppTextStyles.bodyMediumMedium.copyWith(
-                        color: colorScheme.grey700,
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -121,7 +121,7 @@ class HistoryTitle extends StatelessWidget {
                       child: Icon(
                         Symbols.arrow_upward_rounded,
                         size: 24,
-                        color: colorScheme.error600,
+                        color: colorScheme.error,
                       ),
                     ),
                     ticket.id % 2 == 0
@@ -130,13 +130,13 @@ class HistoryTitle extends StatelessWidget {
                               ticket.timeOut ?? .now(),
                             ),
                             style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color: colorScheme.grey700,
+                              color: colorScheme.onSurfaceVariant,
                             ),
                           )
                         : Text(
                             '',
                             style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color: colorScheme.grey700,
+                              color: colorScheme.onSurfaceVariant,
                             ),
                           ),
                   ],
