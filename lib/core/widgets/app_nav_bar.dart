@@ -75,7 +75,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                   width: screenWidth,
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: colors.surfaceContainerLow, // Using your existing palette
+                    color: colors.surfaceContainer, // More contrast against AppBar surface
                     borderRadius: .circular(100),
                   ),
                   child: Row(
@@ -111,7 +111,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                 ),
               ),
             ),
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: colors.surface,
             bottomNavigationBuilder: (context, tabsRouter) {
               return ClipRRect(
                 borderRadius: const .only(
@@ -121,8 +121,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                 child: NavigationBar(
                   selectedIndex: tabsRouter.activeIndex,
                   onDestinationSelected: tabsRouter.setActiveIndex,
-                  // Customizing colors to match your theme
-                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+                  backgroundColor: colors.surfaceContainer,
                   indicatorColor: colors.secondaryContainer,
                   maintainBottomViewPadding: true,
                   height: 96,

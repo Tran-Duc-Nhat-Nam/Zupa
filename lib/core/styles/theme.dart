@@ -31,6 +31,7 @@ class AppThemes {
       visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: _iconTheme,
       extensions: [appColors],
+      scaffoldBackgroundColor: scheme.surface,
       appBarTheme: AppBarTheme(
         backgroundColor: scheme.surface,
         foregroundColor: scheme.onSurface,
@@ -44,6 +45,30 @@ class AppThemes {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: scheme.surfaceContainer,
+        indicatorColor: scheme.secondaryContainer,
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: scheme.onSurface,
+            );
+          }
+          return TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: scheme.onSurfaceVariant,
+          );
+        }),
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return IconThemeData(color: scheme.onSecondaryContainer);
+          }
+          return IconThemeData(color: scheme.onSurfaceVariant);
+        }),
+      ),
     );
   }
 
@@ -53,19 +78,17 @@ class AppThemes {
     ColorScheme? dynamicColorScheme,
     Color? customSeedColor,
   }) {
-    ColorScheme scheme;
-    AppColors appColors;
-
     final isDark = brightness == Brightness.dark;
+    AppColors appColors;
+    ColorScheme scheme;
 
     switch (colorSource) {
       case AppColorSchemeSource.materialYou:
-        scheme =
-            dynamicColorScheme ??
-            ColorScheme.fromSeed(
-              seedColor: brandSeedColor,
-              brightness: brightness,
-            );
+        final seed = dynamicColorScheme?.primary ?? brandSeedColor;
+        scheme = ColorScheme.fromSeed(
+          seedColor: seed,
+          brightness: brightness,
+        );
         appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.custom:
         scheme = ColorScheme.fromSeed(
@@ -74,11 +97,12 @@ class AppThemes {
         );
         appColors = DynamicAppColors(scheme);
       case AppColorSchemeSource.brand:
-        appColors = isDark ? const DarkAppColors() : const LightAppColors();
+        final seed = isDark ? const Color(0xffCBA6F7) : const Color(0xff8839EF);
         scheme = ColorScheme.fromSeed(
-          seedColor: isDark ? const DarkAppColors().primary : const LightAppColors().primary,
+          seedColor: seed,
           brightness: brightness,
         );
+        appColors = DynamicAppColors(scheme);
     }
 
     return _buildTheme(scheme, appColors);

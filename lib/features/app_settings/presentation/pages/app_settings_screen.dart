@@ -34,6 +34,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
+          spacing: 10,
           children: [
             AppCard(
               child: Column(
@@ -67,16 +68,17 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               .formModel
                               .localizationModeControl,
                           buttonDecoration: const .new(),
-                          iconSize: 0,
                           dropdownItems: const [.vi, .en, .ja, .followSystem],
-                          buttonWidth: 140,
+                          buttonWidth: 165,
+                          iconEnabledColor: AppColors.of(context).secondary,
                           initialValue: state.when(
                             loaded: (locale) => locale,
                             loading: (locale) => locale,
                             initial: () => .followSystem,
                           ),
                           itemLabelGetter: (item) => item != null
-                              ? t[item.getLocaleString() ?? ''] ?? t.settings.followSystem
+                              ? t["common.languages.${item.getLocaleString() ?? ''}"] ??
+                                    t.settings.followSystem
                               : t.settings.followSystem,
                           onChanged: (value) =>
                               context.read<LocalizationCubit>().changeLocale(),
@@ -90,8 +92,8 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         loaded: (s) => s,
                         orElse: () => ThemeSettings(),
                       );
-
                       return Column(
+                        spacing: 10,
                         children: [
                           AppListTile(
                             padding: .zero,
@@ -103,9 +105,9 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                   .formModel
                                   .themeModeControl,
                               buttonDecoration: const .new(),
-                              iconSize: 0,
                               dropdownItems: AppThemeMode.values,
-                              buttonWidth: 140,
+                              buttonWidth: 165,
+                              iconEnabledColor: AppColors.of(context).secondary,
                               initialValue: settings.themeMode,
                               itemLabelGetter: (item) => switch (item) {
                                 AppThemeMode.light => t.settings.lightMode,
@@ -126,13 +128,15 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                   .formModel
                                   .colorSourceControl,
                               buttonDecoration: const .new(),
-                              iconSize: 0,
                               dropdownItems: AppColorSchemeSource.values,
-                              buttonWidth: 140,
+                              buttonWidth: 165,
+                              iconEnabledColor: AppColors.of(context).secondary,
                               initialValue: settings.colorSource,
                               itemLabelGetter: (item) => switch (item) {
-                                AppColorSchemeSource.brand => t.settings.brandColor,
-                                AppColorSchemeSource.custom => t.settings.customColor,
+                                AppColorSchemeSource.brand =>
+                                  t.settings.brandColor,
+                                AppColorSchemeSource.custom =>
+                                  t.settings.customColor,
                                 AppColorSchemeSource.materialYou =>
                                   t.settings.materialYou,
                                 null => t.settings.brandColor,
@@ -225,8 +229,12 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                                               colorValue,
                                                             ).computeLuminance() >
                                                             0.5
-                                                        ? AppColors.of(context).onSurface
-                                                        : AppColors.of(context).surface,
+                                                        ? AppColors.of(
+                                                            context,
+                                                          ).onSurface
+                                                        : AppColors.of(
+                                                            context,
+                                                          ).surface,
                                                   )
                                                 : null,
                                           ),
@@ -243,97 +251,51 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   if (kDebugMode)
                     BlocBuilder<DebuggerCubit, DebuggerState>(
                       builder: (context, state) {
-                        return AppListTile(
-                          padding: .zero,
-                          leadingIcon: Symbols.bug_report_rounded,
-                          text: t.settings.debuggerMode,
-                          trailing: SizedBox(
-                            height: 20,
-                            child: Transform.scale(
-                              scale: 0.8,
-                              child: Switch(
-                                padding: .zero,
-                                materialTapTargetSize: .shrinkWrap,
-                                thumbIcon: .resolveWith<Icon?>((
-                                  Set<WidgetState> states,
-                                ) {
-                                  if (states.contains(WidgetState.selected)) {
-                                    return const .new(Icons.check);
-                                  }
-                                  return const .new(Icons.close);
-                                }),
-                                thumbColor: .all(
-                                  AppColors.of(context).surface,
+                        return SizedBox(
+                          height: 40,
+                          child: AppListTile(
+                            padding: .zero,
+                            leadingIcon: Symbols.bug_report_rounded,
+                            text: t.settings.debuggerMode,
+                            trailing: SizedBox(
+                              height: 20,
+                              child: Transform.scale(
+                                scale: 0.8,
+                                child: Switch(
+                                  padding: .zero,
+                                  materialTapTargetSize: .shrinkWrap,
+                                  thumbIcon: .resolveWith<Icon?>((
+                                    Set<WidgetState> states,
+                                  ) {
+                                    if (states.contains(WidgetState.selected)) {
+                                      return const .new(Icons.check);
+                                    }
+                                    return const .new(Icons.close);
+                                  }),
+                                  thumbColor: .all(AppColors.of(context).surface),
+                                  inactiveTrackColor: AppColors.of(
+                                    context,
+                                  ).surfaceContainerHighest,
+                                  trackOutlineWidth: const WidgetStatePropertyAll(
+                                    0,
+                                  ),
+                                  trackOutlineColor: const WidgetStatePropertyAll(
+                                    WidgetStateColor.transparent,
+                                  ),
+                                  value: state.maybeWhen(
+                                    loaded: (isOn) => isOn,
+                                    orElse: () => false,
+                                  ),
+                                  onChanged: (value) => context
+                                      .read<DebuggerCubit>()
+                                      .changeDebuggerMode(value),
                                 ),
-                                inactiveTrackColor: AppColors.of(
-                                  context,
-                                ).surfaceContainerHighest,
-                                trackOutlineWidth: const WidgetStatePropertyAll(
-                                  0,
-                                ),
-                                trackOutlineColor: const WidgetStatePropertyAll(
-                                  WidgetStateColor.transparent,
-                                ),
-                                value: state.maybeWhen(
-                                  loaded: (isOn) => isOn,
-                                  orElse: () => false,
-                                ),
-                                onChanged: (value) => context
-                                    .read<DebuggerCubit>()
-                                    .changeDebuggerMode(value),
                               ),
                             ),
                           ),
                         );
                       },
                     ),
-                  // Divider(color: AppColors.of(context).surfaceContainerHighest),
-                  // BlocBuilder<AuthCubit, AuthState>(
-                  //   builder: (context, state) {
-                  //     return AppListTile(
-                  //       padding: .zero,
-                  //       leadingIcon: Symbols.notification,
-                  //       text: t.biometricAuth,
-                  //       trailing: SizedBox(
-                  //         height: 20,
-                  //         child: Transform.scale(
-                  //           scale: 0.8,
-                  //           child: Switch(
-                  //             padding: .zero,
-                  //             materialTapTargetSize: .shrinkWrap,
-                  //             thumbIcon: .resolveWith<Icon?>((
-                  //               Set<WidgetState> states,
-                  //             ) {
-                  //               if (states.contains(WidgetState.selected)) {
-                  //                 return const .new(Icons.check);
-                  //               }
-                  //               return const .new(Icons.close);
-                  //             }),
-                  //             thumbColor: .all(
-                  //               AppColors.of(context).surface,
-                  //             ),
-                  //             inactiveTrackColor: AppColors.of(
-                  //               context,
-                  //             ).surfaceContainerHighest,
-                  //             trackOutlineWidth: const WidgetStatePropertyAll(
-                  //               0,
-                  //             ),
-                  //             trackOutlineColor: const WidgetStatePropertyAll(
-                  //               WidgetStateColor.transparent,
-                  //             ),
-                  //             value: state.maybeWhen(
-                  //               loaded: (isOn) => isOn,
-                  //               orElse: () => false,
-                  //             ),
-                  //             onChanged: (value) => context
-                  //                 .read<AuthCubit>()
-                  //                 .toggleBiometricMode(value),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
                 ],
               ),
             ),

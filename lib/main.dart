@@ -144,7 +144,7 @@ class _AppViewState extends State<AppView> {
                 theme: AppThemes.getTheme(
                   brightness: Brightness.light,
                   colorSource: settings.colorSource,
-                  dynamicColorScheme: lightDynamic,
+                  dynamicColorScheme: lightDynamic?.harmonized(),
                   customSeedColor: settings.seedColorValue != null
                       ? Color(settings.seedColorValue!)
                       : null,
@@ -152,7 +152,7 @@ class _AppViewState extends State<AppView> {
                 darkTheme: AppThemes.getTheme(
                   brightness: Brightness.dark,
                   colorSource: settings.colorSource,
-                  dynamicColorScheme: darkDynamic,
+                  dynamicColorScheme: darkDynamic?.harmonized(),
                   customSeedColor: settings.seedColorValue != null
                       ? Color(settings.seedColorValue!)
                       : null,

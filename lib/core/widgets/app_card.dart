@@ -26,8 +26,8 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: clipBehavior ?? .none,
-      padding: padding ?? const .all(16),
+      clipBehavior: clipBehavior ?? Clip.none,
+      padding: padding ?? const EdgeInsets.all(16),
       height: height,
       width: width,
       decoration:
