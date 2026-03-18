@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.5.3+12
+version: 0.5.4+13
 
 environment:
   sdk: ^3.11.1
@@ -78,7 +78,7 @@ dev_dependencies:
   bloc_test: ^10.0.0
   mocktail: ^1.0.4
   flutter_lints: ^6.0.0
-  build_runner: ^2.12.2
+  build_runner: ^2.13.0
   freezed: ^3.2.5
   json_serializable: ^6.13.0
   retrofit_generator: ^10.2.3

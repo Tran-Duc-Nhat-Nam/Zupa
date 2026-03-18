@@ -69,13 +69,14 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
               isCenter: true,
               // Inside your AppBarBuilder
               titleWidget: InkWell(
-                onTap: () => _showSitePicker(siteContext),
+                onTap: () => _showSitePicker(siteContext, colors),
                 borderRadius: .circular(100),
                 child: Container(
                   width: screenWidth,
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: colors.surfaceContainer, // More contrast against AppBar surface
+                    color: colors
+                        .surfaceContainer, // More contrast against AppBar surface
                     borderRadius: .circular(100),
                   ),
                   child: Row(
@@ -89,7 +90,6 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                       ),
                       BlocBuilder<SiteCubit, SiteState>(
                         builder: (context, state) {
-                          DebuggerHelper.talker.log(state.toString());
                           return Text(
                             state.maybeWhen(
                               loaded: (data) => data ?? '',
@@ -121,7 +121,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                 child: NavigationBar(
                   selectedIndex: tabsRouter.activeIndex,
                   onDestinationSelected: tabsRouter.setActiveIndex,
-                  backgroundColor: colors.surfaceContainerHighest,
+                  backgroundColor: colors.surfaceContainer,
                   indicatorColor: colors.secondaryContainer,
                   maintainBottomViewPadding: true,
                   height: 96,
@@ -177,18 +177,22 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
     required int activeIndex,
     required String labelKey,
     required IconData icon,
-    required dynamic colors,
+    required AppColors colors,
   }) {
     return NavigationDestination(
       icon: Icon(icon, color: colors.onSurfaceVariant, fill: 0, weight: 400),
-      selectedIcon: Icon(icon, color: colors.onSecondaryContainer, fill: 1, weight: 700),
+      selectedIcon: Icon(
+        icon,
+        color: colors.onSecondaryContainer,
+        fill: 1,
+        weight: 700,
+      ),
       label: t['navbar.$labelKey'] ?? labelKey,
     );
   }
 
-  void _showSitePicker(BuildContext context) {
+  void _showSitePicker(BuildContext context, AppColors colors) {
     final siteCubit = context.read<SiteCubit>();
-    final colors = AppColors.of(context);
 
     WoltModalSheet.show(
       context: context,
@@ -196,7 +200,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
         return [
           WoltModalSheetPage(
             enableDrag: true,
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: colors.surfaceContainerLow,
             resizeToAvoidBottomInset: true,
             hasTopBarLayer: false,
             pageTitle: const SizedBox(height: 24),

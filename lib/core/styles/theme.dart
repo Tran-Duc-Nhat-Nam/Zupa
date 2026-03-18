@@ -82,10 +82,11 @@ class AppThemes {
 
     scheme = SeedColorScheme.fromSeeds(
       brightness: brightness,
+      surfaceTint: seedColor,
       secondaryKey: colorSource == .materialYou ? dynamicColorScheme?.secondary : null,
       tertiaryKey: colorSource == .materialYou ? dynamicColorScheme?.tertiary : null,
       primaryKey: seedColor,
-      tones: .material(brightness)
+      variant: .vibrant
     );
 
     final appColors = DynamicAppColors(scheme);
