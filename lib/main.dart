@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -81,7 +80,11 @@ class _AppViewState extends State<AppView> {
       listeners: [
         BlocListener<ThemeCubit, ThemeState>(
           listener: (context, state) {
-            state.whenOrNull(loaded: (_) => FlutterNativeSplash.remove());
+            state.whenOrNull(
+              loaded: (settings) {
+                state.whenOrNull(loaded: (_) => FlutterNativeSplash.remove());
+              },
+            );
           },
         ),
         BlocListener<ConnectivityCubit, ConnectivityState>(
@@ -132,40 +135,23 @@ class _AppViewState extends State<AppView> {
           return state.maybeWhen(
             loaded: (settings) => DynamicColorBuilder(
               builder: (lightDynamic, darkDynamic) {
-                // 1. Determine the base seed color
-                // Priority: User Custom Color > Dynamic System Color > Fallback Blue
-                final Color seedColor = settings.seedColorValue != null
-                    ? Color(settings.seedColorValue!)
-                    : (lightDynamic?.primary ?? Colors.blue);
-
-                // 2. Generate High-Fidelity ColorSchemes using flex_seed_scheme
-                // This fixes the "missing surface variants" issue
-                final lightScheme = SeedColorScheme.fromSeeds(
-                  primaryKey: seedColor,
-                  secondary: lightDynamic?.secondary,
-                  tertiary: lightDynamic?.tertiary,
-                );
-
-                final darkScheme = SeedColorScheme.fromSeeds(
-                  brightness: Brightness.dark,
-                  primaryKey: seedColor,
-                  secondary: lightDynamic?.secondary,
-                  tertiary: lightDynamic?.tertiary,
-                );
-
                 return MaterialApp.router(
                   onGenerateTitle: (_) => t.home.appTitle,
                   theme: AppThemes.getTheme(
                     brightness: Brightness.light,
                     colorSource: settings.colorSource,
-                    dynamicColorScheme: lightScheme,
-                    customSeedColor: seedColor,
+                    dynamicColorScheme: lightDynamic,
+                    customSeedColor: settings.seedColorValue != null
+                        ? Color(settings.seedColorValue!)
+                        : null,
                   ),
                   darkTheme: AppThemes.getTheme(
                     brightness: Brightness.dark,
                     colorSource: settings.colorSource,
-                    dynamicColorScheme: darkScheme,
-                    customSeedColor: seedColor,
+                    dynamicColorScheme: darkDynamic,
+                    customSeedColor: settings.seedColorValue != null
+                        ? Color(settings.seedColorValue!)
+                        : null,
                   ),
                   themeMode: settings.themeMode,
                   debugShowCheckedModeBanner: false,

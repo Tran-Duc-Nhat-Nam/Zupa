@@ -1,9 +1,7 @@
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/styles/colors.dart';
-
-enum AppThemeMode { light, dark, system }
 
 enum AppColorSchemeSource { brand, custom, materialYou }
 
@@ -30,18 +28,18 @@ class AppThemes {
       visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: _iconTheme,
       extensions: [appColors],
-      appBarTheme: const AppBarTheme(
-        centerTitle: false,
-        elevation: 0,
-      ),
+      appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
-          shape: RoundedRectangleBorder(borderRadius: .circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
+        // Now works! surfaceContainer won't just be the base surface color anymore.
         backgroundColor: scheme.surfaceContainer,
         indicatorColor: scheme.secondaryContainer,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
@@ -74,31 +72,23 @@ class AppThemes {
     ColorScheme? dynamicColorScheme,
     Color? customSeedColor,
   }) {
-    AppColors appColors;
-    ColorScheme scheme;
+    late final ColorScheme scheme;
 
-    switch (colorSource) {
-      case AppColorSchemeSource.materialYou:
-        DebuggerHelper.talker.log(dynamicColorScheme?.surfaceContainerHighest);
-        scheme =
-            dynamicColorScheme ??
-            ColorScheme.fromSeed(
-              seedColor: brandSeedColor,
-              brightness: brightness,
-            );
-      case AppColorSchemeSource.custom:
-        scheme = ColorScheme.fromSeed(
-          seedColor: customSeedColor ?? brandSeedColor,
-          brightness: brightness,
-        );
-      case AppColorSchemeSource.brand:
-        scheme = ColorScheme.fromSeed(
-          seedColor: brandSeedColor,
-          brightness: brightness,
-        );
-    }
+    final Color seedColor = switch (colorSource) {
+      .materialYou => dynamicColorScheme?.primary ?? brandSeedColor,
+      .custom => customSeedColor ?? brandSeedColor,
+      .brand => brandSeedColor,
+    };
 
-    appColors = DynamicAppColors(scheme);
+    scheme = SeedColorScheme.fromSeeds(
+      brightness: brightness,
+      secondaryKey: colorSource == .materialYou ? dynamicColorScheme?.secondary : null,
+      tertiaryKey: colorSource == .materialYou ? dynamicColorScheme?.tertiary : null,
+      primaryKey: seedColor,
+      tones: .material(brightness)
+    );
+
+    final appColors = DynamicAppColors(scheme);
     return _buildTheme(scheme, appColors);
   }
 }
