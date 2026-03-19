@@ -29,7 +29,7 @@ class HomeSearchBar extends StatelessWidget {
                 hintText: t.parking.ticketSearch,
                 borderRadius: 100,
                 hasBorder: false,
-                backgroundColor: AppColors.of(context).surfaceContainerLow,
+                backgroundColor: AppColors.of(context).surfaceContainer,
                 prefix: Icon(
                   Symbols.search_rounded,
                   size: 24,

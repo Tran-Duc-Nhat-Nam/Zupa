@@ -1,4 +1,7 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:material_color_utilities/hct/hct.dart';
+import 'package:material_color_utilities/palettes/tonal_palette.dart';
 
 abstract class AppColors extends ThemeExtension<AppColors> {
   // Brand & Accent Roles
@@ -247,26 +250,45 @@ class DynamicAppColors extends AppColors {
         onError: scheme.onError,
         errorContainer: scheme.errorContainer,
         onErrorContainer: scheme.onErrorContainer,
-        success: success ?? const Color(0xff40A02B),
+
+        // Semantic harmonization
+        success: (success ?? const Color(0xff40A02B)).harmonizeWith(
+          scheme.primary,
+        ),
         onSuccess: Colors.white,
-        warning: warning ?? const Color(0xffDF8E1D),
+        warning: (warning ?? const Color(0xffDF8E1D)).harmonizeWith(
+          scheme.primary,
+        ),
         onWarning: Colors.white,
+
         surface: scheme.surface,
         onSurface: scheme.onSurface,
         onSurfaceVariant: scheme.onSurfaceVariant,
         outline: scheme.outline,
         outlineVariant: scheme.outlineVariant,
-        surfaceContainerLowest: scheme.surfaceContainerLowest,
-        surfaceContainerLow: scheme.surfaceContainerLow,
-        surfaceContainer: scheme.surfaceContainer,
-        surfaceContainerHigh: scheme.surfaceContainerHigh,
-        surfaceContainerHighest: scheme.surfaceContainerHighest,
+
+        // Logic for Surface Containers using CorePalette
+        surfaceContainerLowest: _getTonalColor(scheme, 100, 4),
+        surfaceContainerLow: _getTonalColor(scheme, 96, 10),
+        surfaceContainer: _getTonalColor(scheme, 94, 12),
+        surfaceContainerHigh: _getTonalColor(scheme, 92, 17),
+        surfaceContainerHighest: _getTonalColor(scheme, 90, 22),
+
         inverseSurface: scheme.inverseSurface,
         onInverseSurface: scheme.onInverseSurface,
         inversePrimary: scheme.inversePrimary,
         shadow: scheme.shadow,
         scrim: scheme.scrim,
       );
+
+  static Color _getTonalColor(ColorScheme scheme, int lightTone, int darkTone) {
+    final bool isDark = scheme.brightness == .dark;
+    final targetTone = isDark ? darkTone.toInt() : lightTone.toInt();
+
+    final hct = Hct.fromInt(scheme.surface.toARGB32());
+    final TonalPalette neutralPalette = TonalPalette.of(hct.hue, hct.chroma);
+    return Color(neutralPalette.get(targetTone).toInt());
+  }
 
   @override
   DynamicAppColors copyWith() => this;

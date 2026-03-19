@@ -115,13 +115,13 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
             bottomNavigationBuilder: (context, tabsRouter) {
               return ClipRRect(
                 borderRadius: const .only(
-                  topLeft: .circular(24),
-                  topRight: .circular(24),
+                  topLeft: .circular(28),
+                  topRight: .circular(28),
                 ),
                 child: NavigationBar(
                   selectedIndex: tabsRouter.activeIndex,
                   onDestinationSelected: tabsRouter.setActiveIndex,
-                  backgroundColor: colors.surfaceContainer,
+                  backgroundColor: colors.surfaceContainerLowest,
                   indicatorColor: colors.secondaryContainer,
                   maintainBottomViewPadding: true,
                   height: 96,

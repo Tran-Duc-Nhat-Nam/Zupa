@@ -1,4 +1,3 @@
-import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -72,22 +71,15 @@ class AppThemes {
     ColorScheme? dynamicColorScheme,
     Color? customSeedColor,
   }) {
-    late final ColorScheme scheme;
-
     final Color seedColor = switch (colorSource) {
       .materialYou => dynamicColorScheme?.primary ?? brandSeedColor,
       .custom => customSeedColor ?? brandSeedColor,
       .brand => brandSeedColor,
     };
 
-    scheme = SeedColorScheme.fromSeeds(
-      brightness: brightness,
-      surfaceTint: seedColor,
-      secondaryKey: colorSource == .materialYou ? dynamicColorScheme?.secondary : null,
-      tertiaryKey: colorSource == .materialYou ? dynamicColorScheme?.tertiary : null,
-      primaryKey: seedColor,
-      variant: .vibrant
-    );
+    final scheme = colorSource == .materialYou && dynamicColorScheme != null
+        ? dynamicColorScheme
+        : ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
 
     final appColors = DynamicAppColors(scheme);
     return _buildTheme(scheme, appColors);

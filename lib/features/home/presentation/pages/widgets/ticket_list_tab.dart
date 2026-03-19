@@ -72,7 +72,7 @@ class _TicketListTabState extends State<TicketListTab> {
             clipBehavior: .antiAlias,
             margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
-              color: AppColors.of(context).surfaceContainerLow,
+              color: AppColors.of(context).surfaceContainer,
               borderRadius: const .vertical(top: .circular(28)),
             ),
             child: EasyRefresh(
