@@ -2,7 +2,7 @@
   "android": {
     "version": {
       "minimum": "0.1.0",
-      "latest": "0.5.4"
+      "latest": "0.5.5"
     },
     "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/download/v<version>/Zupa-release-<version>-<abi>.apk",
     "status": {
@@ -16,7 +16,7 @@
   "iOS": {
     "version": {
       "minimum": "0.1.0",
-      "latest": "0.5.4"
+      "latest": "0.5.5"
     },
     "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/latest",
     "status": {
