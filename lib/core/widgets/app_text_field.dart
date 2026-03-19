@@ -71,8 +71,8 @@ class _AppTextFieldState extends State<AppTextField> {
     final colorsScheme = AppColors.of(context);
 
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: .min,
+      crossAxisAlignment: .start,
       spacing: 8,
       children: [
         if (widget.isExternalLabel)
@@ -86,7 +86,7 @@ class _AppTextFieldState extends State<AppTextField> {
           formControl: widget.formControl,
           controller: widget.initialValue != null ? null : widget.controller,
           obscureText: isPasswordVisible,
-          textAlign: widget.textAlign ?? TextAlign.start,
+          textAlign: widget.textAlign ?? .start,
           style: AppTextStyles.bodyMediumRegular.copyWith(
             color: colorsScheme.onSurface,
           ),
@@ -94,10 +94,10 @@ class _AppTextFieldState extends State<AppTextField> {
             ValidationMessage.mustMatch: (error) =>
                 t.common.errors.passwordMustMatch,
           },
-          textInputAction: TextInputAction.next,
+          textInputAction: .next,
           onEditingComplete: (_) => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
-          textAlignVertical: TextAlignVertical.center,
+          textAlignVertical: .center,
           decoration: InputDecoration(
             prefixIcon: widget.prefix != null || widget.prefixIcon != null
                 ? Padding(
@@ -111,11 +111,14 @@ class _AppTextFieldState extends State<AppTextField> {
                         ),
                   )
                 : null,
-            prefixIconConstraints: const BoxConstraints(maxHeight: 20, minWidth: 20),
+            prefixIconConstraints: const BoxConstraints(
+              maxHeight: 20,
+              minWidth: 20,
+            ),
             suffixIcon: widget.isPassword || widget.isPasswordConfirm
                 ? IconButton(
                     iconSize: 20,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const .symmetric(horizontal: 16),
                     constraints: const BoxConstraints(),
                     icon: Icon(
                       !isPasswordVisible
@@ -124,7 +127,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       size: 20,
                       color: colorsScheme.onSurfaceVariant,
                     ),
-                    style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                    style: const ButtonStyle(tapTargetSize: .shrinkWrap),
                     onPressed: () {
                       setState(() {
                         isPasswordVisible = !isPasswordVisible;
@@ -143,7 +146,10 @@ class _AppTextFieldState extends State<AppTextField> {
                         ),
                   )
                 : null,
-            suffixIconConstraints: const BoxConstraints(maxHeight: 20, minWidth: 20),
+            suffixIconConstraints: const BoxConstraints(
+              maxHeight: 20,
+              minWidth: 20,
+            ),
             hintText: widget.hintText,
             hintStyle: AppTextStyles.bodyMediumRegular.copyWith(
               color: colorsScheme.onSurfaceVariant,
@@ -166,7 +172,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? BorderSide(color: colorsScheme.error)
-                      : BorderSide.none,
+                      : .none,
                 ),
             enabledBorder:
                 widget.border ??
@@ -174,7 +180,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? BorderSide(color: colorsScheme.outlineVariant)
-                      : BorderSide.none,
+                      : .none,
                 ),
             focusedErrorBorder:
                 widget.border ??
@@ -182,7 +188,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? BorderSide(color: colorsScheme.error)
-                      : BorderSide.none,
+                      : .none,
                 ),
             focusedBorder:
                 widget.border ??
@@ -190,9 +196,9 @@ class _AppTextFieldState extends State<AppTextField> {
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? BorderSide(color: colorsScheme.primary)
-                      : BorderSide.none,
+                      : .none,
                 ),
-            contentPadding: widget.contentPadding ?? const EdgeInsets.all(16),
+            contentPadding: widget.contentPadding ?? const .all(16),
           ),
         ),
       ],

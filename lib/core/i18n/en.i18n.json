@@ -290,7 +290,10 @@
     "colorScheme": "Color Scheme",
     "brandColor": "Brand Colors",
     "customColor": "Custom Color",
-    "materialYou": "Material You (System)",
+    "recentColors": "Recent colors",
+    "shade": "Shade",
+    "tonal": "Tonal",
+    "dynamicColor": "Dynamic color",
     "debuggerMode": "Debugging mode",
     "profile": {
       "name": "Name",

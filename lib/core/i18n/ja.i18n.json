@@ -284,7 +284,10 @@
     "colorScheme": "配色",
     "brandColor": "ブランドカラー",
     "customColor": "カスタムカラー",
-    "materialYou": "Material You (システム)",
+    "recentColors": "最近使用した色",
+    "shade": "シェード",
+    "tonal": "トーン",
+    "dynamicColor": "ダイナミックカラー",
     "debuggerMode": "デバッグモード",
     "profile": {
       "name": "名前",

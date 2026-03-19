@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/styles/theme.dart';
 
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -27,6 +29,26 @@ class AppSettingsScreen extends StatefulWidget {
 }
 
 class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
+  static const List<int> _customSeedColors = [
+    0xFF6750A4, // Brand
+    0xFFE53935, // Red
+    0xFFD81B60, // Pink
+    0xFF8E24AA, // Purple
+    0xFF5E35B1, // Deep Purple
+    0xFF3949AB, // Indigo
+    0xFF1E88E5, // Blue
+    0xFF039BE5, // Light Blue
+    0xFF00ACC1, // Cyan
+    0xFF00897B, // Teal
+    0xFF43A047, // Green
+    0xFF7CB342, // Light Green
+    0xFFC0CA33, // Lime
+    0xFFFDD835, // Yellow
+    0xFFFFB300, // Amber
+    0xFFFB8C00, // Orange
+    0xFFF4511E, // Deep Orange
+  ];
+
   @override
   Widget build(BuildContext context) {
     return AppScreen(
@@ -120,7 +142,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           ),
                           AppListTile(
                             padding: .zero,
-                            leadingIcon: Symbols.palette,
+                            leadingIcon: Symbols.palette_rounded,
                             text: t.settings.colorScheme,
                             trailing: AppDropDownSearch<AppColorSchemeSource>(
                               formControl: context
@@ -133,50 +155,55 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               iconEnabledColor: AppColors.of(context).secondary,
                               initialValue: settings.colorSource,
                               itemLabelGetter: (item) => switch (item) {
-                                AppColorSchemeSource.brand =>
-                                  t.settings.brandColor,
-                                AppColorSchemeSource.custom =>
-                                  t.settings.customColor,
-                                AppColorSchemeSource.materialYou =>
-                                  t.settings.materialYou,
+                                .brand => t.settings.brandColor,
+                                .custom => t.settings.customColor,
+                                .materialYou => t.settings.dynamicColor,
                                 null => t.settings.brandColor,
                               },
                               onChanged: (value) =>
                                   context.read<ThemeCubit>().changeTheme(),
                             ),
                           ),
-                          if (settings.colorSource ==
-                              AppColorSchemeSource.custom) ...[
-                            AppListTile(
-                              padding: const .all(16),
-                              leadingIcon: Symbols.colorize,
-                              text: t.settings.customColor,
-                            ),
+                          if (settings.colorSource == .custom)
                             Padding(
                               padding: const .all(16),
                               child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
+                                scrollDirection: .horizontal,
                                 child: Row(
                                   children:
                                       [
-                                        0xFF6750A4, // Brand
-                                        0xFFE53935, // Red
-                                        0xFFD81B60, // Pink
-                                        0xFF8E24AA, // Purple
-                                        0xFF5E35B1, // Deep Purple
-                                        0xFF3949AB, // Indigo
-                                        0xFF1E88E5, // Blue
-                                        0xFF039BE5, // Light Blue
-                                        0xFF00ACC1, // Cyan
-                                        0xFF00897B, // Teal
-                                        0xFF43A047, // Green
-                                        0xFF7CB342, // Light Green
-                                        0xFFC0CA33, // Lime
-                                        0xFFFDD835, // Yellow
-                                        0xFFFFB300, // Amber
-                                        0xFFFB8C00, // Orange
-                                        0xFFF4511E, // Deep Orange
+                                        null, // Color picker button
+                                        ..._customSeedColors,
                                       ].map((colorValue) {
+                                        if (colorValue == null) {
+                                          return GestureDetector(
+                                            onTap: () => _showColorPickerDialog(
+                                              context,
+                                              settings.seedColorValue ??
+                                                  0xFF6750A4,
+                                            ),
+                                            child: Container(
+                                              width: 45,
+                                              height: 45,
+                                              margin: const .symmetric(
+                                                horizontal: 6,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.of(
+                                                  context,
+                                                ).surfaceContainerHighest,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Icon(
+                                                Symbols.colorize_rounded,
+                                                size: 25,
+                                                color: AppColors.of(
+                                                  context,
+                                                ).onSurfaceVariant,
+                                              ),
+                                            ),
+                                          );
+                                        }
                                         final isSelected =
                                             settings.seedColorValue ==
                                             colorValue;
@@ -243,7 +270,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                 ),
                               ),
                             ),
-                          ],
                         ],
                       );
                     },
@@ -305,5 +331,83 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _showColorPickerDialog(
+    BuildContext context,
+    int initialColorValue,
+  ) async {
+    final color = Color(initialColorValue);
+    final themeCubit = context.read<ThemeCubit>();
+    final colorScheme = AppColors.of(context);
+
+    final resultColor = await showColorPickerDialog(
+      context,
+      color,
+      title: Text(
+        t.settings.customColor,
+        style: AppTextStyles.heading6.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      tonalSubheading: Text(
+        t.settings.tonal,
+        style: AppTextStyles.bodyMediumSemibold.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      subheading: Text(
+        t.settings.shade,
+        style: AppTextStyles.bodyMediumSemibold.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      recentColorsSubheading: Text(
+        t.settings.recentColors,
+        style: AppTextStyles.bodyMediumSemibold.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      showRecentColors: true,
+      backgroundColor: colorScheme.surfaceContainer,
+      barrierColor: colorScheme.surface.withAlpha(200),
+      spacing: 16,
+      runSpacing: 6,
+      borderRadius: 12,
+      wheelDiameter: 180,
+      showColorCode: true,
+      colorCodeHasColor: true,
+      enableTonalPalette: true,
+      pickersEnabled: const <ColorPickerType, bool>{
+        .both: false,
+        .primary: true,
+        .accent: true,
+        .bw: false,
+        .custom: true,
+        .wheel: true,
+      },
+      customColorSwatchesAndNames: {
+        for (final value in _customSeedColors)
+          ColorTools.createPrimarySwatch(Color(value)):
+              ColorTools.nameThatColor(Color(value)),
+      },
+      actionButtons: ColorPickerActionButtons(
+        okButton: true,
+        closeButton: true,
+        okIcon: Symbols.check_rounded,
+        closeIcon: Symbols.close_rounded,
+        toolIconsThemeData: IconThemeData(color: colorScheme.primary),
+      ),
+      constraints: const BoxConstraints(
+        minHeight: 480,
+        minWidth: 320,
+        maxWidth: 320,
+      ),
+    );
+
+    if (resultColor != color) {
+      themeCubit.formModel.seedColorValueControl.value = resultColor.toARGB32();
+      themeCubit.changeTheme();
+    }
   }
 }

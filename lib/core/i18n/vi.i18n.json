@@ -284,7 +284,10 @@
     "colorScheme": "Phối màu",
     "brandColor": "Màu thương hiệu",
     "customColor": "Màu tùy chỉnh",
-    "materialYou": "Material You (Hệ thống)",
+    "recentColors": "Màu gần đây",
+    "shade": "Sắc thái",
+    "tonal": "Tông màu",
+    "dynamicColor": "Màu linh hoạt",
     "debuggerMode": "Chế độ gỡ lỗi",
     "profile": {
       "name": "Tên",
