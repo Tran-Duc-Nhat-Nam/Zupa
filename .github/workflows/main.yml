@@ -18,17 +18,19 @@ jobs:
       - name: Get Version from Pubspec
         id: pubspec_version
         run: |
-          # Robust extraction: only looks at lines starting with 'version:'
           VERSION=$(sed -n 's/^version: //p' pubspec.yaml | sed 's/+.*//' | xargs)
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Check if Tag exists
+      - name: Check if Tag exists on Remote
         id: check_tag
         run: |
           VERSION=${{ steps.pubspec_version.outputs.VERSION }}
-          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+          # ls-remote checks the server directly. If the tag exists, grep will find it.
+          if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
+            echo "Tag v$VERSION already exists on remote. Skipping."
             echo "exists=true" >> $GITHUB_OUTPUT
           else
+            echo "Tag v$VERSION is new."
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
@@ -100,6 +102,7 @@ jobs:
   # --- JOB 3: UPDATE VERSIONARTE ---
   update_version_config:
     needs: [check_version, build_and_release]
+    if: needs.check_version.outputs.tag_exists == 'false'
     runs-on: ubuntu-latest
     permissions:
       contents: write
