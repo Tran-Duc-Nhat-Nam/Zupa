@@ -20,37 +20,40 @@ class VehicleCapacityTab extends StatelessWidget {
       builder: (field) {
         return BlocBuilder<HomeFilterCubit, HomeFilterState>(
           builder: (context, state) {
-            return Skeletonizer(
-              enabled: state is Loading,
-              child: Row(
-                spacing: 16,
-                children: .generate(
-                  vehicleTypes.length,
-                  (index) => Expanded(
-                    child: VehicleCapacityCard(
-                      icon:
-                          const IconConverter().fromJson(
-                            vehicleTypes[index].icon,
-                          ) ??
-                          Symbols.globe_rounded,
-                      name: vehicleTypes[index].value,
-                      current: 65 + index * 20,
-                      capacity: 120,
-                      isWarning: (65 + index * 20) / 120 >= 0.8,
-                      isDisabled: state is Loading || state is Filtering,
-                      isSelected: state.maybeWhen(
-                        loaded: (filter) =>
-                            filter.type?.value == vehicleTypes[index].value,
-                        filtering: (filter) =>
-                            filter.type?.value == vehicleTypes[index].value,
-                        orElse: () => false,
+            return Padding(
+              padding: const .all(8.0),
+              child: Skeletonizer(
+                enabled: state is Loading,
+                child: Row(
+                  spacing: 16,
+                  children: .generate(
+                    vehicleTypes.length,
+                    (index) => Expanded(
+                      child: VehicleCapacityCard(
+                        icon:
+                            const IconConverter().fromJson(
+                              vehicleTypes[index].icon,
+                            ) ??
+                            Symbols.globe_rounded,
+                        name: vehicleTypes[index].value,
+                        current: 65 + index * 20,
+                        capacity: 120,
+                        isWarning: (65 + index * 20) / 120 >= 0.8,
+                        isDisabled: state is Loading || state is Filtering,
+                        isSelected: state.maybeWhen(
+                          loaded: (filter) =>
+                              filter.type?.value == vehicleTypes[index].value,
+                          filtering: (filter) =>
+                              filter.type?.value == vehicleTypes[index].value,
+                          orElse: () => false,
+                        ),
+                        onPressed: () {
+                          field.value == vehicleTypes[index]
+                              ? field.didChange(null)
+                              : field.didChange(vehicleTypes[index]);
+                          context.read<HomeFilterCubit>().filter();
+                        },
                       ),
-                      onPressed: () {
-                        field.value == vehicleTypes[index]
-                            ? field.didChange(null)
-                            : field.didChange(vehicleTypes[index]);
-                        context.read<HomeFilterCubit>().filter();
-                      },
                     ),
                   ),
                 ),

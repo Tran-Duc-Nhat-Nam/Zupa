@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/widgets/popup/app_dialog.dart';
 
 class AuthGuard extends AutoRouteGuard {
   @override
@@ -19,10 +20,15 @@ class AuthGuard extends AutoRouteGuard {
     } else {
       // Not authenticated
       if (resolver.route.name != LoginRoute.name) {
-        router.replaceAll([const LoginRoute()]);
+        final context = router.navigatorKey.currentContext;
+        if (context != null && context.mounted) {
+          DialogHelper.showAuthDialog(context);
+        } else {
+          router.replaceAll([const LoginRoute()]);
+        }
       } else {
         resolver.next();
       }
     }
   }
-}
+}

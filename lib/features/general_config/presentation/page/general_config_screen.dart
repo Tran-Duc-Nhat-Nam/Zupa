@@ -70,22 +70,19 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             padding: .zero,
                             leadingIcon: Symbols.notifications_rounded,
                             text: t.parking.warningThreshold.title,
-                            trailing: SizedBox(
-                              height: 20,
-                              child: Transform.scale(
-                                scale: 0.8,
-                                child: AppSwitch(
-                                  formControl: context
+                            trailing: Transform.scale(
+                              scale: 0.8,
+                              child: AppSwitch(
+                                formControl: context
+                                    .read<GeneralConfigCubit>()
+                                    .formModel
+                                    .isWarningControl,
+                                onToggle: (value, toggle) {
+                                  context
                                       .read<GeneralConfigCubit>()
-                                      .formModel
-                                      .isWarningControl,
-                                  onToggle: (value, toggle) {
-                                    context
-                                        .read<GeneralConfigCubit>()
-                                        .setWarning();
-                                    toggle(value);
-                                  },
-                                ),
+                                      .setWarning();
+                                  toggle(value);
+                                },
                               ),
                             ),
                           ),
