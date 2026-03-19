@@ -4,6 +4,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/styles/colors.dart';
 
 abstract class DialogHelper {
   static void showAuthDialog(BuildContext context) {
@@ -54,10 +55,13 @@ abstract class DialogHelper {
   static void showDownloadDialog(
     BuildContext context, {
     required Stream<int> progressStream,
+    String? version,
   }) {
     SmartDialog.show(
-      builder: (context) =>
-          DownloadProgressDialog(progressStream: progressStream),
+      builder: (context) => DownloadProgressDialog(
+        progressStream: progressStream,
+        version: version,
+      ),
       backType: SmartBackType.block, // Prevent closing during download
       clickMaskDismiss: false,
     );
@@ -280,7 +284,7 @@ class DownloadProgressDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = AppColors.of(context);
 
     return Container(
       constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
