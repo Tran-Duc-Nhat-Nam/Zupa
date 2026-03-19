@@ -33,10 +33,10 @@ class AppRouter extends RootStackRouter {
         ),
 
         // Settings Module (Full Screen - Covers Bottom Bar)
+        AutoRoute(path: 'settings/parking', page: ParkingLotRoute.page),
         AutoRoute(
-          path: 'settings/parking',
-          page: ParkingLotRoute.page,
-          children: [AutoRoute(path: 'detail', page: ParkingDetailsRoute.page)],
+          path: 'settings/parking/detail',
+          page: ParkingDetailsRoute.page,
         ),
 
         AutoRoute(path: 'settings/app', page: AppSettingsRoute.page),
@@ -49,21 +49,20 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: 'settings/general-config',
           page: GeneralConfigRoute.page,
-          children: [
-            AutoRoute(path: 'member-fee', page: MemberFeeSetingRoute.page),
-            AutoRoute(
-              path: 'parking-price',
-              page: ParkingPriceSettingRoute.page,
-            ),
-          ],
+        ),
+        AutoRoute(
+          path: 'settings/general-config/member-fee',
+          page: MemberFeeSetingRoute.page,
+        ),
+        AutoRoute(
+          path: 'settings/general-config/parking-price',
+          page: ParkingPriceSettingRoute.page,
         ),
 
+        AutoRoute(path: 'settings/vehicles', page: MemberVehiclesRoute.page),
         AutoRoute(
-          path: 'settings/vehicles',
-          page: MemberVehiclesRoute.page,
-          children: [
-            AutoRoute(path: 'detail', page: MemberVehicleDetailRoute.page),
-          ],
+          path: 'settings/vehicles/detail',
+          page: MemberVehicleDetailRoute.page,
         ),
 
         AutoRoute(path: 'settings/password', page: ChangePasswordRoute.page),

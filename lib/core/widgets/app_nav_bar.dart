@@ -212,7 +212,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                   siteCubit.changeSite();
                   Navigator.of(context).pop();
                 },
-                text: t.common.actions.filter,
+                text: t.common.actions.apply,
               ),
             ),
             child: Padding(

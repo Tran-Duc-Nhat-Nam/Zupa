@@ -22,6 +22,7 @@ class GeneralConfigCubit extends Cubit<GeneralConfigState> {
   Future<void> init() async {
     emit(const .loading());
     final int threshold = await _storageService.getWarningCapacityThreshold();
+    formModel.isWarningControl.value = threshold >= 0;
     emit(.loaded(threshold >= 0, threshold));
   }
 

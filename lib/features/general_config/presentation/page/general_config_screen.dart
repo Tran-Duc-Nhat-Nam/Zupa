@@ -41,21 +41,23 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                   spacing: 10,
                   children: [
                     AppCard(
+                      padding: .zero,
                       child: Column(
                         children: [
                           AppListTile(
                             leadingIcon: Symbols.settings_rounded,
                             text: t.parking.price,
                             trailingIcon: Symbols.chevron_right_rounded,
+                            padding: const .all(16),
                             onTap: () => context.pushRoute(
                               const ParkingPriceSettingRoute(),
                             ),
                           ),
-                          Divider(color: AppColors.of(context).surfaceContainerHighest),
                           AppListTile(
                             leadingIcon: Symbols.calendar_add_on_rounded,
                             text: t.parking.memberFee,
                             trailingIcon: Symbols.chevron_right_rounded,
+                            padding: const .all(16),
                             onTap: () =>
                                 context.pushRoute(const MemberFeeSetingRoute()),
                           ),
@@ -64,7 +66,6 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                     ),
                     AppCard(
                       child: Column(
-                        spacing: 10,
                         children: [
                           AppListTile(
                             padding: .zero,
@@ -78,33 +79,59 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                     .formModel
                                     .isWarningControl,
                                 onToggle: (value, toggle) {
+                                  toggle(value);
                                   context
                                       .read<GeneralConfigCubit>()
                                       .setWarning();
-                                  toggle(value);
                                 },
                               ),
                             ),
                           ),
-                          if (state.maybeWhen(
-                            loaded: (isWarning, _) => isWarning,
-                            orElse: () => false,
-                          )) ...[
-                            AppTextField(
-                              formControl: context
-                                  .read<GeneralConfigCubit>()
-                                  .formModel
-                                  .warningThresholdControl,
-                              hintText: t.common.errors.enterInteger,
-                              required: true,
-                            ),
-                            Text(
-                              t.parking.warningThreshold.subtitle,
-                              style: AppTextStyles.bodySmallMedium.copyWith(
-                                color: AppColors.of(context).outline,
-                              ),
-                            ),
-                          ],
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
+                                  return SizeTransition(
+                                    sizeFactor: animation,
+                                    child: FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    ),
+                                  );
+                                },
+                            child:
+                                state.maybeWhen(
+                                  loaded: (isWarning, _) => isWarning,
+                                  orElse: () => false,
+                                )
+                                ? Column(
+                                    key: const ValueKey('threshold_fields'),
+                                    children: [
+                                      const SizedBox(height: 24),
+                                      AppTextField(
+                                        formControl: context
+                                            .read<GeneralConfigCubit>()
+                                            .formModel
+                                            .warningThresholdControl,
+                                        hintText: t.common.errors.enterInteger,
+                                        required: true,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        t.parking.warningThreshold.subtitle,
+                                        style: AppTextStyles.bodySmallMedium
+                                            .copyWith(
+                                              color: AppColors.of(
+                                                context,
+                                              ).outline,
+                                            ),
+                                      ),
+                                    ],
+                                  )
+                                : const SizedBox.shrink(
+                                    key: ValueKey('threshold_empty'),
+                                  ),
+                          ),
                         ],
                       ),
                     ),

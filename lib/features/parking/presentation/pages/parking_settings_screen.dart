@@ -26,6 +26,7 @@ class ParkingLotScreen extends StatefulWidget {
 class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return AppScreen(
       title: t.parking.areaConfig,
       isChildScrollable: true,
@@ -49,12 +50,12 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                             Text(
                               params.parkingLots[index].name,
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: AppColors.of(context).onSurfaceVariant,
+                                color: colors.onSurfaceVariant,
                               ),
                             ),
                             Icon(
                               Symbols.lock_rounded,
-                              color: AppColors.of(context).error,
+                              color: colors.error,
                               size: 16,
                             ),
                           ],
@@ -67,7 +68,7 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                         ),
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: AppColors.of(context).surfaceContainerHighest),
+                          Divider(color: colors.surfaceContainerHighest),
                       itemCount: params.parkingLots.length,
                     ),
                     loading: (_) => ListView.separated(
@@ -78,7 +79,7 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                         trailingIcon: Symbols.chevron_right_rounded,
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: AppColors.of(context).surfaceContainerHighest),
+                          Divider(color: colors.surfaceContainerHighest),
                       itemCount: 3,
                     ),
                     orElse: () => const SizedBox.shrink(),

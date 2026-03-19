@@ -46,7 +46,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
               child: const Icon(
                 Symbols.add_circle_outline_rounded,
               ),
-              onTap: () => context.pushRoute(const MemberVehiclesRoute()),
+              onTap: () => context.pushRoute(MemberVehicleDetailRoute()),
             ),
           ),
         ],
