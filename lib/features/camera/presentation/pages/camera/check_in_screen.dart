@@ -5,6 +5,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/camera_screen.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/ticket_info_card.dart';
@@ -28,6 +29,7 @@ class CheckInScreen extends StatefulWidget {
 class _CheckInScreenState extends AppState<CheckInScreen> {
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return BlocProvider<CheckInCubit>(
       create: (_) => CheckInCubit()..init(widget.isCheckOut),
       child: BlocListener<CheckInCubit, CheckInState>(
@@ -61,19 +63,19 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                 ),
                 loading: () => Center(
                   child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: colors.primary,
                     size: 48,
                   ),
                 ),
                 submitting: () => Center(
                   child: LoadingAnimationWidget.beat(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: colors.primary,
                     size: 48,
                   ),
                 ),
                 takingPicture: () => Center(
                   child: LoadingAnimationWidget.fallingDot(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: colors.primary,
                     size: 48,
                   ),
                 ),
@@ -99,9 +101,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                         ),
                                       )
                                     : LoadingAnimationWidget.beat(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
+                                        color: colors.primary,
                                         size: 48,
                                       );
                               },
@@ -139,9 +139,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                                 ),
                                               )
                                             : LoadingAnimationWidget.beat(
-                                                color: Theme.of(
-                                                  context,
-                                                ).colorScheme.primary,
+                                                color: colors.primary,
                                                 size: 48,
                                               );
                                       },
@@ -172,9 +170,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                                 ),
                                               )
                                             : LoadingAnimationWidget.beat(
-                                                color: Theme.of(
-                                                  context,
-                                                ).colorScheme.primary,
+                                                color: colors.primary,
                                                 size: 48,
                                               );
                                       },
@@ -250,8 +246,10 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                         .saveTicket,
                                     text:
                                         state.mapOrNull(
-                                          checkedInSuccess: (_) => t.parking.allowIn,
-                                          checkedOutSuccess: (_) => t.parking.allowOut,
+                                          checkedInSuccess: (_) =>
+                                              t.parking.allowIn,
+                                          checkedOutSuccess: (_) =>
+                                              t.parking.allowOut,
                                         ) ??
                                         '',
                                   ),

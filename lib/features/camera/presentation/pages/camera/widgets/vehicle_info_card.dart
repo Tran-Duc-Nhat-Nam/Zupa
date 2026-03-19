@@ -15,10 +15,11 @@ class VehicleInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       width: .infinity,
       decoration: BoxDecoration(
-        color: AppColors.of(context).surface,
+        color: colors.surface,
         borderRadius: .circular(8),
       ),
       child: Column(
@@ -28,21 +29,17 @@ class VehicleInfoCard extends StatelessWidget {
             child: Text(
               '${t.parking.ticketID}: $ticketNumber',
               style: AppTextStyles.bodyMediumSemibold.copyWith(
-                color: AppColors.of(context).onSurfaceVariant,
+                color: colors.onSurfaceVariant,
               ),
             ),
           ),
-          Container(
-            height: 1,
-            width: .infinity,
-            color: AppColors.of(context).outline,
-          ),
+          Container(height: 1, width: .infinity, color: colors.outline),
           Padding(
             padding: const .all(8),
             child: Text(
               '${t.parking.ticketID}: $ticketNumber',
               style: AppTextStyles.bodyXLargeSemibold.copyWith(
-                color: AppColors.of(context).onSurfaceVariant,
+                color: colors.onSurfaceVariant,
               ),
             ),
           ),

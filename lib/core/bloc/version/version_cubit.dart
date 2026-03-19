@@ -85,9 +85,8 @@ class VersionCubit extends Cubit<VersionState> {
               (OtaEvent event) {
                 switch (event.status) {
                   case .DOWNLOADING:
-                    // Emit the downloading state with the progress stream once
                     if (state is! Downloading) {
-                      emit(.downloading(progressController.stream));
+                      emit(.downloading(progressController.stream, info));
                     }
                     progressController.add(
                       int.tryParse(event.value ?? '0') ?? 0,
@@ -95,29 +94,27 @@ class VersionCubit extends Cubit<VersionState> {
                   case .INSTALLING:
                     emit(const .installing());
                   case .ALREADY_RUNNING_ERROR:
-                    // Handle case where update is already in progress
                     break;
                   case .PERMISSION_NOT_GRANTED_ERROR:
-                    emit(const .downloadFailed('Permission denied'));
+                    emit(.downloadFailed('Permission denied', info));
                   case .DOWNLOAD_ERROR:
                   case .INTERNAL_ERROR:
-                    emit(.downloadFailed(event.value ?? 'Unknown error'));
+                    emit(.downloadFailed(event.value ?? 'Unknown error', info));
                   default:
                     break;
                 }
               },
               onDone: () {
-                // Note: On many Android devices, the app closes/restarts here
                 progressController.close();
               },
               onError: (error) {
-                emit(.downloadFailed(error.toString()));
+                emit(.downloadFailed(error.toString(), info));
                 progressController.close();
               },
             );
       }
     } catch (e) {
-      emit(.downloadFailed(e.toString()));
+      emit(.downloadFailed(e.toString(), info));
     }
   }
 

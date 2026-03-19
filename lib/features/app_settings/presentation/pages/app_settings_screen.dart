@@ -203,9 +203,9 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                               shape: BoxShape.circle,
                                               border: Border.all(
                                                 color: isSelected
-                                                    ? Theme.of(
+                                                    ? AppColors.of(
                                                         context,
-                                                      ).colorScheme.onSurface
+                                                      ).onSurface
                                                     : Colors.transparent,
                                                 width: 2.5,
                                               ),
@@ -272,16 +272,18 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                     }
                                     return const .new(Icons.close);
                                   }),
-                                  thumbColor: .all(AppColors.of(context).surface),
+                                  thumbColor: .all(
+                                    AppColors.of(context).surface,
+                                  ),
                                   inactiveTrackColor: AppColors.of(
                                     context,
                                   ).surfaceContainerHighest,
-                                  trackOutlineWidth: const WidgetStatePropertyAll(
-                                    0,
-                                  ),
-                                  trackOutlineColor: const WidgetStatePropertyAll(
-                                    WidgetStateColor.transparent,
-                                  ),
+                                  trackOutlineWidth:
+                                      const WidgetStatePropertyAll(0),
+                                  trackOutlineColor:
+                                      const WidgetStatePropertyAll(
+                                        WidgetStateColor.transparent,
+                                      ),
                                   value: state.maybeWhen(
                                     loaded: (isOn) => isOn,
                                     orElse: () => false,

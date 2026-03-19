@@ -124,7 +124,7 @@ class AppDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = AppColors.of(context);
     final styles = _getStyles(type, colorScheme);
 
     return Container(
@@ -197,7 +197,7 @@ class AppDialog extends StatelessWidget {
   }
 
   Widget _buildDoubleButtons(BuildContext context, Color primaryColor) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = AppColors.of(context);
 
     return Row(
       children: [
@@ -242,7 +242,7 @@ class AppDialog extends StatelessWidget {
 
   // --- Style Logic ---
 
-  _DialogStyle _getStyles(AppDialogType type, ColorScheme scheme) {
+  _DialogStyle _getStyles(AppDialogType type, AppColors scheme) {
     switch (type) {
       case .success:
         return _DialogStyle(

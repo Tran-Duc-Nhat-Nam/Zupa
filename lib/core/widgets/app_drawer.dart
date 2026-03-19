@@ -21,6 +21,7 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Drawer(
       child: ListView(
         padding: .zero,
@@ -29,10 +30,7 @@ class _AppDrawerState extends State<AppDrawer> {
             padding: .zero,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.onPrimaryContainer,
-                  Theme.of(context).colorScheme.primary,
-                ],
+                colors: [colors.onPrimaryContainer, colors.primary],
                 stops: const [0.0, 1.0],
                 transform: const GradientRotation(math.pi / 4),
               ),
@@ -40,26 +38,10 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Center(
               child: Text(
                 t.home.drawer,
-                style: AppTextStyles.heading2.copyWith(
-                  color: AppColors.of(context).surface,
-                ),
+                style: AppTextStyles.heading2.copyWith(color: colors.surface),
               ),
             ),
           ),
-          // ListTile(
-          //   title: Text(t.changeLanguage),
-          //   leading: Text(
-          //     t[LocaleSettings.currentLocale.languageCode],
-          //     style: AppTextStyles.heading3,
-          //   ),
-          //   onTap: () {
-          //     LocaleSettings.setLocale(
-          //       context.locale.toString() == 'en'
-          //           ? const .new('vi')
-          //           : const .new('en'),
-          //     );
-          //   },
-          // ),
           ListTile(
             title: Text(t.settings.changeTheme),
             leading: AnimatedSwitcher(
@@ -75,8 +57,8 @@ class _AppDrawerState extends State<AppDrawer> {
                     loaded: (settings) => settings.themeMode == .light,
                     orElse: () => true,
                   )
-                  ? const Icon(Icons.light_mode)
-                  : const Icon(Icons.dark_mode),
+                  ? Icon(Icons.light_mode, color: colors.primary)
+                  : Icon(Icons.dark_mode, color: colors.primary),
             ),
             onTap: () {
               final themeCubit = context.read<ThemeCubit>();
@@ -94,8 +76,13 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () {
               context.pushRoute(const SettingsRoute());
             },
-            leading: const Icon(Icons.settings),
-            title: Text(t.settings.title, style: const .new(fontSize: 16)),
+            leading: Icon(Icons.settings, color: colors.primary),
+            title: Text(
+              t.settings.title,
+              style: AppTextStyles.bodyLargeSemibold.copyWith(
+                color: colors.onSurface,
+              ),
+            ),
           ),
         ],
       ),

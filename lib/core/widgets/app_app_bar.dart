@@ -37,10 +37,11 @@ class AppAppBar extends AppBar {
 class _AppAppBarState extends State<AppAppBar> {
   @override
   PreferredSizeWidget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return AppBar(
       scrolledUnderElevation: 0,
-      backgroundColor: widget.color ?? AppColors.of(context).surface,
-      foregroundColor: AppColors.of(context).secondary,
+      backgroundColor: widget.color ?? colors.surface,
+      foregroundColor: colors.secondary,
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(bottom: .circular(16)),
       ),
@@ -54,9 +55,7 @@ class _AppAppBarState extends State<AppAppBar> {
               : GestureDetector(
                   child: Text(
                     widget.text ?? '',
-                    style: TextStyle(
-                      color: AppColors.of(context).onSurface,
-                    ),
+                    style: TextStyle(color: colors.onSurface),
                   ),
                 )),
       titleTextStyle: AppTextStyles.bodyLargeSemibold,
@@ -71,11 +70,7 @@ class _AppAppBarState extends State<AppAppBar> {
                 overlayColor: WidgetStateColor.transparent,
                 tapTargetSize: .shrinkWrap,
               ),
-              icon: Icon(
-                widget.leadingIcon,
-                color: AppColors.of(context).outline,
-                size: 32,
-              ),
+              icon: Icon(widget.leadingIcon, color: colors.outline, size: 32),
               onPressed: () {},
             )
           : ModalRoute.of(context)?.impliesAppBarDismissal == true
@@ -87,8 +82,10 @@ class _AppAppBarState extends State<AppAppBar> {
                 tapTargetSize: .shrinkWrap,
               ),
               icon: Icon(
-                widget.isClose == true ? Symbols.close_rounded : Symbols.arrow_back_rounded,
-                color: AppColors.of(context).outline,
+                widget.isClose == true
+                    ? Symbols.close_rounded
+                    : Symbols.arrow_back_rounded,
+                color: colors.outline,
                 size: 32,
               ),
               onPressed: () => context.router.pop(),
@@ -105,7 +102,7 @@ class _AppAppBarState extends State<AppAppBar> {
                 padding: const .only(right: 24),
                 child: Icon(
                   widget.trailingIcon,
-                  color: AppColors.of(context).outline,
+                  color: colors.outline,
                   size: 32,
                 ),
               ),

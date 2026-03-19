@@ -6,6 +6,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 
 class AppScreen extends StatefulWidget {
@@ -122,7 +123,7 @@ class _AppScreenState extends State<AppScreen> {
                   )
                 : widget.appBar,
             backgroundColor:
-                widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+                widget.backgroundColor ?? AppColors.of(context).surface,
             body: _buildContent(),
             floatingActionButton: widget.floatingActionButton,
           );

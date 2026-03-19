@@ -118,12 +118,13 @@ class _TicketListTabState extends State<TicketListTab> {
                             code: 'None',
                             isFlagError: false,
                             timeIn: .now(),
-                            type: const VehicleTypeEntity(
+                            type: VehicleTypeEntity(
                               value: '',
                               name: '',
                               icon: '',
-                              color: Colors.grey,
-                            ), imageUrl: '',
+                              color: AppColors.of(context).primary,
+                            ),
+                            imageUrl: '',
                           ), // Your placeholder logic
                     enabled: state is! Loading,
                   ),
