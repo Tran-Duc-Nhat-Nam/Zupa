@@ -53,12 +53,16 @@ class VersionCubit extends Cubit<VersionState> {
       if (updateStatus != null) {
         if (updateStatus.isMaintaining) {
           emit(const .maintaining());
-          return;
-        } else {
+        } else if (updateStatus.isForcedUpdate || !updateStatus.isUpToDate) {
           emit(.updateAvailable(updateStatus));
+        } else if (updateStatus.isUpToDate) {
+          emit(.upToDate(updateStatus));
+        } else {
+          emit(const .standby());
         }
       } else {
-        emit(const .upToDate());
+        // Fallback or error case that shouldn't happen with our updated service
+        emit(const .standby());
       }
     } catch (e) {
       // Fallback to standby or error state if the check fails

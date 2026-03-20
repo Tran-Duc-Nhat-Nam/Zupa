@@ -2,9 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 
 abstract class DialogHelper {
   static void showAuthDialog(BuildContext context) {
@@ -52,6 +54,20 @@ abstract class DialogHelper {
     );
   }
 
+  static void showChangelogDialog(
+    BuildContext context, {
+    required String version,
+    required String changelog,
+  }) {
+    showModal(
+      context,
+      titleText: 'v$version ${t.common.version.changelog}',
+      changelogText: changelog,
+      dismissible: true,
+      okText: t.common.actions.close, // or "Close"
+    );
+  }
+
   static void showDownloadDialog(
     BuildContext context, {
     required Stream<int> progressStream,
@@ -62,7 +78,7 @@ abstract class DialogHelper {
         progressStream: progressStream,
         version: version,
       ),
-      backType: SmartBackType.block, // Prevent closing during download
+      backType: .block, // Prevent closing during download
       clickMaskDismiss: false,
     );
   }
@@ -72,6 +88,7 @@ abstract class DialogHelper {
     Widget? child,
     String? titleText,
     String? subtitleText,
+    String? changelogText,
     String? okText,
     String? cancelText,
     AppDialogType type = .info,
@@ -82,6 +99,7 @@ abstract class DialogHelper {
     SmartDialog.show(
       builder: (context) => AppDialog(
         description: subtitleText ?? '',
+        changelog: changelogText,
         title: titleText ?? '',
         onConfirm: onOk,
         onCancel: onCancel,
@@ -89,7 +107,7 @@ abstract class DialogHelper {
         cancelText: cancelText,
         type: type,
       ),
-      backType: dismissible ? SmartBackType.normal : SmartBackType.block,
+      backType: dismissible ? .normal : .block,
       clickMaskDismiss: dismissible,
     );
   }
@@ -105,8 +123,9 @@ class AppDialog extends StatelessWidget {
   final AppDialogType type;
   final String title;
   final String description;
+  final String? changelog;
   final String confirmText;
-  final String? cancelText; // If null, renders single button
+  final String? cancelText;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
 
@@ -115,6 +134,7 @@ class AppDialog extends StatelessWidget {
     required this.type,
     required this.title,
     required this.description,
+    this.changelog,
     this.confirmText = 'OK',
     this.cancelText,
     this.onConfirm,
@@ -123,15 +143,13 @@ class AppDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colorScheme = AppColors.of(context);
     final styles = _getStyles(type, colorScheme);
 
     return Container(
-      // MD3 Dialog Width constraints
       constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
       margin: const .symmetric(horizontal: 24),
-      padding: const .fromLTRB(24, 24, 24, 24),
+      padding: const .all(24),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHigh,
         borderRadius: .circular(28),
@@ -139,32 +157,48 @@ class AppDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: .min,
         children: [
-          // 1. Dynamic Icon
           Icon(styles.icon, size: 32, color: styles.color),
           const SizedBox(height: 16),
-
-          // 2. Headline
           Text(
             title,
-            style: theme.textTheme.headlineSmall?.copyWith(
+            style: AppTextStyles.bodyLargeSemibold.copyWith(
               color: colorScheme.onSurface,
-              fontWeight: .w600,
             ),
             textAlign: .center,
           ),
-          const SizedBox(height: 16),
-
-          // 3. Supporting Text
+          const SizedBox(height: 12),
           Text(
             description,
-            style: theme.textTheme.bodyMedium?.copyWith(
+            style: AppTextStyles.bodyMediumRegular.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
             textAlign: .center,
           ),
-          const SizedBox(height: 24),
 
-          // 4. Action Buttons
+          // --- Changelog Section ---
+          if (changelog != null && changelog!.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Container(
+              constraints: const BoxConstraints(maxHeight: 150), // Limit height
+              width: .infinity,
+              padding: const .all(12),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest.withAlpha(123),
+                borderRadius: .circular(12),
+              ),
+              child: SingleChildScrollView(
+                child: Text(
+                  changelog!,
+                  style: AppTextStyles.bodyMediumRegular.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontFamily: 'monospace', // Gives it a "technical" look
+                  ),
+                ),
+              ),
+            ),
+          ],
+
+          const SizedBox(height: 24),
           if (cancelText != null)
             _buildDoubleButtons(context, styles.color)
           else
@@ -178,7 +212,7 @@ class AppDialog extends StatelessWidget {
 
   Widget _buildSingleButton(BuildContext context, Color primaryColor) {
     return SizedBox(
-      width: double.infinity,
+      width: .infinity,
       child: TextButton(
         onPressed: () {
           onConfirm?.call();
@@ -187,9 +221,7 @@ class AppDialog extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: const .symmetric(vertical: 12),
           foregroundColor: primaryColor, // Use the status color for action
-          textStyle: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+          textStyle: AppTextStyles.bodyLargeBold,
         ),
         child: Text(confirmText),
       ),
@@ -211,9 +243,7 @@ class AppDialog extends StatelessWidget {
             style: TextButton.styleFrom(
               padding: const .symmetric(vertical: 12),
               foregroundColor: colorScheme.onSurfaceVariant,
-              textStyle: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(fontWeight: .w600),
+              textStyle: AppTextStyles.bodyLargeBold,
             ),
             child: Text(cancelText!),
           ),
@@ -229,9 +259,7 @@ class AppDialog extends StatelessWidget {
             style: TextButton.styleFrom(
               padding: const .symmetric(vertical: 12),
               foregroundColor: primaryColor,
-              textStyle: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(fontWeight: .bold),
+              textStyle: AppTextStyles.bodyLargeBold,
             ),
             child: Text(confirmText),
           ),
@@ -246,20 +274,18 @@ class AppDialog extends StatelessWidget {
     switch (type) {
       case .success:
         return _DialogStyle(
-          icon: Icons.check_circle_rounded,
-          // Green is standard for success, but you can use primary if preferred
-          color: Colors.green,
+          icon: Symbols.check_circle_rounded,
+          color: scheme.success,
         );
       case .error:
-        return _DialogStyle(icon: Icons.error_rounded, color: scheme.error);
+        return _DialogStyle(icon: Symbols.error_rounded, color: scheme.error);
       case .warning:
         return _DialogStyle(
-          icon: Icons.warning_amber_rounded,
-          color: Colors
-              .amber[800]!, // Darker amber for better contrast on light themes
+          icon: Symbols.warning_amber_rounded,
+          color: scheme.warning,
         );
       case .info:
-        return _DialogStyle(icon: Icons.info_rounded, color: scheme.primary);
+        return _DialogStyle(icon: Symbols.info_rounded, color: scheme.primary);
     }
   }
 }
@@ -283,7 +309,6 @@ class DownloadProgressDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colorScheme = AppColors.of(context);
 
     return Container(
@@ -302,7 +327,7 @@ class DownloadProgressDialog extends StatelessWidget {
           final int displayPercent = snapshot.data ?? 0;
 
           return Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               Icon(
                 Symbols.cloud_download_rounded,
@@ -312,22 +337,21 @@ class DownloadProgressDialog extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 t.common.version.downloading,
-                style: theme.textTheme.headlineSmall?.copyWith(
+                style: AppTextStyles.heading6.copyWith(
                   color: colorScheme.onSurface,
-                  fontWeight: .w600,
                 ),
                 textAlign: .center,
               ),
               const SizedBox(height: 16),
 
               // Progress Bar
-              ClipRRect(
-                borderRadius: .circular(8),
-                child: LinearProgressIndicator(
-                  value: progress,
-                  minHeight: 8,
-                  backgroundColor: colorScheme.surfaceContainerHighest,
-                  color: colorScheme.primary,
+              LinearPercentIndicator(
+                percent: progress,
+                lineHeight: 8,
+                barRadius: const .circular(8),
+                backgroundColor: colorScheme.surfaceContainerHighest,
+                linearGradient: LinearGradient(
+                  colors: [colorScheme.primary, colorScheme.secondary],
                 ),
               ),
 
@@ -336,16 +360,15 @@ class DownloadProgressDialog extends StatelessWidget {
               // Percentage Text
               Text(
                 '$displayPercent%',
-                style: theme.textTheme.labelLarge?.copyWith(
+                style: AppTextStyles.bodyLargeSemibold.copyWith(
                   color: colorScheme.onSurfaceVariant,
-                  fontWeight: .bold,
                 ),
               ),
 
               const SizedBox(height: 8),
               Text(
                 t.common.version.downloadingVersion(version: version ?? ''),
-                style: theme.textTheme.bodySmall?.copyWith(
+                style: AppTextStyles.bodySmallRegular.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
                 textAlign: .center,

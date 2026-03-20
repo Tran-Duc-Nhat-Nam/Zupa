@@ -9,4 +9,7 @@ abstract class Env {
 
   @EnviedField(varName: 'GITHUB_VERSIONARTE_JSON', obfuscate: true)
   static final String gitHubVersionarteJson = _Env.gitHubVersionarteJson;
+
+  @EnviedField(varName: 'GITHUB', obfuscate: true)
+  static final String github = _Env.github;
 }

@@ -86,15 +86,27 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
+              clipBehavior: Clip.antiAlias,
+              padding: EdgeInsets.zero,
               child: AppListTile(
                 leadingIcon: Symbols.settings,
                 text: t.settings.appSettings,
                 leadingColor: AppColors.of(context).primary,
                 trailingIcon: Symbols.chevron_right_rounded,
-                padding: const .all(16),
+                padding: const EdgeInsets.all(16),
                 onTap: () => context.pushRoute(const AppSettingsRoute()),
+              ),
+            ),
+            AppCard(
+              clipBehavior: .antiAlias,
+              padding: .zero,
+              child: AppListTile(
+                leadingIcon: Symbols.info_rounded,
+                text: t.settings.aboutApp,
+                leadingColor: AppColors.of(context).primary,
+                trailingIcon: Symbols.chevron_right_rounded,
+                padding: const .all(16),
+                onTap: () => context.pushRoute(const AboutAppRoute()),
               ),
             ),
             AppCard(

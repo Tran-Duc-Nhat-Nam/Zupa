@@ -66,6 +66,7 @@ class AppRouter extends RootStackRouter {
         ),
 
         AutoRoute(path: 'settings/password', page: ChangePasswordRoute.page),
+        AutoRoute(path: 'settings/about', page: AboutAppRoute.page),
 
         // 4. Action Routes
         AutoRoute(path: 'check-in', page: CheckInRoute.page),

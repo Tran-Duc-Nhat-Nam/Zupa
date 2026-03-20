@@ -33,7 +33,11 @@
       "downloading": "ダウンロード中",
       "downloadingVersion": "バージョン ${version} のダウンロード中、アプリを閉じてください",
       "installing": "インストール中",
-      "downloadFailed": "ダウンロードに失敗しました"
+      "downloadFailed": "ダウンロードに失敗しました",
+      "changelog": "変更履歴",
+      "noChangelog": "変更履歴はありません",
+      "upToDate": "アプリは最新です",
+      "noUpdateAvailable": "利用可能なアップデートはありません"
     },
     "actions": {
       "continue": "次へ",
@@ -306,7 +310,15 @@
     "extend": {
       "title": "延長",
       "subtitle": "延長しますか？"
-    }
+    },
+    "aboutApp": "アプリについて",
+    "appInfo": "アプリ情報",
+    "github": "GitHub",
+    "checkForUpdate": "アップデートを確認",
+    "showChangelog": "変更履歴を表示",
+    "appVersion": "バージョン ${version}",
+    "buildNumber": "ビルド番号 ${number}",
+    "couldNotLaunch": "リンクを開けませんでした: ${url}"
   },
   "profile": {
     "addInfo": {

@@ -5,7 +5,7 @@ sealed class VersionState with _$VersionState {
   const factory VersionState.initial() = Initial;
   const factory VersionState.standby() = Standby;
   const factory VersionState.checking() = Checking;
-  const factory VersionState.upToDate() = UpToDate;
+  const factory VersionState.upToDate(VersionInfo info) = UpToDate;
   const factory VersionState.maintaining() = Maintaining;
   const factory VersionState.updateAvailable(VersionInfo info) = UpdateAvailable;
   const factory VersionState.downloading(Stream<int> progress, VersionInfo info) = Downloading;

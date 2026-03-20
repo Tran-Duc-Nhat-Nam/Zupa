@@ -33,7 +33,11 @@
       "downloading": "Downloading",
       "downloadingVersion": "Downloading version ${version}, please don't close the app",
       "installing": "Installing",
-      "downloadFailed": "Download Failed"
+      "downloadFailed": "Download Failed",
+      "changelog": "Changelog",
+      "noChangelog": "No changelog available",
+      "upToDate": "App is up to date",
+      "noUpdateAvailable": "No update available"
     },
     "actions": {
       "continue": "Continue",
@@ -312,7 +316,15 @@
     "extend": {
       "title": "Extend",
       "subtitle": "Do you want to extend?"
-    }
+    },
+    "aboutApp": "About App",
+    "appInfo": "App Information",
+    "github": "GitHub",
+    "checkForUpdate": "Check for Update",
+    "showChangelog": "Show Changelog",
+    "appVersion": "Version ${version}",
+    "buildNumber": "Build ${number}",
+    "couldNotLaunch": "Could not launch the link: ${url}"
   },
   "profile": {
     "addInfo": {

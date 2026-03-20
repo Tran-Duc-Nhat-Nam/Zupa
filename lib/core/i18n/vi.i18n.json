@@ -33,7 +33,11 @@
       "downloading": "Đang tải xuống",
       "downloadingVersion": "Đang tải xuống phiên bản ${version}, vui lòng không đóng ứng dụng",
       "installing": "Đang cài đặt",
-      "downloadFailed": "Tải xuống thất bại"
+      "downloadFailed": "Tải xuống thất bại",
+      "changelog": "Nhật ký thay đổi",
+      "noChangelog": "Không có nhật ký thay đổi",
+      "upToDate": "Ứng dụng đã được cập nhật bản mới nhất",
+      "noUpdateAvailable": "Không có bản cập nhật mới nào"
     },
     "actions": {
       "continue": "Tiếp tục",
@@ -306,7 +310,15 @@
     "extend": {
       "title": "Gia hạn",
       "subtitle": "Bạn có muốn gia hạn không?"
-    }
+    },
+    "aboutApp": "Về ứng dụng",
+    "appInfo": "Thông tin ứng dụng",
+    "github": "GitHub",
+    "checkForUpdate": "Kiểm tra cập nhật",
+    "showChangelog": "Xem nhật ký thay đổi",
+    "appVersion": "Phiên bản ${version}",
+    "buildNumber": "Bản dựng ${number}",
+    "couldNotLaunch": "Không thể mở liên kết: ${url}"
   },
   "profile": {
     "addInfo": {
