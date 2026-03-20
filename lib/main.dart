@@ -24,9 +24,22 @@ import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:zupa/core/widgets/error/app_error_screen.dart';
+
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    
+    // Global Error Boundary
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      DebuggerHelper.talker.handle(
+        details.exception,
+        details.stack,
+        'Flutter UI Crash: ${details.exceptionAsString()}',
+      );
+      return AppErrorScreen(details: details);
+    };
+
     await SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
