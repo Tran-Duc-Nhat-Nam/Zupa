@@ -1,7 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/widgets/app_button.dart';
@@ -55,38 +54,41 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
               ],
               child: Padding(
                 padding: const .symmetric(vertical: 16, horizontal: 24),
-                child: AppCard(
-                  child: Column(
-                    spacing: 8,
-                    mainAxisSize: .min,
-                    children: [
-                      AppTextField(
+                child: Column(
+                  spacing: 16,
+                  children: [
+                    AppCard(
+                      child: AppTextField(
                         formControl: formModel.currentPasswordControl,
                         labelText: t.auth.password.current,
                         hintText: t.auth.password.enterCurrent,
-                        isExternalLabel: true,
                         isPassword: true,
                         required: true,
                       ),
-                      Divider(color: AppColors.of(context).surfaceContainerHighest),
-                      AppTextField(
-                        formControl: formModel.newPasswordControl,
-                        labelText: t.auth.password.kNew,
-                        hintText: t.auth.password.enterNew,
-                        isExternalLabel: true,
-                        isPassword: true,
-                        required: true,
+                    ),
+                    AppCard(
+                      child: Column(
+                        spacing: 8,
+                        mainAxisSize: .min,
+                        children: [
+                          AppTextField(
+                            formControl: formModel.newPasswordControl,
+                            labelText: t.auth.password.kNew,
+                            hintText: t.auth.password.enterNew,
+                            isPassword: true,
+                            required: true,
+                          ),
+                          AppTextField(
+                            formControl: formModel.confirmPasswordControl,
+                            labelText: t.auth.password.confirm,
+                            hintText: t.auth.password.enterConfirm,
+                            isPasswordConfirm: true,
+                            required: true,
+                          ),
+                        ],
                       ),
-                      AppTextField(
-                        formControl: formModel.confirmPasswordControl,
-                        labelText: t.auth.password.confirm,
-                        hintText: t.auth.password.enterConfirm,
-                        isExternalLabel: true,
-                        isPasswordConfirm: true,
-                        required: true,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );
