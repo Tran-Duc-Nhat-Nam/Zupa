@@ -54,19 +54,6 @@ abstract class DialogHelper {
     );
   }
 
-  static void showChangelogDialog(
-    BuildContext context, {
-    required String version,
-    required String changelog,
-  }) {
-    showModal(
-      context,
-      titleText: 'v$version ${t.common.version.changelog}',
-      changelogText: changelog,
-      dismissible: true,
-      okText: t.common.actions.close, // or "Close"
-    );
-  }
 
   static void showDownloadDialog(
     BuildContext context, {
@@ -88,7 +75,6 @@ abstract class DialogHelper {
     Widget? child,
     String? titleText,
     String? subtitleText,
-    String? changelogText,
     String? okText,
     String? cancelText,
     AppDialogType type = .info,
@@ -99,7 +85,6 @@ abstract class DialogHelper {
     SmartDialog.show(
       builder: (context) => AppDialog(
         description: subtitleText ?? '',
-        changelog: changelogText,
         title: titleText ?? '',
         onConfirm: onOk,
         onCancel: onCancel,
@@ -123,7 +108,6 @@ class AppDialog extends StatelessWidget {
   final AppDialogType type;
   final String title;
   final String description;
-  final String? changelog;
   final String confirmText;
   final String? cancelText;
   final VoidCallback? onConfirm;
@@ -134,7 +118,6 @@ class AppDialog extends StatelessWidget {
     required this.type,
     required this.title,
     required this.description,
-    this.changelog,
     this.confirmText = 'OK',
     this.cancelText,
     this.onConfirm,
@@ -174,29 +157,6 @@ class AppDialog extends StatelessWidget {
             ),
             textAlign: .center,
           ),
-
-          // --- Changelog Section ---
-          if (changelog != null && changelog!.isNotEmpty) ...[
-            const SizedBox(height: 16),
-            Container(
-              constraints: const BoxConstraints(maxHeight: 150), // Limit height
-              width: .infinity,
-              padding: const .all(12),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest.withAlpha(123),
-                borderRadius: .circular(12),
-              ),
-              child: SingleChildScrollView(
-                child: Text(
-                  changelog!,
-                  style: AppTextStyles.bodyMediumRegular.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                    fontFamily: 'monospace', // Gives it a "technical" look
-                  ),
-                ),
-              ),
-            ),
-          ],
 
           const SizedBox(height: 24),
           if (cancelText != null)
