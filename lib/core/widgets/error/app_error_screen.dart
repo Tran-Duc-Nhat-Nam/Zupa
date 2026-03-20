@@ -1,11 +1,17 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class AppErrorScreen extends StatelessWidget {
   const AppErrorScreen({
@@ -14,6 +20,64 @@ class AppErrorScreen extends StatelessWidget {
   });
 
   final FlutterErrorDetails details;
+
+  Future<String> _buildFullLog() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    final deviceInfoPlugin = DeviceInfoPlugin();
+
+    String deviceInfo = '';
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfoPlugin.androidInfo;
+      deviceInfo = 'Model: ${androidInfo.model}, SDK: ${androidInfo.version.sdkInt}';
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfoPlugin.iosInfo;
+      deviceInfo = 'Model: ${iosInfo.utsname.machine}, System: ${iosInfo.systemName} ${iosInfo.systemVersion}';
+    } else {
+      deviceInfo = 'Platform not detailed';
+    }
+
+    final buffer = StringBuffer();
+    buffer.writeln('===== APP ERROR REPORT =====');
+    buffer.writeln('App Name: ${packageInfo.appName}');
+    buffer.writeln('Version: ${packageInfo.version}+${packageInfo.buildNumber}');
+    buffer.writeln('Device: $deviceInfo');
+    buffer.writeln('Timestamp: ${DateTime.now().toIso8601String()}');
+    buffer.writeln('\n===== EXCEPTION =====');
+    buffer.writeln(details.exceptionAsString());
+    buffer.writeln('\n===== STACKTRACE =====');
+    buffer.writeln(details.stack.toString());
+    buffer.writeln('============================');
+
+    return buffer.toString();
+  }
+
+  Future<void> _exportToFile() async {
+    final log = await _buildFullLog();
+    final directory = await getTemporaryDirectory();
+    final filePath = '${directory.path}/error_log_${DateTime.now().millisecondsSinceEpoch}.txt';
+    final file = File(filePath);
+    await file.writeAsString(log);
+
+    await SharePlus.instance.share(
+      ShareParams(
+        files: [XFile(filePath)],
+        subject: 'Zupa App Crash Log',
+        text: 'Here is the error log for the Zupa app crash.',
+      ),
+    );
+  }
+
+  Future<void> _reportToGitHub() async {
+    final log = await _buildFullLog();
+    final title = Uri.encodeComponent('App Crash: ${details.exceptionAsString().split('\n').first}');
+    final body = Uri.encodeComponent('**Error Report:**\n```\n$log\n```');
+    final url = '${Env.github}/issues/new?title=$title&body=$body';
+
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      // Could not launch
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,33 +121,28 @@ class AppErrorScreen extends StatelessWidget {
               ),
               const SizedBox(height: 48),
               AppButton(
-                onPressed: () {
-                  // Navigate to Talker Screen for debugging
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => TalkerScreen(
-                        talker: DebuggerHelper.talker,
-                      ),
-                    ),
-                  );
-                },
-                icon: Symbols.bug_report_rounded,
-                text: 'Report & View Logs',
-                color: .error,
+                onPressed: _exportToFile,
+                icon: Symbols.save_alt_rounded,
+                text: 'Export Error Log',
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              AppButton(
+                onPressed: _reportToGitHub,
+                icon: Symbols.bug_report_rounded,
+                text: 'Report to GitHub',
+                color: .error,
+                theme: .outline,
+              ),
+              const SizedBox(height: 24),
               AppButton(
                 onPressed: () {
-                  // In a real app, you might want to restart the app or clear state
-                  // For now, we'll just try to pop or go home
                   if (Navigator.of(context).canPop()) {
                     Navigator.of(context).pop();
-                  } else {
-                    // Force restart or go to initial route could be implemented here
                   }
                 },
                 theme: .outline,
                 text: t.common.actions.close,
+                color: .basic,
               ),
               const SizedBox(height: 32),
               if (details.exceptionAsString().isNotEmpty)
