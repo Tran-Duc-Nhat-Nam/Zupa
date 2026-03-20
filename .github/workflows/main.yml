@@ -129,14 +129,15 @@ jobs:
 
       - name: Update versionarte.json
         run: |
-          VERSION=${{ needs.check_version.outputs.new_version }}
-          CHANGELOG=${{ steps.changelog_gen.outputs.CHANGELOG }}
-
-          # Inject version AND the escaped changelog string
-          jq ".android.version.latest = \"$VERSION\" | 
-              .iOS.version.latest = \"$VERSION\" | 
-              .android.status.message.en = \"$CHANGELOG\" |
-              .iOS.status.message.en = \"$CHANGELOG\" \
+          VERSION="${{ needs.check_version.outputs.new_version }}"
+          CHANGELOG_RAW='${{ steps.changelog_gen.outputs.CHANGELOG }}'
+          
+          jq --arg ver "$VERSION" \
+             --arg log "$CHANGELOG_RAW" \
+             '.android.version.latest = $ver | 
+              .iOS.version.latest = $ver | 
+              .android.status.message.en = $log | 
+              .iOS.status.message.en = $log' \
               versionarte.json > temp.json && mv temp.json versionarte.json
 
       - name: Commit and Push changes
