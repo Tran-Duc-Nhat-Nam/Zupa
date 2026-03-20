@@ -1,4 +1,3 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +20,15 @@ class EmployeeManagementScreen extends StatefulWidget {
   const EmployeeManagementScreen({super.key});
 
   @override
-  AppState<EmployeeManagementScreen> createState() => _EmployeeManagementScreenState();
+  AppState<EmployeeManagementScreen> createState() =>
+      _EmployeeManagementScreenState();
 }
 
-class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> {
+class _EmployeeManagementScreenState
+    extends AppState<EmployeeManagementScreen> {
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppScreen(
       title: t.parking.areaConfig,
       isChildScrollable: true,
@@ -50,12 +52,12 @@ class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> 
                             Text(
                               params.employees[index].fullName,
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: AppColors.of(context).onSurfaceVariant,
+                                color: colorScheme.onSurfaceVariant,
                               ),
                             ),
                             Icon(
-                              Symbols.lock,
-                              color: AppColors.of(context).error,
+                              Symbols.lock_rounded,
+                              color: colorScheme.error,
                               size: 16,
                             ),
                           ],
@@ -64,7 +66,7 @@ class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> 
                         onTap: () => context.pushRoute(ParkingDetailsRoute()),
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: AppColors.of(context).surfaceContainerHighest),
+                          Divider(color: colorScheme.surfaceContainerHighest),
                       itemCount: params.employees.length,
                     ),
                     loading: (_) => ListView.separated(
@@ -75,7 +77,7 @@ class _EmployeeManagementScreenState extends AppState<EmployeeManagementScreen> 
                         trailingIcon: Symbols.chevron_right_rounded,
                       ),
                       separatorBuilder: (context, index) =>
-                          Divider(color: AppColors.of(context).surfaceContainerHighest),
+                          Divider(color: colorScheme.surfaceContainerHighest),
                       itemCount: 3,
                     ),
                     orElse: () => const SizedBox.shrink(),

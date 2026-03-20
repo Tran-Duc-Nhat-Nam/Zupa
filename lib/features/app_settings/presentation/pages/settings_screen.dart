@@ -57,7 +57,7 @@ class SettingsScreen extends StatelessWidget {
                         context.pushRoute(const EmployeeManagementRoute()),
                   ),
                   AppListTile(
-                    leadingIcon: Symbols.settings,
+                    leadingIcon: Symbols.settings_applications_rounded,
                     leadingColor: colorScheme.primary,
                     text: t.settings.generalConfig,
                     trailingIcon: Symbols.chevron_right_rounded,
@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
               clipBehavior: .antiAlias,
               padding: .zero,
               child: AppListTile(
-                leadingIcon: Symbols.lock,
+                leadingIcon: Symbols.lock_reset_rounded,
                 leadingColor: colorScheme.primary,
                 text: t.settings.changePassword,
                 trailingIcon: Symbols.chevron_right_rounded,
@@ -80,43 +80,40 @@ class SettingsScreen extends StatelessWidget {
             AppCard(
               clipBehavior: .antiAlias,
               padding: .zero,
-              child: AppListTile(
-                leadingIcon: Symbols.settings,
-                text: t.settings.appSettings,
-                leadingColor: colorScheme.primary,
-                trailingIcon: Symbols.chevron_right_rounded,
-                onTap: () => context.pushRoute(const AppSettingsRoute()),
-              ),
-            ),
-            AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
-              child: AppListTile(
-                leadingIcon: Symbols.info_rounded,
-                text: t.settings.aboutApp,
-                leadingColor: colorScheme.primary,
-                trailingIcon: Symbols.chevron_right_rounded,
-                onTap: () => context.pushRoute(const AboutAppRoute()),
-              ),
-            ),
-            AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
-              child: AppListTile(
-                leadingIcon: Symbols.logout,
-                text: t.auth.logout.title,
-                leadingColor: colorScheme.error,
-                onTap: () {
-                  DialogHelper.showModal(
-                    context,
-                    subtitleText: t.auth.logout.subtitle,
-                    titleText: t.auth.logout.title,
-                    type: .warning,
-                    okText: t.common.actions.ok,
-                    cancelText: t.common.actions.cancel,
-                    onOk: context.read<AuthCubit>().logOut,
-                  );
-                },
+              child: Column(
+                children: [
+                  AppListTile(
+                    leadingIcon: Symbols.settings_rounded,
+                    text: t.settings.appSettings,
+                    leadingColor: colorScheme.primary,
+                    trailingIcon: Symbols.chevron_right_rounded,
+                    onTap: () => context.pushRoute(const AppSettingsRoute()),
+                  ),
+                  AppListTile(
+                    leadingIcon: Symbols.info_rounded,
+                    text: t.settings.aboutApp,
+                    leadingColor: colorScheme.primary,
+                    trailingIcon: Symbols.chevron_right_rounded,
+                    onTap: () => context.pushRoute(const AboutAppRoute()),
+                  ),
+                  AppListTile(
+                    leadingIcon: Symbols.logout_rounded,
+                    text: t.auth.logout.title,
+                    leadingColor: colorScheme.error,
+                    color: colorScheme.error,
+                    onTap: () {
+                      DialogHelper.showModal(
+                        context,
+                        subtitleText: t.auth.logout.subtitle,
+                        titleText: t.auth.logout.title,
+                        type: .warning,
+                        okText: t.common.actions.ok,
+                        cancelText: t.common.actions.cancel,
+                        onOk: context.read<AuthCubit>().logOut,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],

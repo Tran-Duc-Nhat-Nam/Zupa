@@ -19,7 +19,7 @@ class MemberVehiclesSearchBar extends StatelessWidget {
           enabled: state is Loading,
           child: AppTextField(
             formControl: context.read<MemberVehiclesFilterCubit>().formModel.keywordControl,
-            prefixIcon: Symbols.search,
+            prefixIcon: Symbols.search_rounded,
             hintText: t.common.actions.search,
             onChanged: (value) =>
                 context.read<MemberVehiclesFilterCubit>().search(),
