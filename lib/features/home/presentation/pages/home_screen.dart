@@ -13,6 +13,7 @@ import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.da
 import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/site_selector.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -52,20 +53,24 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: const Column(
-                spacing: 10,
+                spacing: 12,
                 children: [
-                  SizedBox(height: 6),
+                  SizedBox(height: 12),
                   Padding(
-                    padding: .symmetric(horizontal: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: SiteSelector(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
                     child: HomeSearchBar(),
                   ),
                   Padding(
-                    padding: .symmetric(horizontal: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 24),
                     child: VehicleCapacityTab(),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: .symmetric(horizontal: 24),
+                      padding: EdgeInsets.symmetric(horizontal: 24),
                       child: TicketListTab(),
                     ),
                   ),
