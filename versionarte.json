@@ -4,6 +4,10 @@
       "minimum": "0.1.0",
       "latest": "0.5.6"
     },
+    "changelog": {
+      "en": "feat: add global shake detector\nfix: resolved overflow in Zupa main screen",
+      "vi": "Cập nhật phiên bản mới 0.5.6"
+    },
     "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/download/v<version>/Zupa-release-<version>-<abi>.apk",
     "status": {
       "active": true,
@@ -15,8 +19,11 @@
   },
   "iOS": {
     "version": {
-      "minimum": "0.1.0",
       "latest": "0.5.6"
+    },
+    "changelog": {
+      "en": "feat: add global shake detector\nfix: resolved overflow in Zupa main screen",
+      "vi": "Cập nhật phiên bản mới 0.5.6"
     },
     "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/latest",
     "status": {
