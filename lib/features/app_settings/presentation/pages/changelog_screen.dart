@@ -19,6 +19,17 @@ class ChangelogScreen extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
+    final cleanChangelog = changelog
+        .replaceAll('"', '')
+        .replaceAll('\\n', '\n')
+        .trim();
+
+    final formattedChangelog = cleanChangelog
+        .split('\n')
+        .where((line) => line.trim().isNotEmpty)
+        .map((line) => '- ${line.trim()}')
+        .join('\n');
+
     return AppScreen(
       title: t.common.version.changelog,
       child: Padding(
@@ -46,7 +57,7 @@ class ChangelogScreen extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            changelog,
+            formattedChangelog,
             style: textTheme.bodyLarge?.copyWith(
               height: 1.6,
               color: colorScheme.onSurfaceVariant,
