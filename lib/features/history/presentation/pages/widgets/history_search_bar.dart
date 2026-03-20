@@ -27,7 +27,7 @@ class HistorySearchBar extends StatelessWidget {
     return ValueListenableBuilder<bool>(
       valueListenable: _isScrolledNotifier,
       builder: (context, isScrolled, child) {
-        final backgroundColor = AppColors.of(context).surface;
+        final colorScheme = AppColors.of(context);
         final showWhiteBackground = isScrolled;
 
         return AnimatedContainer(
@@ -38,8 +38,8 @@ class HistorySearchBar extends StatelessWidget {
               : const .only(top: 10),
           decoration: BoxDecoration(
             color: showWhiteBackground
-                ? backgroundColor
-                : backgroundColor.withAlpha(0),
+                ? colorScheme.primaryContainer
+                : colorScheme.surface,
             boxShadow: [
               BoxShadow(
                 color: showWhiteBackground
@@ -62,13 +62,13 @@ class HistorySearchBar extends StatelessWidget {
                     hintText: t.parking.ticketSearch,
                     borderRadius: 100,
                     hasBorder: false,
-                    backgroundColor: AppColors.of(context).surfaceContainerLow,
+                    backgroundColor: colorScheme.surfaceContainerLow,
                     prefixIcon: Symbols.search_rounded,
                     suffix: InkWell(
                       child: Icon(
                         Symbols.filter_alt_rounded,
                         size: 20,
-                        color: AppColors.of(context).onSurfaceVariant,
+                        color: colorScheme.onSurfaceVariant,
                       ),
                       onTap: () => _showFilter(context, formModel),
                     ),
@@ -85,6 +85,7 @@ class HistorySearchBar extends StatelessWidget {
   }
 
   Future<dynamic> _showFilter(BuildContext context, HistoryForm formModel) {
+    final colorScheme = AppColors.of(context);
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -98,7 +99,7 @@ class HistorySearchBar extends StatelessWidget {
               child: Text(
                 t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
-                  color: AppColors.of(context).onSurfaceVariant,
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
@@ -108,13 +109,13 @@ class HistorySearchBar extends StatelessWidget {
                 Text(
                   t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: AppColors.of(context).onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 Text(
                   t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: AppColors.of(context).primary,
+                    color: colorScheme.primary,
                   ),
                 ),
               ],
@@ -137,13 +138,13 @@ class HistorySearchBar extends StatelessWidget {
                     Text(
                       t.vehicles.type,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
-                        color: AppColors.of(context).onSurfaceVariant,
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                     Text(
                       t.common.actions.reset,
                       style: AppTextStyles.bodyMediumSemibold.copyWith(
-                        color: AppColors.of(context).primary,
+                        color: colorScheme.primary,
                       ),
                     ),
                   ],

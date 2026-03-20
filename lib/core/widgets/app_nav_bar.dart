@@ -113,57 +113,51 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
             ),
             backgroundColor: colors.surface,
             bottomNavigationBuilder: (context, tabsRouter) {
-              return ClipRRect(
-                borderRadius: const .only(
-                  topLeft: .circular(28),
-                  topRight: .circular(28),
-                ),
-                child: NavigationBar(
-                  selectedIndex: tabsRouter.activeIndex,
-                  onDestinationSelected: tabsRouter.setActiveIndex,
-                  backgroundColor: colors.surfaceContainerLowest,
-                  indicatorColor: colors.secondaryContainer,
-                  maintainBottomViewPadding: true,
-                  height: 96,
-                  animationDuration: const Duration(milliseconds: 500),
-                  labelBehavior: .onlyShowSelected,
-                  labelPadding: const .all(8),
-                  labelTextStyle: .all(
-                    AppTextStyles.bodyMediumSemibold.copyWith(
-                      color: colors.onSecondaryContainer,
-                    ),
+              return NavigationBar(
+                selectedIndex: tabsRouter.activeIndex,
+                onDestinationSelected: tabsRouter.setActiveIndex,
+                backgroundColor: colors.surfaceContainerLowest,
+                indicatorColor: colors.secondaryContainer,
+                maintainBottomViewPadding: true,
+                height: 96,
+                animationDuration: const Duration(milliseconds: 500),
+                labelBehavior: .onlyShowSelected,
+                labelPadding: const .all(8),
+                labelTextStyle: .all(
+                  AppTextStyles.bodyMediumSemibold.copyWith(
+                    color: colors.onSecondaryContainer,
                   ),
-                  destinations: [
-                    _buildDestination(
-                      index: 0,
-                      activeIndex: tabsRouter.activeIndex,
-                      labelKey: 'home',
-                      icon: Symbols.home_rounded,
-                      colors: colors,
-                    ),
-                    _buildDestination(
-                      index: 1,
-                      activeIndex: tabsRouter.activeIndex,
-                      labelKey: 'history',
-                      icon: Symbols.history_rounded,
-                      colors: colors,
-                    ),
-                    _buildDestination(
-                      index: 2,
-                      activeIndex: tabsRouter.activeIndex,
-                      labelKey: 'revenue',
-                      icon: Symbols.analytics_rounded,
-                      colors: colors,
-                    ),
-                    _buildDestination(
-                      index: 3,
-                      activeIndex: tabsRouter.activeIndex,
-                      labelKey: 'settings',
-                      icon: Symbols.settings_rounded,
-                      colors: colors,
-                    ),
-                  ],
                 ),
+                destinations: [
+                  _buildDestination(
+                    index: 0,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'home',
+                    icon: Symbols.home_rounded,
+                    colors: colors,
+                  ),
+                  _buildDestination(
+                    index: 1,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'history',
+                    icon: Symbols.history_rounded,
+                    colors: colors,
+                  ),
+                  _buildDestination(
+                    index: 2,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'revenue',
+                    icon: Symbols.analytics_rounded,
+                    colors: colors,
+                  ),
+                  _buildDestination(
+                    index: 3,
+                    activeIndex: tabsRouter.activeIndex,
+                    labelKey: 'settings',
+                    icon: Symbols.settings_rounded,
+                    colors: colors,
+                  ),
+                ],
               );
             },
           );

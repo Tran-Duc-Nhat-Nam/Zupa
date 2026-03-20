@@ -20,7 +20,7 @@ class HistoryTitle extends StatelessWidget {
     return AppCard(
       padding: .zero,
       decoration: .new(
-        color: colorScheme.primaryContainer.withAlpha(155),
+        color: colorScheme.surfaceContainer,
         borderRadius: const .all(.circular(28)),
       ),
       child: Row(
@@ -63,9 +63,10 @@ class HistoryTitle extends StatelessWidget {
                         child: Align(
                           alignment: .centerLeft,
                           child: ticket.id % 2 == 0
-                              ? const Icon(
-                                  Symbols.user_attributes_rounded,
+                              ? Icon(
+                                  Symbols.account_box_rounded,
                                   size: 20,
+                                  color: colorScheme.primary,
                                 )
                               : const SizedBox(),
                         ),
