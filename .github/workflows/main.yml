@@ -134,8 +134,8 @@ jobs:
           # Inject version AND the escaped changelog string
           jq ".android.version.latest = \"$VERSION\" | 
               .iOS.version.latest = \"$VERSION\" | 
-              .android.changelog = { \"en\": $CHANGELOG, \"vi\": \"Cập nhật phiên bản mới $VERSION\" } |
-              .iOS.changelog = { \"en\": $CHANGELOG, \"vi\": \"Cập nhật phiên bản mới $VERSION\" }" \
+              .android.status.message.en = $CHANGELOG |
+              .iOS.status.message.en = $CHANGELOG" \
               versionarte.json > temp.json && mv temp.json versionarte.json
 
       - name: Commit and Push changes
