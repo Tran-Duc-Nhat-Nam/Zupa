@@ -17,6 +17,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppScreen(
       isChildScrollable: true,
       hasParentView: true,
@@ -35,39 +36,32 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   AppListTile(
                     leadingIcon: Symbols.home_rounded,
-                    leadingColor: AppColors.of(context).primary,
+                    leadingColor: colorScheme.primary,
                     text: t.parking.areaConfig,
                     trailingIcon: Symbols.chevron_right_rounded,
-                    padding: const .all(16),
-                    onTap: () =>
-                        context.pushRoute(const ParkingLotRoute()),
+                    onTap: () => context.pushRoute(const ParkingLotRoute()),
                   ),
                   AppListTile(
                     leadingIcon: Symbols.calendar_add_on_rounded,
-                    leadingColor: AppColors.of(context).primary,
+                    leadingColor: colorScheme.primary,
                     text: t.parking.memberVehicles,
                     trailingIcon: Symbols.chevron_right_rounded,
-                    padding: const .all(16),
-                    onTap: () =>
-                        context.pushRoute(const MemberVehiclesRoute()),
+                    onTap: () => context.pushRoute(const MemberVehiclesRoute()),
                   ),
                   AppListTile(
                     leadingIcon: Symbols.user_attributes_rounded,
-                    leadingColor: AppColors.of(context).primary,
+                    leadingColor: colorScheme.primary,
                     text: t.parking.staff,
                     trailingIcon: Symbols.chevron_right_rounded,
-                    padding: const .all(16),
                     onTap: () =>
                         context.pushRoute(const EmployeeManagementRoute()),
                   ),
                   AppListTile(
                     leadingIcon: Symbols.settings,
-                    leadingColor: AppColors.of(context).primary,
+                    leadingColor: colorScheme.primary,
                     text: t.settings.generalConfig,
                     trailingIcon: Symbols.chevron_right_rounded,
-                    padding: const .all(16),
-                    onTap: () =>
-                        context.pushRoute(const GeneralConfigRoute()),
+                    onTap: () => context.pushRoute(const GeneralConfigRoute()),
                   ),
                 ],
               ),
@@ -77,23 +71,20 @@ class SettingsScreen extends StatelessWidget {
               padding: .zero,
               child: AppListTile(
                 leadingIcon: Symbols.lock,
-                leadingColor: AppColors.of(context).primary,
+                leadingColor: colorScheme.primary,
                 text: t.settings.changePassword,
                 trailingIcon: Symbols.chevron_right_rounded,
-                padding: const .all(16),
-                onTap: () =>
-                    context.pushRoute(const ChangePasswordRoute()),
+                onTap: () => context.pushRoute(const ChangePasswordRoute()),
               ),
             ),
             AppCard(
-              clipBehavior: Clip.antiAlias,
-              padding: EdgeInsets.zero,
+              clipBehavior: .antiAlias,
+              padding: .zero,
               child: AppListTile(
                 leadingIcon: Symbols.settings,
                 text: t.settings.appSettings,
-                leadingColor: AppColors.of(context).primary,
+                leadingColor: colorScheme.primary,
                 trailingIcon: Symbols.chevron_right_rounded,
-                padding: const EdgeInsets.all(16),
                 onTap: () => context.pushRoute(const AppSettingsRoute()),
               ),
             ),
@@ -103,9 +94,8 @@ class SettingsScreen extends StatelessWidget {
               child: AppListTile(
                 leadingIcon: Symbols.info_rounded,
                 text: t.settings.aboutApp,
-                leadingColor: AppColors.of(context).primary,
+                leadingColor: colorScheme.primary,
                 trailingIcon: Symbols.chevron_right_rounded,
-                padding: const .all(16),
                 onTap: () => context.pushRoute(const AboutAppRoute()),
               ),
             ),
@@ -115,8 +105,7 @@ class SettingsScreen extends StatelessWidget {
               child: AppListTile(
                 leadingIcon: Symbols.logout,
                 text: t.auth.logout.title,
-                leadingColor: AppColors.of(context).error,
-                padding: const .all(16),
+                leadingColor: colorScheme.error,
                 onTap: () {
                   DialogHelper.showModal(
                     context,
@@ -125,9 +114,7 @@ class SettingsScreen extends StatelessWidget {
                     type: .warning,
                     okText: t.common.actions.ok,
                     cancelText: t.common.actions.cancel,
-                    onOk: () {
-                      context.read<AuthCubit>().logOut();
-                    },
+                    onOk: context.read<AuthCubit>().logOut,
                   );
                 },
               ),

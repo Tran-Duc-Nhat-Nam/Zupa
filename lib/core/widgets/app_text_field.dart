@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/styles/colors.dart';
 
@@ -101,7 +102,7 @@ class _AppTextFieldState extends State<AppTextField> {
           decoration: InputDecoration(
             prefixIcon: widget.prefix != null || widget.prefixIcon != null
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 8),
+                    padding: const .only(left: 16, right: 8),
                     child:
                         widget.prefix ??
                         Icon(
@@ -122,8 +123,8 @@ class _AppTextFieldState extends State<AppTextField> {
                     constraints: const BoxConstraints(),
                     icon: Icon(
                       !isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                          ? Symbols.visibility_rounded
+                          : Symbols.visibility_off_rounded,
                       size: 20,
                       color: colorsScheme.onSurfaceVariant,
                     ),
@@ -136,7 +137,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   )
                 : widget.suffix != null || widget.suffixIcon != null
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 6, right: 12),
+                    padding: const .only(left: 6, right: 12),
                     child:
                         widget.suffix ??
                         Icon(
@@ -171,7 +172,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? BorderSide(color: colorsScheme.error)
+                      ? .new(color: colorsScheme.error)
                       : .none,
                 ),
             enabledBorder:
@@ -179,7 +180,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? BorderSide(color: colorsScheme.outlineVariant)
+                      ? .new(color: colorsScheme.outlineVariant)
                       : .none,
                 ),
             focusedErrorBorder:
@@ -187,7 +188,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? BorderSide(color: colorsScheme.error)
+                      ? .new(color: colorsScheme.error)
                       : .none,
                 ),
             focusedBorder:
@@ -195,7 +196,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? BorderSide(color: colorsScheme.primary)
+                      ? .new(color: colorsScheme.primary)
                       : .none,
                 ),
             contentPadding: widget.contentPadding ?? const .all(16),

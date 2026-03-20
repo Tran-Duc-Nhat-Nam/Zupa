@@ -6,6 +6,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -24,14 +25,9 @@ class TicketTitle extends StatelessWidget {
     final colors = AppColors.of(context);
 
     return Slidable(
-      // Enable/Disable sliding based on skeleton state
       enabled: enabled,
-
-      // Start Action Pane (Left side - was leadingActions)
       startActionPane: ActionPane(
         motion: const ScrollMotion(),
-        // Check 0.5 equivalent extent ratio if you need exact width control,
-        // but Slidable calculates based on children count usually.
         extentRatio: 0.35,
         children: [
           SlidableAction(
@@ -39,10 +35,10 @@ class TicketTitle extends StatelessWidget {
             backgroundColor: ticket.isFlagError == true
                 ? colors.primary
                 : colors.error,
-            foregroundColor: AppColors.of(context).surface,
+            foregroundColor: colors.surface,
             icon: ticket.isFlagError == true
-                ? Icons.check_circle_outline
-                : Icons.report_problem_outlined,
+                ? Symbols.check_circle_outline_rounded
+                : Symbols.report_problem_rounded,
             label: ticket.isFlagError == true
                 ? t.parking.reportRecovered
                 : t.parking.markAsLost,
@@ -61,8 +57,8 @@ class TicketTitle extends StatelessWidget {
               context.pushRoute(CheckInRoute(isCheckOut: true));
             },
             backgroundColor: colors.error,
-            foregroundColor: AppColors.of(context).surface,
-            icon: Icons.logout,
+            foregroundColor: colors.surface,
+            icon: Symbols.logout_rounded,
             label: t.parking.allowOut,
           ),
         ],
@@ -87,11 +83,15 @@ class TicketTitle extends StatelessWidget {
                   loadStateChanged: (state) => switch (state) {
                     LoadState.loading =>
                       LoadingAnimationWidget.horizontalRotatingDots(
-                        color: AppColors.of(context).primary,
+                        color: colors.primary,
                         size: 35,
                       ),
                     LoadState.completed => state.completedWidget,
-                    _ => Icon(Icons.error, color: colors.error, size: 35,),
+                    _ => Icon(
+                      Symbols.error_rounded,
+                      color: colors.error,
+                      size: 35,
+                    ),
                   },
                 ),
               ),

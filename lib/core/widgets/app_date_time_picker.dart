@@ -1,8 +1,8 @@
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppDateTimePicker extends StatelessWidget {
@@ -20,13 +20,14 @@ class AppDateTimePicker extends StatelessWidget {
   final List<FormFieldValidator<String>>? customValidators;
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return ReactiveFormField<DateTime?, DateTime?>(
       formControl: formControl,
       builder: (field) => Container(
         padding: const .all(12),
         decoration: BoxDecoration(
-          color: AppColors.of(context).surface,
-          border: Border.all(color: AppColors.of(context).outline),
+          color: colorScheme.surface,
+          border: .all(color: colorScheme.outline),
           borderRadius: .circular(16),
         ),
         child: Row(
@@ -39,7 +40,7 @@ class AppDateTimePicker extends StatelessWidget {
                     : '',
                 maxLines: 1,
                 style: AppTextStyles.bodyMediumRegular.copyWith(
-                  color: AppColors.of(context).onSurface,
+                  color: colorScheme.onSurface,
                 ),
               ),
             ),
@@ -53,8 +54,8 @@ class AppDateTimePicker extends StatelessWidget {
                 dt != null ? field.didChange(dt) : null;
               },
               child: Icon(
-                Icons.date_range,
-                color: AppColors.of(context).primary,
+                Symbols.date_range_rounded,
+                color: colorScheme.primary,
               ),
             ),
           ],

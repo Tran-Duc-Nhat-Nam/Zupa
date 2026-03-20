@@ -40,7 +40,7 @@ class AppListTile extends StatelessWidget {
         onTap: onTap,
         borderRadius: borderRadius,
         child: Padding(
-          padding: padding ?? const .symmetric(vertical: 12),
+          padding: padding ?? const .all(16),
           child: Row(
             spacing: 12,
             children: [

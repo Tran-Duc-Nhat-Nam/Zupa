@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 abstract class AppToast {
   static void showNotify(
     String message, {
-    AppToastType type = AppToastType.info,
+    AppToastType type = .info,
   }) {
-    final IconData icon = switch (type) {
-      .success => Icons.check_circle_outline_rounded,
-      .error => Icons.error_outline_rounded,
-      .warning => Icons.warning_amber_rounded,
-      .info => Icons.info_outline_rounded,
+    final icon = switch (type) {
+      .success => Symbols.check_circle_outline_rounded,
+      .error => Symbols.error_outline_rounded,
+      .warning => Symbols.warning_amber_rounded,
+      .info => Symbols.info_i_rounded,
     };
 
     SmartDialog.show(
@@ -50,7 +51,7 @@ abstract class AppToast {
     SmartDialog.showToast(
       message,
       useAnimation: true,
-      animationType: SmartAnimationType.fade,
+      animationType: .fade,
     );
   }
 }

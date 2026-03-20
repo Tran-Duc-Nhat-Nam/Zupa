@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeTicketCubit>(
@@ -37,11 +39,11 @@ class HomeScreen extends StatelessWidget {
             title: t.home.title,
             hasAppBar: false,
             floatingActionButton: FloatingActionButton(
-              backgroundColor: AppColors.of(context).primaryContainer,
-              foregroundColor: AppColors.of(context).primary,
+              backgroundColor: colorScheme.primaryContainer,
+              foregroundColor: colorScheme.primary,
               onPressed: () => context.pushRoute(CheckInRoute()),
               shape: const CircleBorder(),
-              child: const Icon(Icons.camera_alt_rounded),
+              child: const Icon(Symbols.camera_alt_rounded),
             ),
             child: BlocListener<HomeTicketCubit, HomeTicketState>(
               listener: (context, state) {
@@ -71,7 +73,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           );
-        }
+        },
       ),
     );
   }

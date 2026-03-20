@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'dart:math' as math;
 
@@ -11,14 +12,9 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
-class AppDrawer extends StatefulWidget {
+class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
-  @override
-  State<AppDrawer> createState() => _AppDrawerState();
-}
-
-class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
@@ -57,8 +53,8 @@ class _AppDrawerState extends State<AppDrawer> {
                     loaded: (settings) => settings.themeMode == .light,
                     orElse: () => true,
                   )
-                  ? Icon(Icons.light_mode, color: colors.primary)
-                  : Icon(Icons.dark_mode, color: colors.primary),
+                  ? Icon(Symbols.light_mode_rounded, color: colors.primary)
+                  : Icon(Symbols.dark_mode_rounded, color: colors.primary),
             ),
             onTap: () {
               final themeCubit = context.read<ThemeCubit>();
@@ -76,7 +72,7 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () {
               context.pushRoute(const SettingsRoute());
             },
-            leading: Icon(Icons.settings, color: colors.primary),
+            leading: Icon(Symbols.settings_rounded, color: colors.primary),
             title: Text(
               t.settings.title,
               style: AppTextStyles.bodyLargeSemibold.copyWith(

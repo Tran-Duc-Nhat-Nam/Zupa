@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/styles/colors.dart';
-
 
 class AppThemeToggleIcon extends StatelessWidget {
   final Animation<double> animation;
@@ -20,7 +20,7 @@ class AppThemeToggleIcon extends StatelessWidget {
             Opacity(
               opacity: 1 - animation.value,
               child: Icon(
-                Icons.wb_sunny,
+                Symbols.sunny_rounded,
                 color: color ?? AppColors.of(context).surface,
               ),
             ),
@@ -28,7 +28,7 @@ class AppThemeToggleIcon extends StatelessWidget {
             Opacity(
               opacity: animation.value,
               child: Icon(
-                Icons.nightlight_round,
+                Symbols.nightlight_rounded,
                 color: color ?? AppColors.of(context).surface,
               ),
             ),

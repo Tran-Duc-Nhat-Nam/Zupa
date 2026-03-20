@@ -51,6 +51,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppScreen(
       title: t.settings.appSettings,
       child: Padding(
@@ -66,7 +67,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     listener: (context, state) {
                       state.whenOrNull(
                         loading: (locale) {
-                          if (locale == AppLocalization.followSystem) {
+                          if (locale == .followSystem) {
                             LocaleSettings.useDeviceLocale();
                           } else {
                             LocaleSettings.setLocale(
@@ -92,7 +93,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           buttonDecoration: const .new(),
                           dropdownItems: const [.vi, .en, .ja, .followSystem],
                           buttonWidth: 165,
-                          iconEnabledColor: AppColors.of(context).secondary,
+                          iconEnabledColor: colorScheme.secondary,
                           initialValue: state.when(
                             loaded: (locale) => locale,
                             loading: (locale) => locale,
@@ -129,7 +130,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               buttonDecoration: const .new(),
                               dropdownItems: ThemeMode.values,
                               buttonWidth: 165,
-                              iconEnabledColor: AppColors.of(context).secondary,
+                              iconEnabledColor: colorScheme.secondary,
                               initialValue: settings.themeMode,
                               itemLabelGetter: (item) => switch (item) {
                                 .light => t.settings.lightMode,
@@ -152,7 +153,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               buttonDecoration: const .new(),
                               dropdownItems: AppColorSchemeSource.values,
                               buttonWidth: 165,
-                              iconEnabledColor: AppColors.of(context).secondary,
+                              iconEnabledColor: colorScheme.secondary,
                               initialValue: settings.colorSource,
                               itemLabelGetter: (item) => switch (item) {
                                 .brand => t.settings.brandColor,
@@ -189,17 +190,15 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                                 horizontal: 6,
                                               ),
                                               decoration: BoxDecoration(
-                                                color: AppColors.of(
-                                                  context,
-                                                ).surfaceContainerHighest,
-                                                shape: BoxShape.circle,
+                                                color: colorScheme
+                                                    .surfaceContainerHighest,
+                                                shape: .circle,
                                               ),
                                               child: Icon(
                                                 Symbols.colorize_rounded,
                                                 size: 25,
-                                                color: AppColors.of(
-                                                  context,
-                                                ).onSurfaceVariant,
+                                                color: colorScheme
+                                                    .onSurfaceVariant,
                                               ),
                                             ),
                                           );
@@ -230,9 +229,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                               shape: BoxShape.circle,
                                               border: Border.all(
                                                 color: isSelected
-                                                    ? AppColors.of(
-                                                        context,
-                                                      ).onSurface
+                                                    ? colorScheme.onSurface
                                                     : Colors.transparent,
                                                 width: 2.5,
                                               ),
@@ -249,19 +246,15 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                             ),
                                             child: isSelected
                                                 ? Icon(
-                                                    Icons.check,
+                                                    Symbols.check_rounded,
                                                     size: 20,
                                                     color:
                                                         Color(
                                                               colorValue,
                                                             ).computeLuminance() >
                                                             0.5
-                                                        ? AppColors.of(
-                                                            context,
-                                                          ).onSurface
-                                                        : AppColors.of(
-                                                            context,
-                                                          ).surface,
+                                                        ? colorScheme.onSurface
+                                                        : colorScheme.surface,
                                                   )
                                                 : null,
                                           ),
@@ -294,16 +287,13 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                     Set<WidgetState> states,
                                   ) {
                                     if (states.contains(WidgetState.selected)) {
-                                      return const .new(Icons.check);
+                                      return const .new(Symbols.check_rounded);
                                     }
-                                    return const .new(Icons.close);
+                                    return const .new(Symbols.close_rounded);
                                   }),
-                                  thumbColor: .all(
-                                    AppColors.of(context).surface,
-                                  ),
-                                  inactiveTrackColor: AppColors.of(
-                                    context,
-                                  ).surfaceContainerHighest,
+                                  thumbColor: .all(colorScheme.surface),
+                                  inactiveTrackColor:
+                                      colorScheme.surfaceContainerHighest,
                                   trackOutlineWidth:
                                       const WidgetStatePropertyAll(0),
                                   trackOutlineColor:

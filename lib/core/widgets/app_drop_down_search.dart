@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/styles/colors.dart';
 
@@ -184,7 +185,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
             icon: AnimatedRotation(
               turns: isOpen ? 0.5 : 0,
               duration: const .new(milliseconds: 200),
-              child: widget.icon ?? const Icon(Icons.keyboard_arrow_down),
+              child: widget.icon ?? const Icon(Symbols.keyboard_arrow_down_rounded),
             ),
             iconSize: widget.iconSize ?? 24,
             iconEnabledColor: widget.iconEnabledColor,
