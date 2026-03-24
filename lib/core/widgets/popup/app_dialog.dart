@@ -58,11 +58,13 @@ abstract class DialogHelper {
     BuildContext context, {
     required VoidCallback onQuit,
   }) {
+    final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     showModal(
       context,
       titleText: t.common.security.rootDetected,
       subtitleText: t.common.security.rootSubtitle,
-      okText: t.common.security.quit,
+      okText: isIOS ? '' : t.common.security.quit,
+      showOk: !isIOS,
       type: .error,
       dismissible: false,
       onOk: onQuit,
@@ -94,6 +96,7 @@ abstract class DialogHelper {
     String? cancelText,
     AppDialogType type = .info,
     bool dismissible = false,
+    bool showOk = true,
     void Function()? onOk,
     void Function()? onCancel,
   }) {
@@ -105,6 +108,7 @@ abstract class DialogHelper {
         onCancel: onCancel,
         confirmText: okText ?? 'OK',
         cancelText: cancelText,
+        showConfirm: showOk,
         type: type,
       ),
       backType: dismissible ? .normal : .block,
@@ -125,6 +129,7 @@ class AppDialog extends StatelessWidget {
   final String description;
   final String confirmText;
   final String? cancelText;
+  final bool showConfirm;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
 
@@ -135,6 +140,7 @@ class AppDialog extends StatelessWidget {
     required this.description,
     this.confirmText = 'OK',
     this.cancelText,
+    this.showConfirm = true,
     this.onConfirm,
     this.onCancel,
   });
@@ -176,7 +182,7 @@ class AppDialog extends StatelessWidget {
           const SizedBox(height: 24),
           if (cancelText != null)
             _buildDoubleButtons(context, styles.color)
-          else
+          else if (showConfirm)
             _buildSingleButton(context, styles.color),
         ],
       ),
