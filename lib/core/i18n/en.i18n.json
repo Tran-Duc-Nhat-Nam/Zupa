@@ -112,7 +112,12 @@
       "phone_short": "Phone",
       "phone_long": "Phone"
     },
-    "success": "Success"
+    "success": "Success",
+    "security": {
+      "rootDetected": "Security Alert",
+      "rootSubtitle": "Your device appears to be rooted or jailbroken. For your protection, this app cannot run on compromised devices.",
+      "quit": "Quit App"
+    }
   },
   "auth": {
     "login": {

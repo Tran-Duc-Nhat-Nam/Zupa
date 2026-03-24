@@ -112,7 +112,12 @@
       "phone_short": "SĐT",
       "phone_long": "Số điện thoại"
     },
-    "success": "Thành công"
+    "success": "Thành công",
+    "security": {
+      "rootDetected": "Cảnh báo bảo mật",
+      "rootSubtitle": "Thiết bị của bạn có vẻ đã được root hoặc jailbreak. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị đã bị can thiệp hệ thống.",
+      "quit": "Thoát ứng dụng"
+    }
   },
   "auth": {
     "login": {

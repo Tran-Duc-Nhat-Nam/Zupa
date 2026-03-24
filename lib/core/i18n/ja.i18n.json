@@ -112,7 +112,12 @@
       "phone_short": "電話",
       "phone_long": "電話番号"
     },
-    "success": "成功"
+    "success": "成功",
+    "security": {
+      "rootDetected": "セキュリティ警告",
+      "rootSubtitle": "デバイスがルート化またはジェイルブレイクされているようです。情報を保護するため、このアプリは改造されたデバイスでは実行できません。",
+      "quit": "アプリ終了"
+    }
   },
   "auth": {
     "login": {

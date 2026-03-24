@@ -54,6 +54,21 @@ abstract class DialogHelper {
     );
   }
 
+  static void showSecurityDialog(
+    BuildContext context, {
+    required VoidCallback onQuit,
+  }) {
+    showModal(
+      context,
+      titleText: t.common.security.rootDetected,
+      subtitleText: t.common.security.rootSubtitle,
+      okText: t.common.security.quit,
+      type: .error,
+      dismissible: false,
+      onOk: onQuit,
+    );
+  }
+
 
   static void showDownloadDialog(
     BuildContext context, {

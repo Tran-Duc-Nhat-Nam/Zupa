@@ -11,6 +11,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
+import 'package:zupa/core/bloc/security/security_cubit.dart';
+import 'package:zupa/core/bloc/security/security_state.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/theme.dart';
@@ -68,6 +70,7 @@ class MyApp extends StatelessWidget {
           create: (_) => getIt<ConnectivityCubit>()..monitorConnectivity(),
         ),
         BlocProvider(create: (_) => getIt<VersionCubit>()..checkForUpdates()),
+        BlocProvider(create: (_) => getIt<SecurityCubit>()..checkSecurity()),
         if (kDebugMode)
           BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
       ],
@@ -139,6 +142,22 @@ class _AppViewState extends State<AppView> {
                 DialogHelper.closeAllModal();
                 AppToast.showNotify(message, type: .error);
               },
+            );
+          },
+        ),
+        BlocListener<SecurityCubit, SecurityState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              vulnerable: () => DialogHelper.showSecurityDialog(
+                context,
+                onQuit: () {
+                  if (kDebugMode) {
+                    DialogHelper.closeAllModal();
+                  } else {
+                    SystemNavigator.pop();
+                  }
+                },
+              ),
             );
           },
         ),
