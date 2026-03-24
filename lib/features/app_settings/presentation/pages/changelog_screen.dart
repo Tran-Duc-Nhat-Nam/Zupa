@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zupa/core/i18n/strings.g.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 
 @RoutePage()
@@ -16,8 +18,7 @@ class ChangelogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = AppColors.of(context);
 
     final cleanChangelog = changelog
         .replaceAll('"', '')
@@ -33,37 +34,38 @@ class ChangelogScreen extends StatelessWidget {
     return AppScreen(
       title: t.common.version.changelog,
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const .all(24),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
+          spacing: 24,
           children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  'v$version',
-                  style: textTheme.labelLarge?.copyWith(
-                    color: colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.bold,
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer,
+                    borderRadius: .circular(20),
+                  ),
+                  child: Text(
+                    'v$version',
+                    style: AppTextStyles.bodyLargeBold.copyWith(
+                      color: colorScheme.onPrimaryContainer,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Text(
-            formattedChangelog,
-            style: textTheme.bodyLarge?.copyWith(
-              height: 1.6,
-              color: colorScheme.onSurfaceVariant,
+              ],
             ),
-          ),
-          const SizedBox(height: 48),
+            Text(
+              formattedChangelog,
+              style: AppTextStyles.bodyLargeRegular.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
