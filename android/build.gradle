@@ -8,17 +8,15 @@ allprojects {
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(":app")
 }
 
-// Force JVM 17 across all Java tasks
+// Force JVM 17 across all Java and Kotlin tasks
 allprojects {
     tasks.withType(JavaCompile).configureEach {
         options.release.set(17)
     }
 }
 
-// Force JVM 17 across all Kotlin tasks (including libraries)
 subprojects {
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions {
@@ -30,3 +28,4 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+

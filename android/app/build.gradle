@@ -24,7 +24,6 @@ android {
         applicationId = "com.tsp.parking"
         multiDexEnabled = true
         minSdkVersion flutter.minSdkVersion
-        minSdkVersion flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
