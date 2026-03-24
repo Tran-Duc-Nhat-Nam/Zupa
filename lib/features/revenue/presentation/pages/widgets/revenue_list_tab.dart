@@ -1,5 +1,6 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -108,7 +109,7 @@ class RevenueListTab extends StatelessWidget {
                           revenue: items.isNotEmpty
                               ? items[i]
                               : DailyRevenueEntity(
-                                  date: .now(),
+                                  date: DateTime.now(),
                                   revenue: [
                                     RevenueEntity(
                                       vehicleType: vehicleTypes[0],
@@ -128,7 +129,10 @@ class RevenueListTab extends StatelessWidget {
                                   ],
                                   vehicleType: null,
                                 ),
-                        ),
+                        )
+                            .animate(delay: (i * 30).ms)
+                            .fadeIn(duration: 400.ms)
+                            .slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
                       ),
                     ),
                   ),

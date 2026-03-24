@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -56,33 +57,48 @@ class _LoginScreenState extends AppState<LoginScreen> {
                       height: 80,
                       color: AppColors.of(context).primary,
                     ),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(duration: 600.ms)
+                      .scale(duration: 600.ms, curve: Curves.elasticOut),
                   Center(
                     child: Text(
                       t.auth.login.title,
                       style: AppTextStyles.heading2,
                     ),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 200.ms, duration: 400.ms)
+                      .slideY(begin: 0.5, end: 0, curve: Curves.easeOutQuad),
                   const SizedBox(height: 16),
                   AppTextField(
                     formControl: formModel.tenantControl,
                     required: true,
                     labelText: t.common.info.site,
                     prefix: const Icon(Symbols.warehouse_rounded),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 400.ms, duration: 400.ms)
+                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
                   AppTextField(
                     formControl: formModel.usernameControl,
                     required: true,
                     labelText: t.auth.login.username,
                     prefix: const Icon(Symbols.person_rounded),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 500.ms, duration: 400.ms)
+                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
                   AppTextField(
                     formControl: formModel.passwordControl,
                     required: true,
                     isPassword: true,
                     labelText: t.auth.login.password,
                     prefix: const Icon(Symbols.lock_rounded),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 600.ms, duration: 400.ms)
+                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
                   AppCheckbox(
                     formControl: formModel.isRememberControl,
                     label: Text(
@@ -91,7 +107,9 @@ class _LoginScreenState extends AppState<LoginScreen> {
                         color: AppColors.of(context).primary,
                       ),
                     ),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 700.ms, duration: 400.ms),
                   AppButton(
                     onPressed: state.whenOrNull(
                       loaded: () => context.read<LoginCubit>().login,
@@ -104,7 +122,10 @@ class _LoginScreenState extends AppState<LoginScreen> {
                         size: 24,
                       ),
                     ),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 800.ms, duration: 400.ms)
+                      .scale(begin: const Offset(0.9, 0.9), curve: Curves.easeOutBack),
                 ],
               ),
             ),

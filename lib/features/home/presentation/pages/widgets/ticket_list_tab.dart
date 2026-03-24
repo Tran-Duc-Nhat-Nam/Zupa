@@ -1,5 +1,6 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
@@ -69,11 +70,11 @@ class _TicketListTabState extends State<TicketListTab> {
         return Skeletonizer(
           enabled: state is Loading,
           child: Container(
-            clipBehavior: .antiAlias,
-            margin: const .symmetric(horizontal: 10),
+            clipBehavior: Clip.antiAlias,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: AppColors.of(context).surfaceContainer,
-              borderRadius: const .vertical(top: .circular(28)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
             ),
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
@@ -105,7 +106,7 @@ class _TicketListTabState extends State<TicketListTab> {
               child: ListView.builder(
                 itemCount: items.isNotEmpty ? items.length : 10,
                 itemBuilder: (c, i) => Padding(
-                  padding: .only(top: i == 0 ? 8 : 0),
+                  padding: EdgeInsets.only(top: i == 0 ? 8 : 0),
                   child: TicketTitle(
                     key: ValueKey(
                       items.isNotEmpty ? items[i].id : 'skeleton_$i',
@@ -117,7 +118,7 @@ class _TicketListTabState extends State<TicketListTab> {
                             siteId: 'Nope',
                             code: 'None',
                             isFlagError: false,
-                            timeIn: .now(),
+                            timeIn: DateTime.now(),
                             type: VehicleTypeEntity(
                               value: '',
                               name: '',
@@ -128,7 +129,10 @@ class _TicketListTabState extends State<TicketListTab> {
                           ), // Your placeholder logic
                     enabled: state is! Loading,
                   ),
-                ),
+                )
+                    .animate(delay: (i * 30).ms)
+                    .fadeIn(duration: 400.ms, curve: Curves.easeOutQuad)
+                    .slideX(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
               ),
             ),
           ),

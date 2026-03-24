@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -21,19 +22,19 @@ class VehicleCapacityTab extends StatelessWidget {
         return BlocBuilder<HomeFilterCubit, HomeFilterState>(
           builder: (context, state) {
             return Padding(
-              padding: const .all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Skeletonizer(
                 enabled: state is Loading,
                 child: Row(
                   spacing: 16,
-                  children: .generate(
+                  children: List.generate(
                     vehicleTypes.length,
                     (index) => Expanded(
                       child: VehicleCapacityCard(
                         icon:
                             const IconConverter().fromJson(
-                              vehicleTypes[index].icon,
-                            ) ??
+                                  vehicleTypes[index].icon,
+                                ) ??
                             Symbols.globe_rounded,
                         name: vehicleTypes[index].value,
                         current: 65 + index * 20,
@@ -53,7 +54,10 @@ class VehicleCapacityTab extends StatelessWidget {
                               : field.didChange(vehicleTypes[index]);
                           context.read<HomeFilterCubit>().filter();
                         },
-                      ),
+                      )
+                          .animate(delay: (index * 100).ms)
+                          .fadeIn(duration: 400.ms)
+                          .slideY(begin: 0.2, end: 0, curve: Curves.easeOutBack),
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
@@ -88,7 +89,10 @@ class SiteSelector extends StatelessWidget {
           ],
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .slideY(begin: -0.2, end: 0, curve: Curves.easeOutQuad);
   }
 
   void _showSitePicker(
