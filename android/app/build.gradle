@@ -27,7 +27,6 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        buildToolsVersion = "37.0.0-rc2"
     }
 
     signingConfigs {
@@ -60,7 +59,6 @@ android {
             }
         }
     }
-    buildToolsVersion '37.0.0-rc2'
 }
 
 dependencies {
