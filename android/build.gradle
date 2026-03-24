@@ -8,22 +8,21 @@ allprojects {
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(":app")
-    afterEvaluate { project ->
-        if (project.hasProperty('android')) {
-            project.android {
-                compileOptions {
-                    sourceCompatibility JavaVersion.VERSION_17
-                    targetCompatibility JavaVersion.VERSION_17
-                }
-            }
-        }
-        if (project.plugins.hasPlugin('org.jetbrains.kotlin.android')) {
-            project.kotlin {
-                jvmToolchain(17)
-            }
+}
+
+// Force JVM 17 across all Java tasks
+allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.release.set(17)
+    }
+}
+
+// Force JVM 17 across all Kotlin tasks (including libraries)
+subprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "17"
         }
     }
 }
