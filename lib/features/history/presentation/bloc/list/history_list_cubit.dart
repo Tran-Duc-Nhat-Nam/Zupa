@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
@@ -16,7 +18,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
 
   HistoryListCubit(this._historyRepository) : super(const .initial());
 
-  Future<void> init() async {
+  Future<void> init(BuildContext context) async {
     emit(const .loading());
     final response = await _historyRepository.getHistory();
 
@@ -24,7 +26,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
       success: (data) =>
           data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
       error: (message) => emit(.failed(message)),
-      unauthenticated: () => emit(const .unauthenticated()),
+      unauthenticated: () => context.read<AuthCubit>().logOut(),
     );
   }
 
@@ -37,7 +39,13 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     final response = await _historyRepository.getHistory(
       filter:
           filter ??
-          const HistoryFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null),
+          const HistoryFilterEntity(
+            page: defaultPageIndex,
+            size: defaultPageSize,
+            keyword: null,
+            time: null,
+            type: null,
+          ),
     );
 
     response.whenOrNull(
@@ -59,7 +67,15 @@ class HistoryListCubit extends Cubit<HistoryListState> {
     emit(.loadingMore(items));
 
     final result = await _historyRepository.getHistory(
-      filter: filter ?? const HistoryFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null),
+      filter:
+          filter ??
+          const HistoryFilterEntity(
+            page: defaultPageIndex,
+            size: defaultPageSize,
+            keyword: null,
+            time: null,
+            type: null,
+          ),
       page: pageIndex + 1,
     );
     result.whenOrNull(

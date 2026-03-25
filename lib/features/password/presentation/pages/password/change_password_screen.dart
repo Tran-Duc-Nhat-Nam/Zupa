@@ -46,9 +46,9 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
               title: t.settings.changePassword,
               footer: [
                 AppButton(
-                  onPressed: context
+                  onPressed: () => context
                       .read<PasswordSettingsCubit>()
-                      .changePassword,
+                      .changePassword(context),
                   text: t.settings.changePassword,
                 ),
               ],

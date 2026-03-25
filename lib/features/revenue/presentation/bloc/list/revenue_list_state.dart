@@ -14,5 +14,4 @@ sealed class RevenueListState with _$RevenueListState {
   ) = Loaded;
   const factory RevenueListState.failed(String message) = Failed;
   const factory RevenueListState.empty() = Emtpy;
-  const factory RevenueListState.unauthenticated() = Unauthenticated;
 }

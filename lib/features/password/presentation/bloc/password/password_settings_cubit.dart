@@ -1,4 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
@@ -27,7 +28,7 @@ class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
     emit(const .loaded());
   }
 
-  Future<void> changePassword() async {
+  Future<void> changePassword(BuildContext context) async {
     if (formModel.form.valid) {
       final staffMetaDataId = _authCubit.state.maybeWhen(
         loaded: (_, user) => user?.staffMetaDataId ?? user?.staffId,
@@ -35,7 +36,7 @@ class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
       );
 
       if (staffMetaDataId == null) {
-        emit(const .unauthenticated());
+        context.read<AuthCubit>().logOut();
         return;
       }
 

@@ -59,7 +59,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                       height: 80,
                       color: colorScheme.primary,
                     ),
-                  ).animateIn(index: 0),
+                  ).animateIn(),
                   Center(
                     child: Text(
                       t.auth.login.title,

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/styles/colors.dart';
-import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -25,7 +24,7 @@ class HomeScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeTicketCubit>(
-          create: (context) => getIt<HomeTicketCubit>()..init(),
+          create: (context) => getIt<HomeTicketCubit>()..init(context),
         ),
         BlocProvider<HomeFilterCubit>(
           create: (context) => getIt<HomeFilterCubit>()..init(),
@@ -46,36 +45,29 @@ class HomeScreen extends StatelessWidget {
               shape: const CircleBorder(),
               child: const Icon(Symbols.camera_alt_rounded),
             ),
-            child: BlocListener<HomeTicketCubit, HomeTicketState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  unauthenticated: () => DialogHelper.showAuthDialog(context),
-                );
-              },
-              child: const Column(
-                spacing: 12,
-                children: [
-                  SizedBox(height: 12),
-                  Padding(
+            child: const Column(
+              spacing: 12,
+              children: [
+                SizedBox(height: 12),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: AppSiteSelector(),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: HomeSearchBar(),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: VehicleCapacityTab(),
+                ),
+                Expanded(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: AppSiteSelector(),
+                    child: TicketListTab(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: HomeSearchBar(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: VehicleCapacityTab(),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
-                      child: TicketListTab(),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

@@ -14,5 +14,4 @@ sealed class HistoryListState with _$HistoryListState {
   ) = Loaded;
   const factory HistoryListState.failed(String message) = Failed;
   const factory HistoryListState.empty() = Emtpy;
-  const factory HistoryListState.unauthenticated() = Unauthenticated;
 }

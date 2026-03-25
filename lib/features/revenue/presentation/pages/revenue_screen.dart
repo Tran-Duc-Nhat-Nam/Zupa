@@ -2,7 +2,6 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -28,18 +27,11 @@ class RevenueScreen extends StatelessWidget {
             hasParentView: true,
             title: t.parking.revenue,
             hasAppBar: false,
-            child: BlocListener<RevenueListCubit, RevenueListState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  unauthenticated: () => DialogHelper.showAuthDialog(context),
-                );
-              },
-              child: const Column(
-                children: [
-                  SizedBox(height: 16),
-                  Expanded(child: RevenueListTab()),
-                ],
-              ),
+            child: const Column(
+              children: [
+                SizedBox(height: 16),
+                Expanded(child: RevenueListTab()),
+              ],
             ),
           );
         }

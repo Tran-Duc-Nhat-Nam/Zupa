@@ -16,6 +16,5 @@ sealed class MemberVehiclesListState with _$MemberVehiclesListState {
   ) = Loaded;
   const factory MemberVehiclesListState.failed(String message) = Failed;
   const factory MemberVehiclesListState.empty() = Empty;
-  const factory MemberVehiclesListState.unauthenticated() = Unauthenticated;
 }
 

@@ -19,5 +19,4 @@ sealed class CheckInState with _$CheckInState {
   const factory CheckInState.submitting() = Submitting;
   const factory CheckInState.submitSuccess() = SubmitSuccess;
   const factory CheckInState.submitFailed() = SubmitFailed;
-  const factory CheckInState.unauthenticated() = Unauthenticated;
 }

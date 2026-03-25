@@ -7,5 +7,4 @@ sealed class MemberVehicleDetailState with _$MemberVehicleDetailState {
   const factory MemberVehicleDetailState.loaded(MemberVehicleEntity vehicle) = Loaded;
   const factory MemberVehicleDetailState.failed(String message) = Failed;
   const factory MemberVehicleDetailState.empty() = Empty;
-  const factory MemberVehicleDetailState.unauthenticated() = Unauthenticated;
 }

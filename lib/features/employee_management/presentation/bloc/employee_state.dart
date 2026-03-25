@@ -14,6 +14,5 @@ sealed class EmployeeState with _$EmployeeState {
   ) = Loaded;
   const factory EmployeeState.failed(String message) = Failed;
   const factory EmployeeState.empty() = Empty;
-  const factory EmployeeState.unauthenticated() = Unauthenticated;
 }
 

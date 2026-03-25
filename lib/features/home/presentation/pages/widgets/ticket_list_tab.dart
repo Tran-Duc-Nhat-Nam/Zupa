@@ -14,7 +14,6 @@ import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart'
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 
-
 class TicketListTab extends StatefulWidget {
   const TicketListTab({super.key});
 
@@ -75,7 +74,7 @@ class _TicketListTabState extends State<TicketListTab> {
             margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: AppColors.of(context).surfaceContainer,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+              borderRadius: const .vertical(top: .circular(28)),
             ),
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
@@ -92,6 +91,7 @@ class _TicketListTabState extends State<TicketListTab> {
               controller: _refreshController,
               onRefresh: () => state is! Refreshing
                   ? context.read<HomeTicketCubit>().refresh(
+                      context,
                       context.read<HomeFilterCubit>().state.mapOrNull(
                         loaded: (s) => s.filter,
                       ),
@@ -99,6 +99,7 @@ class _TicketListTabState extends State<TicketListTab> {
                   : null,
               onLoad: () => state is! LoadingMore
                   ? context.read<HomeTicketCubit>().loadMore(
+                      context,
                       context.read<HomeFilterCubit>().state.mapOrNull(
                         loaded: (s) => s.filter,
                       ),
@@ -130,8 +131,7 @@ class _TicketListTabState extends State<TicketListTab> {
                           ), // Your placeholder logic
                     enabled: state is! Loading,
                   ),
-                )
-                    .animateIn(index: i, animate: state is! LoadingMore),
+                ).animateIn(index: i, animate: state is! LoadingMore),
               ),
             ),
           ),

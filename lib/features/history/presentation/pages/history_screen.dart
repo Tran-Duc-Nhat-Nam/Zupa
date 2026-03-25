@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
     hide Loading;
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
@@ -33,11 +32,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HistoryFilterCubit>(
-          create: (filterContext) =>
-              getIt<HistoryFilterCubit>()..init(),
+          create: (filterContext) => getIt<HistoryFilterCubit>()..init(),
         ),
         BlocProvider<HistoryListCubit>(
-          create: (listContext) => getIt<HistoryListCubit>()..init(),
+          create: (listContext) => getIt<HistoryListCubit>()..init(context),
         ),
       ],
       child: Builder(
@@ -48,37 +46,29 @@ class _HistoryScreenState extends State<HistoryScreen> {
             hasParentView: true,
             title: t.parking.history,
             hasAppBar: false,
-            child: BlocListener<HistoryListCubit, HistoryListState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  unauthenticated: () => DialogHelper.showAuthDialog(context),
+            child: BlocBuilder<HistoryListCubit, HistoryListState>(
+              builder: (listContext, listState) {
+                return Column(
+                  children: [
+                    HistorySearchBar(isScrolledNotifier: _isScrolledNotifier),
+                    Expanded(
+                      child: NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is ScrollUpdateNotification) {
+                            final isScrolled = notification.metrics.pixels > 20;
+                            _isScrolledNotifier.value = isScrolled;
+                          }
+                          return false;
+                        },
+                        child: const HistoryListTab(),
+                      ),
+                    ),
+                  ],
                 );
               },
-              child: BlocBuilder<HistoryListCubit, HistoryListState>(
-                builder: (listContext, listState) {
-                  return Column(
-                    children: [
-                      HistorySearchBar(isScrolledNotifier: _isScrolledNotifier),
-                      Expanded(
-                        child: NotificationListener<ScrollNotification>(
-                          onNotification: (notification) {
-                            if (notification is ScrollUpdateNotification) {
-                              final isScrolled =
-                                  notification.metrics.pixels > 20;
-                              _isScrolledNotifier.value = isScrolled;
-                            }
-                            return false;
-                          },
-                          child: const HistoryListTab(),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
             ),
           );
-        }
+        },
       ),
     );
   }
