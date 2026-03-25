@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class AppCard extends StatelessWidget {
   const AppCard({
@@ -14,6 +15,7 @@ class AppCard extends StatelessWidget {
     this.constraints,
     this.clipBehavior,
     this.animate = true,
+    this.delay,
   });
 
   final Widget? child;
@@ -25,6 +27,7 @@ class AppCard extends StatelessWidget {
   final BoxDecoration? decoration;
   final Clip? clipBehavior;
   final bool animate;
+  final Duration? delay;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +46,6 @@ class AppCard extends StatelessWidget {
       child: child,
     );
 
-    if (animate) {
-      content = content
-          .animate()
-          .fadeIn(duration: 400.ms, curve: Curves.easeOut)
-          .slideY(begin: 0.1, end: 0, duration: 400.ms, curve: Curves.easeOut);
-    }
-
-    return content;
+    return content.withAppAnimation(animate: animate, delay: delay);
   }
 }

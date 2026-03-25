@@ -10,6 +10,8 @@ import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class HistoryListTab extends StatelessWidget {
   const HistoryListTab({super.key});
@@ -81,7 +83,7 @@ class HistoryListTab extends StatelessWidget {
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 12),
                 itemBuilder: (c, i) => Padding(
-                  padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
+                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0, left: 24, right: 24),
                   child: HistoryListSection(
                     tickets: items.isNotEmpty
                         ? items
@@ -90,15 +92,15 @@ class HistoryListTab extends StatelessWidget {
                             (index) => HistoryTicketEntity(
                               code: 'Placeholder',
                               id: -1,
-                              timeIn: .now(),
-                              timeOut: .now(),
+                              timeIn: DateTime.now(),
+                              timeOut: DateTime.now(),
                               isFlagError: false,
                               siteId: 'A much Longer placeholder',
                               type: vehicleTypes.first,
                             ),
                           ),
                   ),
-                ),
+                ).animateIn(index: i, animate: state is! LoadingMore),
                 itemCount: items.isNotEmpty ? items.length : 10,
               ),
             ),

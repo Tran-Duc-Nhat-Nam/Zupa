@@ -4,6 +4,8 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/styles/colors.dart';
 
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class AppAppBar extends AppBar {
   AppAppBar({
@@ -47,7 +49,7 @@ class _AppAppBarState extends State<AppAppBar> {
       ),
       centerTitle: widget.isCenter,
       title:
-          widget.titleWidget ??
+          (widget.titleWidget ??
           (widget.subtext != null
               ? Column(
                   children: [Text(widget.text ?? ''), Text(widget.subtext!)],
@@ -57,7 +59,7 @@ class _AppAppBarState extends State<AppAppBar> {
                     widget.text ?? '',
                     style: TextStyle(color: colors.onSurface),
                   ),
-                )),
+                ))).withAppAnimation(delay: const Duration(milliseconds: 100)),
       titleTextStyle: AppTextStyles.bodyLargeSemibold,
       automaticallyImplyLeading: false,
       leading: widget.leading != null
@@ -87,14 +89,14 @@ class _AppAppBarState extends State<AppAppBar> {
                     : Symbols.arrow_back_rounded,
                 color: colors.outline,
                 size: 32,
-              ),
+              ).withAppAnimation(),
               onPressed: () => context.router.pop(),
             )
           : null,
       titleSpacing: ModalRoute.of(context)?.impliesAppBarDismissal == true
           ? 8
           : 24,
-      actions: widget.trailing != null
+      actions: (widget.trailing != null
           ? [...widget.trailing!]
           : widget.trailingIcon != null
           ? [
@@ -107,7 +109,9 @@ class _AppAppBarState extends State<AppAppBar> {
                 ),
               ),
             ]
-          : [const SizedBox(width: 12)],
+          : [const SizedBox(width: 12)])
+          .map((e) => e.withAppAnimation(delay: const Duration(milliseconds: 200)))
+          .toList(),
     );
   }
 }

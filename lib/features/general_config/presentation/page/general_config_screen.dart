@@ -41,6 +41,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                   spacing: 10,
                   children: [
                     AppCard(
+                      delay: const Duration(milliseconds: 100),
                       padding: .zero,
                       child: Column(
                         children: [
@@ -65,6 +66,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                       ),
                     ),
                     AppCard(
+                      delay: const Duration(milliseconds: 200),
                       child: Column(
                         children: [
                           AppListTile(

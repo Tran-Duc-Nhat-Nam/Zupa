@@ -13,7 +13,9 @@ import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/helper/responsive/responsive_helper.dart';
+
 
 @RoutePage()
 class AppNavBarScreen extends StatefulWidget {
@@ -59,7 +61,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
         ],
         transitionBuilder: (context, child, animation) => FadeTransition(
           opacity: animation,
-          child: child,
+          child: AppAnimation(child: child),
         ),
         builder: (context, child) {
           final tabsRouter = AutoTabsRouter.of(context);

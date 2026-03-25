@@ -18,6 +18,8 @@ import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class MemberVehicleListTab extends StatelessWidget {
   const MemberVehicleListTab({super.key});
@@ -84,10 +86,9 @@ class MemberVehicleListTab extends StatelessWidget {
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
                 itemBuilder: (c, i) => Padding(
-                  padding: .only(top: i == 0 ? 16 : 0),
+                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
                   child: MemberVehiclesTitle(
-                    ticket:
-                        items?[i] ??
+                    ticket: items?[i] ??
                         MemberVehicleEntity(
                           id: '',
                           name: '',
@@ -100,7 +101,7 @@ class MemberVehicleListTab extends StatelessWidget {
                           expiredIn: 0,
                         ),
                   ),
-                ),
+                ).animateIn(index: i, animate: state is! LoadingMore),
                 itemCount: items?.length ?? 10,
               ),
             ),

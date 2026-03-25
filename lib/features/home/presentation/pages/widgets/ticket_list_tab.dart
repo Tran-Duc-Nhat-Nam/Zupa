@@ -1,6 +1,5 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
@@ -13,6 +12,8 @@ import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.da
 import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class TicketListTab extends StatefulWidget {
   const TicketListTab({super.key});
@@ -130,9 +131,7 @@ class _TicketListTabState extends State<TicketListTab> {
                     enabled: state is! Loading,
                   ),
                 )
-                    .animate(delay: (i * 30).ms)
-                    .fadeIn(duration: 400.ms, curve: Curves.easeOutQuad)
-                    .slideX(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+                    .animateIn(index: i, animate: state is! LoadingMore),
               ),
             ),
           ),

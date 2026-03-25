@@ -10,6 +10,8 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/helper/responsive/responsive_helper.dart';
 import 'package:zupa/core/widgets/app_drawer.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class AppScreen extends StatefulWidget {
   const AppScreen({
@@ -132,7 +134,7 @@ class _AppScreenState extends State<AppScreen> {
           );
   }
 
-  Stack _buildContent() {
+  Widget _buildContent() {
     return Stack(
       alignment: .bottomCenter,
       children: [
@@ -177,6 +179,6 @@ class _AppScreenState extends State<AppScreen> {
           ),
         ),
       ],
-    );
+    ).withAppAnimation(animate: !widget.hasParentView);
   }
 }

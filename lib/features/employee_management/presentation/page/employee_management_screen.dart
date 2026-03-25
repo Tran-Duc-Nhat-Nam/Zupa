@@ -14,6 +14,8 @@ import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 @RoutePage()
 class EmployeeManagementScreen extends StatefulWidget {
@@ -64,7 +66,7 @@ class _EmployeeManagementScreenState
                         ),
                         trailingIcon: Symbols.chevron_right_rounded,
                         onTap: () => context.pushRoute(ParkingDetailsRoute()),
-                      ),
+                      ).animateIn(index: index),
                       separatorBuilder: (context, index) =>
                           Divider(color: colorScheme.surfaceContainerHighest),
                       itemCount: params.employees.length,

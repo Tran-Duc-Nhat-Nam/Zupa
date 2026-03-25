@@ -1,6 +1,5 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -14,6 +13,8 @@ import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_title.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 class RevenueListTab extends StatelessWidget {
   const RevenueListTab({super.key});
@@ -129,10 +130,7 @@ class RevenueListTab extends StatelessWidget {
                                   ],
                                   vehicleType: null,
                                 ),
-                        )
-                            .animate(delay: (i * 30).ms)
-                            .fadeIn(duration: 400.ms)
-                            .slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+                        ).animateIn(index: i, animate: listState is! LoadingMore),
                       ),
                     ),
                   ),

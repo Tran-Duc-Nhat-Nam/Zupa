@@ -14,6 +14,8 @@ import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 
 @RoutePage()
 class ParkingLotScreen extends StatefulWidget {
@@ -66,7 +68,7 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                             parkingLot: params.parkingLots[index],
                           ),
                         ),
-                      ),
+                      ).animateIn(index: index),
                       separatorBuilder: (context, index) =>
                           Divider(color: colors.surfaceContainerHighest),
                       itemCount: params.parkingLots.length,
