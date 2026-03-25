@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zupa/core/bloc/security/security_cubit.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
@@ -84,10 +85,13 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
         context.router.replaceAll([const LoginRoute()]);
       }
 
+      await context.read<SecurityCubit>().checkSecurity();
+
       final now = DateTime.now();
 
-      if (_lastVersionCheck == null ||
-          now.difference(_lastVersionCheck!) > _checkThreshold) {
+      if ((_lastVersionCheck == null ||
+              now.difference(_lastVersionCheck!) > _checkThreshold) &&
+          mounted) {
         DebuggerHelper.talker.log('Performing version check...');
         await context.read<VersionCubit>().checkForUpdates();
         _lastVersionCheck = .now();
@@ -108,7 +112,7 @@ abstract class AppState<T extends StatefulWidget> extends State<T> {
 
     final newLocale = AppLocale.values.firstWhere(
       (e) => e.languageCode == locale.languageCode,
-      orElse: () => AppLocale.en, // Provide a fallback
+      orElse: () => .en, // Provide a fallback
     );
 
     LocaleSettings.setLocale(newLocale);
