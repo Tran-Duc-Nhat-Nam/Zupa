@@ -12,6 +12,6 @@ sealed class HomeTicketState with _$HomeTicketState {
     List<HomeTicketEntity> tickets,
     int pageIndex,
   ) = Loaded;
-  const factory HomeTicketState.failed(String message) = Failed;
+  const factory HomeTicketState.failed(String? message) = Failed;
   const factory HomeTicketState.empty() = Emtpy;
 }

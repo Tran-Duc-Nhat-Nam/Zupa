@@ -7,7 +7,7 @@ sealed class PasswordSettingsState with _$PasswordSettingsState {
   const factory PasswordSettingsState.loaded() = Loaded;
   const factory PasswordSettingsState.changePasswordSuccess() =
       ChangePasswordSuccess;
-  const factory PasswordSettingsState.changePasswordFailed(String message) =
+  const factory PasswordSettingsState.changePasswordFailed(String? message) =
       ChangePasswordFailed;
 }
 

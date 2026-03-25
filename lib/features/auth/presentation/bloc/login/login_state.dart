@@ -7,5 +7,5 @@ sealed class LoginState with _$LoginState {
   const factory LoginState.loaded() = Loaded;
   const factory LoginState.submitting() = Submitting;
   const factory LoginState.loginSuccess() = LoginSuccess;
-  const factory LoginState.loginFailed(String message) = LoginFailed;
+  const factory LoginState.loginFailed(String? message) = LoginFailed;
 }

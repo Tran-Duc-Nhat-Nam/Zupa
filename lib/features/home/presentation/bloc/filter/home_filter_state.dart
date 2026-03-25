@@ -12,6 +12,6 @@ sealed class HomeFilterState with _$HomeFilterState {
     @Default(HomeFilterEntity(page: defaultPageIndex, size: defaultPageSize, keyword: null, time: null, type: null))
     HomeFilterEntity filter,
   }) = Filtering;
-  const factory HomeFilterState.failed(String message) = Failed;
+  const factory HomeFilterState.failed(String? message) = Failed;
   const factory HomeFilterState.empty() = Empty;
 }

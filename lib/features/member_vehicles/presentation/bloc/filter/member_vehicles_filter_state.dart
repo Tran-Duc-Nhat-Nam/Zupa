@@ -22,6 +22,6 @@ sealed class MemberVehiclesFilterState with _$MemberVehiclesFilterState {
       type: null,
     )) MemberVehicleFilterEntity filter,
   }) = Filtering;
-  const factory MemberVehiclesFilterState.failed(String message) = Failed;
+  const factory MemberVehiclesFilterState.failed(String? message) = Failed;
 }
 

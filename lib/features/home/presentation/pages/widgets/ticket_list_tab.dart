@@ -51,7 +51,9 @@ class _TicketListTabState extends State<TicketListTab> {
           failed: (message) {
             _refreshController.finishRefresh(.fail);
             _refreshController.finishLoad(.fail);
-            AppToast.showNotify(t[message] ?? message);
+            AppToast.showNotify(
+              message != null ? t[message] ?? message : t.common.errors.unknown,
+            );
           },
           empty: () {
             _refreshController.finishRefresh(.noMore);

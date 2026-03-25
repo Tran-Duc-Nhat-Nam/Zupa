@@ -14,7 +14,7 @@ sealed class MemberVehiclesListState with _$MemberVehiclesListState {
     List<MemberVehicleEntity> vehicles,
     int pageIndex,
   ) = Loaded;
-  const factory MemberVehiclesListState.failed(String message) = Failed;
+  const factory MemberVehiclesListState.failed(String? message) = Failed;
   const factory MemberVehiclesListState.empty() = Empty;
 }
 

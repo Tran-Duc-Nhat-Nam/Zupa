@@ -37,12 +37,11 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       );
 
       if (response is SuccessResponse && response.data is AuthResponse) {
-
         return .success(response.data);
       } else if (response is ErrorResponse) {
         return .error(response.message);
       } else {
-        return const .error('error');
+        return const .error(null);
       }
     } catch (e) {
       return .error(e.toString());

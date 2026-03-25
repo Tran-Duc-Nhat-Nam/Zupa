@@ -12,5 +12,5 @@ sealed class HistoryFilterState with _$HistoryFilterState {
     @Default(HistoryFilterEntity(page: defaultPageIndex, size: defaultPageSize, type: null, time: null, keyword: null))
     HistoryFilterEntity filter,
   }) = Filtering;
-  const factory HistoryFilterState.failed(String message) = Failed;
+  const factory HistoryFilterState.failed(String? message) = Failed;
 }

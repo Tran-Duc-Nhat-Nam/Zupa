@@ -12,6 +12,6 @@ sealed class HistoryListState with _$HistoryListState {
     List<HistoryTicketEntity> tickets,
     int pageIndex,
   ) = Loaded;
-  const factory HistoryListState.failed(String message) = Failed;
+  const factory HistoryListState.failed(String? message) = Failed;
   const factory HistoryListState.empty() = Emtpy;
 }

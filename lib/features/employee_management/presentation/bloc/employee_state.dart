@@ -12,7 +12,7 @@ sealed class EmployeeState with _$EmployeeState {
     List<Employee> employees,
     int pageIndex,
   ) = Loaded;
-  const factory EmployeeState.failed(String message) = Failed;
+  const factory EmployeeState.failed(String? message) = Failed;
   const factory EmployeeState.empty() = Empty;
 }
 

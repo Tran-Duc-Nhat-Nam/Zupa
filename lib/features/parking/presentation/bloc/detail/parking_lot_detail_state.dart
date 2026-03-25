@@ -7,6 +7,6 @@ sealed class ParkingLotDetailState with _$ParkingLotDetailState {
   const factory ParkingLotDetailState.loaded(ParkingLotEntity parkingLot) = Loaded;
   const factory ParkingLotDetailState.creating() = Creating;
   const factory ParkingLotDetailState.empty() = Empty;
-  const factory ParkingLotDetailState.failed(String message) = Failed;
+  const factory ParkingLotDetailState.failed(String? message) = Failed;
 }
 

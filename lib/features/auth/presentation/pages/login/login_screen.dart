@@ -37,7 +37,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
           state.whenOrNull(
             loginSuccess: () => context.router.replaceAll([const HomeRoute()]),
             loginFailed: (message) {
-              AppToast.showNotify(message, type: .error);
+              AppToast.showNotify(message ?? t.common.errors.unknown, type: .error);
             },
           );
         },

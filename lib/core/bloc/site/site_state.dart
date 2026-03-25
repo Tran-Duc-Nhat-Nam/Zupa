@@ -6,5 +6,5 @@ class SiteState with _$SiteState {
   const factory SiteState.loading() = Loading;
   const factory SiteState.loaded(String? data) = Loaded;
   const factory SiteState.empty() = Empty;
-  const factory SiteState.failed(String message) = Failed;
+  const factory SiteState.failed(String? message) = Failed;
 }

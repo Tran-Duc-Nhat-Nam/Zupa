@@ -12,6 +12,6 @@ sealed class RevenueListState with _$RevenueListState {
     List<DailyRevenueEntity> tickets,
     int pageIndex,
   ) = Loaded;
-  const factory RevenueListState.failed(String message) = Failed;
+  const factory RevenueListState.failed(String? message) = Failed;
   const factory RevenueListState.empty() = Emtpy;
 }

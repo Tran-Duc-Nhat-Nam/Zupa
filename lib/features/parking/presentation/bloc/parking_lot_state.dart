@@ -12,7 +12,7 @@ sealed class ParkingLotState with _$ParkingLotState {
     List<ParkingLotEntity> parkingLots,
     int pageIndex,
   ) = Loaded;
-  const factory ParkingLotState.failed(String message) = Failed;
+  const factory ParkingLotState.failed(String? message) = Failed;
   const factory ParkingLotState.empty() = Empty;
 }
 

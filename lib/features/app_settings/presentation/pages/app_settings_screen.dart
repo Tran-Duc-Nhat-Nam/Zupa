@@ -226,8 +226,8 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                             ),
                                             decoration: BoxDecoration(
                                               color: Color(colorValue),
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
+                                              shape: .circle,
+                                              border: .all(
                                                 color: isSelected
                                                     ? colorScheme.onSurface
                                                     : Colors.transparent,
