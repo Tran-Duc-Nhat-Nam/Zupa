@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -53,53 +54,38 @@ class _LoginScreenState extends AppState<LoginScreen> {
                 spacing: 16,
                 children: [
                   Center(
-                        child: Image.asset(
-                          'assets/images/tsp-logo.png',
-                          height: 80,
-                          color: colorScheme.primary,
-                        ),
-                      )
-                      .animate()
-                      .fadeIn(duration: 600.ms)
-                      .scale(duration: 600.ms, curve: Curves.elasticOut),
+                    child: Image.asset(
+                      'assets/images/tsp-logo.png',
+                      height: 80,
+                      color: colorScheme.primary,
+                    ),
+                  ).animateIn(index: 0),
                   Center(
-                        child: Text(
-                          t.auth.login.title,
-                          style: AppTextStyles.heading2,
-                        ),
-                      )
-                      .animate()
-                      .fadeIn(delay: 200.ms, duration: 400.ms)
-                      .slideY(begin: 0.5, end: 0, curve: Curves.easeOutQuad),
+                    child: Text(
+                      t.auth.login.title,
+                      style: AppTextStyles.heading2,
+                    ),
+                  ).animateIn(index: 1),
                   const SizedBox(height: 16),
                   AppTextField(
-                        formControl: formModel.tenantControl,
-                        required: true,
-                        labelText: t.common.info.site,
-                        prefix: const Icon(Symbols.warehouse_rounded),
-                      )
-                      .animate()
-                      .fadeIn(delay: 400.ms, duration: 400.ms)
-                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
+                    formControl: formModel.tenantControl,
+                    required: true,
+                    labelText: t.common.info.site,
+                    prefix: const Icon(Symbols.warehouse_rounded),
+                  ).animateIn(index: 2),
                   AppTextField(
-                        formControl: formModel.usernameControl,
-                        required: true,
-                        labelText: t.auth.login.username,
-                        prefix: const Icon(Symbols.person_rounded),
-                      )
-                      .animate()
-                      .fadeIn(delay: 500.ms, duration: 400.ms)
-                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
+                    formControl: formModel.usernameControl,
+                    required: true,
+                    labelText: t.auth.login.username,
+                    prefix: const Icon(Symbols.person_rounded),
+                  ).animateIn(index: 3),
                   AppTextField(
-                        formControl: formModel.passwordControl,
-                        required: true,
-                        isPassword: true,
-                        labelText: t.auth.login.password,
-                        prefix: const Icon(Symbols.lock_rounded),
-                      )
-                      .animate()
-                      .fadeIn(delay: 600.ms, duration: 400.ms)
-                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
+                    formControl: formModel.passwordControl,
+                    required: true,
+                    isPassword: true,
+                    labelText: t.auth.login.password,
+                    prefix: const Icon(Symbols.lock_rounded),
+                  ).animateIn(index: 4),
                   AppCheckbox(
                     formControl: formModel.isRememberControl,
                     label: Text(
@@ -108,26 +94,20 @@ class _LoginScreenState extends AppState<LoginScreen> {
                         color: colorScheme.primary,
                       ),
                     ),
-                  ).animate().fadeIn(delay: 700.ms, duration: 400.ms),
+                  ).animateIn(index: 5),
                   AppButton(
-                        onPressed: state.whenOrNull(
-                          loaded: () => context.read<LoginCubit>().login,
-                        ),
-                        text: t.auth.login.title,
-                        padding: const .all(16),
-                        child: state.whenOrNull(
-                          submitting: () => LoadingAnimationWidget.waveDots(
-                            color: colorScheme.surface,
-                            size: 24,
-                          ),
-                        ),
-                      )
-                      .animate()
-                      .fadeIn(delay: 800.ms, duration: 400.ms)
-                      .scale(
-                        begin: const Offset(0.9, 0.9),
-                        curve: Curves.easeOutBack,
+                    onPressed: state.whenOrNull(
+                      loaded: () => context.read<LoginCubit>().login,
+                    ),
+                    text: t.auth.login.title,
+                    padding: const EdgeInsets.all(16),
+                    child: state.whenOrNull(
+                      submitting: () => LoadingAnimationWidget.waveDots(
+                        color: colorScheme.surface,
+                        size: 24,
                       ),
+                    ),
+                  ).animateIn(index: 6),
                 ],
               ),
             ),
