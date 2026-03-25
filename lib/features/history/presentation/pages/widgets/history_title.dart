@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
@@ -77,8 +76,7 @@ class HistoryTitle extends StatelessWidget {
                     ticket.code,
                     textAlign: .center,
                     style: !ticket.isFlagError
-                        ? GoogleFonts.robotoMono().copyWith(
-                            fontWeight: .w600,
+                        ? AppTextStyles.bodyLargeBold.copyWith(
                             color: colorScheme.onSurface,
                           )
                         : AppTextStyles.bodyLargeRegular.copyWith(

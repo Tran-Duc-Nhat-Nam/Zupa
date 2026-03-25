@@ -43,8 +43,8 @@ Future<void> main() async {
     };
 
     await SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
+      .manual,
+      overlays: [.bottom, .top],
     );
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -79,15 +79,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppView extends StatefulWidget {
-  // Changed to StatefulWidget to trigger version check once
+class AppView extends StatelessWidget {
   const AppView({super.key});
 
-  @override
-  State<AppView> createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();

@@ -28,6 +28,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends AppState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return BlocProvider<LoginCubit>(
       create: (context) => getIt<LoginCubit>()..init(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -52,50 +53,50 @@ class _LoginScreenState extends AppState<LoginScreen> {
                 spacing: 16,
                 children: [
                   Center(
-                    child: Image.asset(
-                      'assets/images/tsp-logo.png',
-                      height: 80,
-                      color: AppColors.of(context).primary,
-                    ),
-                  )
+                        child: Image.asset(
+                          'assets/images/tsp-logo.png',
+                          height: 80,
+                          color: colorScheme.primary,
+                        ),
+                      )
                       .animate()
                       .fadeIn(duration: 600.ms)
                       .scale(duration: 600.ms, curve: Curves.elasticOut),
                   Center(
-                    child: Text(
-                      t.auth.login.title,
-                      style: AppTextStyles.heading2,
-                    ),
-                  )
+                        child: Text(
+                          t.auth.login.title,
+                          style: AppTextStyles.heading2,
+                        ),
+                      )
                       .animate()
                       .fadeIn(delay: 200.ms, duration: 400.ms)
                       .slideY(begin: 0.5, end: 0, curve: Curves.easeOutQuad),
                   const SizedBox(height: 16),
                   AppTextField(
-                    formControl: formModel.tenantControl,
-                    required: true,
-                    labelText: t.common.info.site,
-                    prefix: const Icon(Symbols.warehouse_rounded),
-                  )
+                        formControl: formModel.tenantControl,
+                        required: true,
+                        labelText: t.common.info.site,
+                        prefix: const Icon(Symbols.warehouse_rounded),
+                      )
                       .animate()
                       .fadeIn(delay: 400.ms, duration: 400.ms)
                       .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
                   AppTextField(
-                    formControl: formModel.usernameControl,
-                    required: true,
-                    labelText: t.auth.login.username,
-                    prefix: const Icon(Symbols.person_rounded),
-                  )
+                        formControl: formModel.usernameControl,
+                        required: true,
+                        labelText: t.auth.login.username,
+                        prefix: const Icon(Symbols.person_rounded),
+                      )
                       .animate()
                       .fadeIn(delay: 500.ms, duration: 400.ms)
                       .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
                   AppTextField(
-                    formControl: formModel.passwordControl,
-                    required: true,
-                    isPassword: true,
-                    labelText: t.auth.login.password,
-                    prefix: const Icon(Symbols.lock_rounded),
-                  )
+                        formControl: formModel.passwordControl,
+                        required: true,
+                        isPassword: true,
+                        labelText: t.auth.login.password,
+                        prefix: const Icon(Symbols.lock_rounded),
+                      )
                       .animate()
                       .fadeIn(delay: 600.ms, duration: 400.ms)
                       .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuad),
@@ -104,28 +105,29 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     label: Text(
                       t.auth.login.isRemember,
                       style: AppTextStyles.bodySmallSemibold.copyWith(
-                        color: AppColors.of(context).primary,
+                        color: colorScheme.primary,
                       ),
                     ),
-                  )
-                      .animate()
-                      .fadeIn(delay: 700.ms, duration: 400.ms),
+                  ).animate().fadeIn(delay: 700.ms, duration: 400.ms),
                   AppButton(
-                    onPressed: state.whenOrNull(
-                      loaded: () => context.read<LoginCubit>().login,
-                    ),
-                    text: t.auth.login.title,
-                    padding: const .all(16),
-                    child: state.whenOrNull(
-                      submitting: () => LoadingAnimationWidget.waveDots(
-                        color: AppColors.of(context).surface,
-                        size: 24,
-                      ),
-                    ),
-                  )
+                        onPressed: state.whenOrNull(
+                          loaded: () => context.read<LoginCubit>().login,
+                        ),
+                        text: t.auth.login.title,
+                        padding: const .all(16),
+                        child: state.whenOrNull(
+                          submitting: () => LoadingAnimationWidget.waveDots(
+                            color: colorScheme.surface,
+                            size: 24,
+                          ),
+                        ),
+                      )
                       .animate()
                       .fadeIn(delay: 800.ms, duration: 400.ms)
-                      .scale(begin: const Offset(0.9, 0.9), curve: Curves.easeOutBack),
+                      .scale(
+                        begin: const Offset(0.9, 0.9),
+                        curve: Curves.easeOutBack,
+                      ),
                 ],
               ),
             ),

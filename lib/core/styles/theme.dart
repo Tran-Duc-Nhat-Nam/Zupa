@@ -20,7 +20,7 @@ class AppThemes {
       useMaterial3: true,
       colorScheme: scheme,
       textTheme: GoogleFonts.interTextTheme(
-        scheme.brightness == Brightness.dark
+        scheme.brightness == .dark
             ? ThemeData.dark().textTheme
             : ThemeData.light().textTheme,
       ),
@@ -33,7 +33,7 @@ class AppThemes {
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: .circular(12),
           ),
         ),
       ),

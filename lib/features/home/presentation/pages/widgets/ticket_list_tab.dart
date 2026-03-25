@@ -70,8 +70,8 @@ class _TicketListTabState extends State<TicketListTab> {
         return Skeletonizer(
           enabled: state is Loading,
           child: Container(
-            clipBehavior: Clip.antiAlias,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            clipBehavior: .antiAlias,
+            margin: const .symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: AppColors.of(context).surfaceContainer,
               borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
@@ -106,7 +106,7 @@ class _TicketListTabState extends State<TicketListTab> {
               child: ListView.builder(
                 itemCount: items.isNotEmpty ? items.length : 10,
                 itemBuilder: (c, i) => Padding(
-                  padding: EdgeInsets.only(top: i == 0 ? 8 : 0),
+                  padding: .only(top: i == 0 ? 8 : 0),
                   child: TicketTitle(
                     key: ValueKey(
                       items.isNotEmpty ? items[i].id : 'skeleton_$i',
@@ -118,7 +118,7 @@ class _TicketListTabState extends State<TicketListTab> {
                             siteId: 'Nope',
                             code: 'None',
                             isFlagError: false,
-                            timeIn: DateTime.now(),
+                            timeIn: .now(),
                             type: VehicleTypeEntity(
                               value: '',
                               name: '',

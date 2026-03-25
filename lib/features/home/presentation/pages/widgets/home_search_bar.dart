@@ -18,6 +18,7 @@ class HomeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return BlocBuilder<HomeFilterCubit, HomeFilterState>(
       builder: (context, state) {
         return HomeFormBuilder(
@@ -29,24 +30,24 @@ class HomeSearchBar extends StatelessWidget {
                 hintText: t.parking.ticketSearch,
                 borderRadius: 100,
                 hasBorder: false,
-                backgroundColor: AppColors.of(context).surfaceContainer,
+                backgroundColor: colorScheme.surfaceContainer,
                 prefix: Icon(
                   Symbols.search_rounded,
                   size: 24,
-                  color: AppColors.of(context).onSurfaceVariant,
+                  color: colorScheme.onSurfaceVariant,
                 ),
                 suffix: InkWell(
                   child: Icon(
                     Symbols.filter_alt_rounded,
                     size: 24,
-                    color: AppColors.of(context).onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                   onTap: () => _showFilter(context, formModel),
                 ),
                 onChanged: (value) => context.read<HomeFilterCubit>().search(),
               ),
             );
-          }
+          },
         );
       },
     );

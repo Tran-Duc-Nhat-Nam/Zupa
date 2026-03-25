@@ -15,6 +15,7 @@ class RevenueTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return Container(
       clipBehavior: .antiAlias,
       decoration: const BoxDecoration(borderRadius: .all(Radius.circular(16))),
@@ -25,7 +26,7 @@ class RevenueTitle extends StatelessWidget {
         minVerticalPadding: 0.0,
         minLeadingWidth: 0,
         child: ExpansionTile(
-          backgroundColor: AppColors.of(context).surfaceContainerLow,
+          backgroundColor: colorScheme.surfaceContainerLow,
           tilePadding: .zero,
           childrenPadding: .zero,
           minTileHeight: 20,
@@ -36,7 +37,7 @@ class RevenueTitle extends StatelessWidget {
             clipBehavior: .antiAlias,
             decoration: BoxDecoration(
               borderRadius: const .all(.circular(6)),
-              color: AppColors.of(context).surfaceContainerHigh,
+              color: colorScheme.surfaceContainerHigh,
             ),
             child: Row(
               children: [
@@ -46,12 +47,12 @@ class RevenueTitle extends StatelessWidget {
                   alignment: .center,
                   decoration: BoxDecoration(
                     borderRadius: .circular(4),
-                    color: AppColors.of(context).primary,
+                    color: colorScheme.primary,
                   ),
                   child: Text(
                     revenue.date.day.toString(),
                     style: AppTextStyles.bodyMediumSemibold.copyWith(
-                      color: AppColors.of(context).surface,
+                      color: colorScheme.surface,
                     ),
                   ),
                 ),
@@ -75,7 +76,7 @@ class RevenueTitle extends StatelessWidget {
                             ),
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
-                              color: AppColors.of(context).onSurface,
+                              color: colorScheme.onSurface,
                             ),
                           ),
                         ),
@@ -84,7 +85,7 @@ class RevenueTitle extends StatelessWidget {
                             '${NumberFormat.currency(decimalDigits: 0, symbol: '').format(revenue.totalRevenue)} VND',
                             textAlign: .end,
                             style: AppTextStyles.bodyMediumSemibold.copyWith(
-                              color: AppColors.of(context).onSurface,
+                              color: colorScheme.onSurface,
                             ),
                           ),
                         ),
@@ -109,7 +110,7 @@ class RevenueTitle extends StatelessWidget {
                           ) ??
                           Symbols.globe_rounded,
                       size: 24,
-                      color: AppColors.of(context).success,
+                      color: colorScheme.success,
                     ),
                   ),
                 ),
@@ -136,9 +137,7 @@ class RevenueTitle extends StatelessWidget {
                                       e.vehicleType.name,
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
-                                        color: AppColors.of(
-                                          context,
-                                        ).onSurfaceVariant,
+                                        color: colorScheme.onSurfaceVariant,
                                       ),
                                 ),
                               ),
@@ -155,9 +154,7 @@ class RevenueTitle extends StatelessWidget {
                                   t.parking.pass(n: e.pass, count: e.pass),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
-                                        color: AppColors.of(
-                                          context,
-                                        ).onSurfaceVariant,
+                                        color: colorScheme.onSurfaceVariant,
                                       ),
                                 ),
                               ),
@@ -177,9 +174,7 @@ class RevenueTitle extends StatelessWidget {
                                   ).format(e.revenue),
                                   style: AppTextStyles.bodyMediumMedium
                                       .copyWith(
-                                        color: AppColors.of(
-                                          context,
-                                        ).onSurfaceVariant,
+                                        color: colorScheme.onSurfaceVariant,
                                       ),
                                 ),
                               ),
