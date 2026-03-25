@@ -4,10 +4,10 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class SecurityService {
   Future<bool> get isJailBroken async =>
-      await FlutterJailbreakDetectionPlus.jailbroken;
+       FlutterJailbreakDetectionPlus.jailbroken;
 
   Future<bool> get isDeveloperMode async =>
-      await FlutterJailbreakDetectionPlus.developerMode;
+       FlutterJailbreakDetectionPlus.developerMode;
 
   Future<bool> get isSecurityVulnerable async {
     final bool jailbroken = await isJailBroken;

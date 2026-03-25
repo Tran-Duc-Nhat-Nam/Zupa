@@ -8,6 +8,8 @@ import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
+import 'package:zupa/core/helper/responsive/responsive_helper.dart';
+import 'package:zupa/core/widgets/app_drawer.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({
@@ -124,6 +126,7 @@ class _AppScreenState extends State<AppScreen> {
                 : widget.appBar,
             backgroundColor:
                 widget.backgroundColor ?? AppColors.of(context).surface,
+            drawer: widget.hasDrawer ? const AppDrawer() : null,
             body: _buildContent(),
             floatingActionButton: widget.floatingActionButton,
           );
@@ -137,35 +140,40 @@ class _AppScreenState extends State<AppScreen> {
           top: widget.hasSafeTopArea,
           bottom: widget.hasSafeBottomArea,
           child: Align(
-            alignment: .topCenter,
+            alignment: Alignment.topCenter,
             child: SizedBox(
-              width: 600,
-              child: widget.isChildScrollable
-                  ? widget.child
-                  : LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) {
-                            return SingleChildScrollView(
-                              child: ConstrainedBox(
-                                constraints: constraints.copyWith(
-                                  minHeight: constraints.maxHeight,
-                                  maxHeight: .infinity,
-                                ),
-                                child: widget.child,
+              width: ResponsiveHelper.getResponsiveWidth(context),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: ResponsiveHelper.getResponsivePadding(context),
+                ),
+                child: widget.isChildScrollable
+                    ? widget.child
+                    : LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          return SingleChildScrollView(
+                            child: ConstrainedBox(
+                              constraints: constraints.copyWith(
+                                minHeight: constraints.maxHeight,
+                                maxHeight: double.infinity,
                               ),
-                            );
-                          },
-                    ),
+                              child: widget.child,
+                            ),
+                          );
+                        },
+                      ),
+              ),
             ),
           ),
         ),
         Align(
-          alignment: .bottomCenter,
+          alignment: Alignment.bottomCenter,
           child: Padding(
             padding:
                 widget.footerPadding ??
-                const .only(bottom: 48, left: 24, right: 24),
-            child: Column(mainAxisSize: .min, children: widget.footer),
+                const EdgeInsets.only(bottom: 48, left: 24, right: 24),
+            child: Column(mainAxisSize: MainAxisSize.min, children: widget.footer),
           ),
         ),
       ],

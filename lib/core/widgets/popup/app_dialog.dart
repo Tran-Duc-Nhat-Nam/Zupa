@@ -66,7 +66,6 @@ abstract class DialogHelper {
       okText: isIOS ? '' : t.common.security.quit,
       showOk: !isIOS,
       type: .error,
-      dismissible: false,
       onOk: onQuit,
     );
   }
