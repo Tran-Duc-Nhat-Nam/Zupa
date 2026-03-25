@@ -20,7 +20,6 @@ import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 
-
 class MemberVehicleListTab extends StatelessWidget {
   const MemberVehicleListTab({super.key});
   @override
@@ -88,7 +87,8 @@ class MemberVehicleListTab extends StatelessWidget {
                 itemBuilder: (c, i) => Padding(
                   padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
                   child: MemberVehiclesTitle(
-                    ticket: items?[i] ??
+                    ticket:
+                        items?[i] ??
                         MemberVehicleEntity(
                           id: '',
                           name: '',
@@ -119,6 +119,7 @@ class MemberVehiclesTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppCard(
       padding: const .all(16),
       child: Row(
@@ -144,7 +145,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                 width: 60,
                 decoration: BoxDecoration(
                   borderRadius: .circular(6),
-                  border: .all(color: AppColors.of(context).surfaceContainerHighest),
+                  border: .all(color: colorScheme.surfaceContainerHighest),
                 ),
                 child: Center(child: Text(ticket.vehicleType.name)),
               ),
@@ -163,19 +164,19 @@ class MemberVehiclesTitle extends StatelessWidget {
                       Text(
                         ticket.name,
                         style: AppTextStyles.bodyLargeSemibold.copyWith(
-                          color: AppColors.of(context).onSurface,
+                          color: colorScheme.onSurface,
                         ),
                       ),
                       Text(
                         ticket.phoneNumber,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: AppColors.of(context).onSurfaceVariant,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                       Text(
                         ticket.parkingLotId,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: AppColors.of(context).onSurfaceVariant,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                       Text(
@@ -185,7 +186,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                           ),
                         ),
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: AppColors.of(context).onSurfaceVariant,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -202,9 +203,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                     cancelText: t.common.actions.close,
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
-                      if (context.mounted) {
-                        AppToast.showNotify(t.common.success);
-                      }
+                      AppToast.showNotify(t.common.success);
                     },
                   ),
                   child: SizedBox(
@@ -216,7 +215,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                       maxLines: 10,
                       textAlign: .center,
                       style: AppTextStyles.bodySmallSemibold.copyWith(
-                        color: AppColors.of(context).primary,
+                        color: colorScheme.primary,
                       ),
                     ),
                   ),

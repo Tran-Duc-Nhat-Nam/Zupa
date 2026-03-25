@@ -10,8 +10,8 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 
-class SiteSelector extends StatelessWidget {
-  const SiteSelector({super.key});
+class AppSiteSelector extends StatelessWidget {
+  const AppSiteSelector({super.key});
 
   final List<String> _parkingLots = const ['Bãi xe 1', 'Bãi xe 2', 'Bãi xe 3'];
 

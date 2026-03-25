@@ -42,7 +42,7 @@ class HomeSearchBar extends StatelessWidget {
                     size: 24,
                     color: colorScheme.onSurfaceVariant,
                   ),
-                  onTap: () => _showFilter(context, formModel),
+                  onTap: () => _showFilter(context, formModel, colorScheme),
                 ),
                 onChanged: (value) => context.read<HomeFilterCubit>().search(),
               ),
@@ -53,7 +53,11 @@ class HomeSearchBar extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _showFilter(BuildContext context, HomeForm formModel) {
+  Future<dynamic> _showFilter(
+    BuildContext context,
+    HomeForm formModel,
+    AppColors colorScheme,
+  ) {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -67,7 +71,7 @@ class HomeSearchBar extends StatelessWidget {
               child: Text(
                 t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
-                  color: AppColors.of(context).onSurfaceVariant,
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
@@ -77,13 +81,13 @@ class HomeSearchBar extends StatelessWidget {
                 Text(
                   t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: AppColors.of(context).onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 Text(
                   t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: AppColors.of(context).primary,
+                    color: colorScheme.primary,
                   ),
                 ),
               ],

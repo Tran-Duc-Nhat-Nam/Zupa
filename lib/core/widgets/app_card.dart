@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 
-
 class AppCard extends StatelessWidget {
   const AppCard({
     super.key,
@@ -31,16 +30,16 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = Container(
-      clipBehavior: clipBehavior ?? Clip.none,
-      padding: padding ?? const EdgeInsets.all(16),
+    final content = Container(
+      clipBehavior: clipBehavior ?? .none,
+      padding: padding ?? const .all(16),
       height: height,
       width: width,
       decoration:
           decoration ??
           BoxDecoration(
             color: AppColors.of(context).surfaceContainer,
-            borderRadius: radius ?? BorderRadius.circular(28),
+            borderRadius: radius ?? .circular(28),
           ),
       constraints: constraints,
       child: child,
