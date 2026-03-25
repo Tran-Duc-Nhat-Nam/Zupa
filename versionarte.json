@@ -2,13 +2,13 @@
   "android": {
     "version": {
       "minimum": "0.1.0",
-      "latest": "0.6.2"
+      "latest": "0.6.3"
     },
     "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/download/v<version>/Zupa-release-<version>-<abi>.apk",
     "status": {
       "active": true,
       "message": {
-        "en": "\"a1e0547 build: remove foojay toolchain resolver configuration\\n25cf987 build(gradle): update gradle wrapper distribution url to 8.13\\nb2dc632 build(gradle): downgrade gradle and java toolchain versions\\ne9de714 feat(ui): implement responsive layout and adaptive navigation\\n791ca96 build(android): remove hardcoded buildToolsVersion\\nbe1a231 build: clean up gradle configuration and remove redundant code\\n71eb596 feat(widgets): allow hiding confirm button in app dialogs\\n0ad8307 build: enforce JVM 17 across all java and kotlin tasks\\n07ef16e build(android): downgrade java version to 17\\na51bbaf build(deps): migrate to flutter_jailbreak_detection_plus and update lottie\\ne669546 feat(ui): add entrance animations and update dependencies\\n4dd646a feat(security): implement root and jailbreak detection\\ncf38025 Merge remote-tracking branch origin/main\\nc9019e9 docs(readme): update content structure and add contribution guidelines\\n065ba23 chore: update versionarte.json and changelog to v0.6.1\\n\"",
+        "en": "\"65eff14 feat(ui): implement centralized animation system\\n31a9cd2 refactor: optimize color access and simplify widget syntax\\n237d344 chore: update versionarte.json and changelog to v0.6.2\\n\"",
         "vi": "Chúng tôi đang bảo trì hệ thống. Vui lòng quay lại sau!"
       }
     }
@@ -16,13 +16,13 @@
   "iOS": {
     "version": {
       "minimum": "0.1.0",
-      "latest": "0.6.2"
+      "latest": "0.6.3"
     },
     "download_url": "https://github.com/Tran-Duc-Nhat-Nam/Zupa/releases/latest",
     "status": {
       "active": true,
       "message": {
-        "en": "\"a1e0547 build: remove foojay toolchain resolver configuration\\n25cf987 build(gradle): update gradle wrapper distribution url to 8.13\\nb2dc632 build(gradle): downgrade gradle and java toolchain versions\\ne9de714 feat(ui): implement responsive layout and adaptive navigation\\n791ca96 build(android): remove hardcoded buildToolsVersion\\nbe1a231 build: clean up gradle configuration and remove redundant code\\n71eb596 feat(widgets): allow hiding confirm button in app dialogs\\n0ad8307 build: enforce JVM 17 across all java and kotlin tasks\\n07ef16e build(android): downgrade java version to 17\\na51bbaf build(deps): migrate to flutter_jailbreak_detection_plus and update lottie\\ne669546 feat(ui): add entrance animations and update dependencies\\n4dd646a feat(security): implement root and jailbreak detection\\ncf38025 Merge remote-tracking branch origin/main\\nc9019e9 docs(readme): update content structure and add contribution guidelines\\n065ba23 chore: update versionarte.json and changelog to v0.6.1\\n\"",
+        "en": "\"65eff14 feat(ui): implement centralized animation system\\n31a9cd2 refactor: optimize color access and simplify widget syntax\\n237d344 chore: update versionarte.json and changelog to v0.6.2\\n\"",
         "vi": "Chúng tôi đang bảo trì hệ thống. Vui lòng quay lại sau!"
       }
     }
