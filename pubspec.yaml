@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.6.4+20
+version: 0.6.5+21
 
 environment:
   sdk: ^3.11.3
@@ -16,7 +16,7 @@ dependencies:
   auto_route: ^11.1.0
   reactive_forms:  ^18.2.2
   reactive_forms_annotations: ^8.3.0
-  shared_preferences: ^2.5.4
+  shared_preferences: ^2.5.5
   google_fonts: ^8.0.2
   retrofit: ^4.9.2
   freezed_annotation: ^3.1.0
@@ -49,9 +49,9 @@ dependencies:
   dropdown_button2: ^3.0.0
   omni_datetime_picker: ^2.3.1
   animated_toggle_switch: ^0.8.7
-  talker: ^5.1.15
-  talker_flutter: ^5.1.15
-  talker_dio_logger: ^5.1.15
+  talker: ^5.1.16
+  talker_flutter: ^5.1.16
+  talker_dio_logger: ^5.1.16
   shake: ^3.0.0
   flutter_native_splash: ^2.4.7
   local_auth: ^3.0.1
