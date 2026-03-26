@@ -25,12 +25,15 @@ import 'package:zupa/core/helper/router/router_helper.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 
 import 'package:zupa/core/widgets/error/app_error_screen.dart';
 
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+    await FlutterDisplayMode.setHighRefreshRate();
 
     // Global Error Boundary
     ErrorWidget.builder = (FlutterErrorDetails details) {
