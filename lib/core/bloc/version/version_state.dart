@@ -6,7 +6,7 @@ sealed class VersionState with _$VersionState {
 
   const factory VersionState.standby() = Standby;
 
-  const factory VersionState.checking() = Checking;
+  const factory VersionState.checking(bool isShow) = Checking;
 
   const factory VersionState.upToDate(VersionInfo info) = UpToDate;
 

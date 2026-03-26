@@ -44,7 +44,7 @@ class VersionCubit extends Cubit<VersionState> {
       return;
     }
 
-    emit(const .checking());
+    emit(.checking(force));
 
     try {
       final updateStatus = await _versionService.checkVersion();
@@ -73,6 +73,9 @@ class VersionCubit extends Cubit<VersionState> {
 
   Future<void> executeUpdate(VersionInfo info) async {
     try {
+      final progressController = StreamController<int>();
+      emit(.downloading(progressController.stream, info));
+
       final abi = await _deviceService.getDeviceAbi();
 
       final finalUrl = info.updateUrl?[TargetPlatform.android]
@@ -83,7 +86,6 @@ class VersionCubit extends Cubit<VersionState> {
       if (finalUrl == null) {
         emit(const .standby());
       } else {
-        final progressController = StreamController<int>();
         _otaSubscription = OtaUpdate()
             .execute(finalUrl)
             .listen(

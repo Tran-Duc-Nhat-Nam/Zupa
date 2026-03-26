@@ -119,8 +119,9 @@ class AppView extends StatelessWidget {
         BlocListener<VersionCubit, VersionState>(
           listener: (context, state) {
             state.whenOrNull(
-              checking: () =>
-                  DialogHelper.showLoading(message: t.common.version.checking),
+              checking: (isShow) => isShow
+                  ? DialogHelper.showLoading(message: t.common.version.checking)
+                  : null,
               upToDate: (_) => DialogHelper.dismissLoading(),
               standby: () => DialogHelper.dismissLoading(),
               updateAvailable: (info) {

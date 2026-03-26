@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
@@ -10,7 +11,10 @@ import 'package:zupa/core/styles/text_styles.dart';
 
 abstract class DialogHelper {
   static void showLoading({String? message}) {
-    SmartDialog.showLoading(msg: message ?? '');
+    SmartDialog.showLoading(
+      msg: message ?? '',
+      builder: (context) => LoadingDialog(message: message),
+    );
   }
 
   static void dismissLoading() {
@@ -366,6 +370,47 @@ class DownloadProgressDialog extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class LoadingDialog extends StatelessWidget {
+  final String? message;
+
+  const LoadingDialog({super.key, this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
+
+    return Container(
+      constraints: const BoxConstraints(minWidth: 120, minHeight: 120),
+      padding: const .all(24),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHigh,
+        borderRadius: .circular(28),
+      ),
+      child: Column(
+        mainAxisSize: .min,
+        children: [
+          LoadingAnimationWidget.discreteCircle(
+            color: colorScheme.primary,
+            secondRingColor: colorScheme.secondary,
+            thirdRingColor: colorScheme.tertiary,
+            size: 36,
+          ),
+          if (message != null && message!.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Text(
+              message!,
+              style: AppTextStyles.bodyMediumMedium.copyWith(
+                color: colorScheme.onSurface,
+              ),
+              textAlign: .center,
+            ),
+          ],
+        ],
       ),
     );
   }
