@@ -19,8 +19,8 @@ abstract class AppPhotoView {
                 padding: const .all(24),
                 child: ExtendedImage(
                   image: imageProvider,
-                  fit: BoxFit.contain,
-                  mode: ExtendedImageMode.gesture,
+                  fit: .contain,
+                  mode: .gesture,
                   shape: .rectangle,
                   borderRadius: .circular(12),
                 ),
@@ -48,8 +48,8 @@ abstract class AppPhotoView {
                 padding: const .all(24),
                 child: ExtendedImage.network(
                   url,
-                  fit: BoxFit.contain,
-                  mode: ExtendedImageMode.gesture,
+                  fit: .contain,
+                  mode: .gesture,
                   shape: .rectangle,
                   borderRadius: .circular(12),
                 ),

@@ -15,21 +15,22 @@ abstract class AppToast {
 
     SmartDialog.show(
       builder: (context) {
+        final colorScheme = AppColors.of(context);
         return Container(
           margin: const .all(36),
           padding: const .all(16),
           decoration: BoxDecoration(
-            color: AppColors.of(context).surface,
+            color: colorScheme.surfaceContainerHigh,
             borderRadius: .circular(28),
           ),
           child: Column(
             mainAxisSize: .min,
             children: [
-              Icon(icon, size: 36, color: AppColors.of(context).primary),
+              Icon(icon, size: 36, color: colorScheme.primary),
               Text(
                 message,
                 style: AppTextStyles.bodyMediumMedium.copyWith(
-                  color: AppColors.of(context).primary,
+                  color: colorScheme.primary,
                 ),
               ),
             ],
@@ -37,7 +38,7 @@ abstract class AppToast {
         );
       },
       useAnimation: true,
-      animationType: .fade,
+      animationType: .centerScale_otherSlide,
       keepSingle: true,
       displayTime: const Duration(seconds: 3),
       alignment: .center,
