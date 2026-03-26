@@ -9,6 +9,14 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 abstract class DialogHelper {
+  static void showLoading({String? message}) {
+    SmartDialog.showLoading(msg: message ?? '');
+  }
+
+  static void dismissLoading() {
+    SmartDialog.dismiss(status: .loading);
+  }
+
   static void showAuthDialog(BuildContext context) {
     showModal(
       context,
@@ -115,7 +123,7 @@ abstract class DialogHelper {
     );
   }
 
-  static void closeAllModal() {
+  static void dismissAll() {
     SmartDialog.dismiss();
   }
 }
@@ -150,7 +158,11 @@ class AppDialog extends StatelessWidget {
     final styles = _getStyles(type, colorScheme);
 
     return Container(
-      constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
+      constraints: const BoxConstraints(
+        maxWidth: 320,
+        minWidth: 280,
+        minHeight: 180,
+      ),
       margin: const .symmetric(horizontal: 24),
       padding: const .all(24),
       decoration: BoxDecoration(
@@ -292,7 +304,10 @@ class DownloadProgressDialog extends StatelessWidget {
     final colorScheme = AppColors.of(context);
 
     return Container(
-      constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
+      constraints: const BoxConstraints(
+        minWidth: 280,
+        minHeight: 180,
+      ),
       margin: const .symmetric(horizontal: 24),
       padding: const .all(24),
       decoration: BoxDecoration(

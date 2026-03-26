@@ -118,11 +118,11 @@ class AppView extends StatelessWidget {
           listener: (context, state) {
             state.whenOrNull(
               checking: () =>
-                  SmartDialog.showLoading(msg: t.common.version.checking),
-              upToDate: (_) => SmartDialog.dismiss(status: .loading),
-              standby: () => SmartDialog.dismiss(status: .loading),
+                  DialogHelper.showLoading(message: t.common.version.checking),
+              upToDate: (_) => DialogHelper.dismissLoading(),
+              standby: () => DialogHelper.dismissLoading(),
               updateAvailable: (info) {
-                SmartDialog.dismiss(status: .loading);
+                DialogHelper.dismissLoading();
                 DialogHelper.showUpdateDialog(
                   context,
                   isMandatory: info.isForcedUpdate,
@@ -133,20 +133,20 @@ class AppView extends StatelessWidget {
                 );
               },
               maintaining: () {
-                SmartDialog.dismiss(status: .loading);
+                DialogHelper.dismissLoading();
                 DialogHelper.showMaintenanceDialog(context);
               },
               downloading: (progress, info) {
-                SmartDialog.dismiss(status: .loading);
+                DialogHelper.dismissLoading();
                 DialogHelper.showDownloadDialog(
                   context,
                   progressStream: progress,
                   version: info.latestVersion,
                 );
               },
-              installing: () => DialogHelper.closeAllModal(),
+              installing: () => DialogHelper.dismissAll(),
               downloadFailed: (message, _) {
-                DialogHelper.closeAllModal();
+                DialogHelper.dismissAll();
                 AppToast.showNotify(message, type: .error);
               },
             );
@@ -159,7 +159,7 @@ class AppView extends StatelessWidget {
                 context,
                 onQuit: () {
                   if (kDebugMode) {
-                    DialogHelper.closeAllModal();
+                    DialogHelper.dismissAll();
                   } else {
                     SystemNavigator.pop();
                   }
