@@ -1,4 +1,3 @@
-
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
 
 class HomeTicketEntity {

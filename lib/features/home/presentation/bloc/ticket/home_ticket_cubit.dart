@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
+import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
-import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
 
-part 'home_ticket_state.dart';
 part 'home_ticket_cubit.freezed.dart';
+part 'home_ticket_state.dart';
 
 @injectable
 class HomeTicketCubit extends Cubit<HomeTicketState> {

@@ -7,8 +7,8 @@ import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/services/storage_service.dart';
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
   final AsyncCallback? onResume;

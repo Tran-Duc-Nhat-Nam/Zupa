@@ -5,13 +5,12 @@ import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:zupa/core/helper/responsive/responsive_helper.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/colors.dart';
-import 'package:zupa/core/widgets/app_app_bar.dart';
-import 'package:zupa/core/helper/responsive/responsive_helper.dart';
-import 'package:zupa/core/widgets/app_drawer.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
-
+import 'package:zupa/core/widgets/app_app_bar.dart';
+import 'package:zupa/core/widgets/app_drawer.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({
@@ -154,16 +153,16 @@ class _AppScreenState extends State<AppScreen> {
                     : LayoutBuilder(
                         builder:
                             (BuildContext context, BoxConstraints constraints) {
-                          return SingleChildScrollView(
-                            child: ConstrainedBox(
-                              constraints: constraints.copyWith(
-                                minHeight: constraints.maxHeight,
-                                maxHeight: double.infinity,
-                              ),
-                              child: widget.child,
-                            ),
-                          );
-                        },
+                              return SingleChildScrollView(
+                                child: ConstrainedBox(
+                                  constraints: constraints.copyWith(
+                                    minHeight: constraints.maxHeight,
+                                    maxHeight: double.infinity,
+                                  ),
+                                  child: widget.child,
+                                ),
+                              );
+                            },
                       ),
               ),
             ),
@@ -175,7 +174,10 @@ class _AppScreenState extends State<AppScreen> {
             padding:
                 widget.footerPadding ??
                 const EdgeInsets.only(bottom: 48, left: 24, right: 24),
-            child: Column(mainAxisSize: MainAxisSize.min, children: widget.footer),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: widget.footer,
+            ),
           ),
         ),
       ],

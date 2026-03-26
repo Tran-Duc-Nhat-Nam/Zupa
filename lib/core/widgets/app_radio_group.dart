@@ -68,11 +68,7 @@ class AppRadioGroup<T> extends StatelessWidget {
                 mainAxisSize: .min,
                 children: children,
               )
-            : Wrap(
-                spacing: 16,
-                runSpacing: 8,
-                children: children,
-              );
+            : Wrap(spacing: 16, runSpacing: 8, children: children);
       },
     );
   }

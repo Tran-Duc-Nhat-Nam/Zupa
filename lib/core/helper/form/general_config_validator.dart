@@ -1,7 +1,6 @@
 import 'package:reactive_forms/reactive_forms.dart';
 
 class GeneralConfigValidator extends Validator<dynamic> {
-
   @override
   Map<String, dynamic>? validate(AbstractControl control) {
     // In reactive_forms_generator, group-level validators receive the FormGroup

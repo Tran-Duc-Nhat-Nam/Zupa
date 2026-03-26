@@ -9,8 +9,8 @@ import 'package:zupa/features/history/domain/entities/filter/history_filter_enti
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 
-part 'history_list_state.dart';
 part 'history_list_cubit.freezed.dart';
+part 'history_list_state.dart';
 
 @injectable
 class HistoryListCubit extends Cubit<HistoryListState> {

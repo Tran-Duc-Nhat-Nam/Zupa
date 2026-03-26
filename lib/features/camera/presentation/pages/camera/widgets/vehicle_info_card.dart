@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class VehicleInfoCard extends StatelessWidget {
   const VehicleInfoCard({

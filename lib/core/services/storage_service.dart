@@ -1,12 +1,13 @@
 import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupa/core/constants/localization.dart';
-import 'package:zupa/core/styles/theme.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
-import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/data/models/user/user.dart';
+import 'package:zupa/core/data/request/account/account_request.dart';
+import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
+import 'package:zupa/core/styles/theme.dart';
 
 @lazySingleton
 class StorageService {

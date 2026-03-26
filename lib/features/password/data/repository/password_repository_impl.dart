@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/features/password/data/api/password_api.dart';
 import 'package:zupa/features/password/data/models/change_password_request.dart';
 import 'package:zupa/features/password/domain/repository/password_repository.dart';

@@ -14,11 +14,11 @@ class AppRadioGroup<T> extends StatefulWidget {
   final String name;
   final List<T> items;
   final Widget Function(
-      Widget radioButton,
-      T item,
-      bool isSelected,
-      Function() select,
-      )?
+    Widget radioButton,
+    T item,
+    bool isSelected,
+    Function() select,
+  )?
   itemBuilder;
   final bool required;
   final List<FormFieldValidator<String>>? customValidators;
@@ -29,14 +29,13 @@ class AppRadioGroup<T> extends StatefulWidget {
 
 class _AppRadioGroupState<T> extends State<AppRadioGroup<T>> {
   T? selectedValue;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       spacing: 16,
       children: .generate(widget.items.length, (index) {
-        return ReactiveRadio<T>(
-          value: widget.items[index]
-        );
+        return ReactiveRadio<T>(value: widget.items[index]);
       }),
     );
   }

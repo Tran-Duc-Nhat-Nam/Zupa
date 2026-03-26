@@ -27,7 +27,9 @@ abstract class MemberVehiclesAPI {
   );
 
   @POST('/hrm/staff-meta-data')
-  Future<SuccessResponse> createMemberVehicle(@Body() MemberVehicleModel request);
+  Future<SuccessResponse> createMemberVehicle(
+    @Body() MemberVehicleModel request,
+  );
 
   @DELETE('/hrm/staff-meta-data/{id}')
   Future<SuccessResponse> deleteMemberVehicle(@Path('id') String id);

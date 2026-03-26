@@ -52,7 +52,8 @@ class AppSwitch extends StatelessWidget {
                   backgroundColor: value
                       ? colorScheme.primary
                       : colorScheme.outline,
-                  borderRadius: .circular(16), // Half of height for pill shape
+                  borderRadius: .circular(16),
+                  // Half of height for pill shape
                   borderColor: Colors.transparent,
                 ),
 

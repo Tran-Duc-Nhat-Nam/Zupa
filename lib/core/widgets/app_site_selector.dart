@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import 'package:zupa/core/bloc/site/site_cubit.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class AppSiteSelector extends StatelessWidget {
   const AppSiteSelector({super.key});
@@ -21,75 +21,73 @@ class AppSiteSelector extends StatelessWidget {
     final siteCubit = context.watch<SiteCubit>();
 
     return InkWell(
-      onTap: () => _showSitePicker(context, colors, siteCubit),
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: colors.surfaceContainerLow,
+          onTap: () => _showSitePicker(context, colors, siteCubit),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: colors.outlineVariant.withAlpha(50),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: colors.shadow.withAlpha(10),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: colors.surfaceContainerLow,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: colors.outlineVariant.withAlpha(50)),
+              boxShadow: [
+                BoxShadow(
+                  color: colors.shadow.withAlpha(10),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: colors.primaryContainer,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Symbols.location_on_rounded,
-                size: 20,
-                color: colors.primary,
-                fill: 1,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    t.common.info.site,
-                    style: AppTextStyles.bodySmallRegular.copyWith(
-                      color: colors.onSurfaceVariant,
-                    ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colors.primaryContainer,
+                    shape: BoxShape.circle,
                   ),
-                  BlocBuilder<SiteCubit, SiteState>(
-                    builder: (context, state) {
-                      final siteName = state.maybeWhen(
-                        loaded: (data) => data ?? _parkingLots[0],
-                        orElse: () => _parkingLots[0],
-                      );
-                      return Text(
-                        siteName,
-                        style: AppTextStyles.bodyLargeBold.copyWith(
-                          color: colors.onSurface,
+                  child: Icon(
+                    Symbols.location_on_rounded,
+                    size: 20,
+                    color: colors.primary,
+                    fill: 1,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t.common.info.site,
+                        style: AppTextStyles.bodySmallRegular.copyWith(
+                          color: colors.onSurfaceVariant,
                         ),
-                      );
-                    },
+                      ),
+                      BlocBuilder<SiteCubit, SiteState>(
+                        builder: (context, state) {
+                          final siteName = state.maybeWhen(
+                            loaded: (data) => data ?? _parkingLots[0],
+                            orElse: () => _parkingLots[0],
+                          );
+                          return Text(
+                            siteName,
+                            style: AppTextStyles.bodyLargeBold.copyWith(
+                              color: colors.onSurface,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Icon(
+                  Symbols.keyboard_arrow_right_rounded,
+                  color: colors.onSurfaceVariant,
+                ),
+              ],
             ),
-            Icon(
-              Symbols.keyboard_arrow_right_rounded,
-              color: colors.onSurfaceVariant,
-            ),
-          ],
-        ),
-      ),
-    )
+          ),
+        )
         .animate()
         .fadeIn(duration: 400.ms)
         .slideY(begin: -0.2, end: 0, curve: Curves.easeOutQuad);
@@ -165,14 +163,15 @@ class AppSiteSelector extends StatelessWidget {
                                   const SizedBox(width: 16),
                                   Text(
                                     item,
-                                    style: AppTextStyles.bodyLargeRegular.copyWith(
-                                      color: isSelected
-                                          ? colors.primary
-                                          : colors.onSurface,
-                                      fontWeight: isSelected
-                                          ? FontWeight.w600
-                                          : FontWeight.w400,
-                                    ),
+                                    style: AppTextStyles.bodyLargeRegular
+                                        .copyWith(
+                                          color: isSelected
+                                              ? colors.primary
+                                              : colors.onSurface,
+                                          fontWeight: isSelected
+                                              ? FontWeight.w600
+                                              : FontWeight.w400,
+                                        ),
                                   ),
                                   const Spacer(),
                                   if (isSelected)

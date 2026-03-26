@@ -9,6 +9,7 @@ part 'vehicle_type_model.g.dart';
 @freezed
 sealed class VehicleTypeModel with _$VehicleTypeModel {
   const VehicleTypeModel._();
+
   const factory VehicleTypeModel({
     @Default('other') String value,
     @Default('vehicle') String name,
@@ -21,13 +22,9 @@ sealed class VehicleTypeModel with _$VehicleTypeModel {
 
   @override
   Map<String, dynamic> toJson() => toJson();
-  
-  VehicleTypeEntity toEntity() => VehicleTypeEntity(
-    value: value,
-    name: name,
-    icon: icon,
-    color: color,
-  );
+
+  VehicleTypeEntity toEntity() =>
+      VehicleTypeEntity(value: value, name: name, icon: icon, color: color);
 
   factory VehicleTypeModel.fromEntity(VehicleTypeEntity entity) {
     return VehicleTypeModel(

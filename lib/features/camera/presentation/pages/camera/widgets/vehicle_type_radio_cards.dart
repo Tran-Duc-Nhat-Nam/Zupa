@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class VehicleTypeRadioCards extends StatelessWidget {
   const VehicleTypeRadioCards({super.key});
@@ -31,10 +30,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                     color: AppColors.of(context).surface,
                     borderRadius: .circular(4),
                     border: isSelected
-                        ? .all(
-                            color: AppColors.of(context).primary,
-                            width: 3,
-                          )
+                        ? .all(color: AppColors.of(context).primary, width: 3)
                         : null,
                   ),
                   child: Column(
@@ -42,7 +38,8 @@ class VehicleTypeRadioCards extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Icon(
-                          const IconConverter().fromJson(item.icon) ?? Symbols.globe_rounded,
+                          const IconConverter().fromJson(item.icon) ??
+                              Symbols.globe_rounded,
                           color: AppColors.of(context).onSurfaceVariant,
                           size: 24,
                         ),

@@ -40,9 +40,8 @@ abstract class DialogHelper {
       titleText: t.common.version.updateAvailable,
       subtitleText: t.common.version.updateDescription(version: version),
       okText: t.common.version.updateNow,
-      cancelText: isMandatory
-          ? null
-          : t.common.version.later, // Hide cancel if forced
+      cancelText: isMandatory ? null : t.common.version.later,
+      // Hide cancel if forced
       dismissible: !isMandatory,
       onOk: onUpdate,
     );
@@ -77,7 +76,6 @@ abstract class DialogHelper {
       onOk: onQuit,
     );
   }
-
 
   static void showDownloadDialog(
     BuildContext context, {
@@ -304,10 +302,7 @@ class DownloadProgressDialog extends StatelessWidget {
     final colorScheme = AppColors.of(context);
 
     return Container(
-      constraints: const BoxConstraints(
-        minWidth: 280,
-        minHeight: 180,
-      ),
+      constraints: const BoxConstraints(minWidth: 280, minHeight: 180),
       margin: const .symmetric(horizontal: 24),
       padding: const .all(24),
       decoration: BoxDecoration(

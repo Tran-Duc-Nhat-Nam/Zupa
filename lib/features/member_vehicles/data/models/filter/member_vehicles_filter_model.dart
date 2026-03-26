@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'package:zupa/core/models/vehicle_type_model.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
 
@@ -21,6 +20,7 @@ sealed class MemberVehiclesFilterModel with _$MemberVehiclesFilterModel {
 
   @override
   Map<String, dynamic> toJson() => toJson();
+
   MemberVehicleFilterEntity toEntity() => MemberVehicleFilterEntity(
     page: page,
     size: size,
@@ -29,4 +29,3 @@ sealed class MemberVehiclesFilterModel with _$MemberVehiclesFilterModel {
     type: type?.toEntity(),
   );
 }
-

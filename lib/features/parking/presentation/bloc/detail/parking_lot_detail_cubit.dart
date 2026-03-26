@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/presentation/models/parking_lot_detail_form.dart';
 
-part 'parking_lot_detail_state.dart';
 part 'parking_lot_detail_cubit.freezed.dart';
+part 'parking_lot_detail_state.dart';
 
 @injectable
 class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
@@ -14,7 +14,7 @@ class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
   final formModel = ParkingLotDetailForm(
     ParkingLotDetailForm.formElements(ParkingLotDetail()),
     null,
-    null
+    null,
   );
 
   Future<void> init(ParkingLotEntity? parkingLot) async {

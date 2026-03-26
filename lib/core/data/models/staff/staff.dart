@@ -26,6 +26,5 @@ sealed class Staff with _$Staff {
     String? note,
   }) = _Staff;
 
-  factory Staff.fromJson(Map<String, dynamic> json) =>
-      _$StaffFromJson(json);
+  factory Staff.fromJson(Map<String, dynamic> json) => _$StaffFromJson(json);
 }

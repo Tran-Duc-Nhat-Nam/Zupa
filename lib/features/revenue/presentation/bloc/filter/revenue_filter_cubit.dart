@@ -5,8 +5,8 @@ import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 
-part 'revenue_filter_state.dart';
 part 'revenue_filter_cubit.freezed.dart';
+part 'revenue_filter_state.dart';
 
 @injectable
 class RevenueFilterCubit extends Cubit<RevenueFilterState> {

@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
-
-import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 
 class MemberVehiclesSearchBar extends StatelessWidget {
   const MemberVehiclesSearchBar({super.key});
@@ -18,7 +16,10 @@ class MemberVehiclesSearchBar extends StatelessWidget {
         return Skeletonizer(
           enabled: state is Loading,
           child: AppTextField(
-            formControl: context.read<MemberVehiclesFilterCubit>().formModel.keywordControl,
+            formControl: context
+                .read<MemberVehiclesFilterCubit>()
+                .formModel
+                .keywordControl,
             prefixIcon: Symbols.search_rounded,
             hintText: t.common.actions.search,
             onChanged: (value) =>
@@ -29,4 +30,3 @@ class MemberVehiclesSearchBar extends StatelessWidget {
     );
   }
 }
-

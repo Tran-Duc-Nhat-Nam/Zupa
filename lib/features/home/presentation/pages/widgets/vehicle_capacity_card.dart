@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_card.dart';
@@ -76,7 +75,9 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
     return AppCard(
       padding: const .all(8),
       decoration: BoxDecoration(
-        color: widget.isSelected ? colors.primaryContainer : colors.primaryContainer.withAlpha(155),
+        color: widget.isSelected
+            ? colors.primaryContainer
+            : colors.primaryContainer.withAlpha(155),
         borderRadius: const .all(Radius.circular(100)),
       ),
       child: AspectRatio(

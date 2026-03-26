@@ -22,5 +22,6 @@ sealed class Department with _$Department {
     String? blockForTimesheet,
   }) = _Department;
 
-  factory Department.fromJson(Map<String, dynamic> json) => _$DepartmentFromJson(json);
+  factory Department.fromJson(Map<String, dynamic> json) =>
+      _$DepartmentFromJson(json);
 }

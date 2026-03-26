@@ -20,7 +20,12 @@ class AppAnimation extends StatelessWidget {
     return child
         .animate(delay: delay ?? 0.ms)
         .fadeIn(duration: 500.ms, curve: Curves.easeOutQuad)
-        .slideY(begin: 0.05, end: 0, duration: 500.ms, curve: Curves.easeOutQuad)
+        .slideY(
+          begin: 0.05,
+          end: 0,
+          duration: 500.ms,
+          curve: Curves.easeOutQuad,
+        )
         .scale(
           begin: const Offset(0.98, 0.98),
           end: const Offset(1, 1),
@@ -37,10 +42,12 @@ class AppAnimation extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: children
-          .map((child) => AppAnimation(
-                delay: interval * children.indexOf(child),
-                child: child,
-              ))
+          .map(
+            (child) => AppAnimation(
+              delay: interval * children.indexOf(child),
+              child: child,
+            ),
+          )
           .toList(),
     );
   }
@@ -48,11 +55,7 @@ class AppAnimation extends StatelessWidget {
 
 extension AppAnimationExtension on Widget {
   Widget withAppAnimation({Duration? delay, bool animate = true}) {
-    return AppAnimation(
-      delay: delay,
-      animate: animate,
-      child: this,
-    );
+    return AppAnimation(delay: delay, animate: animate, child: this);
   }
 
   Widget animateIn({int index = 0, Duration? delay, bool animate = true}) {

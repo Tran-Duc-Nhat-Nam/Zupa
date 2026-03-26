@@ -6,6 +6,7 @@ class RevenueEntity {
     required this.pass,
     required this.revenue,
   });
+
   final VehicleTypeEntity vehicleType;
   final int pass;
   final int revenue;

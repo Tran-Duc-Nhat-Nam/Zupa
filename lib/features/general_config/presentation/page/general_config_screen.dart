@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/styles/colors.dart';
-import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_switch.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/general_config/presentation/bloc/general_config_cubit.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class GeneralConfigScreen extends StatefulWidget {

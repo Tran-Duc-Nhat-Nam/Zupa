@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -6,8 +7,8 @@ import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 
-part 'history_filter_state.dart';
 part 'history_filter_cubit.freezed.dart';
+part 'history_filter_state.dart';
 
 @injectable
 class HistoryFilterCubit extends Cubit<HistoryFilterState> {

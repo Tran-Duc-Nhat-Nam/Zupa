@@ -24,8 +24,8 @@ class ParkingLotCapacity {
   final VehicleTypeEntity vehicleType;
 
   ParkingLotCapacity({
-    @RfControl(validators: [RequiredValidator(), MinValidator(0)]) this.capacity = '',
-    @RfControl(validators: [RequiredValidator()])required this.vehicleType,
+    @RfControl(validators: [RequiredValidator(), MinValidator(0)])
+    this.capacity = '',
+    @RfControl(validators: [RequiredValidator()]) required this.vehicleType,
   });
 }
-

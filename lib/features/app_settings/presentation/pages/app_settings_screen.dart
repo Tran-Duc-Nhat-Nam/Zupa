@@ -4,20 +4,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/styles/theme.dart';
-
-import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
-import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_drop_down_search.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 
 @RoutePage()

@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/styles/colors.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
-import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
-
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
-import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
+import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
 
 @RoutePage()
 class ParkingDetailsScreen extends StatelessWidget {
   const ParkingDetailsScreen({super.key, this.parkingLot});
+
   final ParkingLotEntity? parkingLot;
 
   @override

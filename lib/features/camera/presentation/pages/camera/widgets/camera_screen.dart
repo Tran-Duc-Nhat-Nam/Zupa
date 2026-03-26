@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:volume_listener/volume_listener.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/vehicle_type_radio_cards.dart';
-import 'package:volume_listener/volume_listener.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({
@@ -15,9 +15,11 @@ class CameraScreen extends StatefulWidget {
     required this.controller,
     required this.onTakePicture,
   });
+
   final bool isOut;
   final CameraController controller;
   final void Function() onTakePicture;
+
   @override
   State<CameraScreen> createState() => _CameraScreenState();
 }
@@ -27,6 +29,7 @@ class _CameraScreenState extends State<CameraScreen> {
   int downCount = 0;
   Timer? upTimer;
   Timer? downTimer;
+
   @override
   void initState() {
     super.initState();

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'package:zupa/core/models/vehicle_type_model.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 
@@ -9,6 +8,7 @@ part 'member_vehicle_model.g.dart';
 @freezed
 sealed class MemberVehicleModel with _$MemberVehicleModel {
   const MemberVehicleModel._();
+
   const factory MemberVehicleModel({
     @Default('N/A') String id,
     @Default('N/A') String name,
@@ -26,6 +26,7 @@ sealed class MemberVehicleModel with _$MemberVehicleModel {
 
   @override
   Map<String, dynamic> toJson() => toJson();
+
   MemberVehicleEntity toEntity() => MemberVehicleEntity(
     id: id,
     name: name,

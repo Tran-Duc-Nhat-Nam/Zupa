@@ -5,10 +5,7 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 abstract class AppToast {
-  static void showNotify(
-    String message, {
-    AppToastType type = .info,
-  }) {
+  static void showNotify(String message, {AppToastType type = .info}) {
     final icon = switch (type) {
       .success => Symbols.check_circle_outline_rounded,
       .error => Symbols.error_outline_rounded,
@@ -48,11 +45,7 @@ abstract class AppToast {
   }
 
   static void showToast(String message) {
-    SmartDialog.showToast(
-      message,
-      useAnimation: true,
-      animationType: .fade,
-    );
+    SmartDialog.showToast(message, useAnimation: true, animationType: .fade);
   }
 }
 

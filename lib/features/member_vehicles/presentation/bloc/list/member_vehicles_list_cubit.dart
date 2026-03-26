@@ -6,8 +6,8 @@ import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehi
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 
-part 'member_vehicles_list_state.dart';
 part 'member_vehicles_list_cubit.freezed.dart';
+part 'member_vehicles_list_state.dart';
 
 @injectable
 class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {

@@ -5,6 +5,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
@@ -13,7 +14,6 @@ import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class HistorySearchBar extends StatelessWidget {
   const HistorySearchBar({

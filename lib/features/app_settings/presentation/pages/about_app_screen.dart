@@ -1,20 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/env/env.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 
 @RoutePage()
@@ -151,8 +151,8 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                             ? null
                             : () {
                                 context.read<VersionCubit>().checkForUpdates(
-                                      force: true,
-                                    );
+                                  force: true,
+                                );
                               },
                       );
                     },
@@ -180,7 +180,8 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                                 version:
                                     info.latestVersion ?? _packageInfo!.version,
                                 changelog:
-                                    info.message ?? t.common.version.noChangelog,
+                                    info.message ??
+                                    t.common.version.noChangelog,
                               ),
                             );
                           } else {

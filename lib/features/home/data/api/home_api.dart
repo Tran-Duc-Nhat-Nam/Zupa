@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-
 import 'package:zupa/core/data/request/member_vehicle/member_vehicle_request.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/features/home/data/models/filter/home_filter_model.dart';
@@ -14,7 +13,9 @@ abstract class HomeAPI {
       _HomeAPI;
 
   @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<HomeTicketModel>>> getList(@Queries() HomeFilterModel request);
+  Future<SuccessResponse<List<HomeTicketModel>>> getList(
+    @Queries() HomeFilterModel request,
+  );
 
   @GET('/hrm/staff-meta-data/{id}')
   Future<SuccessResponse<HomeTicketModel>> get(@Path('id') String id);

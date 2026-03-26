@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class SettingsScreen extends StatelessWidget {

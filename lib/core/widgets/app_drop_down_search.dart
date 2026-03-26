@@ -5,7 +5,6 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/styles/colors.dart';
 
-
 class AppDropDownSearchExtraItem<T> {
   const AppDropDownSearchExtraItem({this.value, required this.label});
 
@@ -50,6 +49,7 @@ class AppDropDownSearch<T> extends StatefulWidget {
     this.offset = Offset.zero,
     super.key,
   });
+
   final FormControl<T> formControl;
   final String hint;
   final ValueListenable<T?>? valueListenable;
@@ -89,6 +89,7 @@ class AppDropDownSearch<T> extends StatefulWidget {
 class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
   bool isOpen = false;
   late ValueNotifier<T?> valueListenable;
+
   @override
   void initState() {
     valueListenable = ValueNotifier<T?>(
@@ -177,7 +178,9 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
                 widget.buttonDecoration ??
                 .new(
                   borderRadius: .circular(8),
-                  border: .all(color: AppColors.of(context).surfaceContainerHighest),
+                  border: .all(
+                    color: AppColors.of(context).surfaceContainerHighest,
+                  ),
                 ),
             elevation: widget.buttonElevation,
           ),
@@ -185,7 +188,9 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
             icon: AnimatedRotation(
               turns: isOpen ? 0.5 : 0,
               duration: const .new(milliseconds: 200),
-              child: widget.icon ?? const Icon(Symbols.keyboard_arrow_down_rounded),
+              child:
+                  widget.icon ??
+                  const Icon(Symbols.keyboard_arrow_down_rounded),
             ),
             iconSize: widget.iconSize ?? 24,
             iconEnabledColor: widget.iconEnabledColor,

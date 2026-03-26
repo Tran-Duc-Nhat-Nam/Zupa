@@ -1,16 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-
-import 'dart:math' as math;
-
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

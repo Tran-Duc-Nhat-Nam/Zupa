@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,8 +10,8 @@ import 'package:zupa/core/models/version_info.dart';
 import 'package:zupa/core/services/device_service.dart';
 import 'package:zupa/core/services/version_service.dart';
 
-part 'version_state.dart';
 part 'version_cubit.freezed.dart';
+part 'version_state.dart';
 
 @lazySingleton
 class VersionCubit extends Cubit<VersionState> {

@@ -32,9 +32,7 @@ class AppThemes {
         style: ElevatedButton.styleFrom(
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(12),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(12)),
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(

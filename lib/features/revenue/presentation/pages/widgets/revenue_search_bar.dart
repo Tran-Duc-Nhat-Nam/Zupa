@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
-
-import 'package:zupa/core/helper/converter/date_time_converter.dart';
-import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class RevenueSearchBar extends StatelessWidget {
   const RevenueSearchBar({super.key});
@@ -19,7 +18,8 @@ class RevenueSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: .zero,
-      elevation: 0, // Keep it flat inside the colored container
+      elevation: 0,
+      // Keep it flat inside the colored container
       color: AppColors.of(context).surfaceContainer,
       shape: RoundedRectangleBorder(
         borderRadius: .circular(16), // Modern large curves
@@ -36,7 +36,7 @@ class RevenueSearchBar extends StatelessWidget {
                 Text(
                   t['common.months.${DateTimeConverter.getMonthKey(DateTime.now().month)}'],
                   style: AppTextStyles.heading5.copyWith(
-                  color: AppColors.of(context).onSurface,
+                    color: AppColors.of(context).onSurface,
                     fontWeight: .w600,
                   ),
                 ),

@@ -6,8 +6,8 @@ import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart'
 import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
 
-part 'revenue_list_state.dart';
 part 'revenue_list_cubit.freezed.dart';
+part 'revenue_list_state.dart';
 
 @injectable
 class RevenueListCubit extends Cubit<RevenueListState> {

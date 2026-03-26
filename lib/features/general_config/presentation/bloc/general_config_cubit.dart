@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/features/general_config/presentation/models/general_config_form.dart';
 
-part 'general_config_state.dart';
 part 'general_config_cubit.freezed.dart';
+part 'general_config_state.dart';
 
 @injectable
 class GeneralConfigCubit extends Cubit<GeneralConfigState> {

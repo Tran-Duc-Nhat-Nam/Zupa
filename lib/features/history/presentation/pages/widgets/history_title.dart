@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 
 class HistoryTitle extends StatelessWidget {
   const HistoryTitle({super.key, required this.ticket});
+
   final HistoryTicketEntity ticket;
 
   @override

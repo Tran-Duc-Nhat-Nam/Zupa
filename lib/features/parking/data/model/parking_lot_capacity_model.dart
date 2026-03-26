@@ -8,6 +8,7 @@ part 'parking_lot_capacity_model.g.dart';
 @freezed
 sealed class ParkingLotCapacityModel with _$ParkingLotCapacityModel {
   const ParkingLotCapacityModel._();
+
   const factory ParkingLotCapacityModel({
     @Default(VehicleTypeModel()) VehicleTypeModel vehicleType,
     @Default(0) int capacity,

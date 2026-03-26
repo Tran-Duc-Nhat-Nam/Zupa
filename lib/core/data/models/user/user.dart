@@ -35,6 +35,5 @@ sealed class User with _$User {
     @Default(false) bool using2FA,
   }) = _User;
 
-  factory User.fromJson(Map<String, dynamic> json) =>
-      _$UserFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

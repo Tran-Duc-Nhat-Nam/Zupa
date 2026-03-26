@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/features/password/domain/repository/password_repository.dart';
 import 'package:zupa/features/password/presentation/models/change_password_form.dart';
-import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
-part 'password_settings_state.dart';
 part 'password_settings_cubit.freezed.dart';
+part 'password_settings_state.dart';
 
 @injectable
 class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {

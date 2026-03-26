@@ -1,10 +1,9 @@
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:zupa/core/styles/colors.dart';
-
-import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/styles/colors.dart';
+import 'package:zupa/core/styles/text_styles.dart';
 
 class TicketInfoCard extends StatelessWidget {
   const TicketInfoCard({
@@ -71,7 +70,9 @@ class TicketInfoCard extends StatelessWidget {
                                 height: 1,
                                 margin: const .symmetric(vertical: 4),
                                 width: .infinity,
-                                color: AppColors.of(context).surfaceContainerHighest,
+                                color: AppColors.of(
+                                  context,
+                                ).surfaceContainerHighest,
                               ),
                               Text(
                                 t.parking.totalTime(
@@ -88,9 +89,7 @@ class TicketInfoCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    VerticalDivider(
-                      color: AppColors.of(context).outline,
-                    ),
+                    VerticalDivider(color: AppColors.of(context).outline),
                     Expanded(
                       flex: 2,
                       child: Padding(

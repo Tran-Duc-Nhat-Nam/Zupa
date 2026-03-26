@@ -14,10 +14,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 
 class AppErrorScreen extends StatelessWidget {
-  const AppErrorScreen({
-    super.key,
-    required this.details,
-  });
+  const AppErrorScreen({super.key, required this.details});
 
   final FlutterErrorDetails details;
 
@@ -28,10 +25,12 @@ class AppErrorScreen extends StatelessWidget {
     String deviceInfo = '';
     if (Platform.isAndroid) {
       final androidInfo = await deviceInfoPlugin.androidInfo;
-      deviceInfo = 'Model: ${androidInfo.model}, SDK: ${androidInfo.version.sdkInt}';
+      deviceInfo =
+          'Model: ${androidInfo.model}, SDK: ${androidInfo.version.sdkInt}';
     } else if (Platform.isIOS) {
       final iosInfo = await deviceInfoPlugin.iosInfo;
-      deviceInfo = 'Model: ${iosInfo.utsname.machine}, System: ${iosInfo.systemName} ${iosInfo.systemVersion}';
+      deviceInfo =
+          'Model: ${iosInfo.utsname.machine}, System: ${iosInfo.systemName} ${iosInfo.systemVersion}';
     } else {
       deviceInfo = 'Platform not detailed';
     }
@@ -39,7 +38,9 @@ class AppErrorScreen extends StatelessWidget {
     final buffer = StringBuffer();
     buffer.writeln('===== APP ERROR REPORT =====');
     buffer.writeln('App Name: ${packageInfo.appName}');
-    buffer.writeln('Version: ${packageInfo.version}+${packageInfo.buildNumber}');
+    buffer.writeln(
+      'Version: ${packageInfo.version}+${packageInfo.buildNumber}',
+    );
     buffer.writeln('Device: $deviceInfo');
     buffer.writeln('Timestamp: ${DateTime.now().toIso8601String()}');
     buffer.writeln('\n===== EXCEPTION =====');
@@ -54,7 +55,8 @@ class AppErrorScreen extends StatelessWidget {
   Future<void> _exportToFile() async {
     final log = await _buildFullLog();
     final directory = await getTemporaryDirectory();
-    final filePath = '${directory.path}/error_log_${DateTime.now().millisecondsSinceEpoch}.txt';
+    final filePath =
+        '${directory.path}/error_log_${DateTime.now().millisecondsSinceEpoch}.txt';
     final file = File(filePath);
     await file.writeAsString(log);
 
@@ -69,7 +71,9 @@ class AppErrorScreen extends StatelessWidget {
 
   Future<void> _reportToGitHub() async {
     final log = await _buildFullLog();
-    final title = Uri.encodeComponent('App Crash: ${details.exceptionAsString().split('\n').first}');
+    final title = Uri.encodeComponent(
+      'App Crash: ${details.exceptionAsString().split('\n').first}',
+    );
     final body = Uri.encodeComponent('**Error Report:**\n```\n$log\n```');
     final url = '${Env.github}/issues/new?title=$title&body=$body';
 

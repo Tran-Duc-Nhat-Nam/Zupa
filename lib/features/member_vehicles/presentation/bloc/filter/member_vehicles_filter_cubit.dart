@@ -7,8 +7,8 @@ import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
 import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
 
-part 'member_vehicles_filter_state.dart';
 part 'member_vehicles_filter_cubit.freezed.dart';
+part 'member_vehicles_filter_state.dart';
 
 @injectable
 class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {

@@ -18,6 +18,7 @@ class AppListTile extends StatelessWidget {
     this.padding,
     this.borderRadius,
   });
+
   final Widget? leading;
   final IconData? leadingIcon;
   final Widget? trailing;

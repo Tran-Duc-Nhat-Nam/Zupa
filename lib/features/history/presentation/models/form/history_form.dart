@@ -13,8 +13,10 @@ class History {
   final VehicleTypeEntity? type;
 
   History({
-    @RfControl(validators: [RequiredValidator()]) this.pageIndex = defaultPageIndex,
-    @RfControl(validators: [RequiredValidator()]) this.pageSize = defaultPageSize,
+    @RfControl(validators: [RequiredValidator()])
+    this.pageIndex = defaultPageIndex,
+    @RfControl(validators: [RequiredValidator()])
+    this.pageSize = defaultPageSize,
     @RfControl() this.keyword = '',
     @RfControl() this.time,
     @RfControl() this.type,

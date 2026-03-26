@@ -2,11 +2,11 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
-import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class RevenueScreen extends StatelessWidget {
@@ -34,7 +34,7 @@ class RevenueScreen extends StatelessWidget {
               ],
             ),
           );
-        }
+        },
       ),
     );
   }

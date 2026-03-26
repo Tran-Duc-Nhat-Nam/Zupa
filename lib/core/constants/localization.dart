@@ -7,12 +7,15 @@ enum AppLocalization { vi, en, ja, followSystem }
 
 extension AppLocalizationExtension on AppLocalization {
   static final _storageService = getIt<StorageService>();
+
   String? getLocaleString() {
     return this == .followSystem ? null : name;
   }
 
   Locale getLocale() {
-    return this == .followSystem ? PlatformDispatcher.instance.locale : .new(name);
+    return this == .followSystem
+        ? PlatformDispatcher.instance.locale
+        : .new(name);
   }
 
   static Future<AppLocalization> getSelectedLocale() async {

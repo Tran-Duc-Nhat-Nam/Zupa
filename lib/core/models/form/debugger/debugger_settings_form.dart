@@ -6,7 +6,5 @@ part 'debugger_settings_form.gform.dart';
 class DebuggerSettings {
   final bool isEnabled;
 
-  DebuggerSettings({
-    @RfControl() this.isEnabled = false,
-  });
+  DebuggerSettings({@RfControl() this.isEnabled = false});
 }

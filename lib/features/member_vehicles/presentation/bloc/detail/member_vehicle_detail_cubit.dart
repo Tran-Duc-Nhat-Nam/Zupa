@@ -6,8 +6,8 @@ import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_ent
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_detail_form.dart';
 
-part 'member_vehicle_detail_state.dart';
 part 'member_vehicle_detail_cubit.freezed.dart';
+part 'member_vehicle_detail_state.dart';
 
 @injectable
 class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {

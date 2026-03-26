@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
-part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';
+part 'theme_state.dart';
 
 @lazySingleton
 class ThemeCubit extends Cubit<ThemeState> {

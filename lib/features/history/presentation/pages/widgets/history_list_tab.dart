@@ -2,16 +2,14 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
     hide Loading;
-
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
-import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
-import 'package:zupa/core/widgets/app_animation.dart';
-
 
 class HistoryListTab extends StatelessWidget {
   const HistoryListTab({super.key});
@@ -83,7 +81,11 @@ class HistoryListTab extends StatelessWidget {
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 12),
                 itemBuilder: (c, i) => Padding(
-                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0, left: 24, right: 24),
+                  padding: EdgeInsets.only(
+                    top: i == 0 ? 16 : 0,
+                    left: 24,
+                    right: 24,
+                  ),
                   child: HistoryListSection(
                     tickets: items.isNotEmpty
                         ? items

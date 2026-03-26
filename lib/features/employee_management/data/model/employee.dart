@@ -39,4 +39,3 @@ sealed class Employee with _$Employee {
   factory Employee.fromJson(Map<String, dynamic> json) =>
       _$EmployeeFromJson(json);
 }
-

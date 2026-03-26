@@ -9,6 +9,7 @@ part 'ticket_model.g.dart';
 @freezed
 sealed class HomeTicketModel with _$HomeTicketModel {
   const HomeTicketModel._();
+
   const factory HomeTicketModel({
     @Default(0) int id,
     @DateTimeConverter() DateTime? dateCreated,

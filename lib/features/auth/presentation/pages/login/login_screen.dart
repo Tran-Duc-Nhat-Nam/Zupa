@@ -1,22 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zupa/core/widgets/app_animation.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/styles/colors.dart';
-import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
@@ -37,7 +36,10 @@ class _LoginScreenState extends AppState<LoginScreen> {
           state.whenOrNull(
             loginSuccess: () => context.router.replaceAll([const HomeRoute()]),
             loginFailed: (message) {
-              AppToast.showNotify(message ?? t.common.errors.unknown, type: .error);
+              AppToast.showNotify(
+                message ?? t.common.errors.unknown,
+                type: .error,
+              );
             },
           );
         },

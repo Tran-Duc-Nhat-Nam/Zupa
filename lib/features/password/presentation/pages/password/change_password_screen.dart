@@ -1,15 +1,15 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/password/presentation/bloc/password/password_settings_cubit.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class ChangePasswordScreen extends StatefulWidget {

@@ -6,7 +6,5 @@ part 'site_form.gform.dart';
 class Site {
   final String code;
 
-  Site({
-    @RfControl() required this.code,
-  });
+  Site({@RfControl() required this.code});
 }

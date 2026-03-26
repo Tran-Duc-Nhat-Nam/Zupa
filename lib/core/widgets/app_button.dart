@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/styles/colors.dart';
-
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppButton extends StatefulWidget {

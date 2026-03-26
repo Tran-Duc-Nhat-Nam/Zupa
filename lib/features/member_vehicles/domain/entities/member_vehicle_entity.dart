@@ -12,6 +12,7 @@ class MemberVehicleEntity {
     required this.expiredIn,
     required this.price,
   });
+
   final String id;
   final String name;
   final String phoneNumber;

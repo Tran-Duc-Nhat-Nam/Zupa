@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 

@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/models/form/localization/app_settings_form.dart';
+import 'package:zupa/core/services/storage_service.dart';
 
-part 'localization_state.dart';
 part 'localization_cubit.freezed.dart';
+part 'localization_state.dart';
 
 @lazySingleton
 class LocalizationCubit extends Cubit<LocalizationState> {
@@ -25,7 +25,8 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   }
 
   void changeLocale() {
-    final mode = formModel.localizationModeControl.value ?? AppLocalization.followSystem;
+    final mode =
+        formModel.localizationModeControl.value ?? AppLocalization.followSystem;
     _storageService.setLocalization(mode);
     emit(.loading(mode));
     emit(.loaded(mode));

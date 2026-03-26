@@ -1,20 +1,20 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:zupa/core/network/network_info.dart';
 
-part 'connectivity_state.dart';
 part 'connectivity_cubit.freezed.dart';
+part 'connectivity_state.dart';
 
 @lazySingleton
 class ConnectivityCubit extends Cubit<ConnectivityState> {
   final NetworkInfo _networkInfo;
   StreamSubscription? _subscription;
 
-  ConnectivityCubit(this._networkInfo)
-      : super(const .initial());
+  ConnectivityCubit(this._networkInfo) : super(const .initial());
 
   Future<void> monitorConnectivity() async {
     // Initial check

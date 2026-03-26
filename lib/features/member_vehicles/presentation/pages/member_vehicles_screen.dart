@@ -2,16 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicle_list_tab.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_search_bar.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_tab_bar.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 @RoutePage()
 class MemberVehiclesScreen extends StatefulWidget {
@@ -30,9 +30,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
           create: (context) => getIt<MemberVehiclesListCubit>()..init(),
         ),
         BlocProvider<MemberVehiclesFilterCubit>(
-          create: (context) =>
-              getIt<MemberVehiclesFilterCubit>()
-                ..init(),
+          create: (context) => getIt<MemberVehiclesFilterCubit>()..init(),
         ),
       ],
       child: AppScreen(
@@ -43,9 +41,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
           Padding(
             padding: const .only(right: 24),
             child: InkWell(
-              child: const Icon(
-                Symbols.add_circle_outline_rounded,
-              ),
+              child: const Icon(Symbols.add_circle_outline_rounded),
               onTap: () => context.pushRoute(MemberVehicleDetailRoute()),
             ),
           ),
@@ -78,4 +74,3 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
     );
   }
 }
-

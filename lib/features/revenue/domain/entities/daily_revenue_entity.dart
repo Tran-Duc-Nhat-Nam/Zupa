@@ -7,10 +7,12 @@ class DailyRevenueEntity {
     required this.vehicleType,
     required this.revenue,
   });
+
   final DateTime date;
   final VehicleTypeEntity? vehicleType;
   final List<RevenueEntity> revenue;
 
   int get totalPass => revenue.fold(0, (sum, e) => sum + e.pass);
+
   int get totalRevenue => revenue.fold(0, (sum, e) => sum + e.revenue);
 }

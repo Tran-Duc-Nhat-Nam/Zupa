@@ -23,7 +23,8 @@ class MemberVehicleDetail {
     @RfControl(validators: [RequiredValidator()]) this.branch = '',
     @RfControl(validators: [RequiredValidator()]) this.vehicleType,
     @RfControl(validators: [RequiredValidator()]) this.ticketID = '',
-    @RfControl(validators: [RequiredValidator()]) this.expiredIn = const Duration(days: 30),
+    @RfControl(validators: [RequiredValidator()])
+    this.expiredIn = const Duration(days: 30),
     @RfControl(validators: [RequiredValidator()]) this.price = 0,
   });
 }

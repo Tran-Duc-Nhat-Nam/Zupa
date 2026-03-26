@@ -18,8 +18,7 @@ sealed class Site with _$Site {
     @Default('') String currency,
   }) = _Site;
 
-  factory Site.fromJson(Map<String, dynamic> json) =>
-      _$SiteFromJson(json);
+  factory Site.fromJson(Map<String, dynamic> json) => _$SiteFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => toJson();

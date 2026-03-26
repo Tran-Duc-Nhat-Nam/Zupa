@@ -5,29 +5,28 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
+import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
-import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/bloc/security/security_cubit.dart';
 import 'package:zupa/core/bloc/security/security_state.dart';
+import 'package:zupa/core/bloc/theme/theme_cubit.dart';
+import 'package:zupa/core/bloc/version/version_cubit.dart';
+import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
+import 'package:zupa/core/helper/router/router_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/theme.dart';
+import 'package:zupa/core/widgets/error/app_error_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
-import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
-import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/helper/router/router_helper.dart';
-import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
-
-import 'package:zupa/core/widgets/error/app_error_screen.dart';
 
 Future<void> main() async {
   try {

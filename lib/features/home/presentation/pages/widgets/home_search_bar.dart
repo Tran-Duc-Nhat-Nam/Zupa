@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
-
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});

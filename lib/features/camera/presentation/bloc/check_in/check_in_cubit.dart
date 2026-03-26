@@ -3,15 +3,20 @@ import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
-import 'package:zupa/features/camera/presentation/models/check_in_form.dart' as f;
+import 'package:zupa/features/camera/presentation/models/check_in_form.dart'
+    as f;
 
-part 'check_in_state.dart';
 part 'check_in_cubit.freezed.dart';
+part 'check_in_state.dart';
 
 class CheckInCubit extends Cubit<CheckInState> {
   CheckInCubit() : super(const .initial());
 
-  final formModel = f.CheckInForm(f.CheckInForm.formElements(f.CheckIn()), null, null);
+  final formModel = f.CheckInForm(
+    f.CheckInForm.formElements(f.CheckIn()),
+    null,
+    null,
+  );
 
   @override
   Future<void> close() {
@@ -49,7 +54,10 @@ class CheckInCubit extends Cubit<CheckInState> {
     emit(
       state is CheckOut
           ? .checkedOutSuccess(picture)
-          : .checkedInSuccess(picture, formModel.vehicleTypeControl.value ?? vehicleTypes[0]),
+          : .checkedInSuccess(
+              picture,
+              formModel.vehicleTypeControl.value ?? vehicleTypes[0],
+            ),
     );
   }
 

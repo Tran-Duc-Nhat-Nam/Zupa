@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
-
 import 'package:zupa/core/services/storage_service.dart';
 
 @lazySingleton
@@ -57,6 +56,7 @@ class BiometricService {
 class BiometricError implements Exception {
   final String code;
   final String message;
+
   BiometricError({required this.code, required this.message});
 
   @override

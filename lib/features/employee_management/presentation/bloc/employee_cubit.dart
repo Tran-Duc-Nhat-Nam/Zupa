@@ -5,8 +5,8 @@ import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/employee_management/data/model/employee.dart';
 import 'package:zupa/features/employee_management/domain/repository/employee_repository.dart';
 
-part 'employee_state.dart';
 part 'employee_cubit.freezed.dart';
+part 'employee_state.dart';
 
 @injectable
 class EmployeeCubit extends Cubit<EmployeeState> {

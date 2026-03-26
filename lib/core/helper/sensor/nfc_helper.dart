@@ -6,10 +6,9 @@ import 'package:flutter/material.dart'; // Changed from cupertino for AppToast/T
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
-
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 class NfcHelper {
   static Future<void> startListenToNfc(BuildContext context) async {

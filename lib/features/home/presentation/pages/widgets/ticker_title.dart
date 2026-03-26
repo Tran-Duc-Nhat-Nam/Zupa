@@ -8,10 +8,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 class TicketTitle extends StatelessWidget {

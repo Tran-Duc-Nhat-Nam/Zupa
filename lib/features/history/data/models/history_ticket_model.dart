@@ -9,6 +9,7 @@ part 'history_ticket_model.g.dart';
 @freezed
 sealed class HistoryTicketModel with _$HistoryTicketModel {
   const HistoryTicketModel._();
+
   const factory HistoryTicketModel({
     @Default(0) int id,
     @DateTimeConverter() DateTime? dateCreated,

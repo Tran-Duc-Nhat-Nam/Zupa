@@ -8,6 +8,7 @@ part 'revenue_filter_model.g.dart';
 @freezed
 sealed class RevenueFilterModel with _$RevenueFilterModel {
   const RevenueFilterModel._();
+
   const factory RevenueFilterModel({
     @Default(0) int page,
     @Default(10) int size,
@@ -22,14 +23,13 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  RevenueFilterEntity toEntity() =>
-      RevenueFilterEntity(
-        page: page,
-        size: size,
-        keyword: keyword,
-        time: time,
-        type: type?.toEntity(),
-      );
+  RevenueFilterEntity toEntity() => RevenueFilterEntity(
+    page: page,
+    size: size,
+    keyword: keyword,
+    time: time,
+    type: type?.toEntity(),
+  );
 
   factory RevenueFilterModel.fromEntity(RevenueFilterEntity entity) {
     return RevenueFilterModel(

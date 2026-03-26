@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
 
 class RevenueTitle extends StatelessWidget {

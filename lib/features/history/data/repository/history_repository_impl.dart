@@ -1,15 +1,15 @@
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
+import 'package:zupa/core/data/response/error/error_response.dart';
+import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/core/data/response/error/error_response.dart';
-import 'package:zupa/features/history/data/models/filter/history_filter_model.dart';
-import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
-import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
+import 'package:zupa/features/history/data/models/filter/history_filter_model.dart';
 import 'package:zupa/features/history/data/models/history_ticket_model.dart';
 import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
+import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
+import 'package:zupa/features/history/domain/repository/history_repository.dart';
 
 @LazySingleton(as: IHistoryRepository)
 class HistoryRepositoryImpl implements IHistoryRepository {

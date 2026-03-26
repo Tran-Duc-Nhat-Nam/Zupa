@@ -4,12 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
-
 import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
 
-part 'home_filter_state.dart';
 part 'home_filter_cubit.freezed.dart';
+part 'home_filter_state.dart';
 
 @injectable
 class HomeFilterCubit extends Cubit<HomeFilterState> {
