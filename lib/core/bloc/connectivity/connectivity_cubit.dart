@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:zupa/core/network/network_info.dart';
 
 part 'connectivity_cubit.freezed.dart';
@@ -23,7 +22,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
 
     // Listen for real-time changes
     _subscription = _networkInfo.onStatusChanged.listen((status) {
-      if (status == InternetStatus.connected) {
+      if (status == .connected) {
         emit(const .connected());
       } else {
         emit(const .disconnected());

@@ -12,8 +12,7 @@ class ScannerCubit extends Cubit<ScannerState> {
   ScannerCubit() : super(const .initial());
 
   Future<void> init() async {
-    if (await NfcManager.instance.checkAvailability() ==
-        NfcAvailability.enabled) {
+    if (await NfcManager.instance.checkAvailability() == .enabled) {
       await NfcManager.instance.startSession(
         onDiscovered: (NfcTag tag) async {
           final MifareClassicAndroid? data = .from(tag);
@@ -32,8 +31,7 @@ class ScannerCubit extends Cubit<ScannerState> {
   }
 
   Future<void> reset() async {
-    if (await NfcManager.instance.checkAvailability() ==
-        NfcAvailability.enabled) {
+    if (await NfcManager.instance.checkAvailability() == .enabled) {
       emit(const .loaded());
     } else {
       emit(const .failed());
