@@ -30,6 +30,7 @@
       "later": "後で",
       "updateNow": "今すぐ更新",
       "retry": "再試行",
+      "checking": "アップデートを確認中...",
       "downloading": "ダウンロード中",
       "downloadingVersion": "バージョン ${version} のダウンロード中、アプリを閉じてください",
       "installing": "インストール中",

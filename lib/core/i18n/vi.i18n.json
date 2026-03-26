@@ -30,6 +30,7 @@
       "later": "Để sau",
       "updateNow": "Cập nhật ngay",
       "retry": "Thử lại",
+      "checking": "Đang kiểm tra cập nhật...",
       "downloading": "Đang tải xuống",
       "downloadingVersion": "Đang tải xuống phiên bản ${version}, vui lòng không đóng ứng dụng",
       "installing": "Đang cài đặt",

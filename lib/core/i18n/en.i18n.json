@@ -30,6 +30,7 @@
       "later": "Later",
       "updateNow": "Update Now",
       "retry": "Retry",
+      "checking": "Checking for updates...",
       "downloading": "Downloading",
       "downloadingVersion": "Downloading version ${version}, please don't close the app",
       "installing": "Installing",

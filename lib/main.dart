@@ -31,7 +31,7 @@ import 'package:zupa/core/widgets/error/app_error_screen.dart';
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-    
+
     // Global Error Boundary
     ErrorWidget.builder = (FlutterErrorDetails details) {
       DebuggerHelper.talker.handle(
@@ -117,20 +117,33 @@ class AppView extends StatelessWidget {
         BlocListener<VersionCubit, VersionState>(
           listener: (context, state) {
             state.whenOrNull(
-              updateAvailable: (info) => DialogHelper.showUpdateDialog(
-                context,
-                isMandatory: info.isForcedUpdate,
-                version: info.latestVersion ?? '',
-                onUpdate: () => Platform.isAndroid
-                    ? context.read<VersionCubit>().executeUpdate(info)
-                    : info.update,
-              ),
-              maintaining: () => DialogHelper.showMaintenanceDialog(context),
-              downloading: (progress, info) => DialogHelper.showDownloadDialog(
-                context,
-                progressStream: progress,
-                version: info.latestVersion,
-              ),
+              checking: () =>
+                  SmartDialog.showLoading(msg: t.common.version.checking),
+              upToDate: (_) => SmartDialog.dismiss(status: .loading),
+              standby: () => SmartDialog.dismiss(status: .loading),
+              updateAvailable: (info) {
+                SmartDialog.dismiss(status: .loading);
+                DialogHelper.showUpdateDialog(
+                  context,
+                  isMandatory: info.isForcedUpdate,
+                  version: info.latestVersion ?? '',
+                  onUpdate: () => Platform.isAndroid
+                      ? context.read<VersionCubit>().executeUpdate(info)
+                      : info.update,
+                );
+              },
+              maintaining: () {
+                SmartDialog.dismiss(status: .loading);
+                DialogHelper.showMaintenanceDialog(context);
+              },
+              downloading: (progress, info) {
+                SmartDialog.dismiss(status: .loading);
+                DialogHelper.showDownloadDialog(
+                  context,
+                  progressStream: progress,
+                  version: info.latestVersion,
+                );
+              },
               installing: () => DialogHelper.closeAllModal(),
               downloadFailed: (message, _) {
                 DialogHelper.closeAllModal();
@@ -165,7 +178,7 @@ class AppView extends StatelessWidget {
                 return MaterialApp.router(
                   onGenerateTitle: (_) => t.home.appTitle,
                   theme: AppThemes.getTheme(
-                    brightness: Brightness.light,
+                    brightness: .light,
                     colorSource: settings.colorSource,
                     dynamicColorScheme: lightDynamic,
                     customSeedColor: settings.seedColorValue != null
@@ -173,7 +186,7 @@ class AppView extends StatelessWidget {
                         : null,
                   ),
                   darkTheme: AppThemes.getTheme(
-                    brightness: Brightness.dark,
+                    brightness: .dark,
                     colorSource: settings.colorSource,
                     dynamicColorScheme: darkDynamic,
                     customSeedColor: settings.seedColorValue != null
