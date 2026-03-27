@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<SecurityCubit>()..checkSecurity()),
         if (kDebugMode)
           BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
+        BlocProvider(create: (_) => getIt<AnimationCubit>()..loadInfo()),
       ],
       child: const AppView(),
     );

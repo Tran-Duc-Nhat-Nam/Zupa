@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
@@ -166,103 +167,139 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           ),
                           if (settings.colorSource == .custom)
                             Padding(
-                              padding: const .all(16),
+                              padding: const EdgeInsets.all(16),
                               child: SingleChildScrollView(
-                                scrollDirection: .horizontal,
+                                scrollDirection: Axis.horizontal,
                                 child: Row(
-                                  children:
-                                      [
-                                        null, // Color picker button
-                                        ..._customSeedColors,
-                                      ].map((colorValue) {
-                                        if (colorValue == null) {
-                                          return GestureDetector(
-                                            onTap: () => _showColorPickerDialog(
-                                              context,
-                                              settings.seedColorValue ??
-                                                  0xFF6750A4,
-                                            ),
-                                            child: Container(
-                                              width: 45,
-                                              height: 45,
-                                              margin: const .symmetric(
-                                                horizontal: 6,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: colorScheme
-                                                    .surfaceContainerHighest,
-                                                shape: .circle,
-                                              ),
-                                              child: Icon(
-                                                Symbols.colorize_rounded,
-                                                size: 25,
-                                                color: colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final isSelected =
-                                            settings.seedColorValue ==
-                                            colorValue;
-                                        return GestureDetector(
-                                          onTap: () {
-                                            context
-                                                    .read<ThemeCubit>()
-                                                    .formModel
-                                                    .seedColorValueControl
-                                                    .value =
-                                                colorValue;
-                                            context
-                                                .read<ThemeCubit>()
-                                                .changeTheme();
-                                          },
-                                          child: Container(
-                                            width: 40,
-                                            height: 40,
-                                            margin: const .symmetric(
-                                              horizontal: 6,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Color(colorValue),
-                                              shape: .circle,
-                                              border: .all(
-                                                color: isSelected
-                                                    ? colorScheme.onSurface
-                                                    : Colors.transparent,
-                                                width: 2.5,
-                                              ),
-                                              boxShadow: [
-                                                if (isSelected)
-                                                  BoxShadow(
-                                                    color: Color(
-                                                      colorValue,
-                                                    ).withAlpha(125),
-                                                    blurRadius: 8,
-                                                    spreadRadius: 1,
-                                                  ),
-                                              ],
-                                            ),
-                                            child: isSelected
-                                                ? Icon(
-                                                    Symbols.check_rounded,
-                                                    size: 20,
-                                                    color:
-                                                        Color(
-                                                              colorValue,
-                                                            ).computeLuminance() >
-                                                            0.5
-                                                        ? colorScheme.onSurface
-                                                        : colorScheme.surface,
-                                                  )
-                                                : null,
+                                  children: [
+                                    null, // Color picker button
+                                    ..._customSeedColors,
+                                  ].map((colorValue) {
+                                    if (colorValue == null) {
+                                      return GestureDetector(
+                                        onTap: () => _showColorPickerDialog(
+                                          context,
+                                          settings.seedColorValue ?? 0xFF6750A4,
+                                        ),
+                                        child: Container(
+                                          width: 45,
+                                          height: 45,
+                                          margin: const EdgeInsets.symmetric(
+                                            horizontal: 6,
                                           ),
-                                        );
-                                      }).toList(),
+                                          decoration: BoxDecoration(
+                                            color: colorScheme
+                                                .surfaceContainerHighest,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            Symbols.colorize_rounded,
+                                            size: 25,
+                                            color: colorScheme.onSurfaceVariant,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    final isSelected =
+                                        settings.seedColorValue == colorValue;
+                                    return GestureDetector(
+                                      onTap: () {
+                                        context
+                                            .read<ThemeCubit>()
+                                            .formModel
+                                            .seedColorValueControl
+                                            .value = colorValue;
+                                        context.read<ThemeCubit>().changeTheme();
+                                      },
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 6,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Color(colorValue),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: isSelected
+                                                ? colorScheme.onSurface
+                                                : Colors.transparent,
+                                            width: 2.5,
+                                          ),
+                                          boxShadow: [
+                                            if (isSelected)
+                                              BoxShadow(
+                                                color: Color(colorValue)
+                                                    .withAlpha(125),
+                                                blurRadius: 8,
+                                                spreadRadius: 1,
+                                              ),
+                                          ],
+                                        ),
+                                        child: isSelected
+                                            ? Icon(
+                                                Symbols.check_rounded,
+                                                size: 20,
+                                                color: Color(colorValue)
+                                                            .computeLuminance() >
+                                                        0.5
+                                                    ? colorScheme.onSurface
+                                                    : colorScheme.surface,
+                                              )
+                                            : null,
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                             ),
                         ],
+                      );
+                    },
+                  ),
+                  BlocBuilder<AnimationCubit, AnimationState>(
+                    builder: (context, state) {
+                      return SizedBox(
+                        height: 40,
+                        child: AppListTile(
+                          padding: EdgeInsets.zero,
+                          leadingIcon: Symbols.animation_rounded,
+                          text: t.settings.animation,
+                          trailing: SizedBox(
+                            height: 20,
+                            child: Transform.scale(
+                              scale: 0.8,
+                              child: Switch(
+                                padding: EdgeInsets.zero,
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                thumbIcon: WidgetStateProperty.resolveWith<Icon?>((
+                                  Set<WidgetState> states,
+                                ) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return const Icon(Symbols.check_rounded);
+                                  }
+                                  return const Icon(Symbols.close_rounded);
+                                }),
+                                thumbColor: WidgetStateProperty.all(colorScheme.surface),
+                                inactiveTrackColor:
+                                    colorScheme.surfaceContainerHighest,
+                                trackOutlineWidth:
+                                    const WidgetStatePropertyAll(0),
+                                trackOutlineColor:
+                                    const WidgetStatePropertyAll(
+                                      WidgetStateColor.transparent,
+                                    ),
+                                value: state.maybeWhen(
+                                  loaded: (isOn) => isOn,
+                                  orElse: () => true,
+                                ),
+                                onChanged: (value) => context
+                                    .read<AnimationCubit>()
+                                    .changeAnimationMode(value),
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),

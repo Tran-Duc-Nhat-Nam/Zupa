@@ -159,6 +159,14 @@ class StorageService {
     return await _sharedPreferences.getInt('isWarningCapacityThreshold') ?? -1;
   }
 
+  Future<void> setAnimation(bool isOn) async {
+    await _sharedPreferences.setBool('isAnimation', isOn);
+  }
+
+  Future<bool> getAnimation() async {
+    return await _sharedPreferences.getBool('isAnimation') ?? true;
+  }
+
   // ===========================================================================
   // PRIVATE HELPERS (SECURE STORAGE + TTL)
   // ===========================================================================

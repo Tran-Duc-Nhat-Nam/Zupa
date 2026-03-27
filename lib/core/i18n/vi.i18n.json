@@ -298,6 +298,7 @@
     "shade": "Sắc thái",
     "tonal": "Tông màu",
     "dynamicColor": "Màu linh hoạt",
+    "animation": "Hiệu ứng chuyển động",
     "debuggerMode": "Chế độ gỡ lỗi",
     "profile": {
       "name": "Tên",

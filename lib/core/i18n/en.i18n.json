@@ -304,6 +304,7 @@
     "shade": "Shade",
     "tonal": "Tonal",
     "dynamicColor": "Dynamic color",
+    "animation": "App Animations",
     "debuggerMode": "Debugging mode",
     "profile": {
       "name": "Name",

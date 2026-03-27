@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 
 class AppAnimation extends StatelessWidget {
   final Widget child;
@@ -15,7 +17,12 @@ class AppAnimation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!animate) return child;
+    final isAnimationOn = context.watch<AnimationCubit>().state.maybeWhen(
+          loaded: (isOn) => isOn,
+          orElse: () => true,
+        );
+
+    if (!animate || !isAnimationOn) return child;
 
     return child
         .animate(key: key, delay: delay ?? 0.ms)
