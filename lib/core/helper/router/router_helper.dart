@@ -69,6 +69,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(path: 'settings/about', page: AboutAppRoute.page),
         AutoRoute(path: 'settings/about/changelog', page: ChangelogRoute.page),
 
+        AutoRoute(path: 'revenue/detail', page: RevenueDetailRoute.page),
         // 4. Action Routes
         AutoRoute(path: 'check-in', page: CheckInRoute.page),
       ],
