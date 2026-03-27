@@ -12,7 +12,7 @@ import 'package:zupa/features/revenue/data/api/revenue_api.dart';
 @module
 abstract class ApiModule {
   @lazySingleton
-  RevenueAPI revenueApi(Dio dio) => RevenueAPI(dio);
+  RevenueAPI revenueApi(Dio dio) => RevenueAPI(dio, baseUrl: '/core/report/v2/provisionalRevenue');
 
   @lazySingleton
   StaffAPI staffApi(Dio dio) => StaffAPI(dio);

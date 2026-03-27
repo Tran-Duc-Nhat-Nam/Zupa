@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
+import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 
 part 'revenue_filter_model.freezed.dart';
@@ -12,8 +13,8 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   const factory RevenueFilterModel({
     @Default('') String paidByType,
     @Default('') String productTypeValue,
-    required DateTime fromDate,
-    required DateTime toDate,
+    @DateTimeConverter() required DateTime fromDate,
+    @DateTimeConverter() required DateTime toDate,
   }) = _RevenueFilterModel;
 
   factory RevenueFilterModel.fromJson(Map<String, dynamic> json) =>
@@ -36,7 +37,11 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   factory RevenueFilterModel.fromEntity(RevenueFilterEntity entity) {
     return RevenueFilterModel(
       paidByType: entity.keyword,
-      productTypeValue: entity.type.name,
+      productTypeValue:  switch (entity.type.name) {
+        'motorbike' => 'linen',
+        'bike' => 'uniform',
+        _ => 'guest',
+      },
       fromDate: entity.fromDate,
       toDate: entity.toDate,
     );

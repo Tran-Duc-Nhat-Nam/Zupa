@@ -593,10 +593,11 @@ packages:
   flutter_jailbreak_detection_plus:
     dependency: "direct main"
     description:
-      name: flutter_jailbreak_detection_plus
-      sha256: b1b7787c83197d187f6bcba8167bc876340124861308396d5667169048a452ac
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: patch-1
+      resolved-ref: "82491920a6f568ad52be6225b8a76bf179ac5695"
+      url: "https://github.com/pintusingh28/flutter_jailbreak_detection_plus.git"
+    source: git
     version: "1.10.7"
   flutter_launcher_icons:
     dependency: "direct dev"

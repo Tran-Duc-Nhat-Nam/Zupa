@@ -46,6 +46,6 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   String toJson(DateTime object) {
-    return object.format('d-M-y HH:mm');
+    return DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(object);
   }
 }

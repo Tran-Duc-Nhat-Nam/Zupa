@@ -11,7 +11,7 @@ class Revenue {
   final DateTime toDate;
 
   Revenue({
-    @RfControl() this.keyword = '',
+    @RfControl() this.keyword = 'QUANTITY',
     @RfControl() this.type,
     @RfControl() required this.fromDate,
     @RfControl() required this.toDate,

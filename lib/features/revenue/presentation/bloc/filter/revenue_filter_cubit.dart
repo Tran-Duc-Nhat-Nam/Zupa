@@ -13,7 +13,12 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   RevenueFilterCubit() : super(const .initial());
 
   final formModel = RevenueForm(
-    RevenueForm.formElements(Revenue(fromDate: .now(), toDate: .now())),
+    RevenueForm.formElements(
+      Revenue(
+        fromDate: DateTime(DateTime.now().year, DateTime.now().month),
+        toDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
+      ),
+    ),
     null,
     null,
   );
@@ -21,7 +26,7 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   RevenueFilterEntity get filter => RevenueFilterEntity(
     fromDate: formModel.fromDateControl.value ?? .now(),
     toDate: formModel.toDateControl.value ?? .now(),
-    keyword: formModel.keywordControl.value ?? '',
+    keyword: formModel.keywordControl.value ?? 'QUANTITY',
     type: formModel.typeControl.value ?? vehicleTypes[0],
   );
 

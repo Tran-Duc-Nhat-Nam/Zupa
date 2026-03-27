@@ -14,17 +14,17 @@ abstract class RevenueAPI {
     ParseErrorLogger? errorLogger,
   }) = _RevenueAPI;
 
-  @GET('/report/v2/provisionalRevenue')
+  @GET('')
   Future<SuccessResponse<List<DailyRevenueModel>>> getList(
     @Queries() RevenueFilterModel request,
   );
 
-  @GET('/report/v2/provisionalRevenue/{id}')
+  @GET('/{id}')
   Future<SuccessResponse<DailyRevenueModel>> get(@Path('id') String id);
 
-  @POST('/report/v2/provisionalRevenue')
+  @POST('')
   Future<SuccessResponse> create(@Body() DailyRevenueModel request);
 
-  @DELETE('/report/v2/provisionalRevenue/{id}')
+  @DELETE('/{id}')
   Future<SuccessResponse> delete(@Path('id') String id);
 }
