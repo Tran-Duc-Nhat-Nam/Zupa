@@ -16,71 +16,38 @@ import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cu
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 
 class HistorySearchBar extends StatelessWidget {
-  const HistorySearchBar({
-    super.key,
-    required ValueNotifier<bool> isScrolledNotifier,
-  }) : _isScrolledNotifier = isScrolledNotifier;
-  final ValueNotifier<bool> _isScrolledNotifier;
+  const HistorySearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: _isScrolledNotifier,
-      builder: (context, isScrolled, child) {
-        final colorScheme = AppColors.of(context);
-        final showWhiteBackground = isScrolled;
-
-        return AnimatedContainer(
-          duration: const .new(milliseconds: 250),
-          curve: Curves.easeInOut,
-          padding: showWhiteBackground
-              ? const .symmetric(vertical: 10)
-              : const .only(top: 10),
-          decoration: BoxDecoration(
-            color: showWhiteBackground
-                ? colorScheme.primaryContainer
-                : colorScheme.surface,
-            boxShadow: [
-              BoxShadow(
-                color: showWhiteBackground
-                    ? Colors.black.withAlpha(12)
-                    : Colors.transparent,
-                blurRadius: 4,
-                offset: const .new(0, 2),
+    final colorScheme = AppColors.of(context);
+    return Padding(
+      padding: const .only(left: 16, right: 16, top: 8),
+      child: BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
+        builder: (context, state) {
+          final formModel = context.read<HistoryFilterCubit>().formModel;
+          return Skeletonizer(
+            enabled: state is Loading,
+            child: AppTextField(
+              formControl: formModel.keywordControl,
+              hintText: t.parking.ticketSearch,
+              borderRadius: 100,
+              hasBorder: false,
+              backgroundColor: colorScheme.surfaceContainerLow,
+              prefixIcon: Symbols.search_rounded,
+              suffix: InkWell(
+                child: Icon(
+                  Symbols.filter_alt_rounded,
+                  size: 20,
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                onTap: () => _showFilter(context, formModel),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const .symmetric(horizontal: 24, vertical: 6),
-            child: BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
-              builder: (context, state) {
-                final formModel = context.read<HistoryFilterCubit>().formModel;
-                return Skeletonizer(
-                  enabled: state is Loading,
-                  child: AppTextField(
-                    formControl: formModel.keywordControl,
-                    hintText: t.parking.ticketSearch,
-                    borderRadius: 100,
-                    hasBorder: false,
-                    backgroundColor: colorScheme.surfaceContainerLow,
-                    prefixIcon: Symbols.search_rounded,
-                    suffix: InkWell(
-                      child: Icon(
-                        Symbols.filter_alt_rounded,
-                        size: 20,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      onTap: () => _showFilter(context, formModel),
-                    ),
-                    onChanged: (value) =>
-                        context.read<HistoryFilterCubit>().update(),
-                  ),
-                );
-              },
+              onChanged: (value) => context.read<HistoryFilterCubit>().update(),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

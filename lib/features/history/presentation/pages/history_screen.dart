@@ -11,22 +11,8 @@ import 'package:zupa/features/history/presentation/pages/widgets/history_list_ta
 import 'package:zupa/features/history/presentation/pages/widgets/history_search_bar.dart';
 
 @RoutePage()
-class HistoryScreen extends StatefulWidget {
+class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
-
-  @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
-}
-
-class _HistoryScreenState extends State<HistoryScreen> {
-  final _isScrolledNotifier = ValueNotifier<bool>(false);
-
-  @override
-  void dispose() {
-    _isScrolledNotifier.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -48,21 +34,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
             hasAppBar: false,
             child: BlocBuilder<HistoryListCubit, HistoryListState>(
               builder: (listContext, listState) {
-                return Column(
+                return const Column(
                   children: [
-                    HistorySearchBar(isScrolledNotifier: _isScrolledNotifier),
-                    Expanded(
-                      child: NotificationListener<ScrollNotification>(
-                        onNotification: (notification) {
-                          if (notification is ScrollUpdateNotification) {
-                            final isScrolled = notification.metrics.pixels > 20;
-                            _isScrolledNotifier.value = isScrolled;
-                          }
-                          return false;
-                        },
-                        child: const HistoryListTab(),
-                      ),
-                    ),
+                    HistorySearchBar(),
+                    Expanded(child: HistoryListTab()),
                   ],
                 );
               },
