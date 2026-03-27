@@ -102,7 +102,11 @@ class HistoryListTab extends StatelessWidget {
                             ),
                           ),
                   ),
-                ).animateIn(index: i, animate: state is! LoadingMore),
+                ).animateIn(
+                  key: ValueKey('history_item_$i'),
+                  index: i,
+                  animate: state is Loading,
+                ),
                 itemCount: items.isNotEmpty ? items.length : 10,
               ),
             ),

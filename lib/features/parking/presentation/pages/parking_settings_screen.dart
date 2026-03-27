@@ -66,7 +66,11 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                             parkingLot: params.parkingLots[index],
                           ),
                         ),
-                      ).animateIn(index: index),
+                        ).animateIn(
+                          key: ValueKey('parking_lot_item_$index'),
+                          index: index,
+                          animate: state is Loading,
+                        ),
                       separatorBuilder: (context, index) =>
                           Divider(color: colors.surfaceContainerHighest),
                       itemCount: params.parkingLots.length,

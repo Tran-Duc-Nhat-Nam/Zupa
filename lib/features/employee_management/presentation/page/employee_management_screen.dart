@@ -64,7 +64,11 @@ class _EmployeeManagementScreenState
                         ),
                         trailingIcon: Symbols.chevron_right_rounded,
                         onTap: () => context.pushRoute(ParkingDetailsRoute()),
-                      ).animateIn(index: index),
+                      ).animateIn(
+                        key: ValueKey('employee_item_$index'),
+                        index: index,
+                        animate: state is Loading,
+                      ),
                       separatorBuilder: (context, index) =>
                           Divider(color: colorScheme.surfaceContainerHighest),
                       itemCount: params.employees.length,

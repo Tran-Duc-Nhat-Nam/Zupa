@@ -101,7 +101,11 @@ class MemberVehicleListTab extends StatelessWidget {
                           expiredIn: 0,
                         ),
                   ),
-                ).animateIn(index: i, animate: state is! LoadingMore),
+                ).animateIn(
+                  key: ValueKey('member_vehicle_item_$i'),
+                  index: i,
+                  animate: state is Loading,
+                ),
                 itemCount: items?.length ?? 10,
               ),
             ),
