@@ -1,9 +1,22 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
+import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/auth_guard.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 
 @AutoRouterConfig(deferredLoading: true)
 class AppRouter extends RootStackRouter {
+  @override
+  RouteType get defaultRouteType => getIt<AnimationCubit>().state.maybeWhen(
+        loaded: (isOn) => isOn
+            ? RouteType.adaptive()
+            : RouteType.custom(
+                durationInMilliseconds: 0,
+                reverseDurationInMilliseconds: 0,
+              ),
+        orElse: () => RouteType.adaptive(),
+      );
+
   // Optional: Define paths as constants to prevent typos
   static const String loginPath = '/login';
   static const String rootPath = '/';

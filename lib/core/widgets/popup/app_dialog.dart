@@ -9,11 +9,18 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
+import 'package:zupa/core/di/injection.dart';
+
 abstract class DialogHelper {
   static void showLoading({String? message}) {
     SmartDialog.showLoading(
       msg: message ?? '',
       builder: (context) => LoadingDialog(message: message),
+      animationTime: getIt<AnimationCubit>().state.maybeWhen(
+        loaded: (isOn) => isOn ? null : Duration.zero,
+        orElse: () => null,
+      ),
     );
   }
 
@@ -93,6 +100,10 @@ abstract class DialogHelper {
       ),
       backType: .block, // Prevent closing during download
       clickMaskDismiss: false,
+      animationTime: getIt<AnimationCubit>().state.maybeWhen(
+        loaded: (isOn) => isOn ? null : Duration.zero,
+        orElse: () => null,
+      ),
     );
   }
 
@@ -122,6 +133,10 @@ abstract class DialogHelper {
       ),
       backType: dismissible ? .normal : .block,
       clickMaskDismiss: dismissible,
+      animationTime: getIt<AnimationCubit>().state.maybeWhen(
+        loaded: (isOn) => isOn ? null : Duration.zero,
+        orElse: () => null,
+      ),
     );
   }
 

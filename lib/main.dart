@@ -90,132 +90,142 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
 
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<ThemeCubit, ThemeState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              loaded: (settings) {
-                state.whenOrNull(loaded: (_) => FlutterNativeSplash.remove());
-              },
-            );
-          },
-        ),
-        BlocListener<ConnectivityCubit, ConnectivityState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              connected: () =>
-                  AppToast.showToast(t.common.errors.internetConnected),
-              disconnected: () =>
-                  AppToast.showToast(t.common.errors.noInternet),
-            );
-          },
-        ),
-        BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              noAuthenticated: () => router.replaceAll([const LoginRoute()]),
-            );
-          },
-        ),
-        BlocListener<VersionCubit, VersionState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              checking: (isShow) => isShow
-                  ? DialogHelper.showLoading(message: t.common.version.checking)
-                  : null,
-              upToDate: (_) => DialogHelper.dismissLoading(),
-              standby: () => DialogHelper.dismissLoading(),
-              updateAvailable: (info) {
-                DialogHelper.dismissLoading();
-                DialogHelper.showUpdateDialog(
-                  context,
-                  isMandatory: info.isForcedUpdate,
-                  version: info.latestVersion ?? '',
-                  onUpdate: () => Platform.isAndroid
-                      ? context.read<VersionCubit>().executeUpdate(info)
-                      : info.update,
-                );
-              },
-              maintaining: () {
-                DialogHelper.dismissLoading();
-                DialogHelper.showMaintenanceDialog(context);
-              },
-              downloading: (progress, info) {
-                DialogHelper.dismissLoading();
-                DialogHelper.showDownloadDialog(
-                  context,
-                  progressStream: progress,
-                  version: info.latestVersion,
-                );
-              },
-              installing: () => DialogHelper.dismissAll(),
-              downloadFailed: (message, _) {
-                DialogHelper.dismissAll();
-                AppToast.showNotify(message, type: .error);
-              },
-            );
-          },
-        ),
-        BlocListener<SecurityCubit, SecurityState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              vulnerable: () => DialogHelper.showSecurityDialog(
-                context,
-                onQuit: () {
-                  if (kDebugMode) {
-                    DialogHelper.dismissAll();
-                  } else {
-                    SystemNavigator.pop();
-                  }
-                },
-              ),
-            );
-          },
-        ),
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        buildWhen: (previous, current) => previous != current,
-        builder: (context, state) {
-          return state.maybeWhen(
-            loaded: (settings) => DynamicColorBuilder(
-              builder: (lightDynamic, darkDynamic) {
-                return MaterialApp.router(
-                  onGenerateTitle: (_) => t.home.appTitle,
-                  theme: AppThemes.getTheme(
-                    brightness: .light,
-                    colorSource: settings.colorSource,
-                    dynamicColorScheme: lightDynamic,
-                    customSeedColor: settings.seedColorValue != null
-                        ? Color(settings.seedColorValue!)
-                        : null,
-                  ),
-                  darkTheme: AppThemes.getTheme(
-                    brightness: .dark,
-                    colorSource: settings.colorSource,
-                    dynamicColorScheme: darkDynamic,
-                    customSeedColor: settings.seedColorValue != null
-                        ? Color(settings.seedColorValue!)
-                        : null,
-                  ),
-                  themeMode: settings.themeMode,
-                  debugShowCheckedModeBanner: false,
-                  routerConfig: router.config(
-                    navigatorObservers: () => [
-                      TalkerRouteObserver(DebuggerHelper.talker),
-                    ],
-                  ),
-                  localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                  supportedLocales: AppLocaleUtils.supportedLocales,
-                  locale: TranslationProvider.of(context).flutterLocale,
-                  builder: FlutterSmartDialog.init(),
+    return BlocBuilder<AnimationCubit, AnimationState>(
+      builder: (context, _) {
+        return MultiBlocListener(
+          listeners: [
+            BlocListener<ThemeCubit, ThemeState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  loaded: (settings) {
+                    state.whenOrNull(
+                      loaded: (_) => FlutterNativeSplash.remove(),
+                    );
+                  },
                 );
               },
             ),
-            orElse: () => const SizedBox(),
-          );
-        },
-      ),
+            BlocListener<ConnectivityCubit, ConnectivityState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  connected: () =>
+                      AppToast.showToast(t.common.errors.internetConnected),
+                  disconnected: () =>
+                      AppToast.showToast(t.common.errors.noInternet),
+                );
+              },
+            ),
+            BlocListener<AuthCubit, AuthState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  noAuthenticated: () =>
+                      router.replaceAll([const LoginRoute()]),
+                );
+              },
+            ),
+            BlocListener<VersionCubit, VersionState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  checking: (isShow) => isShow
+                      ? DialogHelper.showLoading(
+                          message: t.common.version.checking,
+                        )
+                      : null,
+                  upToDate: (_) => DialogHelper.dismissLoading(),
+                  standby: () => DialogHelper.dismissLoading(),
+                  updateAvailable: (info) {
+                    DialogHelper.dismissLoading();
+                    DialogHelper.showUpdateDialog(
+                      context,
+                      isMandatory: info.isForcedUpdate,
+                      version: info.latestVersion ?? '',
+                      onUpdate: () => Platform.isAndroid
+                          ? context.read<VersionCubit>().executeUpdate(info)
+                          : info.update,
+                    );
+                  },
+                  maintaining: () {
+                    DialogHelper.dismissLoading();
+                    DialogHelper.showMaintenanceDialog(context);
+                  },
+                  downloading: (progress, info) {
+                    DialogHelper.dismissLoading();
+                    DialogHelper.showDownloadDialog(
+                      context,
+                      progressStream: progress,
+                      version: info.latestVersion,
+                    );
+                  },
+                  installing: () => DialogHelper.dismissAll(),
+                  downloadFailed: (message, _) {
+                    DialogHelper.dismissAll();
+                    AppToast.showNotify(message, type: .error);
+                  },
+                );
+              },
+            ),
+            BlocListener<SecurityCubit, SecurityState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  vulnerable: () => DialogHelper.showSecurityDialog(
+                    context,
+                    onQuit: () {
+                      if (kDebugMode) {
+                        DialogHelper.dismissAll();
+                      } else {
+                        SystemNavigator.pop();
+                      }
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+          child: BlocBuilder<ThemeCubit, ThemeState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (settings) => DynamicColorBuilder(
+                  builder: (lightDynamic, darkDynamic) {
+                    return MaterialApp.router(
+                      onGenerateTitle: (_) => t.home.appTitle,
+                      theme: AppThemes.getTheme(
+                        brightness: Brightness.light,
+                        colorSource: settings.colorSource,
+                        dynamicColorScheme: lightDynamic,
+                        customSeedColor: settings.seedColorValue != null
+                            ? Color(settings.seedColorValue!)
+                            : null,
+                      ),
+                      darkTheme: AppThemes.getTheme(
+                        brightness: Brightness.dark,
+                        colorSource: settings.colorSource,
+                        dynamicColorScheme: darkDynamic,
+                        customSeedColor: settings.seedColorValue != null
+                            ? Color(settings.seedColorValue!)
+                            : null,
+                      ),
+                      themeMode: settings.themeMode,
+                      debugShowCheckedModeBanner: false,
+                      routerConfig: router.config(
+                        navigatorObservers: () => [
+                          TalkerRouteObserver(DebuggerHelper.talker),
+                        ],
+                      ),
+                      localizationsDelegates:
+                          GlobalMaterialLocalizations.delegates,
+                      supportedLocales: AppLocaleUtils.supportedLocales,
+                      locale: TranslationProvider.of(context).flutterLocale,
+                      builder: FlutterSmartDialog.init(),
+                    );
+                  },
+                ),
+                orElse: () => const SizedBox(),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

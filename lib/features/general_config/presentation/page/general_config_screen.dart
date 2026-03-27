@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -90,7 +91,11 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             ),
                           ),
                           AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
+                            duration: context.watch<AnimationCubit>().state.maybeWhen(
+                                  loaded: (isOn) =>
+                                      isOn ? const Duration(milliseconds: 300) : Duration.zero,
+                                  orElse: () => const Duration(milliseconds: 300),
+                                ),
                             transitionBuilder:
                                 (Widget child, Animation<double> animation) {
                                   return SizeTransition(

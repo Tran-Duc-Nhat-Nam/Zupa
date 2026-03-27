@@ -4,6 +4,9 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
+import 'package:zupa/core/di/injection.dart';
+
 abstract class AppToast {
   static void showNotify(String message, {AppToastType type = .info}) {
     final icon = switch (type) {
@@ -42,11 +45,23 @@ abstract class AppToast {
       keepSingle: true,
       displayTime: const Duration(seconds: 3),
       alignment: .center,
+      animationTime: getIt<AnimationCubit>().state.maybeWhen(
+            loaded: (isOn) => isOn ? null : Duration.zero,
+            orElse: () => null,
+          ),
     );
   }
 
   static void showToast(String message) {
-    SmartDialog.showToast(message, useAnimation: true, animationType: .fade);
+    SmartDialog.showToast(
+      message,
+      useAnimation: true,
+      animationType: .fade,
+      animationTime: getIt<AnimationCubit>().state.maybeWhen(
+            loaded: (isOn) => isOn ? null : Duration.zero,
+            orElse: () => null,
+          ),
+    );
   }
 }
 

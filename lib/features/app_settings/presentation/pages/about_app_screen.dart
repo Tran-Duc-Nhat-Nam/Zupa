@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
@@ -135,11 +136,21 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                         leadingColor: colorScheme.primary,
                         text: t.settings.checkForUpdate,
                         trailing: isChecking
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 24,
                                 height: 24,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
+                                child: BlocBuilder<AnimationCubit,
+                                    AnimationState>(
+                                  builder: (context, animState) {
+                                    final isAnimationOn = animState.maybeWhen(
+                                      loaded: (isOn) => isOn,
+                                      orElse: () => true,
+                                    );
+                                    return CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      value: isAnimationOn ? null : 0.7,
+                                    );
+                                  },
                                 ),
                               )
                             : null,
