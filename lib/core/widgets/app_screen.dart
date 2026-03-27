@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -103,9 +105,30 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.formGroup != null
+    Widget content = widget.formGroup != null
         ? ReactiveForm(formGroup: widget.formGroup!, child: _buildScreen())
         : _buildScreen();
+
+    if (widget.hasParentView) return content;
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+
+        final router = context.router;
+        if (await router.canPop()) {
+          router.pop();
+        } else {
+          if (router.isRoot) {
+            SystemNavigator.pop();
+          } else {
+            router.parent<StackRouter>()?.maybePop();
+          }
+        }
+      },
+      child: content,
+    );
   }
 
   Widget _buildScreen() {

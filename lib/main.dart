@@ -210,6 +210,7 @@ class AppView extends StatelessWidget {
                       routerConfig: router.config(
                         navigatorObservers: () => [
                           TalkerRouteObserver(DebuggerHelper.talker),
+                          FlutterSmartDialog.observer,
                         ],
                       ),
                       localizationsDelegates:
