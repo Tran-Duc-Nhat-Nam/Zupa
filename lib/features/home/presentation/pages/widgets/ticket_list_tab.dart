@@ -132,7 +132,11 @@ class _TicketListTabState extends State<TicketListTab> {
                           ), // Your placeholder logic
                     enabled: state is! Loading,
                   ),
-                ).animateIn(index: i, animate: state is! LoadingMore),
+                ).animateIn(
+                  key: ValueKey('ticket_item_$i'),
+                  index: i,
+                  animate: state is Loading,
+                ),
               ),
             ),
           ),

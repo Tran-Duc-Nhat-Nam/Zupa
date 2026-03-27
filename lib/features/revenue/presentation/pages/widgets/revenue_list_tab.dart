@@ -110,8 +110,9 @@ class RevenueListTab extends StatelessWidget {
                                       vehicleType: null,
                                     ),
                             ).animateIn(
+                              key: ValueKey('revenue_item_$i'),
                               index: i,
-                              animate: listState is! LoadingMore,
+                              animate: listState is Loading,
                             ),
                       ),
                     ),

@@ -18,7 +18,7 @@ class AppAnimation extends StatelessWidget {
     if (!animate) return child;
 
     return child
-        .animate(delay: delay ?? 0.ms)
+        .animate(key: key, delay: delay ?? 0.ms)
         .fadeIn(duration: 500.ms, curve: Curves.easeOutQuad)
         .slideY(
           begin: 0.05,
@@ -54,12 +54,18 @@ class AppAnimation extends StatelessWidget {
 }
 
 extension AppAnimationExtension on Widget {
-  Widget withAppAnimation({Duration? delay, bool animate = true}) {
-    return AppAnimation(delay: delay, animate: animate, child: this);
+  Widget withAppAnimation({Key? key, Duration? delay, bool animate = true}) {
+    return AppAnimation(key: key, delay: delay, animate: animate, child: this);
   }
 
-  Widget animateIn({int index = 0, Duration? delay, bool animate = true}) {
+  Widget animateIn({
+    Key? key,
+    int index = 0,
+    Duration? delay,
+    bool animate = true,
+  }) {
     return AppAnimation(
+      key: key,
       delay: delay ?? Duration(milliseconds: index * 50),
       animate: animate,
       child: this,

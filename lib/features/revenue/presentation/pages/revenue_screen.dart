@@ -94,7 +94,10 @@ class RevenueView extends StatelessWidget {
                         icon: const Icon(Icons.arrow_forward_rounded),
                       ),
                     ],
-                  ).animateIn(),
+                  ).animateIn(
+                    key: const ValueKey('revenue_header'),
+                    animate: isLoading,
+                  ),
                   const SizedBox(height: 24),
                   Row(
                     children: [
@@ -120,14 +123,22 @@ class RevenueView extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ).animateIn(index: 1),
+                  ).animateIn(
+                    key: const ValueKey('revenue_summary'),
+                    animate: isLoading,
+                    index: 1,
+                  ),
                   const SizedBox(height: 32),
                   Text(
                     t.home.statistic,
                     style: AppTextStyles.heading5.copyWith(
                       color: colorScheme.onSurface,
                     ),
-                  ).animateIn(index: 2),
+                  ).animateIn(
+                    key: const ValueKey('revenue_statistic'),
+                    animate: isLoading,
+                    index: 2,
+                  ),
                   const SizedBox(height: 16),
                   SizedBox(
                     height: 300,
@@ -135,7 +146,11 @@ class RevenueView extends StatelessWidget {
                         items.isEmpty && !isLoading
                             ? const _EmptyRevenueState()
                             : _RevenueChart(items: items),
-                  ).animateIn(index: 3),
+                  ).animateIn(
+                    key: const ValueKey('revenue_chart'),
+                    animate: isLoading,
+                    index: 3,
+                  ),
                 ],
               ),
             ),
