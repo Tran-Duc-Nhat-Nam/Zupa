@@ -16,11 +16,12 @@ class RevenueSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return Card(
       margin: .zero,
       elevation: 0,
       // Keep it flat inside the colored container
-      color: AppColors.of(context).surfaceContainer,
+      color: colorScheme.surfaceContainer,
       shape: RoundedRectangleBorder(
         borderRadius: .circular(16), // Modern large curves
       ),
@@ -36,8 +37,7 @@ class RevenueSearchBar extends StatelessWidget {
                 Text(
                   t['common.months.${DateTimeConverter.getMonthKey(DateTime.now().month)}'],
                   style: AppTextStyles.heading5.copyWith(
-                    color: AppColors.of(context).onSurface,
-                    fontWeight: .w600,
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 Container(
@@ -51,7 +51,7 @@ class RevenueSearchBar extends StatelessWidget {
                         fitContent: true,
                         padding: const .all(8),
                         icon: Symbols.filter_alt_rounded,
-                        onPressed: () => _buildFilter(context),
+                        onPressed: () => _buildFilter(context, colorScheme),
                       ),
                     ),
                   ),
@@ -66,7 +66,7 @@ class RevenueSearchBar extends StatelessWidget {
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     // Very large text
                     fontWeight: .bold,
-                    color: AppColors.of(context).onSurface,
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 Text(
@@ -74,7 +74,7 @@ class RevenueSearchBar extends StatelessWidget {
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     // Very large text
                     fontWeight: .bold,
-                    color: AppColors.of(context).primary,
+                    color: colorScheme.primary,
                     letterSpacing: -0.5, // Tighten numbers slightly
                   ),
                 ),
@@ -86,7 +86,7 @@ class RevenueSearchBar extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _buildFilter(BuildContext context) {
+  Future<dynamic> _buildFilter(BuildContext context, AppColors colorScheme) {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -100,7 +100,7 @@ class RevenueSearchBar extends StatelessWidget {
               child: Text(
                 t.common.actions.filter,
                 style: AppTextStyles.bodySmallSemibold.copyWith(
-                  color: AppColors.of(context).onSurfaceVariant,
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
@@ -110,13 +110,13 @@ class RevenueSearchBar extends StatelessWidget {
                 Text(
                   t.common.info.time,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: AppColors.of(context).onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 Text(
                   t.common.actions.reset,
                   style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: AppColors.of(context).primary,
+                    color: colorScheme.primary,
                   ),
                 ),
               ],
@@ -130,7 +130,7 @@ class RevenueSearchBar extends StatelessWidget {
                   formControl: context
                       .read<RevenueFilterCubit>()
                       .formModel
-                      .timeControl,
+                      .toDateControl,
                 ),
               ],
             ),

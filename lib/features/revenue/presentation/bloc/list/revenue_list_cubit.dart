@@ -3,8 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
+import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 
 part 'revenue_list_cubit.freezed.dart';
 part 'revenue_list_state.dart';
@@ -12,12 +12,16 @@ part 'revenue_list_state.dart';
 @injectable
 class RevenueListCubit extends Cubit<RevenueListState> {
   final IRevenueRepository _revenueRepository;
+  final RevenueFilterCubit _filterCubit;
 
-  RevenueListCubit(this._revenueRepository) : super(const .initial());
+  RevenueListCubit(this._revenueRepository, this._filterCubit)
+    : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
-    final response = await _revenueRepository.getRevenue();
+    final response = await _revenueRepository.getRevenue(
+      filter: _filterCubit.filter,
+    );
 
     response.whenOrNull(
       success: (data) =>
@@ -26,13 +30,15 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     );
   }
 
-  Future<void> refresh(RevenueFilterEntity? filter) async {
+  Future<void> refresh() async {
     final List<DailyRevenueEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final response = await _revenueRepository.getRevenue(filter: filter);
+    final response = await _revenueRepository.getRevenue(
+      filter: _filterCubit.filter,
+    );
 
     response.whenOrNull(
       success: (data) =>
@@ -41,7 +47,7 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     );
   }
 
-  Future<void> loadMore(RevenueFilterEntity? filter) async {
+  Future<void> loadMore() async {
     final List<DailyRevenueEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -53,8 +59,7 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     emit(.loadingMore(items));
 
     final result = await _revenueRepository.getRevenue(
-      filter: filter,
-      page: pageIndex + 1,
+      filter: _filterCubit.filter,
     );
     result.whenOrNull(
       success: (newItems) {

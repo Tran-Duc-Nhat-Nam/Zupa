@@ -4,8 +4,6 @@ import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_enti
 
 abstract class IRevenueRepository {
   Future<NetworkState<List<DailyRevenueEntity>>> getRevenue({
-    int page = 1,
-    int pageSize = 10,
-    RevenueFilterEntity? filter,
+    required RevenueFilterEntity filter,
   });
 }

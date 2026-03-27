@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/constants/query.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 
@@ -13,10 +13,21 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   RevenueFilterCubit() : super(const .initial());
 
   final formModel = RevenueForm(
-    RevenueForm.formElements(Revenue()),
+    RevenueForm.formElements(Revenue(fromDate: .now(), toDate: .now())),
     null,
     null,
   );
+
+  RevenueFilterEntity get filter => RevenueFilterEntity(
+    fromDate: formModel.fromDateControl.value ?? .now(),
+    toDate: formModel.toDateControl.value ?? .now(),
+    keyword: formModel.keywordControl.value ?? '',
+    type: formModel.typeControl.value ?? vehicleTypes[0],
+  );
+
+  void init() {
+    emit(const .loaded());
+  }
 
   void reset() {
     emit(const .initial());
@@ -24,20 +35,9 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
 
   void update() {
     if (formModel.form.valid) {
-      final newFilter = RevenueFilterEntity(
-        page: formModel.pageIndexControl.value ?? defaultPageIndex,
-        size: formModel.pageSizeControl.value ?? defaultPageSize,
-        keyword: formModel.keywordControl.value,
-        time: formModel.timeControl.value,
-        type: formModel.typeControl.value,
-      );
-      emit(.loaded(filter: newFilter));
+      emit(const .loaded());
     } else {
       formModel.form.markAllAsTouched();
     }
-  }
-
-  void init() {
-    emit(const .loaded());
   }
 }

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/core/models/vehicle_type_model.dart';
+import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
 
 part 'revenue_filter_model.freezed.dart';
@@ -10,11 +10,10 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   const RevenueFilterModel._();
 
   const factory RevenueFilterModel({
-    @Default(0) int page,
-    @Default(10) int size,
-    String? keyword,
-    DateTime? time,
-    VehicleTypeModel? type,
+    @Default('') String paidByType,
+    @Default('') String productTypeValue,
+    required DateTime fromDate,
+    required DateTime toDate,
   }) = _RevenueFilterModel;
 
   factory RevenueFilterModel.fromJson(Map<String, dynamic> json) =>
@@ -24,22 +23,22 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   Map<String, dynamic> toJson() => toJson();
 
   RevenueFilterEntity toEntity() => RevenueFilterEntity(
-    page: page,
-    size: size,
-    keyword: keyword,
-    time: time,
-    type: type?.toEntity(),
+    keyword: paidByType,
+    type: switch (productTypeValue) {
+      'linen' => vehicleTypes[0],
+      'uniform' => vehicleTypes[1],
+      _ => vehicleTypes[2],
+    },
+    fromDate: fromDate,
+    toDate: toDate,
   );
 
   factory RevenueFilterModel.fromEntity(RevenueFilterEntity entity) {
     return RevenueFilterModel(
-      page: entity.page,
-      size: entity.size,
-      keyword: entity.keyword,
-      time: entity.time,
-      type: entity.type != null
-          ? VehicleTypeModel.fromEntity(entity.type!)
-          : null,
+      paidByType: entity.keyword,
+      productTypeValue: entity.type.name,
+      fromDate: entity.fromDate,
+      toDate: entity.toDate,
     );
   }
 }

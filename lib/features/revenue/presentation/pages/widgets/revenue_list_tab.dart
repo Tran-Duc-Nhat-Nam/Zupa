@@ -7,8 +7,6 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
 import 'package:zupa/features/revenue/domain/entities/revenue_entity.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
-    hide Loading;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_title.dart';
@@ -76,29 +74,11 @@ class RevenueListTab extends StatelessWidget {
                       ),
                       controller: refreshController,
                       onRefresh: () async {
-                        final filter = context
-                            .read<RevenueFilterCubit>()
-                            .state
-                            .maybeMap(
-                              loaded: (s) => s.filter,
-                              orElse: () => null,
-                            );
-                        await listContext.read<RevenueListCubit>().refresh(
-                          filter,
-                        );
+                        await listContext.read<RevenueListCubit>().refresh();
                         refreshController.finishRefresh();
                       },
                       onLoad: () async {
-                        final filter = context
-                            .read<RevenueFilterCubit>()
-                            .state
-                            .maybeMap(
-                              loaded: (s) => s.filter,
-                              orElse: () => null,
-                            );
-                        await listContext.read<RevenueListCubit>().loadMore(
-                          filter,
-                        );
+                        await listContext.read<RevenueListCubit>().loadMore();
                         refreshController.finishLoad();
                       },
                       child: ListView.separated(

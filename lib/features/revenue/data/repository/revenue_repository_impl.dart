@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
@@ -21,18 +20,12 @@ class RevenueRepositoryImpl implements IRevenueRepository {
   Future<NetworkState<List<DailyRevenueEntity>>> getRevenue({
     int page = 1,
     int pageSize = 10,
-    RevenueFilterEntity? filter,
+    required RevenueFilterEntity filter,
   }) async {
     final response = await _networkService.request(
       (dio) => _api.getList(
         RevenueFilterModel.fromEntity(
-          const RevenueFilterEntity(
-            page: defaultPageIndex,
-            size: defaultPageSize,
-            keyword: null,
-            time: null,
-            type: null,
-          ),
+          filter,
         ),
       ),
     );
