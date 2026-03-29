@@ -1155,10 +1155,10 @@ packages:
     dependency: "direct main"
     description:
       name: nfc_manager
-      sha256: "24c78b0e5702da53e7f8794d073624c0bee7cd99924f257cbd11f5d1c5866879"
+      sha256: a88e174e5a6b4eaa12f1f1dc18e04e0761a5f577f9e95c8026f0a746083ba6fa
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.1"
+    version: "4.2.0"
   nm:
     dependency: transitive
     description:
@@ -1975,5 +1975,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.11.3 <4.0.0"
-  flutter: "3.41.5"
+  dart: ">=3.11.4 <4.0.0"
+  flutter: "3.41.6"
