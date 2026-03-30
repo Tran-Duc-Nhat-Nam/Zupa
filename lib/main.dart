@@ -17,6 +17,7 @@ import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/bloc/security/security_cubit.dart';
 import 'package:zupa/core/bloc/security/security_state.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
+import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => getIt<UICubit>()..loadInfo()),
         BlocProvider(create: (_) => getIt<AnimationCubit>()..loadInfo()),
         BlocProvider(create: (_) => getIt<ThemeCubit>()..loadTheme()),
         BlocProvider(create: (_) => getIt<AuthCubit>()..loadAuth()),

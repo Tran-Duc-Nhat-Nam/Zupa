@@ -306,6 +306,8 @@
     "dynamicColor": "Dynamic color",
     "animation": "App Animations",
     "debuggerMode": "Debugging mode",
+    "floatingNavbar": "Floating bottom navbar",
+    "showNavbarLabel": "Show navbar label",
     "profile": {
       "name": "Name",
       "changeName": "Change name",

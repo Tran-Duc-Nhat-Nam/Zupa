@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/request/account/account_request.dart';
+import 'package:zupa/core/entities/ui_settings_entity.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/styles/theme.dart';
 
@@ -165,6 +166,26 @@ class StorageService {
 
   Future<bool> getAnimation() async {
     return await _sharedPreferences.getBool('isAnimation') ?? true;
+  }
+
+  Future<void> setUISettings(UISettingsEntity settings) async {
+    await _sharedPreferences.setBool(
+      'isFloatingNavbar',
+      settings.isFloatingNavbar,
+    );
+    await _sharedPreferences.setBool(
+      'isShowNavbarLabel',
+      settings.isShowNavbarLabel,
+    );
+  }
+
+  Future<UISettingsEntity> getUISettings() async {
+    return UISettingsEntity(
+      isFloatingNavbar:
+          await _sharedPreferences.getBool('isFloatingNavBar') ?? false,
+      isShowNavbarLabel:
+          await _sharedPreferences.getBool('isShowNavbarLabel') ?? false,
+    );
   }
 
   // ===========================================================================

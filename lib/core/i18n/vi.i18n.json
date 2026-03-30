@@ -300,6 +300,8 @@
     "dynamicColor": "Màu linh hoạt",
     "animation": "Hiệu ứng chuyển động",
     "debuggerMode": "Chế độ gỡ lỗi",
+    "floatingNavbar": "Thanh điều hướng nổi",
+    "showNavbarLabel": "Hiển thị nhãn thanh điều hướng",
     "profile": {
       "name": "Tên",
       "changeName": "Đổi tên",
