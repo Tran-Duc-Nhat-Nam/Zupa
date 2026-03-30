@@ -24,7 +24,7 @@ class AppLoadingWidget extends StatelessWidget {
                 ),
                 Text(
                   label!,
-                  style: AppTextStyles.bodyMediumRegular.copyWith(
+                  style: AppTextStyles.bodyMedium.copyWith(
                     color: colors.onSurface,
                   ),
                 ),

@@ -79,7 +79,7 @@ class HistoryTitle extends StatelessWidget {
                         ? AppTextStyles.bodyLargeBold.copyWith(
                             color: colorScheme.onSurface,
                           )
-                        : AppTextStyles.bodyLargeRegular.copyWith(
+                        : AppTextStyles.bodyLarge.copyWith(
                             fontStyle: .italic,
                             color: colorScheme.outline,
                           ),

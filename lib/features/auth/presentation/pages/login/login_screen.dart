@@ -65,7 +65,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                   Center(
                     child: Text(
                       t.auth.login.title,
-                      style: AppTextStyles.heading2,
+                      style: AppTextStyles.displayMediumBold,
                     ),
                   ).animateIn(index: 1),
                   const SizedBox(height: 16),

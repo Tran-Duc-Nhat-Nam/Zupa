@@ -83,14 +83,14 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                   const SizedBox(height: 8),
                   Text(
                     'Zupa',
-                    style: AppTextStyles.heading4.copyWith(
+                    style: AppTextStyles.headlineSmallBold.copyWith(
                       color: colorScheme.onSurface,
                     ),
                   ),
                   if (_packageInfo != null) ...[
                     Text(
                       t.settings.appVersion(version: _packageInfo!.version),
-                      style: AppTextStyles.bodyMediumRegular.copyWith(
+                      style: AppTextStyles.bodyMedium.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
                     ),
@@ -139,19 +139,20 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                             ? SizedBox(
                                 width: 24,
                                 height: 24,
-                                child: BlocBuilder<AnimationCubit,
-                                    AnimationState>(
-                                  builder: (context, animState) {
-                                    final isAnimationOn = animState.maybeWhen(
-                                      loaded: (isOn) => isOn,
-                                      orElse: () => true,
-                                    );
-                                    return CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      value: isAnimationOn ? null : 0.7,
-                                    );
-                                  },
-                                ),
+                                child:
+                                    BlocBuilder<AnimationCubit, AnimationState>(
+                                      builder: (context, animState) {
+                                        final isAnimationOn = animState
+                                            .maybeWhen(
+                                              loaded: (isOn) => isOn,
+                                              orElse: () => true,
+                                            );
+                                        return CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          value: isAnimationOn ? null : 0.7,
+                                        );
+                                      },
+                                    ),
                               )
                             : null,
                         trailingIcon: isChecking

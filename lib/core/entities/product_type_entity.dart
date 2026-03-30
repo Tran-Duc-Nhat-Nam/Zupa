@@ -1,5 +1,1 @@
-enum ProductType {
-  linen,
-  uniform,
-  guest,
-}
+enum ProductType { linen, uniform, guest }

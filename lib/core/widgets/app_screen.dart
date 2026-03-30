@@ -197,10 +197,7 @@ class _AppScreenState extends State<AppScreen> {
             padding:
                 widget.footerPadding ??
                 const .only(bottom: 48, left: 24, right: 24),
-            child: Column(
-              mainAxisSize: .min,
-              children: widget.footer,
-            ),
+            child: Column(mainAxisSize: .min, children: widget.footer),
           ),
         ),
       ],

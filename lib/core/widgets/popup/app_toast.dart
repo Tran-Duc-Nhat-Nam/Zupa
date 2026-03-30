@@ -46,9 +46,9 @@ abstract class AppToast {
       displayTime: const Duration(seconds: 3),
       alignment: .center,
       animationTime: getIt<AnimationCubit>().state.maybeWhen(
-            loaded: (isOn) => isOn ? null : Duration.zero,
-            orElse: () => null,
-          ),
+        loaded: (isOn) => isOn ? null : Duration.zero,
+        orElse: () => null,
+      ),
     );
   }
 
@@ -58,9 +58,9 @@ abstract class AppToast {
       useAnimation: true,
       animationType: .fade,
       animationTime: getIt<AnimationCubit>().state.maybeWhen(
-            loaded: (isOn) => isOn ? null : Duration.zero,
-            orElse: () => null,
-          ),
+        loaded: (isOn) => isOn ? null : Duration.zero,
+        orElse: () => null,
+      ),
     );
   }
 }

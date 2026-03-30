@@ -103,7 +103,7 @@ class TicketTitle extends StatelessWidget {
                 children: [
                   Text(
                     ticket.code,
-                    style: AppTextStyles.heading6.copyWith(
+                    style: AppTextStyles.titleMediumBold.copyWith(
                       color: colors.onSurface,
                     ),
                   ),

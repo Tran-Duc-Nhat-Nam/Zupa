@@ -87,7 +87,7 @@ class _AppTextFieldState extends State<AppTextField> {
           controller: widget.initialValue != null ? null : widget.controller,
           obscureText: isPasswordVisible,
           textAlign: widget.textAlign ?? .start,
-          style: AppTextStyles.bodyMediumRegular.copyWith(
+          style: AppTextStyles.bodyMedium.copyWith(
             color: colorsScheme.onSurface,
           ),
           validationMessages: {
@@ -151,7 +151,7 @@ class _AppTextFieldState extends State<AppTextField> {
               minWidth: 20,
             ),
             hintText: widget.hintText,
-            hintStyle: AppTextStyles.bodyMediumRegular.copyWith(
+            hintStyle: AppTextStyles.bodyMedium.copyWith(
               color: colorsScheme.onSurfaceVariant,
             ),
             labelText: widget.isExternalLabel

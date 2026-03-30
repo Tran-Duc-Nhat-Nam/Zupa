@@ -84,28 +84,29 @@ class MemberVehicleListTab extends StatelessWidget {
               child: ListView.separated(
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
-                itemBuilder: (c, i) => Padding(
-                  padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
-                  child: MemberVehiclesTitle(
-                    ticket:
-                        items?[i] ??
-                        MemberVehicleEntity(
-                          id: '',
-                          name: '',
-                          phoneNumber: '',
-                          licenseNumber: '',
-                          parkingLotId: '',
-                          cardId: '',
-                          price: 0,
-                          vehicleType: vehicleTypes.first,
-                          expiredIn: 0,
-                        ),
-                  ),
-                ).animateIn(
-                  key: ValueKey('member_vehicle_item_$i'),
-                  index: i,
-                  animate: state is Loading,
-                ),
+                itemBuilder: (c, i) =>
+                    Padding(
+                      padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
+                      child: MemberVehiclesTitle(
+                        ticket:
+                            items?[i] ??
+                            MemberVehicleEntity(
+                              id: '',
+                              name: '',
+                              phoneNumber: '',
+                              licenseNumber: '',
+                              parkingLotId: '',
+                              cardId: '',
+                              price: 0,
+                              vehicleType: vehicleTypes.first,
+                              expiredIn: 0,
+                            ),
+                      ),
+                    ).animateIn(
+                      key: ValueKey('member_vehicle_item_$i'),
+                      index: i,
+                      animate: state is Loading,
+                    ),
                 itemCount: items?.length ?? 10,
               ),
             ),

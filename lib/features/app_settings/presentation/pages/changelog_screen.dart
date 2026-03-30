@@ -61,7 +61,7 @@ class ChangelogScreen extends StatelessWidget {
             ),
             Text(
               formattedChangelog,
-              style: AppTextStyles.bodyLargeRegular.copyWith(
+              style: AppTextStyles.bodyLarge.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
             ),

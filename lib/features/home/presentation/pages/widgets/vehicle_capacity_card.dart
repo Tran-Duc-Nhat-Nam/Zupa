@@ -123,7 +123,7 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                     widget.capacity != null && widget.capacity! >= 0
                         ? (widget.capacity! - widget.current).toString()
                         : '${(value * 100).toInt()}%',
-                    style: AppTextStyles.heading4.copyWith(
+                    style: AppTextStyles.headlineSmallBold.copyWith(
                       color: widget.current >= (widget.capacity ?? 0)
                           ? colors.error
                           : widget.isWarning

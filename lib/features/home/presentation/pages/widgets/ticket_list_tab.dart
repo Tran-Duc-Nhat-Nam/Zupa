@@ -108,35 +108,36 @@ class _TicketListTabState extends State<TicketListTab> {
                   : null,
               child: ListView.builder(
                 itemCount: items.isNotEmpty ? items.length : 10,
-                itemBuilder: (c, i) => Padding(
-                  padding: .only(top: i == 0 ? 8 : 0),
-                  child: TicketTitle(
-                    key: ValueKey(
-                      items.isNotEmpty ? items[i].id : 'skeleton_$i',
+                itemBuilder: (c, i) =>
+                    Padding(
+                      padding: .only(top: i == 0 ? 8 : 0),
+                      child: TicketTitle(
+                        key: ValueKey(
+                          items.isNotEmpty ? items[i].id : 'skeleton_$i',
+                        ),
+                        ticket: items.isNotEmpty
+                            ? items[i]
+                            : HomeTicketEntity(
+                                id: -1,
+                                siteId: 'Nope',
+                                code: 'None',
+                                isFlagError: false,
+                                timeIn: .now(),
+                                type: VehicleTypeEntity(
+                                  value: '',
+                                  name: '',
+                                  icon: '',
+                                  color: AppColors.of(context).primary,
+                                ),
+                                imageUrl: '',
+                              ), // Your placeholder logic
+                        enabled: state is! Loading,
+                      ),
+                    ).animateIn(
+                      key: ValueKey('ticket_item_$i'),
+                      index: i,
+                      animate: state is Loading,
                     ),
-                    ticket: items.isNotEmpty
-                        ? items[i]
-                        : HomeTicketEntity(
-                            id: -1,
-                            siteId: 'Nope',
-                            code: 'None',
-                            isFlagError: false,
-                            timeIn: .now(),
-                            type: VehicleTypeEntity(
-                              value: '',
-                              name: '',
-                              icon: '',
-                              color: AppColors.of(context).primary,
-                            ),
-                            imageUrl: '',
-                          ), // Your placeholder logic
-                    enabled: state is! Loading,
-                  ),
-                ).animateIn(
-                  key: ValueKey('ticket_item_$i'),
-                  index: i,
-                  animate: state is Loading,
-                ),
               ),
             ),
           ),

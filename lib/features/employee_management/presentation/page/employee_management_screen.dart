@@ -44,31 +44,34 @@ class _EmployeeManagementScreenState
                   child: state.maybeMap(
                     loaded: (params) => ListView.separated(
                       shrinkWrap: true,
-                      itemBuilder: (context, index) => AppListTile(
-                        leadingIcon: Symbols.settings_rounded,
-                        content: Row(
-                          spacing: 8,
-                          children: [
-                            Text(
-                              params.employees[index].fullName,
-                              style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: colorScheme.onSurfaceVariant,
-                              ),
+                      itemBuilder: (context, index) =>
+                          AppListTile(
+                            leadingIcon: Symbols.settings_rounded,
+                            content: Row(
+                              spacing: 8,
+                              children: [
+                                Text(
+                                  params.employees[index].fullName,
+                                  style: AppTextStyles.bodyMediumMedium
+                                      .copyWith(
+                                        color: colorScheme.onSurfaceVariant,
+                                      ),
+                                ),
+                                Icon(
+                                  Symbols.lock_rounded,
+                                  color: colorScheme.error,
+                                  size: 16,
+                                ),
+                              ],
                             ),
-                            Icon(
-                              Symbols.lock_rounded,
-                              color: colorScheme.error,
-                              size: 16,
-                            ),
-                          ],
-                        ),
-                        trailingIcon: Symbols.chevron_right_rounded,
-                        onTap: () => context.pushRoute(ParkingDetailsRoute()),
-                      ).animateIn(
-                        key: ValueKey('employee_item_$index'),
-                        index: index,
-                        animate: state is Loading,
-                      ),
+                            trailingIcon: Symbols.chevron_right_rounded,
+                            onTap: () =>
+                                context.pushRoute(ParkingDetailsRoute()),
+                          ).animateIn(
+                            key: ValueKey('employee_item_$index'),
+                            index: index,
+                            animate: state is Loading,
+                          ),
                       separatorBuilder: (context, index) =>
                           Divider(color: colorScheme.surfaceContainerHighest),
                       itemCount: params.employees.length,

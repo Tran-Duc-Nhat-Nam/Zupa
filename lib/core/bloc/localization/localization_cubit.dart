@@ -25,8 +25,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   }
 
   void changeLocale() {
-    final mode =
-        formModel.localizationModeControl.value ?? .followSystem;
+    final mode = formModel.localizationModeControl.value ?? .followSystem;
     _storageService.setLocalization(mode);
     emit(.loading(mode));
     emit(.loaded(mode));

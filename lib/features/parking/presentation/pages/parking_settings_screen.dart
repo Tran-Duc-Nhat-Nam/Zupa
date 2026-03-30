@@ -42,35 +42,35 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                   child: state.maybeMap(
                     loaded: (params) => ListView.separated(
                       shrinkWrap: true,
-                      itemBuilder: (context, index) => AppListTile(
-                        leadingIcon: Symbols.settings_rounded,
-                        content: Row(
-                          spacing: 8,
-                          children: [
-                            Text(
-                              params.parkingLots[index].name,
-                              style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: colors.onSurfaceVariant,
+                      itemBuilder: (context, index) =>
+                          AppListTile(
+                            leadingIcon: Symbols.settings_rounded,
+                            content: Row(
+                              spacing: 8,
+                              children: [
+                                Text(
+                                  params.parkingLots[index].name,
+                                  style: AppTextStyles.bodyMediumMedium
+                                      .copyWith(color: colors.onSurfaceVariant),
+                                ),
+                                Icon(
+                                  Symbols.lock_rounded,
+                                  color: colors.error,
+                                  size: 16,
+                                ),
+                              ],
+                            ),
+                            trailingIcon: Symbols.chevron_right_rounded,
+                            onTap: () => context.pushRoute(
+                              ParkingDetailsRoute(
+                                parkingLot: params.parkingLots[index],
                               ),
                             ),
-                            Icon(
-                              Symbols.lock_rounded,
-                              color: colors.error,
-                              size: 16,
-                            ),
-                          ],
-                        ),
-                        trailingIcon: Symbols.chevron_right_rounded,
-                        onTap: () => context.pushRoute(
-                          ParkingDetailsRoute(
-                            parkingLot: params.parkingLots[index],
+                          ).animateIn(
+                            key: ValueKey('parking_lot_item_$index'),
+                            index: index,
+                            animate: state is Loading,
                           ),
-                        ),
-                        ).animateIn(
-                          key: ValueKey('parking_lot_item_$index'),
-                          index: index,
-                          animate: state is Loading,
-                        ),
                       separatorBuilder: (context, index) =>
                           Divider(color: colors.surfaceContainerHighest),
                       itemCount: params.parkingLots.length,

@@ -23,11 +23,7 @@ class RevenueRepositoryImpl implements IRevenueRepository {
     required RevenueFilterEntity filter,
   }) async {
     final response = await _networkService.request(
-      (dio) => _api.getList(
-        RevenueFilterModel.fromEntity(
-          filter,
-        ),
-      ),
+      (dio) => _api.getList(RevenueFilterModel.fromEntity(filter)),
     );
 
     if (response is SuccessResponse<List<DailyRevenueEntity>>) {

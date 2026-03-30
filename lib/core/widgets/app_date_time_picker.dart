@@ -40,7 +40,7 @@ class AppDateTimePicker extends StatelessWidget {
                     ? field.value!.format('dd/MM/yyyy hh:mm')
                     : '',
                 maxLines: 1,
-                style: AppTextStyles.bodyMediumRegular.copyWith(
+                style: AppTextStyles.bodyMedium.copyWith(
                   color: colorScheme.onSurface,
                 ),
               ),

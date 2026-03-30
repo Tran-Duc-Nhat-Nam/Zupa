@@ -83,14 +83,14 @@ class RevenueView extends StatelessWidget {
                     children: [
                       Text(
                         t.parking.revenue,
-                        style: AppTextStyles.heading5.copyWith(
+                        style: AppTextStyles.titleLargeBold.copyWith(
                           color: colorScheme.onSurface,
                         ),
                       ),
                       IconButton.filledTonal(
                         color: colorScheme.primary,
-                        onPressed:
-                            () => context.pushRoute(const RevenueDetailRoute()),
+                        onPressed: () =>
+                            context.pushRoute(const RevenueDetailRoute()),
                         icon: const Icon(Icons.arrow_forward_rounded),
                       ),
                     ],
@@ -131,7 +131,7 @@ class RevenueView extends StatelessWidget {
                   const SizedBox(height: 32),
                   Text(
                     t.home.statistic,
-                    style: AppTextStyles.heading5.copyWith(
+                    style: AppTextStyles.titleLargeBold.copyWith(
                       color: colorScheme.onSurface,
                     ),
                   ).animateIn(
@@ -142,10 +142,9 @@ class RevenueView extends StatelessWidget {
                   const SizedBox(height: 16),
                   SizedBox(
                     height: 300,
-                    child:
-                        items.isEmpty && !isLoading
-                            ? const _EmptyRevenueState()
-                            : _RevenueChart(items: items),
+                    child: items.isEmpty && !isLoading
+                        ? const _EmptyRevenueState()
+                        : _RevenueChart(items: items),
                   ).animateIn(
                     key: const ValueKey('revenue_chart'),
                     animate: isLoading,
@@ -194,7 +193,7 @@ class _EmptyRevenueState extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             t.common.refresh.dragText,
-            style: AppTextStyles.bodyMediumRegular.copyWith(
+            style: AppTextStyles.bodyMedium.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
           ),
@@ -244,12 +243,15 @@ class _SummaryCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             title,
-            style: AppTextStyles.bodyMediumRegular.copyWith(
+            style: AppTextStyles.bodyMedium.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 4),
-          Text(value, style: AppTextStyles.heading5.copyWith(color: color)),
+          Text(
+            value,
+            style: AppTextStyles.titleLargeBold.copyWith(color: color),
+          ),
         ],
       ),
     );
@@ -307,7 +309,7 @@ class _RevenueChart extends StatelessWidget {
                       DateFormat(
                         'dd/MM',
                       ).format(chartItems[value.toInt()].date),
-                      style: AppTextStyles.bodyLargeRegular,
+                      style: AppTextStyles.bodyLarge,
                     ),
                   );
                 }
@@ -323,7 +325,7 @@ class _RevenueChart extends StatelessWidget {
               getTitlesWidget: (value, meta) {
                 return Text(
                   NumberFormat.compact().format(value),
-                  style: AppTextStyles.bodyLargeRegular,
+                  style: AppTextStyles.bodyLarge,
                 );
               },
             ),

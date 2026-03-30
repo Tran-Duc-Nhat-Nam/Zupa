@@ -59,7 +59,7 @@ class AppSiteSelector extends StatelessWidget {
                     children: [
                       Text(
                         t.common.info.site,
-                        style: AppTextStyles.bodySmallRegular.copyWith(
+                        style: AppTextStyles.bodySmall.copyWith(
                           color: colors.onSurfaceVariant,
                         ),
                       ),
@@ -163,15 +163,14 @@ class AppSiteSelector extends StatelessWidget {
                                   const SizedBox(width: 16),
                                   Text(
                                     item,
-                                    style: AppTextStyles.bodyLargeRegular
-                                        .copyWith(
-                                          color: isSelected
-                                              ? colors.primary
-                                              : colors.onSurface,
-                                          fontWeight: isSelected
-                                              ? FontWeight.w600
-                                              : FontWeight.w400,
-                                        ),
+                                    style: AppTextStyles.bodyLarge.copyWith(
+                                      color: isSelected
+                                          ? colors.primary
+                                          : colors.onSurface,
+                                      fontWeight: isSelected
+                                          ? FontWeight.w600
+                                          : FontWeight.w400,
+                                    ),
                                   ),
                                   const Spacer(),
                                   if (isSelected)

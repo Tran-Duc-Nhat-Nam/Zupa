@@ -110,7 +110,7 @@ class AppErrorScreen extends StatelessWidget {
               const SizedBox(height: 32),
               Text(
                 t.common.errors.unexpected,
-                style: AppTextStyles.heading4.copyWith(
+                style: AppTextStyles.headlineSmallBold.copyWith(
                   color: colorScheme.onSurface,
                 ),
                 textAlign: .center,
@@ -118,7 +118,7 @@ class AppErrorScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 'We apologize for the inconvenience. A technical error has occurred in the application hardware or software interface.',
-                style: AppTextStyles.bodyMediumRegular.copyWith(
+                style: AppTextStyles.bodyMedium.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
                 textAlign: .center,
@@ -162,7 +162,7 @@ class AppErrorScreen extends StatelessWidget {
                     scrollDirection: .horizontal,
                     child: Text(
                       details.exceptionAsString(),
-                      style: AppTextStyles.bodySmallRegular.copyWith(
+                      style: AppTextStyles.bodySmall.copyWith(
                         color: colorScheme.error,
                         fontFamily: 'monospace',
                       ),

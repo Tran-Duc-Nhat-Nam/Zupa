@@ -171,85 +171,96 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
-                                  children: [
-                                    null, // Color picker button
-                                    ..._customSeedColors,
-                                  ].map((colorValue) {
-                                    if (colorValue == null) {
-                                      return GestureDetector(
-                                        onTap: () => _showColorPickerDialog(
-                                          context,
-                                          settings.seedColorValue ?? 0xFF6750A4,
-                                        ),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          margin: const EdgeInsets.symmetric(
-                                            horizontal: 6,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: colorScheme
-                                                .surfaceContainerHighest,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Icon(
-                                            Symbols.colorize_rounded,
-                                            size: 25,
-                                            color: colorScheme.onSurfaceVariant,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    final isSelected =
-                                        settings.seedColorValue == colorValue;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        context
-                                            .read<ThemeCubit>()
-                                            .formModel
-                                            .seedColorValueControl
-                                            .value = colorValue;
-                                        context.read<ThemeCubit>().changeTheme();
-                                      },
-                                      child: Container(
-                                        width: 40,
-                                        height: 40,
-                                        margin: const EdgeInsets.symmetric(
-                                          horizontal: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Color(colorValue),
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: isSelected
-                                                ? colorScheme.onSurface
-                                                : Colors.transparent,
-                                            width: 2.5,
-                                          ),
-                                          boxShadow: [
-                                            if (isSelected)
-                                              BoxShadow(
-                                                color: Color(colorValue)
-                                                    .withAlpha(125),
-                                                blurRadius: 8,
-                                                spreadRadius: 1,
+                                  children:
+                                      [
+                                        null, // Color picker button
+                                        ..._customSeedColors,
+                                      ].map((colorValue) {
+                                        if (colorValue == null) {
+                                          return GestureDetector(
+                                            onTap: () => _showColorPickerDialog(
+                                              context,
+                                              settings.seedColorValue ??
+                                                  0xFF6750A4,
+                                            ),
+                                            child: Container(
+                                              width: 45,
+                                              height: 45,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 6,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: colorScheme
+                                                    .surfaceContainerHighest,
+                                                shape: BoxShape.circle,
                                               ),
-                                          ],
-                                        ),
-                                        child: isSelected
-                                            ? Icon(
-                                                Symbols.check_rounded,
-                                                size: 20,
-                                                color: Color(colorValue)
-                                                            .computeLuminance() >
-                                                        0.5
+                                              child: Icon(
+                                                Symbols.colorize_rounded,
+                                                size: 25,
+                                                color: colorScheme
+                                                    .onSurfaceVariant,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        final isSelected =
+                                            settings.seedColorValue ==
+                                            colorValue;
+                                        return GestureDetector(
+                                          onTap: () {
+                                            context
+                                                    .read<ThemeCubit>()
+                                                    .formModel
+                                                    .seedColorValueControl
+                                                    .value =
+                                                colorValue;
+                                            context
+                                                .read<ThemeCubit>()
+                                                .changeTheme();
+                                          },
+                                          child: Container(
+                                            width: 40,
+                                            height: 40,
+                                            margin: const EdgeInsets.symmetric(
+                                              horizontal: 6,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Color(colorValue),
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: isSelected
                                                     ? colorScheme.onSurface
-                                                    : colorScheme.surface,
-                                              )
-                                            : null,
-                                      ),
-                                    );
-                                  }).toList(),
+                                                    : Colors.transparent,
+                                                width: 2.5,
+                                              ),
+                                              boxShadow: [
+                                                if (isSelected)
+                                                  BoxShadow(
+                                                    color: Color(
+                                                      colorValue,
+                                                    ).withAlpha(125),
+                                                    blurRadius: 8,
+                                                    spreadRadius: 1,
+                                                  ),
+                                              ],
+                                            ),
+                                            child: isSelected
+                                                ? Icon(
+                                                    Symbols.check_rounded,
+                                                    size: 20,
+                                                    color:
+                                                        Color(
+                                                              colorValue,
+                                                            ).computeLuminance() >
+                                                            0.5
+                                                        ? colorScheme.onSurface
+                                                        : colorScheme.surface,
+                                                  )
+                                                : null,
+                                          ),
+                                        );
+                                      }).toList(),
                                 ),
                               ),
                             ),
@@ -271,24 +282,32 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               scale: 0.8,
                               child: Switch(
                                 padding: EdgeInsets.zero,
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                thumbIcon: WidgetStateProperty.resolveWith<Icon?>((
-                                  Set<WidgetState> states,
-                                ) {
-                                  if (states.contains(WidgetState.selected)) {
-                                    return const Icon(Symbols.check_rounded);
-                                  }
-                                  return const Icon(Symbols.close_rounded);
-                                }),
-                                thumbColor: WidgetStateProperty.all(colorScheme.surface),
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                thumbIcon:
+                                    WidgetStateProperty.resolveWith<Icon?>((
+                                      Set<WidgetState> states,
+                                    ) {
+                                      if (states.contains(
+                                        WidgetState.selected,
+                                      )) {
+                                        return const Icon(
+                                          Symbols.check_rounded,
+                                        );
+                                      }
+                                      return const Icon(Symbols.close_rounded);
+                                    }),
+                                thumbColor: WidgetStateProperty.all(
+                                  colorScheme.surface,
+                                ),
                                 inactiveTrackColor:
                                     colorScheme.surfaceContainerHighest,
-                                trackOutlineWidth:
-                                    const WidgetStatePropertyAll(0),
-                                trackOutlineColor:
-                                    const WidgetStatePropertyAll(
-                                      WidgetStateColor.transparent,
-                                    ),
+                                trackOutlineWidth: const WidgetStatePropertyAll(
+                                  0,
+                                ),
+                                trackOutlineColor: const WidgetStatePropertyAll(
+                                  WidgetStateColor.transparent,
+                                ),
                                 value: state.maybeWhen(
                                   loaded: (isOn) => isOn,
                                   orElse: () => true,
@@ -372,7 +391,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
       color,
       title: Text(
         t.settings.customColor,
-        style: AppTextStyles.heading6.copyWith(
+        style: AppTextStyles.titleMediumBold.copyWith(
           color: colorScheme.onSurfaceVariant,
         ),
       ),

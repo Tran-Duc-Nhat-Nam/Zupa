@@ -239,7 +239,7 @@ class AppDialog extends StatelessWidget {
               // Title
               Text(
                 title,
-                style: AppTextStyles.heading5.copyWith(
+                style: AppTextStyles.titleLargeBold.copyWith(
                   color: colorScheme.onSurface,
                 ),
                 textAlign: .center,
@@ -253,7 +253,7 @@ class AppDialog extends StatelessWidget {
               else
                 Text(
                   description,
-                  style: AppTextStyles.bodyMediumRegular.copyWith(
+                  style: AppTextStyles.bodyMedium.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
                   textAlign: .center,
@@ -367,7 +367,7 @@ class DownloadProgressDialog extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     t.common.version.downloading,
-                    style: AppTextStyles.heading6.copyWith(
+                    style: AppTextStyles.titleMediumBold.copyWith(
                       color: colorScheme.onSurface,
                     ),
                     textAlign: TextAlign.center,
@@ -398,7 +398,7 @@ class DownloadProgressDialog extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     t.common.version.downloadingVersion(version: version ?? ''),
-                    style: AppTextStyles.bodySmallRegular.copyWith(
+                    style: AppTextStyles.bodySmall.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
                     textAlign: .center,

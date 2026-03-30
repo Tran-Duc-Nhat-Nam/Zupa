@@ -16,10 +16,11 @@ void main() {
   setUp(() {
     mockNetworkInfo = MockNetworkInfo();
     statusController = StreamController<InternetStatus>.broadcast();
-    
-    when(() => mockNetworkInfo.onStatusChanged)
-        .thenAnswer((_) => statusController.stream);
-    
+
+    when(
+      () => mockNetworkInfo.onStatusChanged,
+    ).thenAnswer((_) => statusController.stream);
+
     connectivityCubit = ConnectivityCubit(mockNetworkInfo);
   });
 

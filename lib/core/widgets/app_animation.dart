@@ -18,9 +18,9 @@ class AppAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAnimationOn = context.watch<AnimationCubit>().state.maybeWhen(
-          loaded: (isOn) => isOn,
-          orElse: () => true,
-        );
+      loaded: (isOn) => isOn,
+      orElse: () => true,
+    );
 
     if (!animate || !isAnimationOn) return child;
 

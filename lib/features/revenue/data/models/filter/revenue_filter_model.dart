@@ -37,7 +37,7 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   factory RevenueFilterModel.fromEntity(RevenueFilterEntity entity) {
     return RevenueFilterModel(
       paidByType: entity.keyword,
-      productTypeValue:  switch (entity.type.name) {
+      productTypeValue: switch (entity.type.name) {
         'motorbike' => 'linen',
         'bike' => 'uniform',
         _ => 'guest',

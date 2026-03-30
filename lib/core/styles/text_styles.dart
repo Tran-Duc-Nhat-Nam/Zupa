@@ -4,122 +4,144 @@ class AppTextStyles {
   // Private constructor to prevent instantiation, making this a pure utility class.
   AppTextStyles._();
 
-  // Define the base style once to reduce repetitive calls to GoogleFonts.inter()
-  // and improve readability when defining derived styles.
-  static final _baseTextStyle = GoogleFonts.roboto();
+  // Define the base styles for the two primary fonts used in the design system.
+  // Outfit is used for prominent display and headline roles.
+  // Inter is used for content-heavy roles like titles, body, and labels.
+  static final _displayFont = GoogleFonts.outfit();
+  static final _bodyFont = GoogleFonts.robotoFlex();
 
-  // Headings (W700)
-  static final heading1 = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 48,
+  // --- Display (Outfit) ---
+  // Large, short-form text with a high emphasis.
+  static final displayLarge = _displayFont.copyWith(
+    fontSize: 57,
+    fontWeight: .w400,
+    letterSpacing: -0.25,
   );
 
-  static final heading2 = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 40,
+  static final displayMedium = _displayFont.copyWith(
+    fontSize: 45,
+    fontWeight: .w400,
+    letterSpacing: 0,
   );
 
-  static final heading3 = _baseTextStyle.copyWith(
-    fontWeight: .w700,
+  static final displaySmall = _displayFont.copyWith(
+    fontSize: 36,
+    fontWeight: .w400,
+    letterSpacing: 0,
+  );
+
+  // --- Headline (Outfit) ---
+  // High-emphasis text that guides the user.
+  static final headlineLarge = _displayFont.copyWith(
+    fontSize: 32,
+    fontWeight: .w400,
+    letterSpacing: 0,
+  );
+
+  static final headlineMedium = _displayFont.copyWith(
     fontSize: 28,
+    fontWeight: .w400,
+    letterSpacing: 0,
   );
 
-  static final heading4 = _baseTextStyle.copyWith(
-    fontWeight: .w700,
+  static final headlineSmall = _displayFont.copyWith(
     fontSize: 24,
-  );
-
-  static final heading5 = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 20,
-  );
-
-  static final heading6 = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 16,
-  );
-
-  // Body X-Large (18)
-  static final bodyXLargeBold = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 18,
-  );
-
-  static final bodyXLargeSemibold = _baseTextStyle.copyWith(
-    fontWeight: .w600,
-    fontSize: 18,
-  );
-
-  static final bodyXLargeMedium = _baseTextStyle.copyWith(
-    fontWeight: .w500,
-    fontSize: 18,
-  );
-
-  static final bodyXLargeRegular = _baseTextStyle.copyWith(
     fontWeight: .w400,
-    fontSize: 18,
+    letterSpacing: 0,
   );
 
-  // Body Large (16)
-  static final bodyLargeBold = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 16,
-  );
-
-  static final bodyLargeSemibold = _baseTextStyle.copyWith(
-    fontWeight: .w600,
-    fontSize: 16,
-  );
-
-  static final bodyLargeMedium = _baseTextStyle.copyWith(
-    fontWeight: .w500,
-    fontSize: 16,
-  );
-
-  static final bodyLargeRegular = _baseTextStyle.copyWith(
+  // --- Title (Inter) ---
+  // Medium-emphasis text used for specific sections and UI elements.
+  static final titleLarge = _bodyFont.copyWith(
+    fontSize: 22,
     fontWeight: .w400,
+    letterSpacing: 0,
+  );
+
+  static final titleMedium = _bodyFont.copyWith(
     fontSize: 16,
-  );
-
-  // Body Medium (14)
-  static final bodyMediumBold = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 14,
-  );
-
-  static final bodyMediumSemibold = _baseTextStyle.copyWith(
-    fontWeight: .w600,
-    fontSize: 14,
-  );
-
-  static final bodyMediumMedium = _baseTextStyle.copyWith(
     fontWeight: .w500,
+    letterSpacing: 0.15,
+  );
+
+  static final titleSmall = _bodyFont.copyWith(
     fontSize: 14,
-  );
-
-  static final bodyMediumRegular = _baseTextStyle.copyWith(
-    fontWeight: .w400,
-    fontSize: 14,
-  );
-
-  // Body Small (12)
-  static final bodySmallBold = _baseTextStyle.copyWith(
-    fontWeight: .w700,
-    fontSize: 12,
-  );
-
-  static final bodySmallSemibold = _baseTextStyle.copyWith(
-    fontWeight: .w600,
-    fontSize: 12,
-  );
-
-  static final bodySmallMedium = _baseTextStyle.copyWith(
     fontWeight: .w500,
-    fontSize: 12,
+    letterSpacing: 0.1,
   );
 
-  static final bodySmallRegular = _baseTextStyle.copyWith(
+  // --- Body (Inter) ---
+  // Default text for content and long-form reading.
+  static final bodyLarge = _bodyFont.copyWith(
+    fontSize: 16,
     fontWeight: .w400,
-    fontSize: 12,
+    letterSpacing: 0.5,
   );
+
+  static final bodyMedium = _bodyFont.copyWith(
+    fontSize: 14,
+    fontWeight: .w400,
+    letterSpacing: 0.25,
+  );
+
+  static final bodySmall = _bodyFont.copyWith(
+    fontSize: 12,
+    fontWeight: .w400,
+    letterSpacing: 0.4,
+  );
+
+  // --- Label (Inter) ---
+  // Small, high-emphasis text for UI components (buttons, badges).
+  static final labelLarge = _bodyFont.copyWith(
+    fontSize: 14,
+    fontWeight: .w500,
+    letterSpacing: 0.1,
+  );
+
+  static final labelMedium = _bodyFont.copyWith(
+    fontSize: 12,
+    fontWeight: .w500,
+    letterSpacing: 0.5,
+  );
+
+  static final labelSmall = _bodyFont.copyWith(
+    fontSize: 11,
+    fontWeight: .w500,
+    letterSpacing: 0.5,
+  );
+
+  // --- Weight Variations and Legacy Mapping Helpers ---
+  // These provide quick access to common weight variants for body and title text.
+
+  // Body Large Variations
+  static final bodyLargeBold = bodyLarge.copyWith(fontWeight: .w700);
+  static final bodyLargeSemibold = bodyLarge.copyWith(fontWeight: .w600);
+  static final bodyLargeMedium = bodyLarge.copyWith(fontWeight: .w500);
+  static final bodyLargeRegular = bodyLarge;
+
+  // Body Medium Variations
+  static final bodyMediumBold = bodyMedium.copyWith(fontWeight: .w700);
+  static final bodyMediumSemibold = bodyMedium.copyWith(fontWeight: .w600);
+  static final bodyMediumMedium = bodyMedium.copyWith(fontWeight: .w500);
+  static final bodyMediumRegular = bodyMedium;
+
+  // Body Small Variations
+  static final bodySmallBold = bodySmall.copyWith(fontWeight: .w700);
+  static final bodySmallSemibold = bodySmall.copyWith(fontWeight: .w600);
+  static final bodySmallMedium = bodySmall.copyWith(fontWeight: .w500);
+  static final bodySmallRegular = bodySmall;
+
+  // Title Variations (useful for headers that were previously bodyXLarge)
+  static final titleLargeBold = titleLarge.copyWith(fontWeight: .w700);
+  static final titleLargeSemibold = titleLarge.copyWith(fontWeight: .w600);
+  static final titleLargeMedium = titleLarge.copyWith(fontWeight: .w500);
+
+  // Headline variations (bold is often used for top-level headers)
+  static final displayMediumBold = displayMedium.copyWith(fontWeight: .w700);
+  static final displayLargeBold = displayLarge.copyWith(fontWeight: .w700);
+  static final headlineLargeBold = headlineLarge.copyWith(fontWeight: .w700);
+  static final headlineMediumBold = headlineMedium.copyWith(fontWeight: .w700);
+  static final headlineSmallBold = headlineSmall.copyWith(fontWeight: .w700);
+  static final titleMediumBold = titleMedium.copyWith(fontWeight: .w700);
+  static final titleSmallBold = titleSmall.copyWith(fontWeight: .w700);
 }

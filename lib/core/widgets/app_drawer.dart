@@ -33,7 +33,9 @@ class AppDrawer extends StatelessWidget {
             child: Center(
               child: Text(
                 t.home.drawer,
-                style: AppTextStyles.heading2.copyWith(color: colors.surface),
+                style: AppTextStyles.displayMediumBold.copyWith(
+                  color: colors.surface,
+                ),
               ),
             ),
           ),

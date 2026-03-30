@@ -7,6 +7,7 @@ import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
 class MockStorageService extends Mock implements StorageService {}
+
 class MockAuthStatusService extends Mock implements AuthStatusService {}
 
 void main() {
@@ -20,8 +21,9 @@ void main() {
     mockAuthStatusService = MockAuthStatusService();
     unauthorizedController = StreamController<void>.broadcast();
 
-    when(() => mockAuthStatusService.unauthorizedEvents)
-        .thenAnswer((_) => unauthorizedController.stream);
+    when(
+      () => mockAuthStatusService.unauthorizedEvents,
+    ).thenAnswer((_) => unauthorizedController.stream);
 
     authCubit = AuthCubit(mockStorageService, mockAuthStatusService);
   });
@@ -39,7 +41,9 @@ void main() {
     blocTest<AuthCubit, AuthState>(
       'loadAuth should emit loaded state with biometric status',
       build: () {
-        when(() => mockStorageService.getBiometricAuth()).thenAnswer((_) async => true);
+        when(
+          () => mockStorageService.getBiometricAuth(),
+        ).thenAnswer((_) async => true);
         when(() => mockStorageService.getUser()).thenAnswer((_) async => null);
         return authCubit;
       },

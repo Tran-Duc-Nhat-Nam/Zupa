@@ -36,7 +36,7 @@ class RevenueSearchBar extends StatelessWidget {
               children: [
                 Text(
                   t['common.months.${DateTimeConverter.getMonthKey(DateTime.now().month)}'],
-                  style: AppTextStyles.heading5.copyWith(
+                  style: AppTextStyles.titleLargeBold.copyWith(
                     color: colorScheme.onSurface,
                   ),
                 ),

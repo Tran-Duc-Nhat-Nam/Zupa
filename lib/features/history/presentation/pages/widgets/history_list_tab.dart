@@ -80,33 +80,34 @@ class HistoryListTab extends StatelessWidget {
               child: ListView.separated(
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 12),
-                itemBuilder: (c, i) => Padding(
-                  padding: EdgeInsets.only(
-                    top: i == 0 ? 16 : 0,
-                    left: 24,
-                    right: 24,
-                  ),
-                  child: HistoryListSection(
-                    tickets: items.isNotEmpty
-                        ? items
-                        : List.generate(
-                            10,
-                            (index) => HistoryTicketEntity(
-                              code: 'Placeholder',
-                              id: -1,
-                              timeIn: DateTime.now(),
-                              timeOut: DateTime.now(),
-                              isFlagError: false,
-                              siteId: 'A much Longer placeholder',
-                              type: vehicleTypes.first,
-                            ),
-                          ),
-                  ),
-                ).animateIn(
-                  key: ValueKey('history_item_$i'),
-                  index: i,
-                  animate: state is Loading,
-                ),
+                itemBuilder: (c, i) =>
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: i == 0 ? 16 : 0,
+                        left: 24,
+                        right: 24,
+                      ),
+                      child: HistoryListSection(
+                        tickets: items.isNotEmpty
+                            ? items
+                            : List.generate(
+                                10,
+                                (index) => HistoryTicketEntity(
+                                  code: 'Placeholder',
+                                  id: -1,
+                                  timeIn: DateTime.now(),
+                                  timeOut: DateTime.now(),
+                                  isFlagError: false,
+                                  siteId: 'A much Longer placeholder',
+                                  type: vehicleTypes.first,
+                                ),
+                              ),
+                      ),
+                    ).animateIn(
+                      key: ValueKey('history_item_$i'),
+                      index: i,
+                      animate: state is Loading,
+                    ),
                 itemCount: items.isNotEmpty ? items.length : 10,
               ),
             ),

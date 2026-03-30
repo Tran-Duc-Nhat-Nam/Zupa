@@ -13,10 +13,13 @@ void main() {
   });
 
   group('AuthStatusService Tests', () {
-    test('unauthorizedEvents should emit when notifyUnauthorized is called', () {
-      expect(authStatusService.unauthorizedEvents, emits(null));
-      authStatusService.notifyUnauthorized();
-    });
+    test(
+      'unauthorizedEvents should emit when notifyUnauthorized is called',
+      () {
+        expect(authStatusService.unauthorizedEvents, emits(null));
+        authStatusService.notifyUnauthorized();
+      },
+    );
 
     test('unauthorizedEvents should be a broadcast stream', () {
       authStatusService.unauthorizedEvents.listen((_) {});

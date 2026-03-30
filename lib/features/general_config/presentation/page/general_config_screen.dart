@@ -91,10 +91,15 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             ),
                           ),
                           AnimatedSwitcher(
-                            duration: context.watch<AnimationCubit>().state.maybeWhen(
-                                  loaded: (isOn) =>
-                                      isOn ? const Duration(milliseconds: 300) : Duration.zero,
-                                  orElse: () => const Duration(milliseconds: 300),
+                            duration: context
+                                .watch<AnimationCubit>()
+                                .state
+                                .maybeWhen(
+                                  loaded: (isOn) => isOn
+                                      ? const Duration(milliseconds: 300)
+                                      : Duration.zero,
+                                  orElse: () =>
+                                      const Duration(milliseconds: 300),
                                 ),
                             transitionBuilder:
                                 (Widget child, Animation<double> animation) {

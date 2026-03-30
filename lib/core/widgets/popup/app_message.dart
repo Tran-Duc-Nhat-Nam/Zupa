@@ -78,7 +78,7 @@ class MessageHelper {
       ),
       messageText: Text(
         message,
-        style: AppTextStyles.bodyMediumRegular.copyWith(
+        style: AppTextStyles.bodyMedium.copyWith(
           color: colorScheme.onInverseSurface,
         ),
       ),
