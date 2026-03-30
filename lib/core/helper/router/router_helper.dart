@@ -8,14 +8,11 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   RouteType get defaultRouteType => getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn
-            ? RouteType.adaptive()
-            : RouteType.custom(
-                durationInMilliseconds: 0,
-                reverseDurationInMilliseconds: 0,
-              ),
-        orElse: () => RouteType.adaptive(),
-      );
+    loaded: (isOn) => isOn
+        ? const RouteType.adaptive()
+        : RouteType.custom(duration: .zero, reverseDuration: .zero),
+    orElse: () => const RouteType.adaptive(),
+  );
 
   // Optional: Define paths as constants to prevent typos
   static const String loginPath = '/login';

@@ -66,17 +66,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => getIt<AnimationCubit>()..loadInfo()),
         BlocProvider(create: (_) => getIt<ThemeCubit>()..loadTheme()),
         BlocProvider(create: (_) => getIt<AuthCubit>()..loadAuth()),
         BlocProvider(create: (_) => getIt<LocalizationCubit>()..loadLocale()),
         BlocProvider(
           create: (_) => getIt<ConnectivityCubit>()..monitorConnectivity(),
         ),
-        BlocProvider(create: (_) => getIt<VersionCubit>()..checkForUpdates()),
-        BlocProvider(create: (_) => getIt<SecurityCubit>()..checkSecurity()),
         if (kDebugMode)
           BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
-        BlocProvider(create: (_) => getIt<AnimationCubit>()..loadInfo()),
+        BlocProvider(create: (_) => getIt<VersionCubit>()..checkForUpdates()),
+        BlocProvider(create: (_) => getIt<SecurityCubit>()..checkSecurity()),
       ],
       child: const AppView(),
     );
@@ -125,58 +125,64 @@ class AppView extends StatelessWidget {
             ),
             BlocListener<VersionCubit, VersionState>(
               listener: (context, state) {
-                state.whenOrNull(
-                  checking: (isShow) => isShow
-                      ? DialogHelper.showLoading(
-                          message: t.common.version.checking,
-                        )
-                      : null,
-                  upToDate: (_) => DialogHelper.dismissLoading(),
-                  standby: () => DialogHelper.dismissLoading(),
-                  updateAvailable: (info) {
-                    DialogHelper.dismissLoading();
-                    DialogHelper.showUpdateDialog(
-                      context,
-                      isMandatory: info.isForcedUpdate,
-                      version: info.latestVersion ?? '',
-                      onUpdate: () => Platform.isAndroid
-                          ? context.read<VersionCubit>().executeUpdate(info)
-                          : info.update,
-                    );
-                  },
-                  maintaining: () {
-                    DialogHelper.dismissLoading();
-                    DialogHelper.showMaintenanceDialog(context);
-                  },
-                  downloading: (progress, info) {
-                    DialogHelper.dismissLoading();
-                    DialogHelper.showDownloadDialog(
-                      context,
-                      progressStream: progress,
-                      version: info.latestVersion,
-                    );
-                  },
-                  installing: () => DialogHelper.dismissAll(),
-                  downloadFailed: (message, _) {
-                    DialogHelper.dismissAll();
-                    AppToast.showNotify(message, type: .error);
-                  },
-                );
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  state.whenOrNull(
+                    checking: (isShow) => isShow
+                        ? DialogHelper.showLoading(
+                            message: t.common.version.checking,
+                          )
+                        : null,
+                    upToDate: (_) => DialogHelper.dismissLoading(),
+                    standby: () => DialogHelper.dismissLoading(),
+                    updateAvailable: (info) {
+                      DialogHelper.dismissLoading();
+                      DialogHelper.showUpdateDialog(
+                        context,
+                        isMandatory: info.isForcedUpdate,
+                        version: info.latestVersion ?? '',
+                        onUpdate: () => Platform.isAndroid
+                            ? context.read<VersionCubit>().executeUpdate(info)
+                            : info.update,
+                      );
+                    },
+                    maintaining: () {
+                      DialogHelper.dismissLoading();
+                      DialogHelper.showMaintenanceDialog(context);
+                    },
+                    downloading: (progress, info) {
+                      DialogHelper.dismissLoading();
+                      DialogHelper.showDownloadDialog(
+                        context,
+                        progressStream: progress,
+                        version: info.latestVersion,
+                      );
+                    },
+                    installing: () => DialogHelper.dismissAll(),
+                    downloadFailed: (message, _) {
+                      DialogHelper.dismissAll();
+                      AppToast.showNotify(message, type: .error);
+                    },
+                  );
+                });
               },
             ),
             BlocListener<SecurityCubit, SecurityState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  vulnerable: () => DialogHelper.showSecurityDialog(
-                    context,
-                    onQuit: () {
-                      if (kDebugMode) {
-                        DialogHelper.dismissAll();
-                      } else {
-                        SystemNavigator.pop();
-                      }
-                    },
-                  ),
+                  vulnerable: () {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      DialogHelper.showSecurityDialog(
+                        context,
+                        onQuit: () {
+                          if (kDebugMode) {
+                            DialogHelper.dismissAll();
+                          } else {
+                            SystemNavigator.pop();
+                          }
+                        },
+                      );
+                    });
+                  },
                 );
               },
             ),
@@ -190,7 +196,7 @@ class AppView extends StatelessWidget {
                     return MaterialApp.router(
                       onGenerateTitle: (_) => t.home.appTitle,
                       theme: AppThemes.getTheme(
-                        brightness: Brightness.light,
+                        brightness: .light,
                         colorSource: settings.colorSource,
                         dynamicColorScheme: lightDynamic,
                         customSeedColor: settings.seedColorValue != null
@@ -198,7 +204,7 @@ class AppView extends StatelessWidget {
                             : null,
                       ),
                       darkTheme: AppThemes.getTheme(
-                        brightness: Brightness.dark,
+                        brightness: .dark,
                         colorSource: settings.colorSource,
                         dynamicColorScheme: darkDynamic,
                         customSeedColor: settings.seedColorValue != null

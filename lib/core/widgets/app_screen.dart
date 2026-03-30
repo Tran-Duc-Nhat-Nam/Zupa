@@ -105,7 +105,7 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = widget.formGroup != null
+    final Widget content = widget.formGroup != null
         ? ReactiveForm(formGroup: widget.formGroup!, child: _buildScreen())
         : _buildScreen();
 
@@ -117,7 +117,7 @@ class _AppScreenState extends State<AppScreen> {
         if (didPop) return;
 
         final router = context.router;
-        if (await router.canPop()) {
+        if (router.canPop()) {
           router.pop();
         } else {
           if (router.isRoot) {
@@ -164,7 +164,7 @@ class _AppScreenState extends State<AppScreen> {
           top: widget.hasSafeTopArea,
           bottom: widget.hasSafeBottomArea,
           child: Align(
-            alignment: Alignment.topCenter,
+            alignment: .topCenter,
             child: SizedBox(
               width: ResponsiveHelper.getResponsiveWidth(context),
               child: Padding(
@@ -180,7 +180,7 @@ class _AppScreenState extends State<AppScreen> {
                                 child: ConstrainedBox(
                                   constraints: constraints.copyWith(
                                     minHeight: constraints.maxHeight,
-                                    maxHeight: double.infinity,
+                                    maxHeight: .infinity,
                                   ),
                                   child: widget.child,
                                 ),
@@ -192,13 +192,13 @@ class _AppScreenState extends State<AppScreen> {
           ),
         ),
         Align(
-          alignment: Alignment.bottomCenter,
+          alignment: .bottomCenter,
           child: Padding(
             padding:
                 widget.footerPadding ??
-                const EdgeInsets.only(bottom: 48, left: 24, right: 24),
+                const .only(bottom: 48, left: 24, right: 24),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: .min,
               children: widget.footer,
             ),
           ),
