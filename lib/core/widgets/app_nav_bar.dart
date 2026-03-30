@@ -83,8 +83,8 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                               alignment: .bottomCenter,
                               child: Padding(
                                 padding: const .symmetric(
-                                  horizontal: 16,
-                                  vertical: 36,
+                                  horizontal: 32,
+                                  vertical: 40,
                                 ),
                                 child: _buildFloatingBar(
                                   tabsRouter: tabsRouter,
@@ -184,56 +184,65 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
     required AppColors colors,
     required bool isShowLabel,
   }) {
-    return Container(
-      height: 64, // Sleeker height for floating style
-      padding: const .symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: colors.surfaceContainerLowest,
-        borderRadius: .circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(25),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+    return ClipRRect(
+      borderRadius: .circular(32),
+      child: BackdropFilter(
+        filter: .blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          height: 64,
+          padding: const .symmetric(horizontal: 8),
+          decoration: BoxDecoration(
+            color: colors.surfaceContainerLow.withAlpha(200),
+            borderRadius: .circular(32),
+            border: .all(
+              color: colors.surfaceContainer.withAlpha(220), // Subtle outline
+            ),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withAlpha(25),
+            //     blurRadius: 12,
+            //     offset: const Offset(0, 4),
+            //   ),
+            // ],
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: .spaceEvenly,
-        children: [
-          _buildFloatingItem(
-            index: 0,
-            icon: Symbols.home_rounded,
-            labelKey: 'home',
-            tabsRouter: tabsRouter,
-            colors: colors,
-            isShowLabel: isShowLabel,
+          child: Row(
+            mainAxisAlignment: .spaceEvenly,
+            children: [
+              _buildFloatingItem(
+                index: 0,
+                icon: Symbols.home_rounded,
+                labelKey: 'home',
+                tabsRouter: tabsRouter,
+                colors: colors,
+                isShowLabel: isShowLabel,
+              ),
+              _buildFloatingItem(
+                index: 1,
+                icon: Symbols.history_rounded,
+                labelKey: 'history',
+                tabsRouter: tabsRouter,
+                colors: colors,
+                isShowLabel: isShowLabel,
+              ),
+              _buildFloatingItem(
+                index: 2,
+                icon: Symbols.analytics_rounded,
+                labelKey: 'revenue',
+                tabsRouter: tabsRouter,
+                colors: colors,
+                isShowLabel: isShowLabel,
+              ),
+              _buildFloatingItem(
+                index: 3,
+                icon: Symbols.settings_rounded,
+                labelKey: 'settings',
+                tabsRouter: tabsRouter,
+                colors: colors,
+                isShowLabel: isShowLabel,
+              ),
+            ],
           ),
-          _buildFloatingItem(
-            index: 1,
-            icon: Symbols.history_rounded,
-            labelKey: 'history',
-            tabsRouter: tabsRouter,
-            colors: colors,
-            isShowLabel: isShowLabel,
-          ),
-          _buildFloatingItem(
-            index: 2,
-            icon: Symbols.analytics_rounded,
-            labelKey: 'revenue',
-            tabsRouter: tabsRouter,
-            colors: colors,
-            isShowLabel: isShowLabel,
-          ),
-          _buildFloatingItem(
-            index: 3,
-            icon: Symbols.settings_rounded,
-            labelKey: 'settings',
-            tabsRouter: tabsRouter,
-            colors: colors,
-            isShowLabel: isShowLabel,
-          ),
-        ],
+        ),
       ),
     );
   }
