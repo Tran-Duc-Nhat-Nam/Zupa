@@ -51,18 +51,21 @@ class MemberVehicleDetailScreen extends StatelessWidget {
             ],
             child: AppCard(
               child: Column(
-                spacing: 8,
+                spacing: 16,
                 children: [
                   Container(
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: AppColors.of(context).surfaceContainerLow,
-                      borderRadius: .circular(8),
+                      color: AppColors.of(context).surfaceContainerHigh,
+                      borderRadius: .circular(16),
                     ),
                     child: Center(
                       child: InkWell(
-                        child: const Icon(Symbols.camera_rounded),
+                        child: Icon(
+                          Symbols.camera_rounded,
+                          color: AppColors.of(context).onSurfaceVariant,
+                        ),
                         onTap: () => context.pushRoute(CheckInRoute()),
                       ),
                     ),
@@ -94,6 +97,10 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                     formControl: formModel.vehicleTypeControl,
                     dropdownItems: vehicleTypes,
                     hint: t.common.actions.choose,
+                    itemLabelGetter: (vehicle) => vehicle != null
+                        ? t['vehicles.${vehicle.name}'] ??
+                              t.common.errors.unknown
+                        : t.common.errors.unknown,
                   ),
                   AppTextField(
                     formControl: formModel.ticketIDControl,
@@ -108,6 +115,7 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                       Duration(days: 60),
                     ],
                     hint: t.common.actions.choose,
+                    itemLabelGetter: (value) => value?.inDays.toString() ?? t.common.errors.unknown,
                   ),
                 ],
               ),

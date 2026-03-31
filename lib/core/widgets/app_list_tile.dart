@@ -53,7 +53,7 @@ class AppList extends StatelessWidget {
     final colors = AppColors.of(context);
 
     Widget content = Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: items.asMap().entries.map((entry) {
         final index = entry.key;
         final item = entry.value;
@@ -64,8 +64,8 @@ class AppList extends StatelessWidget {
             item.borderRadius ??
             (segmented
                 ? .vertical(
-                    top: isFirst ? const .circular(16) : const .circular(8),
-                    bottom: isLast ? const .circular(16) : const .circular(8),
+                    top: isFirst ? const .circular(16) : const .circular(4),
+                    bottom: isLast ? const .circular(16) : const .circular(4),
                   )
                 : null);
 
@@ -75,7 +75,7 @@ class AppList extends StatelessWidget {
             DecoratedBox(
               decoration: (segmented && spacing > 0)
                   ? BoxDecoration(
-                      color: colors.surfaceContainerLow,
+                      color: colors.surfaceContainer,
                       borderRadius: itemBorderRadius,
                     )
                   : const BoxDecoration(),
@@ -119,7 +119,7 @@ class AppList extends StatelessWidget {
       );
     }
 
-    return Padding(padding: padding ?? EdgeInsets.zero, child: content);
+    return Padding(padding: padding ?? .zero, child: content);
   }
 }
 
@@ -157,7 +157,7 @@ class AppListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final tileBorderRadius = borderRadius ?? BorderRadius.circular(12);
+    final tileBorderRadius = borderRadius ?? BorderRadius.circular(16);
 
     return Material(
       color: Colors.transparent,
@@ -168,9 +168,7 @@ class AppListTile extends StatelessWidget {
         highlightColor: colors.primary.withAlpha(10),
         child: Container(
           constraints: const BoxConstraints(minHeight: 56),
-          padding:
-              padding ??
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: padding ?? const .symmetric(horizontal: 16, vertical: 12),
           child: Row(
             children: [
               if (leading != null || leadingIcon != null) ...[

@@ -9,23 +9,23 @@ class MemberVehiclesTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return Container(
       padding: const .only(top: 16),
       child: SegmentedTabControl(
-        height: 40,
         splashColor: Colors.transparent,
         barDecoration: BoxDecoration(
-          color: AppColors.of(context).surface,
-          borderRadius: const .all(Radius.circular(8)),
-          border: .all(color: AppColors.of(context).surfaceContainerHighest),
+          color: colorScheme.surface,
+          borderRadius: const .all(.circular(28)),
+          border: .all(color: colorScheme.surfaceContainerHighest),
         ),
-        indicatorPadding: const .all(4),
+        indicatorPadding: const .all(6),
         indicatorDecoration: BoxDecoration(
-          color: AppColors.of(context).primary,
-          borderRadius: const .all(Radius.circular(6)),
+          color: colorScheme.primaryContainer,
+          borderRadius: const .all(Radius.circular(16)),
         ),
-        textStyle: AppTextStyles.bodySmallBold,
-        tabTextColor: AppColors.of(context).outline,
+        textStyle: AppTextStyles.bodySmallBold.copyWith(color: colorScheme.onPrimaryContainer),
+        tabTextColor: colorScheme.onSurfaceVariant,
         tabs: [
           .new(label: t.common.actions.all),
           .new(label: t.parking.inUse),

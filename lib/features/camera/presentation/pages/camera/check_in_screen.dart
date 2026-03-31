@@ -197,7 +197,6 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                           .formModel
                                           .ticketIDControl,
                                       hintText: t.parking.enterTicketNumber,
-                                      hasBorder: false,
                                       textAlign: .center,
                                     ),
                                   ),

@@ -41,7 +41,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
           Padding(
             padding: const .only(right: 24),
             child: InkWell(
-              child: const Icon(Symbols.add_circle_outline_rounded),
+              child: const Icon(Symbols.add_rounded),
               onTap: () => context.pushRoute(MemberVehicleDetailRoute()),
             ),
           ),
@@ -54,7 +54,7 @@ class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
                 padding: .symmetric(horizontal: 24),
                 child: MemberVehiclesTabBar(),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
               const Padding(
                 padding: .symmetric(horizontal: 24),
                 child: MemberVehiclesSearchBar(),

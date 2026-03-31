@@ -27,6 +27,7 @@ class GeneralConfigScreen extends StatefulWidget {
 class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppScreen(
       title: t.settings.generalConfig,
       child: BlocProvider<GeneralConfigCubit>(
@@ -38,7 +39,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
               child: Padding(
                 padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: Column(
-                  spacing: 10,
+                  spacing: 24,
                   children: [
                     AppList(
                       items: [
@@ -61,33 +62,30 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                     ),
                     DecoratedBox(
                       decoration: BoxDecoration(
-                        color: AppColors.of(context).surfaceContainerLow,
-                        borderRadius: BorderRadius.circular(16),
+                        color: colorScheme.surfaceContainer,
+                        borderRadius: .circular(16),
                       ),
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
                           AppList(
                             segmented: false,
-                            padding: EdgeInsets.zero,
+                            padding: .zero,
                             items: [
                               AppListItem(
                                 leadingIcon: Symbols.notifications_rounded,
                                 text: t.parking.warningThreshold.title,
-                                trailing: Transform.scale(
-                                  scale: 0.8,
-                                  child: AppSwitch(
-                                    formControl: context
+                                trailing: AppSwitch(
+                                  formControl: context
+                                      .read<GeneralConfigCubit>()
+                                      .formModel
+                                      .isWarningControl,
+                                  onToggle: (value, toggle) {
+                                    toggle(value);
+                                    context
                                         .read<GeneralConfigCubit>()
-                                        .formModel
-                                        .isWarningControl,
-                                    onToggle: (value, toggle) {
-                                      toggle(value);
-                                      context
-                                          .read<GeneralConfigCubit>()
-                                          .setWarning();
-                                    },
-                                  ),
+                                        .setWarning();
+                                  },
                                 ),
                               ),
                             ],
@@ -99,7 +97,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                 .maybeWhen(
                                   loaded: (isOn) => isOn
                                       ? const Duration(milliseconds: 300)
-                                      : Duration.zero,
+                                      : .zero,
                                   orElse: () =>
                                       const Duration(milliseconds: 300),
                                 ),
@@ -128,13 +126,6 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                     child: Column(
                                       key: const ValueKey('threshold_fields'),
                                       children: [
-                                        Divider(
-                                          height: 1,
-                                          thickness: 1,
-                                          color: AppColors.of(
-                                            context,
-                                          ).outlineVariant.withAlpha(100),
-                                        ),
                                         const SizedBox(height: 16),
                                         AppTextField(
                                           formControl: context
@@ -150,9 +141,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                           t.parking.warningThreshold.subtitle,
                                           style: AppTextStyles.bodySmallMedium
                                               .copyWith(
-                                                color: AppColors.of(
-                                                  context,
-                                                ).outline,
+                                                color: colorScheme.onSurfaceVariant,
                                               ),
                                         ),
                                       ],

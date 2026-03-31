@@ -61,7 +61,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
         child: Padding(
           padding: const .symmetric(vertical: 16, horizontal: 24),
           child: Column(
-            spacing: 16,
+            spacing: 24,
             children: [
               BlocBuilder<LocalizationCubit, LocalizationState>(
                 builder: (context, localizationState) {
@@ -75,14 +75,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                 loaded: (s) => s,
                                 orElse: () => ThemeSettings(),
                               );
-
                               return Column(
                                 children: [
                                   AppList(
-                                    
                                     items: [
                                       AppListItem(
-                                        
                                         leadingIcon: Symbols.globe,
                                         text: t.settings.language,
                                         trailing:

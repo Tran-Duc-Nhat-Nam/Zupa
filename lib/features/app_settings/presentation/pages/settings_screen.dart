@@ -25,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
         child: Column(
-          spacing: 10,
+          spacing: 24,
           children: [
             AppList(
               items: [

@@ -22,7 +22,7 @@ class AppTextField extends StatefulWidget {
     this.suffix,
     this.prefixIcon,
     this.suffixIcon,
-    this.hasBorder = true,
+    this.hasBorder = false,
     this.border,
     this.textAlign,
     this.borderRadius = 28,
@@ -165,7 +165,7 @@ class _AppTextFieldState extends State<AppTextField> {
             ),
             filled: true,
             fillColor:
-                widget.backgroundColor ?? colorsScheme.surfaceContainerLow,
+                widget.backgroundColor ?? colorsScheme.surfaceContainerHigh,
             errorBorder:
                 widget.border ??
                 OutlineInputBorder(
@@ -179,7 +179,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   borderSide: widget.hasBorder
-                      ? .new(color: colorsScheme.outlineVariant)
+                      ? .new(color: colorsScheme.outline)
                       : .none,
                 ),
             focusedErrorBorder:

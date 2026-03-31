@@ -32,7 +32,6 @@ class HistorySearchBar extends StatelessWidget {
               formControl: formModel.keywordControl,
               hintText: t.parking.ticketSearch,
               borderRadius: 100,
-              hasBorder: false,
               backgroundColor: colorScheme.surfaceContainerLow,
               prefixIcon: Symbols.search_rounded,
               suffix: InkWell(

@@ -28,8 +28,6 @@ class HomeSearchBar extends StatelessWidget {
                 formControl: formModel.keywordControl,
                 hintText: t.parking.ticketSearch,
                 borderRadius: 100,
-                hasBorder: false,
-                backgroundColor: colorScheme.surfaceContainer,
                 prefix: Icon(
                   Symbols.search_rounded,
                   size: 24,
@@ -37,7 +35,7 @@ class HomeSearchBar extends StatelessWidget {
                 ),
                 suffix: InkWell(
                   child: Icon(
-                    Symbols.filter_alt_rounded,
+                    Symbols.filter_list_rounded,
                     size: 24,
                     color: colorScheme.onSurfaceVariant,
                   ),
