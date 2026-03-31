@@ -14,6 +14,7 @@ import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
+import 'package:zupa/core/bloc/scanner/scanner_cubit.dart';
 import 'package:zupa/core/bloc/security/security_cubit.dart';
 import 'package:zupa/core/bloc/security/security_state.dart';
 import 'package:zupa/core/bloc/theme/theme_cubit.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
         BlocProvider(create: (_) => getIt<VersionCubit>()..checkForUpdates()),
         BlocProvider(create: (_) => getIt<SecurityCubit>()..checkSecurity()),
+        BlocProvider(create: (_) => getIt<ScannerCubit>()..init(),)
       ],
       child: const AppView(),
     );
@@ -188,6 +190,13 @@ class AppView extends StatelessWidget {
                 );
               },
             ),
+            BlocListener<ScannerCubit, ScannerState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  scanSuccess: (parkingData) => router.push(CheckInRoute()),
+                );
+              },
+            )
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
             buildWhen: (previous, current) => previous != current,

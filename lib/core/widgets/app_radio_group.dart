@@ -9,12 +9,14 @@ class AppRadioGroup<T> extends StatelessWidget {
     this.isVertical = false,
     this.showRadio = true, // Toggle visibility of the radio circle
     this.itemBuilder,
+    this.spacing = 0,
   });
 
   final FormControl<T> formControl;
   final List<T> items;
   final bool isVertical;
   final bool showRadio;
+  final double spacing;
 
   /// Custom builder to define how each item looks.
   /// [radioButton] is the standard ReactiveRadio widget.
@@ -66,9 +68,10 @@ class AppRadioGroup<T> extends StatelessWidget {
             ? Column(
                 crossAxisAlignment: .start,
                 mainAxisSize: .min,
+                spacing: spacing,
                 children: children,
               )
-            : Wrap(spacing: 16, runSpacing: 8, children: children);
+            : Row(spacing: spacing, children: children);
       },
     );
   }

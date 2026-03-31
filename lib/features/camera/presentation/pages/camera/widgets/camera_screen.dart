@@ -91,45 +91,41 @@ class _CameraScreenState extends State<CameraScreen> {
       mainAxisSize: .min,
       spacing: 16,
       children: [
-        Expanded(
-          flex: 4,
-          child: Container(
-            color: Colors.red,
-            width: .infinity,
-            child: FittedBox(
-              clipBehavior: .antiAlias,
-              fit: .cover,
-              child: SizedBox(
-                width: 1000,
-                child: CameraPreview(widget.controller),
-              ),
+        Container(
+          width: .infinity,
+          decoration: BoxDecoration(
+              color: AppColors.of(context).surfaceContainer,
+              borderRadius: .circular(28)
+          ),
+          clipBehavior: .antiAlias,
+          child: FittedBox(
+            clipBehavior: .antiAlias,
+            fit: .cover,
+            child: SizedBox(
+              width: 1000,
+              child: CameraPreview(widget.controller),
             ),
           ),
         ),
         Expanded(
-          child: Padding(
-            padding: const .symmetric(horizontal: 24),
-            child: widget.isOut
-                ? const SizedBox()
-                : const VehicleTypeRadioCards(),
-          ),
+          child: widget.isOut
+              ? const SizedBox()
+              : const VehicleTypeRadioCards(),
         ),
-        Expanded(
-          child: Padding(
-            padding: const .symmetric(vertical: 16, horizontal: 16),
-            child: Column(
-              children: [
-                AppButton(
-                  padding: const .all(16),
-                  onPressed: widget.onTakePicture,
-                  child: Icon(
-                    Symbols.camera_alt_rounded,
-                    color: AppColors.of(context).surface,
-                    size: 24,
-                  ),
+        Padding(
+          padding: const .only(bottom: 48, top: 0),
+          child: Column(
+            children: [
+              AppButton(
+                padding: const .all(16),
+                onPressed: widget.onTakePicture,
+                child: Icon(
+                  Symbols.camera_alt_rounded,
+                  color: AppColors.of(context).surface,
+                  size: 24,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],

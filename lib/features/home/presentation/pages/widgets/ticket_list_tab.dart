@@ -6,7 +6,7 @@ import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
     hide Loading;
@@ -50,8 +50,11 @@ class _TicketListTabState extends State<TicketListTab> {
           failed: (message) {
             _refreshController.finishRefresh(.fail);
             _refreshController.finishLoad(.fail);
-            AppToast.showNotify(
-              message != null ? t[message] ?? message : t.common.errors.unknown,
+            MessageHelper.showError(
+              context,
+              message: message != null
+                  ? t[message] ?? message
+                  : t.common.errors.unknown,
             );
           },
           empty: () {

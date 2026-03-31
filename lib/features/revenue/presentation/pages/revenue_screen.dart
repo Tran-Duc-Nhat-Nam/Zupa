@@ -304,7 +304,7 @@ class _RevenueChart extends StatelessWidget {
               getTitlesWidget: (value, meta) {
                 if (value.toInt() >= 0 && value.toInt() < chartItems.length) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const .only(top: 8.0),
                     child: Text(
                       DateFormat(
                         'dd/MM',

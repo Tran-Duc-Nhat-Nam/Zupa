@@ -117,11 +117,11 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                   orElse: () => false,
                                 )
                                 ? Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      16,
-                                      0,
-                                      16,
-                                      16,
+                                    padding: const .only(
+                                      left: 16,
+                                      top: 0,
+                                      right: 16,
+                                      bottom: 16,
                                     ),
                                     child: Column(
                                       key: const ValueKey('threshold_fields'),
@@ -141,7 +141,8 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                           t.parking.warningThreshold.subtitle,
                                           style: AppTextStyles.bodySmallMedium
                                               .copyWith(
-                                                color: colorScheme.onSurfaceVariant,
+                                                color: colorScheme
+                                                    .onSurfaceVariant,
                                               ),
                                         ),
                                       ],

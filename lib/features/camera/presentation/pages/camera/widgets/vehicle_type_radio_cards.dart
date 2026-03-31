@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
@@ -15,47 +16,40 @@ class VehicleTypeRadioCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppRadioGroup<VehicleTypeEntity>(
       formControl: context.read<CheckInCubit>().formModel.vehicleTypeControl,
+      spacing: 16,
       items: vehicleTypes,
       itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
           Expanded(
-            child: InkWell(
-              onTap: onSelect,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  padding: .all(isSelected ? 5 : 8),
-                  decoration: BoxDecoration(
-                    color: AppColors.of(context).surface,
-                    borderRadius: .circular(4),
-                    border: isSelected
-                        ? .all(color: AppColors.of(context).primary, width: 3)
-                        : null,
+            child: Container(
+              padding: const .only(top: 16, bottom: 8, left: 8, right: 8),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainer,
+                borderRadius: .circular(16),
+              ),
+              child: Column(
+                mainAxisSize: .min,
+                mainAxisAlignment: .center,
+                children: [
+                  Icon(
+                    const IconConverter().fromJson(item.icon) ??
+                        Symbols.globe_rounded,
+                    color: item.color.harmonizeWith(
+                      colorScheme.primary,
+                    ),
+                    size: 24,
                   ),
-                  child: Column(
-                    mainAxisAlignment: .spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Icon(
-                          const IconConverter().fromJson(item.icon) ??
-                              Symbols.globe_rounded,
-                          color: AppColors.of(context).onSurfaceVariant,
-                          size: 24,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          t[item.value],
-                          style: AppTextStyles.bodyMediumMedium.copyWith(
-                            color: AppColors.of(context).onSurfaceVariant,
-                          ),
-                        ),
-                      ),
-                      Expanded(child: radioButton ?? const SizedBox()),
-                    ],
+                  const SizedBox(height: 8),
+                  Text(
+                    t['vehicles.${item.value}'] ?? item.value,
+                    style: AppTextStyles.bodyMediumMedium.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
-                ),
+                  radioButton ?? const SizedBox(),
+                ],
               ),
             ),
           ),
