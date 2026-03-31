@@ -43,23 +43,21 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                   children: [
                     AppCard(
                       delay: const Duration(milliseconds: 100),
-                      padding: .zero,
-                      child: Column(
-                        children: [
-                          AppListTile(
+                      padding: EdgeInsets.zero,
+                      child: AppList(
+                        items: [
+                          AppListItem(
                             leadingIcon: Symbols.settings_rounded,
                             text: t.parking.price,
                             trailingIcon: Symbols.chevron_right_rounded,
-                            padding: const .all(16),
                             onTap: () => context.pushRoute(
                               const ParkingPriceSettingRoute(),
                             ),
                           ),
-                          AppListTile(
+                          AppListItem(
                             leadingIcon: Symbols.calendar_add_on_rounded,
                             text: t.parking.memberFee,
                             trailingIcon: Symbols.chevron_right_rounded,
-                            padding: const .all(16),
                             onTap: () =>
                                 context.pushRoute(const MemberFeeSetingRoute()),
                           ),
@@ -70,25 +68,29 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                       delay: const Duration(milliseconds: 200),
                       child: Column(
                         children: [
-                          AppListTile(
-                            padding: .zero,
-                            leadingIcon: Symbols.notifications_rounded,
-                            text: t.parking.warningThreshold.title,
-                            trailing: Transform.scale(
-                              scale: 0.8,
-                              child: AppSwitch(
-                                formControl: context
-                                    .read<GeneralConfigCubit>()
-                                    .formModel
-                                    .isWarningControl,
-                                onToggle: (value, toggle) {
-                                  toggle(value);
-                                  context
-                                      .read<GeneralConfigCubit>()
-                                      .setWarning();
-                                },
+                          AppList(
+                            padding: EdgeInsets.zero,
+                            items: [
+                              AppListItem(
+                                leadingIcon: Symbols.notifications_rounded,
+                                text: t.parking.warningThreshold.title,
+                                trailing: Transform.scale(
+                                  scale: 0.8,
+                                  child: AppSwitch(
+                                    formControl: context
+                                        .read<GeneralConfigCubit>()
+                                        .formModel
+                                        .isWarningControl,
+                                    onToggle: (value, toggle) {
+                                      toggle(value);
+                                      context
+                                          .read<GeneralConfigCubit>()
+                                          .setWarning();
+                                    },
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                           AnimatedSwitcher(
                             duration: context

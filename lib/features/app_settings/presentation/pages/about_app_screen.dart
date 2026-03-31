@@ -103,110 +103,107 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
 
             // Links and Actions
             AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
-              child: Column(
-                spacing: 4,
-                children: [
-                  AppListTile(
-                    leadingIcon: Symbols.link_rounded,
-                    leadingColor: colorScheme.primary,
-                    text: t.settings.github,
-                    trailingIcon: Symbols.open_in_new_rounded,
-                    padding: const .all(16),
-                    onTap: () => _launchUrl(Env.github),
-                  ),
-                  BlocConsumer<VersionCubit, VersionState>(
-                    listener: (context, state) {
-                      state.maybeWhen(
-                        upToDate: (info) => DialogHelper.showModal(
-                          context,
-                          titleText: t.common.version.upToDate,
-                          subtitleText: t.common.version.noUpdateAvailable,
-                          type: AppDialogType.success,
-                          okText: t.common.actions.close,
-                        ),
-                        orElse: () {},
-                      );
-                    },
-                    builder: (context, state) {
-                      final isChecking = state is Checking;
-                      return AppListTile(
-                        leadingIcon: Symbols.update_rounded,
-                        leadingColor: colorScheme.primary,
-                        text: t.settings.checkForUpdate,
-                        trailing: isChecking
-                            ? SizedBox(
-                                width: 24,
-                                height: 24,
-                                child:
-                                    BlocBuilder<AnimationCubit, AnimationState>(
-                                      builder: (context, animState) {
-                                        final isAnimationOn = animState
-                                            .maybeWhen(
-                                              loaded: (isOn) => isOn,
-                                              orElse: () => true,
-                                            );
-                                        return CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          value: isAnimationOn ? null : 0.7,
-                                        );
-                                      },
-                                    ),
-                              )
-                            : null,
-                        trailingIcon: isChecking
-                            ? null
-                            : Symbols.chevron_right_rounded,
-                        padding: const EdgeInsets.all(16),
-                        onTap: isChecking
-                            ? null
-                            : () {
-                                context.read<VersionCubit>().checkForUpdates(
-                                  force: true,
-                                );
-                              },
-                      );
-                    },
-                  ),
-                  BlocBuilder<VersionCubit, VersionState>(
-                    builder: (context, state) {
-                      final info = state.maybeMap(
-                        upToDate: (s) => s.info,
-                        updateAvailable: (s) => s.info,
-                        downloading: (s) => s.info,
-                        downloadFailed: (s) => s.info,
-                        orElse: () => null,
-                      );
+              clipBehavior: Clip.antiAlias,
+              padding: EdgeInsets.zero,
+              child: BlocListener<VersionCubit, VersionState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                    upToDate: (info) => DialogHelper.showModal(
+                      context,
+                      titleText: t.common.version.upToDate,
+                      subtitleText: t.common.version.noUpdateAvailable,
+                      type: AppDialogType.success,
+                      okText: t.common.actions.close,
+                    ),
+                    orElse: () {},
+                  );
+                },
+                child: BlocBuilder<VersionCubit, VersionState>(
+                  builder: (context, versionState) {
+                    return BlocBuilder<AnimationCubit, AnimationState>(
+                      builder: (context, animState) {
+                        final isChecking = versionState is Checking;
+                        final isAnimationOn = animState.maybeWhen(
+                          loaded: (isOn) => isOn,
+                          orElse: () => true,
+                        );
 
-                      return AppListTile(
-                        leadingIcon: Symbols.history_rounded,
-                        leadingColor: colorScheme.primary,
-                        text: t.settings.showChangelog,
-                        trailingIcon: Symbols.chevron_right_rounded,
-                        padding: const EdgeInsets.all(16),
-                        onTap: () {
-                          if (info != null && _packageInfo != null) {
-                            context.pushRoute(
-                              ChangelogRoute(
-                                version:
-                                    info.latestVersion ?? _packageInfo!.version,
-                                changelog:
-                                    info.message ??
-                                    t.common.version.noChangelog,
-                              ),
-                            );
-                          } else {
-                            context.read<VersionCubit>().checkForUpdates(
-                              force: true,
-                            );
-                            AppToast.showNotify(t.common.info.noInfo);
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ],
+                        final info = versionState.maybeMap(
+                          upToDate: (s) => s.info,
+                          updateAvailable: (s) => s.info,
+                          downloading: (s) => s.info,
+                          downloadFailed: (s) => s.info,
+                          orElse: () => null,
+                        );
+
+                        return AppList(
+                          spacing: 4,
+                          items: [
+                            AppListItem(
+                              leadingIcon: Symbols.link_rounded,
+                              leadingColor: colorScheme.primary,
+                              text: t.settings.github,
+                              trailingIcon: Symbols.open_in_new_rounded,
+                              onTap: () => _launchUrl(Env.github),
+                            ),
+                            AppListItem(
+                              leadingIcon: Symbols.update_rounded,
+                              leadingColor: colorScheme.primary,
+                              text: t.settings.checkForUpdate,
+                              trailing: isChecking
+                                  ? SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        value: isAnimationOn ? null : 0.7,
+                                      ),
+                                    )
+                                  : null,
+                              trailingIcon: isChecking
+                                  ? null
+                                  : Symbols.chevron_right_rounded,
+                              onTap: isChecking
+                                  ? null
+                                  : () {
+                                      context
+                                          .read<VersionCubit>()
+                                          .checkForUpdates(
+                                            force: true,
+                                          );
+                                    },
+                            ),
+                            AppListItem(
+                              leadingIcon: Symbols.history_rounded,
+                              leadingColor: colorScheme.primary,
+                              text: t.settings.showChangelog,
+                              trailingIcon: Symbols.chevron_right_rounded,
+                              onTap: () {
+                                if (info != null && _packageInfo != null) {
+                                  context.pushRoute(
+                                    ChangelogRoute(
+                                      version:
+                                          info.latestVersion ??
+                                          _packageInfo!.version,
+                                      changelog:
+                                          info.message ??
+                                          t.common.version.noChangelog,
+                                    ),
+                                  );
+                                } else {
+                                  context.read<VersionCubit>().checkForUpdates(
+                                    force: true,
+                                  );
+                                  AppToast.showNotify(t.common.info.noInfo);
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],

@@ -8,7 +8,6 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -40,51 +39,46 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                 padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: AppCard(
                   child: state.maybeMap(
-                    loaded: (params) => ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          AppListTile(
-                            leadingIcon: Symbols.settings_rounded,
-                            content: Row(
-                              spacing: 8,
-                              children: [
-                                Text(
-                                  params.parkingLots[index].name,
-                                  style: AppTextStyles.bodyMediumMedium
-                                      .copyWith(color: colors.onSurfaceVariant),
-                                ),
-                                Icon(
-                                  Symbols.lock_rounded,
-                                  color: colors.error,
-                                  size: 16,
-                                ),
-                              ],
-                            ),
-                            trailingIcon: Symbols.chevron_right_rounded,
-                            onTap: () => context.pushRoute(
-                              ParkingDetailsRoute(
-                                parkingLot: params.parkingLots[index],
+                    loaded: (params) => AppList(
+                      spacing: 12,
+                      items: params.parkingLots
+                          .map((lot) {
+                        return AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          content: Row(
+                            spacing: 8,
+                            children: [
+                              Text(
+                                lot.name,
+                                style: AppTextStyles.bodyMediumMedium
+                                    .copyWith(color: colors.onSurfaceVariant),
                               ),
-                            ),
-                          ).animateIn(
-                            key: ValueKey('parking_lot_item_$index'),
-                            index: index,
-                            animate: state is Loading,
+                              Icon(
+                                Symbols.lock_rounded,
+                                color: colors.error,
+                                size: 16,
+                              ),
+                            ],
                           ),
-                      separatorBuilder: (context, index) =>
-                          Divider(color: colors.surfaceContainerHighest),
-                      itemCount: params.parkingLots.length,
+                          trailingIcon: Symbols.chevron_right_rounded,
+                          onTap: () => context.pushRoute(
+                            ParkingDetailsRoute(
+                              parkingLot: lot,
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                    loading: (_) => ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const AppListTile(
-                        leadingIcon: Symbols.settings_rounded,
-                        text: 'Placeholder name',
-                        trailingIcon: Symbols.chevron_right_rounded,
+                    loading: (_) => AppList(
+                      spacing: 12,
+                      items: List.generate(
+                        3,
+                        (index) => const AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          text: 'Placeholder name',
+                          trailingIcon: Symbols.chevron_right_rounded,
+                        ),
                       ),
-                      separatorBuilder: (context, index) =>
-                          Divider(color: colors.surfaceContainerHighest),
-                      itemCount: 3,
                     ),
                     orElse: () => const SizedBox.shrink(),
                   ),

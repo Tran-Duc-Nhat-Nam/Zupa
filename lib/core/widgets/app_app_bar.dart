@@ -88,7 +88,7 @@ class _AppAppBarState extends State<AppAppBar> {
               icon: Icon(
                 widget.isClose == true
                     ? Symbols.close_rounded
-                    : Symbols.arrow_back_rounded,
+                    : Symbols.navigate_before_rounded,
                 color: colors.outline,
                 size: 32,
               ).withAppAnimation(),

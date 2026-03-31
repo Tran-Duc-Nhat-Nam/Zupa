@@ -8,7 +8,6 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
@@ -42,50 +41,42 @@ class _EmployeeManagementScreenState
                 padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: AppCard(
                   child: state.maybeMap(
-                    loaded: (params) => ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          AppListTile(
-                            leadingIcon: Symbols.settings_rounded,
-                            content: Row(
-                              spacing: 8,
-                              children: [
-                                Text(
-                                  params.employees[index].fullName,
-                                  style: AppTextStyles.bodyMediumMedium
-                                      .copyWith(
-                                        color: colorScheme.onSurfaceVariant,
-                                      ),
+                    loaded: (params) => AppList(
+                      spacing: 12,
+                      items: params.employees.map((employee) {
+                        return AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          content: Row(
+                            spacing: 8,
+                            children: [
+                              Text(
+                                employee.fullName,
+                                style: AppTextStyles.bodyMediumMedium.copyWith(
+                                  color: colorScheme.onSurfaceVariant,
                                 ),
-                                Icon(
-                                  Symbols.lock_rounded,
-                                  color: colorScheme.error,
-                                  size: 16,
-                                ),
-                              ],
-                            ),
-                            trailingIcon: Symbols.chevron_right_rounded,
-                            onTap: () =>
-                                context.pushRoute(ParkingDetailsRoute()),
-                          ).animateIn(
-                            key: ValueKey('employee_item_$index'),
-                            index: index,
-                            animate: state is Loading,
+                              ),
+                              Icon(
+                                Symbols.lock_rounded,
+                                color: colorScheme.error,
+                                size: 16,
+                              ),
+                            ],
                           ),
-                      separatorBuilder: (context, index) =>
-                          Divider(color: colorScheme.surfaceContainerHighest),
-                      itemCount: params.employees.length,
+                          trailingIcon: Symbols.chevron_right_rounded,
+                          onTap: () => context.pushRoute(ParkingDetailsRoute()),
+                        );
+                      }).toList(),
                     ),
-                    loading: (_) => ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const AppListTile(
-                        leadingIcon: Symbols.settings_rounded,
-                        text: 'Placeholder name',
-                        trailingIcon: Symbols.chevron_right_rounded,
+                    loading: (_) => AppList(
+                      spacing: 12,
+                      items: List.generate(
+                        3,
+                        (index) => const AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          text: 'Placeholder name',
+                          trailingIcon: Symbols.chevron_right_rounded,
+                        ),
                       ),
-                      separatorBuilder: (context, index) =>
-                          Divider(color: colorScheme.surfaceContainerHighest),
-                      itemCount: 3,
                     ),
                     orElse: () => const SizedBox.shrink(),
                   ),

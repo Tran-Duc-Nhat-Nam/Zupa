@@ -106,25 +106,29 @@ class ParkingDetailsScreen extends StatelessWidget {
                     ),
                     AppCard(
                       child: Column(
-                        spacing: 10,
+                        spacing: 12,
                         children: [
-                          AppListTile(
-                            padding: .zero,
-                            leadingIcon: Symbols.notifications_rounded,
-                            text: t.parking.warningThreshold.title,
-                            trailing: AppSwitch(
-                              formControl: formModel.isLockedControl,
-                              onToggle: (value, toggle) => value
-                                  ? toggle(false)
-                                  : DialogHelper.showModal(
-                                      context,
-                                      okText: t.common.actions.lock,
-                                      cancelText: t.common.actions.close,
-                                      type: .warning,
-                                      onOk: () => toggle(true),
-                                      onCancel: () => toggle(false),
-                                    ),
-                            ),
+                          AppList(
+                            padding: EdgeInsets.zero,
+                            items: [
+                              AppListItem(
+                                leadingIcon: Symbols.notifications_rounded,
+                                text: t.parking.warningThreshold.title,
+                                trailing: AppSwitch(
+                                  formControl: formModel.isLockedControl,
+                                  onToggle: (value, toggle) => value
+                                      ? toggle(false)
+                                      : DialogHelper.showModal(
+                                          context,
+                                          okText: t.common.actions.lock,
+                                          cancelText: t.common.actions.close,
+                                          type: AppDialogType.warning,
+                                          onOk: () => toggle(true),
+                                          onCancel: () => toggle(false),
+                                        ),
+                                ),
+                              ),
+                            ],
                           ),
                           Text(
                             t.parking.warningThreshold.subtitle,

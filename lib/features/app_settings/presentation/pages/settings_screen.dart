@@ -29,26 +29,26 @@ class SettingsScreen extends StatelessWidget {
           spacing: 10,
           children: [
             AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
-              child: Column(
+              clipBehavior: Clip.antiAlias,
+              padding: EdgeInsets.zero,
+              child: AppList(
                 spacing: 4,
-                children: [
-                  AppListTile(
+                items: [
+                  AppListItem(
                     leadingIcon: Symbols.home_rounded,
                     leadingColor: colorScheme.primary,
                     text: t.parking.areaConfig,
                     trailingIcon: Symbols.chevron_right_rounded,
                     onTap: () => context.pushRoute(const ParkingLotRoute()),
                   ),
-                  AppListTile(
+                  AppListItem(
                     leadingIcon: Symbols.calendar_add_on_rounded,
                     leadingColor: colorScheme.primary,
                     text: t.parking.memberVehicles,
                     trailingIcon: Symbols.chevron_right_rounded,
                     onTap: () => context.pushRoute(const MemberVehiclesRoute()),
                   ),
-                  AppListTile(
+                  AppListItem(
                     leadingIcon: Symbols.user_attributes_rounded,
                     leadingColor: colorScheme.primary,
                     text: t.parking.staff,
@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () =>
                         context.pushRoute(const EmployeeManagementRoute()),
                   ),
-                  AppListTile(
+                  AppListItem(
                     leadingIcon: Symbols.settings_applications_rounded,
                     leadingColor: colorScheme.primary,
                     text: t.settings.generalConfig,
@@ -67,36 +67,40 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
-              child: AppListTile(
-                leadingIcon: Symbols.lock_reset_rounded,
-                leadingColor: colorScheme.primary,
-                text: t.settings.changePassword,
-                trailingIcon: Symbols.chevron_right_rounded,
-                onTap: () => context.pushRoute(const ChangePasswordRoute()),
+              clipBehavior: Clip.antiAlias,
+              padding: EdgeInsets.zero,
+              child: AppList(
+                items: [
+                  AppListItem(
+                    leadingIcon: Symbols.lock_reset_rounded,
+                    leadingColor: colorScheme.primary,
+                    text: t.settings.changePassword,
+                    trailingIcon: Symbols.chevron_right_rounded,
+                    onTap: () => context.pushRoute(const ChangePasswordRoute()),
+                  ),
+                ],
               ),
             ),
             AppCard(
-              clipBehavior: .antiAlias,
-              padding: .zero,
-              child: Column(
-                children: [
-                  AppListTile(
+              clipBehavior: Clip.antiAlias,
+              padding: EdgeInsets.zero,
+              child: AppList(
+                items: [
+                  AppListItem(
                     leadingIcon: Symbols.settings_rounded,
                     text: t.settings.appSettings,
                     leadingColor: colorScheme.primary,
                     trailingIcon: Symbols.chevron_right_rounded,
                     onTap: () => context.pushRoute(const AppSettingsRoute()),
                   ),
-                  AppListTile(
+                  AppListItem(
                     leadingIcon: Symbols.info_rounded,
                     text: t.settings.aboutApp,
                     leadingColor: colorScheme.primary,
                     trailingIcon: Symbols.chevron_right_rounded,
                     onTap: () => context.pushRoute(const AboutAppRoute()),
                   ),
-                  AppListTile(
+                  AppListItem(
                     leadingIcon: Symbols.logout_rounded,
                     text: t.auth.logout.title,
                     leadingColor: colorScheme.error,
@@ -106,7 +110,7 @@ class SettingsScreen extends StatelessWidget {
                         context,
                         subtitleText: t.auth.logout.subtitle,
                         titleText: t.auth.logout.title,
-                        type: .warning,
+                        type: AppDialogType.warning,
                         okText: t.common.actions.ok,
                         cancelText: t.common.actions.cancel,
                         onOk: context.read<AuthCubit>().logOut,
