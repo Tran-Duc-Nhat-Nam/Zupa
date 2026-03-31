@@ -62,11 +62,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
         child: Padding(
           padding: const .symmetric(vertical: 16, horizontal: 24),
           child: Column(
-            spacing: 10,
+            spacing: 16,
             children: [
               AppCard(
                 child: Column(
-                  spacing: 10,
+                  spacing: 8,
                   children: [
                     BlocConsumer<LocalizationCubit, LocalizationState>(
                       listener: (context, state) {
@@ -279,55 +279,21 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     ),
                     BlocBuilder<AnimationCubit, AnimationState>(
                       builder: (context, state) {
-                        return SizedBox(
-                          height: 40,
-                          child: AppListTile(
-                            padding: .zero,
-                            leadingIcon: Symbols.animation_rounded,
-                            text: t.settings.animation,
-                            trailing: SizedBox(
-                              height: 20,
-                              child: Transform.scale(
-                                scale: 0.8,
-                                child: Switch(
-                                  padding: .zero,
-                                  materialTapTargetSize: .shrinkWrap,
-                                  thumbIcon:
-                                      WidgetStateProperty.resolveWith<Icon?>((
-                                        Set<WidgetState> states,
-                                      ) {
-                                        if (states.contains(
-                                          WidgetState.selected,
-                                        )) {
-                                          return const Icon(
-                                            Symbols.check_rounded,
-                                          );
-                                        }
-                                        return const Icon(
-                                          Symbols.close_rounded,
-                                        );
-                                      }),
-                                  thumbColor: WidgetStateProperty.all(
-                                    colorScheme.surface,
-                                  ),
-                                  inactiveTrackColor:
-                                      colorScheme.surfaceContainerHighest,
-                                  trackOutlineWidth:
-                                      const WidgetStatePropertyAll(0),
-                                  trackOutlineColor:
-                                      const WidgetStatePropertyAll(
-                                        WidgetStateColor.transparent,
-                                      ),
-                                  value: state.maybeWhen(
-                                    loaded: (isOn) => isOn,
-                                    orElse: () => true,
-                                  ),
-                                  onChanged: (value) => context
-                                      .read<AnimationCubit>()
-                                      .changeAnimationMode(value),
-                                ),
-                              ),
+                        return AppListTile(
+                          padding: .zero,
+                          leadingIcon: Symbols.animation_rounded,
+                          text: t.settings.animation,
+                          trailing: AppSwitch(
+                            initialValue: state.maybeWhen(
+                              loaded: (isOn) => isOn,
+                              orElse: () => true,
                             ),
+                            onToggle: (value, toggle) {
+                              toggle(value);
+                              context
+                                  .read<AnimationCubit>()
+                                  .changeAnimationMode(value);
+                            },
                           ),
                         );
                       },
@@ -335,50 +301,21 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     if (kDebugMode)
                       BlocBuilder<DebuggerCubit, DebuggerState>(
                         builder: (context, state) {
-                          return SizedBox(
-                            height: 40,
-                            child: AppListTile(
-                              padding: .zero,
-                              leadingIcon: Symbols.bug_report_rounded,
-                              text: t.settings.debuggerMode,
-                              trailing: SizedBox(
-                                height: 20,
-                                child: Transform.scale(
-                                  scale: 0.8,
-                                  child: Switch(
-                                    padding: .zero,
-                                    materialTapTargetSize: .shrinkWrap,
-                                    thumbIcon: .resolveWith<Icon?>((
-                                      Set<WidgetState> states,
-                                    ) {
-                                      if (states.contains(
-                                        WidgetState.selected,
-                                      )) {
-                                        return const .new(
-                                          Symbols.check_rounded,
-                                        );
-                                      }
-                                      return const .new(Symbols.close_rounded);
-                                    }),
-                                    thumbColor: .all(colorScheme.surface),
-                                    inactiveTrackColor:
-                                        colorScheme.surfaceContainerHighest,
-                                    trackOutlineWidth:
-                                        const WidgetStatePropertyAll(0),
-                                    trackOutlineColor:
-                                        const WidgetStatePropertyAll(
-                                          WidgetStateColor.transparent,
-                                        ),
-                                    value: state.maybeWhen(
-                                      loaded: (isOn) => isOn,
-                                      orElse: () => false,
-                                    ),
-                                    onChanged: (value) => context
-                                        .read<DebuggerCubit>()
-                                        .changeDebuggerMode(value),
-                                  ),
-                                ),
+                          return AppListTile(
+                            padding: .zero,
+                            leadingIcon: Symbols.bug_report_rounded,
+                            text: t.settings.debuggerMode,
+                            trailing: AppSwitch(
+                              initialValue: state.maybeWhen(
+                                loaded: (isOn) => isOn,
+                                orElse: () => false,
                               ),
+                              onToggle: (value, toggle) {
+                                toggle(value);
+                                context
+                                    .read<DebuggerCubit>()
+                                    .changeDebuggerMode(value);
+                              },
                             ),
                           );
                         },
@@ -390,60 +327,51 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                 builder: (context, state) {
                   return AppCard(
                     child: Column(
-                      spacing: 10,
+                      spacing: 8,
                       children: [
-                        SizedBox(
-                          height: 56,
-                          child: AppListTile(
-                            padding: .zero,
-                            leadingIcon: Symbols.dock_to_bottom_rounded,
-                            text: t.settings.enableFloatingNavbar,
-                            trailing: AppSwitch(
-                              formControl: context
-                                  .read<UICubit>()
-                                  .formModel
-                                  .isFloatingNavbarControl,
-                              onToggle: (value, toggle) {
-                                toggle(value);
-                                context.read<UICubit>().changeUIMode();
-                              },
-                            ),
+                        AppListTile(
+                          padding: .zero,
+                          leadingIcon: Symbols.dock_to_bottom_rounded,
+                          text: t.settings.enableFloatingNavbar,
+                          trailing: AppSwitch(
+                            formControl: context
+                                .read<UICubit>()
+                                .formModel
+                                .isFloatingNavbarControl,
+                            onToggle: (value, toggle) {
+                              toggle(value);
+                              context.read<UICubit>().changeUIMode();
+                            },
                           ),
                         ),
-                        SizedBox(
-                          height: 56,
-                          child: AppListTile(
-                            padding: .zero,
-                            leadingIcon: Symbols.label_rounded,
-                            text: t.settings.showNavbarLabel,
-                            trailing: AppSwitch(
-                              formControl: context
-                                  .read<UICubit>()
-                                  .formModel
-                                  .isShowNavbarLabelControl,
-                              onToggle: (value, toggle) {
-                                toggle(value);
-                                context.read<UICubit>().changeUIMode();
-                              },
-                            ),
+                        AppListTile(
+                          padding: .zero,
+                          leadingIcon: Symbols.label_rounded,
+                          text: t.settings.showNavbarLabel,
+                          trailing: AppSwitch(
+                            formControl: context
+                                .read<UICubit>()
+                                .formModel
+                                .isShowNavbarLabelControl,
+                            onToggle: (value, toggle) {
+                              toggle(value);
+                              context.read<UICubit>().changeUIMode();
+                            },
                           ),
                         ),
-                        SizedBox(
-                          height: 56,
-                          child: AppListTile(
-                            padding: .zero,
-                            leadingIcon: Symbols.blur_circular_rounded,
-                            text: t.settings.enableGlassmorphism,
-                            trailing: AppSwitch(
-                              formControl: context
-                                  .read<UICubit>()
-                                  .formModel
-                                  .isGlassmorphismControl,
-                              onToggle: (value, toggle) {
-                                toggle(value);
-                                context.read<UICubit>().changeUIMode();
-                              },
-                            ),
+                        AppListTile(
+                          padding: .zero,
+                          leadingIcon: Symbols.blur_circular_rounded,
+                          text: t.settings.enableGlassmorphism,
+                          trailing: AppSwitch(
+                            formControl: context
+                                .read<UICubit>()
+                                .formModel
+                                .isGlassmorphismControl,
+                            onToggle: (value, toggle) {
+                              toggle(value);
+                              context.read<UICubit>().changeUIMode();
+                            },
                           ),
                         ),
                       ],

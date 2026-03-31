@@ -40,29 +40,35 @@ class AppListTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: borderRadius,
-        child: Padding(
-          padding: padding ?? const .all(16),
-          child: Row(
-            spacing: 12,
-            children: [
-              if (leading != null || leadingIcon != null)
-                leading ??
-                    Icon(leadingIcon, color: leadingColor ?? colors.primary),
-              Expanded(
-                child: text != null || content != null
-                    ? content ??
-                          Text(
-                            text!,
-                            style: AppTextStyles.bodyMediumMedium.copyWith(
-                              color: color ?? colors.onSurface,
-                            ),
-                          )
-                    : const SizedBox(),
-              ),
-              if (trailing != null || trailingIcon != null)
-                trailing ??
-                    Icon(trailingIcon, color: trailingColor ?? colors.outline),
-            ],
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 48),
+          child: Padding(
+            padding: padding ?? const .all(16),
+            child: Row(
+              spacing: 12,
+              children: [
+                if (leading != null || leadingIcon != null)
+                  leading ??
+                      Icon(leadingIcon, color: leadingColor ?? colors.primary),
+                Expanded(
+                  child: text != null || content != null
+                      ? content ??
+                            Text(
+                              text!,
+                              style: AppTextStyles.bodyMediumMedium.copyWith(
+                                color: color ?? colors.onSurface,
+                              ),
+                            )
+                      : const SizedBox(),
+                ),
+                if (trailing != null || trailingIcon != null)
+                  trailing ??
+                      Icon(
+                        trailingIcon,
+                        color: trailingColor ?? colors.outline,
+                      ),
+              ],
+            ),
           ),
         ),
       ),
