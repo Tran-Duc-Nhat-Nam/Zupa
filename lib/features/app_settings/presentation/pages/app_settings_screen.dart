@@ -393,7 +393,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                       spacing: 10,
                       children: [
                         SizedBox(
-                          height: 40,
+                          height: 56,
                           child: AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.dock_to_bottom_rounded,
@@ -411,7 +411,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 56,
                           child: AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.label_rounded,
@@ -429,7 +429,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 56,
                           child: AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.blur_circular_rounded,

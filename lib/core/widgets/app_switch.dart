@@ -38,22 +38,23 @@ class AppSwitch extends StatelessWidget {
             borderRadius: isLoading ? .circular(16) : .zero,
           ),
           child: Skeleton.replace(
-            width: 50,
-            height: 30,
+            width: 52,
+            height: 32,
             child: SizedBox(
-              width: 50, // Fixed width to match previous dimensions
-              child: AnimatedToggleSwitch<bool>.rolling(
+              width: 52,
+              child: AnimatedToggleSwitch<bool>.dual(
+                first: false,
+                second: true,
                 current: currentValue,
-                values: const [false, true],
-                height: 30,
-                // Dynamic styling based on the state (True/False)
+                height: 32,
+                indicatorSize: const Size(24, 24) ,
+                spacing: 0,
                 styleBuilder: (value) => ToggleStyle(
                   indicatorColor: colorScheme.surface,
                   backgroundColor: value
                       ? colorScheme.primary
-                      : colorScheme.outline,
+                      : colorScheme.outlineVariant,
                   borderRadius: .circular(16),
-                  // Half of height for pill shape
                   borderColor: Colors.transparent,
                 ),
 
