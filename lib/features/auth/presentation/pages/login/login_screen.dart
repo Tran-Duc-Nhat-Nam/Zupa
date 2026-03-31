@@ -46,7 +46,6 @@ class _LoginScreenState extends AppState<LoginScreen> {
         builder: (context, state) {
           final formModel = context.read<LoginCubit>().formModel;
           return AppScreen(
-            hasSafeBottomArea: false,
             hasAppBar: false,
             resizeToAvoidBottomInset: true,
             child: Padding(

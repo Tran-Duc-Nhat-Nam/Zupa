@@ -8,7 +8,6 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -37,51 +36,45 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
               enabled: state is Loading,
               child: Padding(
                 padding: const .symmetric(vertical: 16, horizontal: 24),
-                child: AppCard(
-                  child: state.maybeMap(
-                    loaded: (params) => AppList(
-                      spacing: 12,
-                      items: params.parkingLots
-                          .map((lot) {
-                        return AppListItem(
-                          leadingIcon: Symbols.settings_rounded,
-                          content: Row(
-                            spacing: 8,
-                            children: [
-                              Text(
-                                lot.name,
-                                style: AppTextStyles.bodyMediumMedium
-                                    .copyWith(color: colors.onSurfaceVariant),
+                child: state.maybeMap(
+                  loaded: (params) => AppList(
+                    items: params.parkingLots.map((lot) {
+                      return AppListItem(
+                        leadingIcon: Symbols.settings_rounded,
+                        content: Row(
+                          spacing: 8,
+                          children: [
+                            Text(
+                              lot.name,
+                              style: AppTextStyles.bodyMediumMedium.copyWith(
+                                color: colors.onSurfaceVariant,
                               ),
-                              Icon(
-                                Symbols.lock_rounded,
-                                color: colors.error,
-                                size: 16,
-                              ),
-                            ],
-                          ),
-                          trailingIcon: Symbols.chevron_right_rounded,
-                          onTap: () => context.pushRoute(
-                            ParkingDetailsRoute(
-                              parkingLot: lot,
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    loading: (_) => AppList(
-                      spacing: 12,
-                      items: List.generate(
-                        3,
-                        (index) => const AppListItem(
-                          leadingIcon: Symbols.settings_rounded,
-                          text: 'Placeholder name',
-                          trailingIcon: Symbols.chevron_right_rounded,
+                            Icon(
+                              Symbols.lock_rounded,
+                              color: colors.error,
+                              size: 16,
+                            ),
+                          ],
                         ),
+                        trailingIcon: Symbols.chevron_right_rounded,
+                        onTap: () => context.pushRoute(
+                          ParkingDetailsRoute(parkingLot: lot),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  loading: (_) => AppList(
+                    items: List.generate(
+                      3,
+                      (index) => const AppListItem(
+                        leadingIcon: Symbols.settings_rounded,
+                        text: 'Placeholder name',
+                        trailingIcon: Symbols.chevron_right_rounded,
                       ),
                     ),
-                    orElse: () => const SizedBox.shrink(),
                   ),
+                  orElse: () => const SizedBox.shrink(),
                 ),
               ),
             );

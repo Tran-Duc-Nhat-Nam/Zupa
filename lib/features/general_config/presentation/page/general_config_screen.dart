@@ -9,7 +9,6 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
@@ -41,34 +40,35 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                 child: Column(
                   spacing: 10,
                   children: [
-                    AppCard(
-                      delay: const Duration(milliseconds: 100),
-                      padding: EdgeInsets.zero,
-                      child: AppList(
-                        items: [
-                          AppListItem(
-                            leadingIcon: Symbols.settings_rounded,
-                            text: t.parking.price,
-                            trailingIcon: Symbols.chevron_right_rounded,
-                            onTap: () => context.pushRoute(
-                              const ParkingPriceSettingRoute(),
-                            ),
+                    AppList(
+                      items: [
+                        AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          text: t.parking.price,
+                          trailingIcon: Symbols.chevron_right_rounded,
+                          onTap: () => context.pushRoute(
+                            const ParkingPriceSettingRoute(),
                           ),
-                          AppListItem(
-                            leadingIcon: Symbols.calendar_add_on_rounded,
-                            text: t.parking.memberFee,
-                            trailingIcon: Symbols.chevron_right_rounded,
-                            onTap: () =>
-                                context.pushRoute(const MemberFeeSetingRoute()),
-                          ),
-                        ],
-                      ),
+                        ),
+                        AppListItem(
+                          leadingIcon: Symbols.calendar_add_on_rounded,
+                          text: t.parking.memberFee,
+                          trailingIcon: Symbols.chevron_right_rounded,
+                          onTap: () =>
+                              context.pushRoute(const MemberFeeSetingRoute()),
+                        ),
+                      ],
                     ),
-                    AppCard(
-                      delay: const Duration(milliseconds: 200),
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).surfaceContainerLow,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           AppList(
+                            segmented: false,
                             padding: EdgeInsets.zero,
                             items: [
                               AppListItem(
@@ -118,29 +118,45 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                   loaded: (isWarning, _) => isWarning,
                                   orElse: () => false,
                                 )
-                                ? Column(
-                                    key: const ValueKey('threshold_fields'),
-                                    children: [
-                                      const SizedBox(height: 24),
-                                      AppTextField(
-                                        formControl: context
-                                            .read<GeneralConfigCubit>()
-                                            .formModel
-                                            .warningThresholdControl,
-                                        hintText: t.common.errors.enterInteger,
-                                        required: true,
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        t.parking.warningThreshold.subtitle,
-                                        style: AppTextStyles.bodySmallMedium
-                                            .copyWith(
-                                              color: AppColors.of(
-                                                context,
-                                              ).outline,
-                                            ),
-                                      ),
-                                    ],
+                                ? Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      16,
+                                      0,
+                                      16,
+                                      16,
+                                    ),
+                                    child: Column(
+                                      key: const ValueKey('threshold_fields'),
+                                      children: [
+                                        Divider(
+                                          height: 1,
+                                          thickness: 1,
+                                          color: AppColors.of(
+                                            context,
+                                          ).outlineVariant.withAlpha(100),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        AppTextField(
+                                          formControl: context
+                                              .read<GeneralConfigCubit>()
+                                              .formModel
+                                              .warningThresholdControl,
+                                          hintText:
+                                              t.common.errors.enterInteger,
+                                          required: true,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          t.parking.warningThreshold.subtitle,
+                                          style: AppTextStyles.bodySmallMedium
+                                              .copyWith(
+                                                color: AppColors.of(
+                                                  context,
+                                                ).outline,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 : const SizedBox.shrink(
                                     key: ValueKey('threshold_empty'),

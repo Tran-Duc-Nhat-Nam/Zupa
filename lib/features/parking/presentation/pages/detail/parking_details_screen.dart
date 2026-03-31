@@ -9,7 +9,6 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
-import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
@@ -47,12 +46,23 @@ class ParkingDetailsScreen extends StatelessWidget {
                 padding: const .symmetric(vertical: 16, horizontal: 24),
                 child: Column(
                   children: [
-                    AppCard(
+                    Container(
+                      padding: const .all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).surfaceContainerLow,
+                        borderRadius: .circular(16),
+                      ),
                       child: Column(
                         crossAxisAlignment: .start,
-                        spacing: 8,
+                        spacing: 12,
                         children: [
-                          Text(t.common.info.info),
+                          Text(
+                            t.common.info.info,
+                            style: AppTextStyles.titleSmallBold.copyWith(
+                              color: AppColors.of(context).onSurfaceVariant,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
                           AppTextField(
                             formControl: formModel.branchNameControl,
                             labelText: t.settings.profile.branchName,
@@ -66,49 +76,68 @@ class ParkingDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    AppCard(
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const .all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).surfaceContainerLow,
+                        borderRadius: .circular(16),
+                      ),
                       child: Column(
                         crossAxisAlignment: .start,
                         spacing: 8,
                         children: [
-                          Text(t.parking.capacity),
+                          Text(
+                            t.parking.capacity,
+                            style: AppTextStyles.titleSmallBold.copyWith(
+                              color: AppColors.of(context).onSurfaceVariant,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
                           ...state.maybeMap(
-                            loaded: (params) => params.parkingLot.capacity
-                                .map(
-                                  (e) => AppTextField(
+                            loaded:
+                                (params) => params.parkingLot.capacity
+                                    .map(
+                                      (e) => AppTextField(
+                                        formControl: formModel
+                                            .capacityParkingLotCapacityForm[params
+                                                .parkingLot
+                                                .capacity
+                                                .indexOf(e)]
+                                            .capacityControl,
+                                        labelText:
+                                            t['vehicles.${e.vehicleType.name}'] ??
+                                            e.vehicleType.name,
+                                        isExternalLabel: true,
+                                      ),
+                                    )
+                                    .toList(),
+                            loading:
+                                (_) => List.generate(
+                                  3,
+                                  (index) => AppTextField(
                                     formControl: formModel
-                                        .capacityParkingLotCapacityForm[params
-                                            .parkingLot
-                                            .capacity
-                                            .indexOf(e)]
+                                        .capacityParkingLotCapacityForm[index]
                                         .capacityControl,
-                                    labelText:
-                                        t['vehicles.${e.vehicleType.name}'] ??
-                                        e.vehicleType.name,
+                                    labelText: vehicleTypes[index].name,
                                     isExternalLabel: true,
                                   ),
-                                )
-                                .toList(),
-                            loading: (_) => List.generate(
-                              3,
-                              (index) => AppTextField(
-                                formControl: formModel
-                                    .capacityParkingLotCapacityForm[index]
-                                    .capacityControl,
-                                labelText: vehicleTypes[index].name,
-                                isExternalLabel: true,
-                              ),
-                            ),
+                                ),
                             orElse: () => [],
                           ),
                         ],
                       ),
                     ),
-                    AppCard(
+                    const SizedBox(height: 16),
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).surfaceContainerLow,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: Column(
-                        spacing: 12,
                         children: [
                           AppList(
+                            segmented: false,
                             padding: EdgeInsets.zero,
                             items: [
                               AppListItem(
@@ -116,24 +145,42 @@ class ParkingDetailsScreen extends StatelessWidget {
                                 text: t.parking.warningThreshold.title,
                                 trailing: AppSwitch(
                                   formControl: formModel.isLockedControl,
-                                  onToggle: (value, toggle) => value
-                                      ? toggle(false)
-                                      : DialogHelper.showModal(
-                                          context,
-                                          okText: t.common.actions.lock,
-                                          cancelText: t.common.actions.close,
-                                          type: AppDialogType.warning,
-                                          onOk: () => toggle(true),
-                                          onCancel: () => toggle(false),
-                                        ),
+                                  onToggle:
+                                      (value, toggle) =>
+                                          value
+                                              ? toggle(false)
+                                              : DialogHelper.showModal(
+                                                context,
+                                                okText: t.common.actions.lock,
+                                                cancelText:
+                                                    t.common.actions.close,
+                                                type: AppDialogType.warning,
+                                                onOk: () => toggle(true),
+                                                onCancel: () => toggle(false),
+                                              ),
                                 ),
                               ),
                             ],
                           ),
-                          Text(
-                            t.parking.warningThreshold.subtitle,
-                            style: AppTextStyles.bodySmallMedium.copyWith(
-                              color: AppColors.of(context).outline,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                            child: Column(
+                              children: [
+                                Divider(
+                                  height: 1,
+                                  thickness: 1,
+                                  color: AppColors.of(
+                                    context,
+                                  ).outlineVariant.withAlpha(100),
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  t.parking.warningThreshold.subtitle,
+                                  style: AppTextStyles.bodySmallMedium.copyWith(
+                                    color: AppColors.of(context).outline,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

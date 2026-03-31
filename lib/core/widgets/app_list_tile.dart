@@ -38,27 +38,48 @@ class AppList extends StatelessWidget {
   final List<AppListItem> items;
   final double spacing;
   final EdgeInsetsGeometry? padding;
+  final bool segmented;
 
   const AppList({
     super.key,
     required this.items,
-    this.spacing = 8,
+    this.spacing = 4,
     this.padding,
+    this.segmented = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding ?? EdgeInsets.zero,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: items.asMap().entries.map((entry) {
-          final index = entry.key;
-          final item = entry.value;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppListTile(
+    final colors = AppColors.of(context);
+
+    Widget content = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: items.asMap().entries.map((entry) {
+        final index = entry.key;
+        final item = entry.value;
+        final isFirst = index == 0;
+        final isLast = index == items.length - 1;
+
+        final itemBorderRadius =
+            item.borderRadius ??
+            (segmented
+                ? .vertical(
+                    top: isFirst ? const .circular(16) : const .circular(8),
+                    bottom: isLast ? const .circular(16) : const .circular(8),
+                  )
+                : null);
+
+        return Column(
+          mainAxisSize: .min,
+          children: [
+            DecoratedBox(
+              decoration: (segmented && spacing > 0)
+                  ? BoxDecoration(
+                      color: colors.surfaceContainerLow,
+                      borderRadius: itemBorderRadius,
+                    )
+                  : const BoxDecoration(),
+              child: AppListTile(
                 leading: item.leading,
                 leadingIcon: item.leadingIcon,
                 trailing: item.trailing,
@@ -70,14 +91,35 @@ class AppList extends StatelessWidget {
                 leadingColor: item.leadingColor,
                 trailingColor: item.trailingColor,
                 padding: item.padding,
-                borderRadius: item.borderRadius,
+                borderRadius: itemBorderRadius,
               ),
-              if (index < items.length - 1) SizedBox(height: spacing),
+            ),
+            if (index < items.length - 1) ...[
+              if (spacing > 0)
+                SizedBox(height: spacing)
+              else if (segmented)
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: colors.outlineVariant.withAlpha(100),
+                ),
             ],
-          );
-        }).toList(),
-      ),
+          ],
+        );
+      }).toList(),
     );
+
+    if (segmented && spacing == 0) {
+      content = DecoratedBox(
+        decoration: BoxDecoration(
+          color: colors.surfaceContainerLow,
+          borderRadius: .circular(16),
+        ),
+        child: content,
+      );
+    }
+
+    return Padding(padding: padding ?? EdgeInsets.zero, child: content);
   }
 }
 
@@ -115,16 +157,20 @@ class AppListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
+    final tileBorderRadius = borderRadius ?? BorderRadius.circular(12);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: borderRadius ?? BorderRadius.circular(12),
+        borderRadius: tileBorderRadius,
         splashColor: colors.primary.withAlpha(20),
         highlightColor: colors.primary.withAlpha(10),
         child: Container(
           constraints: const BoxConstraints(minHeight: 56),
-          padding: padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding:
+              padding ??
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             children: [
               if (leading != null || leadingIcon != null) ...[
@@ -139,12 +185,12 @@ class AppListTile extends StatelessWidget {
               Expanded(
                 child: text != null || content != null
                     ? content ??
-                        Text(
-                          text!,
-                          style: AppTextStyles.titleMedium.copyWith(
-                            color: color ?? colors.onSurface,
-                          ),
-                        )
+                          Text(
+                            text!,
+                            style: AppTextStyles.titleMedium.copyWith(
+                              color: color ?? colors.onSurface,
+                            ),
+                          )
                     : const SizedBox(),
               ),
               if (trailing != null || trailingIcon != null) ...[

@@ -8,7 +8,6 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -39,47 +38,43 @@ class _EmployeeManagementScreenState
               enabled: state is Loading,
               child: Padding(
                 padding: const .symmetric(vertical: 16, horizontal: 24),
-                child: AppCard(
-                  child: state.maybeMap(
-                    loaded: (params) => AppList(
-                      spacing: 12,
-                      items: params.employees.map((employee) {
-                        return AppListItem(
-                          leadingIcon: Symbols.settings_rounded,
-                          content: Row(
-                            spacing: 8,
-                            children: [
-                              Text(
-                                employee.fullName,
-                                style: AppTextStyles.bodyMediumMedium.copyWith(
-                                  color: colorScheme.onSurfaceVariant,
-                                ),
+                child: state.maybeMap(
+                  loaded: (params) => AppList(
+                    items: params.employees.map((employee) {
+                      return AppListItem(
+                        leadingIcon: Symbols.settings_rounded,
+                        content: Row(
+                          spacing: 8,
+                          children: [
+                            Text(
+                              employee.fullName,
+                              style: AppTextStyles.bodyMediumMedium.copyWith(
+                                color: colorScheme.onSurfaceVariant,
                               ),
-                              Icon(
-                                Symbols.lock_rounded,
-                                color: colorScheme.error,
-                                size: 16,
-                              ),
-                            ],
-                          ),
-                          trailingIcon: Symbols.chevron_right_rounded,
-                          onTap: () => context.pushRoute(ParkingDetailsRoute()),
-                        );
-                      }).toList(),
-                    ),
-                    loading: (_) => AppList(
-                      spacing: 12,
-                      items: List.generate(
-                        3,
-                        (index) => const AppListItem(
-                          leadingIcon: Symbols.settings_rounded,
-                          text: 'Placeholder name',
-                          trailingIcon: Symbols.chevron_right_rounded,
+                            ),
+                            Icon(
+                              Symbols.lock_rounded,
+                              color: colorScheme.error,
+                              size: 16,
+                            ),
+                          ],
                         ),
+                        trailingIcon: Symbols.chevron_right_rounded,
+                        onTap: () => context.pushRoute(ParkingDetailsRoute()),
+                      );
+                    }).toList(),
+                  ),
+                  loading: (_) => AppList(
+                    items: List.generate(
+                      3,
+                      (index) => const AppListItem(
+                        leadingIcon: Symbols.settings_rounded,
+                        text: 'Placeholder name',
+                        trailingIcon: Symbols.chevron_right_rounded,
                       ),
                     ),
-                    orElse: () => const SizedBox.shrink(),
                   ),
+                  orElse: () => const SizedBox.shrink(),
                 ),
               ),
             );
