@@ -397,7 +397,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           child: AppListTile(
                             padding: .zero,
                             leadingIcon: Symbols.dock_to_bottom_rounded,
-                            text: t.settings.floatingNavbar,
+                            text: t.settings.enableFloatingNavbar,
                             trailing: AppSwitch(
                               formControl: context
                                   .read<UICubit>()
@@ -421,6 +421,24 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                   .read<UICubit>()
                                   .formModel
                                   .isShowNavbarLabelControl,
+                              onToggle: (value, toggle) {
+                                toggle(value);
+                                context.read<UICubit>().changeUIMode();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          child: AppListTile(
+                            padding: .zero,
+                            leadingIcon: Symbols.blur_circular_rounded,
+                            text: t.settings.enableGlassmorphism,
+                            trailing: AppSwitch(
+                              formControl: context
+                                  .read<UICubit>()
+                                  .formModel
+                                  .isGlassmorphismControl,
                               onToggle: (value, toggle) {
                                 toggle(value);
                                 context.read<UICubit>().changeUIMode();

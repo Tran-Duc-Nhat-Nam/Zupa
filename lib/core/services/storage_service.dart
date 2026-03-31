@@ -177,6 +177,10 @@ class StorageService {
       'isShowNavbarLabel',
       settings.isShowNavbarLabel,
     );
+    await _sharedPreferences.setBool(
+      'isGlassmorphism',
+      settings.isGlassmorphism,
+    );
   }
 
   Future<UISettingsEntity> getUISettings() async {
@@ -185,6 +189,8 @@ class StorageService {
           await _sharedPreferences.getBool('isFloatingNavBar') ?? false,
       isShowNavbarLabel:
           await _sharedPreferences.getBool('isShowNavbarLabel') ?? false,
+      isGlassmorphism:
+          await _sharedPreferences.getBool('isGlassmorphism') ?? false,
     );
   }
 

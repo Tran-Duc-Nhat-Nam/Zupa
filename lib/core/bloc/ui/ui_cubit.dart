@@ -12,7 +12,11 @@ part 'ui_state.dart';
 class UICubit extends Cubit<UIState> {
   final formModel = UISettingsForm(
     UISettingsForm.formElements(
-      UISettings(isFloatingNavbar: false, isShowNavbarLabel: false),
+      UISettings(
+        isFloatingNavbar: false,
+        isShowNavbarLabel: false,
+        isGlassmorphism: false,
+      ),
     ),
     null,
     null,
@@ -29,6 +33,7 @@ class UICubit extends Cubit<UIState> {
       UISettings(
         isFloatingNavbar: settings.isFloatingNavbar,
         isShowNavbarLabel: settings.isShowNavbarLabel,
+        isGlassmorphism: settings.isGlassmorphism,
       ),
     );
   }
@@ -37,6 +42,7 @@ class UICubit extends Cubit<UIState> {
     final settings = UISettingsEntity(
       isFloatingNavbar: formModel.isFloatingNavbarControl.value ?? true,
       isShowNavbarLabel: formModel.isShowNavbarLabelControl.value ?? true,
+      isGlassmorphism: formModel.isGlassmorphismControl.value ?? true,
     );
     _storageService.setUISettings(settings);
     emit(.loaded(settings: settings));

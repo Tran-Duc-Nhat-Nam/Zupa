@@ -25,7 +25,7 @@ class AppScreen extends StatefulWidget {
     this.hasDrawer = false,
     this.isChildScrollable = false,
     this.resizeToAvoidBottomInset = false,
-    this.hasSafeBottomArea = true,
+    this.hasSafeBottomArea = false,
     this.hasSafeTopArea = true,
     this.noBackground = false,
     this.backgroundColor,

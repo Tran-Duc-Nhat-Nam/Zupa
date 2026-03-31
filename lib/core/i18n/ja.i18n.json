@@ -299,8 +299,9 @@
     "tonal": "トーン",
     "dynamicColor": "ダイナミックカラー",
     "debuggerMode": "デバッグモード",
-    "floatingNavbar": "フローティングナビゲーションバー",
+    "enableFloatingNavbar": "フローティングナビゲーションバーを有効にする",
     "showNavbarLabel": "ナビゲーションラベルを表示",
+    "enableGlassmorphism": "グラスモーフィズム効果を有効にする",
     "profile": {
       "name": "名前",
       "changeName": "名前を変更",

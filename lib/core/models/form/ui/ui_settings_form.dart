@@ -6,9 +6,11 @@ part 'ui_settings_form.gform.dart';
 class UISettings {
   final bool isFloatingNavbar;
   final bool isShowNavbarLabel;
+  final bool isGlassmorphism;
 
   UISettings({
     @RfControl() required this.isFloatingNavbar,
     @RfControl() required this.isShowNavbarLabel,
+    @RfControl() required this.isGlassmorphism,
   });
 }

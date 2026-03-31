@@ -306,8 +306,9 @@
     "dynamicColor": "Dynamic color",
     "animation": "App Animations",
     "debuggerMode": "Debugging mode",
-    "floatingNavbar": "Floating bottom navbar",
+    "enableFloatingNavbar": "Enable floating bottom navbar",
     "showNavbarLabel": "Show navbar label",
+    "enableGlassmorphism": "Enable glassmorphism effect",
     "profile": {
       "name": "Name",
       "changeName": "Change name",
