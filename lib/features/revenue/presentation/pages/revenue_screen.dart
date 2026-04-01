@@ -265,8 +265,7 @@ class _RevenueChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = AppColors.of(context);
 
     if (items.isEmpty) return const SizedBox.shrink();
 

@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.7.1+31
+version: 0.7.2+32
 
 environment:
   sdk: ^3.11.4
@@ -64,7 +64,7 @@ dependencies:
   dart_date: ^1.5.3
   envied: ^1.3.4
   flutter_secure_storage: ^10.0.0
-  material_symbols_icons: ^4.2928.0
+  material_symbols_icons: ^4.2928.1
   path_provider: ^2.1.5
   dynamic_color: ^1.8.1
   material_color_utilities: ^0.13.0

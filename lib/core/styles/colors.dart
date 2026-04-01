@@ -286,7 +286,7 @@ class DynamicAppColors extends AppColors {
     final targetTone = isDark ? darkTone.toInt() : lightTone.toInt();
 
     final hct = Hct.fromInt(scheme.surface.toARGB32());
-    final TonalPalette neutralPalette = TonalPalette.of(hct.hue, hct.chroma);
+    final  neutralPalette = TonalPalette.of(hct.hue, hct.chroma);
     return Color(neutralPalette.get(targetTone).toInt());
   }
 

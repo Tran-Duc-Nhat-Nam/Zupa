@@ -98,9 +98,8 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                     dropdownItems: vehicleTypes,
                     hint: t.common.actions.choose,
                     itemLabelGetter: (vehicle) => vehicle != null
-                        ? t['vehicles.${vehicle.name}'] ??
-                              t.common.errors.unknown
-                        : t.common.errors.unknown,
+                        ? t['vehicles.${vehicle.name}'] ?? vehicle.name
+                        : t.common.errors.noData_search,
                   ),
                   AppTextField(
                     formControl: formModel.ticketIDControl,
@@ -115,7 +114,7 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                       Duration(days: 60),
                     ],
                     hint: t.common.actions.choose,
-                    itemLabelGetter: (value) => value?.inDays.toString() ?? t.common.errors.unknown,
+                    itemLabelGetter: (value) => value?.inDays.toString() ?? '0',
                   ),
                 ],
               ),

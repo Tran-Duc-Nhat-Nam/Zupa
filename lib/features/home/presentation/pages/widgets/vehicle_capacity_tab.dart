@@ -36,6 +36,7 @@ class VehicleCapacityTab extends StatelessWidget {
                                       vehicleTypes[index].icon,
                                     ) ??
                                     Symbols.globe_rounded,
+                                color: vehicleTypes[index].color,
                                 name: vehicleTypes[index].value,
                                 current: 65 + index * 20,
                                 capacity: 120,

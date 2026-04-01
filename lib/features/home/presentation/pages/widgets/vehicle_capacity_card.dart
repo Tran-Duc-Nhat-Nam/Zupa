@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -37,7 +38,7 @@ class BorderPainter extends CustomPainter {
   }
 }
 
-class VehicleCapacityCard extends StatefulWidget {
+class VehicleCapacityCard extends StatelessWidget {
   const VehicleCapacityCard({
     super.key,
     required this.icon,
@@ -48,6 +49,7 @@ class VehicleCapacityCard extends StatefulWidget {
     this.isSelected = false,
     this.isDisabled = false,
     this.onPressed,
+    this.color,
   });
 
   final IconData icon;
@@ -57,50 +59,47 @@ class VehicleCapacityCard extends StatefulWidget {
   final bool isWarning;
   final bool isSelected;
   final bool isDisabled;
+
+  final Color? color;
   final void Function()? onPressed;
 
-  @override
-  State<VehicleCapacityCard> createState() => _VehicleCapacityCardState();
-}
-
-class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    final double value = widget.capacity != null && (widget.capacity!) >= 0
-        ? (widget.current / widget.capacity!) * 2
+    final double value = capacity != null && (capacity!) >= 0
+        ? (current / capacity!) * 2
         : 1;
 
     return AppCard(
       padding: const .all(8),
       decoration: BoxDecoration(
-        color: widget.isSelected
+        color: isSelected
             ? colors.primaryContainer
             : colors.primaryContainer.withAlpha(155),
         borderRadius: const .all(Radius.circular(100)),
       ),
       child: AspectRatio(
-        aspectRatio: 1, // <--- 1. Enforces a 1:1 square/circle ratio
+        aspectRatio: 1,
         child: AnimatedOpacity(
-          duration: const .new(milliseconds: 350),
-          opacity: widget.isDisabled ? 0.5 : 1,
+          duration: const .new(milliseconds: 500),
+          opacity: isDisabled ? 0.5 : 1,
           child: CustomPaint(
             painter: BorderPainter(
               currentState: value,
-              color: widget.current >= (widget.capacity ?? 0)
+              color: current >= (capacity ?? 0)
                   ? colors.error
-                  : widget.isWarning
+                  : isWarning
                   ? colors.warning
                   : colors.success,
             ),
             child: InkWell(
               customBorder:
-                  const CircleBorder(), // <--- 3. Ensures ripple effect is circular
-              onTap: widget.isDisabled ? null : widget.onPressed,
+                  const CircleBorder(),
+              onTap: isDisabled ? null : onPressed,
               child: Column(
                 mainAxisAlignment:
-                    .center, // <--- 4. Centers content vertically
+                    .center,
                 children: [
                   Container(
                     clipBehavior: .antiAlias,
@@ -111,22 +110,24 @@ class _VehicleCapacityCardState extends State<VehicleCapacityCard> {
                       child: Container(
                         padding: const .all(6),
                         child: Icon(
-                          widget.icon,
+                          icon,
                           size: 24,
-                          color: colors.primary,
+                          color:
+                              color?.harmonizeWith(colors.primary) ??
+                              colors.primary,
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 5), // Spacing between Icon and Text
                   Text(
-                    widget.capacity != null && widget.capacity! >= 0
-                        ? (widget.capacity! - widget.current).toString()
+                    capacity != null && capacity! >= 0
+                        ? (capacity! - current).toString()
                         : '${(value * 100).toInt()}%',
                     style: AppTextStyles.headlineSmallBold.copyWith(
-                      color: widget.current >= (widget.capacity ?? 0)
+                      color: current >= (capacity ?? 0)
                           ? colors.error
-                          : widget.isWarning
+                          : isWarning
                           ? colors.warning
                           : colors.success,
                     ),
