@@ -69,13 +69,12 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                     builder: (context, themeState) {
                       return BlocBuilder<AnimationCubit, AnimationState>(
                         builder: (context, animationState) {
-                          return BlocBuilder<DebuggerCubit, DebuggerState>(
-                            builder: (context, debuggerState) {
-                              final themeSettings = themeState.maybeWhen(
-                                loaded: (s) => s,
-                                orElse: () => ThemeSettings(),
-                              );
-                              return Column(
+                          Widget buildContent(DebuggerState? debuggerState) {
+                            final themeSettings = themeState.maybeWhen(
+                              loaded: (s) => s,
+                              orElse: () => ThemeSettings(),
+                            );
+                            return Column(
                                 children: [
                                   AppList(
                                     items: [
@@ -123,7 +122,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                             ),
                                       ),
                                       AppListItem(
-                                        
                                         leadingIcon: Symbols.lightbulb_rounded,
                                         text: t.settings.theme,
                                         trailing:
@@ -151,7 +149,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                             ),
                                       ),
                                       AppListItem(
-                                        
                                         leadingIcon: Symbols.palette_rounded,
                                         text: t.settings.colorScheme,
                                         trailing:
@@ -184,7 +181,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                             ),
                                       ),
                                       AppListItem(
-                                        
+
                                         leadingIcon: Symbols.animation_rounded,
                                         text: t.settings.animation,
                                         trailing: AppSwitch(
@@ -203,15 +200,16 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                       ),
                                       if (kDebugMode)
                                         AppListItem(
-                                          
+
                                           leadingIcon: Symbols.bug_report_rounded,
                                           text: t.settings.debuggerMode,
                                           trailing: AppSwitch(
                                             initialValue: debuggerState
-                                                .maybeWhen(
-                                                  loaded: (isOn) => isOn,
-                                                  orElse: () => false,
-                                                ),
+                                                    ?.maybeWhen(
+                                                      loaded: (isOn) => isOn,
+                                                      orElse: () => false,
+                                                    ) ??
+                                                false,
                                             onToggle: (value, toggle) {
                                               toggle(value);
                                               context
@@ -330,8 +328,15 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                     ),
                                 ],
                               );
-                            },
-                          );
+                          }
+
+                          if (kDebugMode) {
+                            return BlocBuilder<DebuggerCubit, DebuggerState>(
+                              builder: (context, debuggerState) =>
+                                  buildContent(debuggerState),
+                            );
+                          }
+                          return buildContent(null);
                         },
                       );
                     },
