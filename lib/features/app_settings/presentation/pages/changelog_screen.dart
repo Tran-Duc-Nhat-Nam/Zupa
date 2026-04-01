@@ -34,6 +34,7 @@ class ChangelogScreen extends StatelessWidget {
 
     return AppScreen(
       title: t.common.version.changelog,
+      isChildScrollable: true,
       // Using a ListView for scrollable history
       child: ListView.separated(
         padding: const .all(20),
