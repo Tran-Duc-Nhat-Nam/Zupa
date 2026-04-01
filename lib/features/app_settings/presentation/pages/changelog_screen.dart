@@ -47,6 +47,20 @@ class ChangelogScreen extends StatelessWidget {
           final versionTag = parts.first.trim();
           final logs = parts.length > 1 ? parts.last.trim() : '';
 
+          // Split lines and apply filters
+          final filteredLogLines = logs
+              .split('\n')
+              .map((line) => line.trim())
+              .where((line) => line.isNotEmpty)
+              .where((line) {
+                final lowerLine = line.toLowerCase();
+                // Filter out standard git merge patterns
+                return !lowerLine.startsWith('merge branch') &&
+                    !lowerLine.startsWith('merge pull request') &&
+                    !lowerLine.contains('merge remote-tracking branch');
+              })
+              .toList();
+
           return Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
@@ -76,34 +90,31 @@ class ChangelogScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   // Log entries parsed into bullet points
-                  ...logs
-                      .split('\n')
-                      .where((line) => line.trim().isNotEmpty)
-                      .map(
-                        (line) => Padding(
-                          padding: const .only(bottom: 8),
-                          child: Row(
-                            crossAxisAlignment: .start,
-                            children: [
-                              Text(
-                                '• ',
-                                style: TextStyle(
-                                  color: colorScheme.primary,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  line.trim(),
-                                  style: AppTextStyles.bodyMedium.copyWith(
-                                    color: colorScheme.onSurfaceVariant,
-                                  ),
-                                ),
-                              ),
-                            ],
+                  ...filteredLogLines.map(
+                    (line) => Padding(
+                      padding: const .only(bottom: 8),
+                      child: Row(
+                        crossAxisAlignment: .start,
+                        children: [
+                          Text(
+                            '• ',
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Text(
+                              line.trim(),
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                  ),
                 ],
               ),
             ),

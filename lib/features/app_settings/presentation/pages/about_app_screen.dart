@@ -177,9 +177,6 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                               if (info != null && _packageInfo != null) {
                                 context.pushRoute(
                                   ChangelogRoute(
-                                    version:
-                                        info.latestVersion ??
-                                        _packageInfo!.version,
                                     changelog:
                                         info.message ??
                                         t.common.version.noChangelog,
