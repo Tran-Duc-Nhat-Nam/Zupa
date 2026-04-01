@@ -125,8 +125,8 @@ class _AppButtonState extends State<AppButton> {
     return widget.child ??
         Row(
           spacing: 8,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: .min,
+          mainAxisAlignment: .center,
           children: [
             if (widget.icon != null) ...[Icon(widget.icon, size: 20)],
             if (widget.text != null)
@@ -135,7 +135,7 @@ class _AppButtonState extends State<AppButton> {
         );
   }
 
-  ButtonStyle _getButtonStyle(dynamic colorScheme) {
+  ButtonStyle _getButtonStyle(AppColors colorScheme) {
     // Determine base color based on AppButtonColor enum
     final baseColor = switch (widget.color) {
       .success => colorScheme.success,

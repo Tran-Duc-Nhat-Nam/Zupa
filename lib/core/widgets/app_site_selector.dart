@@ -22,13 +22,13 @@ class AppSiteSelector extends StatelessWidget {
 
     return InkWell(
           onTap: () => _showSitePicker(context, colors, siteCubit),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: .circular(16),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const .symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: colors.surfaceContainerLow,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: colors.outlineVariant.withAlpha(50)),
+              borderRadius: .circular(16),
+              border: .all(color: colors.outlineVariant.withAlpha(50)),
               boxShadow: [
                 BoxShadow(
                   color: colors.shadow.withAlpha(10),
@@ -40,10 +40,10 @@ class AppSiteSelector extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const .all(8),
                   decoration: BoxDecoration(
                     color: colors.primaryContainer,
-                    shape: BoxShape.circle,
+                    shape: .circle,
                   ),
                   child: Icon(
                     Symbols.location_on_rounded,
@@ -55,7 +55,7 @@ class AppSiteSelector extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       Text(
                         t.common.info.site,
@@ -116,7 +116,7 @@ class AppSiteSelector extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
             ),
             stickyActionBar: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+              padding: const .only(left: 24, top: 0, right: 24, bottom: 16),
               child: AppButton(
                 height: 48,
                 onPressed: () {
@@ -127,7 +127,7 @@ class AppSiteSelector extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 80, top: 16),
+              padding: const .only(bottom: 80, top: 16),
               child: AppRadioGroup<String>(
                 formControl: siteCubit.form.codeControl,
                 items: _parkingLots,
@@ -140,8 +140,8 @@ class AppSiteSelector extends StatelessWidget {
                           child: InkWell(
                             onTap: onSelect,
                             child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
+                              width: .infinity,
+                              padding: const .symmetric(
                                 vertical: 16,
                                 horizontal: 24,
                               ),
@@ -167,9 +167,7 @@ class AppSiteSelector extends StatelessWidget {
                                       color: isSelected
                                           ? colors.primary
                                           : colors.onSurface,
-                                      fontWeight: isSelected
-                                          ? FontWeight.w600
-                                          : FontWeight.w400,
+                                      fontWeight: isSelected ? .w600 : .w400,
                                     ),
                                   ),
                                   const Spacer(),

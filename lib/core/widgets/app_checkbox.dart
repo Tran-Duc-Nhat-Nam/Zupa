@@ -18,6 +18,7 @@ class AppCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return Row(
       spacing: 8,
       children: [
@@ -29,17 +30,17 @@ class AppCheckbox extends StatelessWidget {
             onChanged: (form) {
               onChanged?.call(form.value ?? false);
             },
-            side: BorderSide(color: AppColors.of(context).primaryContainer),
+            side: BorderSide(color: colorScheme.primaryContainer),
             fillColor: .resolveWith<Color>((Set<WidgetState> states) {
               if (states.contains(WidgetState.selected)) {
-                return AppColors.of(context).primary;
+                return colorScheme.primary;
               }
-              return AppColors.of(context).surfaceContainerLow;
+              return colorScheme.surfaceContainerLow;
             }),
             shape: RoundedRectangleBorder(borderRadius: .circular(4)),
           ),
         ),
-        if (label != null) ...[label!],
+        ...[?label],
       ],
     );
   }

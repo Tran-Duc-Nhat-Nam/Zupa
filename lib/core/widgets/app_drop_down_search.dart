@@ -100,6 +100,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return ReactiveFormField<T, T>(
       formControl: widget.formControl,
       builder: (field) => DropdownButtonHideUnderline(
@@ -114,7 +115,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
               widget.hint,
               overflow: .ellipsis,
               maxLines: 1,
-              style: .new(fontSize: 14, color: Theme.of(context).hintColor),
+              style: .new(fontSize: 14, color: colorScheme.onSurfaceVariant),
             ),
           ),
           valueListenable: valueListenable,
@@ -179,7 +180,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
                 .new(
                   borderRadius: .circular(28),
                   border: .all(
-                    color: AppColors.of(context).surfaceContainerHigh,
+                    color: colorScheme.surfaceContainerHigh,
                   ),
                 ),
             elevation: widget.buttonElevation,
@@ -203,7 +204,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
             padding: widget.dropdownPadding,
             decoration:
                 widget.dropdownDecoration ??
-                BoxDecoration(borderRadius: .circular(14)),
+                BoxDecoration(borderRadius: .circular(16)),
             elevation: widget.dropdownElevation ?? 8,
             //Null or Offset(0, 0) will open just under the button. You can edit as you want.
             offset: widget.offset,

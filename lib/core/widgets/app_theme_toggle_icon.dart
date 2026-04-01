@@ -10,6 +10,7 @@ class AppThemeToggleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
@@ -21,7 +22,7 @@ class AppThemeToggleIcon extends StatelessWidget {
               opacity: 1 - animation.value,
               child: Icon(
                 Symbols.sunny_rounded,
-                color: color ?? AppColors.of(context).surface,
+                color: color ?? colorScheme.surface,
               ),
             ),
             // Moon
@@ -29,7 +30,7 @@ class AppThemeToggleIcon extends StatelessWidget {
               opacity: animation.value,
               child: Icon(
                 Symbols.nightlight_rounded,
-                color: color ?? AppColors.of(context).surface,
+                color: color ?? colorScheme.surface,
               ),
             ),
           ],

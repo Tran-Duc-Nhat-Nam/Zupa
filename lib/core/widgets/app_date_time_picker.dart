@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
 class AppDateTimePicker extends StatelessWidget {
@@ -21,7 +22,7 @@ class AppDateTimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = AppColors.of(context);
     return ReactiveFormField<DateTime?, DateTime?>(
       formControl: formControl,
       builder: (field) => Container(

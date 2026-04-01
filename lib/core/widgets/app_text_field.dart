@@ -169,7 +169,7 @@ class _AppTextFieldState extends State<AppTextField> {
             errorBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  borderRadius: .circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? .new(color: colorsScheme.error)
                       : .none,
@@ -177,7 +177,7 @@ class _AppTextFieldState extends State<AppTextField> {
             enabledBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  borderRadius: .circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? .new(color: colorsScheme.outline)
                       : .none,
@@ -185,7 +185,7 @@ class _AppTextFieldState extends State<AppTextField> {
             focusedErrorBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  borderRadius: .circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? .new(color: colorsScheme.error)
                       : .none,
@@ -193,7 +193,7 @@ class _AppTextFieldState extends State<AppTextField> {
             focusedBorder:
                 widget.border ??
                 OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  borderRadius: .circular(widget.borderRadius),
                   borderSide: widget.hasBorder
                       ? .new(color: colorsScheme.primary)
                       : .none,
