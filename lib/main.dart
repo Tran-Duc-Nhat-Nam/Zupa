@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (_) => getIt<DebuggerCubit>()..loadDebugger()),
         BlocProvider(create: (_) => getIt<VersionCubit>()..checkForUpdates()),
         BlocProvider(create: (_) => getIt<SecurityCubit>()..checkSecurity()),
-        BlocProvider(create: (_) => getIt<ScannerCubit>()..init(),)
+        BlocProvider(create: (_) => getIt<ScannerCubit>()..init()),
       ],
       child: const AppView(),
     );
@@ -193,10 +193,13 @@ class AppView extends StatelessWidget {
             BlocListener<ScannerCubit, ScannerState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  scanSuccess: (parkingData) => router.push(CheckInRoute()),
+                  scanSuccess: (parkingData) =>
+                      router.topRoute.name != CheckInRoute.name
+                      ? router.push(CheckInRoute())
+                      : AppToast.showToast(t.common.errors.alreadyInCameraScreen),
                 );
               },
-            )
+            ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
             buildWhen: (previous, current) => previous != current,

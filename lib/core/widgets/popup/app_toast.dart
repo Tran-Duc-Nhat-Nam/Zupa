@@ -20,8 +20,9 @@ abstract class AppToast {
       builder: (context) {
         final colorScheme = AppColors.of(context);
         return Container(
-          margin: const .all(36),
-          padding: const .all(16),
+          margin: const .all(24),
+          padding: const .all(28),
+          constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerHigh,
             borderRadius: .circular(28),
@@ -46,7 +47,7 @@ abstract class AppToast {
       displayTime: const Duration(seconds: 3),
       alignment: .center,
       animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : Duration.zero,
+        loaded: (isOn) => isOn ? null : .zero,
         orElse: () => null,
       ),
     );
@@ -58,7 +59,7 @@ abstract class AppToast {
       useAnimation: true,
       animationType: .fade,
       animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : Duration.zero,
+        loaded: (isOn) => isOn ? null : .zero,
         orElse: () => null,
       ),
     );

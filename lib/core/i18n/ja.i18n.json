@@ -88,7 +88,8 @@
       "enterInteger": "整数を入力",
       "unknown": "不明なエラー",
       "unexpected": "予期せぬエラーが発生しました！",
-      "error": "エラーが発生しました"
+      "error": "エラーが発生しました",
+      "alreadyInCameraScreen": "すでにカメラ画面にいます"
     },
     "info": {
       "site": "サイト",

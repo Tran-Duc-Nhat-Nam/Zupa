@@ -88,7 +88,8 @@
       "enterInteger": "Nhập số nguyên",
       "unknown": "Lỗi không xác định",
       "unexpected": "Đã xảy lỗi không xác định!",
-      "error": "Đã có lỗi xảy ra"
+      "error": "Đã có lỗi xảy ra",
+      "alreadyInCameraScreen": "Bạn đang ở màn hình camera rồi"
     },
     "info": {
       "site": "Địa điểm",
