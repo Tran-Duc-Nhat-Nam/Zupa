@@ -114,7 +114,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Important: Fetch all history to generate changelog
+          fetch-depth: 0 # Fetch history to generate changelog
 
       - name: Generate Changelog String
         id: changelog_gen
@@ -126,21 +126,27 @@ jobs:
           else
             CHANGELOG=$(git log $PREVIOUS_TAG..HEAD --oneline)
           fi
-          # Escape newlines and quotes for JSON compatibility
-          CHANGELOG_ESCAPED=$(echo "$CHANGELOG" | jq -aRs .)
+          
+          # Format the changelog with the version header
+          VERSION="${{ needs.check_version.outputs.new_version }}"
+          FORMATTED_CHANGELOG="--- v$VERSION ---\n$CHANGELOG"
+          
+          # Escape for JSON compatibility
+          CHANGELOG_ESCAPED=$(echo "$FORMATTED_CHANGELOG" | jq -aRs .)
           echo "CHANGELOG=$CHANGELOG_ESCAPED" >> $GITHUB_OUTPUT
 
       - name: Update versionarte.json
         run: |
           VERSION="${{ needs.check_version.outputs.new_version }}"
-          CHANGELOG_RAW='${{ steps.changelog_gen.outputs.CHANGELOG }}'
+          NEW_CHANGELOG='${{ steps.changelog_gen.outputs.CHANGELOG }}'
           
+          # Update version and PREPEND the new changelog to the existing message
           jq --arg ver "$VERSION" \
-             --arg log "$CHANGELOG_RAW" \
+             --arg log "$NEW_CHANGELOG" \
              '.android.version.latest = $ver | 
               .iOS.version.latest = $ver | 
-              .android.status.message.en = $log | 
-              .iOS.status.message.en = $log' \
+              .android.status.message.en = ($log + "\n\n" + .android.status.message.en) | 
+              .iOS.status.message.en = ($log + "\n\n" + .iOS.status.message.en)' \
               versionarte.json > temp.json && mv temp.json versionarte.json
 
       - name: Commit and Push changes
