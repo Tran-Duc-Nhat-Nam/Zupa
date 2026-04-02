@@ -62,7 +62,7 @@ jobs:
         run: |
           echo "END_POINT=${{ secrets.API_URL }}" >> .env
           echo "GITHUB=${{ secrets.GITHUB }}" >> .env
-          echo "GITHUB_VERSIONARTE_JSON='${{ secrets.VERSIONARTE_JSON }}'
+          echo "GITHUB_VERSIONARTE_JSON='${{ secrets.VERSIONARTE_JSON }}'" >> .env
 
       - name: Install Dependencies
         run: flutter pub get
