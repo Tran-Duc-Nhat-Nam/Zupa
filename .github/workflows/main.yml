@@ -55,6 +55,15 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
 
+      - name: Accept Android SDK Licenses
+        run: yes | flutter doctor --android-licenses
+
+      - name: Create .env file
+        run: |
+          echo "END_POINT=${{ secrets.API_URL }}" >> .env
+          echo "GITHUB=${{ secrets.GITHUB }}" >> .env
+          echo "GITHUB_VERSIONARTE_JSON='${{ secrets.VERSIONARTE_JSON }}'
+
       - name: Install Dependencies
         run: flutter pub get
 
