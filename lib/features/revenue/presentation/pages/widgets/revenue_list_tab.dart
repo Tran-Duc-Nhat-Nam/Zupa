@@ -24,11 +24,11 @@ class RevenueListTab extends StatelessWidget {
     return BlocConsumer<RevenueListCubit, RevenueListState>(
       listener: (context, state) {
         state.whenOrNull(
-          loaded: (tickets, pageIndex) {
+          loaded: (_, pageIndex) {
             refreshController.finishRefresh();
             refreshController.finishLoad();
           },
-          failed: (message) {
+          failed: (_, message) {
             refreshController.finishRefresh(.fail);
             refreshController.finishLoad(.fail);
           },
@@ -41,8 +41,8 @@ class RevenueListTab extends StatelessWidget {
       builder: (listContext, listState) {
         final List<DailyRevenueEntity> items = listState.maybeWhen(
           loaded: (tickets, _) => tickets,
-          refreshing: (tickets) => tickets,
-          loadingMore: (tickets) => tickets,
+          refreshing: (tickets, _) => tickets,
+          loadingMore: (tickets, _) => tickets,
           orElse: () => [],
         );
 

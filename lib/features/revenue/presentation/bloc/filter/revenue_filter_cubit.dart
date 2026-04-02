@@ -23,7 +23,7 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
     null,
   );
 
-  RevenueFilterEntity get filter => RevenueFilterEntity(
+  RevenueFilterEntity get _filter => RevenueFilterEntity(
     fromDate: formModel.fromDateControl.value ?? .now(),
     toDate: formModel.toDateControl.value ?? .now(),
     keyword: formModel.keywordControl.value ?? 'QUANTITY',
@@ -31,16 +31,17 @@ class RevenueFilterCubit extends Cubit<RevenueFilterState> {
   );
 
   void init() {
-    emit(const .loaded());
+    emit( .loaded(filter: _filter));
   }
 
   void reset() {
-    emit(const .initial());
+    formModel.reset();
+    emit( const .initial());
   }
 
   void update() {
     if (formModel.form.valid) {
-      emit(const .loaded());
+      emit( .loaded(filter: _filter));
     } else {
       formModel.form.markAllAsTouched();
     }

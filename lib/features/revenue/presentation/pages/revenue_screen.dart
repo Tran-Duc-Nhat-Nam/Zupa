@@ -56,8 +56,8 @@ class RevenueView extends StatelessWidget {
         builder: (context, state) {
           final items = state.maybeWhen(
             loaded: (tickets, _) => tickets,
-            refreshing: (tickets) => tickets,
-            loadingMore: (tickets) => tickets,
+            refreshing: (tickets, _) => tickets,
+            loadingMore: (tickets, _) => tickets,
             orElse: () => <DailyRevenueEntity>[],
           );
 
