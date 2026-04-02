@@ -129,7 +129,7 @@ jobs:
           
           # Format the changelog with the version header
           VERSION="${{ needs.check_version.outputs.new_version }}"
-          FORMATTED_CHANGELOG="--- v$VERSION ---\n$CHANGELOG"
+          FORMATTED_CHANGELOG="--- v$VERSION ---$CHANGELOG"
           
           # Escape for JSON compatibility
           CHANGELOG_ESCAPED=$(echo "$FORMATTED_CHANGELOG" | jq -aRs .)
