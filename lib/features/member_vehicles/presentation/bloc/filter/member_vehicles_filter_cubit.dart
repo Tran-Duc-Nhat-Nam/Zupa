@@ -22,46 +22,31 @@ class MemberVehiclesFilterCubit extends Cubit<MemberVehiclesFilterState> {
   );
 
   void search() {
-    state.whenOrNull(
-      loaded: (filter) {
-        _debounce?.cancel();
-        _debounce = Timer(const Duration(milliseconds: 500), () {
-          emit(
-            .loaded(
-              filter: MemberVehicleFilterEntity(
-                page: formModel.pageIndexControl.value ?? defaultPageIndex,
-                size: formModel.pageSizeControl.value ?? defaultPageSize,
-                keyword: formModel.keywordControl.value ?? '',
-                time: formModel.timeControl.value,
-                type: formModel.typeControl.value,
-              ),
-            ),
-          ); // Emit the latest query after the debounce delay
-        });
-      },
-    );
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      emit(
+        .loaded(filter: filter),
+      ); // Emit the latest query after the debounce delay
+    });
   }
 
   void init() async {
     emit(const .loaded());
   }
 
-  void filter() async {
+  MemberVehicleFilterEntity get filter => MemberVehicleFilterEntity(
+    page: formModel.pageIndexControl.value ?? defaultPageIndex,
+    size: formModel.pageSizeControl.value ?? defaultPageSize,
+    keyword: formModel.keywordControl.value ?? '',
+    time: formModel.timeControl.value,
+    type: formModel.typeControl.value,
+  );
+
+  void filterList() async {
     if (formModel.form.valid) {
-      state.whenOrNull(
-        loaded: (filter) async {
-          final temp = MemberVehicleFilterEntity(
-            page: formModel.pageIndexControl.value ?? defaultPageIndex,
-            size: formModel.pageSizeControl.value ?? defaultPageSize,
-            keyword: formModel.keywordControl.value ?? '',
-            time: formModel.timeControl.value,
-            type: formModel.typeControl.value,
-          );
-          emit(.filtering(filter: temp));
-          await Future.delayed(const .new(seconds: 3));
-          emit(.loaded(filter: temp));
-        },
-      );
+      emit(.filtering(filter: filter));
+      await Future.delayed(const .new(seconds: 3));
+      emit(.loaded(filter: filter));
     } else {
       formModel.form.markAllAsTouched();
     }

@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
+import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 
 part 'member_vehicles_list_cubit.freezed.dart';
 part 'member_vehicles_list_state.dart';
@@ -12,8 +12,10 @@ part 'member_vehicles_list_state.dart';
 @injectable
 class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
   final IMemberVehiclesRepository _repository;
+  final MemberVehiclesFilterCubit _filterCubit;
 
-  MemberVehiclesListCubit(this._repository) : super(const .initial());
+  MemberVehiclesListCubit(this._repository, this._filterCubit)
+    : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
@@ -30,13 +32,15 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
   }
 
-  void refresh(MemberVehicleFilterEntity? filter) async {
+  void refresh() async {
     final List<MemberVehicleEntity> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final result = await _repository.getMemberVehicles(filter: filter);
+    final result = await _repository.getMemberVehicles(
+      filter: _filterCubit.filter,
+    );
     result.whenOrNull(
       success: (data) =>
           data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
@@ -44,7 +48,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
   }
 
-  void loadMore(MemberVehicleFilterEntity? filter) async {
+  void loadMore() async {
     final List<MemberVehicleEntity> items = state.maybeMap(
       loaded: (params) => [...params.vehicles],
       orElse: () => [],
@@ -57,7 +61,7 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
 
     final result = await _repository.getMemberVehicles(
       page: pageIndex,
-      filter: filter,
+      filter: _filterCubit.filter,
     );
     result.whenOrNull(
       success: (newItems) {

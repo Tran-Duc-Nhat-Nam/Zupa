@@ -71,22 +71,15 @@ class MemberVehicleListTab extends StatelessWidget {
                 triggerWhenRelease: true,
               ),
               controller: refreshController,
-              onRefresh: () => context.read<MemberVehiclesListCubit>().refresh(
-                context.read<MemberVehiclesFilterCubit>().state.mapOrNull(
-                  loaded: (s) => s.filter,
-                ),
-              ),
-              onLoad: () => context.read<MemberVehiclesListCubit>().loadMore(
-                context.read<MemberVehiclesFilterCubit>().state.mapOrNull(
-                  loaded: (s) => s.filter,
-                ),
-              ),
+              onRefresh: () =>
+                  context.read<MemberVehiclesListCubit>().refresh(),
+              onLoad: () => context.read<MemberVehiclesListCubit>().loadMore(),
               child: ListView.separated(
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
                 itemBuilder: (c, i) =>
                     Padding(
-                      padding: EdgeInsets.only(top: i == 0 ? 16 : 0),
+                      padding: .only(top: i == 0 ? 16 : 0),
                       child: MemberVehiclesTitle(
                         ticket:
                             items?[i] ??
