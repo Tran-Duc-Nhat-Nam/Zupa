@@ -25,12 +25,9 @@ jobs:
         id: check_tag
         run: |
           VERSION=${{ steps.pubspec_version.outputs.VERSION }}
-          # ls-remote checks the server directly. If the tag exists, grep will find it.
           if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
-            echo "Tag v$VERSION already exists on remote. Skipping."
             echo "exists=true" >> $GITHUB_OUTPUT
           else
-            echo "Tag v$VERSION is new."
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
@@ -57,15 +54,6 @@ jobs:
         with:
           flutter-version-file: pubspec.yaml
           cache: true
-
-      - name: Accept Android SDK Licenses
-        run: yes | flutter doctor --android-licenses
-
-      - name: Create .env file
-        run: |
-          echo "END_POINT=${{ secrets.API_URL }}" >> .env
-          echo "GITHUB=${{ secrets.GITHUB }}" >> .env
-          echo "GITHUB_VERSIONARTE_JSON='${{ secrets.VERSIONARTE_JSON }}'" >> .env
 
       - name: Install Dependencies
         run: flutter pub get
@@ -98,8 +86,6 @@ jobs:
           generate_release_notes: true
           files: |
             build/app/outputs/apk/release/Zupa-release-*.apk
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -114,37 +100,49 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch history to generate changelog
+          fetch-depth: 0
 
       - name: Generate Changelog String
         id: changelog_gen
         run: |
-          # Get logs between the last tag and current HEAD
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
           if [ -z "$PREVIOUS_TAG" ]; then
             CHANGELOG=$(git log --oneline -n 10)
           else
             CHANGELOG=$(git log $PREVIOUS_TAG..HEAD --oneline)
           fi
-          
-          # Format the changelog with the version header
           VERSION="${{ needs.check_version.outputs.new_version }}"
           FORMATTED_CHANGELOG="--- v$VERSION ---$CHANGELOG"
-          
-          # Escape for JSON compatibility
           CHANGELOG_ESCAPED=$(echo "$FORMATTED_CHANGELOG" | jq -aRs .)
           echo "CHANGELOG=$CHANGELOG_ESCAPED" >> $GITHUB_OUTPUT
 
       - name: Update versionarte.json
         run: |
-          VERSION="${{ needs.check_version.outputs.new_version }}"
+          NEW_FULL_VERSION="${{ needs.check_version.outputs.new_version }}"
+          NEW_MAJOR=$(echo $NEW_FULL_VERSION | cut -d. -f1)
+          NEW_MINOR=$(echo $NEW_FULL_VERSION | cut -d. -f2)
+          
+          CURRENT_LATEST=$(jq -r '.android.version.latest' versionarte.json)
+          OLD_MAJOR=$(echo $CURRENT_LATEST | cut -d. -f1)
+          OLD_MINOR=$(echo $CURRENT_LATEST | cut -d. -f2)
+          
+          UPDATE_MINIMUM=false
+          if [ "$NEW_MAJOR" -gt "$OLD_MAJOR" ]; then
+            UPDATE_MINIMUM=true
+          elif [ "$NEW_MAJOR" -eq "$OLD_MAJOR" ] && [ "$NEW_MINOR" -gt "$OLD_MINOR" ]; then
+            UPDATE_MINIMUM=true
+          fi
+          
+          echo "Update minimum version: $UPDATE_MINIMUM"
           NEW_CHANGELOG='${{ steps.changelog_gen.outputs.CHANGELOG }}'
           
-          # Update version and PREPEND the new changelog to the existing message
-          jq --arg ver "$VERSION" \
+          jq --arg ver "$NEW_FULL_VERSION" \
              --arg log "$NEW_CHANGELOG" \
+             --argjson up_min "$UPDATE_MINIMUM" \
              '.android.version.latest = $ver | 
               .iOS.version.latest = $ver | 
+              (if $up_min then .android.version.minimum = $ver else . end) |
+              (if $up_min then .iOS.version.minimum = $ver else . end) |
               .android.status.message.en = ($log + "\n\n" + .android.status.message.en) | 
               .iOS.status.message.en = ($log + "\n\n" + .iOS.status.message.en)' \
               versionarte.json > temp.json && mv temp.json versionarte.json
@@ -154,7 +152,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add versionarte.json
-          git commit -m "chore: update versionarte.json and changelog to v${{ needs.check_version.outputs.new_version }}"
+          git commit -m "chore: update versionarte.json to v${{ needs.check_version.outputs.new_version }}"
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
