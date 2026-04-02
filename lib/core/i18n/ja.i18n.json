@@ -38,7 +38,8 @@
       "changelog": "変更履歴",
       "noChangelog": "変更履歴はありません",
       "upToDate": "アプリは最新です",
-      "noUpdateAvailable": "利用可能なアップデートはありません"
+      "noUpdateAvailable": "利用可能なアップデートはありません",
+      "version": "バージョン"
     },
     "actions": {
       "continue": "次へ",

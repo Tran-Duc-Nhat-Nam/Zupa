@@ -38,7 +38,8 @@
       "changelog": "Changelog",
       "noChangelog": "No changelog available",
       "upToDate": "App is up to date",
-      "noUpdateAvailable": "No update available"
+      "noUpdateAvailable": "No update available",
+      "version": "Version"
     },
     "actions": {
       "continue": "Continue",

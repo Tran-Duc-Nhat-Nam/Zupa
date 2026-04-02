@@ -38,7 +38,8 @@
       "changelog": "Nhật ký thay đổi",
       "noChangelog": "Không có nhật ký thay đổi",
       "upToDate": "Ứng dụng đã được cập nhật bản mới nhất",
-      "noUpdateAvailable": "Không có bản cập nhật mới nào"
+      "noUpdateAvailable": "Không có bản cập nhật mới nào",
+      "version": "Phiên bản"
     },
     "actions": {
       "continue": "Tiếp tục",
