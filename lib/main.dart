@@ -48,6 +48,9 @@ Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
+    await configureDependencies();
+    final router = getIt<AppRouter>();
+
     await FlutterDisplayMode.setHighRefreshRate();
 
     await Firebase.initializeApp(
@@ -83,17 +86,6 @@ Future<void> main() async {
           DebuggerHelper.talker.error(err);
         });
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      DebuggerHelper.talker.info('Got a message whilst in the foreground!');
-      DebuggerHelper.talker.info('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        DebuggerHelper.talker.info(
-          'Message also contained a notification: ${message.notification}',
-        );
-      }
-    });
-
     // Global Error Boundary
     ErrorWidget.builder = (FlutterErrorDetails details) {
       DebuggerHelper.talker.handle(
@@ -110,19 +102,40 @@ Future<void> main() async {
     );
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-    await configureDependencies();
-    final router = getIt<AppRouter>();
+    // A. FOREGROUND HANDLER
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      DebuggerHelper.talker.info('FCM message received in foreground');
 
+      if (message.data['type'] == 'update_available') {
+        _handleUpdateNotification();
+      }
+
+      if (message.notification != null) {
+        DebuggerHelper.talker.info(
+          'Notification: ${message.notification?.title}',
+        );
+      }
+    });
+
+    // B. BACKGROUND CLICK HANDLER (App was in background, user tapped notification)
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data['type'] == 'update_available') {
+        _handleUpdateNotification();
+      }
       _handleNotificationNavigation(message, router);
     });
 
-    // Check if the app was opened from a terminated state via a notification
+    // C. TERMINATED STATE HANDLER (App was closed, user tapped notification)
     final RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
-      // Wait for the app to be mounted before navigating
+      if (initialMessage.data['type'] == 'update_available') {
+        // We delay slightly to let the BlocProviders in MyApp initialize
+        Future.delayed(const Duration(milliseconds: 500), () {
+          _handleUpdateNotification();
+        });
+      }
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // A small extra delay helps ensure AutoRoute is fully initialized
         Future.delayed(const Duration(milliseconds: 500), () {
           _handleNotificationNavigation(initialMessage, router);
         });
@@ -290,32 +303,33 @@ class _AppViewState extends State<AppView> {
                 );
               },
             ),
-            if (kDebugMode) BlocListener<DebuggerCubit, DebuggerState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  loaded: (isDebuggerMode) {
-                    if (isDebuggerMode) {
-                      detector = .autoStart(
-                        onPhoneShake: (ShakeEvent event) async {
-                          AppToast.showToast(
-                            t.common.errors.unknown,
-                            context: context.mounted ? context : null,
-                          );
-                          router
-                              .push(const DebugRoute())
-                              .onError(
-                                (error, stackTrace) => AppToast.showToast(
-                                  t.common.errors.unknown,
-                                  context: context.mounted ? context : null,
-                                ),
-                              );
-                        },
-                      );
-                    }
-                  },
-                );
-              },
-            ),
+            if (kDebugMode)
+              BlocListener<DebuggerCubit, DebuggerState>(
+                listener: (context, state) {
+                  state.whenOrNull(
+                    loaded: (isDebuggerMode) {
+                      if (isDebuggerMode) {
+                        detector = .autoStart(
+                          onPhoneShake: (ShakeEvent event) async {
+                            AppToast.showToast(
+                              t.common.errors.unknown,
+                              context: context.mounted ? context : null,
+                            );
+                            router
+                                .push(const DebugRoute())
+                                .onError(
+                                  (error, stackTrace) => AppToast.showToast(
+                                    t.common.errors.unknown,
+                                    context: context.mounted ? context : null,
+                                  ),
+                                );
+                          },
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
             buildWhen: (previous, current) => previous != current,
@@ -388,4 +402,12 @@ void _handleNotificationNavigation(RemoteMessage message, AppRouter router) {
       return;
     });
   }
+}
+
+void _handleUpdateNotification() {
+  // Access the global VersionCubit instance from GetIt
+  final versionCubit = getIt<VersionCubit>();
+
+  // Trigger the update check.
+  versionCubit.checkForUpdates();
 }

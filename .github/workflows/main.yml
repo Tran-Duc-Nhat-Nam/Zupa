@@ -209,7 +209,8 @@ jobs:
                 "data": {
                   "click_action": "FLUTTER_NOTIFICATION_CLICK",
                   "status": "done",
-                  "version": "'$VERSION'"
+                  "version": "'$VERSION'",
+                  "type": "update_available"
                 }
               }
             }'
