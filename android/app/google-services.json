@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "906249700102",
+    "project_id": "my-ebst-fcm-test-project",
+    "storage_bucket": "my-ebst-fcm-test-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906249700102:android:6da8d2679d029aa3ef9487",
+        "android_client_info": {
+          "package_name": "com.caresolutions.ebs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Ud-GaPxW318NG8uxoKFJEFntcnjVBho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906249700102:android:790e1995a9c3cfb8ef9487",
+        "android_client_info": {
+          "package_name": "com.tsp.parking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Ud-GaPxW318NG8uxoKFJEFntcnjVBho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,7 @@ import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
@@ -30,12 +31,17 @@ import 'package:zupa/core/widgets/error/app_error_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/firebase_options.dart';
 
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
     await FlutterDisplayMode.setHighRefreshRate();
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     // Global Error Boundary
     ErrorWidget.builder = (FlutterErrorDetails details) {
@@ -196,7 +202,9 @@ class AppView extends StatelessWidget {
                   scanSuccess: (parkingData) =>
                       router.topRoute.name != CheckInRoute.name
                       ? router.push(CheckInRoute())
-                      : AppToast.showToast(t.common.errors.alreadyInCameraScreen),
+                      : AppToast.showToast(
+                          t.common.errors.alreadyInCameraScreen,
+                        ),
                 );
               },
             ),
