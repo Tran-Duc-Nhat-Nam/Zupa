@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,6 +43,23 @@ Future<void> main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
+    // For apple platforms, make sure the APNS token is available before making any FCM plugin API calls
+    final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+    if (apnsToken != null || !Platform.isIOS) {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      // TODO: If necessary send token to application server.
+      DebuggerHelper.talker.info('FCM Token: $fcmToken');
+    }
+
+    FirebaseMessaging.instance.onTokenRefresh
+        .listen((fcmToken) {
+          // TODO: If necessary send token to application server.
+          DebuggerHelper.talker.info('FCM Token: $fcmToken');
+        })
+        .onError((err) {
+          DebuggerHelper.talker.error(err);
+        });
 
     // Global Error Boundary
     ErrorWidget.builder = (FlutterErrorDetails details) {
