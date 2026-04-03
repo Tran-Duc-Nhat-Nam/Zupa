@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/annotations.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -13,6 +14,7 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 
+@RoutePage()
 class AppErrorScreen extends StatelessWidget {
   const AppErrorScreen({super.key, required this.details});
 

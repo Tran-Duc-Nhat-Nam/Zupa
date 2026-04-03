@@ -34,6 +34,14 @@ import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/firebase_options.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  DebuggerHelper.talker.info(
+    'Handling a background message: ${message.messageId}',
+  );
+}
+
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +59,8 @@ Future<void> main() async {
     DebuggerHelper.talker.info(
       'User granted permission: ${settings.authorizationStatus}',
     );
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     // For apple platforms, make sure the APNS token is available before making any FCM plugin API calls
     final apnsToken = await messaging.getAPNSToken();
@@ -97,6 +107,23 @@ Future<void> main() async {
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
     await configureDependencies();
+    final router = getIt<AppRouter>();
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      _handleNotificationNavigation(message, router);
+    });
+
+    // Check if the app was opened from a terminated state via a notification
+    final RemoteMessage? initialMessage = await messaging.getInitialMessage();
+    if (initialMessage != null) {
+      // Wait for the app to be mounted before navigating
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // A small extra delay helps ensure AutoRoute is fully initialized
+        Future.delayed(const Duration(milliseconds: 500), () {
+          _handleNotificationNavigation(initialMessage, router);
+        });
+      });
+    }
 
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, stack) {
@@ -293,5 +320,22 @@ class AppView extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+void _handleNotificationNavigation(RemoteMessage message, AppRouter router) {
+  final String? routePath = message.data['route'];
+
+  if (routePath != null) {
+    router.pushPath(routePath).onError((error, stackTrace) {
+      if (error != null) {
+        router.push(
+          AppErrorRoute(
+            details: .new(exception: error, stack: stackTrace),
+          ),
+        );
+      }
+      return;
+    });
   }
 }
