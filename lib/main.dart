@@ -275,7 +275,7 @@ class _AppViewState extends State<AppView> {
                 );
               },
             ),
-            if (kDebugMode) BlocListener<ScannerCubit, ScannerState>(
+            BlocListener<ScannerCubit, ScannerState>(
               listener: (context, state) {
                 state.whenOrNull(
                   scanSuccess: (parkingData) =>
@@ -288,7 +288,7 @@ class _AppViewState extends State<AppView> {
                 );
               },
             ),
-            BlocListener<DebuggerCubit, DebuggerState>(
+            if (kDebugMode) BlocListener<DebuggerCubit, DebuggerState>(
               listener: (context, state) {
                 state.whenOrNull(
                   loaded: (isDebuggerMode) {
