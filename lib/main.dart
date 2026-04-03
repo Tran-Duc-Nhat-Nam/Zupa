@@ -44,15 +44,23 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
+    final messaging = FirebaseMessaging.instance;
+
+    final settings = await messaging.requestPermission();
+
+    DebuggerHelper.talker.info(
+      'User granted permission: ${settings.authorizationStatus}',
+    );
+
     // For apple platforms, make sure the APNS token is available before making any FCM plugin API calls
-    final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+    final apnsToken = await messaging.getAPNSToken();
     if (apnsToken != null || !Platform.isIOS) {
-      final fcmToken = await FirebaseMessaging.instance.getToken();
+      final fcmToken = await messaging.getToken();
       // TODO: If necessary send token to application server.
       DebuggerHelper.talker.info('FCM Token: $fcmToken');
     }
 
-    FirebaseMessaging.instance.onTokenRefresh
+    messaging.onTokenRefresh
         .listen((fcmToken) {
           // TODO: If necessary send token to application server.
           DebuggerHelper.talker.info('FCM Token: $fcmToken');
@@ -60,6 +68,17 @@ Future<void> main() async {
         .onError((err) {
           DebuggerHelper.talker.error(err);
         });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      DebuggerHelper.talker.info('Got a message whilst in the foreground!');
+      DebuggerHelper.talker.info('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        DebuggerHelper.talker.info(
+          'Message also contained a notification: ${message.notification}',
+        );
+      }
+    });
 
     // Global Error Boundary
     ErrorWidget.builder = (FlutterErrorDetails details) {
