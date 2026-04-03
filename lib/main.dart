@@ -58,6 +58,8 @@ Future<void> main() async {
 
     final settings = await messaging.requestPermission();
 
+    await messaging.subscribeToTopic('all_users');
+
     DebuggerHelper.talker.info(
       'User granted permission: ${settings.authorizationStatus}',
     );
