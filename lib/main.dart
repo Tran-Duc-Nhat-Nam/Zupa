@@ -275,7 +275,7 @@ class _AppViewState extends State<AppView> {
                 );
               },
             ),
-            BlocListener<ScannerCubit, ScannerState>(
+            if (kDebugMode) BlocListener<ScannerCubit, ScannerState>(
               listener: (context, state) {
                 state.whenOrNull(
                   scanSuccess: (parkingData) =>
