@@ -39,9 +39,6 @@ import 'package:zupa/firebase_options.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  DebuggerHelper.talker.info(
-    'Handling a background message: ${message.messageId}',
-  );
 }
 
 Future<void> main() async {

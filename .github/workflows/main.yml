@@ -198,6 +198,7 @@ jobs:
                 "notification": {
                   "title": "🚀 New Update: Zupa v'$VERSION'",
                   "body": "A new version is available! Tap to see the latest changes."
+                  "click_action": "FLUTTER_NOTIFICATION_CLICK"
                 },
                 "android": {
                   "priority": "high",
