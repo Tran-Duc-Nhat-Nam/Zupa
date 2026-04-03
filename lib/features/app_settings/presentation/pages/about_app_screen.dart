@@ -72,14 +72,16 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                   Container(
                     width: 150,
                     height: 150,
+                    padding: const .all(16),
                     decoration: BoxDecoration(
                       color: colorScheme.surfaceContainerHighest,
                       borderRadius: .circular(28),
                     ),
                     clipBehavior: .antiAlias,
                     child: Image.asset(
-                      'assets/images/tsp-logo.png',
+                      'assets/images/park.png',
                       fit: .contain,
+                      color: colorScheme.primary,
                     ),
                   ),
                   const SizedBox(height: 8),

@@ -2,15 +2,15 @@ flutter_native_splash:
   color: "#eff1f5"
   color_dark: "#1e1e2e"
   # The logo that sits in the center
-  image: assets/images/tsp-logo.png
-  image_dark: assets/images/tsp-logo.png
+  image: assets/images/park.png
+  image_dark: assets/images/park.png
 
   # Android 12+ (Splash Screen API) support
   # This is required to prevent a double splash screen on newer devices
   android_12:
-    image: assets/images/tsp-logo.png
+    image: assets/images/park.png
     icon_background_color: "#eff1f5"
-    image_dark: assets/images/tsp-logo.png
+    image_dark: assets/images/park.png
     icon_background_color_dark: "#1e1e2e"
 
   # Full-screen mode (hides status bar during splash)

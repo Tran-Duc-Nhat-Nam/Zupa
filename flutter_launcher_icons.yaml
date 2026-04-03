@@ -1,9 +1,12 @@
 # flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
-  image_path: "assets/images/tsp-logo.png"
+  image_path: "assets/images/park.png"
   android: "launcher_icon"
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/images/tsp-logo.png"
+  adaptive_icon_background: "#cba6f7"
+  adaptive_icon_foreground: "assets/images/park.png"
   min_sdk_android: 21
   ios: true
   remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/images/park.png"

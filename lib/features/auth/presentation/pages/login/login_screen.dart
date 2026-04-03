@@ -59,7 +59,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                 children: [
                   Center(
                     child: Image.asset(
-                      'assets/images/tsp-logo.png',
+                      'assets/images/park.png',
                       height: 80,
                       color: colorScheme.primary,
                     ),
