@@ -28,6 +28,7 @@ import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
+import 'package:zupa/core/services/notification_service.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/widgets/error/app_error_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
@@ -44,100 +45,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   try {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
-    await configureDependencies();
-    final router = getIt<AppRouter>();
-
-    await FlutterDisplayMode.setHighRefreshRate();
-
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-
-    final messaging = FirebaseMessaging.instance;
-
-    final settings = await messaging.requestPermission();
-
-    await messaging.subscribeToTopic('all_users');
-
-    DebuggerHelper.talker.info(
-      'User granted permission: ${settings.authorizationStatus}',
-    );
-
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    // For apple platforms, make sure the APNS token is available before making any FCM plugin API calls
-    final apnsToken = await messaging.getAPNSToken();
-    if (apnsToken != null || !Platform.isIOS) {
-      final fcmToken = await messaging.getToken();
-      // TODO: If necessary send token to application server.
-      DebuggerHelper.talker.info('FCM Token: $fcmToken');
-    }
-
-    messaging.onTokenRefresh
-        .listen((fcmToken) {
-          // TODO: If necessary send token to application server.
-          DebuggerHelper.talker.info('FCM Token: $fcmToken');
-        })
-        .onError((err) {
-          DebuggerHelper.talker.error(err);
-        });
-
-    // Global Error Boundary
-    ErrorWidget.builder = (FlutterErrorDetails details) {
-      DebuggerHelper.talker.handle(
-        details.exception,
-        details.stack,
-        'Flutter UI Crash: ${details.exceptionAsString()}',
-      );
-      return AppErrorScreen(details: details);
-    };
-
-    await SystemChrome.setEnabledSystemUIMode(
-      .manual,
-      overlays: [.bottom, .top],
-    );
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-    // A. FOREGROUND HANDLER
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      DebuggerHelper.talker.info('FCM message received in foreground');
+    await configureDependencies();
 
-      if (message.data['type'] == 'update_available') {
-        _handleUpdateNotification();
-      }
+    final router = getIt<AppRouter>();
+    await NotificationService.initialize(router);
+    await FlutterDisplayMode.setHighRefreshRate();
 
-      if (message.notification != null) {
-        DebuggerHelper.talker.info(
-          'Notification: ${message.notification?.title}',
-        );
-      }
-    });
-
-    // B. BACKGROUND CLICK HANDLER (App was in background, user tapped notification)
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      if (message.data['type'] == 'update_available') {
-        _handleUpdateNotification();
-      }
-      _handleNotificationNavigation(message, router);
-    });
-
-    // C. TERMINATED STATE HANDLER (App was closed, user tapped notification)
-    final RemoteMessage? initialMessage = await messaging.getInitialMessage();
-    if (initialMessage != null) {
-      if (initialMessage.data['type'] == 'update_available') {
-        // We delay slightly to let the BlocProviders in MyApp initialize
-        Future.delayed(const Duration(milliseconds: 500), () {
-          _handleUpdateNotification();
-        });
-      }
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Future.delayed(const Duration(milliseconds: 500), () {
-          _handleNotificationNavigation(initialMessage, router);
-        });
-      });
-    }
+    // Global Error Boundary
+    ErrorWidget.builder = (details) => AppErrorScreen(details: details);
 
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, stack) {
@@ -256,7 +173,6 @@ class _AppViewState extends State<AppView> {
                         version: info.latestVersion,
                       );
                     },
-                    installing: () => DialogHelper.dismissAll(),
                     downloadFailed: (message, info) {
                       if (!info.isForcedUpdate) {
                         DialogHelper.dismissAll();
@@ -382,29 +298,4 @@ class _AppViewState extends State<AppView> {
     detector?.stopListening();
     super.dispose();
   }
-}
-
-void _handleNotificationNavigation(RemoteMessage message, AppRouter router) {
-  final String? routePath = message.data['route'];
-
-  if (routePath != null) {
-    router.pushPath(routePath).onError((error, stackTrace) {
-      if (error != null) {
-        router.push(
-          AppErrorRoute(
-            details: .new(exception: error, stack: stackTrace),
-          ),
-        );
-      }
-      return;
-    });
-  }
-}
-
-void _handleUpdateNotification() {
-  // Access the global VersionCubit instance from GetIt
-  final versionCubit = getIt<VersionCubit>();
-
-  // Trigger the update check.
-  versionCubit.checkForUpdates();
 }
