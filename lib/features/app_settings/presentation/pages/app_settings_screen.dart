@@ -348,7 +348,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   return AppList(
                     items: [
                       AppListItem(
-                        
                         leadingIcon: Symbols.dock_to_bottom_rounded,
                         text: t.settings.enableFloatingNavbar,
                         trailing: AppSwitch(
@@ -363,7 +362,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         ),
                       ),
                       AppListItem(
-                        
                         leadingIcon: Symbols.label_rounded,
                         text: t.settings.showNavbarLabel,
                         trailing: AppSwitch(
@@ -378,7 +376,6 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         ),
                       ),
                       AppListItem(
-                        
                         leadingIcon: Symbols.blur_circular_rounded,
                         text: t.settings.enableGlassmorphism,
                         trailing: AppSwitch(

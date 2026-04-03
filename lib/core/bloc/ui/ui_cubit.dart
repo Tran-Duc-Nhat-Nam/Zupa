@@ -40,9 +40,9 @@ class UICubit extends Cubit<UIState> {
 
   void changeUIMode() {
     final settings = UISettingsEntity(
-      isFloatingNavbar: formModel.isFloatingNavbarControl.value ?? true,
+      isFloatingNavbar: formModel.isFloatingNavbarControl.value ?? false,
       isShowNavbarLabel: formModel.isShowNavbarLabelControl.value ?? true,
-      isGlassmorphism: formModel.isGlassmorphismControl.value ?? true,
+      isGlassmorphism: formModel.isGlassmorphismControl.value ?? false,
     );
     _storageService.setUISettings(settings);
     emit(.loaded(settings: settings));

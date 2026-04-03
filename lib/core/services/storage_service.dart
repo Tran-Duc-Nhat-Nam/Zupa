@@ -186,7 +186,7 @@ class StorageService {
   Future<UISettingsEntity> getUISettings() async {
     return UISettingsEntity(
       isFloatingNavbar:
-          await _sharedPreferences.getBool('isFloatingNavBar') ?? false,
+          await _sharedPreferences.getBool('isFloatingNavbar') ?? false,
       isShowNavbarLabel:
           await _sharedPreferences.getBool('isShowNavbarLabel') ?? false,
       isGlassmorphism:
