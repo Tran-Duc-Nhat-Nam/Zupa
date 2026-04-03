@@ -201,7 +201,7 @@ class MemberVehiclesTitle extends StatelessWidget {
                     cancelText: t.common.actions.close,
                     onOk: () async {
                       await Future.delayed(const Duration(milliseconds: 200));
-                      AppToast.showNotify(t.common.success);
+                      AppToast.showToast(t.common.success, context: context);
                     },
                   ),
                   child: SizedBox(

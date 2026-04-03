@@ -30,6 +30,7 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/core/widgets/error/app_error_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/firebase_options.dart';
@@ -182,10 +183,14 @@ class AppView extends StatelessWidget {
             BlocListener<ConnectivityCubit, ConnectivityState>(
               listener: (context, state) {
                 state.whenOrNull(
-                  connected: () =>
-                      AppToast.showToast(t.common.errors.internetConnected),
-                  disconnected: () =>
-                      AppToast.showToast(t.common.errors.noInternet),
+                  connected: () => AppToast.showToast(
+                    t.common.errors.internetConnected,
+                    context: context,
+                  ),
+                  disconnected: () => AppToast.showToast(
+                    t.common.errors.noInternet,
+                    context: context,
+                  ),
                 );
               },
             ),
@@ -232,9 +237,11 @@ class AppView extends StatelessWidget {
                       );
                     },
                     installing: () => DialogHelper.dismissAll(),
-                    downloadFailed: (message, _) {
-                      DialogHelper.dismissAll();
-                      AppToast.showNotify(message, type: .error);
+                    downloadFailed: (message, info) {
+                      if (!info.isForcedUpdate) {
+                        DialogHelper.dismissAll();
+                      }
+                      MessageHelper.showError(context, message: message);
                     },
                   );
                 });
@@ -268,6 +275,7 @@ class AppView extends StatelessWidget {
                       ? router.push(CheckInRoute())
                       : AppToast.showToast(
                           t.common.errors.alreadyInCameraScreen,
+                          context: context,
                         ),
                 );
               },

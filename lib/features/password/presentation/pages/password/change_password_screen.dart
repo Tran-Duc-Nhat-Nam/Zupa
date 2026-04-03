@@ -7,6 +7,7 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/password/presentation/bloc/password/password_settings_cubit.dart';
@@ -28,14 +29,13 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
         listener: (context, state) {
           state.whenOrNull(
             changePasswordSuccess: () {
-              AppToast.showNotify(t.common.success, type: .success);
+              AppToast.showToast(t.common.success, context: context);
               context.read<PasswordSettingsCubit>().init();
             },
             changePasswordFailed: (message) {
-              AppToast.showNotify(
-                message ?? t.common.errors.unknown,
-                type: .error,
-              );
+              message != null
+                  ? MessageHelper.showError(context, message: message)
+                  : AppToast.showToast(t.common.errors.unknown, context: context);
               context.read<PasswordSettingsCubit>().init();
             },
           );

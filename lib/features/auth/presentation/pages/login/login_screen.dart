@@ -13,6 +13,7 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
@@ -36,10 +37,12 @@ class _LoginScreenState extends AppState<LoginScreen> {
           state.whenOrNull(
             loginSuccess: () => context.router.replaceAll([const HomeRoute()]),
             loginFailed: (message) {
-              AppToast.showNotify(
-                message ?? t.common.errors.unknown,
-                type: .error,
-              );
+              message != null
+                  ? MessageHelper.showError(context, message: message)
+                  : AppToast.showToast(
+                      t.common.errors.unknown,
+                      context: context,
+                    );
             },
           );
         },

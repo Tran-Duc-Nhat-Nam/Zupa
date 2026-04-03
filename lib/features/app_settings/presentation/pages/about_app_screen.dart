@@ -14,6 +14,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
+import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 
@@ -41,11 +42,13 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
     });
   }
 
-  Future<void> _launchUrl(String url) async {
+  Future<void> _launchUrl(String url, BuildContext context) async {
     final uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
-      if (mounted) {
-        AppToast.showNotify(t.settings.couldNotLaunch(url: url), type: .error);
+      if (context.mounted) {
+        MessageHelper.showError(context, message: t.settings.couldNotLaunch(url: url));
+      } else {
+        AppToast.showToast(t.settings.couldNotLaunch(url: url));
       }
     }
   }
@@ -139,7 +142,7 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                             leadingColor: colorScheme.primary,
                             text: t.settings.github,
                             trailingIcon: Symbols.open_in_new_rounded,
-                            onTap: () => _launchUrl(Env.github),
+                            onTap: () => _launchUrl(Env.github, context),
                           ),
                           AppListItem(
                             leadingIcon: Symbols.update_rounded,
@@ -186,7 +189,7 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                                 context.read<VersionCubit>().checkForUpdates(
                                   force: true,
                                 );
-                                AppToast.showNotify(t.common.info.noInfo);
+                                AppToast.showToast(t.common.info.noInfo, context: context);
                               }
                             },
                           ),

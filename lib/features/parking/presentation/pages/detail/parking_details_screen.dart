@@ -32,7 +32,7 @@ class ParkingDetailsScreen extends StatelessWidget {
       footer: [
         AppButton(
           text: t.common.actions.save,
-          onPressed: () => AppToast.showNotify(t.common.success),
+          onPressed: () => AppToast.showToast(t.common.success, context: context),
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
