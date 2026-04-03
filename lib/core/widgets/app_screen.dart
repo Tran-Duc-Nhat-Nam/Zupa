@@ -1,20 +1,14 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:shake/shake.dart';
-import 'package:talker_flutter/talker_flutter.dart';
-import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/responsive/responsive_helper.dart';
-import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_app_bar.dart';
 import 'package:zupa/core/widgets/app_drawer.dart';
 
-class AppScreen extends StatefulWidget {
+class AppScreen extends StatelessWidget {
   const AppScreen({
     super.key,
     this.title = '',
@@ -71,45 +65,12 @@ class AppScreen extends StatefulWidget {
   final Map<String, dynamic>? formInitialValue;
 
   @override
-  State<AppScreen> createState() => _AppScreenState();
-}
-
-class _AppScreenState extends State<AppScreen> {
-  ShakeDetector? detector;
-
-  @override
-  void initState() {
-    if (!widget.hasParentView) {
-      detector = .autoStart(
-        onPhoneShake: (ShakeEvent event) async {
-          if ((await getIt<StorageService>().getDebuggerMode() || kDebugMode) &&
-              mounted) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    TalkerScreen(talker: DebuggerHelper.talker),
-              ),
-            );
-          }
-        },
-      );
-    }
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    detector?.stopListening();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final Widget content = widget.formGroup != null
-        ? ReactiveForm(formGroup: widget.formGroup!, child: _buildScreen())
-        : _buildScreen();
+    final Widget content = formGroup != null
+        ? ReactiveForm(formGroup: formGroup!, child: _buildScreen(context))
+        : _buildScreen(context);
 
-    if (widget.hasParentView) return content;
+    if (hasParentView) return content;
 
     return PopScope(
       canPop: false,
@@ -131,38 +92,38 @@ class _AppScreenState extends State<AppScreen> {
     );
   }
 
-  Widget _buildScreen() {
-    return widget.hasParentView
-        ? _buildContent()
+  Widget _buildScreen(BuildContext context) {
+    return hasParentView
+        ? _buildContent(context)
         : Scaffold(
-            resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-            appBar: widget.hasAppBar
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+            appBar: hasAppBar
                 ? AppAppBar(
-                    color: widget.appBarColor,
-                    text: widget.title,
-                    subtext: widget.subtitle,
-                    isClose: widget.isClose,
-                    trailing: widget.appBarTrailing,
-                    trailingIcon: widget.appBarTrailingIcon,
-                    leading: widget.appBarLeading,
-                    leadingIcon: widget.appBarLeadingIcon,
+                    color: appBarColor,
+                    text: title,
+                    subtext: subtitle,
+                    isClose: isClose,
+                    trailing: appBarTrailing,
+                    trailingIcon: appBarTrailingIcon,
+                    leading: appBarLeading,
+                    leadingIcon: appBarLeadingIcon,
                   )
-                : widget.appBar,
+                : appBar,
             backgroundColor:
-                widget.backgroundColor ?? AppColors.of(context).surface,
-            drawer: widget.hasDrawer ? const AppDrawer() : null,
-            body: _buildContent(),
-            floatingActionButton: widget.floatingActionButton,
+                backgroundColor ?? AppColors.of(context).surface,
+            drawer: hasDrawer ? const AppDrawer() : null,
+            body: _buildContent(context),
+            floatingActionButton: floatingActionButton,
           );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Stack(
       alignment: .bottomCenter,
       children: [
         SafeArea(
-          top: widget.hasSafeTopArea,
-          bottom: widget.hasSafeBottomArea,
+          top: hasSafeTopArea,
+          bottom: hasSafeBottomArea,
           child: Align(
             alignment: .topCenter,
             child: SizedBox(
@@ -171,8 +132,8 @@ class _AppScreenState extends State<AppScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: ResponsiveHelper.getResponsivePadding(context),
                 ),
-                child: widget.isChildScrollable
-                    ? widget.child
+                child: isChildScrollable
+                    ? child
                     : LayoutBuilder(
                         builder:
                             (BuildContext context, BoxConstraints constraints) {
@@ -182,7 +143,7 @@ class _AppScreenState extends State<AppScreen> {
                                     minHeight: constraints.maxHeight,
                                     maxHeight: .infinity,
                                   ),
-                                  child: widget.child,
+                                  child: child,
                                 ),
                               );
                             },
@@ -195,12 +156,12 @@ class _AppScreenState extends State<AppScreen> {
           alignment: .bottomCenter,
           child: Padding(
             padding:
-                widget.footerPadding ??
+                footerPadding ??
                 const .only(bottom: 48, left: 24, right: 24),
-            child: Column(mainAxisSize: .min, children: widget.footer),
+            child: Column(mainAxisSize: .min, children: footer),
           ),
         ),
       ],
-    ).withAppAnimation(animate: !widget.hasParentView);
+    ).withAppAnimation(animate: !hasParentView);
   }
 }

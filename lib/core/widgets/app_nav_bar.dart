@@ -1,18 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:shake/shake.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/site/site_cubit.dart';
 import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/responsive/responsive_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
-import 'package:zupa/core/services/storage_service.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -26,26 +21,7 @@ class AppNavBarScreen extends StatefulWidget {
 }
 
 class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
-  late ShakeDetector detector;
   bool _isVisible = true;
-
-  @override
-  void initState() {
-    detector = ShakeDetector.autoStart(
-      onPhoneShake: (ShakeEvent event) async {
-        if (await getIt<StorageService>().getDebuggerMode() &&
-            mounted &&
-            kDebugMode) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => TalkerScreen(talker: DebuggerHelper.talker),
-            ),
-          );
-        }
-      },
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -379,11 +355,5 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
         child: child,
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    detector.stopListening();
-    super.dispose();
   }
 }

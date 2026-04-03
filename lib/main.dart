@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
@@ -158,8 +159,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppView extends StatelessWidget {
+class AppView extends StatefulWidget {
   const AppView({super.key});
+
+  @override
+  State<AppView> createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
+  ShakeDetector? detector;
 
   @override
   Widget build(BuildContext context) {
@@ -280,6 +288,32 @@ class AppView extends StatelessWidget {
                 );
               },
             ),
+            BlocListener<DebuggerCubit, DebuggerState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  loaded: (isDebuggerMode) {
+                    if (isDebuggerMode) {
+                      detector = .autoStart(
+                        onPhoneShake: (ShakeEvent event) async {
+                          AppToast.showToast(
+                            t.common.errors.unknown,
+                            context: context.mounted ? context : null,
+                          );
+                          router
+                              .push(const DebugRoute())
+                              .onError(
+                                (error, stackTrace) => AppToast.showToast(
+                                  t.common.errors.unknown,
+                                  context: context.mounted ? context : null,
+                                ),
+                              );
+                        },
+                      );
+                    }
+                  },
+                );
+              },
+            ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
             buildWhen: (previous, current) => previous != current,
@@ -328,6 +362,12 @@ class AppView extends StatelessWidget {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    detector?.stopListening();
+    super.dispose();
   }
 }
 
