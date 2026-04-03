@@ -90,7 +90,8 @@
       "unknown": "Unknown error",
       "unexpected": "Unexpected error happened!",
       "error": "Error happened",
-      "alreadyInCameraScreen": "You are already on the camera screen"
+      "alreadyInCameraScreen": "You are already on the camera screen",
+      "loginFailed": "Login failed"
     },
     "info": {
       "site": "Site",
@@ -120,7 +121,8 @@
       "rootDetected": "Security Alert",
       "rootSubtitle": "Your device appears to be rooted or jailbroken. For your protection, this app cannot run on compromised devices.",
       "quit": "Quit App"
-    }
+    },
+    "warning": "Warning"
   },
   "auth": {
     "login": {

@@ -90,7 +90,8 @@
       "unknown": "不明なエラー",
       "unexpected": "予期せぬエラーが発生しました！",
       "error": "エラーが発生しました",
-      "alreadyInCameraScreen": "すでにカメラ画面にいます"
+      "alreadyInCameraScreen": "すでにカメラ画面にいます",
+      "loginFailed": "ログインに失敗しました"
     },
     "info": {
       "site": "サイト",
@@ -120,7 +121,8 @@
       "rootDetected": "セキュリティ警告",
       "rootSubtitle": "デバイスがルート化またはジェイルブレイクされているようです。情報を保護するため、このアプリは改造されたデバイスでは実行できません。",
       "quit": "アプリ終了"
-    }
+    },
+    "warning": "警告"
   },
   "auth": {
     "login": {

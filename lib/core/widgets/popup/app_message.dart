@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
@@ -17,7 +18,7 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title, type: .success);
+    _show(context, message: message, title: title ?? t.common.success, type: .success);
   }
 
   /// Show an error message.
@@ -26,7 +27,7 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title, type: .error);
+    _show(context, message: message, title: title ?? t.common.errors.error, type: .error);
   }
 
   /// Show a warning message.
@@ -35,7 +36,7 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title, type: .warning);
+    _show(context, message: message, title: title ?? t.common.warning, type: .warning);
   }
 
   /// Show an information message.
@@ -44,7 +45,7 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title, type: .info);
+    _show(context, message: message, title: title ?? t.common.info.info, type: .info);
   }
 
   static void _show(
@@ -59,27 +60,33 @@ class MessageHelper {
     Flushbar(
       title: title,
       message: message,
-      icon: Container(
-        padding: const .only(left: 12),
+      icon: Padding(
+        padding: const .only(left: 16),
         child: Icon(icon, color: color, size: 28),
       ),
       duration: const Duration(seconds: 4),
       flushbarPosition: .TOP,
       margin: const .fromLTRB(16, 12, 16, 0),
-      borderRadius: .circular(16),
-      backgroundColor: colorScheme.inverseSurface,
-      titleColor: colorScheme.onInverseSurface,
-      messageColor: colorScheme.onInverseSurface,
-      titleText: Text(
-        title ?? '',
-        style: AppTextStyles.bodyLargeBold.copyWith(
-          color: colorScheme.onInverseSurface,
+      borderRadius: .circular(28),
+      backgroundColor: colorScheme.primaryContainer,
+      titleColor: colorScheme.onPrimaryContainer,
+      messageColor: colorScheme.onPrimaryContainer,
+      titleText: Padding(
+        padding: const .only(left: 8, right: 16),
+        child: Text(
+          title ?? '',
+          style: AppTextStyles.titleMediumBold.copyWith(
+            color: color,
+          ),
         ),
       ),
-      messageText: Text(
-        message,
-        style: AppTextStyles.bodyMedium.copyWith(
-          color: colorScheme.onInverseSurface,
+      messageText: Padding(
+        padding: const .only(left: 8, right: 16),
+        child: Text(
+          message,
+          style: AppTextStyles.bodyMedium.copyWith(
+            color: colorScheme.onPrimaryContainer,
+          ),
         ),
       ),
       boxShadows: [

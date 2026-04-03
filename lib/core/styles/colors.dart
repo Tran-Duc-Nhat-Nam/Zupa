@@ -139,7 +139,7 @@ abstract class AppColors extends ThemeExtension<AppColors> {
   }
 
   static AppColors of(BuildContext context) {
-    return Theme.of(context).extension<AppColors>() ?? const LightAppColors();
+    return Theme.of(context).extension<AppColors>() ?? const DarkAppColors();
   }
 }
 

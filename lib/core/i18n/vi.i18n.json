@@ -90,7 +90,8 @@
       "unknown": "Lỗi không xác định",
       "unexpected": "Đã xảy lỗi không xác định!",
       "error": "Đã có lỗi xảy ra",
-      "alreadyInCameraScreen": "Bạn đang ở màn hình camera rồi"
+      "alreadyInCameraScreen": "Bạn đang ở màn hình camera rồi",
+      "loginFailed": "Đăng nhập thất bại"
     },
     "info": {
       "site": "Địa điểm",
@@ -120,7 +121,8 @@
       "rootDetected": "Cảnh báo bảo mật",
       "rootSubtitle": "Thiết bị của bạn có vẻ đã được root hoặc jailbreak. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị đã bị can thiệp hệ thống.",
       "quit": "Thoát ứng dụng"
-    }
+    },
+    "warning": "Cảnh báo"
   },
   "auth": {
     "login": {

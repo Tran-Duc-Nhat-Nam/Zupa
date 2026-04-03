@@ -10,8 +10,8 @@ abstract class AppToast {
         msg: message,
         toastLength: .LENGTH_SHORT,
         gravity: .BOTTOM,
-        backgroundColor: colorScheme.primaryContainer,
-        textColor: colorScheme.onPrimaryContainer,
+        backgroundColor: colorScheme.secondaryContainer,
+        textColor: colorScheme.onSecondaryContainer,
         fontSize: 16.0,
       );
     } else {
