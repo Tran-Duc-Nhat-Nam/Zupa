@@ -165,3 +165,51 @@ jobs:
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # --- JOB 4: NOTIFY USERS VIA FCM ---
+  send_fcm_notification:
+    needs: [ check_version, update_version_config ]
+    # Only run if a new version was actually created
+    if: needs.check_version.outputs.tag_exists == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write' # Required for WIF
+    steps:
+      - name: Authenticate to Google Cloud
+        id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          # Use the Provider ID from your GCP Console
+          workload_identity_provider: '${{ secrets.GCP_WIF_PROVIDER }}'
+          service_account: '${{ secrets.GCP_SA_EMAIL }}'
+          token_format: 'access_token'
+
+      - name: Send FCM Message
+        run: |
+          VERSION="${{ needs.check_version.outputs.new_version }}"
+
+          curl -X POST "https://fcm.googleapis.com/v1/projects/${{ secrets.FIREBASE_PROJECT_ID }}/messages:send" \
+            -H "Authorization: Bearer ${{ steps.auth.outputs.access_token }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "message": {
+                "topic": "all_users",
+                "notification": {
+                  "title": "🚀 New Update: Zupa v'$VERSION'",
+                  "body": "A new version is available! Tap to see the latest changes."
+                },
+                "android": {
+                  "priority": "high",
+                  "notification": {
+                    "channel_id": "high_importance_channel",
+                    "click_action": "FLUTTER_NOTIFICATION_CLICK"
+                  }
+                },
+                "data": {
+                  "click_action": "FLUTTER_NOTIFICATION_CLICK",
+                  "status": "done",
+                  "version": "'$VERSION'"
+                }
+              }
+            }'
