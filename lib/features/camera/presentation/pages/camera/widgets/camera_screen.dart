@@ -89,21 +89,27 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: .min,
+      mainAxisAlignment: .center,
       spacing: 16,
       children: [
-        Container(
-          width: .infinity,
-          decoration: BoxDecoration(
-              color: AppColors.of(context).surfaceContainer,
-              borderRadius: .circular(28)
-          ),
-          clipBehavior: .antiAlias,
-          child: FittedBox(
-            clipBehavior: .antiAlias,
-            fit: .cover,
-            child: SizedBox(
-              width: 1000,
-              child: CameraPreview(widget.controller),
+        Center(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              width: .infinity,
+              decoration: BoxDecoration(
+                  color: AppColors.of(context).surfaceContainer,
+                  borderRadius: .circular(28)
+              ),
+              clipBehavior: .antiAlias,
+              child: FittedBox(
+                clipBehavior: .antiAlias,
+                fit: .cover,
+                child: SizedBox(
+                  width: 1000,
+                  child: CameraPreview(widget.controller),
+                ),
+              ),
             ),
           ),
         ),
@@ -114,18 +120,14 @@ class _CameraScreenState extends State<CameraScreen> {
         ),
         Padding(
           padding: const .only(bottom: 48, top: 0),
-          child: Column(
-            children: [
-              AppButton(
-                padding: const .all(16),
-                onPressed: widget.onTakePicture,
-                child: Icon(
-                  Symbols.camera_alt_rounded,
-                  color: AppColors.of(context).surface,
-                  size: 24,
-                ),
-              ),
-            ],
+          child: AppButton(
+            padding: const .all(16),
+            onPressed: widget.onTakePicture,
+            child: Icon(
+              Symbols.camera_alt_rounded,
+              color: AppColors.of(context).surface,
+              size: 24,
+            ),
           ),
         ),
       ],

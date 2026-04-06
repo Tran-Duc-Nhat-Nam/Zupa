@@ -43,11 +43,11 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
         child: BlocBuilder<CheckInCubit, CheckInState>(
           builder: (context, state) {
             return AppScreen(
-              appBarColor: Colors.black,
+              appBarColor: colors.surface,
               isClose: true,
               isChildScrollable: true,
               hasSafeTopArea: false,
-              backgroundColor: Colors.black,
+              backgroundColor: colors.surface,
               child: state.maybeWhen(
                 initial: () => const SizedBox(),
                 checkIn: (controller) => CameraScreen(
