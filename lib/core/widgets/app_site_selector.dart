@@ -26,8 +26,8 @@ class AppSiteSelector extends StatelessWidget {
           child: Container(
             padding: const .symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: colors.surfaceContainerLow,
-              borderRadius: .circular(16),
+              color: colors.surfaceContainerHigh,
+              borderRadius: .circular(28),
               border: .all(color: colors.outlineVariant.withAlpha(50)),
               boxShadow: [
                 BoxShadow(

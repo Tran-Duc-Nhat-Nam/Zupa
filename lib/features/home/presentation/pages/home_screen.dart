@@ -46,27 +46,21 @@ class HomeScreen extends StatelessWidget {
               child: const Icon(Symbols.camera_alt_rounded),
             ),
             child: const Column(
-              spacing: 12,
+              spacing: 16,
               children: [
-                SizedBox(height: 12),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: AppSiteSelector(),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: HomeSearchBar(),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: VehicleCapacityTab(),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: TicketListTab(),
+                  padding: .symmetric(horizontal: 24),
+                  child: Column(
+                    spacing: 16,
+                    children: [
+                      SizedBox(height: 16),
+                      AppSiteSelector(),
+                      HomeSearchBar(),
+                      VehicleCapacityTab(),
+                    ],
                   ),
                 ),
+                Expanded(child: TicketListTab()),
               ],
             ),
           );

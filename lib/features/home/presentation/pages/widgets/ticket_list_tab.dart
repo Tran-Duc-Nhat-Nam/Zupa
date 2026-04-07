@@ -40,6 +40,7 @@ class _TicketListTabState extends State<TicketListTab> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return BlocConsumer<HomeTicketCubit, HomeTicketState>(
       listener: (context, state) {
         state.whenOrNull(
@@ -71,15 +72,15 @@ class _TicketListTabState extends State<TicketListTab> {
           orElse: () => [],
         );
 
-        return Skeletonizer(
-          enabled: state is Loading,
-          child: Container(
-            clipBehavior: .antiAlias,
-            margin: const .symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: AppColors.of(context).surfaceContainer,
-              borderRadius: const .vertical(top: .circular(28)),
-            ),
+        return Container(
+          clipBehavior: .antiAlias,
+          padding: const .symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: colorScheme.surfaceContainer,
+            borderRadius: const .vertical(top: .circular(36)),
+          ),
+          child: Skeletonizer(
+            enabled: state is Loading,
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(
@@ -113,11 +114,13 @@ class _TicketListTabState extends State<TicketListTab> {
                 itemCount: items.isNotEmpty ? items.length : 10,
                 itemBuilder: (c, i) =>
                     Padding(
-                      padding: .only(top: i == 0 ? 8 : 0),
+                      padding: .only(top: i == 0 ? 24 : 8),
                       child: TicketTitle(
                         key: ValueKey(
                           items.isNotEmpty ? items[i].id : 'skeleton_$i',
                         ),
+                        isFirst: i == 0,
+                        isLast: 1 == items.length - 1,
                         ticket: items.isNotEmpty
                             ? items[i]
                             : HomeTicketEntity(
@@ -130,7 +133,7 @@ class _TicketListTabState extends State<TicketListTab> {
                                   value: '',
                                   name: '',
                                   icon: '',
-                                  color: AppColors.of(context).primary,
+                                  color: colorScheme.primary,
                                 ),
                                 imageUrl: '',
                               ), // Your placeholder logic

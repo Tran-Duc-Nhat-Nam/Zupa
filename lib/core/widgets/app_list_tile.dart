@@ -43,7 +43,7 @@ class AppList extends StatelessWidget {
   const AppList({
     super.key,
     required this.items,
-    this.spacing = 4,
+    this.spacing = 2,
     this.padding,
     this.segmented = true,
   });
@@ -75,7 +75,7 @@ class AppList extends StatelessWidget {
             DecoratedBox(
               decoration: (segmented && spacing > 0)
                   ? BoxDecoration(
-                      color: colors.surfaceContainer,
+                      color: colors.surfaceContainerHigh,
                       borderRadius: itemBorderRadius,
                     )
                   : const BoxDecoration(),
@@ -168,7 +168,7 @@ class AppListTile extends StatelessWidget {
         highlightColor: colors.primary.withAlpha(10),
         child: Container(
           constraints: const BoxConstraints(minHeight: 56),
-          padding: padding ?? const .symmetric(horizontal: 16, vertical: 12),
+          padding: padding ?? const .symmetric(horizontal: 16, vertical: 24),
           child: Row(
             children: [
               if (leading != null || leadingIcon != null) ...[

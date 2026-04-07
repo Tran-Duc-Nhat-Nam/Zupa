@@ -15,10 +15,18 @@ import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 class TicketTitle extends StatelessWidget {
-  const TicketTitle({super.key, required this.ticket, this.enabled = true});
+  const TicketTitle({
+    super.key,
+    required this.ticket,
+    this.enabled = true,
+    this.isFirst = false,
+    this.isLast = false,
+  });
 
   final HomeTicketEntity ticket;
   final bool enabled;
+  final bool isFirst;
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +61,6 @@ class TicketTitle extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              // Slidable auto-closes, so we just navigate
               context.pushRoute(CheckInRoute(isCheckOut: true));
             },
             backgroundColor: colors.error,
@@ -64,7 +71,14 @@ class TicketTitle extends StatelessWidget {
         ],
       ),
 
-      child: Padding(
+      child: Container(
+        decoration: BoxDecoration(
+          color: colors.surfaceContainerHigh,
+          borderRadius: .vertical(
+            top: .circular(isFirst ? 16 : 16),
+            bottom: .circular(isLast ? 16 : 16),
+          ),
+        ),
         padding: const .symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [
