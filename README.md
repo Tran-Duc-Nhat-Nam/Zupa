@@ -1,7 +1,7 @@
 # Zupa (TSP Parking)
 
-<p align="center">
-  <img src="assets/images/logo.png" alt="Zupa Logo" width="200"/>
+<p>
+  <img src="assets/images/park.png" alt="Zupa Logo" width="512"/>
 </p>
 
 A premium, professional parking management application designed for modern parking ecosystems. Built with **Flutter**, this project implements **Clean Architecture** to deliver a high-performance, maintainable, and resilient mobile experience.
@@ -49,11 +49,11 @@ The project follows a modular **Clean Architecture** approach to ensure a strict
 
 ### Prerequisites
 
-| Tool | Required Version |
-|------|------------------|
-| Flutter SDK | `^3.41.5` |
-| Dart SDK | `^3.11.3` |
-| Java JDK | `OpenJDK 17` |
+| Tool        | Required Version |
+|-------------|------------------|
+| Flutter SDK | `^3.41.5`        |
+| Dart SDK    | `^3.11.3`        |
+| Java JDK    | `OpenJDK 17`     |
 
 ### Getting Started
 
@@ -156,4 +156,4 @@ This project is licensed under the MIT License.
 ## ✉️ Contact
 
 **Nam Tran** - [nam.tran@tsp.com.vn](mailto:nam.tran@tsp.com.vn)  
-**GitHub**: [Tran-Duc-Nhat-Nam-270702](https://github.com/Tran-Duc-Nhat-Nam-270702)
+**GitHub**: [Tran-Duc-Nhat-Nam-270702](https://github.com/Tran-Duc-Nhat-Nam-270702)
