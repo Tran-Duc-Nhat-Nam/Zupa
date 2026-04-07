@@ -11,6 +11,11 @@
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="false">
+        <!-- Add ML Kit meta-data -->
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
