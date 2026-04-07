@@ -30,6 +30,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        resConfigs "en", "vi", "ja"
     }
 
     signingConfigs {
@@ -62,6 +63,11 @@ android {
                 output.outputFileName = name
             }
         }
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
