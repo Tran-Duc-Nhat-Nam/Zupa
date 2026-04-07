@@ -9,8 +9,10 @@
 -dontwarn com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions$Builder
 -dontwarn com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 
-# Google ML Kit Keep Rules
--keep class com.google.mlkit.** { *; }
--keep interface com.google.mlkit.** { *; }
--dontwarn com.google.android.gms.**
--dontwarn com.google.mlkit.**
+-dontwarn com.google.mlkit.**
+
+# Flutter Keep Rules
+-keep class io.flutter.** { *; }
+-keep interface io.flutter.** { *; }
+-dontwarn io.flutter.**
+

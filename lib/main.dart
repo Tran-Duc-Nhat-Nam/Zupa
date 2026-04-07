@@ -51,6 +51,8 @@ Future<void> main() async {
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, stack) {
     DebuggerHelper.talker.handle(e, stack, 'Fatal App Initialization Error');
+  } finally {
+    FlutterNativeSplash.remove();
   }
 }
 
