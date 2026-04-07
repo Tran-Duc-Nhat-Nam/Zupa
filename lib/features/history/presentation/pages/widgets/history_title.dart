@@ -19,21 +19,21 @@ class HistoryTitle extends StatelessWidget {
     return AppCard(
       padding: .zero,
       decoration: .new(
-        color: colorScheme.surfaceContainer,
-        borderRadius: const .all(.circular(28)),
+        color: colorScheme.surfaceContainerHigh,
+        borderRadius: const .all(.circular(16)),
       ),
       child: Row(
         mainAxisAlignment: .spaceBetween,
         children: [
           Container(
-            padding: const .all(16),
+            padding: const .all(20),
             child: Skeleton.replace(
-              width: 24,
-              height: 24,
+              width: 28,
+              height: 28,
               child: Icon(
                 const IconConverter().fromJson(ticket.type.icon) ??
                     Symbols.globe_rounded,
-                size: 24,
+                size: 28,
                 color: colorScheme.primary,
               ),
             ),
@@ -53,9 +53,9 @@ class HistoryTitle extends StatelessWidget {
                         ticket.id.toString(),
                         overflow: .ellipsis,
                         maxLines: 1,
-                        textAlign: .center,
+                        textAlign: .start,
                         style: AppTextStyles.bodyMediumMedium.copyWith(
-                          color: colorScheme.onSurface,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                       Expanded(
@@ -79,7 +79,7 @@ class HistoryTitle extends StatelessWidget {
                         ? AppTextStyles.bodyLargeBold.copyWith(
                             color: colorScheme.onSurface,
                           )
-                        : AppTextStyles.bodyLarge.copyWith(
+                        : AppTextStyles.bodyLargeBold.copyWith(
                             fontStyle: .italic,
                             color: colorScheme.outline,
                           ),
@@ -92,14 +92,16 @@ class HistoryTitle extends StatelessWidget {
             padding: const .symmetric(horizontal: 16, vertical: 8),
             child: Column(
               crossAxisAlignment: .start,
+              spacing: 4,
               children: [
                 Row(
+                  spacing: 4,
                   children: [
                     Skeleton.replace(
                       width: 24,
                       height: 24,
                       child: Icon(
-                        Symbols.arrow_downward_rounded,
+                        Symbols.arrow_downward_alt_rounded,
                         size: 24,
                         color: colorScheme.success,
                       ),
@@ -113,12 +115,13 @@ class HistoryTitle extends StatelessWidget {
                   ],
                 ),
                 Row(
+                  spacing: 4,
                   children: [
                     Skeleton.replace(
                       width: 24,
                       height: 24,
                       child: Icon(
-                        Symbols.arrow_upward_rounded,
+                        Symbols.arrow_upward_alt_rounded,
                         size: 24,
                         color: colorScheme.error,
                       ),

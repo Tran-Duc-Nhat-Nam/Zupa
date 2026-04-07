@@ -12,15 +12,23 @@ class HistoryListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return Column(
       mainAxisSize: .min,
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Text(
-          DateTimeConverter.toDate(.now()),
-          style: AppTextStyles.bodyMediumSemibold.copyWith(
-            color: AppColors.of(context).onSurface,
+        Container(
+          padding: const .all(8),
+          decoration: BoxDecoration(
+            borderRadius: .circular(100),
+            color: colorScheme.secondaryContainer,
+          ),
+          child: Text(
+            DateTimeConverter.toDate(.now()),
+            style: AppTextStyles.bodyMediumSemibold.copyWith(
+              color: colorScheme.onSecondaryContainer,
+            ),
           ),
         ),
         ...tickets.map((ticket) => HistoryTitle(ticket: ticket)),
