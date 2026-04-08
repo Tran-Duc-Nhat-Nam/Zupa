@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeTicketCubit>(
-          create: (context) => getIt<HomeTicketCubit>()..init(context),
+          create: (context) => getIt<HomeTicketCubit>()..init(),
         ),
         BlocProvider<HomeFilterCubit>(
           create: (context) => getIt<HomeFilterCubit>()..init(),
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
         listener: (context, state) {
           state.whenOrNull(
             filtering: (filter) {
-              context.read<HomeTicketCubit>().refresh(context, filter);
+              context.read<HomeTicketCubit>().refresh(filter);
             },
           );
         },

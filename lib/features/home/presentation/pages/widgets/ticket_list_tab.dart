@@ -96,7 +96,6 @@ class _TicketListTabState extends State<TicketListTab> {
               controller: _refreshController,
               onRefresh: () => state is! Refreshing
                   ? context.read<HomeTicketCubit>().refresh(
-                      context,
                       context.read<HomeFilterCubit>().state.mapOrNull(
                         loaded: (s) => s.filter,
                       ),
@@ -104,7 +103,6 @@ class _TicketListTabState extends State<TicketListTab> {
                   : null,
               onLoad: () => state is! LoadingMore
                   ? context.read<HomeTicketCubit>().loadMore(
-                      context,
                       context.read<HomeFilterCubit>().state.mapOrNull(
                         loaded: (s) => s.filter,
                       ),

@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
+
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
@@ -15,20 +15,21 @@ part 'home_ticket_state.dart';
 @injectable
 class HomeTicketCubit extends Cubit<HomeTicketState> {
   final IHomeRepository _repository;
+  final AuthCubit _authCubit;
 
-  HomeTicketCubit(this._repository) : super(const .initial());
+  HomeTicketCubit(this._repository, this._authCubit) : super(const .initial());
 
-  Future<void> init(BuildContext context) async {
+  Future<void> init() async {
     emit(const .loading());
     final result = await _repository.getTickets();
     result.whenOrNull(
-      unauthenticated: () => context.read<AuthCubit>().logOut(),
+      unauthenticated: () => _authCubit.logOut(),
       success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
       error: (message) => emit(.failed(message)),
     );
   }
 
-  void refresh(BuildContext context, HomeFilterEntity? filter) async {
+  void refresh(HomeFilterEntity? filter) async {
     final List<HomeTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -48,12 +49,12 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     result.maybeWhen(
       success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
       error: (message) => emit(.failed(message)),
-      unauthenticated: () => context.read<AuthCubit>().logOut(),
+      unauthenticated: () => _authCubit.logOut(),
       orElse: () => emit(const .failed('unknownError')),
     );
   }
 
-  void loadMore(BuildContext context, HomeFilterEntity? filter) async {
+  void loadMore(HomeFilterEntity? filter) async {
     final List<HomeTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -82,7 +83,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
         emit(items.isEmpty ? const .empty() : .loaded(items, pageIndex + 1));
       },
       error: (message) => emit(.failed(message)),
-      unauthenticated: () => context.read<AuthCubit>().logOut(),
+      unauthenticated: () => _authCubit.logOut(),
     );
   }
 }
