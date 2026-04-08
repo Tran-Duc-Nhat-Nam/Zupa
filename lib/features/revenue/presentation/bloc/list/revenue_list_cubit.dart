@@ -17,27 +17,9 @@ part 'revenue_list_state.dart';
 class RevenueListCubit extends Cubit<RevenueListState> {
   final IRevenueRepository _revenueRepository;
   final RevenueFilterCubit _filterCubit;
-  late final StreamSubscription _filterSubscription;
 
   RevenueListCubit(this._revenueRepository, this._filterCubit)
-    : super(const .initial()) {
-    _filterSubscription = _filterCubit.stream.listen((filterState) {
-      filterState.whenOrNull(loaded: (_) => init());
-    });
-  }
-
-  RevenueFilterEntity get _currentFilter => _filterCubit.state.maybeWhen(
-    loading: (filter) => filter,
-    loaded: (filter) => filter,
-    filtering: (filter) => filter,
-    failed: (filter, _) => filter,
-    orElse: () => RevenueFilterEntity(
-      keyword: '',
-      type: vehicleTypes[0],
-      fromDate: .now(),
-      toDate: .now(),
-    ),
-  );
+    : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading(revenueList: []));
@@ -64,7 +46,7 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     );
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh(RevenueFilterEntity filter) async {
     final List<DailyRevenueEntity> items = state.maybeWhen(
       loaded: (revenueList, pageIndex) => revenueList,
       orElse: () => [],
@@ -74,8 +56,9 @@ class RevenueListCubit extends Cubit<RevenueListState> {
       orElse: () => 0,
     );
     emit(.refreshing(revenueList: items, pageIndex: page));
+
     final response = await _revenueRepository.getRevenue(
-      filter: _currentFilter,
+      filter: filter,
     );
 
     response.whenOrNull(
@@ -86,7 +69,7 @@ class RevenueListCubit extends Cubit<RevenueListState> {
     );
   }
 
-  Future<void> loadMore() async {
+  Future<void> loadMore(RevenueFilterEntity filter) async {
     final List<DailyRevenueEntity> items = state.maybeMap(
       loaded: (params) => [...params.revenueList],
       orElse: () => [],
@@ -96,8 +79,7 @@ class RevenueListCubit extends Cubit<RevenueListState> {
       orElse: () => 0,
     );
     emit(.loadingMore(revenueList: items, pageIndex: pageIndex));
-
-    final result = await _revenueRepository.getRevenue(filter: _currentFilter);
+    final result = await _revenueRepository.getRevenue(filter: filter);
 
     result.whenOrNull(
       success: (newItems) {
@@ -115,11 +97,5 @@ class RevenueListCubit extends Cubit<RevenueListState> {
         emit(.loadMoreFailed(revenueList: items, pageIndex: pageIndex));
       },
     );
-  }
-
-  @override
-  Future<void> close() {
-    _filterSubscription.cancel();
-    return super.close();
   }
 }

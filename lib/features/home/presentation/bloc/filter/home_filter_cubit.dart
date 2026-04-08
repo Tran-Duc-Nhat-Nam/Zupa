@@ -18,22 +18,22 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
 
   final formModel = HomeForm(HomeForm.formElements(Home()), null, null);
 
+  HomeFilterEntity get _filter => .new(
+    page: formModel.pageIndexControl.value ?? defaultPageIndex,
+    size: formModel.pageSizeControl.value ?? defaultPageSize,
+    keyword: formModel.keywordControl.value,
+    time: formModel.timeControl.value,
+    type: formModel.typeControl.value,
+  );
+
   void search() {
     state.whenOrNull(
       loaded: (filter) {
         _debounce?.cancel();
         _debounce = .new(const Duration(milliseconds: 500), () {
           emit(
-            .loaded(
-              filter: HomeFilterEntity(
-                page: formModel.pageIndexControl.value ?? defaultPageIndex,
-                size: formModel.pageSizeControl.value ?? defaultPageSize,
-                keyword: formModel.keywordControl.value,
-                time: formModel.timeControl.value,
-                type: formModel.typeControl.value,
-              ),
-            ),
-          ); // Emit the latest query after the debounce delay
+            .loaded(filter: _filter),
+          );
         });
       },
     );
@@ -45,16 +45,9 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
 
   void filter() async {
     if (formModel.form.valid) {
-      final temp = HomeFilterEntity(
-        page: formModel.pageIndexControl.value ?? defaultPageIndex,
-        size: formModel.pageSizeControl.value ?? defaultPageSize,
-        keyword: formModel.keywordControl.value,
-        time: formModel.timeControl.value,
-        type: formModel.typeControl.value,
-      );
-      emit(.filtering(filter: temp));
+      emit(.filtering(filter: _filter));
       await Future.delayed(const .new(seconds: 1));
-      emit(.loaded(filter: temp));
+      emit(.loaded(filter: _filter));
     } else {
       formModel.form.markAllAsTouched();
     }
