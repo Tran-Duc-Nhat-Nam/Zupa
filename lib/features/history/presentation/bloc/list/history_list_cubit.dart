@@ -15,10 +15,11 @@ part 'history_list_state.dart';
 @injectable
 class HistoryListCubit extends Cubit<HistoryListState> {
   final IHistoryRepository _historyRepository;
+  final AuthCubit _authCubit;
 
-  HistoryListCubit(this._historyRepository) : super(const .initial());
+  HistoryListCubit(this._historyRepository, this._authCubit) : super(const .initial());
 
-  Future<void> init(BuildContext context) async {
+  Future<void> init() async {
     emit(const .loading());
     final response = await _historyRepository.getHistory();
 
@@ -26,7 +27,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
       success: (data) =>
           data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
       error: (message) => emit(.failed(message)),
-      unauthenticated: () => context.read<AuthCubit>().logOut(),
+      unauthenticated: () => _authCubit.logOut(),
     );
   }
 
@@ -52,6 +53,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
       success: (data) =>
           data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
       error: (message) => emit(.failed(message)),
+      unauthenticated: () => _authCubit.logOut(),
     );
   }
 
@@ -90,6 +92,7 @@ class HistoryListCubit extends Cubit<HistoryListState> {
       error: (message) {
         emit(.failed(message));
       },
+      unauthenticated: () => _authCubit.logOut(),
     );
   }
 }

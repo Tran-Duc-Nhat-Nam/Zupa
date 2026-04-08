@@ -21,7 +21,7 @@ class HistoryScreen extends StatelessWidget {
           create: (filterContext) => getIt<HistoryFilterCubit>()..init(),
         ),
         BlocProvider<HistoryListCubit>(
-          create: (listContext) => getIt<HistoryListCubit>()..init(context),
+          create: (listContext) => getIt<HistoryListCubit>()..init(),
         ),
       ],
       child: Builder(
