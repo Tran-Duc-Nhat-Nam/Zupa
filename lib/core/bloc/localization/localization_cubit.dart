@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/localization.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/models/form/localization/app_settings_form.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
@@ -21,12 +22,15 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   );
 
   Future<void> loadLocale() async {
-    emit(.loaded(await _storageService.getLocalization()));
+    final mode = await _storageService.getLocalization();
+    LocaleSettings.setLocaleRaw(mode.name);
+    emit(.loaded(mode));
   }
 
   void changeLocale() {
     final mode = formModel.localizationModeControl.value ?? .followSystem;
     _storageService.setLocalization(mode);
+    LocaleSettings.setLocaleRaw(mode.name);
     emit(.loaded(mode));
   }
 }
