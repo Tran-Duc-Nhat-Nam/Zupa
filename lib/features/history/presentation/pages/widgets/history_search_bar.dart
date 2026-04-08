@@ -22,7 +22,7 @@ class HistorySearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
     return Padding(
-      padding: const .only(left: 16, right: 16, top: 8),
+      padding: const .only(top: 8),
       child: BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
         builder: (context, state) {
           final formModel = context.read<HistoryFilterCubit>().formModel;

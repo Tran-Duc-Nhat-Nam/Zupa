@@ -23,7 +23,7 @@ class RevenueSearchBar extends StatelessWidget {
       // Keep it flat inside the colored container
       color: colorScheme.surfaceContainer,
       shape: RoundedRectangleBorder(
-        borderRadius: .circular(16), // Modern large curves
+        borderRadius: .circular(28), // Modern large curves
       ),
       child: Padding(
         padding: const .symmetric(vertical: 16, horizontal: 24),
@@ -34,11 +34,21 @@ class RevenueSearchBar extends StatelessWidget {
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [
-                Text(
-                  t['common.months.${DateTimeConverter.getMonthKey(DateTime.now().month)}'],
-                  style: AppTextStyles.titleLargeBold.copyWith(
-                    color: colorScheme.onSurface,
-                  ),
+                Row(
+                  spacing: 8,
+                  children: [
+                    Icon(
+                      Symbols.calendar_clock_rounded,
+                      size: 24,
+                      color: colorScheme.secondary,
+                    ),
+                    Text(
+                      t['common.months.${DateTimeConverter.getMonthKey(DateTime.now().month)}'],
+                      style: AppTextStyles.titleLargeBold.copyWith(
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   clipBehavior: .antiAlias,
@@ -66,7 +76,7 @@ class RevenueSearchBar extends StatelessWidget {
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     // Very large text
                     fontWeight: .bold,
-                    color: colorScheme.onSurface,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 Text(

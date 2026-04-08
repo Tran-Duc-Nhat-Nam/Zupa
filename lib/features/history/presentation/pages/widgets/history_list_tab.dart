@@ -48,64 +48,61 @@ class HistoryListTab extends StatelessWidget {
 
         return Skeletonizer(
           enabled: state is Loading,
-          child: Container(
-            padding: const .symmetric(horizontal: 12),
-            child: EasyRefresh(
-              header: const MaterialHeader(triggerWhenRelease: true),
-              footer: ClassicFooter(
-                dragText: t.common.refresh.dragText,
-                armedText: t.common.refresh.armedText,
-                readyText: t.common.refresh.releaseToLoadMore,
-                processingText: t.common.refresh.processingText,
-                processedText: t.common.refresh.processedText,
-                noMoreText: t.common.refresh.noMoreText,
-                failedText: t.common.refresh.failedText,
-                triggerWhenRelease: true,
-              ),
-              controller: refreshController,
-              onRefresh: () async {
-                final filter = context
-                    .read<HistoryFilterCubit>()
-                    .state
-                    .whenOrNull(loaded: (filter) => filter);
-                await context.read<HistoryListCubit>().refresh(filter);
-              },
-              onLoad: () async {
-                final filter = context
-                    .read<HistoryFilterCubit>()
-                    .state
-                    .whenOrNull(loaded: (filter) => filter);
-                await context.read<HistoryListCubit>().loadMore(filter);
-              },
-              child: ListView.separated(
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 32),
-                itemBuilder: (c, i) =>
-                    Padding(
-                      padding: .only(top: i == 0 ? 16 : 0, left: 24, right: 24),
-                      child: HistoryListSection(
-                        tickets: items.isNotEmpty
-                            ? items
-                            : List.generate(
-                                10,
-                                (index) => HistoryTicketEntity(
-                                  code: 'Placeholder',
-                                  id: -1,
-                                  timeIn: .now(),
-                                  timeOut: .now(),
-                                  isFlagError: false,
-                                  siteId: 'A much Longer placeholder',
-                                  type: vehicleTypes.first,
-                                ),
+          child: EasyRefresh(
+            header: const MaterialHeader(triggerWhenRelease: true),
+            footer: ClassicFooter(
+              dragText: t.common.refresh.dragText,
+              armedText: t.common.refresh.armedText,
+              readyText: t.common.refresh.releaseToLoadMore,
+              processingText: t.common.refresh.processingText,
+              processedText: t.common.refresh.processedText,
+              noMoreText: t.common.refresh.noMoreText,
+              failedText: t.common.refresh.failedText,
+              triggerWhenRelease: true,
+            ),
+            controller: refreshController,
+            onRefresh: () async {
+              final filter = context
+                  .read<HistoryFilterCubit>()
+                  .state
+                  .whenOrNull(loaded: (filter) => filter);
+              await context.read<HistoryListCubit>().refresh(filter);
+            },
+            onLoad: () async {
+              final filter = context
+                  .read<HistoryFilterCubit>()
+                  .state
+                  .whenOrNull(loaded: (filter) => filter);
+              await context.read<HistoryListCubit>().loadMore(filter);
+            },
+            child: ListView.separated(
+              separatorBuilder: (context, index) =>
+                  const SizedBox(height: 32),
+              itemBuilder: (c, i) =>
+                  Padding(
+                    padding: .only(top: i == 0 ? 16 : 0),
+                    child: HistoryListSection(
+                      tickets: items.isNotEmpty
+                          ? items
+                          : List.generate(
+                              10,
+                              (index) => HistoryTicketEntity(
+                                code: 'Placeholder',
+                                id: -1,
+                                timeIn: .now(),
+                                timeOut: .now(),
+                                isFlagError: false,
+                                siteId: 'A much Longer placeholder',
+                                type: vehicleTypes.first,
                               ),
-                      ),
-                    ).animateIn(
-                      key: ValueKey('history_item_$i'),
-                      index: i,
-                      animate: state is Loading,
+                            ),
                     ),
-                itemCount: items.isNotEmpty ? items.length : 10,
-              ),
+                  ).animateIn(
+                    key: ValueKey('history_item_$i'),
+                    index: i,
+                    animate: state is Loading,
+                  ),
+              itemCount: items.isNotEmpty ? items.length : 10,
             ),
           ),
         );

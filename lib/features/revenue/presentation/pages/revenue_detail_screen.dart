@@ -26,11 +26,9 @@ class RevenueDetailScreen extends StatelessWidget {
             isChildScrollable: true,
             title: t.parking.revenue,
             subtitle: t.common.actions.viewDetails,
-            child: const Column(
-              children: [
-                SizedBox(height: 16),
-                Expanded(child: RevenueListTab()),
-              ],
+            child: const Padding(
+              padding: .symmetric(horizontal: 36),
+              child: RevenueListTab(),
             ),
           );
         },

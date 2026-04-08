@@ -49,7 +49,7 @@ class RevenueListTab extends StatelessWidget {
         return Skeletonizer(
           enabled: listState is Loading,
           child: Padding(
-            padding: const .only(left: 32, right: 32, top: 16),
+            padding: const .only(top: 16),
             child: Column(
               spacing: 16,
               children: [
@@ -89,7 +89,7 @@ class RevenueListTab extends StatelessWidget {
                               revenue: items.isNotEmpty
                                   ? items[i]
                                   : DailyRevenueEntity(
-                                      date: DateTime.now(),
+                                      date: .now(),
                                       revenue: [
                                         RevenueEntity(
                                           vehicleType: vehicleTypes[0],

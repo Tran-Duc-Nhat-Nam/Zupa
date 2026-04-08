@@ -74,7 +74,7 @@ class RevenueView extends StatelessWidget {
           return Skeletonizer(
             enabled: isLoading,
             child: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const .symmetric(vertical: 24, horizontal: 36),
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
@@ -100,6 +100,7 @@ class RevenueView extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Row(
+                    spacing: 16,
                     children: [
                       Expanded(
                         child: _SummaryCard(
@@ -113,7 +114,6 @@ class RevenueView extends StatelessWidget {
                           color: colorScheme.primary,
                         ),
                       ),
-                      const SizedBox(width: 16),
                       Expanded(
                         child: _SummaryCard(
                           title: t.vehicles.type,
@@ -233,7 +233,7 @@ class _SummaryCard extends StatelessWidget {
       padding: const .all(16),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
-        borderRadius: .circular(20),
+        borderRadius: .circular(28),
         border: .all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(

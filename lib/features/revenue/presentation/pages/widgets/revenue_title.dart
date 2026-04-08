@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -36,33 +33,33 @@ class RevenueTitle extends StatelessWidget {
           title: Container(
             clipBehavior: .antiAlias,
             decoration: BoxDecoration(
-              borderRadius: const .all(.circular(6)),
+              borderRadius: const .all(.circular(16)),
               color: colorScheme.surfaceContainerHigh,
             ),
             child: Row(
               children: [
                 Container(
-                  width: 32,
-                  height: 32,
+                  width: 50,
+                  height: 50,
                   alignment: .center,
                   decoration: BoxDecoration(
-                    borderRadius: .circular(4),
-                    color: colorScheme.primary,
+                    borderRadius: .circular(16),
+                    color: colorScheme.primaryContainer,
                   ),
                   child: Text(
                     revenue.date.day.toString(),
-                    style: AppTextStyles.bodyMediumSemibold.copyWith(
-                      color: colorScheme.surface,
+                    style: AppTextStyles.bodyLargeSemibold.copyWith(
+                      color: colorScheme.onPrimaryContainer,
                     ),
                   ),
                 ),
                 Expanded(
                   child: Container(
-                    padding: const .symmetric(horizontal: 10, vertical: 4),
+                    padding: const .symmetric(horizontal: 10, vertical: 16),
                     decoration: const BoxDecoration(
                       borderRadius: .only(
-                        bottomRight: .circular(8),
-                        topRight: .circular(8),
+                        bottomRight: .circular(16),
+                        topRight: .circular(16),
                       ),
                     ),
                     child: Row(
@@ -99,21 +96,6 @@ class RevenueTitle extends StatelessWidget {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const .all(4),
-                  child: Skeleton.replace(
-                    width: 24,
-                    height: 24,
-                    child: Icon(
-                      const IconConverter().fromJson(
-                            revenue.vehicleType?.icon ?? '',
-                          ) ??
-                          Symbols.globe_rounded,
-                      size: 24,
-                      color: colorScheme.success,
-                    ),
-                  ),
-                ),
                 Expanded(
                   child: Container(
                     padding: const .symmetric(horizontal: 10, vertical: 4),
@@ -130,6 +112,7 @@ class RevenueTitle extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: .start,
                             mainAxisAlignment: .center,
+                            spacing: 4,
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
@@ -148,6 +131,7 @@ class RevenueTitle extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: .end,
                             mainAxisAlignment: .center,
+                            spacing: 4,
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(
@@ -165,6 +149,7 @@ class RevenueTitle extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: .end,
                             mainAxisAlignment: .center,
+                            spacing: 4,
                             children: [
                               ...revenue.revenue.map(
                                 (e) => Text(

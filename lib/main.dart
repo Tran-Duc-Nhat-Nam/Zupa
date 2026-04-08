@@ -114,7 +114,7 @@ class _AppViewState extends State<AppView> {
     );
   }
 
-  BlocBuilder<ThemeCubit, ThemeState> _buildUI(AppRouter router) {
+  Widget _buildUI(AppRouter router) {
     return BlocBuilder<ThemeCubit, ThemeState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {

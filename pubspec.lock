@@ -1492,10 +1492,10 @@ packages:
     dependency: "direct dev"
     description:
       name: retrofit_generator
-      sha256: "2381d86c7291b55bf1d3b30d12054a74c417ba97321afbd73cb25be0e6fa401f"
+      sha256: "302be1d2640e7c69685d44f6ec08f2f9a114944d547f0e6750993a7148d9470e"
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.3"
+    version: "10.2.4"
   rxdart:
     dependency: transitive
     description:

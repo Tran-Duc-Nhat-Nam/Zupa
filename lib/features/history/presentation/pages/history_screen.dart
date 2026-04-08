@@ -34,11 +34,14 @@ class HistoryScreen extends StatelessWidget {
             hasAppBar: false,
             child: BlocBuilder<HistoryListCubit, HistoryListState>(
               builder: (listContext, listState) {
-                return const Column(
-                  children: [
-                    HistorySearchBar(),
-                    Expanded(child: HistoryListTab()),
-                  ],
+                return const Padding(
+                  padding: .symmetric(horizontal: 36),
+                  child: Column(
+                    children: [
+                      HistorySearchBar(),
+                      Expanded(child: HistoryListTab()),
+                    ],
+                  ),
                 );
               },
             ),

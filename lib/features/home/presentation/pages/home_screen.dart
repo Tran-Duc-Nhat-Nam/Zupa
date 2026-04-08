@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               spacing: 16,
               children: [
                 Padding(
-                  padding: .symmetric(horizontal: 24),
+                  padding: .symmetric(horizontal: 36),
                   child: Column(
                     spacing: 16,
                     children: [

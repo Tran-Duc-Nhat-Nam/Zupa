@@ -59,7 +59,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
       child: Skeletonizer(
         enabled: false,
         child: Padding(
-          padding: const .symmetric(vertical: 16, horizontal: 24),
+          padding: const .symmetric(vertical: 16, horizontal: 36),
           child: Column(
             spacing: 24,
             children: [
