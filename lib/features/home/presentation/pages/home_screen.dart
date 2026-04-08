@@ -30,41 +30,50 @@ class HomeScreen extends StatelessWidget {
           create: (context) => getIt<HomeFilterCubit>()..init(),
         ),
       ],
-      child: Builder(
-        builder: (context) {
-          return AppScreen(
-            formGroup: context.read<HomeFilterCubit>().formModel.form,
-            isChildScrollable: true,
-            hasParentView: true,
-            title: t.home.title,
-            hasAppBar: false,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: colorScheme.primaryContainer,
-              foregroundColor: colorScheme.primary,
-              onPressed: () => context.pushRoute(CheckInRoute()),
-              shape: const CircleBorder(),
-              child: const Icon(Symbols.camera_alt_rounded),
-            ),
-            child: const Column(
-              spacing: 16,
-              children: [
-                Padding(
-                  padding: .symmetric(horizontal: 36),
-                  child: Column(
-                    spacing: 16,
-                    children: [
-                      SizedBox(height: 16),
-                      AppSiteSelector(),
-                      HomeSearchBar(),
-                      VehicleCapacityTab(),
-                    ],
-                  ),
-                ),
-                Expanded(child: TicketListTab()),
-              ],
-            ),
+      child: BlocListener<HomeFilterCubit, HomeFilterState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            filtering: (filter) {
+              context.read<HomeTicketCubit>().refresh(context, filter);
+            },
           );
         },
+        child: Builder(
+          builder: (context) {
+            return AppScreen(
+              formGroup: context.read<HomeFilterCubit>().formModel.form,
+              isChildScrollable: true,
+              hasParentView: true,
+              title: t.home.title,
+              hasAppBar: false,
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: colorScheme.primaryContainer,
+                foregroundColor: colorScheme.primary,
+                onPressed: () => context.pushRoute(CheckInRoute()),
+                shape: const CircleBorder(),
+                child: const Icon(Symbols.camera_alt_rounded),
+              ),
+              child: const Column(
+                spacing: 16,
+                children: [
+                  Padding(
+                    padding: .symmetric(horizontal: 36),
+                    child: Column(
+                      spacing: 16,
+                      children: [
+                        SizedBox(height: 16),
+                        AppSiteSelector(),
+                        HomeSearchBar(),
+                        VehicleCapacityTab(),
+                      ],
+                    ),
+                  ),
+                  Expanded(child: TicketListTab()),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

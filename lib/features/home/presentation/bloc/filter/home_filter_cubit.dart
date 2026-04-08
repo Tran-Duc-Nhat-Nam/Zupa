@@ -53,7 +53,7 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
         type: formModel.typeControl.value,
       );
       emit(.filtering(filter: temp));
-      await Future.delayed(const .new(seconds: 3));
+      await Future.delayed(const .new(seconds: 1));
       emit(.loaded(filter: temp));
     } else {
       formModel.form.markAllAsTouched();

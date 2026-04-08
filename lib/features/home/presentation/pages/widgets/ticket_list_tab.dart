@@ -74,13 +74,13 @@ class _TicketListTabState extends State<TicketListTab> {
 
         return Container(
           clipBehavior: .antiAlias,
-          padding: const .symmetric(horizontal: 16),
+          padding: const .symmetric(horizontal: 24),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainer,
             borderRadius: const .vertical(top: .circular(36)),
           ),
           child: Skeletonizer(
-            enabled: state is Loading,
+            enabled: state is Loading || state is Refreshing,
             child: EasyRefresh(
               header: const MaterialHeader(triggerWhenRelease: true),
               footer: ClassicFooter(

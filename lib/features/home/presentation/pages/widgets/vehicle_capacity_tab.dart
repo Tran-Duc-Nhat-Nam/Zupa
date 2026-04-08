@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -21,51 +20,46 @@ class VehicleCapacityTab extends StatelessWidget {
         return BlocBuilder<HomeFilterCubit, HomeFilterState>(
           builder: (context, state) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              key: ValueKey(state.runtimeType),
+              padding: const .symmetric(vertical: 8),
               child: Skeletonizer(
                 enabled: state is Loading,
                 child: Row(
-                  spacing: 16,
                   children: List.generate(
                     vehicleTypes.length,
                     (index) => Expanded(
-                      child:
-                          VehicleCapacityCard(
-                                icon:
-                                    const IconConverter().fromJson(
-                                      vehicleTypes[index].icon,
-                                    ) ??
-                                    Symbols.globe_rounded,
-                                color: vehicleTypes[index].color,
-                                name: vehicleTypes[index].value,
-                                current: 65 + index * 20,
-                                capacity: 120,
-                                isWarning: (65 + index * 20) / 120 >= 0.8,
-                                isDisabled:
-                                    state is Loading || state is Filtering,
-                                isSelected: state.maybeWhen(
-                                  loaded: (filter) =>
-                                      filter.type?.value ==
-                                      vehicleTypes[index].value,
-                                  filtering: (filter) =>
-                                      filter.type?.value ==
-                                      vehicleTypes[index].value,
-                                  orElse: () => false,
-                                ),
-                                onPressed: () {
-                                  field.value == vehicleTypes[index]
-                                      ? field.didChange(null)
-                                      : field.didChange(vehicleTypes[index]);
-                                  context.read<HomeFilterCubit>().filter();
-                                },
-                              )
-                              .animate(delay: (index * 100).ms)
-                              .fadeIn(duration: 400.ms)
-                              .slideY(
-                                begin: 0.2,
-                                end: 0,
-                                curve: Curves.easeOutBack,
-                              ),
+                      child: Padding(
+                        padding: .only(
+                          right: index == vehicleTypes.length - 1 ? 0 : 12,
+                        ),
+                        child: VehicleCapacityCard(
+                          icon:
+                              const IconConverter().fromJson(
+                                vehicleTypes[index].icon,
+                              ) ??
+                              Symbols.globe_rounded,
+                          color: vehicleTypes[index].color,
+                          name: vehicleTypes[index].value,
+                          current: 65 + index * 20,
+                          capacity: 120,
+                          isWarning: (65 + index * 20) / 120 >= 0.8,
+                          isDisabled: state is Loading || state is Filtering,
+                          isSelected: state.maybeWhen(
+                            loaded: (filter) =>
+                                filter.type?.value == vehicleTypes[index].value,
+                            filtering: (filter) =>
+                                filter.type?.value == vehicleTypes[index].value,
+                            orElse: () => false,
+                          ),
+                          onPressed: () {
+                            if (state is Filtering) return;
+                            field.value == vehicleTypes[index]
+                                ? field.didChange(null)
+                                : field.didChange(vehicleTypes[index]);
+                            context.read<HomeFilterCubit>().filter();
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),

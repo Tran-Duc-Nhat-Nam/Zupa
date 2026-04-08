@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_card.dart';
 
 class BorderPainter extends CustomPainter {
   final double currentState;
@@ -15,9 +15,8 @@ class BorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const double strokeWidth = 7;
-    final Rect rect =
-        const Offset(-3.5, -3.5) & Size(size.width + 7, size.height + 7);
+    const double strokeWidth = 4;
+    final Rect rect = Offset.zero & size;
 
     final paint = Paint()
       ..filterQuality = .high
@@ -71,71 +70,83 @@ class VehicleCapacityCard extends StatelessWidget {
         ? (current / capacity!) * 2
         : 1;
 
-    return AppCard(
-      padding: const .all(8),
-      decoration: BoxDecoration(
-        color: isSelected
-            ? colors.primaryContainer
-            : colors.primaryContainer.withAlpha(155),
-        borderRadius: const .all(Radius.circular(100)),
-      ),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: AnimatedOpacity(
-          duration: const .new(milliseconds: 500),
-          opacity: isDisabled ? 0.5 : 1,
-          child: CustomPaint(
-            painter: BorderPainter(
-              currentState: value,
-              color: current >= (capacity ?? 0)
-                  ? colors.error
-                  : isWarning
-                  ? colors.warning
-                  : colors.success,
-            ),
-            child: InkWell(
-              customBorder:
-                  const CircleBorder(),
-              onTap: isDisabled ? null : onPressed,
-              child: Column(
-                mainAxisAlignment:
-                    .center,
+    return InkWell(
+      onTap: isDisabled ? null : onPressed,
+      customBorder: const StadiumBorder(),
+      child: AnimatedOpacity(
+        duration: 300.ms,
+        opacity: isDisabled ? 0.5 : 1,
+        child: Container(
+          padding: const .symmetric(vertical: 16),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? colors.primaryContainer
+                : colors.surfaceContainer,
+            borderRadius: .circular(28),
+            border: .all(
+              width: isSelected
+                  ? 3
+                  : 2,
+              color: isSelected
+                  ? colors.outline
+                  : colors.outlineVariant,
+            )
+          ),
+          child: Column(
+            mainAxisSize: .min,
+            mainAxisAlignment: .center,
+            children: [
+              Stack(
+                alignment: .center,
                 children: [
-                  Container(
-                    clipBehavior: .antiAlias,
-                    decoration: BoxDecoration(borderRadius: .circular(6)),
-                    child: Skeleton.replace(
-                      width: 32,
-                      height: 32,
-                      child: Container(
-                        padding: const .all(6),
-                        child: Icon(
-                          icon,
-                          size: 24,
-                          color:
-                              color?.harmonizeWith(colors.primary) ??
-                              colors.primary,
-                        ),
+                  SizedBox(
+                    width: 48,
+                    height: 48,
+                    child: CustomPaint(
+                      painter: BorderPainter(
+                        currentState: value,
+                        color: current >= (capacity ?? 0)
+                            ? colors.error
+                            : isWarning
+                            ? colors.warning
+                            : colors.success,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5), // Spacing between Icon and Text
-                  Text(
-                    capacity != null && capacity! >= 0
-                        ? (capacity! - current).toString()
-                        : '${(value * 100).toInt()}%',
-                    style: AppTextStyles.headlineSmallBold.copyWith(
-                      color: current >= (capacity ?? 0)
-                          ? colors.error
-                          : isWarning
-                          ? colors.warning
-                          : colors.success,
-                    ),
+                  Icon(
+                    icon,
+                    size: 24,
+                    color: isSelected
+                        ? colors.onPrimaryContainer
+                        : color?.harmonizeWith(colors.primary) ??
+                              colors.onSurfaceVariant,
                   ),
-                  // Removed bottom SizedBox to allow true centering
                 ],
               ),
-            ),
+              const SizedBox(height: 16),
+              Text(
+                capacity != null && capacity! >= 0
+                    ? (capacity! - current).toString()
+                    : '${(value * 100).toInt()}%',
+                style: AppTextStyles.titleMediumBold.copyWith(
+                  color: isSelected
+                      ? colors.onPrimaryContainer
+                      : current >= (capacity ?? 0)
+                      ? colors.error
+                      : isWarning
+                      ? colors.warning
+                      : colors.success,
+                ),
+              ),
+              Text(
+                t['vehicles.$name'] ?? name,
+                style: AppTextStyles.labelMedium.copyWith(
+                  color: isSelected
+                      ? colors.onPrimaryContainer
+                      : colors.onSurfaceVariant,
+                ),
+              ),
+            ],
           ),
         ),
       ),
