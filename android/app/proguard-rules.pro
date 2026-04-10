@@ -13,6 +13,7 @@
 
 # MediaPipe Keep Rules - Required for runtime
 -keep class com.google.mediapipe.proto.** { *; }
+-keepnames class com.google.mediapipe.proto.**
 -keep class com.google.mediapipe.framework.** { *; }
 
 # Flutter Keep Rules
