@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/chatbot/presentation/bloc/chatbot_state.dart';
@@ -15,7 +16,7 @@ class ChatMessageWidget extends StatelessWidget {
     final isUser = message.isUser;
 
     return Padding(
-      padding: const .symmetric(vertical: 6.0, horizontal: 12.0),
+      padding: const .symmetric(vertical: 8, horizontal: 16),
       child: Row(
         mainAxisAlignment: isUser ? .end : .start,
         crossAxisAlignment: .end,
@@ -29,7 +30,7 @@ class ChatMessageWidget extends StatelessWidget {
                 child: Icon(
                   Icons.smart_toy_rounded,
                   color: colors.onPrimaryContainer,
-                  size: 18,
+                  size: 20,
                 ),
               ),
             ),
@@ -39,12 +40,12 @@ class ChatMessageWidget extends StatelessWidget {
             child: Container(
               padding: const .symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: isUser ? colors.primary : colors.surfaceContainerHigh,
+                color: isUser ? colors.secondaryContainer : colors.surfaceContainerHigh,
                 borderRadius: .only(
-                  topLeft: const .circular(20),
-                  topRight: const .circular(20),
-                  bottomLeft: .circular(isUser ? 20 : 4),
-                  bottomRight: .circular(isUser ? 4 : 20),
+                  topLeft: const .circular(28),
+                  topRight: const .circular(28),
+                  bottomLeft: .circular(isUser ? 28 : 6),
+                  bottomRight: .circular(isUser ? 6 : 28),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -54,10 +55,54 @@ class ChatMessageWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text(
-                message.text,
-                style: AppTextStyles.bodyLarge.copyWith(
-                  color: isUser ? colors.onPrimary : colors.onSurface,
+              child: MarkdownBody(
+                data: message.text,
+                selectable: true,
+                styleSheet: MarkdownStyleSheet(
+                  p: AppTextStyles.bodyLarge.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  h1: AppTextStyles.headlineMediumBold.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  h2: AppTextStyles.headlineSmallBold.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  h3: AppTextStyles.titleMediumBold.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  h4: AppTextStyles.titleMediumBold.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  h5: AppTextStyles.titleSmallBold.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  h6: AppTextStyles.titleSmall.copyWith(
+                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                  ),
+                  code: AppTextStyles.bodyMedium.copyWith(
+                    color: colors.onSurface,
+                    fontFamily: 'monospace',
+                  ),
+                  codeblockDecoration: BoxDecoration(
+                    color: colors.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  blockquoteDecoration: BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                        color: isUser ? colors.onPrimary.withAlpha(100) : colors.outline,
+                        width: 4,
+                      ),
+                    ),
+                  ),
+                  blockquote: AppTextStyles.bodyMedium.copyWith(
+                    color: isUser ? colors.onPrimary.withAlpha(200) : colors.onSurfaceVariant,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  listBullet: AppTextStyles.bodyLarge.copyWith(
+                    color: isUser ? colors.onPrimary : colors.onSurface,
+                  ),
                 ),
               ),
             ),
@@ -72,7 +117,7 @@ class ChatMessageWidget extends StatelessWidget {
                 child: Icon(
                   Icons.person_rounded,
                   color: colors.onSecondaryContainer,
-                  size: 18,
+                  size: 20,
                 ),
               ),
             ),
