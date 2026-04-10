@@ -11,6 +11,10 @@
 
 -dontwarn com.google.mlkit.**
 
+# MediaPipe Keep Rules - Required for runtime
+-keep class com.google.mediapipe.proto.** { *; }
+-keep class com.google.mediapipe.framework.** { *; }
+
 # Flutter Keep Rules
 -keep class io.flutter.** { *; }
 -keep interface io.flutter.** { *; }
