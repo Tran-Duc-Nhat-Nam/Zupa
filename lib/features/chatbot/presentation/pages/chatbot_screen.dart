@@ -187,9 +187,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     return Container(
       padding: const .symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: colors.surface,
+        color: colors.surfaceContainer,
         border: Border(
-          top: BorderSide(color: colors.outlineVariant.withAlpha(123)),
+          top: BorderSide(color: colors.outlineVariant),
         ),
       ),
       child: Row(
@@ -204,11 +204,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   color: colors.onSurfaceVariant,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: .circular(24),
+                  borderRadius: .circular(28),
                   borderSide: .none,
                 ),
                 filled: true,
-                fillColor: colors.surfaceContainerLow,
+                fillColor: colors.surfaceContainerHigh,
                 contentPadding: const .symmetric(horizontal: 20, vertical: 10),
               ),
               maxLines: null,
@@ -234,8 +234,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     }
                   },
             icon: isProcessing
-                ? LoadingAnimationWidget.beat(color: colors.onPrimary, size: 20)
-                : const Icon(Icons.send_rounded),
+                ? LoadingAnimationWidget.beat(color: colors.onPrimary, size: 24)
+                : const Icon(Icons.send_rounded, size: 24),
             style: IconButton.styleFrom(
               backgroundColor: colors.primary,
               foregroundColor: colors.onPrimary,
