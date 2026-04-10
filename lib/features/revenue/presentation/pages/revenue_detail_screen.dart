@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
 
@@ -16,13 +15,11 @@ class RevenueDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<RevenueFilterCubit>()..init()),
-        BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
+        BlocProvider(create: (context) => getIt<RevenueListCubit>()),
       ],
       child: Builder(
         builder: (context) {
           return AppScreen(
-            formGroup: context.read<RevenueFilterCubit>().formModel.form,
             isChildScrollable: true,
             title: t.parking.revenue,
             subtitle: t.common.actions.viewDetails,

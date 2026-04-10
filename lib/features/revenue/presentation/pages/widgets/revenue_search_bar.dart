@@ -9,7 +9,8 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart';
+import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 
 class RevenueSearchBar extends StatelessWidget {
   const RevenueSearchBar({super.key});
@@ -97,6 +98,7 @@ class RevenueSearchBar extends StatelessWidget {
   }
 
   Future<dynamic> _buildFilter(BuildContext context, AppColors colorScheme) {
+    final formModel = ReactiveRevenueForm.of(context);
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -123,10 +125,17 @@ class RevenueSearchBar extends StatelessWidget {
                     color: colorScheme.onSurfaceVariant,
                   ),
                 ),
-                Text(
-                  t.common.actions.reset,
-                  style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: colorScheme.primary,
+                GestureDetector(
+                  onTap: () {
+                    formModel?.reset(value: Revenue.fromParams(.initial()));
+                    context.read<RevenueListCubit>().init(filter: .initial());
+                    context.maybePop();
+                  },
+                  child: Text(
+                    t.common.actions.reset,
+                    style: AppTextStyles.bodyMediumSemibold.copyWith(
+                      color: colorScheme.primary,
+                    ),
                   ),
                 ),
               ],
@@ -136,12 +145,9 @@ class RevenueSearchBar extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(t.common.info.date),
-                AppDateTimePicker(
-                  formControl: context
-                      .read<RevenueFilterCubit>()
-                      .formModel
-                      .toDateControl,
-                ),
+                formModel != null
+                    ? AppDateTimePicker(formControl: formModel.fromDateControl)
+                    : Text(t.common.errors.unknown),
               ],
             ),
             const Divider(),
@@ -152,13 +158,18 @@ class RevenueSearchBar extends StatelessWidget {
                   child: AppButton(
                     color: .basic,
                     theme: .outline,
-                    onPressed: () => context.pop(),
+                    onPressed: () => context.maybePop(),
                     text: t.common.actions.cancel,
                   ),
                 ),
                 Expanded(
                   child: AppButton(
-                    onPressed: () => context.pop(),
+                    onPressed: () {
+                      context.read<RevenueListCubit>().init(
+                        filter: formModel?.model.toParams() ?? .initial(),
+                      );
+                      context.maybePop();
+                    },
                     text: t.common.actions.apply,
                   ),
                 ),

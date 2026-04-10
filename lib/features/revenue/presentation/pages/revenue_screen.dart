@@ -13,9 +13,8 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
-    hide Loading;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 
 @RoutePage()
 class RevenueScreen extends StatelessWidget {
@@ -23,11 +22,8 @@ class RevenueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt<RevenueFilterCubit>()..init()),
-        BlocProvider(create: (context) => getIt<RevenueListCubit>()..init()),
-      ],
+    return BlocProvider(
+      create: (context) => getIt<RevenueListCubit>(),
       child: const RevenueView(),
     );
   }
@@ -41,7 +37,6 @@ class RevenueView extends StatelessWidget {
     final colorScheme = AppColors.of(context);
 
     return AppScreen(
-      formGroup: context.read<RevenueFilterCubit>().formModel.form,
       isChildScrollable: true,
       hasParentView: true,
       title: t.parking.revenue,
@@ -71,88 +66,92 @@ class RevenueView extends StatelessWidget {
             (sum, item) => sum + item.totalPass,
           );
 
-          return Skeletonizer(
-            enabled: isLoading,
-            child: Padding(
-              padding: const .symmetric(vertical: 24, horizontal: 36),
-              child: Column(
-                crossAxisAlignment: .start,
-                children: [
-                  Row(
-                    mainAxisAlignment: .spaceBetween,
+          return RevenueFormBuilder(
+            builder: (context, formModel, _) {
+              return Skeletonizer(
+                enabled: isLoading,
+                child: Padding(
+                  padding: const .symmetric(vertical: 24, horizontal: 36),
+                  child: Column(
+                    crossAxisAlignment: .start,
                     children: [
+                      Row(
+                        mainAxisAlignment: .spaceBetween,
+                        children: [
+                          Text(
+                            t.parking.revenue,
+                            style: AppTextStyles.titleLargeBold.copyWith(
+                              color: colorScheme.onSurface,
+                            ),
+                          ),
+                          IconButton.filledTonal(
+                            color: colorScheme.primary,
+                            onPressed: () =>
+                                context.pushRoute(const RevenueDetailRoute()),
+                            icon: const Icon(Icons.arrow_forward_rounded),
+                          ),
+                        ],
+                      ).animateIn(
+                        key: const ValueKey('revenue_header'),
+                        animate: isLoading,
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        spacing: 16,
+                        children: [
+                          Expanded(
+                            child: _SummaryCard(
+                              title: t.parking.revenue,
+                              value: NumberFormat.currency(
+                                locale: 'vi_VN',
+                                symbol: 'đ',
+                                decimalDigits: 0,
+                              ).format(totalRevenue),
+                              icon: Symbols.account_balance_wallet_rounded,
+                              color: colorScheme.primary,
+                            ),
+                          ),
+                          Expanded(
+                            child: _SummaryCard(
+                              title: t.vehicles.type,
+                              value: totalPass.toString(),
+                              icon: Symbols.directions_car_rounded,
+                              color: colorScheme.secondary,
+                            ),
+                          ),
+                        ],
+                      ).animateIn(
+                        key: const ValueKey('revenue_summary'),
+                        animate: isLoading,
+                        index: 1,
+                      ),
+                      const SizedBox(height: 32),
                       Text(
-                        t.parking.revenue,
+                        t.home.statistic,
                         style: AppTextStyles.titleLargeBold.copyWith(
                           color: colorScheme.onSurface,
                         ),
+                      ).animateIn(
+                        key: const ValueKey('revenue_statistic'),
+                        animate: isLoading,
+                        index: 2,
                       ),
-                      IconButton.filledTonal(
-                        color: colorScheme.primary,
-                        onPressed: () =>
-                            context.pushRoute(const RevenueDetailRoute()),
-                        icon: const Icon(Icons.arrow_forward_rounded),
-                      ),
-                    ],
-                  ).animateIn(
-                    key: const ValueKey('revenue_header'),
-                    animate: isLoading,
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    spacing: 16,
-                    children: [
-                      Expanded(
-                        child: _SummaryCard(
-                          title: t.parking.revenue,
-                          value: NumberFormat.currency(
-                            locale: 'vi_VN',
-                            symbol: 'đ',
-                            decimalDigits: 0,
-                          ).format(totalRevenue),
-                          icon: Symbols.account_balance_wallet_rounded,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-                      Expanded(
-                        child: _SummaryCard(
-                          title: t.vehicles.type,
-                          value: totalPass.toString(),
-                          icon: Symbols.directions_car_rounded,
-                          color: colorScheme.secondary,
-                        ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 300,
+                        child: items.isEmpty && !isLoading
+                            ? const _EmptyRevenueState()
+                            : _RevenueChart(items: items),
+                      ).animateIn(
+                        key: const ValueKey('revenue_chart'),
+                        animate: isLoading,
+                        index: 3,
                       ),
                     ],
-                  ).animateIn(
-                    key: const ValueKey('revenue_summary'),
-                    animate: isLoading,
-                    index: 1,
                   ),
-                  const SizedBox(height: 32),
-                  Text(
-                    t.home.statistic,
-                    style: AppTextStyles.titleLargeBold.copyWith(
-                      color: colorScheme.onSurface,
-                    ),
-                  ).animateIn(
-                    key: const ValueKey('revenue_statistic'),
-                    animate: isLoading,
-                    index: 2,
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 300,
-                    child: items.isEmpty && !isLoading
-                        ? const _EmptyRevenueState()
-                        : _RevenueChart(items: items),
-                  ).animateIn(
-                    key: const ValueKey('revenue_chart'),
-                    animate: isLoading,
-                    index: 3,
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
         },
       ),
@@ -199,8 +198,15 @@ class _EmptyRevenueState extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           FilledButton.icon(
-            onPressed: () => context.read<RevenueListCubit>().init(),
+            onPressed: () {
+              context.read<RevenueListCubit>().init(
+                filter:
+                    ReactiveRevenueForm.of(context)?.model.toParams() ??
+                    .initial(),
+              );
+            },
             icon: const Icon(Symbols.refresh_rounded),
+
             label: Text(t.common.actions.reload),
             style: FilledButton.styleFrom(
               backgroundColor: colorScheme.secondaryContainer,

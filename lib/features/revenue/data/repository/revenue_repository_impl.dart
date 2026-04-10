@@ -4,9 +4,8 @@ import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/revenue/data/api/revenue_api.dart';
-import 'package:zupa/features/revenue/data/models/filter/revenue_filter_model.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/domain/entities/filter/revenue_filter_entity.dart';
+import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
 
 @LazySingleton(as: IRevenueRepository)
@@ -20,18 +19,18 @@ class RevenueRepositoryImpl implements IRevenueRepository {
   Future<NetworkState<List<DailyRevenueEntity>>> getRevenue({
     int page = 1,
     int pageSize = 10,
-    required RevenueFilterEntity filter,
+    required GetRevenueParams filter,
   }) async {
     final response = await _networkService.request(
-      (dio) => _api.getList(RevenueFilterModel.fromEntity(filter)),
+      (dio) => _api.getList(.fromEntity(filter)),
     );
 
     if (response is SuccessResponse<List<DailyRevenueEntity>>) {
-      return NetworkState.success(response.data);
+      return .success(response.data);
     } else if (response is ErrorResponse) {
-      return NetworkState.error(response.message);
+      return .error(response.message);
     } else {
-      return const NetworkState.error('error');
+      return const .error('error');
     }
   }
 }

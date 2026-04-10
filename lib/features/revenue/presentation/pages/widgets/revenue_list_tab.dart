@@ -7,9 +7,8 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
 import 'package:zupa/features/revenue/domain/entities/revenue_entity.dart';
-import 'package:zupa/features/revenue/presentation/bloc/filter/revenue_filter_cubit.dart'
-    as filter_cubit;
 import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_title.dart';
 
@@ -76,31 +75,23 @@ class RevenueListTab extends StatelessWidget {
                       ),
                       controller: refreshController,
                       onRefresh: () async {
-                        final cubit = context
-                            .read<filter_cubit.RevenueFilterCubit>();
-                        cubit.state is filter_cubit.Loaded
-                            ? await listContext
-                                  .read<RevenueListCubit>()
-                                  .refresh(
-                                    cubit.state.whenOrNull(
-                                      loaded: (filter) => filter,
-                                    )!,
-                                  )
-                            : null;
+                        await listContext.read<RevenueListCubit>().refresh(
+                          filter:
+                              ReactiveRevenueForm.of(
+                                context,
+                              )?.model.toParams() ??
+                              .initial(),
+                        );
                         refreshController.finishRefresh();
                       },
                       onLoad: () async {
-                        final cubit = context
-                            .read<filter_cubit.RevenueFilterCubit>();
-                        cubit.state is filter_cubit.Loaded
-                            ? await listContext
-                                  .read<RevenueListCubit>()
-                                  .loadMore(
-                                    cubit.state.whenOrNull(
-                                      loaded: (filter) => filter,
-                                    )!,
-                                  )
-                            : null;
+                        await listContext.read<RevenueListCubit>().loadMore(
+                          filter:
+                              ReactiveRevenueForm.of(
+                                context,
+                              )?.model.toParams() ??
+                              .initial(),
+                        );
                         refreshController.finishLoad();
                       },
                       child: ListView.separated(

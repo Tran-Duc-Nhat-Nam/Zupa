@@ -74,7 +74,7 @@ class _TicketListTabState extends State<TicketListTab> {
 
         return Container(
           clipBehavior: .antiAlias,
-          padding: const .symmetric(horizontal: 24),
+          padding: const .symmetric(horizontal: 36),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainer,
             borderRadius: const .vertical(top: .circular(36)),
