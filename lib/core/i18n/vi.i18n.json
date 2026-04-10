@@ -64,7 +64,8 @@
       "search": "Tìm kiếm",
       "reset": "Đặt lại",
       "complete": "Hoàn thành",
-      "all": "Tất cả"
+      "all": "Tất cả",
+      "retry": "Thử lại"
     },
     "refresh": {
       "dragText": "Kéo để tải",
@@ -343,5 +344,15 @@
       "title": "Người lớn",
       "subtitle": "Thêm thông tin như trên CCCD/hộ chiếu"
     }
+  },
+  "chatbot": {
+    "title": "Trợ lý AI",
+    "downloading": "Đang tải mô hình AI",
+    "downloadingSubtitle": "Vui lòng đợi trong khi chúng tôi chuẩn bị trợ lý ngoại tuyến. Đây là lần tải xuống duy nhất.",
+    "loadingModel": "Đang tải mô hình AI offline...",
+    "loadingWarning": "Có thể mất một chút thời gian",
+    "hint": "Hỏi bất cứ điều gì...",
+    "errorTitle": "Lỗi AI",
+    "retry": "Thử lại"
   }
 }

@@ -64,7 +64,8 @@
       "search": "検索",
       "reset": "リセット",
       "complete": "完了",
-      "all": "すべて"
+      "all": "すべて",
+      "retry": "再試行"
     },
     "refresh": {
       "dragText": "引っ張って読み込み",
@@ -342,5 +343,15 @@
       "title": "大人",
       "subtitle": "身分証/パスポートの情報を入力してください"
     }
+  },
+  "chatbot": {
+    "title": "AIアシスタント",
+    "downloading": "AIモデルのダウンロード",
+    "downloadingSubtitle": "オフラインアシスタントを準備しています。初回のみダウンロードが必要です。",
+    "loadingModel": "オフラインAIモデルをロード中...",
+    "loadingWarning": "少し時間がかかる場合があります",
+    "hint": "何でも聞いてください...",
+    "errorTitle": "AIエラー",
+    "retry": "再試行"
   }
 }

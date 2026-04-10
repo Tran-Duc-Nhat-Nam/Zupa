@@ -12,4 +12,13 @@ abstract class Env {
 
   @EnviedField(varName: 'GITHUB', obfuscate: true)
   static final String github = _Env.github;
+
+  @EnviedField(varName: 'MODEL_NAME', obfuscate: true)
+  static final String modelName = _Env.modelName;
+
+  @EnviedField(varName: 'MODEL_URL', obfuscate: true)
+  static final String modelUrl = _Env.modelUrl;
+
+  @EnviedField(varName: 'HUGGING_FACE_TOKEN', obfuscate: true)
+  static final String huggingFaceToken = _Env.huggingFaceToken;
 }

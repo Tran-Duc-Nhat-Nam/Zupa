@@ -83,6 +83,7 @@ class AppRouter extends RootStackRouter {
         // 4. Action Routes
         AutoRoute(path: 'check-in', page: CheckInRoute.page),
         AutoRoute(path: 'debug', page: DebugRoute.page),
+        AutoRoute(path: 'chatbot', page: ChatbotRoute.page),
       ],
     ),
 

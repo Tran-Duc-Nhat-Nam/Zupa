@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_gemma/flutter_gemma.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -22,6 +23,7 @@ import 'package:zupa/core/bloc/theme/theme_cubit.dart';
 import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
+import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
@@ -42,6 +44,12 @@ Future<void> main() async {
     await configureDependencies();
 
     final router = getIt<AppRouter>();
+
+    // Initialize Chatbot
+    FlutterGemma.initialize(
+      huggingFaceToken: Env.huggingFaceToken,
+    );
+
     await NotificationService.initialize(router);
     await FlutterDisplayMode.setHighRefreshRate();
 
@@ -255,10 +263,14 @@ class _AppViewState extends State<AppView> {
             },
             downloading: (progress, info) {
               DialogHelper.dismissLoading();
-              DialogHelper.showDownloadDialog(
+              DialogHelper.showDownloadProgress(
                 context,
-                progressStream: progress,
-                version: info.latestVersion,
+                progressStream: progress.map((p) => p / 100.0),
+                subtitle: info.latestVersion != null
+                    ? t.common.version.downloadingVersion(
+                        version: info.latestVersion!,
+                      )
+                    : null,
               );
             },
             downloadFailed: (message, info) {

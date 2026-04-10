@@ -98,23 +98,44 @@ abstract class DialogHelper {
   }
 
   /// Show a download progress dialog with a [progressStream].
+  static void showDownloadProgress(
+    BuildContext context, {
+    required Stream<double> progressStream,
+    String? title,
+    String? subtitle,
+    IconData? icon,
+    String tag = 'download_progress',
+    VoidCallback? onDismiss,
+  }) {
+    SmartDialog.show(
+      tag: tag,
+      builder: (context) => DownloadProgressDialog(
+        progressStream: progressStream,
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+      ),
+      backType: .block,
+      clickMaskDismiss: false,
+      onDismiss: onDismiss,
+      animationTime: getIt<AnimationCubit>().state.maybeWhen(
+        loaded: (isOn) => isOn ? null : .zero,
+        orElse: () => null,
+      ),
+    );
+  }
+
+  /// Compatibility layer for existing int-based download dialogs
+  @Deprecated('Use showDownloadProgress instead')
   static void showDownloadDialog(
     BuildContext context, {
     required Stream<int> progressStream,
     String? version,
   }) {
-    SmartDialog.show(
-      tag: 'app_download',
-      builder: (context) => DownloadProgressDialog(
-        progressStream: progressStream,
-        version: version,
-      ),
-      backType: .block,
-      clickMaskDismiss: false,
-      animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : .zero,
-        orElse: () => null,
-      ),
+    showDownloadProgress(
+      context,
+      progressStream: progressStream.map((p) => p / 100.0),
+      subtitle: version != null ? t.common.version.downloadingVersion(version: version) : null,
     );
   }
 
@@ -325,13 +346,17 @@ class _DialogStyle {
 }
 
 class DownloadProgressDialog extends StatelessWidget {
-  final Stream<int> progressStream;
-  final String? version;
+  final Stream<double> progressStream;
+  final String? title;
+  final String? subtitle;
+  final IconData? icon;
 
   const DownloadProgressDialog({
     super.key,
     required this.progressStream,
-    this.version,
+    this.title,
+    this.subtitle,
+    this.icon,
   });
 
   @override
@@ -341,32 +366,31 @@ class DownloadProgressDialog extends StatelessWidget {
     return Align(
       child: Container(
         constraints: const BoxConstraints(minWidth: 280, minHeight: 180),
-        margin: const .symmetric(horizontal: 24),
-        padding: const .all(24),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHigh,
-          borderRadius: .circular(28),
+          borderRadius: BorderRadius.circular(28),
         ),
         child: Material(
           color: Colors.transparent,
-          child: StreamBuilder<int>(
+          child: StreamBuilder<double>(
             stream: progressStream,
             builder: (context, snapshot) {
-              // Normalize value to 0.0 - 1.0 for the ProgressIndicator
-              final double progress = (snapshot.data ?? 0) / 100.0;
-              final int displayPercent = snapshot.data ?? 0;
+              final double progress = (snapshot.data ?? 0.0);
+              final int displayPercent = (progress * 100).toInt();
 
               return Column(
-                mainAxisSize: .min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Symbols.cloud_download_rounded,
+                    icon ?? Symbols.cloud_download_rounded,
                     size: 32,
                     color: colorScheme.primary,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    t.common.version.downloading,
+                    title ?? t.common.version.downloading,
                     style: AppTextStyles.titleMediumBold.copyWith(
                       color: colorScheme.onSurface,
                     ),
@@ -376,8 +400,9 @@ class DownloadProgressDialog extends StatelessWidget {
 
                   // Progress Bar
                   LinearPercentIndicator(
-                    percent: progress,
+                    percent: progress.clamp(0.0, 1.0),
                     lineHeight: 8,
+                    padding: EdgeInsets.zero,
                     barRadius: const Radius.circular(8),
                     backgroundColor: colorScheme.surfaceContainerHighest,
                     linearGradient: LinearGradient(
@@ -395,14 +420,16 @@ class DownloadProgressDialog extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 8),
-                  Text(
-                    t.common.version.downloadingVersion(version: version ?? ''),
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: colorScheme.onSurfaceVariant,
+                  if (subtitle != null) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      subtitle!,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: .center,
-                  ),
+                  ],
                 ],
               );
             },

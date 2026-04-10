@@ -52,6 +52,13 @@ class SettingsScreen extends StatelessWidget {
                       context.pushRoute(const EmployeeManagementRoute()),
                 ),
                 AppListItem(
+                  leadingIcon: Symbols.smart_toy_rounded,
+                  leadingColor: colorScheme.primary,
+                  text: t.chatbot.title,
+                  trailingIcon: Symbols.chevron_right_rounded,
+                  onTap: () => context.pushRoute(const ChatbotRoute()),
+                ),
+                AppListItem(
                   leadingIcon: Symbols.settings_applications_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.settings.generalConfig,
