@@ -60,11 +60,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   title: t.chatbot.downloading,
                   subtitle: t.chatbot.downloadingSubtitle,
                   onDismiss: () => _isDialogShowing = false,
-                  progressStream: context.read<ChatbotCubit>().stream.map(
-                    (s) =>
-                        s.maybeWhen(downloading: (p) => p, orElse: () => 0.0),
-                  ),
+                  progressStream: context.read<ChatbotCubit>().stream
+                      .map((s) => s.maybeWhen(downloading: (p) => p, orElse: () => null))
+                      .where((p) => p != null)
+                      .cast<double>(),
                 );
+              }
+            },
+            loadingModel: () {
+              if (_isDialogShowing) {
+                SmartDialog.dismiss(tag: 'chatbot_download');
+                _isDialogShowing = false;
               }
             },
             ready: (_, _, _) {
