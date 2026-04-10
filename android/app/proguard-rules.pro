@@ -11,10 +11,17 @@
 
 -dontwarn com.google.mlkit.**
 
-# MediaPipe Keep Rules - Keep ALL proto and framework classes
--keep class com.google.mediapipe.proto.** { *; }
--keep class com.google.mediapipe.framework.** { *; }
+# MediaPipe
 -keep class com.google.mediapipe.** { *; }
+-dontwarn com.google.mediapipe.**
+
+# Protocol Buffers
+-keep class com.google.protobuf.** { *; }
+-dontwarn com.google.protobuf.**
+
+# RAG functionality
+-keep class com.google.ai.edge.localagents.** { *; }
+-dontwarn com.google.ai.edge.localagents.**
 
 # Flutter Keep Rules
 -keep class io.flutter.** { *; }

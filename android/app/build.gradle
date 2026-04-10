@@ -79,8 +79,7 @@ dependencies {
     implementation 'com.google.mlkit:text-recognition-japanese:16.0.0'
     implementation 'com.google.mlkit:text-recognition-korean:16.0.0'
 
-    implementation 'com.google.mediapipe:mediapipe-core:0.10.9'
-    implementation 'com.google.mediapipe:mediapipe-framework:0.10.9'
+    implementation 'com.google.mediapipe:solution-core:0.10.20'
 }
 
 kotlin {
