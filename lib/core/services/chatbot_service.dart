@@ -62,13 +62,12 @@ class ChatbotService {
 
     _activeModel = await FlutterGemma.getActiveModel(
       maxTokens: 4096,
-      preferredBackend: PreferredBackend.gpu,
+      preferredBackend: PreferredBackend.npu,
     );
 
     if (_activeModel != null) {
       _activeChat = await _activeModel!.createChat(
-        systemInstruction:
-            '<|think|> You are a logical assistant. Always reason step-by-step.',
+        isThinking: true,
       );
     }
 
