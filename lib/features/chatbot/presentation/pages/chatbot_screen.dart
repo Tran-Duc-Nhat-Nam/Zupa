@@ -61,11 +61,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   subtitle: t.chatbot.downloadingSubtitle,
                   onDismiss: () => _isDialogShowing = false,
                   progressStream: context.read<ChatbotCubit>().stream.map(
-                        (s) => s.maybeWhen(
-                          downloading: (p) => p,
-                          orElse: () => 0.0,
-                        ),
-                      ),
+                    (s) =>
+                        s.maybeWhen(downloading: (p) => p, orElse: () => 0.0),
+                  ),
                 );
               }
             },
@@ -97,7 +95,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               initial: () => const SizedBox(),
               loadingModel: () => Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
                     LoadingAnimationWidget.staggeredDotsWave(
                       color: colors.primary,
@@ -122,34 +120,37 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               ),
               ready: (messages, isProcessing, currentStreamingResponse) =>
                   Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      itemCount: messages.length +
-                          (currentStreamingResponse != null ? 1 : 0),
-                      itemBuilder: (context, index) {
-                        if (index < messages.length) {
-                          return ChatMessageWidget(message: messages[index]);
-                        } else {
-                          return ChatMessageWidget(
-                            message: ChatMessage(
-                              text: currentStreamingResponse!,
-                              isUser: false,
-                              isStreaming: true,
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          padding: const .symmetric(vertical: 12),
+                          itemCount:
+                              messages.length +
+                              (currentStreamingResponse != null ? 1 : 0),
+                          itemBuilder: (context, index) {
+                            if (index < messages.length) {
+                              return ChatMessageWidget(
+                                message: messages[index],
+                              );
+                            } else {
+                              return ChatMessageWidget(
+                                message: ChatMessage(
+                                  text: currentStreamingResponse!,
+                                  isUser: false,
+                                  isStreaming: true,
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      _buildInputArea(context, isProcessing),
+                    ],
                   ),
-                  _buildInputArea(context, isProcessing),
-                ],
-              ),
               error: (message) => Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
                     Icon(
                       Icons.error_outline_rounded,
@@ -159,7 +160,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     const SizedBox(height: 16),
                     Text(
                       message,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: colors.onSurface,
                       ),
@@ -184,13 +185,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   Widget _buildInputArea(BuildContext context, bool isProcessing) {
     final colors = AppColors.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const .symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: colors.surface,
         border: Border(
-          top: BorderSide(
-            color: colors.outlineVariant.withOpacity(0.5),
-          ),
+          top: BorderSide(color: colors.outlineVariant.withAlpha(123)),
         ),
       ),
       child: Row(
@@ -198,24 +197,19 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           Expanded(
             child: TextField(
               controller: _controller,
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: colors.onSurface,
-              ),
+              style: AppTextStyles.bodyMedium.copyWith(color: colors.onSurface),
               decoration: InputDecoration(
                 hintText: t.chatbot.hint,
                 hintStyle: AppTextStyles.bodyMedium.copyWith(
                   color: colors.onSurfaceVariant,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide.none,
+                  borderRadius: .circular(24),
+                  borderSide: .none,
                 ),
                 filled: true,
                 fillColor: colors.surfaceContainerLow,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
+                contentPadding: const .symmetric(horizontal: 20, vertical: 10),
               ),
               maxLines: null,
               enabled: !isProcessing,
@@ -233,17 +227,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 ? null
                 : () {
                     if (_controller.text.trim().isNotEmpty) {
-                      context
-                          .read<ChatbotCubit>()
-                          .sendMessage(_controller.text.trim());
+                      context.read<ChatbotCubit>().sendMessage(
+                        _controller.text.trim(),
+                      );
                       _controller.clear();
                     }
                   },
             icon: isProcessing
-                ? LoadingAnimationWidget.beat(
-                    color: colors.onPrimary,
-                    size: 20,
-                  )
+                ? LoadingAnimationWidget.beat(color: colors.onPrimary, size: 20)
                 : const Icon(Icons.send_rounded),
             style: IconButton.styleFrom(
               backgroundColor: colors.primary,

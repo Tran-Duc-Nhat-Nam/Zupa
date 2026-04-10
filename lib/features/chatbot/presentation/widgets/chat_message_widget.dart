@@ -15,15 +15,14 @@ class ChatMessageWidget extends StatelessWidget {
     final isUser = message.isUser;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+      padding: const .symmetric(vertical: 6.0, horizontal: 12.0),
       child: Row(
-        mainAxisAlignment:
-            isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: isUser ? .end : .start,
+        crossAxisAlignment: .end,
         children: [
           if (!isUser) ...[
             Container(
-              margin: const EdgeInsets.only(bottom: 4),
+              margin: const .only(bottom: 4),
               child: CircleAvatar(
                 radius: 16,
                 backgroundColor: colors.primaryContainer,
@@ -38,18 +37,18 @@ class ChatMessageWidget extends StatelessWidget {
           ],
           Flexible(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const .symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 color: isUser ? colors.primary : colors.surfaceContainerHigh,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
-                  bottomLeft: Radius.circular(isUser ? 20 : 4),
-                  bottomRight: Radius.circular(isUser ? 4 : 20),
+                borderRadius: .only(
+                  topLeft: const .circular(20),
+                  topRight: const .circular(20),
+                  bottomLeft: .circular(isUser ? 20 : 4),
+                  bottomRight: .circular(isUser ? 4 : 20),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: colors.shadow.withOpacity(0.04),
+                    color: colors.shadow.withAlpha(123),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -66,7 +65,7 @@ class ChatMessageWidget extends StatelessWidget {
           if (isUser) ...[
             const SizedBox(width: 8),
             Container(
-              margin: const EdgeInsets.only(bottom: 4),
+              margin: const .only(bottom: 4),
               child: CircleAvatar(
                 radius: 16,
                 backgroundColor: colors.secondaryContainer,

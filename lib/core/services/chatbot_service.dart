@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter_gemma/flutter_gemma.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/env/env.dart';
 
 @singleton
@@ -52,31 +51,25 @@ class ChatbotService {
 
     if (!FlutterGemma.hasActiveModel()) {
       try {
-        DebuggerHelper.talker.warning("No active model. Installing model...");
         await FlutterGemma.installModel(
           modelType: .gemmaIt,
           fileType: .litertlm,
         ).fromNetwork(_modelUrl, token: _token).install();
-        DebuggerHelper.talker.info("Installing model finished");
       } catch (e) {
         return e.toString();
       }
     }
 
-    DebuggerHelper.talker.info("Getting active model");
     _activeModel = await FlutterGemma.getActiveModel(
       maxTokens: 4096,
       preferredBackend: PreferredBackend.gpu,
     );
-    DebuggerHelper.talker.info("Active model: ${_activeModel.toString()}");
 
     if (_activeModel != null) {
-      DebuggerHelper.talker.info("Create active chat");
       _activeChat = await _activeModel!.createChat(
         systemInstruction:
             '<|think|> You are a logical assistant. Always reason step-by-step.',
       );
-      DebuggerHelper.talker.info("Active chat: ${_activeChat?.fileType.name ?? "None"}");
     }
 
     return null;
@@ -85,7 +78,6 @@ class ChatbotService {
   Stream<String?> sendMessageStream(String message) async* {
     if (_activeChat == null) await initModel();
 
-    DebuggerHelper.talker.info("Active chat: ${_activeChat?.fileType.name ?? "None"}");
     await _activeChat!.addQueryChunk(Message.text(text: message, isUser: true));
 
     await for (final response in _activeChat!.generateChatResponseAsync()) {
