@@ -10,6 +10,7 @@ import 'package:flutter_gemma/flutter_gemma.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:zupa/core/bloc/animation/animation_cubit.dart';
@@ -53,6 +54,16 @@ Future<void> main() async {
 
     // Global Error Boundary
     ErrorWidget.builder = (details) => AppErrorScreen(details: details);
+
+    await GoogleFonts.pendingFonts([
+      GoogleFonts.outfit(fontWeight: .w400),
+      GoogleFonts.outfit(fontWeight: .w400),
+      GoogleFonts.outfit(fontWeight: .w400),
+      GoogleFonts.robotoFlex(fontWeight: .w400),
+      GoogleFonts.robotoFlex(fontWeight: .w500),
+      GoogleFonts.robotoFlex(fontWeight: .w600),
+      GoogleFonts.robotoFlex(fontWeight: .w700),
+    ]);
 
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, stack) {
