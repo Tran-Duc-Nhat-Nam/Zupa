@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.11.2+53
+version: 0.11.3+54
 
 environment:
   sdk: ^3.11.4
@@ -90,6 +90,8 @@ dependencies:
   google_mlkit_text_recognition: ^0.15.1
   flutter_gemma: ^0.13.2
   flutter_markdown: ^0.7.7+1
+  isar_community: ^3.3.2
+  isar_community_flutter_libs: ^3.3.2
 
 dev_dependencies:
   flutter_test:
@@ -111,6 +113,7 @@ dev_dependencies:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/reactive_forms_generator.git
       ref: master
       path: packages/reactive_forms_generator
+  isar_community_generator: ^3.3.2
 
 flutter:
   uses-material-design: true

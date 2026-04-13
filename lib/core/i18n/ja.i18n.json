@@ -352,6 +352,8 @@
     "loadingWarning": "少し時間がかかる場合があります",
     "hint": "何でも聞いてください...",
     "errorTitle": "AIエラー",
-    "retry": "再試行"
+    "retry": "再試行",
+    "pastChat": "過去のチャット",
+    "noPastChat": "過去のチャット履歴はありません"
   }
 }

@@ -47,7 +47,7 @@ class ChatbotService {
   }
 
   Future<String?> initModel() async {
-    if (_activeModel != null) return '';
+    if (_activeModel != null) return null;
 
     if (!FlutterGemma.hasActiveModel()) {
       try {
@@ -62,7 +62,7 @@ class ChatbotService {
 
     _activeModel = await FlutterGemma.getActiveModel(
       maxTokens: 4096,
-      preferredBackend: PreferredBackend.gpu,
+      preferredBackend: .gpu,
     );
 
     if (_activeModel != null) {
@@ -75,7 +75,7 @@ class ChatbotService {
   Stream<String?> sendMessageStream(String message) async* {
     if (_activeChat == null) await initModel();
 
-    await _activeChat!.addQueryChunk(Message.text(text: message, isUser: true));
+    await _activeChat!.addQueryChunk(.text(text: message, isUser: true));
 
     await for (final response in _activeChat!.generateChatResponseAsync()) {
       if (response is TextResponse) {

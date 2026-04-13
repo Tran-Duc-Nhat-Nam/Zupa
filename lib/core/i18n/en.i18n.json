@@ -359,6 +359,8 @@
     "loadingWarning": "This may take a moment",
     "hint": "Ask anything...",
     "errorTitle": "AI Error",
-    "retry": "Retry"
+    "retry": "Retry",
+    "pastChat": "Past chats",
+    "noPastChat": "No past chats found"
   }
 }

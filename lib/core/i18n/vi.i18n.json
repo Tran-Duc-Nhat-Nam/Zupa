@@ -353,6 +353,8 @@
     "loadingWarning": "Có thể mất một chút thời gian",
     "hint": "Hỏi bất cứ điều gì...",
     "errorTitle": "Lỗi AI",
-    "retry": "Thử lại"
+    "retry": "Thử lại",
+    "pastChat": "Lịch sử trò chuyện",
+    "noPastChat": "Không có lịch sử trò chuyện"
   }
 }

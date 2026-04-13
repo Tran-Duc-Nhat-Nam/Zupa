@@ -10,6 +10,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
+import 'package:zupa/features/chatbot/domain/models/chat_session.dart';
 import 'package:zupa/features/chatbot/presentation/bloc/chatbot_cubit.dart';
 import 'package:zupa/features/chatbot/presentation/bloc/chatbot_state.dart';
 import 'package:zupa/features/chatbot/presentation/widgets/chat_message_widget.dart';
@@ -23,14 +24,9 @@ class ChatbotScreen extends StatefulWidget {
 }
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
-  final TextEditingController _controller = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
+  final _controller = TextEditingController();
+  final _scrollController = ScrollController();
   bool _isDialogShowing = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,6 +38,111 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         );
       }
     });
+  }
+
+  void _showHistorySheet(
+    BuildContext context,
+    List<ChatSession> sessions,
+    ChatbotCubit cubit,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (bottomSheetContext) {
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.6,
+          maxChildSize: 0.9,
+          builder: (context, scrollController) {
+            final colors = AppColors.of(context);
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: colors.surfaceContainer,
+                borderRadius: const .vertical(top: .circular(24)),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 16),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: colors.outlineVariant,
+                      borderRadius: .circular(2),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    t.chatbot.pastChat,
+                    style: AppTextStyles.titleMedium.copyWith(
+                      color: colors.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: sessions.isEmpty
+                        ? Center(
+                            child: Text(
+                              t.chatbot.noPastChat,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: colors.onSurfaceVariant,
+                              ),
+                            ),
+                          )
+                        : ListView.separated(
+                            controller: scrollController,
+                            padding: const .symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            itemCount: sessions.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 2),
+                            itemBuilder: (context, index) {
+                              final session = sessions[index];
+                              return Container(
+                                clipBehavior: .antiAlias,
+                                decoration: BoxDecoration(
+                                  color: colors.surfaceContainerHigh,
+                                  borderRadius: .vertical(
+                                    top: .circular(index == 0 ? 16 : 4),
+                                    bottom: .circular(
+                                      index == sessions.length - 1 ? 16 : 4,
+                                    ),
+                                  ),
+                                ),
+                                child: ListTile(
+                                  title: Text(
+                                    session.title,
+                                    maxLines: 1,
+                                    overflow: .ellipsis,
+                                    style: AppTextStyles.bodyMedium.copyWith(
+                                      color: colors.onSurface,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    '${session.createdAt.day}/${session.createdAt.month}/${session.createdAt.year}',
+                                    style: AppTextStyles.bodySmall.copyWith(
+                                      color: colors.onSurfaceVariant,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    cubit.loadSession(session.id);
+                                    Navigator.pop(bottomSheetContext);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -60,8 +161,15 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   title: t.chatbot.downloading,
                   subtitle: t.chatbot.downloadingSubtitle,
                   onDismiss: () => _isDialogShowing = false,
-                  progressStream: context.read<ChatbotCubit>().stream
-                      .map((s) => s.maybeWhen(downloading: (p) => p, orElse: () => null))
+                  progressStream: context
+                      .read<ChatbotCubit>()
+                      .stream
+                      .map(
+                        (s) => s.maybeWhen(
+                          downloading: (p) => p,
+                          orElse: () => null,
+                        ),
+                      )
                       .where((p) => p != null)
                       .cast<double>(),
                 );
@@ -73,7 +181,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 _isDialogShowing = false;
               }
             },
-            ready: (_, _, _) {
+            ready: (_, _, _, _, _) {
               if (_isDialogShowing) {
                 SmartDialog.dismiss(tag: 'chatbot_download');
                 _isDialogShowing = false;
@@ -94,6 +202,27 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
           return AppScreen(
             title: t.chatbot.title,
+            appBarTrailing: [
+              IconButton(
+                icon: const Icon(Icons.add_rounded),
+                onPressed: () {
+                  context.read<ChatbotCubit>().createNewSession();
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.history_rounded),
+                onPressed: () {
+                  final state = context.read<ChatbotCubit>().state;
+                  if (state is Ready) {
+                    _showHistorySheet(
+                      context,
+                      state.sessions,
+                      context.read<ChatbotCubit>(),
+                    );
+                  }
+                },
+              ),
+            ],
             isChildScrollable: true,
             hasSafeBottomArea: true,
             resizeToAvoidBottomInset: true,
@@ -124,8 +253,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               downloading: (progress) => const Center(
                 child: SizedBox(), // Handled by dialog
               ),
-              ready: (messages, isProcessing, currentStreamingResponse) =>
-                  Column(
+              ready:
+                  (
+                    messages,
+                    sessions,
+                    currentSessionId,
+                    isProcessing,
+                    currentStreamingResponse,
+                  ) => Column(
                     children: [
                       Expanded(
                         child: ListView.builder(
@@ -194,9 +329,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       padding: const .symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: colors.surfaceContainer,
-        border: Border(
-          top: BorderSide(color: colors.outlineVariant),
-        ),
+        border: Border(top: BorderSide(color: colors.outlineVariant)),
       ),
       child: Row(
         children: [
