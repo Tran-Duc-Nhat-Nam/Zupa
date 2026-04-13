@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_gemma/flutter_gemma.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/chatbot_context.dart';
 import 'package:zupa/core/env/env.dart';
 
 @singleton
@@ -67,6 +68,12 @@ class ChatbotService {
 
     if (_activeModel != null) {
       _activeChat = await _activeModel!.createChat();
+      
+      // Inject app summary context to act as an assistant
+      await _activeChat!.addQueryChunk(.text(text: ChatbotContext.appSummary, isUser: true));
+      await for (final _ in _activeChat!.generateChatResponseAsync()) {
+        // Consumer the initial generation corresponding to the context to avoid sending it to the user
+      }
     }
 
     return null;
