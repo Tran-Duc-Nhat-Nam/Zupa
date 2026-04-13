@@ -7,7 +7,7 @@ import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
 import 'package:zupa/features/history/data/models/filter/history_filter_model.dart';
 import 'package:zupa/features/history/data/models/history_ticket_model.dart';
-import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
+import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 
@@ -22,7 +22,7 @@ class HistoryRepositoryImpl implements IHistoryRepository {
   Future<NetworkState<List<HistoryTicketEntity>>> getHistory({
     int page = 1,
     int pageSize = 10,
-    HistoryFilterEntity filter = const HistoryFilterEntity(
+    GetHistoryParams filter = const GetHistoryParams(
       page: defaultPageIndex,
       size: defaultPageSize,
       keyword: null,

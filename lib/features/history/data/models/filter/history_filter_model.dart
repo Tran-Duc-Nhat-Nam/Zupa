@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/models/vehicle_type_model.dart';
-import 'package:zupa/features/history/domain/entities/filter/history_filter_entity.dart';
+import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
 
 part 'history_filter_model.freezed.dart';
 part 'history_filter_model.g.dart';
@@ -23,7 +23,7 @@ sealed class HistoryFilterModel with _$HistoryFilterModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  HistoryFilterEntity toEntity() => HistoryFilterEntity(
+  GetHistoryParams toEntity() => GetHistoryParams(
     page: page,
     size: size,
     keyword: keyword,
@@ -31,7 +31,7 @@ sealed class HistoryFilterModel with _$HistoryFilterModel {
     type: type?.toEntity(),
   );
 
-  factory HistoryFilterModel.fromEntity(HistoryFilterEntity entity) {
+  factory HistoryFilterModel.fromEntity(GetHistoryParams entity) {
     return HistoryFilterModel(
       page: entity.page,
       size: entity.size,

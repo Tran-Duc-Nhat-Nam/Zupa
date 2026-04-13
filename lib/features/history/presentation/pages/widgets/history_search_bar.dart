@@ -12,7 +12,7 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart';
+import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 
 class HistorySearchBar extends StatelessWidget {
@@ -23,13 +23,12 @@ class HistorySearchBar extends StatelessWidget {
     final colorScheme = AppColors.of(context);
     return Padding(
       padding: const .only(top: 8),
-      child: BlocBuilder<HistoryFilterCubit, HistoryFilterState>(
+      child: BlocBuilder<HistoryListCubit, HistoryListState>(
         builder: (context, state) {
-          final formModel = context.read<HistoryFilterCubit>().formModel;
           return Skeletonizer(
             enabled: state is Loading,
             child: AppTextField(
-              formControl: formModel.keywordControl,
+              formControl: ReactiveHistoryForm.of(context)?.keywordControl,
               hintText: t.parking.ticketSearch,
               borderRadius: 100,
               backgroundColor: colorScheme.surfaceContainerLow,
@@ -40,9 +39,10 @@ class HistorySearchBar extends StatelessWidget {
                   size: 20,
                   color: colorScheme.onSurfaceVariant,
                 ),
-                onTap: () => _showFilter(context, formModel),
+                onTap: () => _showFilter(context, ReactiveHistoryForm.of(context)),
               ),
-              onChanged: (value) => context.read<HistoryFilterCubit>().update(),
+              onChanged: (value) =>
+                  context.read<HistoryListCubit>().refresh(filter: .initial()),
             ),
           );
         },
@@ -50,7 +50,7 @@ class HistorySearchBar extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _showFilter(BuildContext context, HistoryForm formModel) {
+  Future<dynamic> _showFilter(BuildContext context, HistoryForm? formModel) {
     final colorScheme = AppColors.of(context);
     return showModalBottomSheet(
       context: context,
@@ -91,7 +91,7 @@ class HistorySearchBar extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(t.common.info.date),
-                AppDateTimePicker(formControl: formModel.timeControl),
+                AppDateTimePicker(formControl: formModel?.timeControl),
               ],
             ),
             const Divider(),
@@ -116,7 +116,7 @@ class HistorySearchBar extends StatelessWidget {
                   ],
                 ),
                 AppRadioGroup<VehicleTypeEntity>(
-                  formControl: formModel.typeControl,
+                  formControl: formModel?.typeControl,
                   items: vehicleTypes,
                 ),
               ],

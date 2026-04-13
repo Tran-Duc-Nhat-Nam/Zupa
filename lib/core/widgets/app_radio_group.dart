@@ -12,7 +12,7 @@ class AppRadioGroup<T> extends StatelessWidget {
     this.spacing = 0,
   });
 
-  final FormControl<T> formControl;
+  final FormControl<T>? formControl;
   final List<T> items;
   final bool isVertical;
   final bool showRadio;

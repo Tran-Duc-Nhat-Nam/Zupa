@@ -15,7 +15,7 @@ class AppDateTimePicker extends StatelessWidget {
     this.firstDate,
   });
 
-  final FormControl<DateTime?> formControl;
+  final FormControl<DateTime?>? formControl;
   final bool required;
   final DateTime? firstDate;
   final List<FormFieldValidator<String>>? customValidators;

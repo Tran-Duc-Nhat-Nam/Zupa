@@ -6,9 +6,8 @@ import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
-import 'package:zupa/features/history/presentation/bloc/filter/history_filter_cubit.dart'
-    hide Loading;
 import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
+import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 
 class HistoryListTab extends StatelessWidget {
@@ -62,18 +61,20 @@ class HistoryListTab extends StatelessWidget {
             ),
             controller: refreshController,
             onRefresh: () async {
-              final filter = context
-                  .read<HistoryFilterCubit>()
-                  .state
-                  .whenOrNull(loaded: (filter) => filter);
-              await context.read<HistoryListCubit>().refresh(filter);
+              await context.read<HistoryListCubit>().refresh(
+                filter:
+                    ReactiveHistoryForm.of(context)?.model.toParams() ??
+                    .initial(),
+              );
+              refreshController.finishRefresh();
             },
             onLoad: () async {
-              final filter = context
-                  .read<HistoryFilterCubit>()
-                  .state
-                  .whenOrNull(loaded: (filter) => filter);
-              await context.read<HistoryListCubit>().loadMore(filter);
+              await context.read<HistoryListCubit>().refresh(
+                filter:
+                    ReactiveHistoryForm.of(context)?.model.toParams() ??
+                    .initial(),
+              );
+              refreshController.finishLoad();
             },
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 32),
