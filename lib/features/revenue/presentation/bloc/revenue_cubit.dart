@@ -8,14 +8,14 @@ import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart'
 import 'package:zupa/features/revenue/domain/usecases/get_revenue_usecase.dart';
 import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 
-part 'revenue_list_cubit.freezed.dart';
-part 'revenue_list_state.dart';
+part 'revenue_cubit.freezed.dart';
+part 'revenue_state.dart';
 
 @injectable
-class RevenueListCubit extends Cubit<RevenueListState> {
+class RevenueCubit extends Cubit<RevenueState> {
   final GetRevenueUseCase _getRevenue;
 
-  RevenueListCubit(this._getRevenue) : super(const .initial());
+  RevenueCubit(this._getRevenue) : super(const .initial());
 
   Future<void> init({required GetRevenueParams filter}) async {
     emit(const .loading(revenueList: []));

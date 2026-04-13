@@ -1,52 +1,52 @@
-part of 'revenue_list_cubit.dart';
+part of 'revenue_cubit.dart';
 
 @freezed
-sealed class RevenueListState with _$RevenueListState {
-  const factory RevenueListState.initial() = Initial;
+sealed class RevenueState with _$RevenueState {
+  const factory RevenueState.initial() = Initial;
 
-  const factory RevenueListState.loading({
+  const factory RevenueState.loading({
     required List<DailyRevenueEntity> revenueList,
   }) = Loading;
 
-  const factory RevenueListState.loaded({
+  const factory RevenueState.loaded({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = Loaded;
 
-  const factory RevenueListState.failed({
+  const factory RevenueState.failed({
     required List<DailyRevenueEntity> revenueList,
     String? message,
   }) = Failed;
 
-  const factory RevenueListState.refreshing({
+  const factory RevenueState.refreshing({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = Refreshing;
 
-  const factory RevenueListState.refreshFailed({
+  const factory RevenueState.refreshFailed({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = RefreshFailed;
 
-  const factory RevenueListState.refreshEmpty({
+  const factory RevenueState.refreshEmpty({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = RefreshEmpty;
 
-  const factory RevenueListState.loadingMore({
+  const factory RevenueState.loadingMore({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = LoadingMore;
 
-  const factory RevenueListState.loadMoreFailed({
+  const factory RevenueState.loadMoreFailed({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = LoadMoreFailed;
 
-  const factory RevenueListState.loadMoreEmpty({
+  const factory RevenueState.loadMoreEmpty({
     required List<DailyRevenueEntity> revenueList,
     required int pageIndex,
   }) = LoadMoreEmpty;
 
-  const factory RevenueListState.empty() = Emtpy;
+  const factory RevenueState.empty() = Emtpy;
 }

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/bloc/revenue_cubit.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_list_tab.dart';
 
 @RoutePage()
@@ -14,7 +14,7 @@ class RevenueDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt<RevenueListCubit>())],
+      providers: [BlocProvider(create: (context) => getIt<RevenueCubit>())],
       child: Builder(
         builder: (context) {
           return AppScreen(

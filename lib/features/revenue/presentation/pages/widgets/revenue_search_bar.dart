@@ -9,7 +9,7 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
-import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/bloc/revenue_cubit.dart';
 import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 
 class RevenueSearchBar extends StatelessWidget {
@@ -128,7 +128,7 @@ class RevenueSearchBar extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     formModel?.reset(value: Revenue.fromParams(.initial()));
-                    context.read<RevenueListCubit>().init(filter: .initial());
+                    context.read<RevenueCubit>().init(filter: .initial());
                     context.maybePop();
                   },
                   child: Text(
@@ -165,7 +165,7 @@ class RevenueSearchBar extends StatelessWidget {
                 Expanded(
                   child: AppButton(
                     onPressed: () {
-                      context.read<RevenueListCubit>().init(
+                      context.read<RevenueCubit>().init(
                         filter: formModel?.model.toParams() ?? .initial(),
                       );
                       context.maybePop();

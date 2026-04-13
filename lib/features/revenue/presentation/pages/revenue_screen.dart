@@ -13,7 +13,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/presentation/bloc/list/revenue_list_cubit.dart';
+import 'package:zupa/features/revenue/presentation/bloc/revenue_cubit.dart';
 import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
 
 @RoutePage()
@@ -23,7 +23,7 @@ class RevenueScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<RevenueListCubit>(),
+      create: (context) => getIt<RevenueCubit>(),
       child: const RevenueView(),
     );
   }
@@ -47,7 +47,7 @@ class RevenueView extends StatelessWidget {
           tooltip: t.common.actions.viewDetails,
         ),
       ],
-      child: BlocBuilder<RevenueListCubit, RevenueListState>(
+      child: BlocBuilder<RevenueCubit, RevenueState>(
         builder: (context, state) {
           final items = state.maybeWhen(
             loaded: (tickets, _) => tickets,
@@ -199,7 +199,7 @@ class _EmptyRevenueState extends StatelessWidget {
           const SizedBox(height: 24),
           FilledButton.icon(
             onPressed: () {
-              context.read<RevenueListCubit>().init(
+              context.read<RevenueCubit>().init(
                 filter:
                     ReactiveRevenueForm.of(context)?.model.toParams() ??
                     .initial(),
