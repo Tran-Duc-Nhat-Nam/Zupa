@@ -67,6 +67,7 @@ class RevenueView extends StatelessWidget {
           );
 
           return RevenueFormBuilder(
+            model: Revenue.fromParams(.initial()),
             builder: (context, formModel, _) {
               return Skeletonizer(
                 enabled: isLoading,

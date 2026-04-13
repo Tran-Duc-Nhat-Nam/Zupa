@@ -91,17 +91,10 @@ class HistorySearchBar extends StatelessWidget {
                 ),
               ],
             ),
+            AppDateTimePicker(formControl: formModel?.timeControl),
             Column(
               spacing: 12,
               crossAxisAlignment: .start,
-              children: [
-                Text(t.common.info.date),
-                AppDateTimePicker(formControl: formModel?.timeControl),
-              ],
-            ),
-            const Divider(),
-            Column(
-              spacing: 12,
               children: [
                 Row(
                   mainAxisAlignment: .spaceBetween,
@@ -123,10 +116,18 @@ class HistorySearchBar extends StatelessWidget {
                 AppRadioGroup<VehicleTypeEntity>(
                   formControl: formModel?.typeControl,
                   items: vehicleTypes,
+                  isVertical: true,
+                  itemBuilder:
+                      (context, item, isSelected, onSelect, radioButton) => Row(
+                        spacing: 8,
+                        children: [
+                          ?radioButton,
+                          Text(t['vehicles.${item.name}']),
+                        ],
+                      ),
                 ),
               ],
             ),
-            const Divider(),
             Row(
               spacing: 16,
               children: [
