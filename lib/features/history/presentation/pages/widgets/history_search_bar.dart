@@ -12,7 +12,7 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
+import 'package:zupa/features/history/presentation/bloc/history_cubit.dart';
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 
 class HistorySearchBar extends StatelessWidget {
@@ -21,14 +21,15 @@ class HistorySearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
+    final form = ReactiveHistoryForm.of(context);
     return Padding(
       padding: const .only(top: 8),
-      child: BlocBuilder<HistoryListCubit, HistoryListState>(
+      child: BlocBuilder<HistoryCubit, HistoryState>(
         builder: (context, state) {
           return Skeletonizer(
             enabled: state is Loading,
             child: AppTextField(
-              formControl: ReactiveHistoryForm.of(context)?.keywordControl,
+              formControl: form?.keywordControl,
               hintText: t.parking.ticketSearch,
               borderRadius: 100,
               backgroundColor: colorScheme.surfaceContainerLow,
@@ -39,10 +40,14 @@ class HistorySearchBar extends StatelessWidget {
                   size: 20,
                   color: colorScheme.onSurfaceVariant,
                 ),
-                onTap: () => _showFilter(context, ReactiveHistoryForm.of(context)),
+                onTap: () => _showFilter(context, form),
               ),
-              onChanged: (value) =>
-                  context.read<HistoryListCubit>().refresh(filter: .initial()),
+              onChanged: (model) {
+                context.read<HistoryCubit>().refresh(
+                  filter:
+                      form?.model.toParams() ?? .initial(keyword: model.value),
+                );
+              },
             ),
           );
         },

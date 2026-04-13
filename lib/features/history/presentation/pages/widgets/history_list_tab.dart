@@ -6,7 +6,7 @@ import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
-import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
+import 'package:zupa/features/history/presentation/bloc/history_cubit.dart';
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 
@@ -19,8 +19,9 @@ class HistoryListTab extends StatelessWidget {
       controlFinishLoad: true,
       controlFinishRefresh: true,
     );
+    final form = ReactiveHistoryForm.of(context);
 
-    return BlocConsumer<HistoryListCubit, HistoryListState>(
+    return BlocConsumer<HistoryCubit, HistoryState>(
       listener: (context, state) {
         state.whenOrNull(
           loaded: (tickets, pageIndex) {
@@ -61,18 +62,14 @@ class HistoryListTab extends StatelessWidget {
             ),
             controller: refreshController,
             onRefresh: () async {
-              await context.read<HistoryListCubit>().refresh(
-                filter:
-                    ReactiveHistoryForm.of(context)?.model.toParams() ??
-                    .initial(),
+              await context.read<HistoryCubit>().refresh(
+                filter: form?.model.toParams() ?? .initial(),
               );
               refreshController.finishRefresh();
             },
             onLoad: () async {
-              await context.read<HistoryListCubit>().refresh(
-                filter:
-                    ReactiveHistoryForm.of(context)?.model.toParams() ??
-                    .initial(),
+              await context.read<HistoryCubit>().refresh(
+                filter: form?.model.toParams() ?? .initial(),
               );
               refreshController.finishLoad();
             },

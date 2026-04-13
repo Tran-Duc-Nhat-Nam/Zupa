@@ -7,15 +7,15 @@ import 'package:zupa/features/history/domain/usecases/params/get_history_params.
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 
-part 'history_list_cubit.freezed.dart';
-part 'history_list_state.dart';
+part 'history_cubit.freezed.dart';
+part 'history_state.dart';
 
 @injectable
-class HistoryListCubit extends Cubit<HistoryListState> {
+class HistoryCubit extends Cubit<HistoryState> {
   final IHistoryRepository _historyRepository;
   final AuthCubit _authCubit;
 
-  HistoryListCubit(this._historyRepository, this._authCubit)
+  HistoryCubit(this._historyRepository, this._authCubit)
     : super(const .initial());
 
   Future<void> init() async {

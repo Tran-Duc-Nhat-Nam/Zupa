@@ -11,12 +11,18 @@ class GetHistoryParams {
     required this.type,
   });
 
-  factory GetHistoryParams.initial() => GetHistoryParams(
-    page: defaultPageIndex,
-    size: defaultPageSize,
-    keyword: '',
-    type: vehicleTypes[0],
-    time: .now()
+  factory GetHistoryParams.initial({
+    int? page,
+    int? size,
+    String? keyword,
+    DateTime? time,
+    VehicleTypeEntity? type,
+  }) => GetHistoryParams(
+    page: page ?? defaultPageIndex,
+    size: size ?? defaultPageSize,
+    keyword: keyword ?? '',
+    type: type ?? vehicleTypes[0],
+    time: time ?? .now(),
   );
 
   final int page;

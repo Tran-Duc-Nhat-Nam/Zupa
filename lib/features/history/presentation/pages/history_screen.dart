@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/features/history/presentation/bloc/list/history_list_cubit.dart';
+import 'package:zupa/features/history/presentation/bloc/history_cubit.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_tab.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_search_bar.dart';
 
@@ -14,8 +14,8 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HistoryListCubit>(
-      create: (listContext) => getIt<HistoryListCubit>()..init(),
+    return BlocProvider<HistoryCubit>(
+      create: (listContext) => getIt<HistoryCubit>()..init(),
       child: Builder(
         builder: (context) {
           return AppScreen(
@@ -23,7 +23,7 @@ class HistoryScreen extends StatelessWidget {
             hasParentView: true,
             title: t.parking.history,
             hasAppBar: false,
-            child: BlocBuilder<HistoryListCubit, HistoryListState>(
+            child: BlocBuilder<HistoryCubit, HistoryState>(
               builder: (listContext, listState) {
                 return const Padding(
                   padding: .symmetric(horizontal: 36),
