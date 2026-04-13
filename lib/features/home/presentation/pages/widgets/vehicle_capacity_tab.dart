@@ -6,7 +6,8 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
+import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
+import 'package:zupa/features/home/presentation/models/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_card.dart';
 
 class VehicleCapacityTab extends StatelessWidget {
@@ -14,10 +15,11 @@ class VehicleCapacityTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final form = ReactiveHomeForm.of(context);
     return ReactiveFormField<VehicleTypeEntity?, VehicleTypeEntity?>(
       formControlName: 'type',
       builder: (field) {
-        return BlocBuilder<HomeFilterCubit, HomeFilterState>(
+        return BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             return Padding(
               key: ValueKey(state.runtimeType),
@@ -43,20 +45,23 @@ class VehicleCapacityTab extends StatelessWidget {
                           current: 65 + index * 20,
                           capacity: 120,
                           isWarning: (65 + index * 20) / 120 >= 0.8,
-                          isDisabled: state is Loading || state is Filtering,
-                          isSelected: state.maybeWhen(
-                            loaded: (filter) =>
-                                filter.type?.value == vehicleTypes[index].value,
-                            filtering: (filter) =>
-                                filter.type?.value == vehicleTypes[index].value,
-                            orElse: () => false,
-                          ),
+                          isDisabled:
+                              state is Loading ||
+                              state is Refreshing ||
+                              state is LoadingMore,
+                          isSelected:
+                              form?.typeControl.value == vehicleTypes[index],
                           onPressed: () {
-                            if (state is Filtering) return;
-                            field.value == vehicleTypes[index]
-                                ? field.didChange(null)
-                                : field.didChange(vehicleTypes[index]);
-                            context.read<HomeFilterCubit>().filter();
+                            if (state is Loading ||
+                                state is Refreshing ||
+                                state is LoadingMore) {
+                              return;
+                            }
+                            context.read<HomeCubit>().refresh(
+                              filter:
+                                  form?.model.toParams() ??
+                                  .initial(type: vehicleTypes[index]),
+                            );
                           },
                         ),
                       ),

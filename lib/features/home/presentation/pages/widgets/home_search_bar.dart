@@ -9,7 +9,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
+import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
 
 class HomeSearchBar extends StatelessWidget {
@@ -18,33 +18,35 @@ class HomeSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
-    return BlocBuilder<HomeFilterCubit, HomeFilterState>(
+    final form = ReactiveHomeForm.of(context);
+    return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return HomeFormBuilder(
-          builder: (context, formModel, child) {
-            return Skeletonizer(
-              enabled: state is Loading,
-              child: AppTextField(
-                formControl: formModel.keywordControl,
-                hintText: t.parking.ticketSearch,
-                borderRadius: 100,
-                prefix: Icon(
-                  Symbols.search_rounded,
-                  size: 24,
-                  color: colorScheme.onSurfaceVariant,
-                ),
-                suffix: InkWell(
-                  child: Icon(
-                    Symbols.filter_list_rounded,
-                    size: 24,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                  onTap: () => _showFilter(context, formModel, colorScheme),
-                ),
-                onChanged: (value) => context.read<HomeFilterCubit>().search(),
+        return Skeletonizer(
+          enabled: state is Loading,
+          child: AppTextField(
+            formControl: form?.keywordControl,
+            hintText: t.parking.ticketSearch,
+            borderRadius: 100,
+            prefix: Icon(
+              Symbols.search_rounded,
+              size: 24,
+              color: colorScheme.onSurfaceVariant,
+            ),
+            suffix: InkWell(
+              child: Icon(
+                Symbols.filter_list_rounded,
+                size: 24,
+                color: colorScheme.onSurfaceVariant,
               ),
-            );
-          },
+              onTap: () => _showFilter(context, form, colorScheme),
+            ),
+            onChanged: (model) {
+              context.read<HomeCubit>().refresh(
+                filter:
+                    form?.model.toParams() ?? .initial(keyword: model.value),
+              );
+            },
+          ),
         );
       },
     );
@@ -52,7 +54,7 @@ class HomeSearchBar extends StatelessWidget {
 
   Future<dynamic> _showFilter(
     BuildContext context,
-    HomeForm formModel,
+    HomeForm? formModel,
     AppColors colorScheme,
   ) {
     return showModalBottomSheet(
@@ -94,7 +96,7 @@ class HomeSearchBar extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(t.common.info.date),
-                AppDateTimePicker(formControl: formModel.timeControl),
+                AppDateTimePicker(formControl: formModel?.timeControl),
               ],
             ),
             const Divider(),

@@ -8,8 +8,8 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_site_selector.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart';
-import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
+import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
+import 'package:zupa/features/home/presentation/models/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
@@ -21,59 +21,47 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<HomeTicketCubit>(
-          create: (context) => getIt<HomeTicketCubit>()..init(),
-        ),
-        BlocProvider<HomeFilterCubit>(
-          create: (context) => getIt<HomeFilterCubit>()..init(),
-        ),
-      ],
-      child: BlocListener<HomeFilterCubit, HomeFilterState>(
-        listener: (context, state) {
-          state.whenOrNull(
-            filtering: (filter) {
-              context.read<HomeTicketCubit>().refresh(filter);
-            },
+    return BlocProvider<HomeCubit>(
+      create: (context) => getIt<HomeCubit>()..init(),
+      child: Builder(
+        builder: (context) {
+          return HomeFormBuilder(
+            model: Home.fromParams(.initial()),
+            builder: (context, _, _) {
+              return AppScreen(
+                isChildScrollable: true,
+                hasParentView: true,
+                title: t.home.title,
+                hasAppBar: false,
+                floatingActionButton: FloatingActionButton(
+                  backgroundColor: colorScheme.primaryContainer,
+                  foregroundColor: colorScheme.primary,
+                  onPressed: () => context.pushRoute(CheckInRoute()),
+                  shape: const CircleBorder(),
+                  child: const Icon(Symbols.camera_alt_rounded),
+                ),
+                child: const Column(
+                  spacing: 16,
+                  children: [
+                    Padding(
+                      padding: .symmetric(horizontal: 36),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          SizedBox(height: 16),
+                          AppSiteSelector(),
+                          HomeSearchBar(),
+                          VehicleCapacityTab(),
+                        ],
+                      ),
+                    ),
+                    Expanded(child: TicketListTab()),
+                  ],
+                ),
+              );
+            }
           );
         },
-        child: Builder(
-          builder: (context) {
-            return AppScreen(
-              formGroup: context.read<HomeFilterCubit>().formModel.form,
-              isChildScrollable: true,
-              hasParentView: true,
-              title: t.home.title,
-              hasAppBar: false,
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: colorScheme.primaryContainer,
-                foregroundColor: colorScheme.primary,
-                onPressed: () => context.pushRoute(CheckInRoute()),
-                shape: const CircleBorder(),
-                child: const Icon(Symbols.camera_alt_rounded),
-              ),
-              child: const Column(
-                spacing: 16,
-                children: [
-                  Padding(
-                    padding: .symmetric(horizontal: 36),
-                    child: Column(
-                      spacing: 16,
-                      children: [
-                        SizedBox(height: 16),
-                        AppSiteSelector(),
-                        HomeSearchBar(),
-                        VehicleCapacityTab(),
-                      ],
-                    ),
-                  ),
-                  Expanded(child: TicketListTab()),
-                ],
-              ),
-            );
-          },
-        ),
       ),
     );
   }

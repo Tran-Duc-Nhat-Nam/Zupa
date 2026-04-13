@@ -7,7 +7,7 @@ import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/home/data/api/home_api.dart';
 import 'package:zupa/features/home/data/models/filter/home_filter_model.dart';
 import 'package:zupa/features/home/data/models/ticket_model.dart';
-import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
+import 'package:zupa/features/home/domain/usecases/params/get_ticket_params.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
 
@@ -22,7 +22,7 @@ class HomeRepositoryImpl implements IHomeRepository {
   Future<NetworkState<List<HomeTicketEntity>>> getTickets({
     int page = 0,
     int pageSize = 10,
-    HomeFilterEntity filter = const HomeFilterEntity(
+    GetTicketParams filter = const GetTicketParams(
       page: defaultPageIndex,
       size: defaultPageSize,
       keyword: null,

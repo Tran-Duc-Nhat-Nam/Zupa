@@ -8,9 +8,8 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
-import 'package:zupa/features/home/presentation/bloc/filter/home_filter_cubit.dart'
-    hide Loading;
-import 'package:zupa/features/home/presentation/bloc/ticket/home_ticket_cubit.dart';
+import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
+import 'package:zupa/features/home/presentation/models/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 
 class TicketListTab extends StatefulWidget {
@@ -41,7 +40,9 @@ class _TicketListTabState extends State<TicketListTab> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
-    return BlocConsumer<HomeTicketCubit, HomeTicketState>(
+    final form = ReactiveHomeForm.of(context);
+
+    return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
         state.whenOrNull(
           loaded: (tickets, pageIndex) {
@@ -94,20 +95,16 @@ class _TicketListTabState extends State<TicketListTab> {
                 triggerWhenRelease: true,
               ),
               controller: _refreshController,
-              onRefresh: () => state is! Refreshing
-                  ? context.read<HomeTicketCubit>().refresh(
-                      context.read<HomeFilterCubit>().state.mapOrNull(
-                        loaded: (s) => s.filter,
-                      ),
-                    )
-                  : null,
-              onLoad: () => state is! LoadingMore
-                  ? context.read<HomeTicketCubit>().loadMore(
-                      context.read<HomeFilterCubit>().state.mapOrNull(
-                        loaded: (s) => s.filter,
-                      ),
-                    )
-                  : null,
+              onRefresh: () async {
+                await context.read<HomeCubit>().refresh(
+                  filter: form?.model.toParams() ?? .initial(),
+                );
+              },
+              onLoad: () async {
+                await context.read<HomeCubit>().loadMore(
+                  filter: form?.model.toParams() ?? .initial(),
+                );
+              },
               child: ListView.builder(
                 itemCount: items.isNotEmpty ? items.length : 10,
                 itemBuilder: (c, i) =>

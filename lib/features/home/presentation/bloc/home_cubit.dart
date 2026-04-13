@@ -1,22 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
-import 'package:zupa/features/home/domain/entities/filter/home_filter_entity.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 import 'package:zupa/features/home/domain/repository/home_repository.dart';
+import 'package:zupa/features/home/domain/usecases/params/get_ticket_params.dart';
 
-part 'home_ticket_cubit.freezed.dart';
-part 'home_ticket_state.dart';
+part 'home_cubit.freezed.dart';
+part 'home_state.dart';
 
 @injectable
-class HomeTicketCubit extends Cubit<HomeTicketState> {
+class HomeCubit extends Cubit<HomeState> {
   final IHomeRepository _repository;
   final AuthCubit _authCubit;
 
-  HomeTicketCubit(this._repository, this._authCubit) : super(const .initial());
+  HomeCubit(this._repository, this._authCubit) : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
@@ -28,23 +27,13 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void refresh(HomeFilterEntity? filter) async {
+  Future<void> refresh({required GetTicketParams filter}) async {
     final List<HomeTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final result = await _repository.getTickets(
-      filter:
-          filter ??
-          const HomeFilterEntity(
-            page: defaultPageIndex,
-            size: defaultPageSize,
-            keyword: null,
-            time: null,
-            type: null,
-          ),
-    );
+    final result = await _repository.getTickets(filter: filter);
     result.maybeWhen(
       success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
       error: (message) => emit(.failed(message)),
@@ -53,7 +42,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     );
   }
 
-  void loadMore(HomeFilterEntity? filter) async {
+  Future<void> loadMore({required GetTicketParams filter}) async {
     final List<HomeTicketEntity> items = state.maybeMap(
       loaded: (params) => [...params.tickets],
       orElse: () => [],
@@ -65,15 +54,7 @@ class HomeTicketCubit extends Cubit<HomeTicketState> {
     emit(.loadingMore(items));
 
     final result = await _repository.getTickets(
-      filter:
-          filter ??
-          const HomeFilterEntity(
-            page: defaultPageIndex,
-            size: defaultPageSize,
-            keyword: null,
-            time: null,
-            type: null,
-          ),
+      filter: filter,
       page: pageIndex + 1,
     );
     result.whenOrNull(
