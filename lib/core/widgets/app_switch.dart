@@ -27,67 +27,74 @@ class AppSwitch extends StatelessWidget {
     final isLoading = Skeletonizer.of(context).enabled;
     final colorScheme = AppColors.of(context);
 
-    return formControl != null ? ReactiveFormField<bool, bool>(
-      formControl: formControl,
-      builder: (field) {
-        final currentValue = field.value ?? false;
+    return formControl != null
+        ? ReactiveFormField<bool, bool>(
+            formControl: formControl,
+            builder: (field) {
+              final currentValue = field.value ?? false;
 
-        return _buildSwitch(
-          isLoading: isLoading,
-          currentValue: currentValue,
-          colorScheme: colorScheme,
-          field: field,
-        );
-      },
-    ) : _buildSwitch(
-      isLoading: isLoading,
-      currentValue: initialValue,
-      colorScheme: colorScheme,
-    );
+              return _buildSwitch(
+                isLoading: isLoading,
+                currentValue: currentValue,
+                colorScheme: colorScheme,
+                field: field,
+              );
+            },
+          )
+        : _buildSwitch(
+            isLoading: isLoading,
+            currentValue: initialValue,
+            colorScheme: colorScheme,
+          );
   }
 
-  Container _buildSwitch({required bool isLoading, required bool currentValue, required AppColors colorScheme, ReactiveFormFieldState<bool, bool>? field}) {
+  Container _buildSwitch({
+    required bool isLoading,
+    required bool currentValue,
+    required AppColors colorScheme,
+    ReactiveFormFieldState<bool, bool>? field,
+  }) {
     return Container(
-        clipBehavior: .antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: isLoading ? .circular(16) : .zero,
-        ),
-        child: Skeleton.replace(
+      clipBehavior: .antiAlias,
+      decoration: BoxDecoration(
+        borderRadius: isLoading ? .circular(16) : .zero,
+      ),
+      child: Skeleton.replace(
+        width: 52,
+        height: 32,
+        child: SizedBox(
           width: 52,
-          height: 32,
-          child: SizedBox(
-            width: 52,
-            child: AnimatedToggleSwitch<bool>.dual(
-              first: false,
-              second: true,
-              current: currentValue,
-              height: 32,
-              indicatorSize: const Size(24, 24) ,
-              spacing: 0,
-              styleBuilder: (value) => ToggleStyle(
-                indicatorColor: colorScheme.surface,
-                backgroundColor: value
-                    ? colorScheme.primary
-                    : colorScheme.outlineVariant,
-                borderRadius: .circular(16),
-                borderColor: Colors.transparent,
-              ),
-
-              // Logic to handle the toggle
-              onChanged: (newValue) {
-                if (onToggle != null) {
-                  // Pass the new value and a callback to update the form field manually
-                  onToggle!(newValue, (confirmedValue) {
-                    field?.didChange(confirmedValue);
-                  });
-                } else {
-                  // Standard update
-                  field?.didChange(newValue);
-                }
-              },
+          child: AnimatedToggleSwitch<bool>.dual(
+            first: false,
+            second: true,
+            current: currentValue,
+            height: 32,
+            indicatorSize: const Size(24, 24),
+            spacing: 0,
+            styleBuilder: (value) => ToggleStyle(
+              indicatorColor: colorScheme.surface,
+              backgroundColor: value
+                  ? colorScheme.primary
+                  : colorScheme.outlineVariant,
+              borderRadius: .circular(16),
+              borderColor: Colors.transparent,
             ),
+
+            // Logic to handle the toggle
+            onChanged: (newValue) {
+              if (onToggle != null) {
+                // Pass the new value and a callback to update the form field manually
+                onToggle!(newValue, (confirmedValue) {
+                  field?.didChange(confirmedValue);
+                });
+              } else {
+                // Standard update
+                field?.didChange(newValue);
+              }
+            },
           ),
         ),
-      );
+      ),
+    );
   }
 }

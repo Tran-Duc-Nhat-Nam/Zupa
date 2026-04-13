@@ -10,15 +10,14 @@ class GetRevenueParams {
   });
 
   factory GetRevenueParams.initial() => GetRevenueParams(
-        fromDate: DateTime(DateTime.now().year, DateTime.now().month),
-        toDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
-        keyword: 'QUANTITY',
-        type: vehicleTypes[0],
-      );
+    fromDate: DateTime(DateTime.now().year, DateTime.now().month),
+    toDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
+    keyword: 'QUANTITY',
+    type: vehicleTypes[0],
+  );
 
   final String keyword;
   final VehicleTypeEntity? type;
   final DateTime fromDate;
   final DateTime toDate;
 }
-

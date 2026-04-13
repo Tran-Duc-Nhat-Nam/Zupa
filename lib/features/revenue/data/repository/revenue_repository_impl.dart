@@ -5,8 +5,8 @@ import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/revenue/data/api/revenue_api.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
+import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 
 @LazySingleton(as: IRevenueRepository)
 class RevenueRepositoryImpl implements IRevenueRepository {

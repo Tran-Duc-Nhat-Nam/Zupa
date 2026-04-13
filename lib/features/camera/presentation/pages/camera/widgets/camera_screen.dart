@@ -98,8 +98,8 @@ class _CameraScreenState extends State<CameraScreen> {
             child: Container(
               width: .infinity,
               decoration: BoxDecoration(
-                  color: AppColors.of(context).surfaceContainer,
-                  borderRadius: .circular(28)
+                color: AppColors.of(context).surfaceContainer,
+                borderRadius: .circular(28),
               ),
               clipBehavior: .antiAlias,
               child: FittedBox(

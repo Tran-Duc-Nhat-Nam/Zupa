@@ -76,8 +76,7 @@ class HistoryListTab extends StatelessWidget {
               await context.read<HistoryListCubit>().loadMore(filter);
             },
             child: ListView.separated(
-              separatorBuilder: (context, index) =>
-                  const SizedBox(height: 32),
+              separatorBuilder: (context, index) => const SizedBox(height: 32),
               itemBuilder: (c, i) =>
                   Padding(
                     padding: .only(top: i == 0 ? 16 : 0),

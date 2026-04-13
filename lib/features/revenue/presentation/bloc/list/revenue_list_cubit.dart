@@ -5,8 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 import 'package:zupa/features/revenue/domain/usecases/get_revenue_usecase.dart';
+import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 
 part 'revenue_list_cubit.freezed.dart';
 part 'revenue_list_state.dart';

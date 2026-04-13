@@ -16,7 +16,8 @@ class HistoryListCubit extends Cubit<HistoryListState> {
   final IHistoryRepository _historyRepository;
   final AuthCubit _authCubit;
 
-  HistoryListCubit(this._historyRepository, this._authCubit) : super(const .initial());
+  HistoryListCubit(this._historyRepository, this._authCubit)
+    : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());

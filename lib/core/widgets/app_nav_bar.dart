@@ -71,9 +71,8 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                                 curve: Curves.easeInOutQuart,
                                 left: 24,
                                 right: 24,
-                                bottom: _isVisible
-                                    ? 48
-                                    : -100, // Slides below the screen
+                                bottom: _isVisible ? 48 : -100,
+                                // Slides below the screen
                                 child: _buildFloatingBar(
                                   tabsRouter: tabsRouter,
                                   colors: colors,
@@ -194,9 +193,13 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
           height: isShowLabel ? 72 : 56,
           padding: const .symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            color: isGlassmorphism ? colors.surfaceContainer.withAlpha(155) : colors.surfaceContainerLowest,
+            color: isGlassmorphism
+                ? colors.surfaceContainer.withAlpha(155)
+                : colors.surfaceContainerLowest,
             borderRadius: .circular(32),
-            border: isGlassmorphism ? .all(color: colors.outlineVariant.withAlpha(155), width: 1.5) : null,
+            border: isGlassmorphism
+                ? .all(color: colors.outlineVariant.withAlpha(155), width: 1.5)
+                : null,
           ),
           child: Row(
             mainAxisAlignment: .spaceEvenly,

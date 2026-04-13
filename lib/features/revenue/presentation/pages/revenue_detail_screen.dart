@@ -14,9 +14,7 @@ class RevenueDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt<RevenueListCubit>()),
-      ],
+      providers: [BlocProvider(create: (context) => getIt<RevenueListCubit>())],
       child: Builder(
         builder: (context) {
           return AppScreen(

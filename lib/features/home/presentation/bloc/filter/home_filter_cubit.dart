@@ -31,9 +31,7 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
       loaded: (filter) {
         _debounce?.cancel();
         _debounce = .new(const Duration(milliseconds: 500), () {
-          emit(
-            .loaded(filter: _filter),
-          );
+          emit(.loaded(filter: _filter));
         });
       },
     );

@@ -24,7 +24,9 @@ class MemberVehiclesTabBar extends StatelessWidget {
           color: colorScheme.primaryContainer,
           borderRadius: const .all(Radius.circular(16)),
         ),
-        textStyle: AppTextStyles.bodySmallBold.copyWith(color: colorScheme.onPrimaryContainer),
+        textStyle: AppTextStyles.bodySmallBold.copyWith(
+          color: colorScheme.onPrimaryContainer,
+        ),
         tabTextColor: colorScheme.onSurfaceVariant,
         tabs: [
           .new(label: t.common.actions.all),

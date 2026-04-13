@@ -109,8 +109,7 @@ class AppScreen extends StatelessWidget {
                     leadingIcon: appBarLeadingIcon,
                   )
                 : appBar,
-            backgroundColor:
-                backgroundColor ?? AppColors.of(context).surface,
+            backgroundColor: backgroundColor ?? AppColors.of(context).surface,
             drawer: hasDrawer ? const AppDrawer() : null,
             body: _buildContent(context),
             floatingActionButton: floatingActionButton,
@@ -156,8 +155,7 @@ class AppScreen extends StatelessWidget {
           alignment: .bottomCenter,
           child: Padding(
             padding:
-                footerPadding ??
-                const .only(bottom: 48, left: 24, right: 24),
+                footerPadding ?? const .only(bottom: 48, left: 24, right: 24),
             child: Column(mainAxisSize: .min, children: footer),
           ),
         ),

@@ -134,7 +134,8 @@ class _TicketListTabState extends State<TicketListTab> {
                                   color: colorScheme.primary,
                                 ),
                                 imageUrl: '',
-                              ), // Your placeholder logic
+                              ),
+                        // Your placeholder logic
                         enabled: state is! Loading,
                       ),
                     ).animateIn(

@@ -12,23 +12,24 @@ class ChatStorageService {
   Future<Isar> get _db async {
     if (_isar != null) return _isar!;
     final dir = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open(
-      [ChatSessionCollectionSchema],
-      directory: dir.path,
-    );
+    _isar = await Isar.open([ChatSessionCollectionSchema], directory: dir.path);
     return _isar!;
   }
 
   Future<void> saveSession(ChatSession session) async {
     final db = await _db;
-    
+
     final collection = ChatSessionCollection()
       ..sessionId = session.id
       ..title = session.title
       ..createdAt = session.createdAt
-      ..messages = session.messages.map((m) => ChatMessageEmbedded()
-        ..text = m.text
-        ..isUser = m.isUser).toList();
+      ..messages = session.messages
+          .map(
+            (m) => ChatMessageEmbedded()
+              ..text = m.text
+              ..isUser = m.isUser,
+          )
+          .toList();
 
     await db.writeTxn(() async {
       await db.chatSessionCollections.put(collection);
@@ -37,17 +38,28 @@ class ChatStorageService {
 
   Future<List<ChatSession>> loadSessions() async {
     final db = await _db;
-    final collections = await db.chatSessionCollections.where().sortByCreatedAtDesc().findAll();
-    
-    return collections.map((c) => ChatSession(
-      id: c.sessionId,
-      title: c.title,
-      createdAt: c.createdAt,
-      messages: c.messages.map((m) => ChatMessage(
-        text: m.text ?? '',
-        isUser: m.isUser ?? false,
-      )).toList(),
-    )).toList();
+    final collections = await db.chatSessionCollections
+        .where()
+        .sortByCreatedAtDesc()
+        .findAll();
+
+    return collections
+        .map(
+          (c) => ChatSession(
+            id: c.sessionId,
+            title: c.title,
+            createdAt: c.createdAt,
+            messages: c.messages
+                .map(
+                  (m) => ChatMessage(
+                    text: m.text ?? '',
+                    isUser: m.isUser ?? false,
+                  ),
+                )
+                .toList(),
+          ),
+        )
+        .toList();
   }
 
   Future<void> deleteSession(String sessionId) async {

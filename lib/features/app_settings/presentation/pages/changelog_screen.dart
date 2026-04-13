@@ -39,7 +39,6 @@ class ChangelogScreen extends StatelessWidget {
           final versionTag = parts.first.trim();
           final rawLogs = parts.length > 1 ? parts.last.trim() : '';
 
-
           final groupedChanges = _getNestedGroupedChanges(rawLogs);
 
           return Column(

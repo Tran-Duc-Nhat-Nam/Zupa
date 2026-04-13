@@ -46,7 +46,10 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
     final uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
       if (context.mounted) {
-        MessageHelper.showError(context, message: t.settings.couldNotLaunch(url: url));
+        MessageHelper.showError(
+          context,
+          message: t.settings.couldNotLaunch(url: url),
+        );
       } else {
         AppToast.showToast(t.settings.couldNotLaunch(url: url));
       }
@@ -168,9 +171,7 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                                 : () {
                                     context
                                         .read<VersionCubit>()
-                                        .checkForUpdates(
-                                          force: true,
-                                        );
+                                        .checkForUpdates(force: true);
                                   },
                           ),
                           AppListItem(
@@ -191,7 +192,10 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                                 context.read<VersionCubit>().checkForUpdates(
                                   force: true,
                                 );
-                                AppToast.showToast(t.common.info.noInfo, context: context);
+                                AppToast.showToast(
+                                  t.common.info.noInfo,
+                                  context: context,
+                                );
                               }
                             },
                           ),

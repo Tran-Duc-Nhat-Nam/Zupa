@@ -4,13 +4,12 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
+import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-
-import 'package:zupa/core/bloc/animation/animation_cubit.dart';
-import 'package:zupa/core/di/injection.dart';
 
 abstract class DialogHelper {
   /// Show a loading dialog with an optional [message].
@@ -135,7 +134,9 @@ abstract class DialogHelper {
     showDownloadProgress(
       context,
       progressStream: progressStream.map((p) => p / 100.0),
-      subtitle: version != null ? t.common.version.downloadingVersion(version: version) : null,
+      subtitle: version != null
+          ? t.common.version.downloadingVersion(version: version)
+          : null,
     );
   }
 

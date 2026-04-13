@@ -40,7 +40,9 @@ class ChatMessageWidget extends StatelessWidget {
             child: Container(
               padding: const .symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: isUser ? colors.secondaryContainer : colors.surfaceContainerHigh,
+                color: isUser
+                    ? colors.secondaryContainer
+                    : colors.surfaceContainerHigh,
                 borderRadius: .only(
                   topLeft: const .circular(28),
                   topRight: const .circular(28),
@@ -60,25 +62,39 @@ class ChatMessageWidget extends StatelessWidget {
                 selectable: true,
                 styleSheet: MarkdownStyleSheet(
                   p: AppTextStyles.bodyLarge.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   h1: AppTextStyles.headlineMediumBold.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   h2: AppTextStyles.headlineSmallBold.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   h3: AppTextStyles.titleMediumBold.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   h4: AppTextStyles.titleMediumBold.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   h5: AppTextStyles.titleSmallBold.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   h6: AppTextStyles.titleSmall.copyWith(
-                    color: isUser ? colors.onSecondaryContainer : colors.onSurface,
+                    color: isUser
+                        ? colors.onSecondaryContainer
+                        : colors.onSurface,
                   ),
                   code: AppTextStyles.bodyMedium.copyWith(
                     color: colors.onSurface,
@@ -91,14 +107,18 @@ class ChatMessageWidget extends StatelessWidget {
                   blockquoteDecoration: BoxDecoration(
                     border: Border(
                       left: BorderSide(
-                        color: isUser ? colors.onPrimary.withAlpha(100) : colors.outline,
+                        color: isUser
+                            ? colors.onPrimary.withAlpha(100)
+                            : colors.outline,
                         width: 4,
                       ),
                     ),
                   ),
                   blockquote: AppTextStyles.bodyMedium.copyWith(
-                    color: isUser ? colors.onPrimary.withAlpha(200) : colors.onSurfaceVariant,
-                    fontStyle: FontStyle.italic,
+                    color: isUser
+                        ? colors.onPrimary.withAlpha(200)
+                        : colors.onSurfaceVariant,
+                    fontStyle: .italic,
                   ),
                   listBullet: AppTextStyles.bodyLarge.copyWith(
                     color: isUser ? colors.onPrimary : colors.onSurface,

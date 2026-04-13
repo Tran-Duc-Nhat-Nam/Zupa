@@ -179,9 +179,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
                 widget.buttonDecoration ??
                 .new(
                   borderRadius: .circular(28),
-                  border: .all(
-                    color: colorScheme.surfaceContainerHigh,
-                  ),
+                  border: .all(color: colorScheme.surfaceContainerHigh),
                 ),
             elevation: widget.buttonElevation,
           ),

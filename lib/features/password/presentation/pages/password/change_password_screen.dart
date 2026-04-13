@@ -35,7 +35,10 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
             changePasswordFailed: (message) {
               message != null
                   ? MessageHelper.showError(context, message: message)
-                  : AppToast.showToast(t.common.errors.unknown, context: context);
+                  : AppToast.showToast(
+                      t.common.errors.unknown,
+                      context: context,
+                    );
               context.read<PasswordSettingsCubit>().init();
             },
           );

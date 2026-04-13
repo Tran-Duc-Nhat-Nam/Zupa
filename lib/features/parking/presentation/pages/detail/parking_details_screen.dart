@@ -32,7 +32,8 @@ class ParkingDetailsScreen extends StatelessWidget {
       footer: [
         AppButton(
           text: t.common.actions.save,
-          onPressed: () => AppToast.showToast(t.common.success, context: context),
+          onPressed: () =>
+              AppToast.showToast(t.common.success, context: context),
         ),
       ],
       child: BlocProvider<ParkingLotDetailCubit>(
@@ -95,34 +96,32 @@ class ParkingDetailsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           ...state.maybeMap(
-                            loaded:
-                                (params) => params.parkingLot.capacity
-                                    .map(
-                                      (e) => AppTextField(
-                                        formControl: formModel
-                                            .capacityParkingLotCapacityForm[params
-                                                .parkingLot
-                                                .capacity
-                                                .indexOf(e)]
-                                            .capacityControl,
-                                        labelText:
-                                            t['vehicles.${e.vehicleType.name}'] ??
-                                            e.vehicleType.name,
-                                        isExternalLabel: true,
-                                      ),
-                                    )
-                                    .toList(),
-                            loading:
-                                (_) => List.generate(
-                                  3,
-                                  (index) => AppTextField(
+                            loaded: (params) => params.parkingLot.capacity
+                                .map(
+                                  (e) => AppTextField(
                                     formControl: formModel
-                                        .capacityParkingLotCapacityForm[index]
+                                        .capacityParkingLotCapacityForm[params
+                                            .parkingLot
+                                            .capacity
+                                            .indexOf(e)]
                                         .capacityControl,
-                                    labelText: vehicleTypes[index].name,
+                                    labelText:
+                                        t['vehicles.${e.vehicleType.name}'] ??
+                                        e.vehicleType.name,
                                     isExternalLabel: true,
                                   ),
-                                ),
+                                )
+                                .toList(),
+                            loading: (_) => List.generate(
+                              3,
+                              (index) => AppTextField(
+                                formControl: formModel
+                                    .capacityParkingLotCapacityForm[index]
+                                    .capacityControl,
+                                labelText: vehicleTypes[index].name,
+                                isExternalLabel: true,
+                              ),
+                            ),
                             orElse: () => [],
                           ),
                         ],
@@ -145,19 +144,16 @@ class ParkingDetailsScreen extends StatelessWidget {
                                 text: t.parking.warningThreshold.title,
                                 trailing: AppSwitch(
                                   formControl: formModel.isLockedControl,
-                                  onToggle:
-                                      (value, toggle) =>
-                                          value
-                                              ? toggle(false)
-                                              : DialogHelper.showModal(
-                                                context,
-                                                okText: t.common.actions.lock,
-                                                cancelText:
-                                                    t.common.actions.close,
-                                                type: AppDialogType.warning,
-                                                onOk: () => toggle(true),
-                                                onCancel: () => toggle(false),
-                                              ),
+                                  onToggle: (value, toggle) => value
+                                      ? toggle(false)
+                                      : DialogHelper.showModal(
+                                          context,
+                                          okText: t.common.actions.lock,
+                                          cancelText: t.common.actions.close,
+                                          type: AppDialogType.warning,
+                                          onOk: () => toggle(true),
+                                          onCancel: () => toggle(false),
+                                        ),
                                 ),
                               ),
                             ],

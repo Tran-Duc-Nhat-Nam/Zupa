@@ -8,16 +8,6 @@ const List<VehicleTypeEntity> vehicleTypes = [
     icon: 'motorbike',
     color: Colors.yellow,
   ),
-  .new(
-    name: 'bicycle',
-    value: 'bicycle',
-    icon: 'bicycle',
-    color: Colors.blue,
-  ),
-  .new(
-    name: 'car',
-    value: 'car',
-    icon: 'car',
-    color: Colors.pink,
-  ),
+  .new(name: 'bicycle', value: 'bicycle', icon: 'bicycle', color: Colors.blue),
+  .new(name: 'car', value: 'car', icon: 'car', color: Colors.pink),
 ];

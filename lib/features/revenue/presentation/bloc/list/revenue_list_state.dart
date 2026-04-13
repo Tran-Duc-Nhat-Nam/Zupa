@@ -4,8 +4,9 @@ part of 'revenue_list_cubit.dart';
 sealed class RevenueListState with _$RevenueListState {
   const factory RevenueListState.initial() = Initial;
 
-  const factory RevenueListState.loading({required List<DailyRevenueEntity> revenueList}) =
-      Loading;
+  const factory RevenueListState.loading({
+    required List<DailyRevenueEntity> revenueList,
+  }) = Loading;
 
   const factory RevenueListState.loaded({
     required List<DailyRevenueEntity> revenueList,

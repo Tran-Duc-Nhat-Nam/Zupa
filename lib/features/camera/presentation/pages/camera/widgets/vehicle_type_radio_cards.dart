@@ -36,9 +36,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                   Icon(
                     const IconConverter().fromJson(item.icon) ??
                         Symbols.globe_rounded,
-                    color: item.color.harmonizeWith(
-                      colorScheme.primary,
-                    ),
+                    color: item.color.harmonizeWith(colorScheme.primary),
                     size: 24,
                   ),
                   const SizedBox(height: 8),

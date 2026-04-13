@@ -13,6 +13,7 @@ import 'package:zupa/features/history/presentation/pages/widgets/history_search_
 @RoutePage()
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

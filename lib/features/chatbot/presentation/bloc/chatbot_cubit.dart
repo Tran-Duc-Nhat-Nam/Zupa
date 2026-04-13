@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
@@ -138,7 +139,7 @@ class ChatbotCubit extends Cubit<ChatbotState> {
       title: title,
       createdAt: existingIndex != -1
           ? _sessions[existingIndex].createdAt
-          : DateTime.now(),
+          : .now(),
       messages: messages,
     );
 

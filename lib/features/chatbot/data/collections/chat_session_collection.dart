@@ -10,7 +10,7 @@ class ChatSessionCollection {
   late String sessionId;
 
   late String title;
-  
+
   late DateTime createdAt;
 
   late List<ChatMessageEmbedded> messages;

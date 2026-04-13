@@ -55,13 +55,15 @@ class CheckInCubit extends Cubit<CheckInState> {
       imageFormatGroup: kIsWeb
           ? .unknown
           : defaultTargetPlatform == TargetPlatform.android
-              ? .nv21
-              : .bgra8888,
+          ? .nv21
+          : .bgra8888,
     );
 
     try {
       await controller.initialize();
-      await controller.startImageStream((image) => _processImage(image, controller));
+      await controller.startImageStream(
+        (image) => _processImage(image, controller),
+      );
       isOut ? emit(.checkOut(controller)) : emit(.checkIn(controller));
     } catch (e) {
       if (e is CameraException) {
@@ -72,7 +74,10 @@ class CheckInCubit extends Cubit<CheckInState> {
     }
   }
 
-  Future<void> _processImage(CameraImage image, CameraController controller) async {
+  Future<void> _processImage(
+    CameraImage image,
+    CameraController controller,
+  ) async {
     if (_isProcessing) return;
     _isProcessing = true;
 
@@ -84,8 +89,10 @@ class CheckInCubit extends Cubit<CheckInState> {
       }
 
       final recognizedText = await _textRecognizer.processImage(inputImage);
-      final plateRegex = RegExp(r'[0-9]{2}[A-Z][0-9A-Z]?-?[0-9]{3,5}(?:\.[0-9]{2})?');
-      
+      final plateRegex = RegExp(
+        r'[0-9]{2}[A-Z][0-9A-Z]?-?[0-9]{3,5}(?:\.[0-9]{2})?',
+      );
+
       for (final block in recognizedText.blocks) {
         for (final line in block.lines) {
           final text = line.text.replaceAll(' ', '').toUpperCase();

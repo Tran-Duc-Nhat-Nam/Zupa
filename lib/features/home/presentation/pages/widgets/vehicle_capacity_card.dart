@@ -84,13 +84,9 @@ class VehicleCapacityCard extends StatelessWidget {
                 : colors.surfaceContainer,
             borderRadius: .circular(28),
             border: .all(
-              width: isSelected
-                  ? 3
-                  : 2,
-              color: isSelected
-                  ? colors.outline
-                  : colors.outlineVariant,
-            )
+              width: isSelected ? 3 : 2,
+              color: isSelected ? colors.outline : colors.outlineVariant,
+            ),
           ),
           child: Column(
             mainAxisSize: .min,

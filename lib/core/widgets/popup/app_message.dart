@@ -18,7 +18,12 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title ?? t.common.success, type: .success);
+    _show(
+      context,
+      message: message,
+      title: title ?? t.common.success,
+      type: .success,
+    );
   }
 
   /// Show an error message.
@@ -27,7 +32,12 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title ?? t.common.errors.error, type: .error);
+    _show(
+      context,
+      message: message,
+      title: title ?? t.common.errors.error,
+      type: .error,
+    );
   }
 
   /// Show a warning message.
@@ -36,7 +46,12 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title ?? t.common.warning, type: .warning);
+    _show(
+      context,
+      message: message,
+      title: title ?? t.common.warning,
+      type: .warning,
+    );
   }
 
   /// Show an information message.
@@ -45,7 +60,12 @@ class MessageHelper {
     required String message,
     String? title,
   }) {
-    _show(context, message: message, title: title ?? t.common.info.info, type: .info);
+    _show(
+      context,
+      message: message,
+      title: title ?? t.common.info.info,
+      type: .info,
+    );
   }
 
   static void _show(
@@ -75,9 +95,7 @@ class MessageHelper {
         padding: const .only(left: 8, right: 16),
         child: Text(
           title ?? '',
-          style: AppTextStyles.titleMediumBold.copyWith(
-            color: color,
-          ),
+          style: AppTextStyles.titleMediumBold.copyWith(color: color),
         ),
       ),
       messageText: Padding(

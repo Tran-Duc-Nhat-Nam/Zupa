@@ -261,8 +261,9 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                       ),
                     ),
                   ],
+                ),
               ),
-            ));
+            );
           },
         ),
       ),

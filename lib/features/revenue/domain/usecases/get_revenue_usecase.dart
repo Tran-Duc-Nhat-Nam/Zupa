@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
-import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 import 'package:zupa/features/revenue/domain/repository/revenue_repository.dart';
+import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
 
 @injectable
 class GetRevenueUseCase {
@@ -16,4 +16,3 @@ class GetRevenueUseCase {
     return _repository.getRevenue(filter: filter);
   }
 }
-

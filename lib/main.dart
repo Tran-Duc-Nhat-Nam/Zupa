@@ -46,9 +46,7 @@ Future<void> main() async {
     final router = getIt<AppRouter>();
 
     // Initialize Chatbot
-    FlutterGemma.initialize(
-      huggingFaceToken: Env.huggingFaceToken,
-    );
+    FlutterGemma.initialize(huggingFaceToken: Env.huggingFaceToken);
 
     await NotificationService.initialize(router);
     await FlutterDisplayMode.setHighRefreshRate();
