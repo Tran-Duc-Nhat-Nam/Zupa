@@ -17,6 +17,7 @@ import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
+import 'package:zupa/features/auth/presentation/models/login_form.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
@@ -30,98 +31,120 @@ class _LoginScreenState extends AppState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
-    return BlocProvider<LoginCubit>(
-      create: (context) => getIt<LoginCubit>()..init(),
-      child: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          state.whenOrNull(
-            loginSuccess: () => context.router.replaceAll([const HomeRoute()]),
-            loginFailed: (message) {
-              message != null
-                  ? MessageHelper.showError(
-                      context,
-                      message: message,
-                      title: t.common.errors.loginFailed,
-                    )
-                  : AppToast.showToast(
-                      t.common.errors.unknown,
-                      context: context,
-                    );
+    final model = Login.fromParams(.initial());
+    return LoginFormBuilder(
+      model: model,
+      builder: (context, formModel, _) {
+        return BlocProvider<LoginCubit>(
+          create: (context) => getIt<LoginCubit>()..init(),
+          child: BlocConsumer<LoginCubit, LoginState>(
+            listener: (context, state) {
+              state.whenOrNull(
+                loaded: (tenant, username, password, isRemember) {
+                  if (isRemember == true) {
+                    formModel.tenantValuePatch(tenant ?? '');
+                    formModel.usernameValuePatch(username ?? '');
+                    formModel.passwordValuePatch(password ?? '');
+                    formModel.isRememberValuePatch(true);
+                  }
+                },
+                loginSuccess: () =>
+                    context.router.replaceAll([const HomeRoute()]),
+                loginFailed: (message) {
+                  message != null
+                      ? MessageHelper.showError(
+                          context,
+                          message: message,
+                          title: t.common.errors.loginFailed,
+                        )
+                      : AppToast.showToast(
+                          t.common.errors.unknown,
+                          context: context,
+                        );
+                },
+              );
             },
-          );
-        },
-        builder: (context, state) {
-          final formModel = context.read<LoginCubit>().formModel;
-          return AppScreen(
-            hasAppBar: false,
-            resizeToAvoidBottomInset: true,
-            child: Padding(
-              padding: const .symmetric(vertical: 40, horizontal: 24),
-              child: Column(
-                crossAxisAlignment: .start,
-                spacing: 16,
-                children: [
-                  Center(
-                    child: Image.asset(
-                      'assets/images/park.png',
-                      height: 80,
-                      color: colorScheme.primary,
-                    ),
-                  ).animateIn(),
-                  Center(
-                    child: Text(
-                      t.auth.login.title,
-                      style: AppTextStyles.displayMediumBold,
-                    ),
-                  ).animateIn(index: 1),
-                  const SizedBox(height: 16),
-                  AppTextField(
-                    formControl: formModel.tenantControl,
-                    required: true,
-                    labelText: t.common.info.site,
-                    prefix: const Icon(Symbols.warehouse_rounded),
-                  ).animateIn(index: 2),
-                  AppTextField(
-                    formControl: formModel.usernameControl,
-                    required: true,
-                    labelText: t.auth.login.username,
-                    prefix: const Icon(Symbols.person_rounded),
-                  ).animateIn(index: 3),
-                  AppTextField(
-                    formControl: formModel.passwordControl,
-                    required: true,
-                    isPassword: true,
-                    labelText: t.auth.login.password,
-                    prefix: const Icon(Symbols.lock_rounded),
-                  ).animateIn(index: 4),
-                  AppCheckbox(
-                    formControl: formModel.isRememberControl,
-                    label: Text(
-                      t.auth.login.isRemember,
-                      style: AppTextStyles.bodySmallSemibold.copyWith(
-                        color: colorScheme.primary,
-                      ),
-                    ),
-                  ).animateIn(index: 5),
-                  AppButton(
-                    onPressed: state.whenOrNull(
-                      loaded: () => context.read<LoginCubit>().login,
-                    ),
-                    text: t.auth.login.title,
-                    padding: const EdgeInsets.all(16),
-                    child: state.whenOrNull(
-                      submitting: () => LoadingAnimationWidget.waveDots(
-                        color: colorScheme.surface,
-                        size: 24,
-                      ),
-                    ),
-                  ).animateIn(index: 6),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+            builder: (context, state) {
+              return AppScreen(
+                hasAppBar: false,
+                resizeToAvoidBottomInset: true,
+                child: Padding(
+                  padding: const .symmetric(vertical: 40, horizontal: 24),
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    mainAxisAlignment: .center,
+                    spacing: 16,
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          'assets/images/park.png',
+                          height: 72,
+                          color: colorScheme.primary,
+                        ),
+                      ).animateIn(),
+                      Center(
+                        child: Text(
+                          'TSP Parking',
+                          style: AppTextStyles.displayMediumBold.copyWith(
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                      ).animateIn(index: 1),
+                      const SizedBox(height: 8),
+                      AppTextField(
+                        formControl: formModel.tenantControl,
+                        required: true,
+                        labelText: t.common.info.site,
+                        prefix: const Icon(Symbols.warehouse_rounded),
+                      ).animateIn(index: 2),
+                      AppTextField(
+                        formControl: formModel.usernameControl,
+                        required: true,
+                        labelText: t.auth.login.username,
+                        prefix: const Icon(Symbols.person_rounded),
+                      ).animateIn(index: 3),
+                      AppTextField(
+                        formControl: formModel.passwordControl,
+                        required: true,
+                        isPassword: true,
+                        labelText: t.auth.login.password,
+                        prefix: const Icon(Symbols.lock_rounded),
+                      ).animateIn(index: 4),
+                      AppCheckbox(
+                        formControl: formModel.isRememberControl,
+                        label: Text(
+                          t.auth.login.isRemember,
+                          style: AppTextStyles.bodySmallSemibold.copyWith(
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                      ).animateIn(index: 5),
+                      const SizedBox(height: 0),
+                      AppButton(
+                        onPressed: () =>
+                            state is! Submitting && state is! Loading
+                            ? context.read<LoginCubit>().login(
+                                params: formModel.model.toParams(),
+                              )
+                            : null,
+                        text: t.auth.login.title,
+                        padding: const .all(16),
+                        child: state.whenOrNull(
+                          submitting: () => LoadingAnimationWidget.waveDots(
+                            color: colorScheme.surface,
+                            size: 24,
+                          ),
+                        ),
+                      ).animateIn(index: 6),
+                      const SizedBox(height: 72),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

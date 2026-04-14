@@ -130,7 +130,7 @@ class _AppButtonState extends State<AppButton> {
           children: [
             if (widget.icon != null) ...[Icon(widget.icon, size: 20)],
             if (widget.text != null)
-              Text(widget.text!, style: AppTextStyles.bodyLargeSemibold),
+              Text(widget.text!, style: AppTextStyles.bodyLargeBold),
           ],
         );
   }

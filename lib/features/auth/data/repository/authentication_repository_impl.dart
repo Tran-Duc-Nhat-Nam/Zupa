@@ -9,6 +9,7 @@ import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/auth/data/api/account_api.dart';
 import 'package:zupa/features/auth/data/models/auth_response.dart';
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
+import 'package:zupa/features/auth/domain/usecases/params/login_params.dart';
 
 @LazySingleton(as: AuthenticationRepository)
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
@@ -19,14 +20,12 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<NetworkState<AuthResponse>> logIn({
-    required String tenant,
-    required String username,
-    required String password,
+    required LoginParams params,
   }) async {
     final payload = AccountRequest(
-      tenant: tenant,
-      username: username,
-      password: password,
+      tenant: params.tenant,
+      username: params.username,
+      password: params.password,
     );
 
     try {
