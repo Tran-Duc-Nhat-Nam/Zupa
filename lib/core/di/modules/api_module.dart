@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/api/staff/staff_api.dart';
-import 'package:zupa/features/auth/data/api/account_api.dart';
+import 'package:zupa/features/auth/data/api/auth_api.dart';
 import 'package:zupa/features/employee_management/data/api/employee_api.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
 import 'package:zupa/features/home/data/api/home_api.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
-import 'package:zupa/features/password/data/api/password_api.dart';
 import 'package:zupa/features/revenue/data/api/revenue_api.dart';
 
 @module
@@ -28,11 +27,8 @@ abstract class ApiModule {
   EmployeeAPI employeeApi(Dio dio) => EmployeeAPI(dio);
 
   @lazySingleton
-  PasswordAPI passwordApi(Dio dio) => PasswordAPI(dio);
-
-  @lazySingleton
   HistoryAPI ticketApi(Dio dio) => HistoryAPI(dio, baseUrl: '/core/fsapp');
 
   @lazySingleton
-  AccountAPI accountApi(Dio dio) => AccountAPI(dio);
+  AuthAPI accountApi(Dio dio) => AuthAPI(dio);
 }
