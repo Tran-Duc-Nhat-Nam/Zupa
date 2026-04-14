@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/chatbot/presentation/bloc/chatbot_state.dart';
@@ -60,7 +60,7 @@ class ChatMessageWidget extends StatelessWidget {
               child: MarkdownBody(
                 data: message.text,
                 selectable: true,
-                styleSheet: MarkdownStyleSheet(
+                styleSheet: .new(
                   p: AppTextStyles.bodyLarge.copyWith(
                     color: isUser
                         ? colors.onSecondaryContainer
@@ -102,7 +102,7 @@ class ChatMessageWidget extends StatelessWidget {
                   ),
                   codeblockDecoration: BoxDecoration(
                     color: colors.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: .circular(8),
                   ),
                   blockquoteDecoration: BoxDecoration(
                     border: Border(
