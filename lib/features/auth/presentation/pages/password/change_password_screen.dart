@@ -26,7 +26,6 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangePasswordFormBuilder(
-      model: ChangePassword.fromParams(.initial()),
       builder: (context, formModel, _) {
         return BlocProvider<PasswordSettingsCubit>(
           create: (context) => getIt<PasswordSettingsCubit>()..init(),

@@ -31,9 +31,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
-    final model = Login.fromParams(.initial());
     return LoginFormBuilder(
-      model: model,
       builder: (context, formModel, _) {
         return BlocProvider<LoginCubit>(
           create: (context) => getIt<LoginCubit>()..init(),
