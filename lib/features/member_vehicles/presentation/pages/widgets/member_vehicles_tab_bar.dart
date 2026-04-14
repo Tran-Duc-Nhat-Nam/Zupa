@@ -15,19 +15,19 @@ class MemberVehiclesTabBar extends StatelessWidget {
       child: SegmentedTabControl(
         splashColor: Colors.transparent,
         barDecoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.surfaceContainer,
           borderRadius: const .all(.circular(28)),
-          border: .all(color: colorScheme.surfaceContainerHighest),
+          border: .all(color: colorScheme.outlineVariant),
         ),
         indicatorPadding: const .all(6),
         indicatorDecoration: BoxDecoration(
           color: colorScheme.primaryContainer,
-          borderRadius: const .all(Radius.circular(16)),
+          borderRadius: const .all(.circular(16)),
         ),
         textStyle: AppTextStyles.bodySmallBold.copyWith(
           color: colorScheme.onPrimaryContainer,
         ),
-        tabTextColor: colorScheme.onSurfaceVariant,
+        tabTextColor: colorScheme.onPrimaryContainer,
         tabs: [
           .new(label: t.common.actions.all),
           .new(label: t.parking.inUse),

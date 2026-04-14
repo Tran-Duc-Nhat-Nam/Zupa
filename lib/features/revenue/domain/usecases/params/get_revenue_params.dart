@@ -9,11 +9,17 @@ class GetRevenueParams {
     required this.toDate,
   });
 
-  factory GetRevenueParams.initial() => GetRevenueParams(
-    fromDate: DateTime(DateTime.now().year, DateTime.now().month),
-    toDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
-    keyword: 'QUANTITY',
-    type: vehicleTypes[0],
+  factory GetRevenueParams.initial({
+    String? keyword,
+    VehicleTypeEntity? type,
+    DateTime? fromDate,
+    DateTime? toDate,
+  }) => .new(
+    fromDate: fromDate ?? DateTime(DateTime.now().year, DateTime.now().month),
+    toDate:
+        toDate ?? DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
+    keyword: keyword ?? 'QUANTITY',
+    type: type ?? vehicleTypes[0],
   );
 
   final String keyword;

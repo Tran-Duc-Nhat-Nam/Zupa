@@ -7,8 +7,8 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
+import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicle_list_tab.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_search_bar.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_tab_bar.dart';
@@ -24,53 +24,50 @@ class MemberVehiclesScreen extends StatefulWidget {
 class _MemberVehiclesScreenState extends AppState<MemberVehiclesScreen> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<MemberVehiclesListCubit>(
+    return MemberVehiclesListFormBuilder(
+      builder: (context, _, _) {
+        return BlocProvider<MemberVehiclesListCubit>(
           create: (context) => getIt<MemberVehiclesListCubit>()..init(),
-        ),
-        BlocProvider<MemberVehiclesFilterCubit>(
-          create: (context) => getIt<MemberVehiclesFilterCubit>()..init(),
-        ),
-      ],
-      child: AppScreen(
-        isChildScrollable: true,
-        noBackground: true,
-        title: t.vehicles.memberVehicles,
-        appBarTrailing: [
-          Padding(
-            padding: const .only(right: 24),
-            child: InkWell(
-              child: const Icon(Symbols.add_rounded),
-              onTap: () => context.pushRoute(MemberVehicleDetailRoute()),
-            ),
-          ),
-        ],
-        child: DefaultTabController(
-          length: 3,
-          child: Column(
-            children: [
-              const Padding(
-                padding: .symmetric(horizontal: 24),
-                child: MemberVehiclesTabBar(),
-              ),
-              const SizedBox(height: 16),
-              const Padding(
-                padding: .symmetric(horizontal: 24),
-                child: MemberVehiclesSearchBar(),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: List.generate(
-                    3,
-                    (index) => const MemberVehicleListTab(),
-                  ),
+          child: AppScreen(
+            isChildScrollable: true,
+            noBackground: true,
+            title: t.vehicles.memberVehicles,
+            appBarTrailing: [
+              Padding(
+                padding: const .only(right: 24),
+                child: InkWell(
+                  child: const Icon(Symbols.add_rounded),
+                  onTap: () => context.pushRoute(MemberVehicleDetailRoute()),
                 ),
               ),
             ],
+            child: DefaultTabController(
+              length: 3,
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: .symmetric(horizontal: 24),
+                    child: MemberVehiclesTabBar(),
+                  ),
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding: .symmetric(horizontal: 24),
+                    child: MemberVehiclesSearchBar(),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: List.generate(
+                        3,
+                        (index) => const MemberVehicleListTab(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

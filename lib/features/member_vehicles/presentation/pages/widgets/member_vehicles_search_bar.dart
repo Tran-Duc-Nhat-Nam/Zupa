@@ -4,26 +4,32 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
+import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
+import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
 
 class MemberVehiclesSearchBar extends StatelessWidget {
   const MemberVehiclesSearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MemberVehiclesFilterCubit, MemberVehiclesFilterState>(
+    return BlocBuilder<MemberVehiclesListCubit, MemberVehiclesListState>(
       builder: (context, state) {
         return Skeletonizer(
           enabled: state is Loading,
           child: AppTextField(
-            formControl: context
-                .read<MemberVehiclesFilterCubit>()
-                .formModel
-                .keywordControl,
+            formControl: ReactiveMemberVehiclesListForm.of(
+              context,
+            )?.keywordControl,
             prefixIcon: Symbols.search_rounded,
             hintText: t.common.actions.search,
             onChanged: (value) =>
-                context.read<MemberVehiclesFilterCubit>().search(),
+                context.read<MemberVehiclesListCubit>().refresh(
+                  filter:
+                      ReactiveMemberVehiclesListForm.of(
+                        context,
+                      )?.model.toParams() ??
+                      .initial(),
+                ),
           ),
         );
       },

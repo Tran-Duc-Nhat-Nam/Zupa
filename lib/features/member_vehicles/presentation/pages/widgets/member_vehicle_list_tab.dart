@@ -3,7 +3,6 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -15,9 +14,8 @@ import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
-import 'package:zupa/features/member_vehicles/presentation/bloc/filter/member_vehicles_filter_cubit.dart';
-import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart'
-    hide Loading;
+import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
+import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
 
 class MemberVehicleListTab extends StatelessWidget {
   const MemberVehicleListTab({super.key});
@@ -28,6 +26,7 @@ class MemberVehicleListTab extends StatelessWidget {
       controlFinishLoad: true,
       controlFinishRefresh: true,
     );
+    final form = ReactiveMemberVehiclesListForm.of(context);
 
     return BlocConsumer<MemberVehiclesListCubit, MemberVehiclesListState>(
       listener: (context, state) {
@@ -47,11 +46,11 @@ class MemberVehicleListTab extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        final List<MemberVehicleEntity>? items = state.maybeWhen(
+        final items = state.maybeWhen(
           loaded: (tickets, _) => tickets,
           refreshing: (tickets) => tickets,
           loadingMore: (tickets) => tickets,
-          orElse: () => [],
+          orElse: () => <MemberVehicleEntity>[],
         );
 
         return Skeletonizer(
@@ -71,36 +70,25 @@ class MemberVehicleListTab extends StatelessWidget {
                 triggerWhenRelease: true,
               ),
               controller: refreshController,
-              onRefresh: () =>
-                  context.read<MemberVehiclesListCubit>().refresh(),
-              onLoad: () => context.read<MemberVehiclesListCubit>().loadMore(),
+              onRefresh: () => context.read<MemberVehiclesListCubit>().refresh(
+                filter: form?.model.toParams() ?? .initial(),
+              ),
+              onLoad: () => context.read<MemberVehiclesListCubit>().loadMore(
+                filter: form?.model.toParams() ?? .initial(),
+              ),
               child: ListView.separated(
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
                 itemBuilder: (c, i) =>
                     Padding(
                       padding: .only(top: i == 0 ? 16 : 0),
-                      child: MemberVehiclesTitle(
-                        ticket:
-                            items?[i] ??
-                            MemberVehicleEntity(
-                              id: '',
-                              name: '',
-                              phoneNumber: '',
-                              licenseNumber: '',
-                              parkingLotId: '',
-                              cardId: '',
-                              price: 0,
-                              vehicleType: vehicleTypes.first,
-                              expiredIn: 0,
-                            ),
-                      ),
+                      child: MemberVehiclesTitle(ticket: items[i]),
                     ).animateIn(
                       key: ValueKey('member_vehicle_item_$i'),
                       index: i,
                       animate: state is Loading,
                     ),
-                itemCount: items?.length ?? 10,
+                itemCount: items.length,
               ),
             ),
           ),

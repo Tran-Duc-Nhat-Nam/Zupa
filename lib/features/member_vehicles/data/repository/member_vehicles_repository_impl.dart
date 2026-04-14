@@ -5,7 +5,7 @@ import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
 import 'package:zupa/features/member_vehicles/data/models/member_vehicle_model.dart';
-import 'package:zupa/features/member_vehicles/domain/entities/filter/member_vehicles_filter_entity.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/params/get_member_vehicle_list_params.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 
@@ -19,7 +19,7 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
   @override
   Future<NetworkState<List<MemberVehicleEntity>>> getMemberVehicles({
     int? page,
-    MemberVehicleFilterEntity? filter,
+    GetMemberVehicleListParams? filter,
   }) async {
     final response = await _networkService.request(
       (dio) => _api.getMemberVehicles(

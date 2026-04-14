@@ -62,7 +62,7 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                     ),
                     DecoratedBox(
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainer,
+                        color: colorScheme.surfaceContainerHigh,
                         borderRadius: .circular(16),
                       ),
                       child: Column(

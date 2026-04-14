@@ -18,8 +18,12 @@ class Revenue {
     @RfControl() required this.toDate,
   });
 
-  GetRevenueParams toParams() =>
-      .new(fromDate: fromDate, toDate: toDate, type: type, keyword: keyword);
+  GetRevenueParams toParams() => .initial(
+    fromDate: fromDate,
+    toDate: toDate,
+    type: type,
+    keyword: keyword,
+  );
 
   factory Revenue.fromParams(GetRevenueParams params) => .new(
     fromDate: params.fromDate,
