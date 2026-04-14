@@ -3,24 +3,24 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/features/history/domain/usecases/get_history_usecase.dart';
 import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
-import 'package:zupa/features/history/domain/repository/history_repository.dart';
 
 part 'history_cubit.freezed.dart';
 part 'history_state.dart';
 
 @injectable
 class HistoryCubit extends Cubit<HistoryState> {
-  final IHistoryRepository _historyRepository;
+  final GetHistoryUseCase _getHistory;
   final AuthCubit _authCubit;
 
-  HistoryCubit(this._historyRepository, this._authCubit)
+  HistoryCubit(this._getHistory, this._authCubit)
     : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
-    final response = await _historyRepository.getHistory();
+    final response = await _getHistory(filter: .initial());
 
     response.whenOrNull(
       success: (data) =>
@@ -36,7 +36,7 @@ class HistoryCubit extends Cubit<HistoryState> {
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final response = await _historyRepository.getHistory(filter: filter);
+    final response = await _getHistory(filter: filter);
 
     response.whenOrNull(
       success: (data) =>
@@ -57,9 +57,15 @@ class HistoryCubit extends Cubit<HistoryState> {
     );
     emit(.loadingMore(items));
 
-    final result = await _historyRepository.getHistory(
-      filter: filter,
-      page: pageIndex + 1,
+    final newFilter = GetHistoryParams(
+      page: filter.page + 1,
+      size: filter.size,
+      keyword: filter.keyword,
+      time: filter.time,
+      type: filter.type,
+    );
+    final result = await _getHistory(
+      filter: newFilter,
     );
     result.whenOrNull(
       success: (newItems) {

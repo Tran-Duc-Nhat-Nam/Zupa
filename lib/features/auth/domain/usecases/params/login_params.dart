@@ -1,4 +1,3 @@
-
 class LoginParams {
   const LoginParams({
     required this.tenant,

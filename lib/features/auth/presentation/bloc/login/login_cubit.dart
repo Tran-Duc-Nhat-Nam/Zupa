@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/storage_service.dart';
-import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
+import 'package:zupa/features/auth/domain/usecases/login_usecase.dart';
 import 'package:zupa/features/auth/domain/usecases/params/login_params.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
@@ -12,11 +12,11 @@ part 'login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {
-  final AuthenticationRepository _authRepo;
+  final LoginUseCase _login;
   final StorageService _storageService;
   final AuthCubit _authCubit;
 
-  LoginCubit(this._storageService, this._authRepo, this._authCubit)
+  LoginCubit(this._storageService, this._login, this._authCubit)
     : super(const .initial());
   Future<void> init() async {
     final accountInfo = await _storageService.getAccountInfo();
@@ -48,7 +48,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> login({required LoginParams params}) async {
     try {
-      final result = await _authRepo.logIn(params: params);
+      final result = await _login(params: params);
       result.maybeWhen(
         success: (data) async {
           await _storageService.setAuth(data.accessToken);
