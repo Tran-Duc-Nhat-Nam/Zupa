@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: 'none'
 
-version: 0.12.2+57
+version: 0.12.3+58
 
 environment:
   sdk: ^3.11.4
