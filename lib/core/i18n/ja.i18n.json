@@ -252,6 +252,8 @@
     "memberVehicleDetail": "月極車両詳細",
     "createMemberVehicle": "月極車両追加",
     "memberVehicles": "月極車両",
+    "createMemberVehicleSucceed": "月極車両追加成功",
+    "updateMemberVehicleSucceed": "月極車両更新成功",
     "extend": {
       "title": "延長",
       "subtitle": "この車両の期限を延長しますか？",

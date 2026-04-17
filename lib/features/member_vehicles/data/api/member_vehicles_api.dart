@@ -31,6 +31,11 @@ abstract class MemberVehiclesAPI {
     @Body() MemberVehicleModel request,
   );
 
+  @PUT('/hrm/staff-meta-data')
+  Future<SuccessResponse> updateMemberVehicle(
+    @Body() MemberVehicleModel request,
+  );
+
   @DELETE('/hrm/staff-meta-data/{id}')
   Future<SuccessResponse> deleteMemberVehicle(@Path('id') String id);
 }

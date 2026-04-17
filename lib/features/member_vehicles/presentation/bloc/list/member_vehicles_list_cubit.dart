@@ -3,8 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/get_member_vehicle_list_usecase.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/params/get_member_vehicle_list_params.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_usecase.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
 
 part 'member_vehicles_list_cubit.freezed.dart';
 part 'member_vehicles_list_state.dart';

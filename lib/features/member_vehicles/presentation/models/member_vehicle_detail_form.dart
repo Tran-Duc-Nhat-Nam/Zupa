@@ -1,5 +1,6 @@
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 
 part 'member_vehicle_detail_form.gform.dart';
 
@@ -27,4 +28,16 @@ class MemberVehicleDetail {
     this.expiredIn = const Duration(days: 30),
     @RfControl(validators: [RequiredValidator()]) this.price = 0,
   });
+
+  MemberVehicleEntity toEntity() => .inital(
+    id: id,
+    name: name,
+    phoneNumber: phoneNumber,
+    licenseNumber: licenseNumber,
+    parkingLotId: branch,
+    vehicleType: vehicleType,
+    cardId: ticketID,
+    expiredIn: expiredIn.inSeconds,
+    price: price,
+  );
 }

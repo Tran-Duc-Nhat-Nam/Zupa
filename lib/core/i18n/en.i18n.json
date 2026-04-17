@@ -256,6 +256,8 @@
     "memberVehicleDetail": "Member vehicle detail",
     "createMemberVehicle": "Add member vehicle",
     "memberVehicles": "Member vehicles",
+    "createMemberVehicleSucceed": "Add member vehicle succeed",
+    "updateMemberVehicleSucceed": "Update member vehicle succeed",
     "extend": {
       "title": "Extend vehicle",
       "subtitle": "Are you sure you want to extend this vehicle?",

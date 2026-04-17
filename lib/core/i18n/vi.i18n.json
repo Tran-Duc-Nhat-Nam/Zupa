@@ -252,6 +252,8 @@
     "memberVehicleDetail": "Chi tiết xe tháng",
     "createMemberVehicle": "Thêm xe tháng",
     "memberVehicles": "Xe tháng",
+    "createMemberVehicleSucceed": "Thêm xe tháng thành công",
+    "updateMemberVehicleSucceed": "Cập nhật xe tháng thành công",
     "extend": {
       "title": "Gia hạn xe",
       "subtitle": "Bạn có chắc chắn muốn gia hạn cho xe này?",

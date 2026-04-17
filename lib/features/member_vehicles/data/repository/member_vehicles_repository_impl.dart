@@ -5,7 +5,7 @@ import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/core/services/network_service.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
 import 'package:zupa/features/member_vehicles/data/models/member_vehicle_model.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/params/get_member_vehicle_list_params.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 
@@ -47,11 +47,28 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
   }
 
   @override
-  Future<NetworkState<SuccessResponse>> createMemberVehicle(
-    MemberVehicleEntity vehicle,
-  ) async {
+  Future<NetworkState<SuccessResponse>> createMemberVehicle({
+    required MemberVehicleEntity vehicle,
+  }) async {
     final response = await _networkService.request(
       (dio) => _api.createMemberVehicle(MemberVehicleModel.fromEntity(vehicle)),
+    );
+
+    if (response is SuccessResponse) {
+      return .success(response);
+    } else if (response is ErrorResponse) {
+      return .error(response.message);
+    } else {
+      return const .error('Unknown Response');
+    }
+  }
+
+  @override
+  Future<NetworkState<SuccessResponse>> updateMemberVehicle({
+    required MemberVehicleEntity vehicle,
+  }) async {
+    final response = await _networkService.request(
+      (dio) => _api.updateMemberVehicle(MemberVehicleModel.fromEntity(vehicle)),
     );
 
     if (response is SuccessResponse) {

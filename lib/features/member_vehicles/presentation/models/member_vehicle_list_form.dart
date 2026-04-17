@@ -1,7 +1,7 @@
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/params/get_member_vehicle_list_params.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
 
 part 'member_vehicle_list_form.gform.dart';
 
