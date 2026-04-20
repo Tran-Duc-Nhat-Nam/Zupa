@@ -47,6 +47,28 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
   }
 
   @override
+  Future<NetworkState<MemberVehicleEntity>> getMemberVehicleDetail({
+    required String id,
+  }) async {
+    final response = await _networkService.request(
+      (dio) => _api.getMemberVehicle(id),
+    );
+
+    if (response is SuccessResponse<MemberVehicleModel>) {
+      try {
+        final vehicle = response.data.toEntity();
+        return .success(vehicle);
+      } catch (e) {
+        return .error('Parsing Error: ${e.toString()}');
+      }
+    } else if (response is ErrorResponse) {
+      return .error(response.message);
+    } else {
+      return const .error('Unknown Response');
+    }
+  }
+
+  @override
   Future<NetworkState<SuccessResponse>> createMemberVehicle({
     required MemberVehicleEntity vehicle,
   }) async {

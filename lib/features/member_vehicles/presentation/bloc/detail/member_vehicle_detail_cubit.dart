@@ -5,7 +5,7 @@ import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/create/create_member_vehicle_usecase.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/delete/delete_member_vehicle_usecase.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_usecase.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_detail/get_member_vehicle_usecase.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/update/update_member_vehicle_usecase.dart';
 
 part 'member_vehicle_detail_cubit.freezed.dart';
@@ -13,13 +13,13 @@ part 'member_vehicle_detail_state.dart';
 
 @injectable
 class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
-  final GetMemberVehicleListUseCase _getMemberVehicleList;
+  final GetMemberVehicleUseCase _getMemberVehicle;
   final CreateMemberVehicleUseCase _createMemberVehicle;
   final UpdateMemberVehicleUseCase _updateMemberVehicle;
   final DeleteMemberVehicleUseCase _deleteMemberVehicle;
 
   MemberVehicleDetailCubit(
-    this._getMemberVehicleList,
+    this._getMemberVehicle,
     this._createMemberVehicle,
     this._updateMemberVehicle,
     this._deleteMemberVehicle,
@@ -30,12 +30,11 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
       emit(const .createNew());
     } else {
       emit(const .loading());
-      final result = await _getMemberVehicleList(filter: .initial());
+      final result = await _getMemberVehicle(id: code);
 
       result.whenOrNull(
-        success: (items) {
+        success: (item) {
           try {
-            final item = items.firstWhere((e) => e.licenseNumber == code);
             emit(.loaded(item));
           } catch (e) {
             emit(const .empty());
@@ -71,7 +70,7 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
     final result = await _deleteMemberVehicle(id: id);
 
     result.whenOrNull(
-      success: (response) => emit(const .initial()), // or success state
+      success: (response) => emit(const .initial()),
       error: (message) => emit(.failed(message)),
     );
   }

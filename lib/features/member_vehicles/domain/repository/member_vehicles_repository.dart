@@ -9,6 +9,10 @@ abstract class IMemberVehiclesRepository {
     GetMemberVehicleListParams? filter,
   });
 
+  Future<NetworkState<MemberVehicleEntity>> getMemberVehicleDetail({
+    required String id,
+  });
+
   Future<NetworkState<SuccessResponse>> createMemberVehicle({
     required MemberVehicleEntity vehicle,
   });
