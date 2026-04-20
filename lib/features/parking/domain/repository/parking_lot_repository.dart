@@ -3,4 +3,8 @@ import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 
 abstract class IParkingLotRepository {
   Future<NetworkState<List<ParkingLotEntity>>> getParkingLots();
+
+  Future<NetworkState<ParkingLotEntity>> getParkingLot({
+    required String id,
+  });
 }

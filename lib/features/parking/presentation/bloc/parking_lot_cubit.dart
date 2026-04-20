@@ -3,20 +3,20 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/network_state.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
-import 'package:zupa/features/parking/domain/repository/parking_lot_repository.dart';
+import 'package:zupa/features/parking/domain/usecases/get_list/get_parking_lot_list_usecase.dart';
 
 part 'parking_lot_cubit.freezed.dart';
 part 'parking_lot_state.dart';
 
 @injectable
 class ParkingLotCubit extends Cubit<ParkingLotState> {
-  final IParkingLotRepository _repository;
+  final GetParkingLotListUseCase _getParkingLotList;
 
-  ParkingLotCubit(this._repository) : super(const .initial());
+  ParkingLotCubit(this._getParkingLotList) : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
-    final result = await _repository.getParkingLots();
+    final result = await _getParkingLotList();
 
     result.whenOrNull(
       success: (data) => emit(.loaded(data, 0)),

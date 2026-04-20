@@ -58,9 +58,8 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
                           ],
                         ),
                         trailingIcon: Symbols.chevron_right_rounded,
-                        onTap: () => context.pushRoute(
-                          ParkingDetailsRoute(parkingLot: lot),
-                        ),
+                        onTap: () =>
+                            context.pushRoute(ParkingDetailsRoute(id: lot.id)),
                       );
                     }).toList(),
                   ),

@@ -10,7 +10,7 @@ sealed class ParkingLotCapacityModel with _$ParkingLotCapacityModel {
   const ParkingLotCapacityModel._();
 
   const factory ParkingLotCapacityModel({
-    @Default(VehicleTypeModel()) VehicleTypeModel vehicleType,
+    @Default(.new()) VehicleTypeModel vehicleType,
     @Default(0) int capacity,
     @Default(0) int available,
   }) = _ParkingLotCapacityModel;

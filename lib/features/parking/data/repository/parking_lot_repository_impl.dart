@@ -45,4 +45,28 @@ class ParkingLotRepositoryImpl implements IParkingLotRepository {
       return const .error('error');
     }
   }
+
+  @override
+  Future<NetworkState<ParkingLotEntity>> getParkingLot({
+    required String id,
+  }) async {
+    final response = await _networkService.request((dio) => _api.get(id));
+
+    if (response is SuccessResponse<ParkingLotModel>) {
+      try {
+        final parkingLot = response.data.toEntity();
+        return .success(parkingLot);
+      } catch (e) {
+        return .error(e.toString());
+      }
+    } else if (response is ErrorResponse) {
+      if (response.code == 4001) {
+        return const .unauthenticated();
+      } else {
+        return .error(response.message);
+      }
+    } else {
+      return const .error('error');
+    }
+  }
 }

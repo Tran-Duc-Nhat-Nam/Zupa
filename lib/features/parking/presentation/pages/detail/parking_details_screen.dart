@@ -15,17 +15,18 @@ import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
-import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
+import 'package:zupa/features/parking/presentation/models/parking_lot_detail_form.dart';
 
 @RoutePage()
 class ParkingDetailsScreen extends StatelessWidget {
-  const ParkingDetailsScreen({super.key, this.parkingLot});
+  const ParkingDetailsScreen({super.key, this.id});
 
-  final ParkingLotEntity? parkingLot;
+  final String? id;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColors.of(context);
     return AppScreen(
       title: t.parking.areaConfig,
       isChildScrollable: true,
@@ -36,157 +37,159 @@ class ParkingDetailsScreen extends StatelessWidget {
               AppToast.showToast(t.common.success, context: context),
         ),
       ],
-      child: BlocProvider<ParkingLotDetailCubit>(
-        create: (_) => getIt<ParkingLotDetailCubit>()..init(parkingLot),
-        child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
-          builder: (context, state) {
-            final formModel = context.read<ParkingLotDetailCubit>().formModel;
-            return Skeletonizer(
-              enabled: state is Loading,
-              child: Padding(
-                padding: const .symmetric(vertical: 16, horizontal: 24),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const .all(16),
-                      decoration: BoxDecoration(
-                        color: AppColors.of(context).surfaceContainerLow,
-                        borderRadius: .circular(16),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: .start,
-                        spacing: 12,
-                        children: [
-                          Text(
-                            t.common.info.info,
-                            style: AppTextStyles.titleSmallBold.copyWith(
-                              color: AppColors.of(context).onSurfaceVariant,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          AppTextField(
-                            formControl: formModel.branchNameControl,
-                            labelText: t.settings.profile.branchName,
-                            isExternalLabel: true,
-                          ),
-                          AppTextField(
-                            formControl: formModel.addressControl,
-                            labelText: t.settings.profile.address,
-                            isExternalLabel: true,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Container(
-                      padding: const .all(16),
-                      decoration: BoxDecoration(
-                        color: AppColors.of(context).surfaceContainerLow,
-                        borderRadius: .circular(16),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: .start,
-                        spacing: 8,
-                        children: [
-                          Text(
-                            t.parking.capacity,
-                            style: AppTextStyles.titleSmallBold.copyWith(
-                              color: AppColors.of(context).onSurfaceVariant,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          ...state.maybeMap(
-                            loaded: (params) => params.parkingLot.capacity
-                                .map(
-                                  (e) => AppTextField(
-                                    formControl: formModel
-                                        .capacityParkingLotCapacityForm[params
-                                            .parkingLot
-                                            .capacity
-                                            .indexOf(e)]
-                                        .capacityControl,
-                                    labelText:
-                                        t['vehicles.${e.vehicleType.name}'] ??
-                                        e.vehicleType.name,
-                                    isExternalLabel: true,
-                                  ),
-                                )
-                                .toList(),
-                            loading: (_) => List.generate(
-                              3,
-                              (index) => AppTextField(
-                                formControl: formModel
-                                    .capacityParkingLotCapacityForm[index]
-                                    .capacityControl,
-                                labelText: vehicleTypes[index].name,
-                                isExternalLabel: true,
+      child: ParkingLotDetailFormBuilder(
+        builder: (context, formModel, child) => BlocProvider<ParkingLotDetailCubit>(
+          create: (_) => getIt<ParkingLotDetailCubit>()..init(),
+          child: BlocBuilder<ParkingLotDetailCubit, ParkingLotDetailState>(
+            builder: (context, state) {
+              return Skeletonizer(
+                enabled: state is Loading,
+                child: Padding(
+                  padding: const .symmetric(vertical: 16, horizontal: 24),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const .all(16),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerLow,
+                          borderRadius: .circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: .start,
+                          spacing: 12,
+                          children: [
+                            Text(
+                              t.common.info.info,
+                              style: AppTextStyles.titleSmallBold.copyWith(
+                                color: colorScheme.onSurfaceVariant,
                               ),
                             ),
-                            orElse: () => [],
-                          ),
-                        ],
+                            const SizedBox(height: 4),
+                            AppTextField(
+                              formControl: formModel.branchNameControl,
+                              labelText: t.settings.profile.branchName,
+                              isExternalLabel: true,
+                            ),
+                            AppTextField(
+                              formControl: formModel.addressControl,
+                              labelText: t.settings.profile.address,
+                              isExternalLabel: true,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: AppColors.of(context).surfaceContainerLow,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Column(
-                        children: [
-                          AppList(
-                            segmented: false,
-                            padding: EdgeInsets.zero,
-                            items: [
-                              AppListItem(
-                                leadingIcon: Symbols.notifications_rounded,
-                                text: t.parking.warningThreshold.title,
-                                trailing: AppSwitch(
-                                  formControl: formModel.isLockedControl,
-                                  onToggle: (value, toggle) => value
-                                      ? toggle(false)
-                                      : DialogHelper.showModal(
-                                          context,
-                                          okText: t.common.actions.lock,
-                                          cancelText: t.common.actions.close,
-                                          type: AppDialogType.warning,
-                                          onOk: () => toggle(true),
-                                          onCancel: () => toggle(false),
-                                        ),
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const .all(16),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerLow,
+                          borderRadius: .circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: .start,
+                          spacing: 8,
+                          children: [
+                            Text(
+                              t.parking.capacity,
+                              style: AppTextStyles.titleSmallBold.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            ...state.maybeMap(
+                              loaded: (params) => params.parkingLot.capacity
+                                  .map(
+                                    (e) => AppTextField(
+                                      formControl: formModel
+                                          .capacityParkingLotCapacityForm[params
+                                              .parkingLot
+                                              .capacity
+                                              .indexOf(e)]
+                                          .capacityControl,
+                                      labelText:
+                                          t['vehicles.${e.vehicleType.name}'] ??
+                                          e.vehicleType.name,
+                                      isExternalLabel: true,
+                                    ),
+                                  )
+                                  .toList(),
+                              loading: (_) => List.generate(
+                                3,
+                                (index) => AppTextField(
+                                  formControl: formModel
+                                      .capacityParkingLotCapacityForm[index]
+                                      .capacityControl,
+                                  labelText: vehicleTypes[index].name,
+                                  isExternalLabel: true,
                                 ),
                               ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                            child: Column(
-                              children: [
-                                Divider(
-                                  height: 1,
-                                  thickness: 1,
-                                  color: AppColors.of(
-                                    context,
-                                  ).outlineVariant.withAlpha(100),
-                                ),
-                                const SizedBox(height: 12),
-                                Text(
-                                  t.parking.warningThreshold.subtitle,
-                                  style: AppTextStyles.bodySmallMedium.copyWith(
-                                    color: AppColors.of(context).outline,
+                              orElse: () => [],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerLow,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(
+                          children: [
+                            AppList(
+                              segmented: false,
+                              padding: EdgeInsets.zero,
+                              items: [
+                                AppListItem(
+                                  leadingIcon: Symbols.notifications_rounded,
+                                  text: t.parking.warningThreshold.title,
+                                  trailing: AppSwitch(
+                                    formControl: formModel.isLockedControl,
+                                    onToggle: (value, toggle) => value
+                                        ? toggle(false)
+                                        : DialogHelper.showModal(
+                                            context,
+                                            okText: t.common.actions.lock,
+                                            cancelText: t.common.actions.close,
+                                            type: AppDialogType.warning,
+                                            onOk: () => toggle(true),
+                                            onCancel: () => toggle(false),
+                                          ),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                              child: Column(
+                                children: [
+                                  Divider(
+                                    height: 1,
+                                    thickness: 1,
+                                    color: AppColors.of(
+                                      context,
+                                    ).outlineVariant.withAlpha(100),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    t.parking.warningThreshold.subtitle,
+                                    style: AppTextStyles.bodySmallMedium
+                                        .copyWith(
+                                          color: colorScheme.outline,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

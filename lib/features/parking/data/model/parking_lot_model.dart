@@ -15,7 +15,7 @@ sealed class ParkingLotModel with _$ParkingLotModel {
     @Default('N/A') String name,
     @Default('N/A') String address,
     @Default([]) List<ParkingLotCapacityModel> capacity,
-    @Default(VehicleTypeModel()) VehicleTypeModel vehicleType,
+    @Default(.new()) VehicleTypeModel vehicleType,
     @Default(false) bool isLocked,
   }) = _ParkingLotModel;
 
