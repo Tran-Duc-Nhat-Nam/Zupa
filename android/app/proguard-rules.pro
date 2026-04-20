@@ -1,17 +1,11 @@
-# Please add these rules to your existing keep rules in order to suppress warnings.
-# This is generated automatically by the Android Gradle plugin.
--dontwarn com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions$Builder
--dontwarn com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
--dontwarn com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions$Builder
--dontwarn com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions
--dontwarn com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions$Builder
--dontwarn com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
--dontwarn com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions$Builder
--dontwarn com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
-
+# Suppress ML Kit warnings
+-dontwarn com.google.mlkit.vision.text.chinese.**
+-dontwarn com.google.mlkit.vision.text.devanagari.**
+-dontwarn com.google.mlkit.vision.text.japanese.**
+-dontwarn com.google.mlkit.vision.text.korean.**
 -dontwarn com.google.mlkit.**
 
-# MediaPipe
+# MediaPipe optimizations
 -keep class com.google.mediapipe.** { *; }
 -dontwarn com.google.mediapipe.**
 
@@ -23,7 +17,9 @@
 -keep class com.google.ai.edge.localagents.** { *; }
 -dontwarn com.google.ai.edge.localagents.**
 
-# Flutter Keep Rules
--keep class io.flutter.** { *; }
--keep interface io.flutter.** { *; }
--dontwarn io.flutter.**
+# Size reduction optimizations
+-repackageclasses ''
+-allowaccessmodification
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-keepattributes *Annotation*
+-dontnote **

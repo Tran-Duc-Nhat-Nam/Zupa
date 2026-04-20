@@ -5,8 +5,8 @@ publish_to: 'none'
 version: 0.12.3+58
 
 environment:
-  sdk: ^3.11.4
-  flutter: 3.41.6
+  sdk: ^3.11.5
+  flutter: 3.41.7
 
 dependencies:
   flutter:
@@ -88,7 +88,7 @@ dependencies:
   firebase_messaging: ^16.2.0
   firebase_core: ^4.7.0
   google_mlkit_text_recognition: ^0.15.1
-  flutter_gemma: ^0.13.3
+  flutter_gemma: ^0.13.5
   flutter_markdown_plus: ^1.0.7
   isar_community: ^3.3.2
   isar_community_flutter_libs: ^3.3.2
