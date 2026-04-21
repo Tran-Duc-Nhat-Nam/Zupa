@@ -18,7 +18,6 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
     return AppScreen(
-      isChildScrollable: true,
       hasParentView: true,
       title: t.settings.title,
       hasAppBar: false,

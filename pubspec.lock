@@ -1003,7 +1003,7 @@ packages:
     description:
       path: http_cache_isar_store
       ref: master
-      resolved-ref: b8e3201f1dd8a3e8cd3b949ebe028d5e719c3d68
+      resolved-ref: abe58715bff6c1470528e5e6ef73f03c478d9b8f
       url: "https://github.com/Tran-Duc-Nhat-Nam-270702/dart_http_cache.git"
     source: git
     version: "3.0.0-dev.1"
