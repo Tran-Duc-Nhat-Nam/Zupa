@@ -189,10 +189,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "2c178975759aac0f0ef7ce1ec698b6e2acd792127ea7f38fa79a424fbebeae7f"
+      sha256: b5064cf25a2787d122d0bf12e77c7b1033a2b983d0730e3091f770ee376efde5
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1+2"
+    version: "0.7.2"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -1003,7 +1003,7 @@ packages:
     description:
       path: http_cache_isar_store
       ref: master
-      resolved-ref: "86982ef47f876339710dd6b66ae22c181009ea87"
+      resolved-ref: b8e3201f1dd8a3e8cd3b949ebe028d5e719c3d68
       url: "https://github.com/Tran-Duc-Nhat-Nam-270702/dart_http_cache.git"
     source: git
     version: "3.0.0-dev.1"
@@ -1043,18 +1043,18 @@ packages:
     dependency: "direct main"
     description:
       name: injectable
-      sha256: "32b36a9d87f18662bee0b1951b81f47a01f2bf28cd6ea94f60bc5453c7bf598c"
+      sha256: "1da6399509e44ddb0d8a4a35291d7122c4efb5c625a9d733bf5e48d4a72e379e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.1+4"
+    version: "3.0.0"
   injectable_generator:
     dependency: "direct dev"
     description:
       name: injectable_generator
-      sha256: fcc0d1edcef2c863dec846b0dec27cb2390d9e9b62e61da5cfc2b9a06b9533c2
+      sha256: "433ad4d94837ff187803b2bf04c6707db6fad8d245f1d693e2e34053bc07ec28"
       url: "https://pub.dev"
     source: hosted
-    version: "2.12.1"
+    version: "3.0.2"
   internet_connection_checker_plus:
     dependency: "direct main"
     description:
@@ -1179,10 +1179,10 @@ packages:
     dependency: transitive
     description:
       name: lean_builder
-      sha256: ee4117b03e93a4eb83e1a78c8e7a1dc22188d43bb142309982be48673a1b3a53
+      sha256: c16e95ddf7b2d49dd551357b7212fe2ce9f13ec7ad1b1e660c157184031e96c0
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.7"
+    version: "0.1.10"
   lints:
     dependency: transitive
     description:
