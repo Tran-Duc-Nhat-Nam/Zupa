@@ -11,7 +11,6 @@ class AppTextField extends StatefulWidget {
     required this.formControl,
     this.labelText,
     this.label,
-    this.required = false,
     this.isPassword = false,
     this.isPasswordConfirm = false,
     this.onChanged,
@@ -42,7 +41,6 @@ class AppTextField extends StatefulWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final bool isExternalLabel;
-  final bool required;
   final void Function(FormControl)? onChanged;
   final bool isPassword;
   final EdgeInsetsGeometry? contentPadding;
@@ -93,6 +91,7 @@ class _AppTextFieldState extends State<AppTextField> {
           validationMessages: {
             ValidationMessage.mustMatch: (error) =>
                 t.common.errors.passwordMustMatch,
+            ValidationMessage.required: (error) => t.common.errors.required,
           },
           textInputAction: .next,
           onEditingComplete: (_) => FocusScope.of(context).nextFocus(),

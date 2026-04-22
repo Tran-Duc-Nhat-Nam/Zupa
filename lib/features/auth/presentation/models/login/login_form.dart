@@ -14,7 +14,7 @@ class Login {
     @RfControl(validators: [RequiredValidator()]) this.tenant = '',
     @RfControl(validators: [RequiredValidator()]) this.username = '',
     @RfControl(validators: [RequiredValidator()]) this.password = '',
-    @RfControl(validators: [RequiredValidator()]) this.isRemember = false,
+    @RfControl() this.isRemember = false,
   });
 
   LoginParams toParams() => .new(

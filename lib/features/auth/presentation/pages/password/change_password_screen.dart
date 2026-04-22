@@ -70,7 +70,6 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                           labelText: t.auth.password.current,
                           hintText: t.auth.password.enterCurrent,
                           isPassword: true,
-                          required: true,
                         ),
                       ),
                       AppCard(
@@ -83,14 +82,12 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                               labelText: t.auth.password.kNew,
                               hintText: t.auth.password.enterNew,
                               isPassword: true,
-                              required: true,
                             ),
                             AppTextField(
                               formControl: formModel.confirmPasswordControl,
                               labelText: t.auth.password.confirm,
                               hintText: t.auth.password.enterConfirm,
                               isPasswordConfirm: true,
-                              required: true,
                             ),
                           ],
                         ),

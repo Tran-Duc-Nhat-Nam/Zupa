@@ -48,6 +48,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> login({required LoginParams params}) async {
     try {
+      emit(const .submitting());
       final result = await _login(params: params);
       result.maybeWhen(
         success: (data) async {

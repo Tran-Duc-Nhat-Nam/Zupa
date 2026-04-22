@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -10,28 +9,30 @@ class AppButton extends StatefulWidget {
     required this.onPressed,
     this.text,
     this.child,
+    this.loadingChild,
     this.fitContent = false,
     this.padding,
     this.icon,
     this.theme = AppButtonTheme.primary,
     this.color = AppButtonColor.info,
     this.height = 56,
-    this.isForm = false,
     this.isLoading = false,
+    this.isDisabled = false,
     this.debounceTime = 500, // Default debounce of 500ms
   });
 
   final VoidCallback? onPressed;
   final String? text;
   final Widget? child;
+  final Widget? loadingChild;
   final IconData? icon;
   final bool fitContent;
   final double height;
   final EdgeInsetsGeometry? padding;
   final AppButtonTheme theme;
   final AppButtonColor color;
-  final bool isForm;
   final bool isLoading;
+  final bool isDisabled;
   final int debounceTime;
 
   @override
@@ -59,14 +60,6 @@ class _AppButtonState extends State<AppButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isForm) {
-      return ReactiveFormConsumer(
-        builder: (context, form, _) {
-          return _buildButton(context, form.valid ? widget.onPressed : null);
-        },
-      );
-    }
-
     return _buildButton(context, widget.onPressed);
   }
 
@@ -78,8 +71,11 @@ class _AppButtonState extends State<AppButton> {
       height: widget.height,
       width: widget.fitContent ? null : double.infinity,
       child: _getButtonType(
-        // We wrap the callback with our debounce logic
-        onPressed: (effectiveOnPressed == null || widget.isLoading)
+        // The button is physically disabled if effectiveOnPressed is null or isLoading is true
+        onPressed:
+            (effectiveOnPressed == null ||
+                widget.isLoading ||
+                widget.isDisabled)
             ? null
             : () => _handleTap(effectiveOnPressed),
         style: style,
@@ -115,11 +111,12 @@ class _AppButtonState extends State<AppButton> {
 
   Widget _buildContent(BuildContext context) {
     if (widget.isLoading) {
-      return const SizedBox(
-        height: 20,
-        width: 20,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      );
+      return widget.loadingChild ??
+          const SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          );
     }
 
     return widget.child ??
@@ -136,7 +133,6 @@ class _AppButtonState extends State<AppButton> {
   }
 
   ButtonStyle _getButtonStyle(AppColors colorScheme) {
-    // Determine base color based on AppButtonColor enum
     final baseColor = switch (widget.color) {
       .success => colorScheme.success,
       .warning => colorScheme.warning,
@@ -145,19 +141,36 @@ class _AppButtonState extends State<AppButton> {
       .basic => colorScheme.onSurface,
     };
 
-    // Return a modern ButtonStyle
+    final foregroundColor = switch (widget.color) {
+      .success => colorScheme.onSuccess,
+      .warning => colorScheme.onWarning,
+      .error => colorScheme.onError,
+      .info => colorScheme.onPrimary,
+      .basic => colorScheme.surface,
+    };
+
+    final isButtonDisabled =
+        widget.onPressed == null || widget.isLoading || widget.isDisabled;
+
     return switch (widget.theme) {
-      .primary => FilledButton.styleFrom(
+      AppButtonTheme.primary => FilledButton.styleFrom(
         backgroundColor: baseColor,
+        foregroundColor: foregroundColor,
+        disabledBackgroundColor: colorScheme.onSurface.withAlpha(35),
+        disabledForegroundColor: colorScheme.onSurface.withAlpha(100),
         padding: widget.padding,
       ),
-      .secondary => FilledButton.styleFrom(
-        // Material 3 uses Tonal for secondary
+      AppButtonTheme.secondary => FilledButton.styleFrom(
         padding: widget.padding,
       ),
-      .outline => OutlinedButton.styleFrom(
-        side: BorderSide(color: baseColor),
+      AppButtonTheme.outline => OutlinedButton.styleFrom(
         foregroundColor: baseColor,
+        side: BorderSide(
+          color: isButtonDisabled
+              ? colorScheme.onSurface.withAlpha(35)
+              : baseColor,
+        ),
+        disabledForegroundColor: colorScheme.onSurface.withAlpha(100),
         padding: widget.padding,
       ),
     };

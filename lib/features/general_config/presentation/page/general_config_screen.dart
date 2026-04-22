@@ -134,7 +134,6 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                               .warningThresholdControl,
                                           hintText:
                                               t.common.errors.enterInteger,
-                                          required: true,
                                         ),
                                         const SizedBox(height: 8),
                                         Text(

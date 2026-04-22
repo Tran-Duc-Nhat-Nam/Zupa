@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/helper/responsive/responsive_helper.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
@@ -29,7 +28,6 @@ class AppScreen extends StatelessWidget {
     this.onFormChanged,
     this.formInitialValue,
     this.footerPadding,
-    this.formGroup,
     this.isClose = false,
     this.appBarTrailingIcon,
     this.appBarTrailing,
@@ -60,17 +58,12 @@ class AppScreen extends StatelessWidget {
   final IconData? appBarLeadingIcon;
   final Widget? appBarLeading;
   final Widget? floatingActionButton;
-  final FormGroup? formGroup;
   final void Function()? onFormChanged;
   final Map<String, dynamic>? formInitialValue;
 
   @override
   Widget build(BuildContext context) {
-    final Widget content = formGroup != null
-        ? ReactiveForm(formGroup: formGroup!, child: _buildScreen(context))
-        : _buildScreen(context);
-
-    if (hasParentView) return content;
+    if (hasParentView) return _buildScreen(context);
 
     return PopScope(
       canPop: false,
@@ -88,7 +81,7 @@ class AppScreen extends StatelessWidget {
           }
         }
       },
-      child: content,
+      child: _buildScreen(context),
     );
   }
 
