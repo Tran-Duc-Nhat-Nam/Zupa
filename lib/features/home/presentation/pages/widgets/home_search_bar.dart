@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -23,29 +24,30 @@ class HomeSearchBar extends StatelessWidget {
       builder: (context, state) {
         return Skeletonizer(
           enabled: state is Loading,
-          child: AppTextField(
+          child: ReactiveValueListenableBuilder<String>(
             formControl: form?.keywordControl,
-            hintText: t.parking.ticketSearch,
-            borderRadius: 100,
-            prefix: Icon(
-              Symbols.search_rounded,
-              size: 24,
-              color: colorScheme.onSurfaceVariant,
-            ),
-            suffix: InkWell(
-              child: Icon(
-                Symbols.filter_list_rounded,
+            builder: (context, control, child) => AppTextField(
+              hintText: t.parking.ticketSearch,
+              borderRadius: 100,
+              prefix: Icon(
+                Symbols.search_rounded,
                 size: 24,
                 color: colorScheme.onSurfaceVariant,
               ),
-              onTap: () => _showFilter(context, form, colorScheme),
+              suffix: InkWell(
+                child: Icon(
+                  Symbols.filter_list_rounded,
+                  size: 24,
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                onTap: () => _showFilter(context, form, colorScheme),
+              ),
+              onChanged: (value) {
+                context.read<HomeCubit>().refresh(
+                  filter: form?.model.toParams() ?? .initial(keyword: value),
+                );
+              },
             ),
-            onChanged: (model) {
-              context.read<HomeCubit>().refresh(
-                filter:
-                    form?.model.toParams() ?? .initial(keyword: model.value),
-              );
-            },
           ),
         );
       },

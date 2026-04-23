@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -65,15 +66,35 @@ class ParkingDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 4),
-                            AppTextField(
+                            ReactiveValueListenableBuilder<String>(
                               formControl: formModel.branchNameControl,
-                              labelText: t.settings.profile.branchName,
-                              isExternalLabel: true,
+                              builder: (context, control, child) =>
+                                  AppTextField(
+                                    labelText: t.settings.profile.branchName,
+                                    initialValue: control.value,
+                                    onChanged: (val) =>
+                                        control.updateValue(val),
+                                    errorText:
+                                        control.invalid && control.touched
+                                        ? t.common.errors.required
+                                        : null,
+                                    isExternalLabel: true,
+                                  ),
                             ),
-                            AppTextField(
+                            ReactiveValueListenableBuilder<String>(
                               formControl: formModel.addressControl,
-                              labelText: t.settings.profile.address,
-                              isExternalLabel: true,
+                              builder: (context, control, child) =>
+                                  AppTextField(
+                                    labelText: t.settings.profile.address,
+                                    initialValue: control.value,
+                                    onChanged: (val) =>
+                                        control.updateValue(val),
+                                    errorText:
+                                        control.invalid && control.touched
+                                        ? t.common.errors.required
+                                        : null,
+                                    isExternalLabel: true,
+                                  ),
                             ),
                           ],
                         ),
@@ -99,29 +120,38 @@ class ParkingDetailsScreen extends StatelessWidget {
                             ...state.maybeMap(
                               loaded: (params) => params.parkingLot.capacity
                                   .map(
-                                    (e) => AppTextField(
+                                    (
+                                      e,
+                                    ) => ReactiveValueListenableBuilder<String>(
                                       formControl: formModel
                                           .capacityParkingLotCapacityForm[params
                                               .parkingLot
                                               .capacity
                                               .indexOf(e)]
                                           .capacityControl,
-                                      labelText:
-                                          t['vehicles.${e.vehicleType.name}'] ??
-                                          e.vehicleType.name,
-                                      isExternalLabel: true,
+                                      builder: (context, control, child) =>
+                                          AppTextField(
+                                            labelText:
+                                                t['vehicles.${e.vehicleType.name}'] ??
+                                                e.vehicleType.name,
+                                            isExternalLabel: true,
+                                          ),
                                     ),
                                   )
                                   .toList(),
                               loading: (_) => List.generate(
                                 3,
-                                (index) => AppTextField(
-                                  formControl: formModel
-                                      .capacityParkingLotCapacityForm[index]
-                                      .capacityControl,
-                                  labelText: vehicleTypes[index].name,
-                                  isExternalLabel: true,
-                                ),
+                                (index) =>
+                                    ReactiveValueListenableBuilder<String>(
+                                      formControl: formModel
+                                          .capacityParkingLotCapacityForm[index]
+                                          .capacityControl,
+                                      builder: (context, control, child) =>
+                                          AppTextField(
+                                            labelText: vehicleTypes[index].name,
+                                            isExternalLabel: true,
+                                          ),
+                                    ),
                               ),
                               orElse: () => [],
                             ),
@@ -174,9 +204,7 @@ class ParkingDetailsScreen extends StatelessWidget {
                                   Text(
                                     t.parking.warningThreshold.subtitle,
                                     style: AppTextStyles.bodySmallMedium
-                                        .copyWith(
-                                          color: colorScheme.outline,
-                                        ),
+                                        .copyWith(color: colorScheme.outline),
                                   ),
                                 ],
                               ),

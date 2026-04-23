@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
@@ -101,23 +102,29 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          AppTextField(
+                          ReactiveValueListenableBuilder<String>(
                             formControl: formModel.nameControl,
-                            labelText: t.vehicles.name,
-                            hintText: t.common.actions.enter,
-                            isExternalLabel: true,
+                            builder: (context, control, child) => AppTextField(
+                              labelText: t.vehicles.name,
+                              hintText: t.common.actions.enter,
+                              isExternalLabel: true,
+                            ),
                           ),
-                          AppTextField(
+                          ReactiveValueListenableBuilder<String>(
                             formControl: formModel.phoneNumberControl,
-                            labelText: t.vehicles.phoneNumber,
-                            hintText: t.common.actions.enter,
-                            isExternalLabel: true,
+                            builder: (context, control, child) => AppTextField(
+                              labelText: t.vehicles.phoneNumber,
+                              hintText: t.common.actions.enter,
+                              isExternalLabel: true,
+                            ),
                           ),
-                          AppTextField(
+                          ReactiveValueListenableBuilder<String>(
                             formControl: formModel.licenseNumberControl,
-                            labelText: t.vehicles.licenseNumber,
-                            hintText: t.common.actions.enter,
-                            isExternalLabel: true,
+                            builder: (context, control, child) => AppTextField(
+                              labelText: t.vehicles.licenseNumber,
+                              hintText: t.common.actions.enter,
+                              isExternalLabel: true,
+                            ),
                           ),
                           AppDropDownSearch<String>(
                             formControl: formModel.branchControl,
@@ -136,11 +143,13 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                                 ? t['vehicles.${vehicle.name}'] ?? vehicle.name
                                 : t.common.errors.noData_search,
                           ),
-                          AppTextField(
+                          ReactiveValueListenableBuilder<String>(
                             formControl: formModel.ticketIDControl,
-                            labelText: t.parking.ticketID,
-                            hintText: t.common.actions.enter,
-                            isExternalLabel: true,
+                            builder: (context, control, child) => AppTextField(
+                              labelText: t.parking.ticketID,
+                              hintText: t.common.actions.enter,
+                              isExternalLabel: true,
+                            ),
                           ),
                           AppDropDownSearch<Duration>(
                             formControl: formModel.expiredInControl,

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -127,13 +128,18 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                       key: const ValueKey('threshold_fields'),
                                       children: [
                                         const SizedBox(height: 16),
-                                        AppTextField(
+                                        ReactiveValueListenableBuilder<int>(
                                           formControl: context
                                               .read<GeneralConfigCubit>()
                                               .formModel
                                               .warningThresholdControl,
-                                          hintText:
-                                              t.common.errors.enterInteger,
+                                          builder: (context, control, child) =>
+                                              AppTextField(
+                                                hintText: t
+                                                    .common
+                                                    .errors
+                                                    .enterInteger,
+                                              ),
                                         ),
                                         const SizedBox(height: 8),
                                         Text(

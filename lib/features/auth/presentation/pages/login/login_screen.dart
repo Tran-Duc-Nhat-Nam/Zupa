@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/di/injection.dart';
+
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -28,22 +30,35 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends AppState<LoginScreen> {
+  final tenantTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+  final usernameTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
+
     return LoginFormBuilder(
       builder: (context, _, _) => ReactiveLoginFormConsumer(
-        builder: (context, formModel, child) => BlocProvider<LoginCubit>(
+        builder: (context, formModel, _) => BlocProvider<LoginCubit>(
           create: (context) => getIt<LoginCubit>()..init(),
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               state.whenOrNull(
                 loaded: (tenant, username, password, isRemember) {
                   if (isRemember == true) {
-                    formModel.tenantValuePatch(tenant ?? '');
-                    formModel.usernameValuePatch(username ?? '');
-                    formModel.passwordValuePatch(password ?? '');
-                    formModel.isRememberValuePatch(true);
+                    tenantTextController.text = tenant ?? '';
+                    usernameTextController.text = username ?? '';
+                    passwordTextController.text = password ?? '';
+                    formModel.updateValue(
+                      Login(
+                        tenant: tenant ?? '',
+                        username: username ?? '',
+                        password: password ?? '',
+                        isRemember: true,
+                      ),
+                    );
+                    formModel.form.markAllAsTouched();
                   }
                 },
                 loginSuccess: () =>
@@ -88,21 +103,45 @@ class _LoginScreenState extends AppState<LoginScreen> {
                         ),
                       ).animateIn(index: 1),
                       const SizedBox(height: 8),
-                      AppTextField(
+                      ReactiveValueListenableBuilder<String>(
                         formControl: formModel.tenantControl,
-                        labelText: t.common.info.site,
-                        prefix: const Icon(Symbols.warehouse_rounded),
+                        builder: (context, control, child) => AppTextField(
+                          controller: tenantTextController,
+                          labelText: t.common.info.site,
+                          prefixIcon: Symbols.warehouse_rounded,
+                          initialValue: control.value,
+                          onChanged: (val) => control.updateValue(val),
+                          errorText: control.invalid && control.touched
+                              ? t.common.errors.required
+                              : null,
+                        ),
                       ).animateIn(index: 2),
-                      AppTextField(
+                      ReactiveValueListenableBuilder<String>(
                         formControl: formModel.usernameControl,
-                        labelText: t.auth.login.username,
-                        prefix: const Icon(Symbols.person_rounded),
+                        builder: (context, control, child) => AppTextField(
+                          controller: usernameTextController,
+                          labelText: t.auth.login.username,
+                          prefixIcon: Symbols.person_rounded,
+                          initialValue: control.value,
+                          onChanged: (val) => control.updateValue(val),
+                          errorText: control.invalid && control.touched
+                              ? t.common.errors.required
+                              : null,
+                        ),
                       ).animateIn(index: 3),
-                      AppTextField(
+                      ReactiveValueListenableBuilder<String>(
                         formControl: formModel.passwordControl,
-                        isPassword: true,
-                        labelText: t.auth.login.password,
-                        prefix: const Icon(Symbols.lock_rounded),
+                        builder: (context, control, child) => AppTextField(
+                          controller: passwordTextController,
+                          labelText: t.auth.login.password,
+                          isPassword: true,
+                          prefixIcon: Symbols.lock_rounded,
+                          initialValue: control.value,
+                          onChanged: (val) => control.updateValue(val),
+                          errorText: control.invalid && control.touched
+                              ? t.common.errors.required
+                              : null,
+                        ),
                       ).animateIn(index: 4),
                       AppCheckbox(
                         formControl: formModel.isRememberControl,
@@ -120,7 +159,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                         ),
                         text: t.auth.login.title,
                         isLoading: state is Submitting || state is Loading,
-                        isDisabled: !formModel.form.valid,
+                        isDisabled: formModel.form.invalid,
                         padding: const .all(16),
                         loadingChild: LoadingAnimationWidget.staggeredDotsWave(
                           color: colorScheme.surface,

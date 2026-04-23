@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -191,13 +192,15 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                           child: vehicleType == vehicleTypes[1]
                               ? AppCard(
                                   child: Center(
-                                    child: AppTextField(
+                                    child: ReactiveValueListenableBuilder<String>(
                                       formControl: context
                                           .read<CheckInCubit>()
                                           .formModel
                                           .ticketIDControl,
-                                      hintText: t.parking.enterTicketNumber,
-                                      textAlign: .center,
+                                      builder: (context, control, child) => AppTextField(
+                                        hintText: t.parking.enterTicketNumber,
+                                        textAlign: .center,
+                                      ),
                                     ),
                                   ),
                                 )

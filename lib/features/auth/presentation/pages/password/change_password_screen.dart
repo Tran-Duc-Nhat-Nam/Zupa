@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_button.dart';
@@ -65,11 +66,18 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                     spacing: 16,
                     children: [
                       AppCard(
-                        child: AppTextField(
+                        child: ReactiveValueListenableBuilder<String>(
                           formControl: formModel.currentPasswordControl,
-                          labelText: t.auth.password.current,
-                          hintText: t.auth.password.enterCurrent,
-                          isPassword: true,
+                          builder: (context, control, child) => AppTextField(
+                            labelText: t.auth.password.current,
+                            hintText: t.auth.password.enterCurrent,
+                            initialValue: control.value,
+                            onChanged: (val) => control.updateValue(val),
+                            errorText: control.invalid && control.touched
+                                ? t.common.errors.required
+                                : null,
+                            isPassword: true,
+                          ),
                         ),
                       ),
                       AppCard(
@@ -77,17 +85,41 @@ class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
                           spacing: 8,
                           mainAxisSize: .min,
                           children: [
-                            AppTextField(
+                            ReactiveValueListenableBuilder<String>(
                               formControl: formModel.newPasswordControl,
-                              labelText: t.auth.password.kNew,
-                              hintText: t.auth.password.enterNew,
-                              isPassword: true,
+                              builder: (context, control, child) =>
+                                  AppTextField(
+                                    labelText: t.auth.password.kNew,
+                                    hintText: t.auth.password.enterNew,
+                                    initialValue: control.value,
+                                    onChanged: (val) =>
+                                        control.updateValue(val),
+                                    errorText:
+                                        control.invalid && control.touched
+                                        ? t.common.errors.required
+                                        : null,
+                                    isPassword: true,
+                                  ),
                             ),
-                            AppTextField(
+                            ReactiveValueListenableBuilder<String>(
                               formControl: formModel.confirmPasswordControl,
-                              labelText: t.auth.password.confirm,
-                              hintText: t.auth.password.enterConfirm,
-                              isPasswordConfirm: true,
+                              builder: (context, control, child) =>
+                                  AppTextField(
+                                    labelText: t.auth.password.confirm,
+                                    hintText: t.auth.password.enterConfirm,
+                                    initialValue: control.value,
+                                    onChanged: (val) =>
+                                        control.updateValue(val),
+                                    errorText:
+                                        control.invalid && control.touched
+                                        ? control.hasError(
+                                                ValidationMessage.required,
+                                              )
+                                              ? t.common.errors.required
+                                              : t.common.errors.confirmPassword
+                                        : null,
+                                    isPasswordConfirm: true,
+                                  ),
                             ),
                           ],
                         ),
