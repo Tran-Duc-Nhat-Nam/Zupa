@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zupa/core/bloc/usecases/ui_settings/set/params/set_ui_settings_params.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/entities/ui_settings_entity.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/core/styles/theme.dart';
+import 'package:zupa/features/general_config/domain/entities/general_config_entity.dart';
+import 'package:zupa/features/general_config/domain/usecases/set/params/set_general_config_params.dart';
 
 @lazySingleton
 class StorageService {
@@ -152,12 +155,18 @@ class StorageService {
     return await _sharedPreferences.getBool('isDebuggerMode') == true;
   }
 
-  Future<void> setWarningCapacityThreshold(int value) {
-    return _sharedPreferences.setInt('isWarningCapacityThreshold', value);
+  Future<void> setWarningCapacity(SetGeneralConfigParams params) async {
+    await _sharedPreferences.setBool('isWarningCapacity', params.isWarningCapacity);
+    await _sharedPreferences.setInt('warningCapacityThreshold', params.warningCapacityThreshold);
   }
 
-  Future<int> getWarningCapacityThreshold() async {
-    return await _sharedPreferences.getInt('isWarningCapacityThreshold') ?? -1;
+  Future<GeneralConfigEntity> getWarningCapacity() async {
+    final isWarningCapacity = await _sharedPreferences.getBool('isWarningCapacity') ?? false;
+    final warningCapacityThreshold = await _sharedPreferences.getInt('warningCapacityThreshold') ?? 0;
+    return GeneralConfigEntity(
+      isWarning: isWarningCapacity,
+      warningThreshold: warningCapacityThreshold,
+    );
   }
 
   Future<void> setAnimation(bool isOn) async {
@@ -168,18 +177,18 @@ class StorageService {
     return await _sharedPreferences.getBool('isAnimation') ?? true;
   }
 
-  Future<void> setUISettings(UISettingsEntity settings) async {
+  Future<void> setUISettings(SetUISettingsParams params) async {
     await _sharedPreferences.setBool(
       'isFloatingNavbar',
-      settings.isFloatingNavbar,
+      params.isFloatingNavbar,
     );
     await _sharedPreferences.setBool(
       'isShowNavbarLabel',
-      settings.isShowNavbarLabel,
+      params.isShowNavbarLabel,
     );
     await _sharedPreferences.setBool(
       'isGlassmorphism',
-      settings.isGlassmorphism,
+      params.isGlassmorphism,
     );
   }
 

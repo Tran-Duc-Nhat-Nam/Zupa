@@ -1,48 +1,30 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/services/storage_service.dart';
-import 'package:zupa/features/general_config/presentation/models/general_config_form.dart';
+import 'package:zupa/features/general_config/domain/usecases/get/get_general_config_usecase.dart';
+import 'package:zupa/features/general_config/domain/usecases/set/params/set_general_config_params.dart';
+import 'package:zupa/features/general_config/domain/usecases/set/set_general_config_usecase.dart';
 
 part 'general_config_cubit.freezed.dart';
 part 'general_config_state.dart';
 
 @injectable
 class GeneralConfigCubit extends Cubit<GeneralConfigState> {
-  GeneralConfigCubit(this._storageService) : super(const .initial());
+  GeneralConfigCubit(this._getGeneralConfig, this._setGeneralConfig)
+    : super(const .initial());
 
-  final StorageService _storageService;
-
-  final formModel = GeneralConfigForm(
-    GeneralConfigForm.formElements(GeneralConfig()),
-    null,
-    null,
-  );
+  final GetGeneralConfigUseCase _getGeneralConfig;
+  final SetGeneralConfigUseCase _setGeneralConfig;
 
   Future<void> init() async {
     emit(const .loading());
-    final int threshold = await _storageService.getWarningCapacityThreshold();
-    formModel.isWarningControl.value = threshold >= 0;
-    emit(.loaded(threshold >= 0, threshold));
+    final result = await _getGeneralConfig();
+    emit(.loaded(result.isWarning, result.warningThreshold));
   }
 
-  Future<void> setWarning() async {
-    final value = formModel.isWarningControl.value == true;
-    await _storageService.setWarningCapacityThreshold(value ? 0 : -1);
-    emit(
-      .loaded(
-        value,
-        state.maybeWhen(
-          loaded: (_, value) => value,
-          orElse: () => value ? 0 : -1,
-        ),
-      ),
-    );
-  }
-
-  Future<void> setThreshold() async {
-    final value = formModel.warningThresholdControl.value ?? 0;
-    await _storageService.setWarningCapacityThreshold(value);
-    emit(.loaded(true, value));
+  Future<void> setConfig({required SetGeneralConfigParams params}) async {
+    await _setGeneralConfig(params: params);
+    final result = await _getGeneralConfig();
+    emit(.loaded(result.isWarning, result.warningThreshold));
   }
 }

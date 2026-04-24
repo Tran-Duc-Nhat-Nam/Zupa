@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
@@ -13,6 +14,7 @@ import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
+import 'package:zupa/core/models/form/ui/ui_settings_form.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/styles/theme.dart';
@@ -171,12 +173,11 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                       leadingIcon: Symbols.animation_rounded,
                                       text: t.settings.animation,
                                       trailing: AppSwitch(
-                                        initialValue: animationState.maybeWhen(
+                                        value: animationState.maybeWhen(
                                           loaded: (isOn) => isOn,
                                           orElse: () => true,
                                         ),
-                                        onToggle: (value, toggle) {
-                                          toggle(value);
+                                        onToggle: (value) {
                                           context
                                               .read<AnimationCubit>()
                                               .changeAnimationMode(value);
@@ -188,14 +189,13 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                         leadingIcon: Symbols.bug_report_rounded,
                                         text: t.settings.debuggerMode,
                                         trailing: AppSwitch(
-                                          initialValue:
+                                          value:
                                               debuggerState?.maybeWhen(
                                                 loaded: (isOn) => isOn,
                                                 orElse: () => false,
                                               ) ??
                                               false,
-                                          onToggle: (value, toggle) {
-                                            toggle(value);
+                                          onToggle: (value) {
                                             context
                                                 .read<DebuggerCubit>()
                                                 .changeDebuggerMode(value);
@@ -327,55 +327,69 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                   );
                 },
               ),
-              BlocBuilder<UICubit, UIState>(
-                builder: (context, state) {
-                  return AppList(
-                    items: [
-                      AppListItem(
-                        leadingIcon: Symbols.dock_to_bottom_rounded,
-                        text: t.settings.enableFloatingNavbar,
-                        trailing: AppSwitch(
-                          formControl: context
-                              .read<UICubit>()
-                              .formModel
-                              .isFloatingNavbarControl,
-                          onToggle: (value, toggle) {
-                            toggle(value);
-                            context.read<UICubit>().changeUIMode();
-                          },
-                        ),
-                      ),
-                      AppListItem(
-                        leadingIcon: Symbols.label_rounded,
-                        text: t.settings.showNavbarLabel,
-                        trailing: AppSwitch(
-                          formControl: context
-                              .read<UICubit>()
-                              .formModel
-                              .isShowNavbarLabelControl,
-                          onToggle: (value, toggle) {
-                            toggle(value);
-                            context.read<UICubit>().changeUIMode();
-                          },
-                        ),
-                      ),
-                      AppListItem(
-                        leadingIcon: Symbols.blur_circular_rounded,
-                        text: t.settings.enableGlassmorphism,
-                        trailing: AppSwitch(
-                          formControl: context
-                              .read<UICubit>()
-                              .formModel
-                              .isGlassmorphismControl,
-                          onToggle: (value, toggle) {
-                            toggle(value);
-                            context.read<UICubit>().changeUIMode();
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
+              UISettingsFormBuilder(
+                builder: (context, formModel, _) =>
+                    BlocBuilder<UICubit, UIState>(
+                      builder: (context, state) {
+                        state.whenOrNull(
+                          loaded: (settings) => formModel.updateValue(
+                            UISettings.fromEntity(settings),
+                          ),
+                        );
+                        return AppList(
+                          items: [
+                            AppListItem(
+                              leadingIcon: Symbols.dock_to_bottom_rounded,
+                              text: t.settings.enableFloatingNavbar,
+                              trailing: ReactiveValueListenableBuilder<bool>(
+                                formControl: formModel.isFloatingNavbarControl,
+                                builder: (context, control, child) => AppSwitch(
+                                  value: control.value == true,
+                                  onToggle: (value) {
+                                    control.value = value;
+                                    context.read<UICubit>().changeUIMode(
+                                      params: formModel.model.toParams(),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            AppListItem(
+                              leadingIcon: Symbols.label_rounded,
+                              text: t.settings.showNavbarLabel,
+                              trailing: ReactiveValueListenableBuilder<bool>(
+                                formControl: formModel.isShowNavbarLabelControl,
+                                builder: (context, control, child) => AppSwitch(
+                                  value: control.value == true,
+                                  onToggle: (value) {
+                                    control.value = value;
+                                    context.read<UICubit>().changeUIMode(
+                                      params: formModel.model.toParams(),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            AppListItem(
+                              leadingIcon: Symbols.blur_circular_rounded,
+                              text: t.settings.enableGlassmorphism,
+                              trailing: ReactiveValueListenableBuilder<bool>(
+                                formControl: formModel.isGlassmorphismControl,
+                                builder: (context, control, child) => AppSwitch(
+                                  value: control.value == true,
+                                  onToggle: (value) {
+                                    control.updateValue(value);
+                                    context.read<UICubit>().changeUIMode(
+                                      params: formModel.model.toParams(),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
               ),
             ],
           ),

@@ -131,6 +131,9 @@ class ParkingDetailsScreen extends StatelessWidget {
                                           .capacityControl,
                                       builder: (context, control, child) =>
                                           AppTextField(
+                                            initialValue: control.value,
+                                            onChanged: (value) =>
+                                                control.value = value,
                                             labelText:
                                                 t['vehicles.${e.vehicleType.name}'] ??
                                                 e.vehicleType.name,
@@ -148,6 +151,9 @@ class ParkingDetailsScreen extends StatelessWidget {
                                           .capacityControl,
                                       builder: (context, control, child) =>
                                           AppTextField(
+                                            initialValue: control.value,
+                                            onChanged: (value) =>
+                                                control.value = value,
                                             labelText: vehicleTypes[index].name,
                                             isExternalLabel: true,
                                           ),
@@ -173,19 +179,31 @@ class ParkingDetailsScreen extends StatelessWidget {
                                 AppListItem(
                                   leadingIcon: Symbols.notifications_rounded,
                                   text: t.parking.warningThreshold.title,
-                                  trailing: AppSwitch(
-                                    formControl: formModel.isLockedControl,
-                                    onToggle: (value, toggle) => value
-                                        ? toggle(false)
-                                        : DialogHelper.showModal(
-                                            context,
-                                            okText: t.common.actions.lock,
-                                            cancelText: t.common.actions.close,
-                                            type: AppDialogType.warning,
-                                            onOk: () => toggle(true),
-                                            onCancel: () => toggle(false),
-                                          ),
-                                  ),
+                                  trailing:
+                                      ReactiveValueListenableBuilder<bool>(
+                                        formControl: formModel.isLockedControl,
+                                        builder: (context, control, child) =>
+                                            AppSwitch(
+                                              value: control.value == true,
+                                              onToggle: (value) => value
+                                                  ? control.value = true
+                                                  : DialogHelper.showModal(
+                                                      context,
+                                                      okText:
+                                                          t.common.actions.lock,
+                                                      cancelText: t
+                                                          .common
+                                                          .actions
+                                                          .close,
+                                                      type:
+                                                          AppDialogType.warning,
+                                                      onOk: () =>
+                                                          control.value = false,
+                                                      onCancel: () =>
+                                                          control.value = true,
+                                                    ),
+                                            ),
+                                      ),
                                 ),
                               ],
                             ),
