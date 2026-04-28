@@ -11,7 +11,7 @@ sealed class ParkingLotModel with _$ParkingLotModel {
   const ParkingLotModel._();
 
   const factory ParkingLotModel({
-    @Default('N/A') String id,
+    @Default(-1) int id,
     @Default('N/A') String name,
     @Default('N/A') String address,
     @Default([]) List<ParkingLotCapacityModel> capacity,
@@ -26,7 +26,7 @@ sealed class ParkingLotModel with _$ParkingLotModel {
   Map<String, dynamic> toJson() => toJson();
 
   ParkingLotEntity toEntity() => ParkingLotEntity(
-    id: id,
+    id: id.toString(),
     name: name,
     address: address,
     capacity: capacity.map((e) => e.toEntity()).toList(),

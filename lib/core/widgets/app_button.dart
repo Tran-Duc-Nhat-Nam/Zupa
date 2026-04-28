@@ -16,6 +16,7 @@ class AppButton extends StatefulWidget {
     this.theme = AppButtonTheme.primary,
     this.color = AppButtonColor.info,
     this.height = 56,
+    this.width,
     this.isLoading = false,
     this.isDisabled = false,
     this.debounceTime = 500, // Default debounce of 500ms
@@ -28,6 +29,7 @@ class AppButton extends StatefulWidget {
   final IconData? icon;
   final bool fitContent;
   final double height;
+  final double? width;
   final EdgeInsetsGeometry? padding;
   final AppButtonTheme theme;
   final AppButtonColor color;
@@ -69,7 +71,7 @@ class _AppButtonState extends State<AppButton> {
 
     return SizedBox(
       height: widget.height,
-      width: widget.fitContent ? null : double.infinity,
+      width: widget.fitContent ? null : widget.width ?? double.infinity,
       child: _getButtonType(
         // The button is physically disabled if effectiveOnPressed is null or isLoading is true
         onPressed:
