@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/models/vehicle_type_model.dart';
 import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
 
@@ -10,8 +11,8 @@ sealed class HistoryFilterModel with _$HistoryFilterModel {
   const HistoryFilterModel._();
 
   const factory HistoryFilterModel({
-    @Default(0) int page,
-    @Default(10) int size,
+    @Default(defaultPageIndex) int page,
+    @Default(defaultPageSize) int size,
     String? keyword,
     DateTime? time,
     VehicleTypeModel? type,
