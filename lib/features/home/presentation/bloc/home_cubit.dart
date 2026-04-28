@@ -14,13 +14,16 @@ part 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final GetTicketUseCase _getTicket;
-  RequestToken? getTicketToken;
+  RequestToken? _getToken;
 
   HomeCubit(this._getTicket) : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
-    final result = await _getTicket(filter: .initial());
+    _getToken?.cancel();
+    _getToken = .new();
+
+    final result = await _getTicket(filter: .initial(), token: _getToken);
     result.whenOrNull(
       success: (data) =>
           emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex)),
@@ -35,10 +38,10 @@ class HomeCubit extends Cubit<HomeState> {
     );
 
     emit(.refreshing(items));
-    getTicketToken?.cancel();
-    getTicketToken = .new();
+    _getToken?.cancel();
+    _getToken = .new();
 
-    final result = await _getTicket(filter: filter, token: getTicketToken);
+    final result = await _getTicket(filter: filter, token: _getToken);
     result.maybeWhen(
       success: (data) =>
           emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex)),
@@ -58,8 +61,8 @@ class HomeCubit extends Cubit<HomeState> {
     );
 
     emit(.loadingMore(items));
-    getTicketToken?.cancel();
-    getTicketToken = .new();
+    _getToken?.cancel();
+    _getToken = .new();
     final newFilter = GetTicketParams(
       page: filter.page + 1,
       size: filter.size,
@@ -68,7 +71,7 @@ class HomeCubit extends Cubit<HomeState> {
       type: filter.type,
     );
 
-    final result = await _getTicket(filter: newFilter, token: getTicketToken);
+    final result = await _getTicket(filter: newFilter, token: _getToken);
     result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
@@ -76,5 +79,11 @@ class HomeCubit extends Cubit<HomeState> {
       },
       error: (message) => emit(.failed(message)),
     );
+  }
+
+  @override
+  Future<void> close() {
+    _getToken?.cancel();
+    return super.close();
   }
 }

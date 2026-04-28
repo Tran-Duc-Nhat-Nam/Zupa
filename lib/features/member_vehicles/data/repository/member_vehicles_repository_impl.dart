@@ -21,14 +21,14 @@ class MemberVehiclesRepositoryImpl implements IMemberVehiclesRepository {
   @override
   Future<RequestState<List<MemberVehicleEntity>>> getMemberVehicles({
     required GetMemberVehicleListParams filter,
-    RequestToken? networkCancelToken,
+    RequestToken? token,
   }) async {
     final payload = MemberVehiclesFilterModel.fromEntity(filter);
 
     final response = await _networkService.request(
       request: (cancelToken) =>
           _api.getMemberVehicles(payload: payload, cancelToken: cancelToken),
-      token: networkCancelToken,
+      token: token,
     );
 
     if (response is SuccessResponse<List<MemberVehicleModel>>) {

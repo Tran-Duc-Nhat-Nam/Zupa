@@ -26,7 +26,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<RequestState<AuthResponse>> logIn({
     required LoginParams params,
-    RequestToken? cancelToken,
+    RequestToken? token,
   }) async {
     final payload = AccountRequest(
       tenant: params.tenant,
@@ -38,7 +38,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       final response = await _networkService.request(
         request: (cancelToken) =>
             _api.login(payload: payload, cancelToken: cancelToken),
-        token: cancelToken,
+        token: token,
       );
 
       if (response is SuccessResponse && response.data is AuthResponse) {
@@ -56,7 +56,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<RequestState<User>> changePassword({
     required ChangePasswordParams params,
-    RequestToken? networkCancelToken,
+    RequestToken? token,
   }) async {
     final payload = ChangePasswordRequest(
       oldPassword: params.currentPassword,
@@ -70,7 +70,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
           payload: payload,
           cancelToken: cancelToken,
         ),
-        token: networkCancelToken,
+        token: token,
       );
 
       if (response is SuccessResponse<User>) {

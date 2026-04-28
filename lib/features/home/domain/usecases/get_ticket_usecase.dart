@@ -15,6 +15,6 @@ class GetTicketUseCase {
     required GetTicketParams filter,
     RequestToken? token,
   }) async {
-    return _repository.getTickets(filter: filter);
+    return _repository.getTickets(filter: filter, token: token);
   }
 }

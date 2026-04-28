@@ -29,7 +29,7 @@ class MemberVehicleDetail {
     @RfControl(validators: [RequiredValidator()]) this.price = 0,
   });
 
-  MemberVehicleEntity toEntity() => .inital(
+  MemberVehicleEntity toEntity() => .initial(
     id: id,
     name: name,
     phoneNumber: phoneNumber,

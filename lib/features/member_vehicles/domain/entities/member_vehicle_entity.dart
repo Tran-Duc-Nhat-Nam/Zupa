@@ -14,7 +14,7 @@ class MemberVehicleEntity {
     required this.price,
   });
 
-  factory MemberVehicleEntity.inital({
+  factory MemberVehicleEntity.initial({
     String? id,
     String? name,
     String? phoneNumber,

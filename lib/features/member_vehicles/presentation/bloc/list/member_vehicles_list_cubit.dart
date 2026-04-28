@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/request_state.dart';
+import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_usecase.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
@@ -12,17 +14,24 @@ part 'member_vehicles_list_state.dart';
 @injectable
 class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
   final GetMemberVehicleListUseCase _getMemberVehicleList;
+  RequestToken? _getToken;
+
   MemberVehiclesListCubit(this._getMemberVehicleList) : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
-    final result = await _getMemberVehicleList(filter: .initial());
+    _getToken?.cancel();
+    _getToken = .new();
+    final result = await _getMemberVehicleList(
+      filter: .initial(),
+      token: _getToken,
+    );
     result.whenOrNull(
       success: (items) {
         if (items.isEmpty) {
           emit(const .empty());
         } else {
-          emit(.loaded(items, 1));
+          emit(.loaded(items, defaultPageIndex));
         }
       },
       error: (message) => emit(.failed(message)),
@@ -35,10 +44,16 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final result = await _getMemberVehicleList(filter: filter);
+    _getToken?.cancel();
+    _getToken = .new();
+    final result = await _getMemberVehicleList(
+      filter: filter,
+      token: _getToken,
+    );
     result.whenOrNull(
-      success: (data) =>
-          data.isEmpty ? emit(const .empty()) : emit(.loaded(data, 1)),
+      success: (data) => data.isEmpty
+          ? emit(const .empty())
+          : emit(.loaded(data, defaultPageIndex)),
       error: (message) => emit(.failed(message)),
     );
   }
@@ -50,10 +65,12 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
     );
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex + 1,
-      orElse: () => 1,
+      orElse: () => defaultPageIndex,
     );
-    emit(.loadingMore(items));
 
+    emit(.loadingMore(items));
+    _getToken?.cancel();
+    _getToken = .new();
     final newFilter = GetMemberVehicleListParams(
       page: filter.page + 1,
       size: filter.size,
@@ -61,7 +78,10 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       time: filter.time,
       type: filter.type,
     );
-    final result = await _getMemberVehicleList(filter: newFilter);
+    final result = await _getMemberVehicleList(
+      filter: newFilter,
+      token: _getToken,
+    );
     result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
@@ -75,5 +95,11 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
         emit(.failed(message));
       },
     );
+  }
+
+  @override
+  Future<void> close() {
+    _getToken?.cancel();
+    return super.close();
   }
 }

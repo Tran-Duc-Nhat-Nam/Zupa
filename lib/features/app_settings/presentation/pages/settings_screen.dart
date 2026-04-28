@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
                       context,
                       subtitleText: t.auth.logout.subtitle,
                       titleText: t.auth.logout.title,
-                      type: AppDialogType.warning,
+                      type: .warning,
                       okText: t.common.actions.ok,
                       cancelText: t.common.actions.cancel,
                       onOk: context.read<AuthCubit>().logOut,

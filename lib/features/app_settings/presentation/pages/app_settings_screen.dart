@@ -206,9 +206,9 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                 ),
                                 if (themeSettings.colorSource == .custom)
                                   Padding(
-                                    padding: const EdgeInsets.all(16),
+                                    padding: const .all(16),
                                     child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
+                                      scrollDirection: .horizontal,
                                       child: Row(
                                         children:
                                             [
@@ -227,14 +227,13 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                                   child: Container(
                                                     width: 45,
                                                     height: 45,
-                                                    margin:
-                                                        const EdgeInsets.symmetric(
-                                                          horizontal: 6,
-                                                        ),
+                                                    margin: const .symmetric(
+                                                      horizontal: 6,
+                                                    ),
                                                     decoration: BoxDecoration(
                                                       color: colorScheme
                                                           .surfaceContainerHighest,
-                                                      shape: BoxShape.circle,
+                                                      shape: .circle,
                                                     ),
                                                     child: Icon(
                                                       Symbols.colorize_rounded,
@@ -264,14 +263,13 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                                 child: Container(
                                                   width: 40,
                                                   height: 40,
-                                                  margin:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 6,
-                                                      ),
+                                                  margin: const .symmetric(
+                                                    horizontal: 6,
+                                                  ),
                                                   decoration: BoxDecoration(
                                                     color: Color(colorValue),
-                                                    shape: BoxShape.circle,
-                                                    border: Border.all(
+                                                    shape: .circle,
+                                                    border: .all(
                                                       color: isSelected
                                                           ? colorScheme
                                                                 .onSurface

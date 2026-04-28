@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/request_state.dart';
+import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/create/create_member_vehicle_usecase.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/delete/delete_member_vehicle_usecase.dart';
@@ -17,6 +18,10 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
   final CreateMemberVehicleUseCase _createMemberVehicle;
   final UpdateMemberVehicleUseCase _updateMemberVehicle;
   final DeleteMemberVehicleUseCase _deleteMemberVehicle;
+  RequestToken? _getToken;
+  RequestToken? _createToken;
+  RequestToken? _updateToken;
+  RequestToken? _deleteToken;
 
   MemberVehicleDetailCubit(
     this._getMemberVehicle,
@@ -30,7 +35,9 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
       emit(const .createNew());
     } else {
       emit(const .loading());
-      final result = await _getMemberVehicle(id: code);
+      _getToken?.cancel();
+      _getToken = .new();
+      final result = await _getMemberVehicle(id: code, token: _getToken);
 
       result.whenOrNull(
         success: (item) {
@@ -47,7 +54,12 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
 
   void create({required MemberVehicleEntity item}) async {
     emit(const .loading());
-    final result = await _createMemberVehicle(vehicle: item);
+    _createToken?.cancel();
+    _createToken = .new();
+    final result = await _createMemberVehicle(
+      vehicle: item,
+      token: _createToken,
+    );
 
     result.whenOrNull(
       success: (response) => emit(const .createdSucceed()),
@@ -57,7 +69,12 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
 
   void update({required MemberVehicleEntity item}) async {
     emit(const .loading());
-    final result = await _updateMemberVehicle(vehicle: item);
+    _updateToken?.cancel();
+    _updateToken = .new();
+    final result = await _updateMemberVehicle(
+      vehicle: item,
+      token: _updateToken,
+    );
 
     result.whenOrNull(
       success: (response) => emit(const .updatedSucced()),
@@ -67,11 +84,22 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
 
   void delete(String id) async {
     emit(const .loading());
-    final result = await _deleteMemberVehicle(id: id);
+    _deleteToken?.cancel();
+    _deleteToken = .new();
+    final result = await _deleteMemberVehicle(id: id, token: _deleteToken);
 
     result.whenOrNull(
       success: (response) => emit(const .initial()),
       error: (message) => emit(.failed(message)),
     );
+  }
+
+  @override
+  Future<void> close() {
+    _getToken?.cancel();
+    _createToken?.cancel();
+    _updateToken?.cancel();
+    _deleteToken?.cancel();
+    return super.close();
   }
 }

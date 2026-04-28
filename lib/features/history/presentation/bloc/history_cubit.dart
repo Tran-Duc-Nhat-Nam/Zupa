@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/request_state.dart';
+import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/history/domain/usecases/get_history_usecase.dart';
 import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
@@ -13,12 +14,15 @@ part 'history_state.dart';
 @injectable
 class HistoryCubit extends Cubit<HistoryState> {
   final GetHistoryUseCase _getHistory;
+  RequestToken? _getToken;
 
   HistoryCubit(this._getHistory) : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
-    final response = await _getHistory(filter: .initial());
+    _getToken?.cancel();
+    _getToken = .new();
+    final response = await _getHistory(filter: .initial(), token: _getToken);
 
     response.whenOrNull(
       success: (data) => data.isEmpty
@@ -34,7 +38,9 @@ class HistoryCubit extends Cubit<HistoryState> {
       orElse: () => [],
     );
     emit(.refreshing(items));
-    final response = await _getHistory(filter: filter);
+    _getToken?.cancel();
+    _getToken = .new();
+    final response = await _getHistory(filter: filter, token: _getToken);
 
     response.whenOrNull(
       success: (data) => data.isEmpty
@@ -54,7 +60,8 @@ class HistoryCubit extends Cubit<HistoryState> {
       orElse: () => 1,
     );
     emit(.loadingMore(items));
-
+    _getToken?.cancel();
+    _getToken = .new();
     final newFilter = GetHistoryParams(
       page: filter.page + 1,
       size: filter.size,
@@ -76,5 +83,11 @@ class HistoryCubit extends Cubit<HistoryState> {
         emit(.failed(message));
       },
     );
+  }
+
+  @override
+  Future<void> close() {
+    _getToken?.cancel();
+    return super.close();
   }
 }

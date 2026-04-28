@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/request_state.dart';
+import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/domain/usecases/get_detail/get_parking_lot_usecase.dart';
 
@@ -11,6 +12,7 @@ part 'parking_lot_detail_state.dart';
 @injectable
 class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
   final GetParkingLotUseCase _getParkingLot;
+  RequestToken? _getToken;
 
   ParkingLotDetailCubit(this._getParkingLot) : super(const .initial());
 
@@ -19,7 +21,9 @@ class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
       emit(const .creating());
     } else {
       emit(const .loading());
-      final result = await _getParkingLot(id: id);
+      _getToken?.cancel();
+      _getToken = .new();
+      final result = await _getParkingLot(id: id, token: _getToken);
 
       result.whenOrNull(
         success: (item) {
@@ -32,5 +36,11 @@ class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
         error: (message) => emit(.failed(message)),
       );
     }
+  }
+
+  @override
+  Future<void> close() {
+    _getToken?.cancel();
+    return super.close();
   }
 }
