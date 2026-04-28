@@ -9,7 +9,6 @@ import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/entities/ui_settings_entity.dart';
 import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
-import 'package:zupa/core/styles/theme.dart';
 import 'package:zupa/features/general_config/domain/entities/general_config_entity.dart';
 import 'package:zupa/features/general_config/domain/usecases/set/params/set_general_config_params.dart';
 
@@ -28,7 +27,7 @@ class StorageService {
   /// Save token with a Time-To-Live (TTL) into Secure Storage.
   Future<void> setAuth(
     String accessToken, {
-    Duration duration = const Duration(hours: 1),
+    Duration duration = const .new(hours: 1),
   }) async {
     await _setSecureStringWithTTL('accessToken', accessToken, duration);
   }
@@ -126,8 +125,8 @@ class StorageService {
     return ThemeSettings(
       themeMode: themeModeIndex != null ? .values[themeModeIndex] : .system,
       colorSource: colorSourceIndex != null
-          ? AppColorSchemeSource.values[colorSourceIndex]
-          : AppColorSchemeSource.brand,
+          ? .values[colorSourceIndex]
+          : .brand,
       seedColorValue: seedColorValue,
     );
   }
@@ -143,7 +142,7 @@ class StorageService {
     final value = await _sharedPreferences.getString('locale');
     return AppLocalization.values.firstWhere(
       (element) => element.name == value,
-      orElse: () => AppLocalization.followSystem,
+      orElse: () => .followSystem,
     );
   }
 
@@ -156,13 +155,21 @@ class StorageService {
   }
 
   Future<void> setWarningCapacity(SetGeneralConfigParams params) async {
-    await _sharedPreferences.setBool('isWarningCapacity', params.isWarningCapacity);
-    await _sharedPreferences.setInt('warningCapacityThreshold', params.warningCapacityThreshold);
+    await _sharedPreferences.setBool(
+      'isWarningCapacity',
+      params.isWarningCapacity,
+    );
+    await _sharedPreferences.setInt(
+      'warningCapacityThreshold',
+      params.warningCapacityThreshold,
+    );
   }
 
   Future<GeneralConfigEntity> getWarningCapacity() async {
-    final isWarningCapacity = await _sharedPreferences.getBool('isWarningCapacity') ?? false;
-    final warningCapacityThreshold = await _sharedPreferences.getInt('warningCapacityThreshold') ?? 0;
+    final isWarningCapacity =
+        await _sharedPreferences.getBool('isWarningCapacity') ?? false;
+    final warningCapacityThreshold =
+        await _sharedPreferences.getInt('warningCapacityThreshold') ?? 0;
     return GeneralConfigEntity(
       isWarning: isWarningCapacity,
       warningThreshold: warningCapacityThreshold,
@@ -186,10 +193,7 @@ class StorageService {
       'isShowNavbarLabel',
       params.isShowNavbarLabel,
     );
-    await _sharedPreferences.setBool(
-      'isGlassmorphism',
-      params.isGlassmorphism,
-    );
+    await _sharedPreferences.setBool('isGlassmorphism', params.isGlassmorphism);
   }
 
   Future<UISettingsEntity> getUISettings() async {

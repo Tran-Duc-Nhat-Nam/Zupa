@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 import 'package:zupa/features/home/domain/usecases/get_ticket_usecase.dart';
 import 'package:zupa/features/home/domain/usecases/params/get_ticket_params.dart';
@@ -13,16 +14,16 @@ part 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final GetTicketUseCase _getTicket;
-  final AuthCubit _authCubit;
+  RequestToken? getTicketToken;
 
-  HomeCubit(this._getTicket, this._authCubit) : super(const .initial());
+  HomeCubit(this._getTicket) : super(const .initial());
 
   Future<void> init() async {
     emit(const .loading());
     final result = await _getTicket(filter: .initial());
     result.whenOrNull(
-      unauthenticated: () => _authCubit.logOut(),
-      success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
+      success: (data) =>
+          emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex)),
       error: (message) => emit(.failed(message)),
     );
   }
@@ -32,12 +33,16 @@ class HomeCubit extends Cubit<HomeState> {
       loaded: (params) => [...params.tickets],
       orElse: () => [],
     );
+
     emit(.refreshing(items));
-    final result = await _getTicket(filter: filter);
+    getTicketToken?.cancel();
+    getTicketToken = .new();
+
+    final result = await _getTicket(filter: filter, token: getTicketToken);
     result.maybeWhen(
-      success: (data) => emit(data.isEmpty ? const .empty() : .loaded(data, 0)),
+      success: (data) =>
+          emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex)),
       error: (message) => emit(.failed(message)),
-      unauthenticated: () => _authCubit.logOut(),
       orElse: () => emit(const .failed('unknownError')),
     );
   }
@@ -49,10 +54,12 @@ class HomeCubit extends Cubit<HomeState> {
     );
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex,
-      orElse: () => 1,
+      orElse: () => defaultPageIndex,
     );
-    emit(.loadingMore(items));
 
+    emit(.loadingMore(items));
+    getTicketToken?.cancel();
+    getTicketToken = .new();
     final newFilter = GetTicketParams(
       page: filter.page + 1,
       size: filter.size,
@@ -60,14 +67,14 @@ class HomeCubit extends Cubit<HomeState> {
       time: filter.time,
       type: filter.type,
     );
-    final result = await _getTicket(filter: newFilter);
+
+    final result = await _getTicket(filter: newFilter, token: getTicketToken);
     result.whenOrNull(
       success: (newItems) {
         items.addAll(newItems);
         emit(items.isEmpty ? const .empty() : .loaded(items, pageIndex + 1));
       },
       error: (message) => emit(.failed(message)),
-      unauthenticated: () => _authCubit.logOut(),
     );
   }
 }

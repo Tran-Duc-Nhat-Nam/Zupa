@@ -4,10 +4,9 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class DeviceService {
   Future<String> getDeviceAbi() async {
-    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    final deviceInfo = DeviceInfoPlugin();
+    final androidInfo = await deviceInfo.androidInfo;
 
-    // supportedAbis is a list ordered by preference
     return androidInfo.supportedAbis.first;
   }
 }

@@ -1,34 +1,34 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/data/api/staff/staff_api.dart';
 import 'package:zupa/features/auth/data/api/auth_api.dart';
 import 'package:zupa/features/employee_management/data/api/employee_api.dart';
 import 'package:zupa/features/history/data/api/history_api.dart';
 import 'package:zupa/features/home/data/api/home_api.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
+import 'package:zupa/features/parking/data/api/parking_lot_api.dart';
 import 'package:zupa/features/revenue/data/api/revenue_api.dart';
 
 @module
 abstract class ApiModule {
   @lazySingleton
   RevenueAPI revenueApi(Dio dio) =>
-      RevenueAPI(dio, baseUrl: '/core/report/v2/provisionalRevenue');
+      .new(dio, baseUrl: '/core/report/v2/provisionalRevenue');
 
   @lazySingleton
-  StaffAPI staffApi(Dio dio) => StaffAPI(dio);
+  HomeAPI homeApi(Dio dio) => .new(dio);
 
   @lazySingleton
-  HomeAPI homeApi(Dio dio) => HomeAPI(dio);
+  MemberVehiclesAPI memberVehiclesApi(Dio dio) => .new(dio);
 
   @lazySingleton
-  MemberVehiclesAPI memberVehiclesApi(Dio dio) => MemberVehiclesAPI(dio);
+  EmployeeAPI employeeApi(Dio dio) => .new(dio);
 
   @lazySingleton
-  EmployeeAPI employeeApi(Dio dio) => EmployeeAPI(dio);
+  HistoryAPI ticketApi(Dio dio) => .new(dio, baseUrl: '/core/fsapp');
 
   @lazySingleton
-  HistoryAPI ticketApi(Dio dio) => HistoryAPI(dio, baseUrl: '/core/fsapp');
+  AuthAPI accountApi(Dio dio) => .new(dio);
 
   @lazySingleton
-  AuthAPI accountApi(Dio dio) => AuthAPI(dio);
+  ParkingLotAPI parkingLotApi(Dio dio) => .new(dio);
 }

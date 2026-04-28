@@ -16,7 +16,7 @@ class AppThemes {
   static const Color brandSeedColor = Color(0xFF6750A4);
 
   static ThemeData _buildTheme(ColorScheme scheme, AppColors appColors) {
-    return ThemeData(
+    return .new(
       useMaterial3: true,
       colorScheme: scheme,
       textTheme: GoogleFonts.interTextTheme(
@@ -24,7 +24,7 @@ class AppThemes {
             ? ThemeData.dark().textTheme
             : ThemeData.light().textTheme,
       ),
-      visualDensity: VisualDensity.adaptivePlatformDensity,
+      visualDensity: .adaptivePlatformDensity,
       iconTheme: _iconTheme,
       extensions: [appColors],
       appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
@@ -39,17 +39,17 @@ class AppThemes {
         // Now works! surfaceContainer won't just be the base surface color anymore.
         backgroundColor: scheme.surfaceContainer,
         indicatorColor: scheme.secondaryContainer,
-        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        labelTextStyle: .resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return TextStyle(
               fontSize: 12,
-              fontWeight: FontWeight.w600,
+              fontWeight: .w600,
               color: scheme.onSurface,
             );
           }
           return TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w500,
+            fontWeight: .w500,
             color: scheme.onSurfaceVariant,
           );
         }),

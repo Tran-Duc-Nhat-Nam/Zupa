@@ -20,25 +20,25 @@ import 'package:zupa/core/services/storage_service.dart';
 @module
 abstract class ExternalModule {
   @singleton
-  AppRouter get appRouter => AppRouter();
+  AppRouter get appRouter => .new();
 
   @lazySingleton
-  SharedPreferencesAsync get sharedPreferences => SharedPreferencesAsync();
+  SharedPreferencesAsync get sharedPreferences => .new();
 
   @lazySingleton
   FlutterSecureStorage get secureStorage =>
-      const FlutterSecureStorage(iOptions: .new(accessibility: .first_unlock));
+      const .new(iOptions: .new(accessibility: .first_unlock));
 
   @lazySingleton
-  LocalAuthentication get localAuthentication => LocalAuthentication();
+  LocalAuthentication get localAuthentication => .new();
 
   @lazySingleton
-  InternetConnection get connection => InternetConnection();
+  InternetConnection get connection => .new();
 
   @preResolve
   Future<CacheOptions> get cacheOptions async {
     final path = kIsWeb ? '' : (await getApplicationDocumentsDirectory()).path;
-    return CacheOptions(
+    return .new(
       store: IsarCacheStore(path),
       hitCacheOnErrorCodes: [500, 400],
       hitCacheOnNetworkFailure: true,
@@ -61,10 +61,7 @@ abstract class ExternalModule {
 
     dio.interceptors.addAll([
       DioCacheInterceptor(options: options),
-      RetryInterceptor(
-        dio: dio,
-        logPrint: DebuggerHelper.talker.log,
-      ),
+      RetryInterceptor(dio: dio, logPrint: DebuggerHelper.talker.log),
       AuthInterceptor(storageService, authStatusService),
       TalkerDioLogger(talker: DebuggerHelper.talker),
     ]);

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
 import 'package:zupa/features/revenue/domain/usecases/get_revenue_usecase.dart';
@@ -24,7 +25,7 @@ class RevenueCubit extends Cubit<RevenueState> {
     response.whenOrNull(
       success: (data) => data.isEmpty
           ? emit(const .empty())
-          : emit(.loaded(revenueList: data, pageIndex: 0)),
+          : emit(.loaded(revenueList: data, pageIndex: defaultPageIndex)),
       error: (message) => emit(.failed(revenueList: [], message: message)),
     );
   }
@@ -45,7 +46,7 @@ class RevenueCubit extends Cubit<RevenueState> {
     response.whenOrNull(
       success: (data) => data.isEmpty
           ? emit(const .empty())
-          : emit(.loaded(revenueList: data, pageIndex: 0)),
+          : emit(.loaded(revenueList: data, pageIndex: defaultPageIndex)),
       error: (message) => emit(.failed(revenueList: items, message: message)),
     );
   }
