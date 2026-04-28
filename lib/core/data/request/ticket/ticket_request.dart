@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zupa/core/constants/query.dart';
 
 part 'ticket_request.freezed.dart';
 part 'ticket_request.g.dart';
@@ -9,8 +10,8 @@ sealed class TicketRequest with _$TicketRequest {
     String? keyword,
     DateTime? time,
     int? typeId,
-    @Default(0) int page,
-    @Default(10) int size,
+    @Default(defaultPageIndex) int page,
+    @Default(defaultPageSize) int size,
   }) = _TicketRequest;
 
   factory TicketRequest.fromJson(Map<String, dynamic> json) =>
