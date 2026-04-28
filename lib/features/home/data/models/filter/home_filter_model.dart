@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/models/vehicle_type_model.dart';
 import 'package:zupa/features/home/domain/usecases/params/get_ticket_params.dart';
 
@@ -10,8 +11,8 @@ sealed class HomeFilterModel with _$HomeFilterModel {
   const HomeFilterModel._();
 
   const factory HomeFilterModel({
-    @Default(1) int page,
-    @Default(10) int size,
+    @Default(defaultPageIndex) int page,
+    @Default(defaultPageSize) int size,
     String? keyword,
     DateTime? time,
     VehicleTypeModel? type,
@@ -23,7 +24,7 @@ sealed class HomeFilterModel with _$HomeFilterModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  GetTicketParams toEntity() => GetTicketParams(
+  GetTicketParams toEntity() => .new(
     page: page,
     size: size,
     keyword: keyword,

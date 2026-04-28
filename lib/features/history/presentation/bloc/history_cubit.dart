@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'package:zupa/features/history/domain/usecases/get_history_usecase.dart';
 import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';

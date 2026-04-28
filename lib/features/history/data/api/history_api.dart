@@ -15,16 +15,26 @@ abstract class HistoryAPI {
   }) = _HistoryAPI;
 
   @GET('/bill/receivedReceipt')
-  Future<SuccessResponse<List<HistoryTicketModel>>> getList(
-    @Queries() HistoryFilterModel request,
-  );
+  Future<SuccessResponse<List<HistoryTicketModel>>> getList({
+    @Queries() required HistoryFilterModel payload,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @GET('/received/{id}')
-  Future<SuccessResponse<HistoryTicketModel>> get(@Path('id') String id);
+  Future<SuccessResponse<HistoryTicketModel>> get({
+    @Path('id') required String id,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST('/bill/received')
-  Future<SuccessResponse> create(@Body() HistoryTicketModel request);
+  Future<SuccessResponse> create({
+    @Body() required HistoryTicketModel request,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @DELETE('/bill/receipts/updateStatus/{id}')
-  Future<SuccessResponse> delete(@Path('id') String id);
+  Future<SuccessResponse> delete({
+    @Path('id') required String id,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

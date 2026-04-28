@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/features/employee_management/data/model/employee.dart';
 import 'package:zupa/features/employee_management/domain/repository/employee_repository.dart';
 

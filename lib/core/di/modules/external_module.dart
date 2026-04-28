@@ -64,11 +64,6 @@ abstract class ExternalModule {
       RetryInterceptor(
         dio: dio,
         logPrint: DebuggerHelper.talker.log,
-        retryDelays: const [
-          .new(seconds: 1),
-          .new(seconds: 2),
-          .new(seconds: 4),
-        ],
       ),
       AuthInterceptor(storageService, authStatusService),
       TalkerDioLogger(talker: DebuggerHelper.talker),

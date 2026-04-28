@@ -13,16 +13,26 @@ abstract class HomeAPI {
       _HomeAPI;
 
   @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<HomeTicketModel>>> getList(
-    @Queries() HomeFilterModel request,
-  );
+  Future<SuccessResponse<List<HomeTicketModel>>> getList({
+    @Queries() required HomeFilterModel payload,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @GET('/hrm/staff-meta-data/{id}')
-  Future<SuccessResponse<HomeTicketModel>> get(@Path('id') String id);
+  Future<SuccessResponse<HomeTicketModel>> get({
+    @Path('id') required String id,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST('/hrm/staff-meta-data')
-  Future<SuccessResponse> create(@Body() MemberVehicleRequest request);
+  Future<SuccessResponse> create({
+    @Body() required MemberVehicleRequest request,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @DELETE('/hrm/staff-meta-data/{id}')
-  Future<SuccessResponse> delete(@Path('id') String id);
+  Future<SuccessResponse> delete({
+    @Path('id') required String id,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

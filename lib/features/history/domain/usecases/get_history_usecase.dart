@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/domain/repository/history_repository.dart';
 import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
@@ -10,7 +10,7 @@ class GetHistoryUseCase {
 
   GetHistoryUseCase(this._repository);
 
-  Future<NetworkState<List<HistoryTicketEntity>>> call({
+  Future<RequestState<List<HistoryTicketEntity>>> call({
     required GetHistoryParams filter,
   }) async {
     return _repository.getHistory(filter: filter);

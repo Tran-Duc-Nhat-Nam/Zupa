@@ -1,10 +1,11 @@
-import 'package:zupa/core/resource/network_state.dart';
+import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
+import 'package:zupa/features/parking/domain/usecases/get_list/params/get_parking_lot_list_params.dart';
 
 abstract class IParkingLotRepository {
-  Future<NetworkState<List<ParkingLotEntity>>> getParkingLots();
-
-  Future<NetworkState<ParkingLotEntity>> getParkingLot({
-    required String id,
+  Future<RequestState<List<ParkingLotEntity>>> getParkingLots({
+    required GetParkingLotListParams params,
   });
+
+  Future<RequestState<ParkingLotEntity>> getParkingLot({required String id});
 }

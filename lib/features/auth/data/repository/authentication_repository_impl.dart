@@ -5,8 +5,10 @@ import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/core/services/network_service.dart';
+import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/resource/request_mapper.dart';
+import 'package:zupa/core/resource/request_state.dart';
+import 'package:zupa/core/services/request_service.dart';
 import 'package:zupa/features/auth/data/api/auth_api.dart';
 import 'package:zupa/features/auth/data/models/requests/change_password_request.dart';
 import 'package:zupa/features/auth/data/models/responses/auth_response.dart';
@@ -16,14 +18,15 @@ import 'package:zupa/features/auth/domain/usecases/params/login_params.dart';
 
 @LazySingleton(as: AuthenticationRepository)
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
-  final NetworkService _networkService;
+  final RequestService _networkService;
   final AuthAPI _api;
 
   AuthenticationRepositoryImpl(this._networkService, this._api);
 
   @override
-  Future<NetworkState<AuthResponse>> logIn({
+  Future<RequestState<AuthResponse>> logIn({
     required LoginParams params,
+    RequestToken? cancelToken,
   }) async {
     final payload = AccountRequest(
       tenant: params.tenant,
@@ -33,7 +36,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
     try {
       final response = await _networkService.request(
-        (dio) => _api.login(payload),
+        request: (cancelToken) =>
+            _api.login(payload: payload, cancelToken: cancelToken),
+        token: cancelToken,
       );
 
       if (response is SuccessResponse && response.data is AuthResponse) {
@@ -49,8 +54,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<NetworkState<User>> changePassword({
+  Future<RequestState<User>> changePassword({
     required ChangePasswordParams params,
+    RequestToken? networkCancelToken,
   }) async {
     final payload = ChangePasswordRequest(
       oldPassword: params.currentPassword,
@@ -59,13 +65,18 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
     try {
       final response = await _networkService.request(
-        (dio) => _api.changePassword(params.id.toString(), payload),
+        request: (cancelToken) => _api.changePassword(
+          id: params.id.toString(),
+          payload: payload,
+          cancelToken: cancelToken,
+        ),
+        token: networkCancelToken,
       );
 
       if (response is SuccessResponse<User>) {
         return .success(response.data);
       } else if (response is ErrorResponse) {
-        return .error(response.message);
+        return response.toNetworkState<User>();
       } else {
         return const .error('error');
       }

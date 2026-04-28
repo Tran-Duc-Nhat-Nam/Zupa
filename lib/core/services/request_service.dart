@@ -2,16 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/resource/request_token.dart';
 
 @lazySingleton
-class NetworkService {
-  final Dio _dio;
+class RequestService {
+  RequestService();
 
-  NetworkService(this._dio);
-
-  Future<dynamic> request(Function(Dio dio) apiFunction) async {
+  Future<dynamic> request({
+    required Function(CancelToken? cancelToken) request,
+    RequestToken? token,
+  }) async {
     try {
-      final response = await apiFunction(_dio);
+      final cancelToken = CancelToken();
+      token?.onCancel = () => cancelToken.cancel();
+      final response = await request(cancelToken);
 
       if (response is SuccessResponse) {
         return response;
@@ -46,25 +50,5 @@ class NetworkService {
     } on Exception catch (e) {
       return ErrorResponse(code: 0, message: e.toString());
     }
-  }
-
-  Future<dynamic> get(String url) async {
-    return request((dio) async => dio.get(url));
-  }
-
-  Future<dynamic> post(String url, Map<String, dynamic> data) async {
-    return request((dio) async => dio.post(url, data: data));
-  }
-
-  Future<dynamic> put(String url, Map<String, dynamic> data) async {
-    return request((dio) async => dio.put(url, data: data));
-  }
-
-  Future<dynamic> patch(String url, Map<String, dynamic> data) async {
-    return request((dio) async => dio.patch(url, data: data));
-  }
-
-  Future<dynamic> delete(String url) async {
-    return request((dio) async => dio.delete(url));
   }
 }

@@ -12,8 +12,8 @@ sealed class ParkingLotModel with _$ParkingLotModel {
 
   const factory ParkingLotModel({
     @Default(-1) int id,
-    @Default('N/A') String name,
-    @Default('N/A') String address,
+    @Default('N/A') String fullName,
+    @Default('N/A') String email,
     @Default([]) List<ParkingLotCapacityModel> capacity,
     @Default(.new()) VehicleTypeModel vehicleType,
     @Default(false) bool isLocked,
@@ -27,8 +27,8 @@ sealed class ParkingLotModel with _$ParkingLotModel {
 
   ParkingLotEntity toEntity() => ParkingLotEntity(
     id: id.toString(),
-    name: name,
-    address: address,
+    name: fullName,
+    address: email,
     capacity: capacity.map((e) => e.toEntity()).toList(),
     vehicleType: vehicleType.toEntity(),
     isLocked: isLocked,

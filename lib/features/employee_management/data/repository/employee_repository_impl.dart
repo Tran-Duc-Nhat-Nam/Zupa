@@ -1,8 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/response/error/error_response.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/core/resource/network_state.dart';
-import 'package:zupa/core/services/network_service.dart';
+import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/resource/request_state.dart';
+import 'package:zupa/core/services/request_service.dart';
 import 'package:zupa/features/employee_management/data/api/employee_api.dart';
 import 'package:zupa/features/employee_management/data/model/employee.dart';
 import 'package:zupa/features/employee_management/domain/repository/employee_repository.dart';
@@ -10,14 +11,18 @@ import 'package:zupa/features/employee_management/domain/repository/employee_rep
 @LazySingleton(as: IEmployeeRepository)
 class EmployeeRepositoryImpl implements IEmployeeRepository {
   final EmployeeAPI _api;
-  final NetworkService _networkService;
+  final RequestService _networkService;
 
   EmployeeRepositoryImpl(this._networkService, this._api);
 
   @override
-  Future<NetworkState<List<Employee>>> getEmployees() async {
+  Future<RequestState<List<Employee>>> getEmployees({
+    RequestToken? token,
+  }) async {
     final response = await _networkService.request(
-      (dio) => _api.getEmployees(),
+      request: (cancelToken) =>
+          _api.getEmployees(cancelToken: cancelToken),
+      token: token,
     );
 
     if (response is SuccessResponse) {

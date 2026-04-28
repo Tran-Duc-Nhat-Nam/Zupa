@@ -14,5 +14,7 @@ abstract class EmployeeAPI {
   }) = _EmployeeAPI;
 
   @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<HomeTicketModel>>> getEmployees();
+  Future<SuccessResponse<List<HomeTicketModel>>> getEmployees({
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

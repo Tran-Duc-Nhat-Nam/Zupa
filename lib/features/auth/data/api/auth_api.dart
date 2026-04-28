@@ -14,11 +14,15 @@ abstract class AuthAPI {
       _AuthAPI;
 
   @POST('/account/auth/login')
-  Future<AuthResponse> login(@Body() AccountRequest request);
+  Future<AuthResponse> login({
+    @Body() required AccountRequest payload,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @PUT('/core/staffs/{id}/updatePassword')
-  Future<SuccessResponse<User>> changePassword(
-    @Path('id') String id,
-    @Body() ChangePasswordRequest request,
-  );
+  Future<SuccessResponse<User>> changePassword({
+    @Path('id') required String id,
+    @Body() required ChangePasswordRequest payload,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

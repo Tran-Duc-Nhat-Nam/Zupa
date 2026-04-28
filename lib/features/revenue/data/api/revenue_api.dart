@@ -15,16 +15,26 @@ abstract class RevenueAPI {
   }) = _RevenueAPI;
 
   @GET('')
-  Future<SuccessResponse<List<DailyRevenueModel>>> getList(
-    @Queries() RevenueFilterModel request,
-  );
+  Future<SuccessResponse<List<DailyRevenueModel>>> getList({
+    @Queries() required RevenueFilterModel payload,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @GET('/{id}')
-  Future<SuccessResponse<DailyRevenueModel>> get(@Path('id') String id);
+  Future<SuccessResponse<DailyRevenueModel>> get({
+    @Path('id') required String id,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST('')
-  Future<SuccessResponse> create(@Body() DailyRevenueModel request);
+  Future<SuccessResponse> create({
+    @Body() required DailyRevenueModel payload,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @DELETE('/{id}')
-  Future<SuccessResponse> delete(@Path('id') String id);
+  Future<SuccessResponse> delete({
+    @Path('id') required String id,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

@@ -14,7 +14,7 @@ abstract class StaffAPI {
 
   @GET('/hrm/staff-meta-data')
   Future<SuccessResponse<List<HomeTicketModel>>> getList(
-    @Queries() HomeFilterModel request,
+    @Queries() HomeFilterModel payload,
   );
 
   @GET('/hrm/staff-meta-data/{id}')
