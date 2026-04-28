@@ -24,10 +24,6 @@ sealed class ParkingLotFilterModel with _$ParkingLotFilterModel {
       .new(page: page, size: size, keyword: keyword);
 
   factory ParkingLotFilterModel.fromEntity(GetParkingLotListParams entity) {
-    return ParkingLotFilterModel(
-      page: entity.page,
-      size: entity.size,
-      keyword: entity.keyword,
-    );
+    return .new(page: entity.page, size: entity.size, keyword: entity.keyword);
   }
 }

@@ -24,7 +24,7 @@ sealed class HistoryFilterModel with _$HistoryFilterModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  GetHistoryParams toEntity() => GetHistoryParams(
+  GetHistoryParams toEntity() => .new(
     page: page,
     size: size,
     keyword: keyword,
@@ -33,14 +33,12 @@ sealed class HistoryFilterModel with _$HistoryFilterModel {
   );
 
   factory HistoryFilterModel.fromEntity(GetHistoryParams entity) {
-    return HistoryFilterModel(
+    return .new(
       page: entity.page,
       size: entity.size,
       keyword: entity.keyword,
       time: entity.time,
-      type: entity.type != null
-          ? VehicleTypeModel.fromEntity(entity.type!)
-          : null,
+      type: entity.type != null ? .fromEntity(entity.type!) : null,
     );
   }
 }

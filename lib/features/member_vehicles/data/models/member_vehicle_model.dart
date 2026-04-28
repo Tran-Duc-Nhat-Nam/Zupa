@@ -27,7 +27,7 @@ sealed class MemberVehicleModel with _$MemberVehicleModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  MemberVehicleEntity toEntity() => MemberVehicleEntity(
+  MemberVehicleEntity toEntity() => .new(
     id: id,
     name: name,
     phoneNumber: phoneNumber,
@@ -40,13 +40,13 @@ sealed class MemberVehicleModel with _$MemberVehicleModel {
   );
 
   factory MemberVehicleModel.fromEntity(MemberVehicleEntity entity) {
-    return MemberVehicleModel(
+    return .new(
       id: entity.id,
       name: entity.name,
       phoneNumber: entity.phoneNumber,
       licenseNumber: entity.licenseNumber,
       parkingLotId: entity.parkingLotId,
-      vehicleType: VehicleTypeModel.fromEntity(entity.vehicleType),
+      vehicleType: .fromEntity(entity.vehicleType),
       cardId: entity.cardId,
       expiredIn: entity.expiredIn,
       price: entity.price,

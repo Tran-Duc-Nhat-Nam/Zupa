@@ -27,7 +27,7 @@ sealed class DailyRevenueModel with _$DailyRevenueModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  DailyRevenueEntity toEntity() => DailyRevenueEntity(
+  DailyRevenueEntity toEntity() => .new(
     date: date ?? .now(),
     vehicleType: vehicleType?.toEntity(),
     revenue: revenue.map((e) => e.toEntity()).toList(),

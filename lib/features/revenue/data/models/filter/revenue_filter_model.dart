@@ -23,7 +23,7 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  GetRevenueParams toEntity() => GetRevenueParams(
+  GetRevenueParams toEntity() => .new(
     keyword: paidByType,
     type: switch (productTypeValue) {
       'linen' => vehicleTypes[0],
@@ -35,7 +35,7 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
   );
 
   factory RevenueFilterModel.fromEntity(GetRevenueParams entity) {
-    return RevenueFilterModel(
+    return .new(
       paidByType: entity.keyword,
       productTypeValue: switch (entity.type?.name) {
         'motorbike' => 'linen',

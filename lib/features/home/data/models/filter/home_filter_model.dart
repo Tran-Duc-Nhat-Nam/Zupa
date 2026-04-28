@@ -33,14 +33,12 @@ sealed class HomeFilterModel with _$HomeFilterModel {
   );
 
   factory HomeFilterModel.fromEntity(GetTicketParams entity) {
-    return HomeFilterModel(
+    return .new(
       page: entity.page,
       size: entity.size,
       keyword: entity.keyword,
       time: entity.time,
-      type: entity.type != null
-          ? VehicleTypeModel.fromEntity(entity.type!)
-          : null,
+      type: entity.type != null ? .fromEntity(entity.type!) : null,
     );
   }
 }

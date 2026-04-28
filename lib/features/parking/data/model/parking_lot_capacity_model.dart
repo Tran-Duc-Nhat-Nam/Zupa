@@ -21,7 +21,7 @@ sealed class ParkingLotCapacityModel with _$ParkingLotCapacityModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  ParkingLotCapacityEntity toEntity() => ParkingLotCapacityEntity(
+  ParkingLotCapacityEntity toEntity() => .new(
     vehicleType: vehicleType.toEntity(),
     capacity: capacity,
     available: available,

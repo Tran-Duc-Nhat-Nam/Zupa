@@ -39,7 +39,7 @@ sealed class HomeTicketModel with _$HomeTicketModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  HomeTicketEntity toEntity() => HomeTicketEntity(
+  HomeTicketEntity toEntity() => .new(
     id: id,
     code: code,
     timeIn: dateCreated ?? .now(),

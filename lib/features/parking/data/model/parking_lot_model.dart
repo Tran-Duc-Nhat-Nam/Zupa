@@ -25,7 +25,7 @@ sealed class ParkingLotModel with _$ParkingLotModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  ParkingLotEntity toEntity() => ParkingLotEntity(
+  ParkingLotEntity toEntity() => .new(
     id: id.toString(),
     name: fullName,
     address: email,

@@ -21,7 +21,7 @@ sealed class RevenueModel with _$RevenueModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  RevenueEntity toEntity() => RevenueEntity(
+  RevenueEntity toEntity() => .new(
     vehicleType: vehicleType.toEntity(),
     pass: pass,
     revenue: revenue,

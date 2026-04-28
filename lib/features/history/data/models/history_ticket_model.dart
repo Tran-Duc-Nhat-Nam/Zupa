@@ -39,7 +39,7 @@ sealed class HistoryTicketModel with _$HistoryTicketModel {
   @override
   Map<String, dynamic> toJson() => toJson();
 
-  HistoryTicketEntity toEntity() => HistoryTicketEntity(
+  HistoryTicketEntity toEntity() => .new(
     id: id,
     code: code,
     timeIn: dateCreated ?? .now(),

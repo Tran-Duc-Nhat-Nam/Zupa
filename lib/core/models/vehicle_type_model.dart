@@ -24,13 +24,9 @@ sealed class VehicleTypeModel with _$VehicleTypeModel {
   Map<String, dynamic> toJson() => toJson();
 
   VehicleTypeEntity toEntity() =>
-      VehicleTypeEntity(value: value, name: name, icon: icon, color: color);
+      .new(value: value, name: name, icon: icon, color: color);
 
   factory VehicleTypeModel.fromEntity(VehicleTypeEntity entity) {
-    return VehicleTypeModel(
-      value: entity.value,
-      name: entity.name,
-      icon: entity.icon,
-    );
+    return .new(value: entity.value, name: entity.name, icon: entity.icon);
   }
 }
