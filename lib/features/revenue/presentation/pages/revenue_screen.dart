@@ -22,139 +22,130 @@ class RevenueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<RevenueCubit>(),
-      child: const RevenueView(),
-    );
-  }
-}
-
-class RevenueView extends StatelessWidget {
-  const RevenueView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
 
-    return AppScreen(
-      isChildScrollable: true,
-      hasParentView: true,
-      title: t.parking.revenue,
-      appBarTrailing: [
-        IconButton(
-          onPressed: () => context.pushRoute(const RevenueDetailRoute()),
-          icon: const Icon(Symbols.list_alt_rounded),
-          tooltip: t.common.actions.viewDetails,
-        ),
-      ],
-      child: BlocBuilder<RevenueCubit, RevenueState>(
-        builder: (context, state) {
-          final items = state.maybeWhen(
-            loaded: (tickets, _) => tickets,
-            refreshing: (tickets, _) => tickets,
-            loadingMore: (tickets, _) => tickets,
-            orElse: () => <DailyRevenueEntity>[],
-          );
+    return BlocProvider(
+      create: (context) => getIt<RevenueCubit>(),
+      child: AppScreen(
+        isChildScrollable: true,
+        hasParentView: true,
+        title: t.parking.revenue,
+        appBarTrailing: [
+          IconButton(
+            onPressed: () => context.pushRoute(const RevenueDetailRoute()),
+            icon: const Icon(Symbols.list_alt_rounded),
+            tooltip: t.common.actions.viewDetails,
+          ),
+        ],
+        child: BlocBuilder<RevenueCubit, RevenueState>(
+          builder: (context, state) {
+            final items = state.maybeWhen(
+              loaded: (tickets, _) => tickets,
+              refreshing: (tickets, _) => tickets,
+              loadingMore: (tickets, _) => tickets,
+              orElse: () => <DailyRevenueEntity>[],
+            );
 
-          final bool isLoading = state is Loading;
-          final int totalRevenue = items.fold(
-            0,
-            (sum, item) => sum + item.totalRevenue,
-          );
-          final int totalPass = items.fold(
-            0,
-            (sum, item) => sum + item.totalPass,
-          );
+            final bool isLoading = state is Loading;
+            final int totalRevenue = items.fold(
+              0,
+              (sum, item) => sum + item.totalRevenue,
+            );
+            final int totalPass = items.fold(
+              0,
+              (sum, item) => sum + item.totalPass,
+            );
 
-          return RevenueFormBuilder(
-            model: Revenue.fromParams(.initial()),
-            builder: (context, _, _) {
-              return Skeletonizer(
-                enabled: isLoading,
-                child: Padding(
-                  padding: const .symmetric(vertical: 24, horizontal: 36),
-                  child: Column(
-                    crossAxisAlignment: .start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: .spaceBetween,
-                        children: [
-                          Text(
-                            t.parking.revenue,
-                            style: AppTextStyles.titleLargeBold.copyWith(
-                              color: colorScheme.onSurface,
+            return RevenueFormBuilder(
+              model: Revenue.fromParams(.initial()),
+              builder: (context, _, _) {
+                return Skeletonizer(
+                  enabled: isLoading,
+                  child: Padding(
+                    padding: const .symmetric(vertical: 24, horizontal: 36),
+                    child: Column(
+                      crossAxisAlignment: .start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: .spaceBetween,
+                          children: [
+                            Text(
+                              t.parking.revenue,
+                              style: AppTextStyles.titleLargeBold.copyWith(
+                                color: colorScheme.onSurface,
+                              ),
                             ),
-                          ),
-                          IconButton.filledTonal(
-                            color: colorScheme.primary,
-                            onPressed: () =>
-                                context.pushRoute(const RevenueDetailRoute()),
-                            icon: const Icon(Icons.arrow_forward_rounded),
-                          ),
-                        ],
-                      ).animateIn(
-                        key: const ValueKey('revenue_header'),
-                        animate: isLoading,
-                      ),
-                      const SizedBox(height: 24),
-                      Row(
-                        spacing: 16,
-                        children: [
-                          Expanded(
-                            child: _SummaryCard(
-                              title: t.parking.revenue,
-                              value: NumberFormat.currency(
-                                locale: 'vi_VN',
-                                symbol: 'đ',
-                                decimalDigits: 0,
-                              ).format(totalRevenue),
-                              icon: Symbols.account_balance_wallet_rounded,
+                            IconButton.filledTonal(
                               color: colorScheme.primary,
+                              onPressed: () =>
+                                  context.pushRoute(const RevenueDetailRoute()),
+                              icon: const Icon(Icons.arrow_forward_rounded),
                             ),
-                          ),
-                          Expanded(
-                            child: _SummaryCard(
-                              title: t.vehicles.type,
-                              value: totalPass.toString(),
-                              icon: Symbols.directions_car_rounded,
-                              color: colorScheme.secondary,
-                            ),
-                          ),
-                        ],
-                      ).animateIn(
-                        key: const ValueKey('revenue_summary'),
-                        animate: isLoading,
-                        index: 1,
-                      ),
-                      const SizedBox(height: 32),
-                      Text(
-                        t.home.statistic,
-                        style: AppTextStyles.titleLargeBold.copyWith(
-                          color: colorScheme.onSurface,
+                          ],
+                        ).animateIn(
+                          key: const ValueKey('revenue_header'),
+                          animate: isLoading,
                         ),
-                      ).animateIn(
-                        key: const ValueKey('revenue_statistic'),
-                        animate: isLoading,
-                        index: 2,
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        height: 300,
-                        child: items.isEmpty && !isLoading
-                            ? const _EmptyRevenueState()
-                            : _RevenueChart(items: items),
-                      ).animateIn(
-                        key: const ValueKey('revenue_chart'),
-                        animate: isLoading,
-                        index: 3,
-                      ),
-                    ],
+                        const SizedBox(height: 24),
+                        Row(
+                          spacing: 16,
+                          children: [
+                            Expanded(
+                              child: _SummaryCard(
+                                title: t.parking.revenue,
+                                value: NumberFormat.currency(
+                                  locale: 'vi_VN',
+                                  symbol: 'đ',
+                                  decimalDigits: 0,
+                                ).format(totalRevenue),
+                                icon: Symbols.account_balance_wallet_rounded,
+                                color: colorScheme.primary,
+                              ),
+                            ),
+                            Expanded(
+                              child: _SummaryCard(
+                                title: t.vehicles.type,
+                                value: totalPass.toString(),
+                                icon: Symbols.directions_car_rounded,
+                                color: colorScheme.secondary,
+                              ),
+                            ),
+                          ],
+                        ).animateIn(
+                          key: const ValueKey('revenue_summary'),
+                          animate: isLoading,
+                          index: 1,
+                        ),
+                        const SizedBox(height: 32),
+                        Text(
+                          t.home.statistic,
+                          style: AppTextStyles.titleLargeBold.copyWith(
+                            color: colorScheme.onSurface,
+                          ),
+                        ).animateIn(
+                          key: const ValueKey('revenue_statistic'),
+                          animate: isLoading,
+                          index: 2,
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          height: 300,
+                          child: items.isEmpty && !isLoading
+                              ? const _EmptyRevenueState()
+                              : _RevenueChart(items: items),
+                        ).animateIn(
+                          key: const ValueKey('revenue_chart'),
+                          animate: isLoading,
+                          index: 3,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

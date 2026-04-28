@@ -22,14 +22,16 @@ class RevenueListTab extends StatelessWidget {
       controlFinishRefresh: true,
     );
 
+    final form = ReactiveRevenueForm.of(context);
+
     return BlocConsumer<RevenueCubit, RevenueState>(
       listener: (context, state) {
         state.whenOrNull(
-          loaded: (_, pageIndex) {
+          loaded: (_, _) {
             refreshController.finishRefresh();
             refreshController.finishLoad();
           },
-          failed: (_, message) {
+          failed: (_, _) {
             refreshController.finishRefresh(.fail);
             refreshController.finishLoad(.fail);
           },
@@ -76,21 +78,13 @@ class RevenueListTab extends StatelessWidget {
                       controller: refreshController,
                       onRefresh: () async {
                         await listContext.read<RevenueCubit>().refresh(
-                          filter:
-                              ReactiveRevenueForm.of(
-                                context,
-                              )?.model.toParams() ??
-                              .initial(),
+                          filter: form?.model.toParams() ?? .initial(),
                         );
                         refreshController.finishRefresh();
                       },
                       onLoad: () async {
                         await listContext.read<RevenueCubit>().loadMore(
-                          filter:
-                              ReactiveRevenueForm.of(
-                                context,
-                              )?.model.toParams() ??
-                              .initial(),
+                          filter: form?.model.toParams() ?? .initial(),
                         );
                         refreshController.finishLoad();
                       },
