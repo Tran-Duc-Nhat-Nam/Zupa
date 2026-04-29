@@ -2,7 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/styles/colors.dart';
 
 class AppDropDownSearchExtraItem<T> {
@@ -14,7 +13,6 @@ class AppDropDownSearchExtraItem<T> {
 
 class AppDropDownSearch<T> extends StatefulWidget {
   const AppDropDownSearch({
-    required this.formControl,
     required this.dropdownItems,
     this.hint = '',
     this.valueListenable,
@@ -46,11 +44,10 @@ class AppDropDownSearch<T> extends StatefulWidget {
     this.defaultValue,
     this.itemLabelGetter,
     this.extraDropdownItems = const [],
-    this.offset = Offset.zero,
+    this.offset = .zero,
     super.key,
   });
 
-  final FormControl<T> formControl;
   final String hint;
   final ValueListenable<T?>? valueListenable;
   final List<T> dropdownItems;
@@ -101,124 +98,118 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
-    return ReactiveFormField<T, T>(
-      formControl: widget.formControl,
-      builder: (field) => DropdownButtonHideUnderline(
-        child: DropdownButton2<T>(
-          onMenuStateChange: (value) => setState(() {
-            isOpen = value;
-          }),
-          isExpanded: true,
-          hint: Container(
-            alignment: widget.hintAlignment,
-            child: Text(
-              widget.hint,
-              overflow: .ellipsis,
-              maxLines: 1,
-              style: .new(fontSize: 14, color: colorScheme.onSurfaceVariant),
-            ),
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<T>(
+        onMenuStateChange: (value) => setState(() {
+          isOpen = value;
+        }),
+        isExpanded: true,
+        hint: Container(
+          alignment: widget.hintAlignment,
+          child: Text(
+            widget.hint,
+            overflow: .ellipsis,
+            maxLines: 1,
+            style: .new(fontSize: 14, color: colorScheme.onSurfaceVariant),
           ),
-          valueListenable: valueListenable,
-          items: widget.extraDropdownItems.isEmpty
-              ? widget.dropdownItems
-                    .map(
-                      (item) => DropdownItem<T>(
-                        value: item,
-                        height: widget.itemHeight ?? 40,
-                        child: Container(
-                          alignment: widget.valueAlignment,
-                          width: widget.itemWidth ?? 140,
-                          child: Text(
-                            widget.itemLabelGetter != null
-                                ? widget.itemLabelGetter!(item)
-                                : item.toString(),
-                            overflow: .ellipsis,
-                            maxLines: 1,
-                            style: const .new(fontSize: 14),
-                          ),
+        ),
+        valueListenable: valueListenable,
+        items: widget.extraDropdownItems.isEmpty
+            ? widget.dropdownItems
+                  .map(
+                    (item) => DropdownItem<T>(
+                      value: item,
+                      height: widget.itemHeight ?? 40,
+                      child: Container(
+                        alignment: widget.valueAlignment,
+                        width: widget.itemWidth ?? 140,
+                        child: Text(
+                          widget.itemLabelGetter != null
+                              ? widget.itemLabelGetter!(item)
+                              : item.toString(),
+                          overflow: .ellipsis,
+                          maxLines: 1,
+                          style: const .new(fontSize: 14),
                         ),
                       ),
-                    )
-                    .toList()
-              : [...widget.dropdownItems, ...widget.extraDropdownItems]
-                    .map(
-                      (item) => DropdownItem<T>(
-                        value: item is T
-                            ? item
-                            : (item! as AppDropDownSearchExtraItem<T>).value,
-                        height: widget.itemHeight ?? 40,
-                        child: Container(
-                          width: widget.itemWidth ?? 140,
-                          alignment: widget.valueAlignment,
-                          child: Text(
-                            item is T
-                                ? widget.itemLabelGetter != null
-                                      ? widget.itemLabelGetter!(item)
-                                      : item.toString()
-                                : (item! as AppDropDownSearchExtraItem<T>)
-                                      .label,
-                            overflow: .ellipsis,
-                            maxLines: 1,
-                            style: const .new(fontSize: 14),
-                          ),
+                    ),
+                  )
+                  .toList()
+            : [...widget.dropdownItems, ...widget.extraDropdownItems]
+                  .map(
+                    (item) => DropdownItem<T>(
+                      value: item is T
+                          ? item
+                          : (item! as AppDropDownSearchExtraItem<T>).value,
+                      height: widget.itemHeight ?? 40,
+                      child: Container(
+                        width: widget.itemWidth ?? 140,
+                        alignment: widget.valueAlignment,
+                        child: Text(
+                          item is T
+                              ? widget.itemLabelGetter != null
+                                    ? widget.itemLabelGetter!(item)
+                                    : item.toString()
+                              : (item! as AppDropDownSearchExtraItem<T>).label,
+                          overflow: .ellipsis,
+                          maxLines: 1,
+                          style: const .new(fontSize: 14),
                         ),
                       ),
-                    )
-                    .toList(),
-          onChanged: (value) => {
-            field.didChange(value ?? widget.defaultValue),
-            valueListenable.value = value ?? widget.defaultValue,
-            widget.onChanged?.call(value),
-          },
-          selectedItemBuilder: widget.selectedItemBuilder,
-          buttonStyleData: ButtonStyleData(
-            height: widget.buttonHeight ?? 40,
-            width: widget.buttonWidth,
-            padding: widget.buttonPadding ?? const .only(left: 14, right: 14),
-            decoration:
-                widget.buttonDecoration ??
-                .new(
-                  borderRadius: .circular(28),
-                  border: .all(color: colorScheme.surfaceContainerHigh),
-                ),
-            elevation: widget.buttonElevation,
+                    ),
+                  )
+                  .toList(),
+        onChanged: (value) => {
+          valueListenable.value = value ?? widget.defaultValue,
+          widget.onChanged?.call(value),
+        },
+        selectedItemBuilder: widget.selectedItemBuilder,
+        buttonStyleData: ButtonStyleData(
+          height: widget.buttonHeight ?? 40,
+          width: widget.buttonWidth,
+          padding: widget.buttonPadding ?? const .only(left: 14, right: 14),
+          decoration:
+              widget.buttonDecoration ??
+              .new(
+                borderRadius: .circular(28),
+                border: .all(color: colorScheme.surfaceContainerHigh),
+              ),
+          elevation: widget.buttonElevation,
+        ),
+        iconStyleData: IconStyleData(
+          icon: AnimatedRotation(
+            turns: isOpen ? 0.5 : 0,
+            duration: const .new(milliseconds: 200),
+            child:
+                widget.icon ?? const Icon(Symbols.keyboard_arrow_down_rounded),
           ),
-          iconStyleData: IconStyleData(
-            icon: AnimatedRotation(
-              turns: isOpen ? 0.5 : 0,
-              duration: const .new(milliseconds: 200),
-              child:
-                  widget.icon ??
-                  const Icon(Symbols.keyboard_arrow_down_rounded),
-            ),
-            iconSize: widget.iconSize ?? 24,
-            iconEnabledColor: widget.iconEnabledColor,
-            iconDisabledColor: widget.iconDisabledColor,
+          iconSize: widget.iconSize ?? 24,
+          iconEnabledColor: widget.iconEnabledColor,
+          iconDisabledColor: widget.iconDisabledColor,
+        ),
+        dropdownStyleData: DropdownStyleData(
+          //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
+          maxHeight: widget.dropdownHeight ?? 200,
+          width: widget.dropdownWidth ?? 140,
+          padding: widget.dropdownPadding,
+          decoration:
+              widget.dropdownDecoration ??
+              BoxDecoration(borderRadius: .circular(16)),
+          elevation: widget.dropdownElevation ?? 8,
+          //Null or Offset(0, 0) will open just under the button. You can edit as you want.
+          offset: widget.offset,
+          scrollbarTheme: ScrollbarThemeData(
+            radius: widget.scrollbarRadius ?? const .circular(40),
+            thickness: widget.scrollbarThickness != null
+                ? .all<double>(widget.scrollbarThickness!)
+                : null,
+            thumbVisibility: widget.scrollbarAlwaysShow != null
+                ? .all<bool>(widget.scrollbarAlwaysShow!)
+                : null,
           ),
-          dropdownStyleData: DropdownStyleData(
-            //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
-            maxHeight: widget.dropdownHeight ?? 200,
-            width: widget.dropdownWidth ?? 140,
-            padding: widget.dropdownPadding,
-            decoration:
-                widget.dropdownDecoration ??
-                BoxDecoration(borderRadius: .circular(16)),
-            elevation: widget.dropdownElevation ?? 8,
-            //Null or Offset(0, 0) will open just under the button. You can edit as you want.
-            offset: widget.offset,
-            scrollbarTheme: ScrollbarThemeData(
-              radius: widget.scrollbarRadius ?? const .circular(40),
-              thickness: widget.scrollbarThickness != null
-                  ? .all<double>(widget.scrollbarThickness!)
-                  : null,
-              thumbVisibility: widget.scrollbarAlwaysShow != null
-                  ? .all<bool>(widget.scrollbarAlwaysShow!)
-                  : null,
-            ),
-          ),
-          menuItemStyleData: .new(
-            padding: widget.itemPadding ?? const .only(left: 14, right: 14),
-          ),
+        ),
+        menuItemStyleData: .new(
+          padding: widget.itemPadding ?? const .only(left: 14, right: 14),
         ),
       ),
     );

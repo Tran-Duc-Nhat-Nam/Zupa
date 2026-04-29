@@ -39,34 +39,37 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            title: Text(t.settings.changeTheme),
-            leading: AnimatedSwitcher(
-              duration: const .new(milliseconds: 300),
-              transitionBuilder: (child, anim) => RotationTransition(
-                turns: child.key == const ValueKey('icon1')
-                    ? Tween<double>(begin: 1, end: 0.75).animate(anim)
-                    : Tween<double>(begin: 0.75, end: 1).animate(anim),
-                child: FadeTransition(opacity: anim, child: child),
-              ),
-              child:
-                  context.watch<ThemeCubit>().state.maybeWhen(
-                    loaded: (settings) => settings.themeMode == .light,
-                    orElse: () => true,
-                  )
-                  ? Icon(Symbols.light_mode_rounded, color: colors.primary)
-                  : Icon(Symbols.dark_mode_rounded, color: colors.primary),
-            ),
-            onTap: () {
-              final themeCubit = context.read<ThemeCubit>();
-              final currentSettings = themeCubit.state.maybeWhen(
-                loaded: (s) => s,
-                orElse: () => ThemeSettings(),
-              );
+          ThemeSettingsFormBuilder(
+            builder: (context, formModel, _) {
+              return ListTile(
+                title: Text(t.settings.changeTheme),
+                leading: AnimatedSwitcher(
+                  duration: const .new(milliseconds: 300),
+                  transitionBuilder: (child, anim) => RotationTransition(
+                    turns: child.key == const ValueKey('icon1')
+                        ? Tween<double>(begin: 1, end: 0.75).animate(anim)
+                        : Tween<double>(begin: 0.75, end: 1).animate(anim),
+                    child: FadeTransition(opacity: anim, child: child),
+                  ),
+                  child:
+                      context.watch<ThemeCubit>().state.maybeWhen(
+                        loaded: (settings) => settings.themeMode == .light,
+                        orElse: () => true,
+                      )
+                      ? Icon(Symbols.light_mode_rounded, color: colors.primary)
+                      : Icon(Symbols.dark_mode_rounded, color: colors.primary),
+                ),
+                onTap: () {
+                  final themeCubit = context.read<ThemeCubit>();
+                  final currentSettings = themeCubit.state.maybeWhen(
+                    loaded: (s) => s,
+                    orElse: () => ThemeSettings(),
+                  );
 
-              themeCubit.formModel.themeModeControl.value =
-                  currentSettings.themeMode;
-              themeCubit.changeTheme();
+                  formModel.themeModeControl.value = currentSettings.themeMode;
+                  themeCubit.changeTheme(params: formModel.model.toParams());
+                },
+              );
             },
           ),
           ListTile(

@@ -126,22 +126,37 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                               isExternalLabel: true,
                             ),
                           ),
-                          AppDropDownSearch<String>(
+                          ReactiveValueListenableBuilder<String>(
                             formControl: formModel.branchControl,
-                            dropdownItems: const [
-                              'Bãi xe 1',
-                              'Bãi xe 2',
-                              'Bãi xe 3',
-                            ],
-                            hint: t.common.actions.choose,
+                            builder: (context, control, child) =>
+                                AppDropDownSearch<String>(
+                                  initialValue: formModel.branchControl.value,
+                                  dropdownItems: const [
+                                    'Bãi xe 1',
+                                    'Bãi xe 2',
+                                    'Bãi xe 3',
+                                  ],
+                                  hint: t.common.actions.choose,
+                                  onChanged: (value) => formModel.branchControl
+                                      .updateValue(value),
+                                ),
                           ),
-                          AppDropDownSearch<VehicleTypeEntity>(
+                          ReactiveValueListenableBuilder<VehicleTypeEntity>(
                             formControl: formModel.vehicleTypeControl,
-                            dropdownItems: vehicleTypes,
-                            hint: t.common.actions.choose,
-                            itemLabelGetter: (vehicle) => vehicle != null
-                                ? t['vehicles.${vehicle.name}'] ?? vehicle.name
-                                : t.common.errors.noData_search,
+                            builder: (context, control, child) =>
+                                AppDropDownSearch<VehicleTypeEntity>(
+                                  initialValue:
+                                      formModel.vehicleTypeControl.value,
+                                  dropdownItems: vehicleTypes,
+                                  hint: t.common.actions.choose,
+                                  itemLabelGetter: (vehicle) => vehicle != null
+                                      ? t['vehicles.${vehicle.name}'] ??
+                                            vehicle.name
+                                      : t.common.errors.noData_search,
+                                  onChanged: (value) => formModel
+                                      .vehicleTypeControl
+                                      .updateValue(value),
+                                ),
                           ),
                           ReactiveValueListenableBuilder<String>(
                             formControl: formModel.ticketIDControl,
@@ -151,19 +166,27 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                               isExternalLabel: true,
                             ),
                           ),
-                          AppDropDownSearch<Duration>(
+                          ReactiveValueListenableBuilder<Duration>(
                             formControl: formModel.expiredInControl,
-                            dropdownItems: const [
-                              .new(days: 30),
-                              .new(days: 60),
-                              .new(days: 90),
-                              .new(days: 120),
-                              .new(days: 150),
-                              .new(days: 180),
-                            ],
-                            hint: t.common.actions.choose,
-                            itemLabelGetter: (value) =>
-                                value?.inDays.toString() ?? '0',
+                            builder: (context, control, child) =>
+                                AppDropDownSearch<Duration>(
+                                  initialValue:
+                                      formModel.expiredInControl.value,
+                                  dropdownItems: const [
+                                    .new(days: 30),
+                                    .new(days: 60),
+                                    .new(days: 90),
+                                    .new(days: 120),
+                                    .new(days: 150),
+                                    .new(days: 180),
+                                  ],
+                                  hint: t.common.actions.choose,
+                                  itemLabelGetter: (value) =>
+                                      value?.inDays.toString() ?? '0',
+                                  onChanged: (value) => formModel
+                                      .expiredInControl
+                                      .updateValue(value),
+                                ),
                           ),
                         ],
                       ),

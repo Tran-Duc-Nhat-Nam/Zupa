@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zupa/core/bloc/usecases/theme/set/params/set_theme_params.dart';
 import 'package:zupa/core/bloc/usecases/ui_settings/set/params/set_ui_settings_params.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/data/models/user/user.dart';
@@ -104,14 +105,11 @@ class StorageService {
     return _sharedPreferences.getBool('isBiometricAuth');
   }
 
-  Future<void> setTheme(ThemeSettings settings) async {
-    await _sharedPreferences.setInt('themeMode', settings.themeMode.index);
-    await _sharedPreferences.setInt('colorSource', settings.colorSource.index);
-    if (settings.seedColorValue != null) {
-      await _sharedPreferences.setInt(
-        'seedColorValue',
-        settings.seedColorValue!,
-      );
+  Future<void> setTheme({required SetThemeParams params}) async {
+    await _sharedPreferences.setInt('themeMode', params.themeMode.index);
+    await _sharedPreferences.setInt('colorSource', params.colorSource.index);
+    if (params.seedColorValue != null) {
+      await _sharedPreferences.setInt('seedColorValue', params.seedColorValue!);
     } else {
       await _sharedPreferences.remove('seedColorValue');
     }

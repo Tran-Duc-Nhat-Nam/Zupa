@@ -1,36 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zupa/core/bloc/usecases/localization/get/get_locale_usecase.dart';
+import 'package:zupa/core/bloc/usecases/localization/set/set_locale_usecase.dart';
 import 'package:zupa/core/constants/localization.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
-import 'package:zupa/core/models/form/localization/app_settings_form.dart';
-import 'package:zupa/core/services/storage_service.dart';
 
 part 'localization_cubit.freezed.dart';
 part 'localization_state.dart';
 
 @lazySingleton
 class LocalizationCubit extends Cubit<LocalizationState> {
-  LocalizationCubit(this._storageService) : super(const .initial());
+  LocalizationCubit(this._setLocale, this._getLocale) : super(const .initial());
 
-  final StorageService _storageService;
-
-  final formModel = AppSettingsForm(
-    AppSettingsForm.formElements(AppSettings()),
-    null,
-    null,
-  );
+  final SetLocaleUseCase _setLocale;
+  final GetLocaleUseCase _getLocale;
 
   Future<void> loadLocale() async {
-    final mode = await _storageService.getLocalization();
-    LocaleSettings.setLocaleRaw(mode.name);
+    final mode = await _getLocale();
     emit(.loaded(mode));
   }
 
-  void changeLocale() {
-    final mode = formModel.localizationModeControl.value ?? .followSystem;
-    _storageService.setLocalization(mode);
-    LocaleSettings.setLocaleRaw(mode.name);
+  void changeLocale(AppLocalization mode) {
+    _setLocale(params: mode);
     emit(.loaded(mode));
   }
 }
