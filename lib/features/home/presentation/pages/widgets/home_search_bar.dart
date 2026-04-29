@@ -64,44 +64,32 @@ class HomeSearchBar extends StatelessWidget {
       builder: (context) => Padding(
         padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
         child: Column(
-          spacing: 16,
+          spacing: 24,
           mainAxisSize: .min,
           crossAxisAlignment: .start,
           children: [
             Center(
               child: Text(
                 t.common.actions.filter,
-                style: AppTextStyles.bodySmallSemibold.copyWith(
+                style: AppTextStyles.bodyLargeSemibold.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: .spaceBetween,
-              children: [
-                Text(
-                  t.common.info.time,
-                  style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                Text(
-                  t.common.actions.reset,
-                  style: AppTextStyles.bodyMediumSemibold.copyWith(
-                    color: colorScheme.primary,
-                  ),
-                ),
-              ],
             ),
             Column(
               spacing: 12,
               crossAxisAlignment: .start,
               children: [
                 Text(t.common.info.date),
-                AppDateTimePicker(formControl: formModel?.timeControl),
+                AppDateTimePicker(
+                  type: .date,
+                  value: formModel?.timeControl.value,
+                  onChanged: (value) {
+                    formModel?.timeValueUpdate(value);
+                  },
+                ),
               ],
             ),
-            const Divider(),
             Row(
               spacing: 16,
               children: [

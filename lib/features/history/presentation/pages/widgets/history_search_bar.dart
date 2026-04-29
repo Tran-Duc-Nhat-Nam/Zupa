@@ -72,7 +72,7 @@ class HistorySearchBar extends StatelessWidget {
             Center(
               child: Text(
                 t.common.actions.filter,
-                style: AppTextStyles.bodySmallSemibold.copyWith(
+                style: AppTextStyles.bodyLargeSemibold.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
@@ -94,7 +94,13 @@ class HistorySearchBar extends StatelessWidget {
                 ),
               ],
             ),
-            AppDateTimePicker(formControl: formModel?.timeControl),
+            AppDateTimePicker(
+              type: .date,
+              value: formModel?.timeControl.value,
+              onChanged: (value) {
+                formModel?.timeValueUpdate(value);
+              },
+            ),
             Column(
               spacing: 12,
               crossAxisAlignment: .start,

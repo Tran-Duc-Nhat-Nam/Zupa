@@ -111,7 +111,7 @@ class RevenueSearchBar extends StatelessWidget {
             Center(
               child: Text(
                 t.common.actions.filter,
-                style: AppTextStyles.bodySmallSemibold.copyWith(
+                style: AppTextStyles.bodyLargeSemibold.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
@@ -146,7 +146,13 @@ class RevenueSearchBar extends StatelessWidget {
               children: [
                 Text(t.common.info.date),
                 formModel != null
-                    ? AppDateTimePicker(formControl: formModel.fromDateControl)
+                    ? AppDateTimePicker(
+                        type: .date,
+                        value: formModel.fromDateControl.value,
+                        onChanged: (value) {
+                          formModel.fromDateValueUpdate(value ?? .now());
+                        },
+                      )
                     : Text(t.common.errors.unknown),
               ],
             ),
