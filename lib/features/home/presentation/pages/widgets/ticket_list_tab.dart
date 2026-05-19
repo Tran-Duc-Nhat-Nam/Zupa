@@ -75,7 +75,6 @@ class _TicketListTabState extends State<TicketListTab> {
 
         return Container(
           clipBehavior: .antiAlias,
-          padding: const .symmetric(horizontal: 36),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainer,
             borderRadius: const .vertical(top: .circular(36)),
@@ -110,30 +109,33 @@ class _TicketListTabState extends State<TicketListTab> {
                 itemBuilder: (c, i) =>
                     Padding(
                       padding: .only(top: i == 0 ? 24 : 8),
-                      child: TicketTitle(
-                        key: ValueKey(
-                          items.isNotEmpty ? items[i].id : 'skeleton_$i',
-                        ),
-                        isFirst: i == 0,
-                        isLast: 1 == items.length - 1,
-                        ticket: items.isNotEmpty
-                            ? items[i]
-                            : HomeTicketEntity(
-                                id: -1,
-                                siteId: 'Nope',
-                                code: 'None',
-                                isFlagError: false,
-                                timeIn: .now(),
-                                type: VehicleTypeEntity(
-                                  value: '',
-                                  name: '',
-                                  icon: '',
-                                  color: colorScheme.primary,
+                      child: Padding(
+                        padding: const .symmetric(horizontal: 36),
+                        child: TicketTitle(
+                          key: ValueKey(
+                            items.isNotEmpty ? items[i].id : 'skeleton_$i',
+                          ),
+                          isFirst: i == 0,
+                          isLast: 1 == items.length - 1,
+                          ticket: items.isNotEmpty
+                              ? items[i]
+                              : HomeTicketEntity(
+                                  id: -1,
+                                  siteId: 'Nope',
+                                  code: 'None',
+                                  isFlagError: false,
+                                  timeIn: .now(),
+                                  type: VehicleTypeEntity(
+                                    value: '',
+                                    name: '',
+                                    icon: '',
+                                    color: colorScheme.primary,
+                                  ),
+                                  imageUrl: '',
                                 ),
-                                imageUrl: '',
-                              ),
-                        // Your placeholder logic
-                        enabled: state is! Loading,
+                          // Your placeholder logic
+                          enabled: state is! Loading,
+                        ),
                       ),
                     ).animateIn(
                       key: ValueKey('ticket_item_$i'),

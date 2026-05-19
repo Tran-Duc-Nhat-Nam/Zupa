@@ -7,6 +7,7 @@ import 'package:zupa/features/home/data/api/home_api.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
 import 'package:zupa/features/parking/data/api/parking_lot_api.dart';
 import 'package:zupa/features/revenue/data/api/revenue_api.dart';
+import 'package:zupa/features/site/data/api/site_api.dart';
 
 @module
 abstract class ApiModule {
@@ -31,4 +32,7 @@ abstract class ApiModule {
 
   @lazySingleton
   ParkingLotAPI parkingLotApi(Dio dio) => .new(dio);
+
+  @lazySingleton
+  SiteAPI siteApi(Dio dio) => .new(dio);
 }

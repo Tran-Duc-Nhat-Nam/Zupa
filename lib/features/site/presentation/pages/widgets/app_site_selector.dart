@@ -3,12 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
-import 'package:zupa/core/bloc/site/site_cubit.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
+import 'package:zupa/features/site/presentation/bloc/site_cubit.dart';
 
 class AppSiteSelector extends StatelessWidget {
   const AppSiteSelector({super.key});
@@ -33,7 +33,7 @@ class AppSiteSelector extends StatelessWidget {
                 BoxShadow(
                   color: colors.shadow.withAlpha(10),
                   blurRadius: 8,
-                  offset: const Offset(0, 4),
+                  offset: const .new(0, 4),
                 ),
               ],
             ),
@@ -66,7 +66,7 @@ class AppSiteSelector extends StatelessWidget {
                       BlocBuilder<SiteCubit, SiteState>(
                         builder: (context, state) {
                           final siteName = state.maybeWhen(
-                            loaded: (data) => data ?? _parkingLots[0],
+                            loaded: (siteList, currentSite) => currentSite?.name ?? _parkingLots[0],
                             orElse: () => _parkingLots[0],
                           );
                           return Text(
@@ -120,7 +120,7 @@ class AppSiteSelector extends StatelessWidget {
               child: AppButton(
                 height: 48,
                 onPressed: () {
-                  siteCubit.changeSite();
+                  siteCubit.changeSite('');
                   Navigator.of(context).pop();
                 },
                 text: t.common.actions.apply,
@@ -129,7 +129,6 @@ class AppSiteSelector extends StatelessWidget {
             child: Padding(
               padding: const .only(bottom: 80, top: 16),
               child: AppRadioGroup<String>(
-                formControl: siteCubit.form.codeControl,
                 items: _parkingLots,
                 isVertical: true,
                 showRadio: false,

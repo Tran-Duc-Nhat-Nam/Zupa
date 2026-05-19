@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 class AppRadioGroup<T> extends StatelessWidget {
   const AppRadioGroup({
     super.key,
-    required this.formControl,
     required this.items,
+    this.value,
     this.isVertical = false,
     this.showRadio = true, // Toggle visibility of the radio circle
     this.itemBuilder,
     this.spacing = 0,
+    this.onChanged,
   });
 
-  final FormControl<T>? formControl;
   final List<T> items;
+  final T? value;
   final bool isVertical;
   final bool showRadio;
   final double spacing;
+  final void Function(T?)? onChanged;
 
   /// Custom builder to define how each item looks.
   /// [radioButton] is the standard ReactiveRadio widget.
@@ -31,48 +32,39 @@ class AppRadioGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Listen to changes in the form control to rebuild custom labels
-    return ReactiveValueListenableBuilder<T>(
-      formControl: formControl,
-      builder: (context, control, child) {
-        final children = items.map((item) {
-          final isSelected = control.value == item;
+    final children = items.map((item) {
+      final isSelected = value == item;
 
-          // The underlying radio widget
-          final radioButton = ReactiveRadio<T>(
-            formControl: formControl,
-            value: item,
-          );
+      // The underlying radio widget
+      final radioButton = Radio<T>(value: item);
 
-          // If a custom builder is provided, use it
-          if (itemBuilder != null) {
-            return itemBuilder!(
-              context,
-              item,
-              isSelected,
-              () => control.value = item,
-              showRadio ? radioButton : null,
-            );
-          }
+      // If a custom builder is provided, use it
+      if (itemBuilder != null) {
+        return itemBuilder!(
+          context,
+          item,
+          isSelected,
+          () => onChanged?.call(item),
+          showRadio ? radioButton : null,
+        );
+      }
 
-          return InkWell(
-            onTap: () => control.value = item,
-            child: Row(
-              mainAxisSize: .min,
-              children: [if (showRadio) radioButton, Text(item.toString())],
-            ),
-          );
-        }).toList();
+      return InkWell(
+        onTap: () => onChanged?.call(item),
+        child: Row(
+          mainAxisSize: .min,
+          children: [if (showRadio) radioButton, Text(item.toString())],
+        ),
+      );
+    }).toList();
 
-        return isVertical
-            ? Column(
-                crossAxisAlignment: .start,
-                mainAxisSize: .min,
-                spacing: spacing,
-                children: children,
-              )
-            : Row(spacing: spacing, children: children);
-      },
-    );
+    return isVertical
+        ? Column(
+            crossAxisAlignment: .start,
+            mainAxisSize: .min,
+            spacing: spacing,
+            children: children,
+          )
+        : Row(spacing: spacing, children: children);
   }
 }

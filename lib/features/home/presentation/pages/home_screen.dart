@@ -7,12 +7,12 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
-import 'package:zupa/core/widgets/app_site_selector.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/home_search_bar.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticket_list_tab.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_tab.dart';
+import 'package:zupa/features/site/presentation/pages/widgets/app_site_selector.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/core/data/models/site/site.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
+import 'package:zupa/features/site/data/models/site_model.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -12,7 +12,7 @@ sealed class User with _$User {
     @DateTimeConverter() DateTime? dateCreated,
     @DateTimeConverter() DateTime? lastUpdated,
     @Default(0) int version,
-    @Default(Site()) Site tenant,
+    @Default(SiteModel()) SiteModel tenant,
     String? secret,
     @Default('') String fullName,
     @Default('') String username,

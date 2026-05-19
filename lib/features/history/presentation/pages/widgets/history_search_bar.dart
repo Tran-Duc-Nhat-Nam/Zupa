@@ -46,8 +46,7 @@ class HistorySearchBar extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   context.read<HistoryCubit>().refresh(
-                    filter:
-                        form?.model.toParams() ?? .initial(keyword: value),
+                    filter: form?.model.toParams() ?? .initial(keyword: value),
                   );
                 },
               ),
@@ -123,9 +122,10 @@ class HistorySearchBar extends StatelessWidget {
                   ],
                 ),
                 AppRadioGroup<VehicleTypeEntity>(
-                  formControl: formModel?.typeControl,
+                  value: formModel?.typeControl.value,
                   items: vehicleTypes,
                   isVertical: true,
+                  onChanged: (value) => formModel?.typeValueUpdate(value),
                   itemBuilder:
                       (context, item, isSelected, onSelect, radioButton) => Row(
                         spacing: 8,

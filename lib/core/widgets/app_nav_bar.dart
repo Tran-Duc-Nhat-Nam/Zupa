@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:zupa/core/bloc/site/site_cubit.dart';
 import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/responsive/responsive_helper.dart';
@@ -11,6 +10,7 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/features/site/presentation/bloc/site_cubit.dart';
 
 @RoutePage()
 class AppNavBarScreen extends StatefulWidget {

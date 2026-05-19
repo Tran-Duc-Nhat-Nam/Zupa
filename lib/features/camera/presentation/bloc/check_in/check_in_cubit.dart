@@ -16,12 +16,6 @@ part 'check_in_state.dart';
 class CheckInCubit extends Cubit<CheckInState> {
   CheckInCubit() : super(const .initial());
 
-  final formModel = f.CheckInForm(
-    f.CheckInForm.formElements(f.CheckIn()),
-    null,
-    null,
-  );
-
   final _textRecognizer = TextRecognizer();
   bool _isProcessing = false;
   CameraDescription? _camera;
