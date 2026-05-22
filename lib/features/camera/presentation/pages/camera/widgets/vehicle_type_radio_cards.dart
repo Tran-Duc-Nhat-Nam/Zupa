@@ -1,6 +1,5 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
@@ -9,18 +8,19 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
-import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
 
 class VehicleTypeRadioCards extends StatelessWidget {
-  const VehicleTypeRadioCards({super.key});
+  const VehicleTypeRadioCards({super.key, this.value});
+
+  final VehicleTypeEntity? value;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColors.of(context);
     return AppRadioGroup<VehicleTypeEntity>(
-      formControl: context.read<CheckInCubit>().formModel.vehicleTypeControl,
       spacing: 16,
       items: vehicleTypes,
+      value: value,
       itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
           Expanded(
             child: Container(

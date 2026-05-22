@@ -33,8 +33,6 @@ class AppRadioGroup<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final children = items.map((item) {
-      final isSelected = value == item;
-
       // The underlying radio widget
       final radioButton = Radio<T>(value: item);
 
@@ -43,7 +41,7 @@ class AppRadioGroup<T> extends StatelessWidget {
         return itemBuilder!(
           context,
           item,
-          isSelected,
+          value == item,
           () => onChanged?.call(item),
           showRadio ? radioButton : null,
         );

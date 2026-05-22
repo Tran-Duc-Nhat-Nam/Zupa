@@ -5,8 +5,8 @@ publish_to: 'none'
 version: 0.13.1+61
 
 environment:
-  sdk: ^3.11.5
-  flutter: 3.41.8
+  sdk: ^3.12.0
+  flutter: 3.44.0
 
 dependencies:
   flutter:
@@ -20,7 +20,7 @@ dependencies:
   google_fonts: ^8.1.0
   retrofit: ^4.9.2
   freezed_annotation: ^3.1.0
-  json_annotation: ^4.11.0
+  json_annotation: ^4.12.0
   dio: ^5.9.2
   dio_smart_retry: ^7.0.1
   dio_cache_interceptor: ^4.0.6
@@ -29,7 +29,7 @@ dependencies:
       url: https://github.com/Tran-Duc-Nhat-Nam-270702/dart_http_cache.git
       ref: master
       path: http_cache_isar_store
-  bloc: ^9.2.0
+  bloc: ^9.2.1
   flutter_bloc: ^9.1.1
   loading_animation_widget: ^1.3.0
   easy_refresh: ^3.5.0
@@ -47,7 +47,7 @@ dependencies:
   extended_image: ^10.0.1
   flutter_slidable: ^4.0.3
   dropdown_button2: ^3.1.0
-  omni_datetime_picker: ^2.3.1
+  omni_datetime_picker: ^2.3.2
   animated_toggle_switch: ^0.8.7
   talker: ^5.1.16
   talker_flutter: ^5.1.16
@@ -62,8 +62,8 @@ dependencies:
   slang_flutter: ^4.14.0
   intl: ^0.20.2
   dart_date: ^1.5.3
-  envied: ^1.3.4
-  flutter_secure_storage: ^10.0.0
+  envied: ^1.3.5
+  flutter_secure_storage: ^10.2.0
   material_symbols_icons: ^4.2928.1
   path_provider: ^2.1.5
   dynamic_color: ^1.8.1
@@ -83,12 +83,12 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_displaymode: ^0.7.0
   fl_chart: ^1.2.0
-  another_flushbar: ^1.12.32
+  another_flushbar: ^2.2.4
   fluttertoast: ^9.0.0
-  firebase_messaging: ^16.2.0
-  firebase_core: ^4.7.0
+  firebase_messaging: ^16.2.2
+  firebase_core: ^4.9.0
   google_mlkit_text_recognition: ^0.15.1
-  flutter_gemma: ^0.14.4
+  flutter_gemma: ^0.16.0
   flutter_markdown_plus: ^1.0.7
   isar_community: ^3.3.2
   isar_community_flutter_libs: ^3.3.2
@@ -101,12 +101,12 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   build_runner: ^2.15.0
   freezed: ^3.2.5
-  json_serializable: ^6.13.2
-  retrofit_generator: ^10.2.5
+  json_serializable: ^6.14.0
+  retrofit_generator: ^10.2.6
   flutter_launcher_icons: ^0.14.4
   injectable_generator: ^3.0.2
   slang_build_runner: ^4.14.0
-  envied_generator: ^1.3.4
+  envied_generator: ^1.3.5
   auto_route_generator: ^10.5.0
   reactive_forms_generator:
     git:

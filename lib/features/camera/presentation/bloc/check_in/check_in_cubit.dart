@@ -7,8 +7,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/entities/vehicle_type_entity.dart';
-import 'package:zupa/features/camera/presentation/models/check_in_form.dart'
-    as f;
 
 part 'check_in_cubit.freezed.dart';
 part 'check_in_state.dart';
@@ -56,7 +54,7 @@ class CheckInCubit extends Cubit<CheckInState> {
     try {
       await controller.initialize();
       await controller.startImageStream(
-        (image) => _processImage(image, controller),
+        (image) => _processImage('', image, controller),
       );
       isOut ? emit(.checkOut(controller)) : emit(.checkIn(controller));
     } catch (e) {
@@ -69,6 +67,7 @@ class CheckInCubit extends Cubit<CheckInState> {
   }
 
   Future<void> _processImage(
+    String ticketID,
     CameraImage image,
     CameraController controller,
   ) async {
@@ -92,9 +91,9 @@ class CheckInCubit extends Cubit<CheckInState> {
           final text = line.text.replaceAll(' ', '').toUpperCase();
           if (plateRegex.hasMatch(text)) {
             final match = plateRegex.stringMatch(text);
-            if (match != null && formModel.ticketIDControl.value != match) {
+            if (match != null && ticketID != match) {
               // Found a NEW potential plate!
-              formModel.ticketIDControl.value = match;
+              ticketID = match;
               // Auto capture was not requested but this shows it's working
             }
           }
@@ -132,17 +131,17 @@ class CheckInCubit extends Cubit<CheckInState> {
     );
   }
 
-  void check(CameraController controller) async {
+  void check(
+    VehicleTypeEntity? vehicleType,
+    CameraController controller,
+  ) async {
     emit(const .takingPicture());
     final picture = await controller.takePicture();
     controller.dispose();
     emit(
       state is CheckOut
           ? .checkedOutSuccess(picture)
-          : .checkedInSuccess(
-              picture,
-              formModel.vehicleTypeControl.value ?? vehicleTypes[0],
-            ),
+          : .checkedInSuccess(picture, vehicleType ?? vehicleTypes[0]),
     );
   }
 
