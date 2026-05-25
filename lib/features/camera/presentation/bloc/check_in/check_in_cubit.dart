@@ -17,6 +17,7 @@ class CheckInCubit extends Cubit<CheckInState> {
   final _textRecognizer = TextRecognizer();
   bool _isProcessing = false;
   CameraDescription? _camera;
+  String ticketID = '';
 
   @override
   Future<void> close() async {
@@ -33,6 +34,7 @@ class CheckInCubit extends Cubit<CheckInState> {
   }
 
   Future<void> init(bool isOut) async {
+    ticketID = '';
     emit(const .loading());
     final List<CameraDescription> cameras = await availableCameras();
     if (cameras.isEmpty) {
@@ -54,7 +56,7 @@ class CheckInCubit extends Cubit<CheckInState> {
     try {
       await controller.initialize();
       await controller.startImageStream(
-        (image) => _processImage('', image, controller),
+        (image) => _processImage(image, controller),
       );
       isOut ? emit(.checkOut(controller)) : emit(.checkIn(controller));
     } catch (e) {
@@ -67,7 +69,6 @@ class CheckInCubit extends Cubit<CheckInState> {
   }
 
   Future<void> _processImage(
-    String ticketID,
     CameraImage image,
     CameraController controller,
   ) async {

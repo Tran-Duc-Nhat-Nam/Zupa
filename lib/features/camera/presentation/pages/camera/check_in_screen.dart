@@ -201,9 +201,10 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                   ),
                                 ),
                               )
-                            : const VehicleInfoCard(
+                            : VehicleInfoCard(
                                 ticketNumber: '01223',
-                                licenseNumber: '29AB90175',
+                                licenseNumber:
+                                    context.read<CheckInCubit>().ticketID,
                               ),
                       ),
                     ),

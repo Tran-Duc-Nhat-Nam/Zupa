@@ -33,11 +33,11 @@ class VehicleInfoCard extends StatelessWidget {
               ),
             ),
           ),
-          Container(height: 1, width: .infinity, color: colors.outline),
+          Container(height: 1, width: double.infinity, color: colors.outline),
           Padding(
-            padding: const .all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
-              '${t.parking.ticketID}: $ticketNumber',
+              '${t.vehicles.licenseNumber}: ${licenseNumber ?? ''}',
               style: AppTextStyles.titleLargeSemibold.copyWith(
                 color: colors.onSurfaceVariant,
               ),

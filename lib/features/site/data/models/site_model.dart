@@ -6,6 +6,8 @@ part 'site_model.g.dart';
 
 @freezed
 sealed class SiteModel with _$SiteModel {
+  const SiteModel._();
+
   const factory SiteModel({
     @Default(0) int id,
     @Default('') String code,
