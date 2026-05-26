@@ -8,7 +8,7 @@ part 'animation_state.dart';
 
 @lazySingleton
 class AnimationCubit extends Cubit<AnimationState> {
-  AnimationCubit(this._storageService) : super(const AnimationState.initial());
+  AnimationCubit(this._storageService) : super(const AnimationState.loaded(true));
 
   final StorageService _storageService;
 

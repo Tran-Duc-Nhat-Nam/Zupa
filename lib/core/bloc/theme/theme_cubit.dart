@@ -11,7 +11,7 @@ part 'theme_state.dart';
 
 @lazySingleton
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit(this._setTheme, this._getTheme) : super(const .initial());
+  ThemeCubit(this._setTheme, this._getTheme) : super(ThemeState.loaded(ThemeSettings()));
 
   final SetThemeUseCase _setTheme;
   final GetThemeUseCase _getTheme;
