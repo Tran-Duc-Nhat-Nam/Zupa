@@ -13,7 +13,7 @@ class AppThemes {
     opticalSize: 48,
   );
 
-  static const Color brandSeedColor = Color(0xFF6750A4);
+  static const brandSeedColor = Color(0xFF6750A4);
 
   static ThemeData _buildTheme(ColorScheme scheme, AppColors appColors) {
     return .new(
@@ -28,36 +28,35 @@ class AppThemes {
       iconTheme: _iconTheme,
       extensions: [appColors],
       appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-      elevatedButtonTheme: ElevatedButtonThemeData(
+      elevatedButtonTheme: .new(
         style: ElevatedButton.styleFrom(
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
           shape: RoundedRectangleBorder(borderRadius: .circular(12)),
         ),
       ),
-      navigationBarTheme: NavigationBarThemeData(
-        // Now works! surfaceContainer won't just be the base surface color anymore.
+      navigationBarTheme: .new(
         backgroundColor: scheme.surfaceContainer,
         indicatorColor: scheme.secondaryContainer,
         labelTextStyle: .resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return TextStyle(
+            return .new(
               fontSize: 12,
               fontWeight: .w600,
               color: scheme.onSurface,
             );
           }
-          return TextStyle(
+          return .new(
             fontSize: 12,
             fontWeight: .w500,
             color: scheme.onSurfaceVariant,
           );
         }),
-        iconTheme: WidgetStateProperty.resolveWith((states) {
+        iconTheme: .resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return IconThemeData(color: scheme.onSecondaryContainer);
+            return .new(color: scheme.onSecondaryContainer);
           }
-          return IconThemeData(color: scheme.onSurfaceVariant);
+          return .new(color: scheme.onSurfaceVariant);
         }),
       ),
     );
@@ -79,7 +78,7 @@ class AppThemes {
         ? dynamicColorScheme
         : ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
 
-    final appColors = DynamicAppColors(scheme);
+    final appColors = AppColors.fromColorScheme(scheme);
     return _buildTheme(scheme, appColors);
   }
 }
