@@ -27,7 +27,7 @@ class AppDateTimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Container(
       padding: const .all(12),
       decoration: BoxDecoration(

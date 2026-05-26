@@ -25,7 +25,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
 
     return BlocProvider<SiteCubit>(
       create: (context) => getIt<SiteCubit>()..init(),

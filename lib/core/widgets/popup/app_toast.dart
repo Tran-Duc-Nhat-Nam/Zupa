@@ -5,7 +5,7 @@ import 'package:zupa/core/styles/colors.dart';
 abstract class AppToast {
   static void showToast(String message, {BuildContext? context}) {
     if (context != null) {
-      final colorScheme = AppColors.of(context);
+      final colorScheme = context.colorScheme;
       Fluttertoast.showToast(
         msg: message,
         toastLength: .LENGTH_SHORT,

@@ -137,10 +137,10 @@ abstract class AppColors extends ThemeExtension<AppColors> {
       surfaceContainerHighest: c.surfaceContainerHighest,
     );
   }
+}
 
-  static AppColors of(BuildContext context) {
-    return Theme.of(context).extension<AppColors>() ?? const DarkAppColors();
-  }
+extension ThemeContext on BuildContext {
+  AppColors get colorScheme => Theme.of(this).extension<AppColors>() ?? const DarkAppColors();
 }
 
 class LightAppColors extends AppColors {

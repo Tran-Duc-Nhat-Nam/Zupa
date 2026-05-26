@@ -28,7 +28,7 @@ class GeneralConfigScreen extends StatefulWidget {
 class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return AppScreen(
       title: t.settings.generalConfig,
       child: GeneralConfigFormBuilder(

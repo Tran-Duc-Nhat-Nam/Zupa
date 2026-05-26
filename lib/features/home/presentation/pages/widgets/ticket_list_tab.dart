@@ -39,7 +39,7 @@ class _TicketListTabState extends State<TicketListTab> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final form = ReactiveHomeForm.of(context);
 
     return BlocConsumer<HomeCubit, HomeState>(

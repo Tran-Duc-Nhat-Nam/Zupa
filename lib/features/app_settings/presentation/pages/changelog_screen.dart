@@ -14,7 +14,7 @@ class ChangelogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     final cleanChangelog = changelog
         .replaceAll('"', '')
@@ -113,7 +113,7 @@ class ChangelogScreen extends StatelessWidget {
     bool isFirst,
     bool isLast,
   ) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final (icon, label) = _getActionMetadata(action);
 
     return Container(
@@ -175,7 +175,7 @@ class ChangelogScreen extends StatelessWidget {
   }
 
   Widget _buildCommitLine(BuildContext context, String message) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Padding(
       padding: const .symmetric(vertical: 4),
       child: Row(

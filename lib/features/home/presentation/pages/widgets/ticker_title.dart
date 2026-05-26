@@ -30,7 +30,7 @@ class TicketTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
 
     return Slidable(
       enabled: enabled,

@@ -87,7 +87,7 @@ class AppErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,

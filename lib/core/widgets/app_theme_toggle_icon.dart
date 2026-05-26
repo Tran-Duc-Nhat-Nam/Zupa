@@ -10,7 +10,7 @@ class AppThemeToggleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {

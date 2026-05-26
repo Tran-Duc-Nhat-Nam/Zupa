@@ -26,7 +26,7 @@ class _EmployeeManagementScreenState
     extends AppState<EmployeeManagementScreen> {
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return AppScreen(
       title: t.parking.areaConfig,
       isChildScrollable: true,

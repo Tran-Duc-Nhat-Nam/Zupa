@@ -15,7 +15,7 @@ class HistoryTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return AppCard(
       padding: .zero,
       decoration: .new(

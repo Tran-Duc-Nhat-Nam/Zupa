@@ -97,7 +97,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return DropdownButtonHideUnderline(
       child: DropdownButton2<T>(
         onMenuStateChange: (value) => setState(() {

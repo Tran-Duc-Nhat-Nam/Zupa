@@ -87,7 +87,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final colorsScheme = AppColors.of(context);
+    final colorsScheme = context.colorScheme;
     final bool isPasswordType = widget.isPassword || widget.isPasswordConfirm;
 
     return Column(

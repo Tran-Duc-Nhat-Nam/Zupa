@@ -21,7 +21,7 @@ class HistorySearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final form = ReactiveHistoryForm.of(context);
     return Padding(
       padding: const .only(top: 8),
@@ -58,7 +58,7 @@ class HistorySearchBar extends StatelessWidget {
   }
 
   Future<dynamic> _showFilter(BuildContext context, HistoryForm? formModel) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(

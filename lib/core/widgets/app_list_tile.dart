@@ -61,7 +61,7 @@ class AppList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
 
     Widget content = Column(
       mainAxisSize: .min,
@@ -191,7 +191,7 @@ class AppListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
     final tileBorderRadius = borderRadius ?? .circular(16);
 
     return Column(

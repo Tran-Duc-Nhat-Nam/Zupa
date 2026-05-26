@@ -230,7 +230,7 @@ class AppDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final styles = _getStyles(type, colorScheme);
 
     return Align(
@@ -362,7 +362,7 @@ class DownloadProgressDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return Align(
       child: Container(
@@ -448,7 +448,7 @@ class LoadingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return Align(
       child: Container(

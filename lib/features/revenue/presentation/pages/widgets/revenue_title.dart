@@ -12,7 +12,7 @@ class RevenueTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Container(
       clipBehavior: .antiAlias,
       decoration: const BoxDecoration(borderRadius: .all(Radius.circular(16))),

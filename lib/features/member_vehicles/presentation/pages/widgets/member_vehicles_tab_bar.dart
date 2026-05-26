@@ -9,7 +9,7 @@ class MemberVehiclesTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Container(
       padding: const .only(top: 16),
       child: SegmentedTabControl(

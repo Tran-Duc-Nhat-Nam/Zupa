@@ -22,7 +22,7 @@ class RevenueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return BlocProvider(
       create: (context) => getIt<RevenueCubit>(),
@@ -156,7 +156,7 @@ class _EmptyRevenueState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return Center(
       child: Column(
@@ -226,7 +226,7 @@ class _SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Container(
       padding: const .all(16),
       decoration: BoxDecoration(
@@ -263,7 +263,7 @@ class _RevenueChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     if (items.isEmpty) return const SizedBox.shrink();
 

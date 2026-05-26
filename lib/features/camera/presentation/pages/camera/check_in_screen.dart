@@ -32,7 +32,7 @@ class CheckInScreen extends StatefulWidget {
 class _CheckInScreenState extends AppState<CheckInScreen> {
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
     return CheckInFormBuilder(
       builder: (context, formModel, child) => BlocProvider<CheckInCubit>(
         create: (_) => CheckInCubit()..init(widget.isCheckOut),

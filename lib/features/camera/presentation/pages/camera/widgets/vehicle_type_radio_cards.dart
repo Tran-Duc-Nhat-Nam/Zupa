@@ -16,7 +16,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return AppRadioGroup<VehicleTypeEntity>(
       spacing: 16,
       items: vehicleTypes,

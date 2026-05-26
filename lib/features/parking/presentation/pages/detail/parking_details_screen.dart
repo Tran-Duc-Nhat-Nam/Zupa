@@ -27,7 +27,7 @@ class ParkingDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return AppScreen(
       title: t.parking.areaConfig,
       isChildScrollable: true,

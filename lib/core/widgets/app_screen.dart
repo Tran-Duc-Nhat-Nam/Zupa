@@ -102,7 +102,7 @@ class AppScreen extends StatelessWidget {
                     leadingIcon: appBarLeadingIcon,
                   )
                 : appBar,
-            backgroundColor: backgroundColor ?? AppColors.of(context).surface,
+            backgroundColor: backgroundColor ?? context.colorScheme.surface,
             drawer: hasDrawer ? const AppDrawer() : null,
             body: _buildContent(context),
             floatingActionButton: floatingActionButton,

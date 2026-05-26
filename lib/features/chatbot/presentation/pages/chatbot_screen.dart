@@ -55,7 +55,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           initialChildSize: 0.6,
           maxChildSize: 0.9,
           builder: (context, scrollController) {
-            final colors = AppColors.of(context);
+            final colors = context.colorScheme;
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: colors.surfaceContainer,
@@ -198,7 +198,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           );
         },
         builder: (context, state) {
-          final colors = AppColors.of(context);
+          final colors = context.colorScheme;
 
           return AppScreen(
             title: t.chatbot.title,
@@ -324,7 +324,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   Widget _buildInputArea(BuildContext context, bool isProcessing) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
     return Container(
       padding: const .symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(

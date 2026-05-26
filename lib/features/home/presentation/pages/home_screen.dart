@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return BlocProvider<HomeCubit>(
       create: (context) => getIt<HomeCubit>()..init(),
       child: Builder(

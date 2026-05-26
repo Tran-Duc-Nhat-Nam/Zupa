@@ -37,7 +37,7 @@ class AppAppBar extends AppBar {
 class _AppAppBarState extends State<AppAppBar> {
   @override
   PreferredSizeWidget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
     return AppBar(
       scrolledUnderElevation: 0,
       backgroundColor: widget.color ?? colors.surface,

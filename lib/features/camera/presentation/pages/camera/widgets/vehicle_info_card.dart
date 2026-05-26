@@ -15,7 +15,7 @@ class VehicleInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
     return Container(
       width: .infinity,
       decoration: BoxDecoration(

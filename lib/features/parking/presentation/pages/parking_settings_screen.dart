@@ -24,7 +24,7 @@ class ParkingLotScreen extends StatefulWidget {
 class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
+    final colors = context.colorScheme;
     return AppScreen(
       title: t.parking.areaConfig,
       isChildScrollable: true,

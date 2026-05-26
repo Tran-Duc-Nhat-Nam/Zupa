@@ -89,14 +89,14 @@ class MemberVehicleDetailScreen extends StatelessWidget {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                              color: AppColors.of(context).surfaceContainerHigh,
+                              color: context.colorScheme.surfaceContainerHigh,
                               borderRadius: .circular(16),
                             ),
                             child: Center(
                               child: InkWell(
                                 child: Icon(
                                   Symbols.camera_rounded,
-                                  color: AppColors.of(context).onSurfaceVariant,
+                                  color: context.colorScheme.onSurfaceVariant,
                                 ),
                                 onTap: () => context.pushRoute(CheckInRoute()),
                               ),

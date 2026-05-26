@@ -66,7 +66,7 @@ class _AppButtonState extends State<AppButton> {
   }
 
   Widget _buildButton(BuildContext context, VoidCallback? effectiveOnPressed) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final style = _getButtonStyle(colorScheme);
 
     return SizedBox(

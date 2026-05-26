@@ -98,7 +98,7 @@ class _CameraScreenState extends State<CameraScreen> {
             child: Container(
               width: .infinity,
               decoration: BoxDecoration(
-                color: AppColors.of(context).surfaceContainer,
+                color: context.colorScheme.surfaceContainer,
                 borderRadius: .circular(28),
               ),
               clipBehavior: .antiAlias,
@@ -125,7 +125,7 @@ class _CameraScreenState extends State<CameraScreen> {
             onPressed: widget.onTakePicture,
             child: Icon(
               Symbols.camera_alt_rounded,
-              color: AppColors.of(context).surface,
+              color: context.colorScheme.surface,
               size: 24,
             ),
           ),

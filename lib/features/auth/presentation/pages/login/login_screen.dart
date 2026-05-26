@@ -32,7 +32,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends AppState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return LoginFormBuilder(
       builder: (context, formModel, _) => BlocProvider<LoginCubit>(

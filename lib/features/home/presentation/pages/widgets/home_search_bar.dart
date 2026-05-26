@@ -18,7 +18,7 @@ class HomeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final form = ReactiveHomeForm.of(context);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {

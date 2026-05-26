@@ -15,7 +15,7 @@ class AppCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Row(
       spacing: 8,
       children: [

@@ -74,7 +74,7 @@ class MessageHelper {
     String? title,
     required AppMessageType type,
   }) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final (icon, color, textColor) = _getStyle(type, colorScheme);
 
     Flushbar(

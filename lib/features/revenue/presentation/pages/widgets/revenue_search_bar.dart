@@ -17,7 +17,7 @@ class RevenueSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     return Card(
       margin: .zero,
       elevation: 0,

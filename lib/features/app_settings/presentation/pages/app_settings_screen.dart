@@ -173,7 +173,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   }
 
   AppListItem _localizationItem({required BuildContext context}) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final cubit = context.read<LocalizationCubit>();
     return AppListItem(
       leadingIcon: Symbols.globe,
@@ -198,7 +198,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   }
 
   AppListItem _themeModeItem({required BuildContext context}) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final cubit = context.read<ThemeCubit>();
     final formModel = ReactiveThemeSettingsForm.of(context);
 
@@ -231,7 +231,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   }
 
   AppListItem _colorSourceItem({required BuildContext context}) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final cubit = context.read<ThemeCubit>();
     final formModel = ReactiveThemeSettingsForm.of(context);
 
@@ -274,7 +274,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   }
 
   Widget _colorPickerItem({required BuildContext context}) {
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final formModel = ReactiveThemeSettingsForm.of(context);
 
     return ReactiveValueListenableBuilder<int?>(
@@ -359,7 +359,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
     required int initialColorValue,
   }) async {
     final color = Color(initialColorValue);
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
     final formModel = ReactiveThemeSettingsForm.of(context);
     final themeCubit = context.read<ThemeCubit>();
     final resultColor = await showColorPickerDialog(

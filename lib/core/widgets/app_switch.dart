@@ -16,7 +16,7 @@ class AppSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     // Check loading state safely
     final isLoading = Skeletonizer.of(context).enabled;
-    final colorScheme = AppColors.of(context);
+    final colorScheme = context.colorScheme;
 
     return Container(
       clipBehavior: .antiAlias,

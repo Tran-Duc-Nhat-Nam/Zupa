@@ -25,20 +25,17 @@ class TicketInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = context.colorScheme;
     return Container(
       width: .infinity,
       decoration: BoxDecoration(
-        color: AppColors.of(context).surface,
+        color: colorScheme.surface,
         borderRadius: .circular(8),
       ),
       child: Column(
         children: [
           Padding(padding: const .all(4), child: Text(licenseNumber ?? 'N/A')),
-          Container(
-            height: 1,
-            width: .infinity,
-            color: AppColors.of(context).outline,
-          ),
+          Container(height: 1, width: .infinity, color: colorScheme.outline),
           Expanded(
             child: Padding(
               padding: const .symmetric(vertical: 6),
@@ -56,23 +53,21 @@ class TicketInfoCard extends StatelessWidget {
                             Text(
                               timeIn.format('dd/MM/yyyy hh:mm'),
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: AppColors.of(context).success,
+                                color: colorScheme.success,
                               ),
                             ),
                             if (timeOut != null) ...[
                               Text(
                                 timeOut!.format('dd/MM/yyyy hh:mm'),
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
-                                  color: AppColors.of(context).error,
+                                  color: colorScheme.error,
                                 ),
                               ),
                               Container(
                                 height: 1,
                                 margin: const .symmetric(vertical: 4),
                                 width: .infinity,
-                                color: AppColors.of(
-                                  context,
-                                ).surfaceContainerHighest,
+                                color: colorScheme.surfaceContainerHighest,
                               ),
                               Text(
                                 t.parking.totalTime(
@@ -81,7 +76,7 @@ class TicketInfoCard extends StatelessWidget {
                                 ),
                                 overflow: .fade,
                                 style: AppTextStyles.bodyMediumMedium.copyWith(
-                                  color: AppColors.of(context).onSurfaceVariant,
+                                  color: colorScheme.onSurfaceVariant,
                                 ),
                               ),
                             ],
@@ -89,7 +84,7 @@ class TicketInfoCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    VerticalDivider(color: AppColors.of(context).outline),
+                    VerticalDivider(color: colorScheme.outline),
                     Expanded(
                       flex: 2,
                       child: Padding(
@@ -100,7 +95,7 @@ class TicketInfoCard extends StatelessWidget {
                             Text(
                               t[ticketType],
                               style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: AppColors.of(context).onSurfaceVariant,
+                                color: colorScheme.onSurfaceVariant,
                               ),
                             ),
                             Text(
@@ -109,7 +104,7 @@ class TicketInfoCard extends StatelessWidget {
                                 symbol: '',
                               ).format(price),
                               style: AppTextStyles.bodyLargeSemibold.copyWith(
-                                color: AppColors.of(context).primary,
+                                color: colorScheme.primary,
                               ),
                             ),
                           ],
