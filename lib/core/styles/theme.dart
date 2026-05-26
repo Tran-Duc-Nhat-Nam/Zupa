@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:zupa/core/styles/colors.dart';
 
 enum AppColorSchemeSource { brand, custom, materialYou }
@@ -16,19 +15,18 @@ class AppThemes {
   static const brandSeedColor = Color(0xFF6750A4);
 
   static ThemeData _buildTheme(ColorScheme scheme, AppColors appColors) {
-    return .new(
+    return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
-      textTheme: GoogleFonts.interTextTheme(
-        scheme.brightness == .dark
-            ? ThemeData.dark().textTheme
-            : ThemeData.light().textTheme,
-      ),
-      visualDensity: .adaptivePlatformDensity,
+      textTheme: (scheme.brightness == Brightness.dark
+              ? ThemeData.dark().textTheme
+              : ThemeData.light().textTheme)
+          .apply(fontFamily: 'RobotoFlex'),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: _iconTheme,
       extensions: [appColors],
       appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-      elevatedButtonTheme: .new(
+      elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,

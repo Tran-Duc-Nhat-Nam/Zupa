@@ -1,4 +1,4 @@
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 class AppTextStyles {
   // Private constructor to prevent instantiation, making this a pure utility class.
@@ -6,9 +6,9 @@ class AppTextStyles {
 
   // Define the base styles for the two primary fonts used in the design system.
   // Outfit is used for prominent display and headline roles.
-  // Inter is used for content-heavy roles like titles, body, and labels.
-  static final _displayFont = GoogleFonts.outfit();
-  static final _bodyFont = GoogleFonts.robotoFlex();
+  // RobotoFlex is used for content-heavy roles like titles, body, and labels.
+  static const _displayFont = TextStyle(fontFamily: 'Outfit');
+  static const _bodyFont = TextStyle(fontFamily: 'RobotoFlex');
 
   // --- Display (Outfit) ---
   // Large, short-form text with a high emphasis.
