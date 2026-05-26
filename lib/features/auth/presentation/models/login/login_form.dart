@@ -1,10 +1,11 @@
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
+import 'package:zupa/core/models/app_form_model.dart';
 import 'package:zupa/features/auth/domain/usecases/params/login_params.dart';
 
 part 'login_form.gform.dart';
 
 @Rf()
-class Login {
+class Login extends AppFormModel<LoginParams, Null> {
   final String tenant;
   final String username;
   final String password;
@@ -17,6 +18,7 @@ class Login {
     @RfControl() this.isRemember = false,
   });
 
+  @override
   LoginParams toParams() => .new(
     tenant: tenant,
     username: username,
@@ -24,10 +26,6 @@ class Login {
     isRemember: isRemember,
   );
 
-  factory Login.fromParams(LoginParams params) => .new(
-    tenant: params.tenant,
-    username: params.username,
-    password: params.password,
-    isRemember: params.isRemember,
-  );
+  @override
+  Login fromEntity(Null entity) => .new();
 }
