@@ -50,18 +50,22 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
             hasSafeTopArea: false,
             backgroundColor: colors.surface,
             child: state.maybeWhen(
-              initial: () => const SizedBox(),
+              initial: () => const SizedBox.shrink(),
               checkIn: (controller) => CameraScreen(
                 isOut: false,
                 controller: controller,
-                onTakePicture: () =>
-                    context.read<CheckInCubit>().check(formModel.vehicleTypeControl.value, controller),
+                onTakePicture: () => context.read<CheckInCubit>().check(
+                  formModel.vehicleTypeControl.value,
+                  controller,
+                ),
               ),
               checkOut: (controller) => CameraScreen(
                 isOut: true,
                 controller: controller,
-                onTakePicture: () =>
-                    context.read<CheckInCubit>().check(formModel.vehicleTypeControl.value,controller),
+                onTakePicture: () => context.read<CheckInCubit>().check(
+                  formModel.vehicleTypeControl.value,
+                  controller,
+                ),
               ),
               loading: () => Center(
                 child: LoadingAnimationWidget.staggeredDotsWave(
@@ -178,7 +182,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                           ],
                         ),
                       ),
-                      orElse: () => const SizedBox(),
+                      orElse: () => const SizedBox.shrink(),
                     ),
                   ),
                   state.maybeWhen(
@@ -203,8 +207,9 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                               )
                             : VehicleInfoCard(
                                 ticketNumber: '01223',
-                                licenseNumber:
-                                    context.read<CheckInCubit>().ticketID,
+                                licenseNumber: context
+                                    .read<CheckInCubit>()
+                                    .ticketID,
                               ),
                       ),
                     ),

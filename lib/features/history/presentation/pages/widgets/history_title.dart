@@ -48,7 +48,7 @@ class HistoryTitle extends StatelessWidget {
                     mainAxisAlignment: .center,
                     spacing: 4,
                     children: [
-                      const Expanded(child: SizedBox()),
+                      const Expanded(child: SizedBox.shrink()),
                       Text(
                         ticket.id.toString(),
                         overflow: .ellipsis,
@@ -67,7 +67,7 @@ class HistoryTitle extends StatelessWidget {
                                   size: 20,
                                   color: colorScheme.primary,
                                 )
-                              : const SizedBox(),
+                              : const SizedBox.shrink(),
                         ),
                       ),
                     ],

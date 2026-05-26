@@ -227,7 +227,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             hasSafeBottomArea: true,
             resizeToAvoidBottomInset: true,
             child: state.maybeWhen(
-              initial: () => const SizedBox(),
+              initial: () => const SizedBox.shrink(),
               loadingModel: () => Center(
                 child: Column(
                   mainAxisAlignment: .center,
@@ -251,7 +251,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 ),
               ),
               downloading: (progress) => const Center(
-                child: SizedBox(), // Handled by dialog
+                child: SizedBox.shrink(), // Handled by dialog
               ),
               ready:
                   (
@@ -266,28 +266,28 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                         child: RepaintBoundary(
                           child: ListView.builder(
                             controller: _scrollController,
-                          padding: const .symmetric(vertical: 12),
-                          itemCount:
-                              messages.length +
-                              (currentStreamingResponse != null ? 1 : 0),
-                          itemBuilder: (context, index) {
-                            if (index < messages.length) {
-                              return ChatMessageWidget(
-                                message: messages[index],
-                              );
-                            } else {
-                              return ChatMessageWidget(
-                                message: ChatMessage(
-                                  text: currentStreamingResponse!,
-                                  isUser: false,
-                                  isStreaming: true,
-                                ),
-                              );
-                            }
-                          },
+                            padding: const .symmetric(vertical: 12),
+                            itemCount:
+                                messages.length +
+                                (currentStreamingResponse != null ? 1 : 0),
+                            itemBuilder: (context, index) {
+                              if (index < messages.length) {
+                                return ChatMessageWidget(
+                                  message: messages[index],
+                                );
+                              } else {
+                                return ChatMessageWidget(
+                                  message: ChatMessage(
+                                    text: currentStreamingResponse!,
+                                    isUser: false,
+                                    isStreaming: true,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
                         ),
                       ),
-                    ),
                       _buildInputArea(context, isProcessing),
                     ],
                   ),
@@ -317,7 +317,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   ],
                 ),
               ),
-              orElse: () => const SizedBox(),
+              orElse: () => const SizedBox.shrink(),
             ),
           );
         },

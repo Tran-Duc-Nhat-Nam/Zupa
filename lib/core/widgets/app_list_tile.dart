@@ -228,7 +228,7 @@ class AppListTile extends StatelessWidget {
                                   color: color ?? colors.onSurface,
                                 ),
                               )
-                        : const SizedBox(),
+                        : const SizedBox.shrink(),
                   ),
                   if (isExpandable ||
                       trailing != null ||

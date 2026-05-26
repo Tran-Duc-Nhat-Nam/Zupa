@@ -46,7 +46,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                       color: colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  radioButton ?? const SizedBox(),
+                  radioButton ?? const SizedBox.shrink(),
                 ],
               ),
             ),

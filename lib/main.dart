@@ -55,8 +55,6 @@ Future<void> main() async {
     // Global Error Boundary
     ErrorWidget.builder = (details) => AppErrorScreen(details: details);
 
-
-
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, stack) {
     DebuggerHelper.talker.handle(e, stack, 'Fatal App Initialization Error');
@@ -197,7 +195,7 @@ class _AppViewState extends State<AppView> {
                           },
                         );
                       } else {
-                        return const SizedBox();
+                        return const SizedBox.shrink();
                       }
                     },
                   ),
