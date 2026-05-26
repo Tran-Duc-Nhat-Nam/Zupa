@@ -117,7 +117,7 @@ class _CameraScreenState extends State<CameraScreen> {
         ),
         Expanded(
           child: widget.isOut
-              ? const SizedBox()
+              ? const SizedBox.shrink()
               : const VehicleTypeRadioCards(),
         ),
         Padding(

@@ -6,7 +6,6 @@ import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/core/services/request_service.dart';
 import 'package:zupa/features/home/data/api/home_api.dart';
-import 'package:zupa/features/home/data/models/filter/home_filter_model.dart';
 import 'package:zupa/features/home/data/models/ticket_model.dart';
 import 'package:zupa/features/home/domain/usecases/params/get_ticket_params.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
@@ -25,10 +24,8 @@ class HomeRepositoryImpl implements IHomeRepository {
     RequestToken? token,
   }) async {
     final response = await _networkService.request(
-      request: (cancelToken) => _api.getList(
-        payload: HomeFilterModel.fromEntity(filter),
-        cancelToken: cancelToken,
-      ),
+      request: (cancelToken) =>
+          _api.getList(payload: .fromEntity(filter), cancelToken: cancelToken),
       token: token,
     );
 

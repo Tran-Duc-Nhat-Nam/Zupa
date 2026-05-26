@@ -17,7 +17,7 @@ class GetTicketParams {
     String? keyword,
     DateTime? time,
     VehicleTypeEntity? type,
-  }) => GetTicketParams(
+  }) => .new(
     page: page ?? defaultPageIndex,
     size: size ?? defaultPageSize,
     keyword: keyword ?? '',

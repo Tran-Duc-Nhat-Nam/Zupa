@@ -34,7 +34,7 @@ class TicketTitle extends StatelessWidget {
 
     return Slidable(
       enabled: enabled,
-      startActionPane: ActionPane(
+      startActionPane: .new(
         motion: const ScrollMotion(),
         extentRatio: 0.35,
         children: [
@@ -55,7 +55,7 @@ class TicketTitle extends StatelessWidget {
       ),
 
       // End Action Pane (Right side - was trailingActions)
-      endActionPane: ActionPane(
+      endActionPane: .new(
         motion: const ScrollMotion(),
         extentRatio: 0.25,
         children: [

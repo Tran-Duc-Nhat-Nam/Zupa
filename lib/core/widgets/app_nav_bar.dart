@@ -67,7 +67,7 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
                             children: [
                               child,
                               AnimatedPositioned(
-                                duration: const Duration(milliseconds: 500),
+                                duration: const .new(milliseconds: 500),
                                 curve: Curves.easeInOutQuart,
                                 left: 24,
                                 right: 24,

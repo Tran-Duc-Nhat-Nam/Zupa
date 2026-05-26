@@ -12,33 +12,15 @@ import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 
-class TicketListTab extends StatefulWidget {
+class TicketListTab extends StatelessWidget {
   const TicketListTab({super.key});
 
   @override
-  State<TicketListTab> createState() => _TicketListTabState();
-}
-
-class _TicketListTabState extends State<TicketListTab> {
-  late final EasyRefreshController _refreshController;
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshController = EasyRefreshController(
+  Widget build(BuildContext context) {
+    final refreshController = EasyRefreshController(
       controlFinishLoad: true,
       controlFinishRefresh: true,
     );
-  }
-
-  @override
-  void dispose() {
-    _refreshController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
     final form = ReactiveHomeForm.of(context);
 
@@ -46,12 +28,12 @@ class _TicketListTabState extends State<TicketListTab> {
       listener: (context, state) {
         state.whenOrNull(
           loaded: (tickets, pageIndex) {
-            _refreshController.finishRefresh();
-            _refreshController.finishLoad();
+            refreshController.finishRefresh();
+            refreshController.finishLoad();
           },
           failed: (message) {
-            _refreshController.finishRefresh(.fail);
-            _refreshController.finishLoad(.fail);
+            refreshController.finishRefresh(.fail);
+            refreshController.finishLoad(.fail);
             MessageHelper.showError(
               context,
               message: message != null
@@ -60,8 +42,8 @@ class _TicketListTabState extends State<TicketListTab> {
             );
           },
           empty: () {
-            _refreshController.finishRefresh(.noMore);
-            _refreshController.finishLoad(.noMore);
+            refreshController.finishRefresh(.noMore);
+            refreshController.finishLoad(.noMore);
           },
         );
       },
@@ -93,7 +75,7 @@ class _TicketListTabState extends State<TicketListTab> {
                 failedText: t.common.refresh.failedText,
                 triggerWhenRelease: true,
               ),
-              controller: _refreshController,
+              controller: refreshController,
               onRefresh: () async {
                 await context.read<HomeCubit>().refresh(
                   filter: form?.model.toParams() ?? .initial(),
