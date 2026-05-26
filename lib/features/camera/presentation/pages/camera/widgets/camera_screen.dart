@@ -107,7 +107,9 @@ class _CameraScreenState extends State<CameraScreen> {
                 fit: .cover,
                 child: SizedBox(
                   width: 1000,
-                  child: CameraPreview(widget.controller),
+                  child: RepaintBoundary(
+                    child: CameraPreview(widget.controller),
+                  ),
                 ),
               ),
             ),

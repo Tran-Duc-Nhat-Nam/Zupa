@@ -269,82 +269,84 @@ class _RevenueChart extends StatelessWidget {
 
     final chartItems = items.reversed.take(7).toList().reversed.toList();
 
-    return BarChart(
-      BarChartData(
-        alignment: .spaceAround,
-        maxY:
-            chartItems.fold(
-              0.0,
-              (max, e) =>
-                  e.totalRevenue > max ? e.totalRevenue.toDouble() : max,
-            ) *
-            1.2,
-        barTouchData: BarTouchData(
-          enabled: true,
-          touchTooltipData: BarTouchTooltipData(
-            getTooltipColor: (group) => colorScheme.secondaryContainer,
-            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              return BarTooltipItem(
-                NumberFormat.compact().format(rod.toY),
-                TextStyle(
-                  color: colorScheme.onSecondaryContainer,
-                  fontWeight: .bold,
-                ),
-              );
-            },
-          ),
-        ),
-        titlesData: FlTitlesData(
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: (value, meta) {
-                if (value.toInt() >= 0 && value.toInt() < chartItems.length) {
-                  return Padding(
-                    padding: const .only(top: 8.0),
-                    child: Text(
-                      DateFormat(
-                        'dd/MM',
-                      ).format(chartItems[value.toInt()].date),
-                      style: AppTextStyles.bodyLarge,
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-              reservedSize: 30,
-            ),
-          ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 40,
-              getTitlesWidget: (value, meta) {
-                return Text(
-                  NumberFormat.compact().format(value),
-                  style: AppTextStyles.bodyLarge,
+    return RepaintBoundary(
+      child: BarChart(
+        BarChartData(
+          alignment: BarChartAlignment.spaceAround,
+          maxY:
+              chartItems.fold(
+                0.0,
+                (max, e) =>
+                    e.totalRevenue > max ? e.totalRevenue.toDouble() : max,
+              ) *
+              1.2,
+          barTouchData: BarTouchData(
+            enabled: true,
+            touchTooltipData: BarTouchTooltipData(
+              getTooltipColor: (group) => colorScheme.secondaryContainer,
+              getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                return BarTooltipItem(
+                  NumberFormat.compact().format(rod.toY),
+                  TextStyle(
+                    color: colorScheme.onSecondaryContainer,
+                    fontWeight: FontWeight.bold,
+                  ),
                 );
               },
             ),
           ),
-          topTitles: const AxisTitles(),
-          rightTitles: const AxisTitles(),
-        ),
-        gridData: const FlGridData(show: false),
-        borderData: FlBorderData(show: false),
-        barGroups: List.generate(chartItems.length, (i) {
-          return BarChartGroupData(
-            x: i,
-            barRods: [
-              BarChartRodData(
-                toY: chartItems[i].totalRevenue.toDouble(),
-                color: colorScheme.primary,
-                width: 16,
-                borderRadius: const .vertical(top: .circular(4)),
+          titlesData: FlTitlesData(
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: (value, meta) {
+                  if (value.toInt() >= 0 && value.toInt() < chartItems.length) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        DateFormat(
+                          'dd/MM',
+                        ).format(chartItems[value.toInt()].date),
+                        style: AppTextStyles.bodyLarge,
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+                reservedSize: 30,
               ),
-            ],
-          );
-        }),
+            ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 40,
+                getTitlesWidget: (value, meta) {
+                  return Text(
+                    NumberFormat.compact().format(value),
+                    style: AppTextStyles.bodyLarge,
+                  );
+                },
+              ),
+            ),
+            topTitles: const AxisTitles(),
+            rightTitles: const AxisTitles(),
+          ),
+          gridData: const FlGridData(show: false),
+          borderData: FlBorderData(show: false),
+          barGroups: List.generate(chartItems.length, (i) {
+            return BarChartGroupData(
+              x: i,
+              barRods: [
+                BarChartRodData(
+                  toY: chartItems[i].totalRevenue.toDouble(),
+                  color: colorScheme.primary,
+                  width: 16,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                ),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }

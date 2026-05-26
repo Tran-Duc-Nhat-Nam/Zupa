@@ -263,8 +263,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   ) => Column(
                     children: [
                       Expanded(
-                        child: ListView.builder(
-                          controller: _scrollController,
+                        child: RepaintBoundary(
+                          child: ListView.builder(
+                            controller: _scrollController,
                           padding: const .symmetric(vertical: 12),
                           itemCount:
                               messages.length +
@@ -286,6 +287,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           },
                         ),
                       ),
+                    ),
                       _buildInputArea(context, isProcessing),
                     ],
                   ),
