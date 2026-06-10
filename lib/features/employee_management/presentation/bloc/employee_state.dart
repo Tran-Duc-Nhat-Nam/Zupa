@@ -6,13 +6,16 @@ sealed class EmployeeState with _$EmployeeState {
 
   const factory EmployeeState.loading() = Loading;
 
-  const factory EmployeeState.refreshing(List<Employee> employees) = Refreshing;
+  const factory EmployeeState.refreshing(List<EmployeeModel> employees) =
+      Refreshing;
 
-  const factory EmployeeState.loadingMore(List<Employee> employees) =
+  const factory EmployeeState.loadingMore(List<EmployeeModel> employees) =
       LoadingMore;
 
-  const factory EmployeeState.loaded(List<Employee> employees, int pageIndex) =
-      Loaded;
+  const factory EmployeeState.loaded(
+    List<EmployeeModel> employees,
+    int pageIndex,
+  ) = Loaded;
 
   const factory EmployeeState.failed(String? message) = Failed;
 

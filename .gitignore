@@ -61,3 +61,4 @@ app.*.map.json
 
 # Flutter Demon user preferences (not tracked)
 .fdemon/settings.local.toml
+lib/firebase_options.dart

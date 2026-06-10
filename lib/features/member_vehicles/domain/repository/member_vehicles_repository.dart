@@ -1,4 +1,3 @@
-import 'package:zupa/core/data/response/success/success_response.dart';
 import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
@@ -15,17 +14,17 @@ abstract class IMemberVehiclesRepository {
     RequestToken? token,
   });
 
-  Future<RequestState<SuccessResponse>> createMemberVehicle({
+  Future<RequestState<dynamic>> createMemberVehicle({
     required MemberVehicleEntity vehicle,
     RequestToken? token,
   });
 
-  Future<RequestState<SuccessResponse>> updateMemberVehicle({
+  Future<RequestState<dynamic>> updateMemberVehicle({
     required MemberVehicleEntity vehicle,
     RequestToken? token,
   });
 
-  Future<RequestState<SuccessResponse>> deleteMemberVehicle({
+  Future<RequestState<dynamic>> deleteMemberVehicle({
     required String id,
     RequestToken? token,
   });

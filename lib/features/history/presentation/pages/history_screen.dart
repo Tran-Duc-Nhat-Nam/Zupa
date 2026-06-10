@@ -19,7 +19,7 @@ class HistoryScreen extends StatelessWidget {
       create: (listContext) => getIt<HistoryCubit>()..init(),
       child: HistoryFormBuilder(
         model: .fromParams(.initial()),
-        builder: (context, _, _) {
+        builder: (_, _, _) {
           return AppScreen(
             isChildScrollable: true,
             hasParentView: true,

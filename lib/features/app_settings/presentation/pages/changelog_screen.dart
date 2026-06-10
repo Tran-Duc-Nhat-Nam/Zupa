@@ -114,7 +114,7 @@ class ChangelogScreen extends StatelessWidget {
     bool isLast,
   ) {
     final colorScheme = context.colorScheme;
-    final (icon, label) = _getActionMetadata(action);
+    final config = CommitAction.fromString(action);
 
     return Container(
       margin: const .only(bottom: 4),
@@ -134,10 +134,10 @@ class ChangelogScreen extends StatelessWidget {
             padding: const .fromLTRB(20, 16, 20, 8),
             child: Row(
               children: [
-                Icon(icon, size: 20, color: colorScheme.primary),
+                Icon(config.icon, size: 20, color: colorScheme.primary),
                 const SizedBox(width: 8),
                 Text(
-                  label.toUpperCase(),
+                  config.label.toUpperCase(),
                   style: AppTextStyles.bodyLargeBold.copyWith(
                     color: colorScheme.primary,
                   ),
@@ -202,20 +202,29 @@ class ChangelogScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  (IconData, String) _getActionMetadata(String action) {
-    return switch (action) {
-      'feat' => (Symbols.add_circle_rounded, 'Features'),
-      'fix' => (Symbols.build_circle_rounded, 'Bug Fixes'),
-      'docs' => (Symbols.description_rounded, 'Documentation'),
-      'style' => (Symbols.palette_rounded, 'Styling'),
-      'refactor' => (Symbols.auto_fix_high_rounded, 'Refactor'),
-      'perf' => (Symbols.speed_rounded, 'Performance'),
-      'test' => (Symbols.checklist_rtl_rounded, 'Testing'),
-      'build' => (Symbols.package_2_rounded, 'Build'),
-      'ci' => (Symbols.sync_alt_rounded, 'CI/CD'),
-      'chore' => (Symbols.settings_suggest_rounded, 'Maintenance'),
-      _ => (Symbols.history_rounded, 'Other'),
-    };
-  }
+enum CommitAction {
+  feat(Symbols.add_circle_rounded, 'Features'),
+  fix(Symbols.build_circle_rounded, 'Bug Fixes'),
+  docs(Symbols.description_rounded, 'Documentation'),
+  style(Symbols.palette_rounded, 'Styling'),
+  refactor(Symbols.auto_fix_high_rounded, 'Refactor'),
+  perf(Symbols.speed_rounded, 'Performance'),
+  test(Symbols.checklist_rtl_rounded, 'Testing'),
+  build(Symbols.package_2_rounded, 'Build'),
+  ci(Symbols.sync_alt_rounded, 'CI/CD'),
+  chore(Symbols.settings_suggest_rounded, 'Maintenance'),
+  other(Symbols.history_rounded, 'Other');
+
+  // Fields to store the metadata
+  final IconData icon;
+  final String label;
+
+  // Constant constructor
+  const CommitAction(this.icon, this.label);
+
+  /// Helper to find the enum from a String (e.g., from a JSON or API)
+  static CommitAction fromString(String action) =>
+      .values.firstWhere((e) => e.name == action, orElse: () => .other);
 }

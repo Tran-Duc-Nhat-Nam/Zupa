@@ -2,7 +2,6 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
 
 @injectable
 class DeleteMemberVehicleUseCase {
@@ -10,7 +9,7 @@ class DeleteMemberVehicleUseCase {
 
   DeleteMemberVehicleUseCase(this._repository);
 
-  Future<RequestState<SuccessResponse>> call({
+  Future<RequestState<dynamic>> call({
     required String id,
     RequestToken? token,
   }) async {

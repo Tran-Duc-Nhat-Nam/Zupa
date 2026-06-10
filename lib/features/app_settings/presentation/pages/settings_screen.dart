@@ -98,17 +98,15 @@ class SettingsScreen extends StatelessWidget {
                   text: t.auth.logout.title,
                   leadingColor: colorScheme.error,
                   color: colorScheme.error,
-                  onTap: () {
-                    DialogHelper.showModal(
-                      context,
-                      subtitleText: t.auth.logout.subtitle,
-                      titleText: t.auth.logout.title,
-                      type: .warning,
-                      okText: t.common.actions.ok,
-                      cancelText: t.common.actions.cancel,
-                      onOk: context.read<AuthCubit>().logOut,
-                    );
-                  },
+                  onTap: () => DialogHelper.showModal(
+                    context,
+                    subtitleText: t.auth.logout.subtitle,
+                    titleText: t.auth.logout.title,
+                    type: .warning,
+                    okText: t.common.actions.ok,
+                    cancelText: t.common.actions.cancel,
+                    onOk: context.read<AuthCubit>().logOut,
+                  ),
                 ),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:zupa/core/data/response/success/success_response.dart';
-import 'package:zupa/features/home/data/models/ticket_model.dart';
+import 'package:zupa/features/employee_management/data/model/employee_model.dart';
 
 part 'employee_api.g.dart';
 
@@ -14,7 +14,7 @@ abstract class EmployeeAPI {
   }) = _EmployeeAPI;
 
   @GET('/hrm/staff-meta-data')
-  Future<SuccessResponse<List<HomeTicketModel>>> getEmployees({
+  Future<SuccessResponse<List<EmployeeModel>>> getEmployees({
     @CancelRequest() CancelToken? cancelToken,
   });
 }

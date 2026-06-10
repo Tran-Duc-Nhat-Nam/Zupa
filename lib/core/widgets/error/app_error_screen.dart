@@ -63,8 +63,8 @@ class AppErrorScreen extends StatelessWidget {
     await file.writeAsString(log);
 
     await SharePlus.instance.share(
-      ShareParams(
-        files: [XFile(filePath)],
+      .new(
+        files: [.new(filePath)],
         subject: 'Zupa App Crash Log',
         text: 'Here is the error log for the Zupa app crash.',
       ),
@@ -101,7 +101,7 @@ class AppErrorScreen extends StatelessWidget {
                 padding: const .all(24),
                 decoration: BoxDecoration(
                   color: colorScheme.errorContainer,
-                  shape: BoxShape.circle,
+                  shape: .circle,
                 ),
                 child: Icon(
                   Symbols.error_rounded,
@@ -157,8 +157,8 @@ class AppErrorScreen extends StatelessWidget {
                   padding: const .all(16),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerLow,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: colorScheme.outlineVariant),
+                    borderRadius: .circular(12),
+                    border: .all(color: colorScheme.outlineVariant),
                   ),
                   child: SingleChildScrollView(
                     scrollDirection: .horizontal,

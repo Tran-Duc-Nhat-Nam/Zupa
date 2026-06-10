@@ -26,7 +26,6 @@ sealed class VehicleTypeModel with _$VehicleTypeModel {
   VehicleTypeEntity toEntity() =>
       .new(value: value, name: name, icon: icon, color: color);
 
-  factory VehicleTypeModel.fromEntity(VehicleTypeEntity entity) {
-    return .new(value: entity.value, name: entity.name, icon: entity.icon);
-  }
+  factory VehicleTypeModel.fromEntity(VehicleTypeEntity entity) =>
+      .new(value: entity.value, name: entity.name, icon: entity.icon);
 }

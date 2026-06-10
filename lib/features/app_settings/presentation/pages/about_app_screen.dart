@@ -116,7 +116,7 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                     context,
                     titleText: t.common.version.upToDate,
                     subtitleText: t.common.version.noUpdateAvailable,
-                    type: AppDialogType.success,
+                    type: .success,
                     okText: t.common.actions.close,
                   ),
                   orElse: () {},

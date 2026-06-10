@@ -9,7 +9,6 @@ class AppDateTimePicker extends StatelessWidget {
   const AppDateTimePicker({
     super.key,
     this.required = false,
-    this.customValidators,
     this.value,
     this.onChanged,
     this.firstDate,
@@ -22,7 +21,6 @@ class AppDateTimePicker extends StatelessWidget {
   final DateTime? value;
   final DateTime? firstDate;
   final DateTime? lastDate;
-  final List<FormFieldValidator<String>>? customValidators;
   final void Function(DateTime?)? onChanged;
 
   @override

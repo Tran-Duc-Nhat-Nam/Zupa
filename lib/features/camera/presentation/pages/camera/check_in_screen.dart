@@ -34,15 +34,13 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
   Widget build(BuildContext context) {
     final colors = context.colorScheme;
     return CheckInFormBuilder(
-      builder: (context, formModel, child) => BlocProvider<CheckInCubit>(
+      builder: (context, formModel, _) => BlocProvider<CheckInCubit>(
         create: (_) => CheckInCubit()..init(widget.isCheckOut),
         child: BlocConsumer<CheckInCubit, CheckInState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              submitSuccess: () =>
-                  context.router.replaceAll([const LoginRoute()]),
-            );
-          },
+          listener: (context, state) => state.whenOrNull(
+            submitSuccess: () =>
+                context.router.replaceAll([const LoginRoute()]),
+          ),
           builder: (context, state) => AppScreen(
             appBarColor: colors.surface,
             isClose: true,

@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/core/resource/request_token.dart';
-import 'package:zupa/features/employee_management/data/model/employee.dart';
+import 'package:zupa/features/employee_management/data/model/employee_model.dart';
 import 'package:zupa/features/employee_management/domain/repository/employee_repository.dart';
 
 part 'employee_cubit.freezed.dart';

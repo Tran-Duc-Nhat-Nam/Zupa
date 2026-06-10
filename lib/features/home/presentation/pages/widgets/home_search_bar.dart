@@ -10,6 +10,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
+import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
 import 'package:zupa/features/home/presentation/models/home_form.dart';
 
@@ -21,36 +22,36 @@ class HomeSearchBar extends StatelessWidget {
     final colorScheme = context.colorScheme;
     final form = ReactiveHomeForm.of(context);
     return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        return Skeletonizer(
-          enabled: state is Loading,
-          child: ReactiveValueListenableBuilder<String>(
-            formControl: form?.keywordControl,
-            builder: (context, control, child) => AppTextField(
-              hintText: t.parking.ticketSearch,
-              borderRadius: 100,
-              prefix: Icon(
-                Symbols.search_rounded,
+      builder: (context, state) => Skeletonizer(
+        enabled: state is Loading,
+        child: AppInputWrapper<String>(
+          control: form?.keywordControl,
+          builder: (value, onChanged, errorText) => AppTextField(
+            hintText: t.parking.ticketSearch,
+            borderRadius: 100,
+            prefix: Icon(
+              Symbols.search_rounded,
+              size: 24,
+              color: colorScheme.onSurfaceVariant,
+            ),
+            suffix: InkWell(
+              child: Icon(
+                Symbols.filter_list_rounded,
                 size: 24,
                 color: colorScheme.onSurfaceVariant,
               ),
-              suffix: InkWell(
-                child: Icon(
-                  Symbols.filter_list_rounded,
-                  size: 24,
-                  color: colorScheme.onSurfaceVariant,
-                ),
-                onTap: () => _showFilter(context, form, colorScheme),
-              ),
-              onChanged: (value) {
-                context.read<HomeCubit>().refresh(
-                  filter: form?.model.toParams() ?? .initial(keyword: value),
-                );
-              },
+              onTap: () => _showFilter(context, form, colorScheme),
             ),
+            initialValue: value,
+            onChanged: (value) {
+              onChanged?.call(value);
+              context.read<HomeCubit>().refresh(
+                filter: form?.model.toParams() ?? .initial(keyword: value),
+              );
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
