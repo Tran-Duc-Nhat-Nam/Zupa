@@ -72,7 +72,8 @@ class _AppTextFieldState extends State<AppTextField> {
   void didUpdateWidget(AppTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
     // If the form value changes externally, update the text field's text
-    if (widget.initialValue != oldWidget.initialValue && widget.initialValue != _controller.text) {
+    if (widget.initialValue != oldWidget.initialValue &&
+        widget.initialValue != _controller.text) {
       _controller.text = widget.initialValue ?? '';
     }
   }
@@ -82,7 +83,7 @@ class _AppTextFieldState extends State<AppTextField> {
     super.initState();
     // Default visibility logic for passwords
     _isObscured = widget.isPassword || widget.isPasswordConfirm;
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller = widget.controller ?? .new(text: widget.initialValue);
   }
 
   @override
@@ -106,11 +107,14 @@ class _AppTextFieldState extends State<AppTextField> {
           controller: widget.controller ?? _controller,
           focusNode: widget.focusNode,
           // If obscureText is explicitly provided, use it; otherwise use internal state
-          obscureText: widget.obscureText ?? (isPasswordType ? _isObscured : false),
+          obscureText:
+              widget.obscureText ?? (isPasswordType ? _isObscured : false),
           textAlign: widget.textAlign ?? .start,
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction ?? .next,
-          onEditingComplete: widget.onEditingComplete ?? () => FocusScope.of(context).nextFocus(),
+          onEditingComplete:
+              widget.onEditingComplete ??
+              () => FocusScope.of(context).nextFocus(),
           onChanged: widget.onChanged,
           textAlignVertical: .center,
           style: AppTextStyles.bodyMedium.copyWith(
@@ -138,7 +142,8 @@ class _AppTextFieldState extends State<AppTextField> {
               color: colorsScheme.onSurfaceVariant,
             ),
             filled: true,
-            fillColor: widget.backgroundColor ?? colorsScheme.surfaceContainerHigh,
+            fillColor:
+                widget.backgroundColor ?? colorsScheme.surfaceContainerHigh,
             border: _getBorder(colorsScheme, colorsScheme.outline),
             enabledBorder: _getBorder(colorsScheme, colorsScheme.outline),
             focusedBorder: _getBorder(colorsScheme, colorsScheme.primary),
@@ -151,51 +156,50 @@ class _AppTextFieldState extends State<AppTextField> {
     );
   }
 
-  Widget? _buildPrefix(dynamic colorsScheme) {
-    if (widget.prefix == null && widget.prefixIcon == null) return null;
-    return Padding(
-      padding: const .only(left: 16, right: 8),
-      child: widget.prefix ??
-          Icon(
-            widget.prefixIcon,
-            color: colorsScheme.onSurfaceVariant,
-            size: 20,
-          ),
-    );
-  }
+  Widget? _buildPrefix(dynamic colorsScheme) =>
+      widget.prefix == null && widget.prefixIcon == null
+      ? Padding(
+          padding: const .only(left: 16, right: 8),
+          child:
+              widget.prefix ??
+              Icon(
+                widget.prefixIcon,
+                color: colorsScheme.onSurfaceVariant,
+                size: 20,
+              ),
+        )
+      : null;
 
-  Widget? _buildSuffix(dynamic colorsScheme, bool isPasswordType) {
-    if (isPasswordType) {
-      return IconButton(
-        iconSize: 20,
-        padding: const .symmetric(horizontal: 16),
-        icon: Icon(
-          _isObscured ? Symbols.visibility_off_rounded : Symbols.visibility_rounded,
-          color: colorsScheme.onSurfaceVariant,
-        ),
-        onPressed: () => setState(() => _isObscured = !_isObscured),
+  Widget? _buildSuffix(dynamic colorsScheme, bool isPasswordType) =>
+      isPasswordType
+      ? IconButton(
+          iconSize: 20,
+          padding: const .symmetric(horizontal: 16),
+          icon: Icon(
+            _isObscured
+                ? Symbols.visibility_off_rounded
+                : Symbols.visibility_rounded,
+            color: colorsScheme.onSurfaceVariant,
+          ),
+          onPressed: () => setState(() => _isObscured = !_isObscured),
+        )
+      : widget.suffix == null && widget.suffixIcon == null
+      ? Padding(
+          padding: const .only(left: 8, right: 16),
+          child:
+              widget.suffix ??
+              Icon(
+                widget.suffixIcon,
+                color: colorsScheme.onSurfaceVariant,
+                size: 20,
+              ),
+        )
+      : null;
+
+  InputBorder _getBorder(dynamic colorsScheme, Color borderColor) =>
+      widget.border ??
+      OutlineInputBorder(
+        borderRadius: .circular(widget.borderRadius),
+        borderSide: widget.hasBorder ? .new(color: borderColor) : .none,
       );
-    }
-
-    if (widget.suffix == null && widget.suffixIcon == null) return null;
-
-    return Padding(
-      padding: const .only(left: 8, right: 16),
-      child: widget.suffix ??
-          Icon(
-            widget.suffixIcon,
-            color: colorsScheme.onSurfaceVariant,
-            size: 20,
-          ),
-    );
-  }
-
-  InputBorder _getBorder(dynamic colorsScheme, Color borderColor) {
-    if (widget.border != null) return widget.border!;
-
-    return OutlineInputBorder(
-      borderRadius: .circular(widget.borderRadius),
-      borderSide: widget.hasBorder ? .new(color: borderColor) : .none,
-    );
-  }
 }

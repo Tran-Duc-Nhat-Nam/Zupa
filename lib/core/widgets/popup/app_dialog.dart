@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:material3_expressive_loading_indicator/material3_expressive_loading_indicator.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_loading_widget.dart';
 
 abstract class DialogHelper {
   /// Show a loading dialog with an optional [message].
@@ -366,12 +366,12 @@ class DownloadProgressDialog extends StatelessWidget {
 
     return Align(
       child: Container(
-        constraints: const BoxConstraints(minWidth: 280, minHeight: 180),
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        padding: const EdgeInsets.all(24),
+        constraints: const .new(minWidth: 280, minHeight: 180),
+        margin: const .symmetric(horizontal: 24),
+        padding: const .all(24),
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHigh,
-          borderRadius: BorderRadius.circular(28),
+          color: colorScheme.surfaceContainer,
+          borderRadius: .circular(28),
         ),
         child: Material(
           color: Colors.transparent,
@@ -382,55 +382,47 @@ class DownloadProgressDialog extends StatelessWidget {
               final int displayPercent = (progress * 100).toInt();
 
               return Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: .min,
+                spacing: 16,
                 children: [
                   Icon(
                     icon ?? Symbols.cloud_download_rounded,
                     size: 32,
                     color: colorScheme.primary,
                   ),
-                  const SizedBox(height: 16),
                   Text(
                     title ?? t.common.version.downloading,
                     style: AppTextStyles.titleMediumBold.copyWith(
                       color: colorScheme.onSurface,
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
-                  const SizedBox(height: 16),
-
                   // Progress Bar
-                  LinearPercentIndicator(
-                    percent: progress.clamp(0.0, 1.0),
-                    lineHeight: 8,
-                    padding: EdgeInsets.zero,
-                    barRadius: const Radius.circular(8),
+                  ExpressiveLinearProgressIndicator(
+                    value: progress.clamp(0.0, 1.0),
                     backgroundColor: colorScheme.surfaceContainerHighest,
-                    linearGradient: LinearGradient(
-                      colors: [colorScheme.primary, colorScheme.secondary],
-                    ),
+                    color: colorScheme.primary,
                   ),
-
-                  const SizedBox(height: 12),
-
-                  // Percentage Text
-                  Text(
-                    '$displayPercent%',
-                    style: AppTextStyles.bodyLargeSemibold.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-
-                  if (subtitle != null) ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      subtitle!,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: colorScheme.onSurfaceVariant,
+                  Column(
+                    spacing: 8,
+                    children: [
+                      // Percentage Text
+                      Text(
+                        '$displayPercent%',
+                        style: AppTextStyles.bodyLargeSemibold.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                      if (subtitle != null)
+                        Text(
+                          subtitle!,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                          textAlign: .center,
+                        ),
+                    ],
+                  ),
                 ],
               );
             },
@@ -452,7 +444,7 @@ class LoadingDialog extends StatelessWidget {
 
     return Align(
       child: Container(
-        constraints: const BoxConstraints(minWidth: 120, minHeight: 120),
+        constraints: const .new(minWidth: 200, minHeight: 200),
         padding: const .all(24),
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHigh,
@@ -460,27 +452,7 @@ class LoadingDialog extends StatelessWidget {
         ),
         child: Material(
           color: Colors.transparent,
-          child: Column(
-            mainAxisSize: .min,
-            children: [
-              LoadingAnimationWidget.discreteCircle(
-                color: colorScheme.primary,
-                secondRingColor: colorScheme.secondary,
-                thirdRingColor: colorScheme.tertiary,
-                size: 36,
-              ),
-              if (message != null && message!.isNotEmpty) ...[
-                const SizedBox(height: 16),
-                Text(
-                  message!,
-                  style: AppTextStyles.bodyMediumMedium.copyWith(
-                    color: colorScheme.onSurface,
-                  ),
-                  textAlign: .center,
-                ),
-              ],
-            ],
-          ),
+          child: AppLoadingWidget(label: message),
         ),
       ),
     );

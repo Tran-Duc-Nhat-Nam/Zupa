@@ -5,7 +5,6 @@ import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/core/services/request_service.dart';
 import 'package:zupa/features/parking/data/api/parking_lot_api.dart';
-import 'package:zupa/features/parking/data/model/filters/parking_lot_filter_model.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_entity.dart';
 import 'package:zupa/features/parking/domain/repository/parking_lot_repository.dart';
 import 'package:zupa/features/parking/domain/usecases/get_list/params/get_parking_lot_list_params.dart';
@@ -23,18 +22,16 @@ class ParkingLotRepositoryImpl
     required GetParkingLotListParams params,
     RequestToken? token,
   }) async {
-    final payload = ParkingLotFilterModel.fromEntity(params);
-
     final response = await request(
       request: (cancelToken) =>
-          _api.getList(payload: payload, cancelToken: cancelToken),
+          _api.getList(payload: .fromEntity(params), cancelToken: cancelToken),
       token: token,
     );
 
     return response.when(
       success: (data) => Success(data.data.map((e) => e.toEntity()).toList()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 
@@ -51,7 +48,7 @@ class ParkingLotRepositoryImpl
     return response.when(
       success: (data) => Success(data.data.toEntity()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 }

@@ -9,9 +9,8 @@ sealed class HistoryState with _$HistoryState {
   const factory HistoryState.refreshing(List<HistoryTicketEntity> tickets) =
       Refreshing;
 
-  const factory HistoryState.loadingMore(
-    List<HistoryTicketEntity> tickets,
-  ) = LoadingMore;
+  const factory HistoryState.loadingMore(List<HistoryTicketEntity> tickets) =
+      LoadingMore;
 
   const factory HistoryState.loaded(
     List<HistoryTicketEntity> tickets,
@@ -20,5 +19,5 @@ sealed class HistoryState with _$HistoryState {
 
   const factory HistoryState.failed(String? message) = Failed;
 
-  const factory HistoryState.empty() = Emtpy;
+  const factory HistoryState.empty() = Empty;
 }

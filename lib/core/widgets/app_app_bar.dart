@@ -61,7 +61,7 @@ class _AppAppBarState extends State<AppAppBar> {
                             style: TextStyle(color: colors.onSurface),
                           ),
                         )))
-              .withAppAnimation(delay: const Duration(milliseconds: 100)),
+              .withAppAnimation(delay: const .new(milliseconds: 100)),
       titleTextStyle: AppTextStyles.bodyLargeSemibold,
       automaticallyImplyLeading: false,
       leading: widget.leading != null
@@ -70,7 +70,7 @@ class _AppAppBarState extends State<AppAppBar> {
           ? IconButton(
               constraints: const .new(),
               padding: const .only(left: 24),
-              style: const ButtonStyle(
+              style: const .new(
                 overlayColor: WidgetStateColor.transparent,
                 tapTargetSize: .shrinkWrap,
               ),
@@ -114,9 +114,7 @@ class _AppAppBarState extends State<AppAppBar> {
                     ]
                   : [const SizedBox(width: 12)])
               .map(
-                (e) => e.withAppAnimation(
-                  delay: const Duration(milliseconds: 200),
-                ),
+                (e) => e.withAppAnimation(delay: const .new(milliseconds: 200)),
               )
               .toList(),
     );

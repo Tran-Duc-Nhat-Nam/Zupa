@@ -44,10 +44,10 @@ class AppAnimation extends StatelessWidget {
   /// Staggered list animation helper
   static Widget staggeredList({
     required List<Widget> children,
-    Duration interval = const Duration(milliseconds: 50),
+    Duration interval = const .new(milliseconds: 50),
   }) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: children
           .map(
             (child) => AppAnimation(
@@ -73,7 +73,7 @@ extension AppAnimationExtension on Widget {
   }) {
     return AppAnimation(
       key: key,
-      delay: delay ?? Duration(milliseconds: index * 50),
+      delay: delay ?? .new(milliseconds: index * 50),
       animate: animate,
       child: this,
     );

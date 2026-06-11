@@ -205,7 +205,7 @@ class AppListTile extends StatelessWidget {
             splashColor: colors.primary.withAlpha(20),
             highlightColor: colors.primary.withAlpha(10),
             child: Container(
-              constraints: const BoxConstraints(minHeight: 56),
+              constraints: const .new(minHeight: 56),
               padding:
                   padding ?? const .symmetric(horizontal: 16, vertical: 24),
               child: Row(
@@ -236,7 +236,7 @@ class AppListTile extends StatelessWidget {
                     const SizedBox(width: 16),
                     trailing ??
                         AnimatedRotation(
-                          duration: const Duration(milliseconds: 200),
+                          duration: const .new(milliseconds: 200),
                           turns: isExpanded ? 0.5 : 0,
                           child: Icon(
                             isExpandable ? Icons.expand_more : trailingIcon,
@@ -252,7 +252,7 @@ class AppListTile extends StatelessWidget {
         ),
         // Animated reveal based on the isExpanded boolean
         AnimatedSize(
-          duration: const Duration(milliseconds: 250),
+          duration: const .new(milliseconds: 250),
           curve: Curves.easeInOut,
           child: SizedBox(
             width: .infinity,

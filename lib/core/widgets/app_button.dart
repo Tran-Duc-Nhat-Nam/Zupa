@@ -13,8 +13,8 @@ class AppButton extends StatefulWidget {
     this.fitContent = false,
     this.padding,
     this.icon,
-    this.theme = AppButtonTheme.primary,
-    this.color = AppButtonColor.info,
+    this.theme = .primary,
+    this.color = .info,
     this.height = 56,
     this.width,
     this.isLoading = false,
@@ -52,7 +52,7 @@ class _AppButtonState extends State<AppButton> {
     // Check if enough time has passed since the last tap
     if (_lastClickTime == null ||
         now.difference(_lastClickTime!) >
-            Duration(milliseconds: widget.debounceTime)) {
+            .new(milliseconds: widget.debounceTime)) {
       _lastClickTime = now;
       originalOnPressed();
     } else {
@@ -167,7 +167,7 @@ class _AppButtonState extends State<AppButton> {
       ),
       AppButtonTheme.outline => OutlinedButton.styleFrom(
         foregroundColor: baseColor,
-        side: BorderSide(
+        side: .new(
           color: isButtonDisabled
               ? colorScheme.onSurface.withAlpha(35)
               : baseColor,

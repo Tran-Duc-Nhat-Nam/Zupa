@@ -27,7 +27,7 @@ class EmployeeRepositoryImpl
     return response.when(
       success: (data) => Success(data.data),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 }

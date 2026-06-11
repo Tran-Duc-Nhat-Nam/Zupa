@@ -18,15 +18,16 @@ class AppThemes {
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
-      textTheme: (scheme.brightness == Brightness.dark
-              ? ThemeData.dark().textTheme
-              : ThemeData.light().textTheme)
-          .apply(fontFamily: 'RobotoFlex'),
-      visualDensity: VisualDensity.adaptivePlatformDensity,
+      textTheme:
+          (scheme.brightness == .dark
+                  ? ThemeData.dark().textTheme
+                  : ThemeData.light().textTheme)
+              .apply(fontFamily: 'RobotoFlex'),
+      visualDensity: .adaptivePlatformDensity,
       iconTheme: _iconTheme,
       extensions: [appColors],
       appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-      elevatedButtonTheme: ElevatedButtonThemeData(
+      elevatedButtonTheme: .new(
         style: ElevatedButton.styleFrom(
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
@@ -66,7 +67,7 @@ class AppThemes {
     ColorScheme? dynamicColorScheme,
     Color? customSeedColor,
   }) {
-    final Color seedColor = switch (colorSource) {
+    final seedColor = switch (colorSource) {
       .materialYou => dynamicColorScheme?.primary ?? brandSeedColor,
       .custom => customSeedColor ?? brandSeedColor,
       .brand => brandSeedColor,
@@ -76,7 +77,6 @@ class AppThemes {
         ? dynamicColorScheme
         : ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
 
-    final appColors = AppColors.fromColorScheme(scheme);
-    return _buildTheme(scheme, appColors);
+    return _buildTheme(scheme, .fromColorScheme(scheme));
   }
 }
