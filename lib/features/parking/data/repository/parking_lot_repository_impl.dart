@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/resource/request_response.dart';
 import 'package:zupa/core/resource/request_state.dart';
@@ -15,7 +14,7 @@ class ParkingLotRepositoryImpl
     implements IParkingLotRepository {
   final ParkingLotAPI _api;
 
-  ParkingLotRepositoryImpl(Dio dio) : _api = ParkingLotAPI(dio);
+  ParkingLotRepositoryImpl(this._api);
 
   @override
   Future<RequestState<List<ParkingLotEntity>>> getParkingLots({
