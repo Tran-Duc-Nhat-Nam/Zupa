@@ -29,18 +29,12 @@ class StorageService {
   Future<void> setAuth(
     String accessToken, {
     Duration duration = const .new(hours: 1),
-  }) async {
-    await _setSecureStringWithTTL('accessToken', accessToken, duration);
-  }
+  }) async => _setSecureStringWithTTL('accessToken', accessToken, duration);
 
   /// Get token from Secure Storage. Returns null if expired or missing.
-  Future<String?> getAuth() async {
-    return _getSecureStringWithTTL('accessToken');
-  }
+  Future<String?> getAuth() async => _getSecureStringWithTTL('accessToken');
 
-  Future<void> removeAuth() async {
-    await _secureStorage.delete(key: 'accessToken');
-  }
+  Future<void> removeAuth() async => _secureStorage.delete(key: 'accessToken');
 
   // ===========================================================================
   // ACCOUNT INFO (SECURE STORAGE)
@@ -50,33 +44,37 @@ class StorageService {
     String tenant,
     String username,
     String password,
-  ) async {
-    await _secureStorage.write(key: 'accountTenant', value: tenant);
-    await _secureStorage.write(key: 'accountUsername', value: username);
-    await _secureStorage.write(key: 'accountPassword', value: password);
-  }
+  ) async => (
+    _secureStorage.write(key: 'accountTenant', value: tenant),
+    _secureStorage.write(key: 'accountUsername', value: username),
+    _secureStorage.write(key: 'accountPassword', value: password),
+  ).wait;
 
   Future<AccountRequest> getAccountInfo() async {
+    final (tenant, username, password) = await (
+      _secureStorage.read(key: 'accountTenant'),
+      _secureStorage.read(key: 'accountUsername'),
+      _secureStorage.read(key: 'accountPassword'),
+    ).wait;
     return AccountRequest(
-      tenant: await _secureStorage.read(key: 'accountTenant') ?? '',
-      username: await _secureStorage.read(key: 'accountUsername') ?? '',
-      password: await _secureStorage.read(key: 'accountPassword') ?? '',
+      tenant: tenant ?? '',
+      username: username ?? '',
+      password: password ?? '',
     );
   }
 
-  Future<void> removeAccountInfo() async {
-    await _secureStorage.delete(key: 'accountTenant');
-    await _secureStorage.delete(key: 'accountUsername');
-    await _secureStorage.delete(key: 'accountPassword');
-  }
+  Future<void> removeAccountInfo() async => (
+    _secureStorage.delete(key: 'accountTenant'),
+    _secureStorage.delete(key: 'accountUsername'),
+    _secureStorage.delete(key: 'accountPassword'),
+  ).wait;
 
   // ===========================================================================
   // USER INFO (SECURE STORAGE)
   // ===========================================================================
 
-  Future<void> setUser(User user) async {
-    await _secureStorage.write(key: 'user', value: jsonEncode(user.toJson()));
-  }
+  Future<void> setUser(User user) async =>
+      _secureStorage.write(key: 'user', value: jsonEncode(user.toJson()));
 
   Future<User?> getUser() async {
     final String? rawJson = await _secureStorage.read(key: 'user');
@@ -88,26 +86,24 @@ class StorageService {
     }
   }
 
-  Future<void> removeUser() async {
-    await _secureStorage.delete(key: 'user');
-  }
+  Future<void> removeUser() async => _secureStorage.delete(key: 'user');
 
   // ===========================================================================
   // APP PREFERENCES (SHARED PREFERENCES)
   // Non-sensitive data is kept in SharedPrefs for performance.
   // ===========================================================================
 
-  Future<void> setBiometricAuth(bool isBiometricAuth) async {
-    await _sharedPreferences.setBool('isBiometricAuth', isBiometricAuth);
-  }
+  Future<void> setBiometricAuth(bool isBiometricAuth) async =>
+      _sharedPreferences.setBool('isBiometricAuth', isBiometricAuth);
 
-  Future<bool?> getBiometricAuth() async {
-    return _sharedPreferences.getBool('isBiometricAuth');
-  }
+  Future<bool?> getBiometricAuth() async =>
+      _sharedPreferences.getBool('isBiometricAuth');
 
   Future<void> setTheme({required SetThemeParams params}) async {
-    await _sharedPreferences.setInt('themeMode', params.themeMode.index);
-    await _sharedPreferences.setInt('colorSource', params.colorSource.index);
+    (
+      _sharedPreferences.setInt('themeMode', params.themeMode.index),
+      _sharedPreferences.setInt('colorSource', params.colorSource.index),
+    ).wait;
     if (params.seedColorValue != null) {
       await _sharedPreferences.setInt('seedColorValue', params.seedColorValue!);
     } else {
@@ -116,9 +112,11 @@ class StorageService {
   }
 
   Future<ThemeSettings> getTheme() async {
-    final themeModeIndex = await _sharedPreferences.getInt('themeMode');
-    final colorSourceIndex = await _sharedPreferences.getInt('colorSource');
-    final seedColorValue = await _sharedPreferences.getInt('seedColorValue');
+    final (themeModeIndex, colorSourceIndex, seedColorValue) = await (
+      _sharedPreferences.getInt('themeMode'),
+      _sharedPreferences.getInt('colorSource'),
+      _sharedPreferences.getInt('seedColorValue'),
+    ).wait;
 
     return ThemeSettings(
       themeMode: themeModeIndex != null ? .values[themeModeIndex] : .system,
@@ -138,70 +136,59 @@ class StorageService {
 
   Future<AppLocalization> getLocalization() async {
     final value = await _sharedPreferences.getString('locale');
-    return AppLocalization.values.firstWhere(
+    return .values.firstWhere(
       (element) => element.name == value,
       orElse: () => .followSystem,
     );
   }
 
-  Future<void> setDebuggerMode(bool isOn) async {
-    await _sharedPreferences.setBool('isDebuggerMode', isOn);
-  }
+  Future<void> setDebuggerMode(bool isOn) async =>
+      _sharedPreferences.setBool('isDebuggerMode', isOn);
 
-  Future<bool> getDebuggerMode() async {
-    return await _sharedPreferences.getBool('isDebuggerMode') == true;
-  }
+  Future<bool> getDebuggerMode() async =>
+      await _sharedPreferences.getBool('isDebuggerMode') ?? false;
 
-  Future<void> setWarningCapacity(SetGeneralConfigParams params) async {
-    await _sharedPreferences.setBool(
-      'isWarningCapacity',
-      params.isWarningCapacity,
-    );
-    await _sharedPreferences.setInt(
+  Future<void> setWarningCapacity(SetGeneralConfigParams params) async => (
+    _sharedPreferences.setBool('isWarningCapacity', params.isWarningCapacity),
+    _sharedPreferences.setInt(
       'warningCapacityThreshold',
       params.warningCapacityThreshold,
-    );
-  }
+    ),
+  ).wait;
 
   Future<GeneralConfigEntity> getWarningCapacity() async {
-    final isWarningCapacity =
-        await _sharedPreferences.getBool('isWarningCapacity') ?? false;
-    final warningCapacityThreshold =
-        await _sharedPreferences.getInt('warningCapacityThreshold') ?? 0;
+    final (isWarningCapacity, warningCapacityThreshold) = await (
+      _sharedPreferences.getBool('isWarningCapacity'),
+      _sharedPreferences.getInt('warningCapacityThreshold'),
+    ).wait;
     return GeneralConfigEntity(
-      isWarning: isWarningCapacity,
-      warningThreshold: warningCapacityThreshold,
+      isWarning: isWarningCapacity ?? false,
+      warningThreshold: warningCapacityThreshold ?? 0,
     );
   }
 
-  Future<void> setAnimation(bool isOn) async {
-    await _sharedPreferences.setBool('isAnimation', isOn);
-  }
+  Future<void> setAnimation(bool isOn) async =>
+      _sharedPreferences.setBool('isAnimation', isOn);
 
-  Future<bool> getAnimation() async {
-    return await _sharedPreferences.getBool('isAnimation') ?? true;
-  }
+  Future<bool> getAnimation() async =>
+      await _sharedPreferences.getBool('isAnimation') ?? true;
 
-  Future<void> setUISettings(SetUISettingsParams params) async {
-    await _sharedPreferences.setBool(
-      'isFloatingNavbar',
-      params.isFloatingNavbar,
-    );
-    await _sharedPreferences.setBool(
-      'isShowNavbarLabel',
-      params.isShowNavbarLabel,
-    );
-    await _sharedPreferences.setBool('isGlassmorphism', params.isGlassmorphism);
-  }
+  Future<void> setUISettings(SetUISettingsParams params) async => (
+    _sharedPreferences.setBool('isFloatingNavbar', params.isFloatingNavbar),
+    _sharedPreferences.setBool('isShowNavbarLabel', params.isShowNavbarLabel),
+    _sharedPreferences.setBool('isGlassmorphism', params.isGlassmorphism),
+  ).wait;
 
   Future<UISettingsEntity> getUISettings() async {
-    return UISettingsEntity(
-      isFloatingNavbar:
-          await _sharedPreferences.getBool('isFloatingNavbar') ?? false,
-      isShowNavbarLabel:
-          await _sharedPreferences.getBool('isShowNavbarLabel') ?? false,
-      isGlassmorphism:
-          await _sharedPreferences.getBool('isGlassmorphism') ?? false,
+    final (isFloatingNavbar, isShowNavbarLabel, isGlassmorphism) = await (
+      _sharedPreferences.getBool('isFloatingNavbar'),
+      _sharedPreferences.getBool('isShowNavbarLabel'),
+      _sharedPreferences.getBool('isGlassmorphism'),
+    ).wait;
+    return .new(
+      isFloatingNavbar: isFloatingNavbar ?? false,
+      isShowNavbarLabel: isShowNavbarLabel ?? false,
+      isGlassmorphism: isGlassmorphism ?? false,
     );
   }
 
