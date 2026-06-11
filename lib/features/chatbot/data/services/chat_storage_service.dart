@@ -2,8 +2,8 @@ import 'package:injectable/injectable.dart';
 import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:zupa/features/chatbot/data/collections/chat_session_collection.dart';
-import 'package:zupa/features/chatbot/domain/models/chat_session.dart';
-import 'package:zupa/features/chatbot/presentation/bloc/chatbot_state.dart';
+import 'package:zupa/features/chatbot/domain/entity/chat_message.dart';
+import 'package:zupa/features/chatbot/domain/entity/chat_session.dart';
 
 @lazySingleton
 class ChatStorageService {

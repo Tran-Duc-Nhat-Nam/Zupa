@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/features/chatbot/presentation/bloc/chatbot_state.dart';
+import 'package:zupa/features/chatbot/domain/entity/chat_message.dart';
 
 class ChatMessageWidget extends StatelessWidget {
   final ChatMessage message;
@@ -53,7 +53,7 @@ class ChatMessageWidget extends StatelessWidget {
                   BoxShadow(
                     color: colors.shadow.withAlpha(123),
                     blurRadius: 8,
-                    offset: const Offset(0, 2),
+                    offset: const .new(0, 2),
                   ),
                 ],
               ),
@@ -106,7 +106,7 @@ class ChatMessageWidget extends StatelessWidget {
                   ),
                   blockquoteDecoration: BoxDecoration(
                     border: Border(
-                      left: BorderSide(
+                      left: .new(
                         color: isUser
                             ? colors.onPrimary.withAlpha(100)
                             : colors.outline,

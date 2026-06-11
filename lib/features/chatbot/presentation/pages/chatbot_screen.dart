@@ -10,9 +10,9 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
-import 'package:zupa/features/chatbot/domain/models/chat_session.dart';
+import 'package:zupa/features/chatbot/domain/entity/chat_session.dart';
 import 'package:zupa/features/chatbot/presentation/bloc/chatbot_cubit.dart';
-import 'package:zupa/features/chatbot/presentation/bloc/chatbot_state.dart';
+import 'package:zupa/features/chatbot/domain/entity/chat_message.dart';
 import 'package:zupa/features/chatbot/presentation/widgets/chat_message_widget.dart';
 
 @RoutePage()
@@ -28,29 +28,25 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   final _scrollController = ScrollController();
   bool _isDialogShowing = false;
 
-  void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-    });
-  }
+  void _scrollToBottom() => WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const .new(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  });
 
   void _showHistorySheet(
     BuildContext context,
     List<ChatSession> sessions,
     ChatbotCubit cubit,
-  ) {
-    showModalBottomSheet(
+  ) => showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) {
-        return DraggableScrollableSheet(
+      builder: (bottomSheetContext) => DraggableScrollableSheet(
           expand: false,
           initialChildSize: 0.6,
           maxChildSize: 0.9,
@@ -140,10 +136,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               ),
             );
           },
-        );
-      },
+        ),
     );
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,16 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/features/chatbot/domain/models/chat_session.dart';
-
-part 'chatbot_state.freezed.dart';
-
-@freezed
-sealed class ChatMessage with _$ChatMessage {
-  const factory ChatMessage({
-    required String text,
-    required bool isUser,
-    @Default(false) bool isStreaming,
-  }) = _ChatMessage;
-}
+part of 'chatbot_cubit.dart';
 
 @freezed
 sealed class ChatbotState with _$ChatbotState {
