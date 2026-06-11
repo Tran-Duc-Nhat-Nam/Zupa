@@ -21,3 +21,19 @@ sealed class HistoryState with _$HistoryState {
 
   const factory HistoryState.empty() = Empty;
 }
+
+
+
+extension HistoryStateExtension on HistoryState {
+  List<HistoryTicketEntity> get items => switch (this) {
+    Loaded(:final tickets) => tickets,
+    Refreshing(:final tickets) => tickets,
+    LoadingMore(:final tickets) => tickets,
+    _ => [],
+  };
+
+  bool get isLoading => switch (this) {
+    Loading() => true,
+    _ => false,
+  };
+}

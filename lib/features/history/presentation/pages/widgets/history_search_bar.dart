@@ -26,33 +26,29 @@ class HistorySearchBar extends StatelessWidget {
     return Padding(
       padding: const .only(top: 8),
       child: BlocBuilder<HistoryCubit, HistoryState>(
-        builder: (context, state) {
-          return Skeletonizer(
-            enabled: state is Loading,
-            child: ReactiveValueListenableBuilder<String>(
-              formControl: form?.keywordControl,
-              builder: (context, control, child) => AppTextField(
-                hintText: t.parking.ticketSearch,
-                borderRadius: 100,
-                backgroundColor: colorScheme.surfaceContainerLow,
-                prefixIcon: Symbols.search_rounded,
-                suffix: InkWell(
-                  child: Icon(
-                    Symbols.filter_alt_rounded,
-                    size: 20,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                  onTap: () => _showFilter(context, form),
+        builder: (context, state) => Skeletonizer(
+          enabled: state.isLoading,
+          child: ReactiveValueListenableBuilder<String>(
+            formControl: form?.keywordControl,
+            builder: (context, control, _) => AppTextField(
+              hintText: t.parking.ticketSearch,
+              borderRadius: 100,
+              backgroundColor: colorScheme.surfaceContainerLow,
+              prefixIcon: Symbols.search_rounded,
+              suffix: InkWell(
+                child: Icon(
+                  Symbols.filter_alt_rounded,
+                  size: 20,
+                  color: colorScheme.onSurfaceVariant,
                 ),
-                onChanged: (value) {
-                  context.read<HistoryCubit>().refresh(
-                    filter: form?.model.toParams() ?? .initial(keyword: value),
-                  );
-                },
+                onTap: () => _showFilter(context, form),
+              ),
+              onChanged: (value) => context.read<HistoryCubit>().refresh(
+                filter: form?.model.toParams() ?? .initial(keyword: value),
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

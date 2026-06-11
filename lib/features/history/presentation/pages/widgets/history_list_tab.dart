@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
-import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 import 'package:zupa/features/history/presentation/bloc/history_cubit.dart';
 import 'package:zupa/features/history/presentation/models/form/history_form.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
@@ -38,72 +36,52 @@ class HistoryListTab extends StatelessWidget {
           },
         );
       },
-      builder: (listContext, state) {
-        final List<HistoryTicketEntity> items = state.maybeWhen(
-          loaded: (tickets, _) => tickets,
-          refreshing: (tickets) => tickets,
-          loadingMore: (tickets) => tickets,
-          orElse: () => [],
-        );
-
-        return Skeletonizer(
-          enabled: state is Loading,
-          child: EasyRefresh(
-            header: const MaterialHeader(triggerWhenRelease: true),
-            footer: ClassicFooter(
-              dragText: t.common.refresh.dragText,
-              armedText: t.common.refresh.armedText,
-              readyText: t.common.refresh.releaseToLoadMore,
-              processingText: t.common.refresh.processingText,
-              processedText: t.common.refresh.processedText,
-              noMoreText: t.common.refresh.noMoreText,
-              failedText: t.common.refresh.failedText,
-              triggerWhenRelease: true,
-            ),
-            controller: refreshController,
-            onRefresh: () async {
-              await context.read<HistoryCubit>().refresh(
-                filter: form?.model.toParams() ?? .initial(),
-              );
-              refreshController.finishRefresh();
-            },
-            onLoad: () async {
-              await context.read<HistoryCubit>().refresh(
-                filter: form?.model.toParams() ?? .initial(),
-              );
-              refreshController.finishLoad();
-            },
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const SizedBox(height: 32),
-              itemBuilder: (c, i) =>
-                  Padding(
-                    padding: .only(top: i == 0 ? 16 : 0),
-                    child: HistoryListSection(
-                      tickets: items.isNotEmpty
-                          ? items
-                          : List.generate(
-                              10,
-                              (index) => HistoryTicketEntity(
-                                code: 'Placeholder',
-                                id: -1,
-                                timeIn: .now(),
-                                timeOut: .now(),
-                                isFlagError: false,
-                                siteId: 'A much Longer placeholder',
-                                type: vehicleTypes.first,
-                              ),
-                            ),
-                    ),
-                  ).animateIn(
-                    key: ValueKey('history_item_$i'),
-                    index: i,
-                    animate: state is Loading,
-                  ),
-              itemCount: items.isNotEmpty ? items.length : 10,
-            ),
+      builder: (listContext, state) => Skeletonizer(
+        enabled: state.isLoading,
+        child: EasyRefresh(
+          header: const MaterialHeader(triggerWhenRelease: true),
+          footer: MaterialFooter(
+            triggerWhenRelease: true,
+            infiniteHitOver: false,
+            infiniteOffset: 200,
           ),
-        );
-      },
+          controller: refreshController,
+          onRefresh: () => context.read<HistoryCubit>().refresh(
+            filter: form?.model.toParams() ?? .initial(),
+          ),
+          onLoad: () => context.read<HistoryCubit>().refresh(
+            filter: form?.model.toParams() ?? .initial(),
+          ),
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 32),
+            itemBuilder: (c, i) =>
+                Padding(
+                  padding: .only(top: i == 0 ? 16 : 0),
+                  child: HistoryListSection(
+                    tickets: state.items.isNotEmpty
+                        ? state.items
+                        : List.generate(
+                            10,
+                            (index) => .new(
+                              code: 'Placeholder',
+                              id: -1,
+                              timeIn: .now(),
+                              timeOut: .now(),
+                              isFlagError: false,
+                              siteId: 'A much Longer placeholder',
+                              type: vehicleTypes.first,
+                            ),
+                          ),
+                  ),
+                ).animateIn(
+                  key: ValueKey('history_item_$i'),
+                  index: i,
+                  animate: state.isLoading,
+                ),
+            itemCount: state.items.isNotEmpty ? state.items.length : 10,
+          ),
+        ),
+      ),
     );
   }
 }

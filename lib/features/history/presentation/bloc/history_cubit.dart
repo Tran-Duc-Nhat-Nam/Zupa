@@ -35,11 +35,7 @@ class HistoryCubit extends Cubit<HistoryState> {
   }
 
   Future<void> refresh({required GetHistoryParams filter}) async {
-    final List<HistoryTicketEntity> items = state.maybeMap(
-      loaded: (params) => [...params.tickets],
-      orElse: () => [],
-    );
-    emit(.refreshing(items));
+    emit(.refreshing(state.items));
     _getToken?.cancel();
     _getToken = .new();
     final response = await _getHistory(filter: filter, token: _getToken);
@@ -55,15 +51,12 @@ class HistoryCubit extends Cubit<HistoryState> {
   }
 
   Future<void> loadMore({required GetHistoryParams filter}) async {
-    final List<HistoryTicketEntity> items = state.maybeMap(
-      loaded: (params) => [...params.tickets],
-      orElse: () => [],
-    );
+    final List<HistoryTicketEntity> tempItems = state.items;
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex,
       orElse: () => 1,
     );
-    emit(.loadingMore(items));
+    emit(.loadingMore(tempItems));
     _getToken?.cancel();
     _getToken = .new();
     final newFilter = GetHistoryParams(
@@ -76,11 +69,14 @@ class HistoryCubit extends Cubit<HistoryState> {
     final result = await _getHistory(filter: newFilter);
     switch (result) {
       case Success(data: final newItems):
-        items.addAll(newItems);
+        tempItems.addAll(newItems);
         emit(
-          items.isEmpty
+          tempItems.isEmpty
               ? const .empty()
-              : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+              : .loaded(
+                  tempItems,
+                  newItems.isEmpty ? pageIndex : pageIndex + 1,
+                ),
         );
       case Error(:final message):
         emit(.failed(message));

@@ -14,29 +14,25 @@ class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<HistoryCubit>(
-      create: (listContext) => getIt<HistoryCubit>()..init(),
-      child: HistoryFormBuilder(
-        model: .fromParams(.initial()),
-        builder: (_, _, _) {
-          return AppScreen(
-            isChildScrollable: true,
-            hasParentView: true,
-            title: t.parking.history,
-            hasAppBar: false,
-            child: const Padding(
-              padding: .symmetric(horizontal: 36),
-              child: Column(
-                children: [
-                  HistorySearchBar(),
-                  Expanded(child: HistoryListTab()),
-                ],
-              ),
-            ),
-          );
-        },
+  Widget build(BuildContext context) => BlocProvider<HistoryCubit>(
+    create: (listContext) => getIt<HistoryCubit>()..init(),
+    child: HistoryFormBuilder(
+      model: .fromParams(.initial()),
+      builder: (_, _, _) => AppScreen(
+        isChildScrollable: true,
+        hasParentView: true,
+        title: t.parking.history,
+        hasAppBar: false,
+        child: const Padding(
+          padding: .symmetric(horizontal: 36),
+          child: Column(
+            children: [
+              HistorySearchBar(),
+              Expanded(child: HistoryListTab()),
+            ],
+          ),
+        ),
       ),
-    );
-  }
+    ),
+  );
 }
