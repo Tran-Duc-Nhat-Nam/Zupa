@@ -20,8 +20,8 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     emit(.loaded(mode));
   }
 
-  void changeLocale(AppLocalization mode) {
-    _setLocale(params: mode);
+  Future<void> changeLocale(AppLocalization mode) async {
+    await _setLocale(params: mode);
     emit(.loaded(mode));
   }
 }

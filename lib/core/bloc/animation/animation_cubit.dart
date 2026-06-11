@@ -8,16 +8,15 @@ part 'animation_state.dart';
 
 @lazySingleton
 class AnimationCubit extends Cubit<AnimationState> {
-  AnimationCubit(this._storageService) : super(const AnimationState.loaded(true));
+  AnimationCubit(this._storageService) : super(const .loaded());
 
   final StorageService _storageService;
 
-  Future<void> loadInfo() async {
-    emit(AnimationState.loaded(await _storageService.getAnimation()));
-  }
+  Future<void> loadInfo() async =>
+      emit(.loaded(isOn: await _storageService.getAnimation()));
 
-  void changeAnimationMode(bool isOn) {
-    _storageService.setAnimation(isOn);
-    emit(AnimationState.loaded(isOn));
+  Future<void> changeAnimationMode(bool isOn) async {
+    await _storageService.setAnimation(isOn);
+    emit(.loaded(isOn: isOn));
   }
 }

@@ -8,7 +8,5 @@ class GetThemeUseCase {
 
   GetThemeUseCase(this._storageService);
 
-  Future<ThemeSettings> call() async {
-    return _storageService.getTheme();
-  }
+  Future<ThemeSettings> call() async => _storageService.getTheme();
 }

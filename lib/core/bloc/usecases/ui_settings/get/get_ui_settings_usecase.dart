@@ -8,7 +8,5 @@ class GetUISettingsUseCase {
 
   GetUISettingsUseCase(this._storageService);
 
-  Future<UISettingsEntity> call() async {
-    return _storageService.getUISettings();
-  }
+  Future<UISettingsEntity> call() async => _storageService.getUISettings();
 }

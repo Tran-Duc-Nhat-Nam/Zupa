@@ -11,7 +11,7 @@ class ThemeSettings {
   final AppColorSchemeSource colorSource;
   final int? seedColorValue;
 
-  ThemeSettings({
+  const ThemeSettings({
     @RfControl() this.themeMode = ThemeMode.system,
     @RfControl() this.colorSource = AppColorSchemeSource.brand,
     @RfControl() this.seedColorValue,

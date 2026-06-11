@@ -9,7 +9,7 @@ class SetLocaleUseCase {
 
   SetLocaleUseCase(this._storageService);
 
-  Future<void> call({required AppLocalization params}) async {
+  Future<void> call({required AppLocalization params}) {
     LocaleSettings.setLocaleRaw(params.name);
     return _storageService.setLocalization(params);
   }

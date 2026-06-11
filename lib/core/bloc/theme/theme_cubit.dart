@@ -11,19 +11,15 @@ part 'theme_state.dart';
 
 @lazySingleton
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit(this._setTheme, this._getTheme) : super(ThemeState.loaded(ThemeSettings()));
+  ThemeCubit(this._setTheme, this._getTheme) : super(const .loaded());
 
   final SetThemeUseCase _setTheme;
   final GetThemeUseCase _getTheme;
 
-  Future<void> loadTheme() async {
-    final settings = await _getTheme();
-    emit(.loaded(settings));
-  }
+  Future<void> loadTheme() async => emit(.loaded(settings: await _getTheme()));
 
-  void changeTheme({required SetThemeParams params}) async {
+  Future<void> changeTheme({required SetThemeParams params}) async {
     await _setTheme(params: params);
-    final settings = await _getTheme();
-    emit(.loaded(settings));
+    emit(.loaded(settings: await _getTheme()));
   }
 }

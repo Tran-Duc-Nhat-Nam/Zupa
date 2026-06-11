@@ -4,7 +4,7 @@ part of 'animation_cubit.dart';
 sealed class AnimationState with _$AnimationState {
   const factory AnimationState.initial() = Initial;
 
-  const factory AnimationState.loaded(bool isOn) = Loaded;
+  const factory AnimationState.loaded({@Default(true) bool isOn}) = Loaded;
 }
 
 extension AnimationStateExtension on AnimationState {

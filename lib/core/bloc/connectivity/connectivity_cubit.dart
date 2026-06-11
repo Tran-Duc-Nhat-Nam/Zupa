@@ -17,26 +17,15 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
 
   Future<void> monitorConnectivity() async {
     // Initial check
-    final isConnected = await _networkInfo.isConnected;
-    _emitState(isConnected);
+    _emitState(await _networkInfo.isConnected);
 
     // Listen for real-time changes
     _subscription = _networkInfo.onStatusChanged.listen((status) {
-      if (status == .connected) {
-        emit(const .connected());
-      } else {
-        emit(const .disconnected());
-      }
+      _emitState(status == .connected);
     });
   }
 
-  void _emitState(bool isConnected) {
-    if (isConnected) {
-      emit(const .connected());
-    } else {
-      emit(const .disconnected());
-    }
-  }
+  void _emitState(bool isConnected) => emit(isConnected ? const .connected() : const .disconnected());
 
   @override
   Future<void> close() {

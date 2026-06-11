@@ -8,7 +8,5 @@ class SetThemeUseCase {
 
   SetThemeUseCase(this._storageService);
 
-  Future<void> call({required SetThemeParams params}) async {
-    return _storageService.setTheme(params: params);
-  }
+  Future<void> call({required SetThemeParams params}) async => _storageService.setTheme(params: params);
 }

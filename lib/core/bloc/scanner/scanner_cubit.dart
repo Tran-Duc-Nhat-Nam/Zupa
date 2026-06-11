@@ -32,13 +32,9 @@ class ScannerCubit extends Cubit<ScannerState> {
     }
   }
 
-  Future<void> reset() async {
-    final isNfcAvailable =
-        await NfcManager.instance.checkAvailability() == .enabled;
-    if (isNfcAvailable) {
-      emit(const .loaded());
-    } else {
-      emit(const .failed());
-    }
-  }
+  Future<void> reset() async => emit(
+    (await NfcManager.instance.checkAvailability() == .enabled)
+        ? const .loaded()
+        : const .failed(),
+  );
 }

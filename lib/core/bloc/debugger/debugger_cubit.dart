@@ -12,12 +12,11 @@ class DebuggerCubit extends Cubit<DebuggerState> {
 
   final StorageService _storageService;
 
-  Future<void> loadDebugger() async {
-    emit(.loaded(await _storageService.getDebuggerMode()));
-  }
+  Future<void> loadDebugger() async =>
+      emit(.loaded(await _storageService.getDebuggerMode()));
 
-  void changeDebuggerMode(bool isOn) {
-    _storageService.setDebuggerMode(isOn);
+  Future<void> changeDebuggerMode(bool isOn) async {
+    await _storageService.setDebuggerMode(isOn);
     emit(.loaded(isOn));
   }
 }

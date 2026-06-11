@@ -66,7 +66,8 @@ class AppSiteSelector extends StatelessWidget {
                       BlocBuilder<SiteCubit, SiteState>(
                         builder: (context, state) {
                           final siteName = state.maybeWhen(
-                            loaded: (siteList, currentSite) => currentSite?.name ?? _parkingLots[0],
+                            loaded: (siteList, currentSite) =>
+                                currentSite?.name ?? _parkingLots[0],
                             orElse: () => _parkingLots[0],
                           );
                           return Text(
@@ -100,92 +101,86 @@ class AppSiteSelector extends StatelessWidget {
   ) {
     WoltModalSheet.show(
       context: context,
-      pageListBuilder: (context) {
-        return [
-          WoltModalSheetPage(
-            enableDrag: true,
-            backgroundColor: colors.surfaceContainerLow,
-            hasTopBarLayer: true,
-            topBarTitle: Text(
-              t.common.info.site,
-              style: AppTextStyles.bodyLargeSemibold,
-            ),
-            isTopBarLayerAlwaysVisible: true,
-            trailingNavBarWidget: IconButton(
-              icon: const Icon(Symbols.close_rounded),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            stickyActionBar: Padding(
-              padding: const .only(left: 24, top: 0, right: 24, bottom: 16),
-              child: AppButton(
-                height: 48,
-                onPressed: () {
-                  siteCubit.changeSite('');
-                  Navigator.of(context).pop();
-                },
-                text: t.common.actions.apply,
-              ),
-            ),
-            child: Padding(
-              padding: const .only(bottom: 80, top: 16),
-              child: AppRadioGroup<String>(
-                items: _parkingLots,
-                isVertical: true,
-                showRadio: false,
-                itemBuilder:
-                    (context, item, isSelected, onSelect, radioButton) =>
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: onSelect,
-                            child: Container(
-                              width: .infinity,
-                              padding: const .symmetric(
-                                vertical: 16,
-                                horizontal: 24,
-                              ),
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? colors.primaryContainer.withAlpha(80)
-                                    : null,
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Symbols.location_on_rounded,
-                                    size: 20,
-                                    color: isSelected
-                                        ? colors.primary
-                                        : colors.onSurfaceVariant,
-                                    fill: isSelected ? 1 : 0,
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Text(
-                                    item,
-                                    style: AppTextStyles.bodyLarge.copyWith(
-                                      color: isSelected
-                                          ? colors.primary
-                                          : colors.onSurface,
-                                      fontWeight: isSelected ? .w600 : .w400,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  if (isSelected)
-                                    Icon(
-                                      Symbols.check_rounded,
-                                      color: colors.primary,
-                                      size: 20,
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-              ),
+      pageListBuilder: (context) => [
+        WoltModalSheetPage(
+          enableDrag: true,
+          backgroundColor: colors.surfaceContainerLow,
+          hasTopBarLayer: true,
+          topBarTitle: Text(
+            t.common.info.site,
+            style: AppTextStyles.bodyLargeSemibold,
+          ),
+          isTopBarLayerAlwaysVisible: true,
+          trailingNavBarWidget: IconButton(
+            icon: const Icon(Symbols.close_rounded),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          stickyActionBar: Padding(
+            padding: const .only(left: 24, top: 0, right: 24, bottom: 16),
+            child: AppButton(
+              height: 48,
+              onPressed: () {
+                siteCubit.changeSite('');
+                Navigator.of(context).pop();
+              },
+              text: t.common.actions.apply,
             ),
           ),
-        ];
-      },
+          child: Padding(
+            padding: const .only(bottom: 80, top: 16),
+            child: AppRadioGroup<String>(
+              items: _parkingLots,
+              isVertical: true,
+              showRadio: false,
+              itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: onSelect,
+                      child: Container(
+                        width: .infinity,
+                        padding: const .symmetric(vertical: 16, horizontal: 24),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? colors.primaryContainer.withAlpha(80)
+                              : null,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Symbols.location_on_rounded,
+                              size: 20,
+                              color: isSelected
+                                  ? colors.primary
+                                  : colors.onSurfaceVariant,
+                              fill: isSelected ? 1 : 0,
+                            ),
+                            const SizedBox(width: 16),
+                            Text(
+                              item,
+                              style: AppTextStyles.bodyLarge.copyWith(
+                                color: isSelected
+                                    ? colors.primary
+                                    : colors.onSurface,
+                                fontWeight: isSelected ? .w600 : .w400,
+                              ),
+                            ),
+                            const Spacer(),
+                            if (isSelected)
+                              Icon(
+                                Symbols.check_rounded,
+                                color: colors.primary,
+                                size: 20,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

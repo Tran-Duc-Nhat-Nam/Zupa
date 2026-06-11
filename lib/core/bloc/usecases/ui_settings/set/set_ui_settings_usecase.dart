@@ -8,7 +8,5 @@ class SetUISettingsUseCase {
 
   SetUISettingsUseCase(this._storageService);
 
-  Future<void> call({required SetUISettingsParams params}) async {
-    return _storageService.setUISettings(params);
-  }
+  Future<void> call({required SetUISettingsParams params}) async => _storageService.setUISettings(params);
 }
