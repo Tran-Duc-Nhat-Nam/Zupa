@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/models/user/user.dart';
-import 'package:zupa/core/data/request/account/account_request.dart';
 import 'package:zupa/core/resource/request_response.dart';
 import 'package:zupa/core/resource/request_token.dart';
 import 'package:zupa/core/resource/request_state.dart';
 import 'package:zupa/core/services/request_service.dart';
 import 'package:zupa/features/auth/data/api/auth_api.dart';
-import 'package:zupa/features/auth/data/models/requests/change_password_request.dart';
 import 'package:zupa/features/auth/data/models/responses/auth_response.dart';
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';
 import 'package:zupa/features/auth/domain/usecases/params/change_password_params.dart';
@@ -27,23 +25,22 @@ class AuthenticationRepositoryImpl
     required LoginParams params,
     RequestToken? token,
   }) async {
-    final payload = AccountRequest(
-      tenant: params.tenant,
-      username: params.username,
-      password: params.password,
-    );
-
     final response = await request(
-      request: (cancelToken) =>
-          _api.login(payload: payload, cancelToken: cancelToken),
+      request: (cancelToken) => _api.login(
+        payload: .new(
+          tenant: params.tenant,
+          username: params.username,
+          password: params.password,
+        ),
+        cancelToken: cancelToken,
+      ),
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 
@@ -52,25 +49,22 @@ class AuthenticationRepositoryImpl
     required ChangePasswordParams params,
     RequestToken? token,
   }) async {
-    final payload = ChangePasswordRequest(
-      oldPassword: params.currentPassword,
-      newPassword: params.newPassword,
-    );
-
     final response = await request(
       request: (cancelToken) => _api.changePassword(
         id: params.id.toString(),
-        payload: payload,
+        payload: .new(
+          oldPassword: params.currentPassword,
+          newPassword: params.newPassword,
+        ),
         cancelToken: cancelToken,
       ),
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 }

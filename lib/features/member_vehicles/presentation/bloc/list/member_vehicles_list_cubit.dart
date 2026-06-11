@@ -26,16 +26,14 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       filter: .initial(),
       token: _getToken,
     );
-    result.whenOrNull(
-      success: (items) {
-        if (items.isEmpty) {
-          emit(const .empty());
-        } else {
-          emit(.loaded(items, defaultPageIndex));
-        }
-      },
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success(:final data):
+        emit(.loaded(data, defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   void refresh({required GetMemberVehicleListParams filter}) async {
@@ -50,12 +48,14 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       filter: filter,
       token: _getToken,
     );
-    result.whenOrNull(
-      success: (data) => data.isEmpty
-          ? emit(const .empty())
-          : emit(.loaded(data, defaultPageIndex)),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success(:final data):
+        emit(.loaded(data, defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   void loadMore({required GetMemberVehicleListParams filter}) async {
@@ -82,19 +82,20 @@ class MemberVehiclesListCubit extends Cubit<MemberVehiclesListState> {
       filter: newFilter,
       token: _getToken,
     );
-    result.whenOrNull(
-      success: (newItems) {
+
+    switch (result) {
+      case Success(data: final newItems):
         items.addAll(newItems);
         emit(
           items.isEmpty
               ? const .empty()
               : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
         );
-      },
-      error: (message) {
+      case Error(:final message):
         emit(.failed(message));
-      },
-    );
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   @override

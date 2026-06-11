@@ -24,12 +24,14 @@ class HistoryCubit extends Cubit<HistoryState> {
     _getToken = .new();
     final response = await _getHistory(filter: .initial(), token: _getToken);
 
-    response.whenOrNull(
-      success: (data) => data.isEmpty
-          ? emit(const .empty())
-          : emit(.loaded(data, defaultPageIndex)),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (response) {
+      case Success(:final data):
+        emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   Future<void> refresh({required GetHistoryParams filter}) async {
@@ -42,12 +44,14 @@ class HistoryCubit extends Cubit<HistoryState> {
     _getToken = .new();
     final response = await _getHistory(filter: filter, token: _getToken);
 
-    response.whenOrNull(
-      success: (data) => data.isEmpty
-          ? emit(const .empty())
-          : emit(.loaded(data, defaultPageIndex)),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (response) {
+      case Success(:final data):
+        emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   Future<void> loadMore({required GetHistoryParams filter}) async {
@@ -70,19 +74,19 @@ class HistoryCubit extends Cubit<HistoryState> {
       type: filter.type,
     );
     final result = await _getHistory(filter: newFilter);
-    result.whenOrNull(
-      success: (newItems) {
+    switch (result) {
+      case Success(data: final newItems):
         items.addAll(newItems);
         emit(
           items.isEmpty
               ? const .empty()
               : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
         );
-      },
-      error: (message) {
+      case Error(:final message):
         emit(.failed(message));
-      },
-    );
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   @override

@@ -24,11 +24,10 @@ class EmployeeRepositoryImpl
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 }

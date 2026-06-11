@@ -26,12 +26,14 @@ class RevenueCubit extends Cubit<RevenueState> {
     _getToken = .new();
     final response = await _getRevenue(filter: filter, token: _getToken);
 
-    response.whenOrNull(
-      success: (data) => data.isEmpty
-          ? emit(const .empty())
-          : emit(.loaded(revenueList: data, pageIndex: defaultPageIndex)),
-      error: (message) => emit(.failed(revenueList: [], message: message)),
-    );
+    switch (response) {
+      case Success(:final data):
+        emit(.loaded(revenueList: data, pageIndex: defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(revenueList: [], message: message));
+      default:
+        emit(const .failed(revenueList: [], message: 'error'));
+    }
   }
 
   Future<void> refresh({required GetRevenueParams filter}) async {
@@ -48,12 +50,14 @@ class RevenueCubit extends Cubit<RevenueState> {
     _getToken = RequestToken();
     final response = await _getRevenue(filter: filter, token: _getToken);
 
-    response.whenOrNull(
-      success: (data) => data.isEmpty
-          ? emit(const .empty())
-          : emit(.loaded(revenueList: data, pageIndex: defaultPageIndex)),
-      error: (message) => emit(.failed(revenueList: items, message: message)),
-    );
+    switch (response) {
+      case Success(:final data):
+        emit(.loaded(revenueList: data, pageIndex: defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(revenueList: items, message: message));
+      default:
+        emit(.failed(revenueList: items, message: 'error'));
+    }
   }
 
   Future<void> loadMore({required GetRevenueParams filter}) async {
@@ -71,8 +75,8 @@ class RevenueCubit extends Cubit<RevenueState> {
     _getToken = RequestToken();
     final result = await _getRevenue(filter: filter, token: _getToken);
 
-    result.whenOrNull(
-      success: (newItems) {
+    switch (result) {
+      case Success(data: final newItems):
         items.addAll(newItems);
         emit(
           items.isEmpty
@@ -82,11 +86,11 @@ class RevenueCubit extends Cubit<RevenueState> {
                   pageIndex: newItems.isEmpty ? pageIndex : pageIndex + 1,
                 ),
         );
-      },
-      error: (message) {
-        emit(.loadMoreFailed(revenueList: items, pageIndex: pageIndex));
-      },
-    );
+      case Error(:final message):
+        emit(.failed(revenueList: items, message: message));
+      default:
+        emit(.failed(revenueList: items, message: 'error'));
+    }
   }
 
   @override

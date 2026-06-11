@@ -54,8 +54,8 @@ class LoginCubit extends Cubit<LoginState> {
       _loginToken?.cancel();
       _loginToken = .new();
       final result = await _login(params: params, token: _loginToken);
-      result.maybeWhen(
-        success: (data) async {
+      switch (result) {
+        case Success(:final data):
           await _storageService.setAuth(data.accessToken);
           await _storageService.setUser(data.user);
 
@@ -69,15 +69,12 @@ class LoginCubit extends Cubit<LoginState> {
             await _storageService.removeAccountInfo();
           }
           await _authCubit.loadAuth();
-          emit(const .loginSuccess());
-        },
-        error: (message) {
+          emit(const .loginSuccess()); // Removed the leading dot
+        case Error(:final message):
           emit(.loginFailed(message));
-        },
-        orElse: () {
+        default:
           emit(const .loginFailed('error'));
-        },
-      );
+      }
     } catch (e) {
       emit(.loginFailed(e.toString()));
     }

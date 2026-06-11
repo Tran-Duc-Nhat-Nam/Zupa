@@ -49,10 +49,14 @@ class PasswordSettingsCubit extends Cubit<PasswordSettingsState> {
       token: _changePasswordToken,
     );
 
-    result.whenOrNull(
-      success: (_) => emit(const .changePasswordSuccess()),
-      error: (message) => emit(.changePasswordFailed(message)),
-    );
+    switch (result) {
+      case Success():
+        emit(const .changePasswordSuccess());
+      case Error(:final message):
+        emit(.changePasswordFailed(message));
+      default:
+        emit(const .changePasswordFailed('error'));
+    }
   }
 
   @override

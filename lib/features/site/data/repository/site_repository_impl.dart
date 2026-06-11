@@ -16,8 +16,5 @@ class SiteRepositoryImpl implements ISiteRepository {
   Future<RequestState<List<SiteEntity>>> getSiteList({
     required GetSiteListParams params,
     RequestToken? token,
-  }) async {
-    final sites = await _api.getSites();
-    return Future.value(.success(sites.map((e) => e.toEntity()).toList()));
-  }
+  }) async => Future.value(Success((await _api.getSites()).map((e) => e.toEntity()).toList()));
 }

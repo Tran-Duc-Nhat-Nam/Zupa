@@ -1,16 +1,27 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+sealed class RequestState<T> {
+  const RequestState();
+}
 
-part 'request_state.freezed.dart';
+class Initial<T> extends RequestState<T> {
+  const Initial();
+}
 
-@freezed
-sealed class RequestState<T> with _$RequestState<T> {
-  const factory RequestState.initial() = _Initial;
+class Loading<T> extends RequestState<T> {
+  const Loading();
+}
 
-  const factory RequestState.loading() = _Loading;
+class Success<T> extends RequestState<T> {
+  final T data;
 
-  const factory RequestState.success(T data) = _Success;
+  const Success(this.data);
+}
 
-  const factory RequestState.error(String? message) = _Error;
+class Error<T> extends RequestState<T> {
+  final String? message;
 
-  const factory RequestState.unauthenticated() = _Unauthenticated;
+  const Error([this.message]);
+}
+
+class Unauthenticated<T> extends RequestState<T> {
+  const Unauthenticated();
 }

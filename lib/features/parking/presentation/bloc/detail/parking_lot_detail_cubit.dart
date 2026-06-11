@@ -25,16 +25,18 @@ class ParkingLotDetailCubit extends Cubit<ParkingLotDetailState> {
       _getToken = .new();
       final result = await _getParkingLot(id: id, token: _getToken);
 
-      result.whenOrNull(
-        success: (item) {
+      switch (result) {
+        case Success(:final data):
           try {
-            emit(.loaded(item));
+            emit(.loaded(data));
           } catch (e) {
             emit(const .empty());
           }
-        },
-        error: (message) => emit(.failed(message)),
-      );
+        case Error(:final message):
+          emit(.failed(message));
+        default:
+          emit(const .failed('error'));
+      }
     }
   }
 

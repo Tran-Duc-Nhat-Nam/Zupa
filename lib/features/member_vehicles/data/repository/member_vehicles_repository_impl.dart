@@ -30,11 +30,10 @@ class MemberVehiclesRepositoryImpl
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data.map((e) => e.toEntity()).toList()),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data.map((e) => e.toEntity()).toList()),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 
@@ -49,11 +48,10 @@ class MemberVehiclesRepositoryImpl
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data.toEntity()),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data.toEntity()),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 
@@ -70,11 +68,10 @@ class MemberVehiclesRepositoryImpl
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data.toEntity()),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 
@@ -91,11 +88,10 @@ class MemberVehiclesRepositoryImpl
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data.toEntity()),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 
@@ -110,11 +106,10 @@ class MemberVehiclesRepositoryImpl
       token: token,
     );
 
-    return response.maybeWhen(
-      success: (data) => .success(data.data),
-      failure: (error) => .error(error.errorMessage),
-      cancelled: () => const .error('cancelled'),
-      orElse: () => const .error('unknown_response'),
+    return response.when(
+      success: (data) => Success(data.data.toEntity()),
+      failure: (error) => Error(error.errorMessage),
+      cancelled: () => const Error('error'),
     );
   }
 }

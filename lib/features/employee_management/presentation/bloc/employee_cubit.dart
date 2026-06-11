@@ -23,11 +23,14 @@ class EmployeeCubit extends Cubit<EmployeeState> {
     _getToken = .new();
     final result = await _repository.getEmployees(token: _getToken);
 
-    result.whenOrNull(
-      success: (data) =>
-          emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex)),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success(:final data):
+        emit(data.isEmpty ? const .empty() : .loaded(data, defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   @override

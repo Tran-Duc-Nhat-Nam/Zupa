@@ -28,10 +28,14 @@ class ParkingLotCubit extends Cubit<ParkingLotState> {
 
     if (isClosed) return;
 
-    result.whenOrNull(
-      success: (data) => emit(.loaded(data, defaultPageIndex)),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success(:final data):
+        emit(.loaded(data, defaultPageIndex));
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   @override

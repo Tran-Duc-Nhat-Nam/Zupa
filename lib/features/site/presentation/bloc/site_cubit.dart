@@ -23,14 +23,18 @@ class SiteCubit extends Cubit<SiteState> {
     _getToken = .new();
 
     final result = await getSiteList(params: .initial(), token: _getToken);
-    result.whenOrNull(
-      success: (data) => emit(
-        data.isEmpty
-            ? const .empty()
-            : .loaded(siteList: data, currentSite: data[0]),
-      ),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success(data: final data):
+        emit(
+          data.isEmpty
+              ? const .empty()
+              : .loaded(siteList: data, currentSite: data[0]),
+        );
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   void changeSite(String code) {

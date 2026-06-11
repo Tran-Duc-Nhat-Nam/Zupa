@@ -19,9 +19,7 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
   final UpdateMemberVehicleUseCase _updateMemberVehicle;
   final DeleteMemberVehicleUseCase _deleteMemberVehicle;
   RequestToken? _getToken;
-  RequestToken? _createToken;
-  RequestToken? _updateToken;
-  RequestToken? _deleteToken;
+  RequestToken? _actionToken;
 
   MemberVehicleDetailCubit(
     this._getMemberVehicle,
@@ -39,67 +37,79 @@ class MemberVehicleDetailCubit extends Cubit<MemberVehicleDetailState> {
       _getToken = .new();
       final result = await _getMemberVehicle(id: code, token: _getToken);
 
-      result.whenOrNull(
-        success: (item) {
+      switch (result) {
+        case Success(:final data):
           try {
-            emit(.loaded(item));
+            emit(.loaded(data));
           } catch (e) {
             emit(const .empty());
           }
-        },
-        error: (message) => emit(.failed(message)),
-      );
+        case Error(:final message):
+          emit(.failed(message));
+        default:
+          emit(const .failed('error'));
+      }
     }
   }
 
   void create({required MemberVehicleEntity item}) async {
     emit(const .loading());
-    _createToken?.cancel();
-    _createToken = .new();
+    _actionToken?.cancel();
+    _actionToken = .new();
     final result = await _createMemberVehicle(
       vehicle: item,
-      token: _createToken,
+      token: _actionToken,
     );
 
-    result.whenOrNull(
-      success: (response) => emit(const .createdSucceed()),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success():
+        emit(const .createdSucceed());
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   void update({required MemberVehicleEntity item}) async {
     emit(const .loading());
-    _updateToken?.cancel();
-    _updateToken = .new();
+    _actionToken?.cancel();
+    _actionToken = .new();
     final result = await _updateMemberVehicle(
       vehicle: item,
-      token: _updateToken,
+      token: _actionToken,
     );
 
-    result.whenOrNull(
-      success: (response) => emit(const .updatedSucced()),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success():
+        emit(const .updatedSucced());
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   void delete(String id) async {
     emit(const .loading());
-    _deleteToken?.cancel();
-    _deleteToken = .new();
-    final result = await _deleteMemberVehicle(id: id, token: _deleteToken);
+    _actionToken?.cancel();
+    _actionToken = .new();
+    final result = await _deleteMemberVehicle(id: id, token: _actionToken);
 
-    result.whenOrNull(
-      success: (response) => emit(const .initial()),
-      error: (message) => emit(.failed(message)),
-    );
+    switch (result) {
+      case Success():
+        emit(const .initial());
+      case Error(:final message):
+        emit(.failed(message));
+      default:
+        emit(const .failed('error'));
+    }
   }
 
   @override
   Future<void> close() {
     _getToken?.cancel();
-    _createToken?.cancel();
-    _updateToken?.cancel();
-    _deleteToken?.cancel();
+    _actionToken?.cancel();
     return super.close();
   }
 }
