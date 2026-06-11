@@ -13,3 +13,10 @@ sealed class GeneralConfigState with _$GeneralConfigState {
 
   const factory GeneralConfigState.empty() = Empty;
 }
+
+extension GeneralConfigStateExtension on GeneralConfigState {
+  bool get isWarning => switch (this) {
+    Loaded(:final isWarning) => isWarning,
+    _ => false,
+  };
+}

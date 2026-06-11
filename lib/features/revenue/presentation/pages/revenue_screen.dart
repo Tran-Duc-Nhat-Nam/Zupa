@@ -43,7 +43,7 @@ class RevenueScreen extends StatelessWidget {
             builder: (context, _, _) => Skeletonizer(
               enabled: state.isLoading,
               child: Padding(
-                padding: const .symmetric(vertical: 24, horizontal: 36),
+                padding: const .symmetric(horizontal: 36),
                 child: Column(
                   crossAxisAlignment: .start,
                   children: [
@@ -263,14 +263,13 @@ class _RevenueChart extends StatelessWidget {
             enabled: true,
             touchTooltipData: .new(
               getTooltipColor: (group) => colorScheme.secondaryContainer,
-              getTooltipItem: (group, groupIndex, rod, rodIndex) =>
-                  .new(
-                    NumberFormat.compact().format(rod.toY),
-                    TextStyle(
-                      color: colorScheme.onSecondaryContainer,
-                      fontWeight: .bold,
-                    ),
-                  ),
+              getTooltipItem: (group, groupIndex, rod, rodIndex) => .new(
+                NumberFormat.compact().format(rod.toY),
+                TextStyle(
+                  color: colorScheme.onSecondaryContainer,
+                  fontWeight: .bold,
+                ),
+              ),
             ),
           ),
           titlesData: .new(

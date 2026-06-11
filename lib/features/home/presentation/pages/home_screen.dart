@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
             isChildScrollable: true,
             hasParentView: true,
             title: t.home.title,
-            hasAppBar: false,
             floatingActionButton: FloatingActionButton(
               backgroundColor: colorScheme.primaryContainer,
               foregroundColor: colorScheme.primary,
@@ -46,7 +45,6 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     spacing: 16,
                     children: [
-                      SizedBox(height: 16),
                       AppSiteSelector(),
                       HomeSearchBar(),
                       VehicleCapacityTab(),

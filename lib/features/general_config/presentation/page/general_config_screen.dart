@@ -101,31 +101,19 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                             ],
                           ),
                           AnimatedSwitcher(
-                            duration: context
-                                .watch<AnimationCubit>()
-                                .state
-                                .maybeWhen(
-                                  loaded: (isOn) => isOn
-                                      ? const Duration(milliseconds: 300)
-                                      : .zero,
-                                  orElse: () =>
-                                      const Duration(milliseconds: 300),
-                                ),
+                            duration: context.watch<AnimationCubit>().state.isOn
+                                ? const .new(milliseconds: 300)
+                                : .zero,
                             transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                                  return SizeTransition(
-                                    sizeFactor: animation,
-                                    child: FadeTransition(
-                                      opacity: animation,
-                                      child: child,
+                                (Widget child, Animation<double> animation) =>
+                                    SizeTransition(
+                                      sizeFactor: animation,
+                                      child: FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ),
                                     ),
-                                  );
-                                },
-                            child:
-                                state.maybeWhen(
-                                  loaded: (isWarning, _) => isWarning,
-                                  orElse: () => false,
-                                )
+                            child: state.isWarning
                                 ? Padding(
                                     padding: const .only(
                                       left: 16,

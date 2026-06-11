@@ -6,3 +6,10 @@ sealed class AnimationState with _$AnimationState {
 
   const factory AnimationState.loaded(bool isOn) = Loaded;
 }
+
+extension AnimationStateExtension on AnimationState {
+  bool get isOn => switch (this) {
+    Loaded(:final isOn) => isOn,
+    _ => true,
+  };
+}

@@ -33,52 +33,52 @@ class _EmployeeManagementScreenState
       child: BlocProvider<EmployeeCubit>(
         create: (context) => getIt<EmployeeCubit>()..init(),
         child: BlocBuilder<EmployeeCubit, EmployeeState>(
-          builder: (context, state) {
-            return Skeletonizer(
-              enabled: state is Loading,
-              child: Padding(
-                padding: const .symmetric(vertical: 16, horizontal: 24),
-                child: state.maybeMap(
-                  loaded: (params) => AppList(
-                    items: params.employees.map((employee) {
-                      return AppListItem(
-                        leadingIcon: Symbols.settings_rounded,
-                        content: Row(
-                          spacing: 8,
-                          children: [
-                            Text(
-                              employee.fullName,
-                              style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: colorScheme.onSurfaceVariant,
+          builder: (context, state) => Skeletonizer(
+            enabled: state is Loading,
+            child: Padding(
+              padding: const .symmetric(vertical: 16, horizontal: 24),
+              child: state.maybeMap(
+                loaded: (params) => AppList(
+                  items: params.employees
+                      .map(
+                        (employee) => AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          content: Row(
+                            spacing: 8,
+                            children: [
+                              Text(
+                                employee.fullName,
+                                style: AppTextStyles.bodyMediumMedium.copyWith(
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
                               ),
-                            ),
-                            Icon(
-                              Symbols.lock_rounded,
-                              color: colorScheme.error,
-                              size: 16,
-                            ),
-                          ],
+                              Icon(
+                                Symbols.lock_rounded,
+                                color: colorScheme.error,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                          trailingIcon: Symbols.chevron_right_rounded,
+                          onTap: () => context.pushRoute(ParkingDetailsRoute()),
                         ),
-                        trailingIcon: Symbols.chevron_right_rounded,
-                        onTap: () => context.pushRoute(ParkingDetailsRoute()),
-                      );
-                    }).toList(),
-                  ),
-                  loading: (_) => AppList(
-                    items: List.generate(
-                      3,
-                      (index) => const AppListItem(
-                        leadingIcon: Symbols.settings_rounded,
-                        text: 'Placeholder name',
-                        trailingIcon: Symbols.chevron_right_rounded,
-                      ),
+                      )
+                      .toList(),
+                ),
+                loading: (_) => AppList(
+                  items: List.generate(
+                    3,
+                    (index) => const AppListItem(
+                      leadingIcon: Symbols.settings_rounded,
+                      text: 'Placeholder name',
+                      trailingIcon: Symbols.chevron_right_rounded,
                     ),
                   ),
-                  orElse: () => const SizedBox.shrink(),
                 ),
+                orElse: () => const SizedBox.shrink(),
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
