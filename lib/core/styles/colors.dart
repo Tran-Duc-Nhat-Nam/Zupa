@@ -296,8 +296,7 @@ abstract class AppColors extends ThemeExtension<AppColors> {
 }
 
 extension ThemeContext on BuildContext {
-  AppColors get colorScheme =>
-      Theme.of(this).extension<AppColors>() ?? AppColors.dark();
+  AppColors get colorScheme => Theme.of(this).extension<AppColors>() ?? .dark();
 }
 
 class _AppColorsImpl extends AppColors {
