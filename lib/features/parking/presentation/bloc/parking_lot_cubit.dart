@@ -26,8 +26,6 @@ class ParkingLotCubit extends Cubit<ParkingLotState> {
       token: _getToken,
     );
 
-    if (isClosed) return;
-
     switch (result) {
       case Success(:final data):
         emit(.loaded(data, defaultPageIndex));

@@ -57,7 +57,7 @@ class RevenueCubit extends Cubit<RevenueState> {
   }
 
   Future<void> loadMore({required GetRevenueParams filter}) async {
-    final tempItems = state.items;
+    final tempItems = [...state.items];
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex,
       orElse: () => defaultPageIndex,

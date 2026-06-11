@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -126,15 +125,12 @@ class ParkingDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          ...state.maybeMap(
-                            loaded: (params) => params.parkingLot.capacity
+                          ...state.maybeWhen(
+                            loaded: (parkingLot) => parkingLot.capacity
                                 .map(
                                   (e) => ReactiveValueListenableBuilder<String>(
                                     formControl: formModel
-                                        .capacityParkingLotCapacityForm[params
-                                            .parkingLot
-                                            .capacity
-                                            .indexOf(e)]
+                                        .capacityParkingLotCapacityForm[0]
                                         .capacityControl,
                                     builder: (context, control, child) =>
                                         AppTextField(
@@ -149,22 +145,6 @@ class ParkingDetailsScreen extends StatelessWidget {
                                   ),
                                 )
                                 .toList(),
-                            loading: (_) => List.generate(
-                              3,
-                              (index) => ReactiveValueListenableBuilder<String>(
-                                formControl: formModel
-                                    .capacityParkingLotCapacityForm[index]
-                                    .capacityControl,
-                                builder: (context, control, child) =>
-                                    AppTextField(
-                                      initialValue: control.value,
-                                      onChanged: (value) =>
-                                          control.value = value,
-                                      labelText: vehicleTypes[index].name,
-                                      isExternalLabel: true,
-                                    ),
-                              ),
-                            ),
                             orElse: () => [],
                           ),
                         ],
@@ -209,15 +189,11 @@ class ParkingDetailsScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const .all(16),
-                            child: Column(
-                              children: [
-                                Text(
-                                  t.parking.warningThreshold.subtitle,
-                                  style: AppTextStyles.bodySmallMedium.copyWith(
-                                    color: colorScheme.outline,
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              t.parking.warningThreshold.subtitle,
+                              style: AppTextStyles.bodySmallMedium.copyWith(
+                                color: colorScheme.outline,
+                              ),
                             ),
                           ),
                         ],

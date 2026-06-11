@@ -31,53 +31,54 @@ class _ParkingLotScreenState extends AppState<ParkingLotScreen> {
       child: BlocProvider<ParkingLotCubit>(
         create: (context) => getIt<ParkingLotCubit>()..init(),
         child: BlocBuilder<ParkingLotCubit, ParkingLotState>(
-          builder: (context, state) {
-            return Skeletonizer(
-              enabled: state is Loading,
-              child: Padding(
-                padding: const .symmetric(vertical: 16, horizontal: 24),
-                child: state.maybeMap(
-                  loaded: (params) => AppList(
-                    items: params.parkingLots.map((lot) {
-                      return AppListItem(
-                        leadingIcon: Symbols.settings_rounded,
-                        content: Row(
-                          spacing: 8,
-                          children: [
-                            Text(
-                              lot.name,
-                              style: AppTextStyles.bodyMediumMedium.copyWith(
-                                color: colors.onSurfaceVariant,
+          builder: (context, state) => Skeletonizer(
+            enabled: state is Loading,
+            child: Padding(
+              padding: const .symmetric(vertical: 16, horizontal: 24),
+              child: state.maybeMap(
+                loaded: (params) => AppList(
+                  items: params.parkingLots
+                      .map(
+                        (lot) => AppListItem(
+                          leadingIcon: Symbols.settings_rounded,
+                          content: Row(
+                            spacing: 8,
+                            children: [
+                              Text(
+                                lot.name,
+                                style: AppTextStyles.bodyMediumMedium.copyWith(
+                                  color: colors.onSurfaceVariant,
+                                ),
                               ),
-                            ),
-                            Icon(
-                              Symbols.lock_rounded,
-                              color: colors.error,
-                              size: 16,
-                            ),
-                          ],
+                              Icon(
+                                Symbols.lock_rounded,
+                                color: colors.error,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                          trailingIcon: Symbols.chevron_right_rounded,
+                          onTap: () => context.pushRoute(
+                            ParkingDetailsRoute(id: lot.id),
+                          ),
                         ),
-                        trailingIcon: Symbols.chevron_right_rounded,
-                        onTap: () =>
-                            context.pushRoute(ParkingDetailsRoute(id: lot.id)),
-                      );
-                    }).toList(),
-                  ),
-                  loading: (_) => AppList(
-                    items: List.generate(
-                      3,
-                      (index) => const AppListItem(
-                        leadingIcon: Symbols.settings_rounded,
-                        text: 'Placeholder name',
-                        trailingIcon: Symbols.chevron_right_rounded,
-                      ),
+                      )
+                      .toList(),
+                ),
+                loading: (_) => AppList(
+                  items: List.generate(
+                    3,
+                    (index) => const AppListItem(
+                      leadingIcon: Symbols.settings_rounded,
+                      text: 'Placeholder name',
+                      trailingIcon: Symbols.chevron_right_rounded,
                     ),
                   ),
-                  orElse: () => const SizedBox.shrink(),
                 ),
+                orElse: () => const SizedBox.shrink(),
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );

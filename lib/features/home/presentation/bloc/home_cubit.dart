@@ -51,7 +51,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> loadMore({required GetTicketParams filter}) async {
-    final tempItems = state.items;
+    final tempItems = [...state.items];
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex,
       orElse: () => defaultPageIndex,

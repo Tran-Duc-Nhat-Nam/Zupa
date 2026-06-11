@@ -28,7 +28,7 @@ class HomeRepositoryImpl with RequestService implements IHomeRepository {
     return response.when(
       success: (data) => Success(data.data.map((e) => e.toEntity()).toList()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 }
