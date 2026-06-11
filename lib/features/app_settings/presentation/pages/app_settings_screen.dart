@@ -52,21 +52,20 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return AppScreen(
-      title: t.settings.appSettings,
-      child: Skeletonizer(
-        enabled: false,
-        child: Padding(
-          padding: const .symmetric(vertical: 16, horizontal: 36),
-          child: Column(
-            spacing: 24,
-            children: [
-              ThemeSettingsFormBuilder(
-                builder: (context, formModel, _) =>
-                    BlocBuilder<LocalizationCubit, LocalizationState>(
-                      builder: (context, localizationState) {
-                        return BlocBuilder<ThemeCubit, ThemeState>(
+  Widget build(BuildContext context) => AppScreen(
+    title: t.settings.appSettings,
+    child: Skeletonizer(
+      enabled: false,
+      child: Padding(
+        padding: const .symmetric(vertical: 16, horizontal: 36),
+        child: Column(
+          spacing: 24,
+          children: [
+            ThemeSettingsFormBuilder(
+              builder: (context, formModel, _) =>
+                  BlocBuilder<LocalizationCubit, LocalizationState>(
+                    builder: (context, localizationState) =>
+                        BlocBuilder<ThemeCubit, ThemeState>(
                           builder: (context, themeState) {
                             themeState.whenOrNull(
                               loaded: (settings) =>
@@ -101,76 +100,74 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                               ),
                             );
                           },
-                        );
-                      },
+                        ),
+                  ),
+            ),
+            BlocBuilder<UICubit, UIState>(
+              builder: (context, state) => UISettingsFormBuilder(
+                initState: (context, formModel) => state.whenOrNull(
+                  loaded: (settings) =>
+                      formModel.updateValue(UISettings.fromEntity(settings)),
+                ),
+                builder: (context, formModel, _) => AppList(
+                  items: [
+                    AppListItem(
+                      leadingIcon: Symbols.dock_to_bottom_rounded,
+                      text: t.settings.enableFloatingNavbar,
+                      trailing: ReactiveValueListenableBuilder<bool>(
+                        formControl: formModel.isFloatingNavbarControl,
+                        builder: (context, control, child) => AppSwitch(
+                          value: control.value == true,
+                          onToggle: (value) {
+                            control.value = value;
+                            context.read<UICubit>().changeUIMode(
+                              params: formModel.model.toParams(),
+                            );
+                          },
+                        ),
+                      ),
                     ),
-              ),
-              BlocBuilder<UICubit, UIState>(
-                builder: (context, state) => UISettingsFormBuilder(
-                  initState: (context, formModel) => state.whenOrNull(
-                    loaded: (settings) =>
-                        formModel.updateValue(UISettings.fromEntity(settings)),
-                  ),
-                  builder: (context, formModel, _) => AppList(
-                    items: [
-                      AppListItem(
-                        leadingIcon: Symbols.dock_to_bottom_rounded,
-                        text: t.settings.enableFloatingNavbar,
-                        trailing: ReactiveValueListenableBuilder<bool>(
-                          formControl: formModel.isFloatingNavbarControl,
-                          builder: (context, control, child) => AppSwitch(
-                            value: control.value == true,
-                            onToggle: (value) {
-                              control.value = value;
-                              context.read<UICubit>().changeUIMode(
-                                params: formModel.model.toParams(),
-                              );
-                            },
-                          ),
+                    AppListItem(
+                      leadingIcon: Symbols.label_rounded,
+                      text: t.settings.showNavbarLabel,
+                      trailing: ReactiveValueListenableBuilder<bool>(
+                        formControl: formModel.isShowNavbarLabelControl,
+                        builder: (context, control, child) => AppSwitch(
+                          value: control.value == true,
+                          onToggle: (value) {
+                            control.value = value;
+                            context.read<UICubit>().changeUIMode(
+                              params: formModel.model.toParams(),
+                            );
+                          },
                         ),
                       ),
-                      AppListItem(
-                        leadingIcon: Symbols.label_rounded,
-                        text: t.settings.showNavbarLabel,
-                        trailing: ReactiveValueListenableBuilder<bool>(
-                          formControl: formModel.isShowNavbarLabelControl,
-                          builder: (context, control, child) => AppSwitch(
-                            value: control.value == true,
-                            onToggle: (value) {
-                              control.value = value;
-                              context.read<UICubit>().changeUIMode(
-                                params: formModel.model.toParams(),
-                              );
-                            },
-                          ),
+                    ),
+                    AppListItem(
+                      leadingIcon: Symbols.blur_circular_rounded,
+                      text: t.settings.enableGlassmorphism,
+                      trailing: ReactiveValueListenableBuilder<bool>(
+                        formControl: formModel.isGlassmorphismControl,
+                        builder: (context, control, child) => AppSwitch(
+                          value: control.value == true,
+                          onToggle: (value) {
+                            control.updateValue(value);
+                            context.read<UICubit>().changeUIMode(
+                              params: formModel.model.toParams(),
+                            );
+                          },
                         ),
                       ),
-                      AppListItem(
-                        leadingIcon: Symbols.blur_circular_rounded,
-                        text: t.settings.enableGlassmorphism,
-                        trailing: ReactiveValueListenableBuilder<bool>(
-                          formControl: formModel.isGlassmorphismControl,
-                          builder: (context, control, child) => AppSwitch(
-                            value: control.value == true,
-                            onToggle: (value) {
-                              control.updateValue(value);
-                              context.read<UICubit>().changeUIMode(
-                                params: formModel.model.toParams(),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
 
   AppListItem _localizationItem({required BuildContext context}) {
     final colorScheme = context.colorScheme;
@@ -399,7 +396,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
       showColorCode: true,
       colorCodeHasColor: true,
       enableTonalPalette: true,
-      pickersEnabled: const <ColorPickerType, bool>{
+      pickersEnabled: const {
         .both: false,
         .primary: true,
         .accent: true,
@@ -409,21 +406,18 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
       },
       customColorSwatchesAndNames: {
         for (final value in _customSeedColors)
-          ColorTools.createPrimarySwatch(Color(value)):
-              ColorTools.nameThatColor(Color(value)),
+          ColorTools.createPrimarySwatch(.new(value)): ColorTools.nameThatColor(
+            .new(value),
+          ),
       },
-      actionButtons: ColorPickerActionButtons(
+      actionButtons: .new(
         okButton: true,
         closeButton: true,
         okIcon: Symbols.check_rounded,
         closeIcon: Symbols.close_rounded,
-        toolIconsThemeData: IconThemeData(color: colorScheme.primary),
+        toolIconsThemeData: .new(color: colorScheme.primary),
       ),
-      constraints: const BoxConstraints(
-        minHeight: 480,
-        minWidth: 320,
-        maxWidth: 320,
-      ),
+      constraints: const .new(minHeight: 480, minWidth: 320, maxWidth: 320),
     );
 
     if (resultColor != color) {

@@ -123,87 +123,86 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                 );
               },
               child: BlocBuilder<VersionCubit, VersionState>(
-                builder: (context, versionState) {
-                  return BlocBuilder<AnimationCubit, AnimationState>(
-                    builder: (context, animState) {
-                      final isChecking = versionState is Checking;
-                      final isAnimationOn = animState.maybeWhen(
-                        loaded: (isOn) => isOn,
-                        orElse: () => true,
-                      );
+                builder: (context, versionState) =>
+                    BlocBuilder<AnimationCubit, AnimationState>(
+                      builder: (context, animState) {
+                        final isChecking = versionState is Checking;
+                        final isAnimationOn = animState.maybeWhen(
+                          loaded: (isOn) => isOn,
+                          orElse: () => true,
+                        );
 
-                      final info = versionState.maybeMap(
-                        upToDate: (s) => s.info,
-                        updateAvailable: (s) => s.info,
-                        downloading: (s) => s.info,
-                        downloadFailed: (s) => s.info,
-                        orElse: () => null,
-                      );
+                        final info = versionState.maybeMap(
+                          upToDate: (s) => s.info,
+                          updateAvailable: (s) => s.info,
+                          downloading: (s) => s.info,
+                          downloadFailed: (s) => s.info,
+                          orElse: () => null,
+                        );
 
-                      return AppList(
-                        items: [
-                          AppListItem(
-                            leadingIcon: Symbols.link_rounded,
-                            leadingColor: colorScheme.primary,
-                            text: t.settings.github,
-                            trailingIcon: Symbols.open_in_new_rounded,
-                            onTap: () => _launchUrl(Env.github, context),
-                          ),
-                          AppListItem(
-                            leadingIcon: Symbols.update_rounded,
-                            leadingColor: colorScheme.primary,
-                            text: t.settings.checkForUpdate,
-                            trailing: isChecking
-                                ? SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      value: isAnimationOn ? null : 0.7,
+                        return AppList(
+                          items: [
+                            .new(
+                              leadingIcon: Symbols.link_rounded,
+                              leadingColor: colorScheme.primary,
+                              text: t.settings.github,
+                              trailingIcon: Symbols.open_in_new_rounded,
+                              onTap: () => _launchUrl(Env.github, context),
+                            ),
+                            .new(
+                              leadingIcon: Symbols.update_rounded,
+                              leadingColor: colorScheme.primary,
+                              text: t.settings.checkForUpdate,
+                              trailing: isChecking
+                                  ? SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        value: isAnimationOn ? null : 0.7,
+                                      ),
+                                    )
+                                  : null,
+                              trailingIcon: isChecking
+                                  ? null
+                                  : Symbols.chevron_right_rounded,
+                              onTap: isChecking
+                                  ? null
+                                  : () {
+                                      context
+                                          .read<VersionCubit>()
+                                          .checkForUpdates(force: true);
+                                    },
+                            ),
+                            .new(
+                              leadingIcon: Symbols.history_rounded,
+                              leadingColor: colorScheme.primary,
+                              text: t.settings.showChangelog,
+                              trailingIcon: Symbols.chevron_right_rounded,
+                              onTap: () {
+                                if (info != null && _packageInfo != null) {
+                                  context.pushRoute(
+                                    ChangelogRoute(
+                                      changelog:
+                                          info.message ??
+                                          t.common.version.noChangelog,
                                     ),
-                                  )
-                                : null,
-                            trailingIcon: isChecking
-                                ? null
-                                : Symbols.chevron_right_rounded,
-                            onTap: isChecking
-                                ? null
-                                : () {
-                                    context
-                                        .read<VersionCubit>()
-                                        .checkForUpdates(force: true);
-                                  },
-                          ),
-                          AppListItem(
-                            leadingIcon: Symbols.history_rounded,
-                            leadingColor: colorScheme.primary,
-                            text: t.settings.showChangelog,
-                            trailingIcon: Symbols.chevron_right_rounded,
-                            onTap: () {
-                              if (info != null && _packageInfo != null) {
-                                context.pushRoute(
-                                  ChangelogRoute(
-                                    changelog:
-                                        info.message ??
-                                        t.common.version.noChangelog,
-                                  ),
-                                );
-                              } else {
-                                context.read<VersionCubit>().checkForUpdates(
-                                  force: true,
-                                );
-                                AppToast.showToast(
-                                  t.common.info.noInfo,
-                                  context: context,
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
+                                  );
+                                } else {
+                                  context.read<VersionCubit>().checkForUpdates(
+                                    force: true,
+                                  );
+                                  AppToast.showToast(
+                                    t.common.info.noInfo,
+                                    context: context,
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
               ),
             ),
           ],

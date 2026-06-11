@@ -40,7 +40,8 @@ class HistoryListTab extends StatelessWidget {
         enabled: state.isLoading,
         child: EasyRefresh(
           header: const MaterialHeader(triggerWhenRelease: true),
-          footer: MaterialFooter(
+          footer: const MaterialFooter(
+            clamping: false,
             triggerWhenRelease: true,
             infiniteHitOver: false,
             infiniteOffset: 200,

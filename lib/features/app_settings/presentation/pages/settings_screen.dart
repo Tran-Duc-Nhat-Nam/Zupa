@@ -20,29 +20,28 @@ class SettingsScreen extends StatelessWidget {
     return AppScreen(
       hasParentView: true,
       title: t.settings.title,
-      hasAppBar: false,
       child: Padding(
-        padding: const .symmetric(vertical: 16, horizontal: 36),
+        padding: const .symmetric(horizontal: 36),
         child: Column(
           spacing: 24,
           children: [
             AppList(
               items: [
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.home_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.parking.areaConfig,
                   trailingIcon: Symbols.chevron_right_rounded,
                   onTap: () => context.pushRoute(const ParkingLotRoute()),
                 ),
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.calendar_add_on_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.parking.memberVehicles,
                   trailingIcon: Symbols.chevron_right_rounded,
                   onTap: () => context.pushRoute(const MemberVehiclesRoute()),
                 ),
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.user_attributes_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.parking.staff,
@@ -50,14 +49,14 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () =>
                       context.pushRoute(const EmployeeManagementRoute()),
                 ),
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.smart_toy_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.chatbot.title,
                   trailingIcon: Symbols.chevron_right_rounded,
                   onTap: () => context.pushRoute(const ChatbotRoute()),
                 ),
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.settings_applications_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.settings.generalConfig,
@@ -68,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             AppList(
               items: [
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.lock_reset_rounded,
                   leadingColor: colorScheme.primary,
                   text: t.settings.changePassword,
@@ -79,21 +78,21 @@ class SettingsScreen extends StatelessWidget {
             ),
             AppList(
               items: [
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.settings_rounded,
                   text: t.settings.appSettings,
                   leadingColor: colorScheme.primary,
                   trailingIcon: Symbols.chevron_right_rounded,
                   onTap: () => context.pushRoute(const AppSettingsRoute()),
                 ),
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.info_rounded,
                   text: t.settings.aboutApp,
                   leadingColor: colorScheme.primary,
                   trailingIcon: Symbols.chevron_right_rounded,
                   onTap: () => context.pushRoute(const AboutAppRoute()),
                 ),
-                AppListItem(
+                .new(
                   leadingIcon: Symbols.logout_rounded,
                   text: t.auth.logout.title,
                   leadingColor: colorScheme.error,
