@@ -60,12 +60,12 @@ class RevenueListTab extends StatelessWidget {
                       infiniteOffset: 200,
                     ),
                     controller: refreshController,
-                    onRefresh: () async => listContext
-                        .read<RevenueCubit>()
-                        .refresh(filter: form?.model.toParams() ?? .initial()),
-                    onLoad: () async => listContext
-                        .read<RevenueCubit>()
-                        .loadMore(filter: form?.model.toParams() ?? .initial()),
+                    onRefresh: () => listContext.read<RevenueCubit>().refresh(
+                      filter: form?.model.toParams() ?? .initial(),
+                    ),
+                    onLoad: () => listContext.read<RevenueCubit>().loadMore(
+                      filter: form?.model.toParams() ?? .initial(),
+                    ),
                     child: ListView.separated(
                       itemCount: listState.items.isNotEmpty
                           ? listState.items.length

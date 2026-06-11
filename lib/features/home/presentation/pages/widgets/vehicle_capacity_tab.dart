@@ -20,55 +20,49 @@ class VehicleCapacityTab extends StatelessWidget {
       control: form?.typeControl,
       builder: (value, onChanged, errorText) =>
           BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              final isLoading =
-                  state is Loading ||
-                  state is Refreshing ||
-                  state is LoadingMore;
-              return Padding(
-                key: ValueKey(state.runtimeType),
-                padding: const .symmetric(vertical: 8),
-                child: Skeletonizer(
-                  enabled: state is Loading,
-                  child: Row(
-                    children: List.generate(
-                      vehicleTypes.length,
-                      (index) => Expanded(
-                        child: Padding(
-                          padding: .only(
-                            right: index == vehicleTypes.length - 1 ? 0 : 12,
-                          ),
-                          child: VehicleCapacityCard(
-                            icon:
-                                const IconConverter().fromJson(
-                                  vehicleTypes[index].icon,
-                                ) ??
-                                Symbols.globe_rounded,
-                            color: vehicleTypes[index].color,
-                            name: vehicleTypes[index].value,
-                            current: 65 + index * 20,
-                            capacity: 120,
-                            isWarning: (65 + index * 20) / 120 >= 0.8,
-                            isDisabled: isLoading,
-                            isSelected: value == vehicleTypes[index],
-                            onPressed: () => isLoading
-                                ? null
-                                : () {
-                                    onChanged?.call(vehicleTypes[index]);
-                                    context.read<HomeCubit>().refresh(
-                                      filter:
-                                          form?.model.toParams() ??
-                                          .initial(type: vehicleTypes[index]),
-                                    );
-                                  },
-                          ),
+            builder: (context, state) => Padding(
+              key: ValueKey(state.runtimeType),
+              padding: const .symmetric(vertical: 8),
+              child: Skeletonizer(
+                enabled: state.isLoading,
+                child: Row(
+                  children: List.generate(
+                    vehicleTypes.length,
+                    (index) => Expanded(
+                      child: Padding(
+                        padding: .only(
+                          right: index == vehicleTypes.length - 1 ? 0 : 12,
+                        ),
+                        child: VehicleCapacityCard(
+                          icon:
+                              const IconConverter().fromJson(
+                                vehicleTypes[index].icon,
+                              ) ??
+                              Symbols.globe_rounded,
+                          color: vehicleTypes[index].color,
+                          name: vehicleTypes[index].value,
+                          current: 65 + index * 20,
+                          capacity: 120,
+                          isWarning: (65 + index * 20) / 120 >= 0.8,
+                          isDisabled: state.isFiltering,
+                          isSelected: value == vehicleTypes[index],
+                          onPressed: () => state.isFiltering
+                              ? null
+                              : () {
+                                  onChanged?.call(vehicleTypes[index]);
+                                  context.read<HomeCubit>().refresh(
+                                    filter:
+                                        form?.model.toParams() ??
+                                        .initial(type: vehicleTypes[index]),
+                                  );
+                                },
                         ),
                       ),
                     ),
                   ),
                 ),
-              );
-            },
+              ),
+            ),
           ),
     );
   }

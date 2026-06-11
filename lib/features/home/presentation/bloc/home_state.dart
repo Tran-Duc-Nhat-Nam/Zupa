@@ -21,3 +21,24 @@ sealed class HomeState with _$HomeState {
 
   const factory HomeState.empty() = Emtpy;
 }
+
+extension HomeStateExtension on HomeState {
+  List<HomeTicketEntity> get items => switch (this) {
+    Loaded(:final tickets) => tickets,
+    Refreshing(:final tickets) => tickets,
+    LoadingMore(:final tickets) => tickets,
+    _ => [],
+  };
+
+  bool get isLoading => switch (this) {
+    Loading() => true,
+    _ => false,
+  };
+
+  bool get isFiltering => switch (this) {
+    Loading() => true,
+    Refreshing() => true,
+    LoadingMore() => true,
+    _ => false,
+  };
+}

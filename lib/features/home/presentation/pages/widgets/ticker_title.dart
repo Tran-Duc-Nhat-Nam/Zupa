@@ -40,14 +40,12 @@ class TicketTitle extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) => context.pushRoute(CheckInRoute()),
-            backgroundColor: ticket.isFlagError == true
-                ? colors.primary
-                : colors.error,
+            backgroundColor: ticket.isFlagError ? colors.primary : colors.error,
             foregroundColor: colors.surface,
-            icon: ticket.isFlagError == true
+            icon: ticket.isFlagError
                 ? Symbols.check_circle_outline_rounded
                 : Symbols.report_problem_rounded,
-            label: ticket.isFlagError == true
+            label: ticket.isFlagError
                 ? t.parking.reportRecovered
                 : t.parking.markAsLost,
           ),

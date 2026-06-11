@@ -35,12 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> refresh({required GetTicketParams filter}) async {
-    final List<HomeTicketEntity> items = state.maybeMap(
-      loaded: (params) => [...params.tickets],
-      orElse: () => [],
-    );
-
-    emit(.refreshing(items));
+    emit(.refreshing(state.items));
     _getToken?.cancel();
     _getToken = .new();
 
@@ -56,16 +51,13 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> loadMore({required GetTicketParams filter}) async {
-    final List<HomeTicketEntity> items = state.maybeMap(
-      loaded: (params) => [...params.tickets],
-      orElse: () => [],
-    );
+    final tempItems = state.items;
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex,
       orElse: () => defaultPageIndex,
     );
 
-    emit(.loadingMore(items));
+    emit(.loadingMore(state.items));
     _getToken?.cancel();
     _getToken = .new();
     final newFilter = GetTicketParams(
@@ -79,11 +71,14 @@ class HomeCubit extends Cubit<HomeState> {
     final result = await _getTicket(filter: newFilter, token: _getToken);
     switch (result) {
       case Success(data: final newItems):
-        items.addAll(newItems);
+        tempItems.addAll(newItems);
         emit(
-          items.isEmpty
+          tempItems.isEmpty
               ? const .empty()
-              : .loaded(items, newItems.isEmpty ? pageIndex : pageIndex + 1),
+              : .loaded(
+                  tempItems,
+                  newItems.isEmpty ? pageIndex : pageIndex + 1,
+                ),
         );
       case Error(:final message):
         emit(.failed(message));

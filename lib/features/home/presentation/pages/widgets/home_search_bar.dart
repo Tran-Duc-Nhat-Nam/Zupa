@@ -23,7 +23,7 @@ class HomeSearchBar extends StatelessWidget {
     final form = ReactiveHomeForm.of(context);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) => Skeletonizer(
-        enabled: state is Loading,
+        enabled: state.isLoading,
         child: AppInputWrapper<String>(
           control: form?.keywordControl,
           builder: (value, onChanged, errorText) => AppTextField(
@@ -59,61 +59,59 @@ class HomeSearchBar extends StatelessWidget {
     BuildContext context,
     HomeForm? formModel,
     AppColors colorScheme,
-  ) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (context) => Padding(
-        padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
-        child: Column(
-          spacing: 24,
-          mainAxisSize: .min,
-          crossAxisAlignment: .start,
-          children: [
-            Center(
-              child: Text(
-                t.common.actions.filter,
-                style: AppTextStyles.bodyLargeSemibold.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
+  ) => showModalBottomSheet(
+    context: context,
+    builder: (context) => Padding(
+      padding: const .only(top: 24, bottom: 48, left: 24, right: 24),
+      child: Column(
+        spacing: 24,
+        mainAxisSize: .min,
+        crossAxisAlignment: .start,
+        children: [
+          Center(
+            child: Text(
+              t.common.actions.filter,
+              style: AppTextStyles.bodyLargeSemibold.copyWith(
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
-            Column(
-              spacing: 12,
-              crossAxisAlignment: .start,
-              children: [
-                Text(t.common.info.date),
-                AppDateTimePicker(
-                  type: .date,
-                  value: formModel?.timeControl.value,
-                  onChanged: (value) {
-                    formModel?.timeValueUpdate(value);
-                  },
+          ),
+          Column(
+            spacing: 12,
+            crossAxisAlignment: .start,
+            children: [
+              Text(t.common.info.date),
+              AppDateTimePicker(
+                type: .date,
+                value: formModel?.timeControl.value,
+                onChanged: (value) {
+                  formModel?.timeValueUpdate(value);
+                },
+              ),
+            ],
+          ),
+          Row(
+            spacing: 16,
+            children: [
+              Expanded(
+                child: AppButton(
+                  color: .basic,
+                  theme: .outline,
+                  onPressed: () => context.pop(),
+                  text: t.common.actions.cancel,
                 ),
-              ],
-            ),
-            Row(
-              spacing: 16,
-              children: [
-                Expanded(
-                  child: AppButton(
-                    color: .basic,
-                    theme: .outline,
-                    onPressed: () => context.pop(),
-                    text: t.common.actions.cancel,
-                  ),
+              ),
+              Expanded(
+                child: AppButton(
+                  onPressed: () => context.pop(),
+                  text: t.common.actions.apply,
                 ),
-                Expanded(
-                  child: AppButton(
-                    onPressed: () => context.pop(),
-                    text: t.common.actions.apply,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
-      useRootNavigator: true,
-    );
-  }
+    ),
+    useRootNavigator: true,
+  );
 }

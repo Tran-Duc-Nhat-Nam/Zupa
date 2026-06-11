@@ -24,44 +24,40 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider<HomeCubit>(
       create: (context) => getIt<HomeCubit>()..init(),
       child: Builder(
-        builder: (context) {
-          return HomeFormBuilder(
-            model: Home.fromParams(.initial()),
-            builder: (context, _, _) {
-              return AppScreen(
-                isChildScrollable: true,
-                hasParentView: true,
-                title: t.home.title,
-                hasAppBar: false,
-                floatingActionButton: FloatingActionButton(
-                  backgroundColor: colorScheme.primaryContainer,
-                  foregroundColor: colorScheme.primary,
-                  onPressed: () => context.pushRoute(CheckInRoute()),
-                  shape: const CircleBorder(),
-                  child: const Icon(Symbols.camera_alt_rounded),
+        builder: (context) => HomeFormBuilder(
+          model: .fromParams(.initial()),
+          builder: (context, _, _) => AppScreen(
+            isChildScrollable: true,
+            hasParentView: true,
+            title: t.home.title,
+            hasAppBar: false,
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: colorScheme.primaryContainer,
+              foregroundColor: colorScheme.primary,
+              onPressed: () => context.pushRoute(CheckInRoute()),
+              shape: const CircleBorder(),
+              child: const Icon(Symbols.camera_alt_rounded),
+            ),
+            child: const Column(
+              spacing: 16,
+              children: [
+                Padding(
+                  padding: .symmetric(horizontal: 36),
+                  child: Column(
+                    spacing: 16,
+                    children: [
+                      SizedBox(height: 16),
+                      AppSiteSelector(),
+                      HomeSearchBar(),
+                      VehicleCapacityTab(),
+                    ],
+                  ),
                 ),
-                child: const Column(
-                  spacing: 16,
-                  children: [
-                    Padding(
-                      padding: .symmetric(horizontal: 36),
-                      child: Column(
-                        spacing: 16,
-                        children: [
-                          SizedBox(height: 16),
-                          AppSiteSelector(),
-                          HomeSearchBar(),
-                          VehicleCapacityTab(),
-                        ],
-                      ),
-                    ),
-                    Expanded(child: TicketListTab()),
-                  ],
-                ),
-              );
-            }
-          );
-        },
+                Expanded(child: TicketListTab()),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

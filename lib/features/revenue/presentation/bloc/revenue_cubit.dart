@@ -32,20 +32,16 @@ class RevenueCubit extends Cubit<RevenueState> {
       case Error(:final message):
         emit(.failed(revenueList: [], message: message));
       default:
-        emit(const .failed(revenueList: [], message: 'error'));
+        emit(const .failed(revenueList: [], message: 'cancelled'));
     }
   }
 
   Future<void> refresh({required GetRevenueParams filter}) async {
-    final List<DailyRevenueEntity> items = state.maybeWhen(
-      loaded: (revenueList, pageIndex) => revenueList,
-      orElse: () => [],
-    );
     final int page = state.maybeWhen(
       loaded: (revenueList, pageIndex) => pageIndex,
       orElse: () => defaultPageIndex,
     );
-    emit(.refreshing(revenueList: items, pageIndex: page));
+    emit(.refreshing(revenueList: state.items, pageIndex: page));
     _getToken?.cancel();
     _getToken = RequestToken();
     final response = await _getRevenue(filter: filter, token: _getToken);
@@ -54,42 +50,39 @@ class RevenueCubit extends Cubit<RevenueState> {
       case Success(:final data):
         emit(.loaded(revenueList: data, pageIndex: defaultPageIndex));
       case Error(:final message):
-        emit(.failed(revenueList: items, message: message));
+        emit(.failed(revenueList: state.items, message: message));
       default:
-        emit(.failed(revenueList: items, message: 'error'));
+        emit(.failed(revenueList: state.items, message: 'cancelled'));
     }
   }
 
   Future<void> loadMore({required GetRevenueParams filter}) async {
-    final List<DailyRevenueEntity> items = state.maybeMap(
-      loaded: (params) => [...params.revenueList],
-      orElse: () => [],
-    );
+    final tempItems = state.items;
     final int pageIndex = state.maybeMap(
       loaded: (params) => params.pageIndex,
       orElse: () => defaultPageIndex,
     );
 
-    emit(.loadingMore(revenueList: items, pageIndex: pageIndex));
+    emit(.loadingMore(revenueList: tempItems, pageIndex: pageIndex));
     _getToken?.cancel();
     _getToken = RequestToken();
     final result = await _getRevenue(filter: filter, token: _getToken);
 
     switch (result) {
       case Success(data: final newItems):
-        items.addAll(newItems);
+        tempItems.addAll(newItems);
         emit(
-          items.isEmpty
+          tempItems.isEmpty
               ? const .empty()
               : .loaded(
-                  revenueList: items,
+                  revenueList: tempItems,
                   pageIndex: newItems.isEmpty ? pageIndex : pageIndex + 1,
                 ),
         );
       case Error(:final message):
-        emit(.failed(revenueList: items, message: message));
+        emit(.failed(revenueList: tempItems, message: message));
       default:
-        emit(.failed(revenueList: items, message: 'error'));
+        emit(.failed(revenueList: tempItems, message: 'cancelled'));
     }
   }
 
