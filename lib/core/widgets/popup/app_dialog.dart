@@ -124,22 +124,6 @@ abstract class DialogHelper {
     );
   }
 
-  /// Compatibility layer for existing int-based download dialogs
-  @Deprecated('Use showDownloadProgress instead')
-  static void showDownloadDialog(
-    BuildContext context, {
-    required Stream<int> progressStream,
-    String? version,
-  }) {
-    showDownloadProgress(
-      context,
-      progressStream: progressStream.map((p) => p / 100.0),
-      subtitle: version != null
-          ? t.common.version.downloadingVersion(version: version)
-          : null,
-    );
-  }
-
   /// Show a generic MD3 modal dialog using [AppDialog].
   static void showModal(
     BuildContext context, {
@@ -235,7 +219,7 @@ class AppDialog extends StatelessWidget {
 
     return Align(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 320, minWidth: 280),
+        constraints: const .new(maxWidth: 320, minWidth: 280),
         margin: const .symmetric(horizontal: 24, vertical: 24),
         padding: const .all(24),
         decoration: BoxDecoration(
@@ -245,7 +229,7 @@ class AppDialog extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withAlpha(25),
               blurRadius: 10,
-              offset: const Offset(0, 4),
+              offset: const .new(0, 4),
             ),
           ],
         ),
@@ -285,7 +269,7 @@ class AppDialog extends StatelessWidget {
 
               // Actions
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: .end,
                 children: [
                   if (cancelText != null)
                     TextButton(
@@ -325,16 +309,16 @@ class AppDialog extends StatelessWidget {
 
   _DialogStyle _getStyles(AppDialogType type, AppColors scheme) {
     return switch (type) {
-      .success => _DialogStyle(
+      .success => .new(
         icon: Symbols.check_circle_rounded,
         color: scheme.success,
       ),
-      .error => _DialogStyle(icon: Symbols.error_rounded, color: scheme.error),
-      .warning => _DialogStyle(
+      .error => .new(icon: Symbols.error_rounded, color: scheme.error),
+      .warning => .new(
         icon: Symbols.warning_amber_rounded,
         color: scheme.warning,
       ),
-      .info => _DialogStyle(icon: Symbols.info_rounded, color: scheme.primary),
+      .info => .new(icon: Symbols.info_rounded, color: scheme.primary),
     };
   }
 }
@@ -444,7 +428,7 @@ class LoadingDialog extends StatelessWidget {
 
     return Align(
       child: Container(
-        constraints: const .new(minWidth: 200, minHeight: 200),
+        constraints: const .new(minWidth: 200, minHeight: 200, maxWidth: 200, maxHeight: 200),
         padding: const .all(24),
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHigh,
