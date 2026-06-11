@@ -17,10 +17,6 @@ sealed class DailyRevenueModel with _$DailyRevenueModel {
     @Default([]) List<RevenueModel> revenue,
   }) = _DailyRevenueModel;
 
-  int get totalPass => revenue.fold(0, (sum, e) => sum + e.pass);
-
-  int get totalRevenue => revenue.fold(0, (sum, e) => sum + e.revenue);
-
   factory DailyRevenueModel.fromJson(Map<String, dynamic> json) =>
       _$DailyRevenueModelFromJson(json);
 

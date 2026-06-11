@@ -50,3 +50,14 @@ sealed class RevenueState with _$RevenueState {
 
   const factory RevenueState.empty() = Emtpy;
 }
+
+extension RevenueStateExtension on RevenueState {
+  List<DailyRevenueEntity> get items => switch (this) {
+    Loaded(:final revenueList) => revenueList,
+    Refreshing(:final revenueList) => revenueList,
+    LoadingMore(:final revenueList) => revenueList,
+    _ => [],
+  };
+
+  bool get isLoading => this is Loading;
+}

@@ -15,7 +15,7 @@ class RevenueTitle extends StatelessWidget {
     final colorScheme = context.colorScheme;
     return Container(
       clipBehavior: .antiAlias,
-      decoration: const BoxDecoration(borderRadius: .all(Radius.circular(16))),
+      decoration: const BoxDecoration(borderRadius: .all(.circular(16))),
       child: ListTileTheme(
         contentPadding: .zero,
         dense: true,
@@ -43,7 +43,7 @@ class RevenueTitle extends StatelessWidget {
                   height: 50,
                   alignment: .center,
                   decoration: BoxDecoration(
-                    borderRadius: .circular(16),
+                    borderRadius: const .all(.circular(16)),
                     color: colorScheme.primaryContainer,
                   ),
                   child: Text(

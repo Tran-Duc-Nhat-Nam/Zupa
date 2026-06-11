@@ -11,8 +11,14 @@ class DailyRevenueEntity {
   final DateTime date;
   final VehicleTypeEntity? vehicleType;
   final List<RevenueEntity> revenue;
+}
 
+extension DailyRevenueEntityExtension on DailyRevenueEntity {
   int get totalPass => revenue.fold(0, (sum, e) => sum + e.pass);
-
   int get totalRevenue => revenue.fold(0, (sum, e) => sum + e.revenue);
+}
+
+extension DailyRevenueEntityListExtension on List<DailyRevenueEntity> {
+  int get totalPass => fold(0, (sum, e) => sum + e.totalPass);
+  int get totalRevenue => fold(0, (sum, e) => sum + e.totalRevenue);
 }

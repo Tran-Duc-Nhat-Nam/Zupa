@@ -34,16 +34,14 @@ sealed class RevenueFilterModel with _$RevenueFilterModel {
     toDate: toDate,
   );
 
-  factory RevenueFilterModel.fromEntity(GetRevenueParams entity) {
-    return .new(
-      paidByType: entity.keyword,
-      productTypeValue: switch (entity.type?.name) {
-        'motorbike' => 'linen',
-        'bike' => 'uniform',
-        _ => 'guest',
-      },
-      fromDate: entity.fromDate,
-      toDate: entity.toDate,
-    );
-  }
+  factory RevenueFilterModel.fromEntity(GetRevenueParams entity) => .new(
+    paidByType: entity.keyword,
+    productTypeValue: switch (entity.type?.name) {
+      'motorbike' => 'linen',
+      'bike' => 'uniform',
+      _ => 'guest',
+    },
+    fromDate: entity.fromDate,
+    toDate: entity.toDate,
+  );
 }

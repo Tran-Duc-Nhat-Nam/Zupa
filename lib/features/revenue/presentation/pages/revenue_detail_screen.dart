@@ -12,22 +12,18 @@ class RevenueDetailScreen extends StatelessWidget {
   const RevenueDetailScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<RevenueCubit>(),
-      child: Builder(
-        builder: (context) {
-          return AppScreen(
-            isChildScrollable: true,
-            title: t.parking.revenue,
-            subtitle: t.common.actions.viewDetails,
-            child: const Padding(
-              padding: .symmetric(horizontal: 36),
-              child: RevenueListTab(),
-            ),
-          );
-        },
+  Widget build(BuildContext context) => BlocProvider(
+    create: (context) => getIt<RevenueCubit>(),
+    child: Builder(
+      builder: (context) => AppScreen(
+        isChildScrollable: true,
+        title: t.parking.revenue,
+        subtitle: t.common.actions.viewDetails,
+        child: const Padding(
+          padding: .symmetric(horizontal: 36),
+          child: RevenueListTab(),
+        ),
       ),
-    );
-  }
+    ),
+  );
 }
