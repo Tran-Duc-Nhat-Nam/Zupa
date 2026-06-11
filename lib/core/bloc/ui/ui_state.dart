@@ -4,5 +4,14 @@ part of 'ui_cubit.dart';
 sealed class UIState with _$UIState {
   const factory UIState.initial() = Initial;
 
-  const factory UIState.loaded({required UISettingsEntity settings}) = Loaded;
+  const factory UIState.loaded({
+    @Default(
+      UISettingsEntity(
+        isFloatingNavbar: false,
+        isShowNavbarLabel: false,
+        isGlassmorphism: false,
+      ),
+    )
+    UISettingsEntity settings,
+  }) = Loaded;
 }

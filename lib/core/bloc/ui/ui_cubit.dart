@@ -11,23 +11,16 @@ part 'ui_state.dart';
 
 @lazySingleton
 class UICubit extends Cubit<UIState> {
-  UICubit(this._setUISettings, this._getUISettings) : super(UIState.loaded(
-          settings: UISettingsEntity(
-            isFloatingNavbar: false,
-            isShowNavbarLabel: false,
-            isGlassmorphism: false,
-          ),
-        ));
+  UICubit(this._setUISettings, this._getUISettings) : super(const .loaded());
 
   final SetUISettingsUseCase _setUISettings;
   final GetUISettingsUseCase _getUISettings;
 
-  Future<void> loadInfo() async {
-    final settings = await _getUISettings();
-    emit(.loaded(settings: settings));
-  }
+  Future<void> loadInfo() async =>
+      emit(.loaded(settings: await _getUISettings()));
 
-  void changeUIMode({required SetUISettingsParams params}) {
-    _setUISettings(params: params);
+  Future<void> changeUIMode({required SetUISettingsParams params}) async {
+    await _setUISettings(params: params);
+    loadInfo();
   }
 }

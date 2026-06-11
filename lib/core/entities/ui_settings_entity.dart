@@ -3,7 +3,7 @@ class UISettingsEntity {
   final bool isShowNavbarLabel;
   final bool isGlassmorphism;
 
-  UISettingsEntity({
+  const UISettingsEntity({
     required this.isFloatingNavbar,
     required this.isShowNavbarLabel,
     required this.isGlassmorphism,
