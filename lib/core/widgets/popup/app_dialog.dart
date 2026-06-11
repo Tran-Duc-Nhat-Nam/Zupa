@@ -13,35 +13,24 @@ import 'package:zupa/core/widgets/app_loading_widget.dart';
 
 abstract class DialogHelper {
   /// Show a loading dialog with an optional [message].
-  static void showLoading({String? message}) {
-    SmartDialog.showLoading(
-      msg: message ?? '',
-      builder: (context) => LoadingDialog(message: message),
-      animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : .zero,
-        orElse: () => null,
-      ),
-    );
-  }
+  static void showLoading({String? message}) => SmartDialog.showLoading(
+    msg: message ?? '',
+    builder: (context) => LoadingDialog(message: message),
+    animationTime: getIt<AnimationCubit>().state.isOn ? null : .zero,
+  );
 
   /// Dismiss the active loading dialog.
-  static void dismissLoading() {
-    SmartDialog.dismiss(status: .loading);
-  }
+  static void dismissLoading() => SmartDialog.dismiss(status: .loading);
 
   /// Show a predefined authentication ended dialog.
-  static void showAuthDialog(BuildContext context) {
-    showModal(
-      context,
-      tag: 'auth_session_ended',
-      subtitleText: t.auth.session.ended.subtitle,
-      titleText: t.auth.session.ended.title,
-      type: .warning,
-      onOk: () {
-        context.router.replaceAll([const LoginRoute()]);
-      },
-    );
-  }
+  static void showAuthDialog(BuildContext context) => showModal(
+    context,
+    tag: 'auth_session_ended',
+    subtitleText: t.auth.session.ended.subtitle,
+    titleText: t.auth.session.ended.title,
+    type: .warning,
+    onOk: () => context.router.replaceAll([const LoginRoute()]),
+  );
 
   /// Show a predefined update available dialog.
   static void showUpdateDialog(
@@ -49,33 +38,27 @@ abstract class DialogHelper {
     required String version,
     required bool isMandatory,
     required VoidCallback onUpdate,
-  }) {
-    showModal(
-      context,
-      tag: 'app_update',
-      titleText: t.common.version.updateAvailable,
-      subtitleText: t.common.version.updateDescription(version: version),
-      okText: t.common.version.updateNow,
-      cancelText: isMandatory ? null : t.common.version.later,
-      dismissible: !isMandatory,
-      onOk: onUpdate,
-    );
-  }
+  }) => showModal(
+    context,
+    tag: 'app_update',
+    titleText: t.common.version.updateAvailable,
+    subtitleText: t.common.version.updateDescription(version: version),
+    okText: t.common.version.updateNow,
+    cancelText: isMandatory ? null : t.common.version.later,
+    dismissible: !isMandatory,
+    onOk: onUpdate,
+  );
 
   /// Show a predefined maintenance dialog.
-  static void showMaintenanceDialog(BuildContext context) {
-    showModal(
-      context,
-      tag: 'app_maintenance',
-      titleText: t.common.version.maintenance,
-      subtitleText: t.common.version.maintenanceDescription,
-      okText: t.common.version.retry,
-      type: .warning,
-      onOk: () {
-        SmartDialog.dismiss();
-      },
-    );
-  }
+  static void showMaintenanceDialog(BuildContext context) => showModal(
+    context,
+    tag: 'app_maintenance',
+    titleText: t.common.version.maintenance,
+    subtitleText: t.common.version.maintenanceDescription,
+    okText: t.common.version.retry,
+    type: .warning,
+    onOk: () => SmartDialog.dismiss(),
+  );
 
   /// Show a predefined security/root detection dialog.
   static void showSecurityDialog(
@@ -105,24 +88,19 @@ abstract class DialogHelper {
     IconData? icon,
     String tag = 'download_progress',
     VoidCallback? onDismiss,
-  }) {
-    SmartDialog.show(
-      tag: tag,
-      builder: (context) => DownloadProgressDialog(
-        progressStream: progressStream,
-        title: title,
-        subtitle: subtitle,
-        icon: icon,
-      ),
-      backType: .block,
-      clickMaskDismiss: false,
-      onDismiss: onDismiss,
-      animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : .zero,
-        orElse: () => null,
-      ),
-    );
-  }
+  }) => SmartDialog.show(
+    tag: tag,
+    builder: (context) => DownloadProgressDialog(
+      progressStream: progressStream,
+      title: title,
+      subtitle: subtitle,
+      icon: icon,
+    ),
+    backType: .block,
+    clickMaskDismiss: false,
+    onDismiss: onDismiss,
+    animationTime: getIt<AnimationCubit>().state.isOn ? null : .zero,
+  );
 
   /// Show a generic MD3 modal dialog using [AppDialog].
   static void showModal(
@@ -138,52 +116,41 @@ abstract class DialogHelper {
     bool showOk = true,
     VoidCallback? onOk,
     VoidCallback? onCancel,
-  }) {
-    SmartDialog.show(
-      tag: tag,
-      bindPage: bindPage,
-      builder: (context) => AppDialog(
-        description: subtitleText ?? '',
-        title: titleText ?? '',
-        onConfirm: onOk,
-        onCancel: onCancel,
-        confirmText: okText ?? t.common.actions.ok,
-        cancelText: cancelText,
-        showConfirm: showOk,
-        type: type,
-      ),
-      backType: dismissible ? .normal : .block,
-      clickMaskDismiss: dismissible,
-      keepSingle: true,
-      animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : .zero,
-        orElse: () => null,
-      ),
-    );
-  }
+  }) => SmartDialog.show(
+    tag: tag,
+    bindPage: bindPage,
+    builder: (context) => AppDialog(
+      description: subtitleText ?? '',
+      title: titleText ?? '',
+      onConfirm: onOk,
+      onCancel: onCancel,
+      confirmText: okText ?? t.common.actions.ok,
+      cancelText: cancelText,
+      showConfirm: showOk,
+      type: type,
+    ),
+    backType: dismissible ? .normal : .block,
+    clickMaskDismiss: dismissible,
+    keepSingle: true,
+    animationTime: getIt<AnimationCubit>().state.isOn ? null : .zero,
+  );
 
   /// Show a custom widget as a modal dialog.
   static void showCustomModal({
     required Widget child,
     bool dismissible = true,
     VoidCallback? onDismiss,
-  }) {
-    SmartDialog.show(
-      builder: (context) => child,
-      backType: dismissible ? .normal : .block,
-      clickMaskDismiss: dismissible,
-      onDismiss: onDismiss,
-      animationTime: getIt<AnimationCubit>().state.maybeWhen(
-        loaded: (isOn) => isOn ? null : .zero,
-        orElse: () => null,
-      ),
-    );
-  }
+  }) => SmartDialog.show(
+    builder: (context) => child,
+    backType: dismissible ? .normal : .block,
+    clickMaskDismiss: dismissible,
+    onDismiss: onDismiss,
+    animationTime: getIt<AnimationCubit>().state.isOn ? null : .zero,
+  );
 
   /// Dismiss all active dialogs.
-  static void dismissAll() {
-    SmartDialog.dismiss(status: SmartStatus.allDialog);
-  }
+  static void dismissAll() =>
+      SmartDialog.dismiss(status: SmartStatus.allDialog);
 }
 
 enum AppDialogType { success, error, warning, info }
@@ -226,7 +193,7 @@ class AppDialog extends StatelessWidget {
           color: colorScheme.surfaceContainerHigh,
           borderRadius: .circular(28),
           boxShadow: [
-            BoxShadow(
+            .new(
               color: Colors.black.withAlpha(25),
               blurRadius: 10,
               offset: const .new(0, 4),
@@ -254,16 +221,14 @@ class AppDialog extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Description / Content
-              if (content != null)
-                content!
-              else
-                Text(
-                  description,
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+              content ??
+                  Text(
+                    description,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: .center,
                   ),
-                  textAlign: .center,
-                ),
 
               const SizedBox(height: 24),
 
@@ -307,20 +272,19 @@ class AppDialog extends StatelessWidget {
 
   // --- Style Logic ---
 
-  _DialogStyle _getStyles(AppDialogType type, AppColors scheme) {
-    return switch (type) {
-      .success => .new(
-        icon: Symbols.check_circle_rounded,
-        color: scheme.success,
-      ),
-      .error => .new(icon: Symbols.error_rounded, color: scheme.error),
-      .warning => .new(
-        icon: Symbols.warning_amber_rounded,
-        color: scheme.warning,
-      ),
-      .info => .new(icon: Symbols.info_rounded, color: scheme.primary),
-    };
-  }
+  _DialogStyle _getStyles(AppDialogType type, AppColors scheme) =>
+      switch (type) {
+        .success => .new(
+          icon: Symbols.check_circle_rounded,
+          color: scheme.success,
+        ),
+        .error => .new(icon: Symbols.error_rounded, color: scheme.error),
+        .warning => .new(
+          icon: Symbols.warning_amber_rounded,
+          color: scheme.warning,
+        ),
+        .info => .new(icon: Symbols.info_rounded, color: scheme.primary),
+      };
 }
 
 class _DialogStyle {
@@ -423,22 +387,23 @@ class LoadingDialog extends StatelessWidget {
   const LoadingDialog({super.key, this.message});
 
   @override
-  Widget build(BuildContext context) {
-    final colorScheme = context.colorScheme;
-
-    return Align(
-      child: Container(
-        constraints: const .new(minWidth: 200, minHeight: 200, maxWidth: 200, maxHeight: 200),
-        padding: const .all(24),
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHigh,
-          borderRadius: .circular(28),
-        ),
-        child: Material(
-          color: Colors.transparent,
-          child: AppLoadingWidget(label: message),
-        ),
+  Widget build(BuildContext context) => Align(
+    child: Container(
+      constraints: const .new(
+        minWidth: 200,
+        minHeight: 200,
+        maxWidth: 200,
+        maxHeight: 200,
       ),
-    );
-  }
+      padding: const .all(24),
+      decoration: BoxDecoration(
+        color: context.colorScheme.surfaceContainerHigh,
+        borderRadius: .circular(28),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: AppLoadingWidget(label: message),
+      ),
+    ),
+  );
 }

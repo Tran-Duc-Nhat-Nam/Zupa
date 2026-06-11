@@ -124,20 +124,18 @@ class MessageHelper {
   static (IconData, Color, Color) _getStyle(
     AppMessageType type,
     AppColors scheme,
-  ) {
-    return switch (type) {
-      .success => (
-        Symbols.check_circle_rounded,
-        scheme.success,
-        scheme.onSuccess,
-      ),
-      .error => (Symbols.error_rounded, scheme.error, scheme.onError),
-      .warning => (
-        Symbols.warning_amber_rounded,
-        scheme.warning,
-        scheme.onWarning,
-      ),
-      .info => (Symbols.info_rounded, scheme.primary, scheme.onPrimary),
-    };
-  }
+  ) => switch (type) {
+    .success => (
+      Symbols.check_circle_rounded,
+      scheme.success,
+      scheme.onSuccess,
+    ),
+    .error => (Symbols.error_rounded, scheme.error, scheme.onError),
+    .warning => (
+      Symbols.warning_amber_rounded,
+      scheme.warning,
+      scheme.onWarning,
+    ),
+    .info => (Symbols.info_rounded, scheme.primary, scheme.onPrimary),
+  };
 }

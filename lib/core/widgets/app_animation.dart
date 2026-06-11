@@ -16,66 +16,55 @@ class AppAnimation extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isAnimationOn = context.watch<AnimationCubit>().state.maybeWhen(
-      loaded: (isOn) => isOn,
-      orElse: () => true,
-    );
-
-    if (!animate || !isAnimationOn) return child;
-
-    return child
-        .animate(key: key, delay: delay ?? 0.ms)
-        .fadeIn(duration: 500.ms, curve: Curves.easeOutQuad)
-        .slideY(
-          begin: 0.05,
-          end: 0,
-          duration: 500.ms,
-          curve: Curves.easeOutQuad,
-        )
-        .scale(
-          begin: const Offset(0.98, 0.98),
-          end: const Offset(1, 1),
-          duration: 500.ms,
-          curve: Curves.easeOutQuad,
-        );
-  }
+  Widget build(BuildContext context) =>
+      !animate || !context.watch<AnimationCubit>().state.isOn
+      ? child
+            .animate(key: key, delay: delay ?? 0.ms)
+            .fadeIn(duration: 500.ms, curve: Curves.easeOutQuad)
+            .slideY(
+              begin: 0.05,
+              end: 0,
+              duration: 500.ms,
+              curve: Curves.easeOutQuad,
+            )
+            .scale(
+              begin: const .new(0.98, 0.98),
+              end: const .new(1, 1),
+              duration: 500.ms,
+              curve: Curves.easeOutQuad,
+            )
+      : child;
 
   /// Staggered list animation helper
   static Widget staggeredList({
     required List<Widget> children,
     Duration interval = const .new(milliseconds: 50),
-  }) {
-    return Column(
-      mainAxisSize: .min,
-      children: children
-          .map(
-            (child) => AppAnimation(
-              delay: interval * children.indexOf(child),
-              child: child,
-            ),
-          )
-          .toList(),
-    );
-  }
+  }) => Column(
+    mainAxisSize: .min,
+    children: children
+        .map(
+          (child) => AppAnimation(
+            delay: interval * children.indexOf(child),
+            child: child,
+          ),
+        )
+        .toList(),
+  );
 }
 
 extension AppAnimationExtension on Widget {
-  Widget withAppAnimation({Key? key, Duration? delay, bool animate = true}) {
-    return AppAnimation(key: key, delay: delay, animate: animate, child: this);
-  }
+  Widget withAppAnimation({Key? key, Duration? delay, bool animate = true}) =>
+      AppAnimation(key: key, delay: delay, animate: animate, child: this);
 
   Widget animateIn({
     Key? key,
     int index = 0,
     Duration? delay,
     bool animate = true,
-  }) {
-    return AppAnimation(
-      key: key,
-      delay: delay ?? .new(milliseconds: index * 50),
-      animate: animate,
-      child: this,
-    );
-  }
+  }) => AppAnimation(
+    key: key,
+    delay: delay ?? .new(milliseconds: index * 50),
+    animate: animate,
+    child: this,
+  );
 }

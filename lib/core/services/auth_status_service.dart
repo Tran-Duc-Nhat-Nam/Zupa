@@ -8,12 +8,8 @@ class AuthStatusService {
 
   Stream<void> get unauthorizedEvents => _unauthorizedController.stream;
 
-  void notifyUnauthorized() {
-    _unauthorizedController.add(null);
-  }
+  void notifyUnauthorized() => _unauthorizedController.add(null);
 
   @disposeMethod
-  void dispose() {
-    _unauthorizedController.close();
-  }
+  void dispose() => _unauthorizedController.close();
 }

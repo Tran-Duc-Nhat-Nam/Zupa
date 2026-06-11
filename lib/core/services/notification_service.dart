@@ -58,6 +58,5 @@ class NotificationService {
 }
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-}
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async =>
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

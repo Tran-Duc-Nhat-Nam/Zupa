@@ -7,83 +7,71 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 @AutoRouterConfig(deferredLoading: true)
 class AppRouter extends RootStackRouter {
   @override
-  RouteType get defaultRouteType => getIt<AnimationCubit>().state.maybeWhen(
-    loaded: (isOn) => isOn
-        ? const RouteType.adaptive()
-        : RouteType.custom(duration: .zero, reverseDuration: .zero),
-    orElse: () => const RouteType.adaptive(),
-  );
+  RouteType get defaultRouteType => getIt<AnimationCubit>().state.isOn
+      ? const .adaptive()
+      : .custom(duration: .zero, reverseDuration: .zero);
 
   // Optional: Define paths as constants to prevent typos
-  static const String loginPath = '/login';
-  static const String rootPath = '/';
+  static const loginPath = '/login';
+  static const rootPath = '/';
 
   @override
   List<AutoRoute> get routes => [
     // 1. Public Routes
-    AutoRoute(path: loginPath, page: LoginRoute.page),
+    .new(path: loginPath, page: LoginRoute.page),
 
     // 2. Protected Routes Wrapper
-    AutoRoute(
+    .new(
       path: rootPath,
       page: const EmptyShellRoute('app').page,
       guards: [AuthGuard()],
       children: [
         // Main Application Shell (With Bottom Navigation)
-        AutoRoute(
+        .new(
           path: '',
           page: AppNavBarRoute.page,
           guards: [AuthGuard()],
           children: [
-            AutoRoute(path: 'home', page: HomeRoute.page, initial: true),
-            AutoRoute(path: 'history', page: HistoryRoute.page),
-            AutoRoute(path: 'revenue', page: RevenueRoute.page),
-            AutoRoute(path: 'settings', page: SettingsRoute.page),
+            .new(path: 'home', page: HomeRoute.page, initial: true),
+            .new(path: 'history', page: HistoryRoute.page),
+            .new(path: 'revenue', page: RevenueRoute.page),
+            .new(path: 'settings', page: SettingsRoute.page),
           ],
         ),
 
         // Settings Module (Full Screen - Covers Bottom Bar)
-        AutoRoute(path: 'settings/parking', page: ParkingLotRoute.page),
-        AutoRoute(
-          path: 'settings/parking/detail',
-          page: ParkingDetailsRoute.page,
-        ),
+        .new(path: 'settings/parking', page: ParkingLotRoute.page),
+        .new(path: 'settings/parking/detail', page: ParkingDetailsRoute.page),
 
-        AutoRoute(path: 'settings/app', page: AppSettingsRoute.page),
-        AutoRoute(
-          path: 'settings/employee',
-          page: EmployeeManagementRoute.page,
-        ),
+        .new(path: 'settings/app', page: AppSettingsRoute.page),
+        .new(path: 'settings/employee', page: EmployeeManagementRoute.page),
 
         // Nested Configuration Group
-        AutoRoute(
-          path: 'settings/general-config',
-          page: GeneralConfigRoute.page,
-        ),
-        AutoRoute(
+        .new(path: 'settings/general-config', page: GeneralConfigRoute.page),
+        .new(
           path: 'settings/general-config/member-fee',
           page: MemberFeeSetingRoute.page,
         ),
-        AutoRoute(
+        .new(
           path: 'settings/general-config/parking-price',
           page: ParkingPriceSettingRoute.page,
         ),
 
-        AutoRoute(path: 'settings/vehicles', page: MemberVehiclesRoute.page),
-        AutoRoute(
+        .new(path: 'settings/vehicles', page: MemberVehiclesRoute.page),
+        .new(
           path: 'settings/vehicles/detail',
           page: MemberVehicleDetailRoute.page,
         ),
 
-        AutoRoute(path: 'settings/password', page: ChangePasswordRoute.page),
-        AutoRoute(path: 'settings/about', page: AboutAppRoute.page),
-        AutoRoute(path: 'settings/about/changelog', page: ChangelogRoute.page),
+        .new(path: 'settings/password', page: ChangePasswordRoute.page),
+        .new(path: 'settings/about', page: AboutAppRoute.page),
+        .new(path: 'settings/about/changelog', page: ChangelogRoute.page),
 
-        AutoRoute(path: 'revenue/detail', page: RevenueDetailRoute.page),
+        .new(path: 'revenue/detail', page: RevenueDetailRoute.page),
         // 4. Action Routes
-        AutoRoute(path: 'check-in', page: CheckInRoute.page),
-        AutoRoute(path: 'debug', page: DebugRoute.page),
-        AutoRoute(path: 'chatbot', page: ChatbotRoute.page),
+        .new(path: 'check-in', page: CheckInRoute.page),
+        .new(path: 'debug', page: DebugRoute.page),
+        .new(path: 'chatbot', page: ChatbotRoute.page),
       ],
     ),
 

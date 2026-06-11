@@ -153,7 +153,7 @@ class AppErrorScreen extends StatelessWidget {
               const SizedBox(height: 32),
               if (details.exceptionAsString().isNotEmpty)
                 Container(
-                  width: double.infinity,
+                  width: .infinity,
                   padding: const .all(16),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerLow,
