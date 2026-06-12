@@ -5,12 +5,8 @@ class ColorConverter implements JsonConverter<Color, int> {
   const ColorConverter();
 
   @override
-  Color fromJson(int json) {
-    return .new(json);
-  }
+  Color fromJson(int json) => .new(json);
 
   @override
-  int toJson(Color object) {
-    return object.toARGB32();
-  }
+  int toJson(Color object) => object.toARGB32();
 }
