@@ -1,7 +1,7 @@
 # Zupa (TSP Parking)
 
 <p>
-  <img src="assets/images/park.png" alt="Zupa Logo" width="512"/>
+  <img src="assets/images/park.png" alt="Zupa Logo" width="128"/>
 </p>
 
 A premium, professional parking management application designed for modern parking ecosystems. Built with **Flutter**, this project implements **Clean Architecture** to deliver a high-performance, maintainable, and resilient mobile experience.
