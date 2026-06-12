@@ -35,12 +35,9 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
     _initPackageInfo();
   }
 
-  Future<void> _initPackageInfo() async {
-    final info = await PackageInfo.fromPlatform();
-    setState(() {
-      _packageInfo = info;
-    });
-  }
+  Future<void> _initPackageInfo() async => setState(() async {
+    _packageInfo = await PackageInfo.fromPlatform();
+  });
 
   Future<void> _launchUrl(String url, BuildContext context) async {
     final uri = Uri.parse(url);
@@ -94,14 +91,13 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  if (_packageInfo != null) ...[
+                  if (_packageInfo != null)
                     Text(
                       t.settings.appVersion(version: _packageInfo!.version),
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
                     ),
-                  ],
                 ],
               ),
             ),
@@ -125,83 +121,68 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
               child: BlocBuilder<VersionCubit, VersionState>(
                 builder: (context, versionState) =>
                     BlocBuilder<AnimationCubit, AnimationState>(
-                      builder: (context, animState) {
-                        final isChecking = versionState is Checking;
-                        final isAnimationOn = animState.maybeWhen(
-                          loaded: (isOn) => isOn,
-                          orElse: () => true,
-                        );
-
-                        final info = versionState.maybeMap(
-                          upToDate: (s) => s.info,
-                          updateAvailable: (s) => s.info,
-                          downloading: (s) => s.info,
-                          downloadFailed: (s) => s.info,
-                          orElse: () => null,
-                        );
-
-                        return AppList(
-                          items: [
-                            .new(
-                              leadingIcon: Symbols.link_rounded,
-                              leadingColor: colorScheme.primary,
-                              text: t.settings.github,
-                              trailingIcon: Symbols.open_in_new_rounded,
-                              onTap: () => _launchUrl(Env.github, context),
-                            ),
-                            .new(
-                              leadingIcon: Symbols.update_rounded,
-                              leadingColor: colorScheme.primary,
-                              text: t.settings.checkForUpdate,
-                              trailing: isChecking
-                                  ? SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        value: isAnimationOn ? null : 0.7,
-                                      ),
-                                    )
-                                  : null,
-                              trailingIcon: isChecking
-                                  ? null
-                                  : Symbols.chevron_right_rounded,
-                              onTap: isChecking
-                                  ? null
-                                  : () {
-                                      context
-                                          .read<VersionCubit>()
-                                          .checkForUpdates(force: true);
-                                    },
-                            ),
-                            .new(
-                              leadingIcon: Symbols.history_rounded,
-                              leadingColor: colorScheme.primary,
-                              text: t.settings.showChangelog,
-                              trailingIcon: Symbols.chevron_right_rounded,
-                              onTap: () {
-                                if (info != null && _packageInfo != null) {
-                                  context.pushRoute(
-                                    ChangelogRoute(
-                                      changelog:
-                                          info.message ??
-                                          t.common.version.noChangelog,
+                      builder: (context, animState) => AppList(
+                        items: [
+                          .new(
+                            leadingIcon: Symbols.link_rounded,
+                            leadingColor: colorScheme.primary,
+                            text: t.settings.github,
+                            trailingIcon: Symbols.open_in_new_rounded,
+                            onTap: () => _launchUrl(Env.github, context),
+                          ),
+                          .new(
+                            leadingIcon: Symbols.update_rounded,
+                            leadingColor: colorScheme.primary,
+                            text: t.settings.checkForUpdate,
+                            trailing: versionState.isChecking
+                                ? SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      value: animState.isOn ? null : 0.7,
                                     ),
-                                  );
-                                } else {
-                                  context.read<VersionCubit>().checkForUpdates(
-                                    force: true,
-                                  );
-                                  AppToast.showToast(
-                                    t.common.info.noInfo,
-                                    context: context,
-                                  );
-                                }
-                              },
-                            ),
-                          ],
-                        );
-                      },
+                                  )
+                                : null,
+                            trailingIcon: versionState.isChecking
+                                ? null
+                                : Symbols.chevron_right_rounded,
+                            onTap: versionState.isChecking
+                                ? null
+                                : () {
+                                    context
+                                        .read<VersionCubit>()
+                                        .checkForUpdates(force: true);
+                                  },
+                          ),
+                          .new(
+                            leadingIcon: Symbols.history_rounded,
+                            leadingColor: colorScheme.primary,
+                            text: t.settings.showChangelog,
+                            trailingIcon: Symbols.chevron_right_rounded,
+                            onTap: () {
+                              if (versionState.info != null &&
+                                  _packageInfo != null) {
+                                context.pushRoute(
+                                  ChangelogRoute(
+                                    changelog:
+                                        versionState.info?.message ??
+                                        t.common.version.noChangelog,
+                                  ),
+                                );
+                              } else {
+                                context.read<VersionCubit>().checkForUpdates(
+                                  force: true,
+                                );
+                                AppToast.showToast(
+                                  t.common.info.noInfo,
+                                  context: context,
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
               ),
             ),

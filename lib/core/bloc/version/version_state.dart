@@ -31,3 +31,18 @@ sealed class VersionState with _$VersionState {
 
   const factory VersionState.installFailed() = InstallFailed;
 }
+
+extension VersionStateExtension on VersionState {
+  bool get isChecking => switch (this) {
+    Checking() => true,
+    _ => false,
+  };
+
+  VersionInfo? get info => switch (this) {
+    UpToDate(:final info) => info,
+    UpdateAvailable(:final info) => info,
+    Downloading(:final info) => info,
+    DownloadFailed(:final info) => info,
+    _ => null,
+  };
+}

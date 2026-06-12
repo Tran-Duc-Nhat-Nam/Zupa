@@ -76,7 +76,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                 children: [
                                   AppList(
                                     items: [
-                                      AppListItem(
+                                      .new(
                                         leadingIcon: Symbols.animation_rounded,
                                         text: t.settings.animation,
                                         trailing: AppSwitch(
@@ -111,7 +111,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                 ),
                 builder: (context, formModel, _) => AppList(
                   items: [
-                    AppListItem(
+                    .new(
                       leadingIcon: Symbols.dock_to_bottom_rounded,
                       text: t.settings.enableFloatingNavbar,
                       trailing: ReactiveValueListenableBuilder<bool>(
@@ -127,7 +127,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         ),
                       ),
                     ),
-                    AppListItem(
+                    .new(
                       leadingIcon: Symbols.label_rounded,
                       text: t.settings.showNavbarLabel,
                       trailing: ReactiveValueListenableBuilder<bool>(
@@ -143,7 +143,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                         ),
                       ),
                     ),
-                    AppListItem(
+                    .new(
                       leadingIcon: Symbols.blur_circular_rounded,
                       text: t.settings.enableGlassmorphism,
                       trailing: ReactiveValueListenableBuilder<bool>(
@@ -199,7 +199,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
     final cubit = context.read<ThemeCubit>();
     final formModel = ReactiveThemeSettingsForm.of(context);
 
-    return AppListItem(
+    return .new(
       leadingIcon: Symbols.lightbulb_rounded,
       text: t.settings.theme,
       trailing: ReactiveValueListenableBuilder<ThemeMode>(
@@ -232,7 +232,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
     final cubit = context.read<ThemeCubit>();
     final formModel = ReactiveThemeSettingsForm.of(context);
 
-    return AppListItem(
+    return .new(
       leadingIcon: Symbols.palette_rounded,
       text: t.settings.colorScheme,
       trailing: ReactiveValueListenableBuilder<AppColorSchemeSource>(
@@ -250,7 +250,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                 .brand => t.settings.brandColor,
                 .custom => t.settings.customColor,
                 .materialYou => t.settings.dynamicColor,
-                null => t.settings.brandColor,
+                _ => t.settings.brandColor,
               },
               onChanged: (value) {
                 control.updateValue(value);
