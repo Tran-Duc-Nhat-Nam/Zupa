@@ -9,8 +9,7 @@ extension AppFormTextField on AppTextField {
     IconData? prefixIcon,
     bool isPassword = false,
     String? errorText,
-  }) {
-    return AppInputWrapper<String>(
+  }) => AppInputWrapper<String>(
       control: control,
       errorText: errorText,
       builder: (value, onChanged, derivedError) => AppTextField(
@@ -22,5 +21,4 @@ extension AppFormTextField on AppTextField {
         errorText: derivedError,
       ),
     );
-  }
 }

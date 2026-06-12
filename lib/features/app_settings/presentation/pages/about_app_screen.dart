@@ -35,9 +35,8 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
     _initPackageInfo();
   }
 
-  Future<void> _initPackageInfo() async => setState(() async {
-    _packageInfo = await PackageInfo.fromPlatform();
-  });
+  Future<void> _initPackageInfo() async =>
+      setState(() async => _packageInfo = await PackageInfo.fromPlatform());
 
   Future<void> _launchUrl(String url, BuildContext context) async {
     final uri = Uri.parse(url);
@@ -106,18 +105,15 @@ class _AboutAppScreenState extends AppState<AboutAppScreen> {
 
             // Links and Actions
             BlocListener<VersionCubit, VersionState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  upToDate: (info) => DialogHelper.showModal(
-                    context,
-                    titleText: t.common.version.upToDate,
-                    subtitleText: t.common.version.noUpdateAvailable,
-                    type: .success,
-                    okText: t.common.actions.close,
-                  ),
-                  orElse: () {},
-                );
-              },
+              listener: (context, state) => state.whenOrNull(
+                upToDate: (info) => DialogHelper.showModal(
+                  context,
+                  titleText: t.common.version.upToDate,
+                  subtitleText: t.common.version.noUpdateAvailable,
+                  type: .success,
+                  okText: t.common.actions.close,
+                ),
+              ),
               child: BlocBuilder<VersionCubit, VersionState>(
                 builder: (context, versionState) =>
                     BlocBuilder<AnimationCubit, AnimationState>(

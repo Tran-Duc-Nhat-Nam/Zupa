@@ -28,12 +28,11 @@ class AppCheckbox extends StatelessWidget {
               onChanged?.call(form);
             },
             side: .new(color: colorScheme.primaryContainer),
-            fillColor: .resolveWith<Color>((Set<WidgetState> states) {
-              if (states.contains(WidgetState.selected)) {
-                return colorScheme.primary;
-              }
-              return colorScheme.surfaceContainerLow;
-            }),
+            fillColor: .resolveWith<Color>(
+              (Set<WidgetState> states) => states.contains(WidgetState.selected)
+                  ? colorScheme.primary
+                  : colorScheme.surfaceContainerLow,
+            ),
             shape: RoundedRectangleBorder(borderRadius: .circular(4)),
           ),
         ),

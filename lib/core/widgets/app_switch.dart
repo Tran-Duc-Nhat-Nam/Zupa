@@ -33,7 +33,7 @@ class AppSwitch extends StatelessWidget {
             second: true,
             current: value,
             height: 32,
-            indicatorSize: const Size(24, 24),
+            indicatorSize: const .new(24, 24),
             spacing: 0,
             styleBuilder: (value) => ToggleStyle(
               indicatorColor: colorScheme.surface,
@@ -43,9 +43,7 @@ class AppSwitch extends StatelessWidget {
               borderRadius: .circular(16),
               borderColor: Colors.transparent,
             ),
-            onChanged: (newValue) {
-              onToggle?.call(newValue);
-            },
+            onChanged: onToggle,
           ),
         ),
       ),

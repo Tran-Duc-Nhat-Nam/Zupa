@@ -40,40 +40,36 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ThemeSettingsFormBuilder(
-            builder: (context, formModel, _) {
-              return ListTile(
-                title: Text(t.settings.changeTheme),
-                leading: AnimatedSwitcher(
-                  duration: const .new(milliseconds: 300),
-                  transitionBuilder: (child, anim) => RotationTransition(
-                    turns: child.key == const ValueKey('icon1')
-                        ? Tween<double>(begin: 1, end: 0.75).animate(anim)
-                        : Tween<double>(begin: 0.75, end: 1).animate(anim),
-                    child: FadeTransition(opacity: anim, child: child),
-                  ),
-                  child:
-                      context.watch<ThemeCubit>().state.maybeWhen(
-                        loaded: (settings) => settings.themeMode == .light,
-                        orElse: () => true,
-                      )
-                      ? Icon(Symbols.light_mode_rounded, color: colors.primary)
-                      : Icon(Symbols.dark_mode_rounded, color: colors.primary),
+            builder: (context, formModel, _) => ListTile(
+              title: Text(t.settings.changeTheme),
+              leading: AnimatedSwitcher(
+                duration: const .new(milliseconds: 300),
+                transitionBuilder: (child, anim) => RotationTransition(
+                  turns: child.key == const ValueKey('icon1')
+                      ? Tween<double>(begin: 1, end: 0.75).animate(anim)
+                      : Tween<double>(begin: 0.75, end: 1).animate(anim),
+                  child: FadeTransition(opacity: anim, child: child),
                 ),
-                onTap: () {
-                  final themeCubit = context.read<ThemeCubit>();
+                child:
+                    context.watch<ThemeCubit>().state.maybeWhen(
+                      loaded: (settings) => settings.themeMode == .light,
+                      orElse: () => true,
+                    )
+                    ? Icon(Symbols.light_mode_rounded, color: colors.primary)
+                    : Icon(Symbols.dark_mode_rounded, color: colors.primary),
+              ),
+              onTap: () {
+                final themeCubit = context.read<ThemeCubit>();
 
-                  formModel.themeModeControl.value = ThemeSettings.fromEntity(
-                    themeCubit.state.currentSettings,
-                  ).themeMode;
-                  themeCubit.changeTheme(params: formModel.model.toParams());
-                },
-              );
-            },
+                formModel.themeModeControl.value = ThemeSettings.fromEntity(
+                  themeCubit.state.currentSettings,
+                ).themeMode;
+                themeCubit.changeTheme(params: formModel.model.toParams());
+              },
+            ),
           ),
           ListTile(
-            onTap: () {
-              context.pushRoute(const SettingsRoute());
-            },
+            onTap: () => context.pushRoute(const SettingsRoute()),
             leading: Icon(Symbols.settings_rounded, color: colors.primary),
             title: Text(
               t.settings.title,

@@ -13,6 +13,7 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
 
 @RoutePage()
 class AppErrorScreen extends StatelessWidget {
@@ -81,7 +82,7 @@ class AppErrorScreen extends StatelessWidget {
 
     final uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
-      // Could not launch
+      AppToast.showToast('Could not launch URL: $url');
     }
   }
 

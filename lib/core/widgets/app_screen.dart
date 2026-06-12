@@ -85,51 +85,48 @@ class AppScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildScreen(BuildContext context) {
-    return hasParentView
-        ? _buildContent(context)
-        : Scaffold(
-            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-            appBar: hasAppBar
-                ? AppAppBar(
-                    color: appBarColor,
-                    text: title,
-                    subtext: subtitle,
-                    isClose: isClose,
-                    trailing: appBarTrailing,
-                    trailingIcon: appBarTrailingIcon,
-                    leading: appBarLeading,
-                    leadingIcon: appBarLeadingIcon,
-                  )
-                : appBar,
-            backgroundColor: backgroundColor ?? context.colorScheme.surface,
-            drawer: hasDrawer ? const AppDrawer() : null,
-            body: _buildContent(context),
-            floatingActionButton: floatingActionButton,
-          );
-  }
+  Widget _buildScreen(BuildContext context) => hasParentView
+      ? _buildContent(context)
+      : Scaffold(
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          appBar: hasAppBar
+              ? AppAppBar(
+                  color: appBarColor,
+                  text: title,
+                  subtext: subtitle,
+                  isClose: isClose,
+                  trailing: appBarTrailing,
+                  trailingIcon: appBarTrailingIcon,
+                  leading: appBarLeading,
+                  leadingIcon: appBarLeadingIcon,
+                )
+              : appBar,
+          backgroundColor: backgroundColor ?? context.colorScheme.surface,
+          drawer: hasDrawer ? const AppDrawer() : null,
+          body: _buildContent(context),
+          floatingActionButton: floatingActionButton,
+        );
 
-  Widget _buildContent(BuildContext context) {
-    return Stack(
-      alignment: .bottomCenter,
-      children: [
-        SafeArea(
-          top: hasSafeTopArea,
-          bottom: hasSafeBottomArea,
-          child: Align(
-            alignment: .topCenter,
-            child: SizedBox(
-              width: ResponsiveHelper.getResponsiveWidth(context),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: ResponsiveHelper.getResponsivePadding(context),
-                ),
-                child: isChildScrollable
-                    ? child
-                    : LayoutBuilder(
-                        builder:
-                            (BuildContext context, BoxConstraints constraints) {
-                              return SingleChildScrollView(
+  Widget _buildContent(BuildContext context) => Stack(
+    alignment: .bottomCenter,
+    children: [
+      SafeArea(
+        top: hasSafeTopArea,
+        bottom: hasSafeBottomArea,
+        child: Align(
+          alignment: .topCenter,
+          child: SizedBox(
+            width: ResponsiveHelper.getResponsiveWidth(context),
+            child: Padding(
+              padding: .symmetric(
+                horizontal: ResponsiveHelper.getResponsivePadding(context),
+              ),
+              child: isChildScrollable
+                  ? child
+                  : LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              SingleChildScrollView(
                                 child: ConstrainedBox(
                                   constraints: constraints.copyWith(
                                     minHeight: constraints.maxHeight,
@@ -137,22 +134,20 @@ class AppScreen extends StatelessWidget {
                                   ),
                                   child: child,
                                 ),
-                              );
-                            },
-                      ),
-              ),
+                              ),
+                    ),
             ),
           ),
         ),
-        Align(
-          alignment: .bottomCenter,
-          child: Padding(
-            padding:
-                footerPadding ?? const .only(bottom: 48, left: 24, right: 24),
-            child: Column(mainAxisSize: .min, children: footer),
-          ),
+      ),
+      Align(
+        alignment: .bottomCenter,
+        child: Padding(
+          padding:
+              footerPadding ?? const .only(bottom: 48, left: 24, right: 24),
+          child: Column(mainAxisSize: .min, children: footer),
         ),
-      ],
-    ).withAppAnimation(animate: !hasParentView);
-  }
+      ),
+    ],
+  ).withAppAnimation(animate: !hasParentView);
 }

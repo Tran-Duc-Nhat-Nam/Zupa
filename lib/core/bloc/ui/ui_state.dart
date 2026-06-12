@@ -5,13 +5,13 @@ sealed class UIState with _$UIState {
   const factory UIState.initial() = Initial;
 
   const factory UIState.loaded({
-    @Default(
-      UISettingsEntity(
-        isFloatingNavbar: false,
-        isShowNavbarLabel: false,
-        isGlassmorphism: false,
-      ),
-    )
-    UISettingsEntity settings,
+    @Default(.new()) UISettingsEntity settings,
   }) = Loaded;
+}
+
+extension UIStateExtension on UIState {
+  UISettingsEntity get currentSettings => switch (this) {
+    Initial() => const .new(),
+    Loaded(:final settings) => settings,
+  };
 }

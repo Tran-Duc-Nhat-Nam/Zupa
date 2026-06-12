@@ -123,15 +123,12 @@ class _AppTextFieldState extends State<AppTextField> {
           decoration: InputDecoration(
             errorText: widget.errorText,
             prefixIcon: _buildPrefix(colorsScheme),
-            prefixIconConstraints: const BoxConstraints(
+            prefixIconConstraints: const .new(
               maxHeight: 40, // Increased to allow padding space
               minWidth: 44,
             ),
             suffixIcon: _buildSuffix(colorsScheme, isPasswordType),
-            suffixIconConstraints: const BoxConstraints(
-              maxHeight: 40,
-              minWidth: 44,
-            ),
+            suffixIconConstraints: const .new(maxHeight: 40, minWidth: 44),
             hintText: widget.hintText,
             hintStyle: AppTextStyles.bodyMedium.copyWith(
               color: colorsScheme.onSurfaceVariant,

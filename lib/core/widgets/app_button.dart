@@ -61,9 +61,7 @@ class _AppButtonState extends State<AppButton> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return _buildButton(context, widget.onPressed);
-  }
+  Widget build(BuildContext context) => _buildButton(context, widget.onPressed);
 
   Widget _buildButton(BuildContext context, VoidCallback? effectiveOnPressed) {
     final colorScheme = context.colorScheme;
@@ -91,48 +89,42 @@ class _AppButtonState extends State<AppButton> {
     required VoidCallback? onPressed,
     required ButtonStyle style,
     required Widget content,
-  }) {
-    return switch (widget.theme) {
-      .primary => FilledButton(
-        onPressed: onPressed,
-        style: style,
-        child: content,
-      ),
-      .secondary => FilledButton.tonal(
-        onPressed: onPressed,
-        style: style,
-        child: content,
-      ),
-      .outline => OutlinedButton(
-        onPressed: onPressed,
-        style: style,
-        child: content,
-      ),
-    };
-  }
+  }) => switch (widget.theme) {
+    .primary => FilledButton(
+      onPressed: onPressed,
+      style: style,
+      child: content,
+    ),
+    .secondary => FilledButton.tonal(
+      onPressed: onPressed,
+      style: style,
+      child: content,
+    ),
+    .outline => OutlinedButton(
+      onPressed: onPressed,
+      style: style,
+      child: content,
+    ),
+  };
 
-  Widget _buildContent(BuildContext context) {
-    if (widget.isLoading) {
-      return widget.loadingChild ??
-          const SizedBox(
-            height: 20,
-            width: 20,
-            child: CircularProgressIndicator(strokeWidth: 2),
-          );
-    }
-
-    return widget.child ??
-        Row(
-          spacing: 8,
-          mainAxisSize: .min,
-          mainAxisAlignment: .center,
-          children: [
-            if (widget.icon != null) ...[Icon(widget.icon, size: 20)],
-            if (widget.text != null)
-              Text(widget.text!, style: AppTextStyles.bodyLargeBold),
-          ],
-        );
-  }
+  Widget _buildContent(BuildContext context) => widget.isLoading
+      ? (widget.loadingChild ??
+            const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ))
+      : widget.child ??
+            Row(
+              spacing: 8,
+              mainAxisSize: .min,
+              mainAxisAlignment: .center,
+              children: [
+                if (widget.icon != null) Icon(widget.icon, size: 20),
+                if (widget.text != null)
+                  Text(widget.text!, style: AppTextStyles.bodyLargeBold),
+              ],
+            );
 
   ButtonStyle _getButtonStyle(AppColors colorScheme) {
     final baseColor = switch (widget.color) {
@@ -155,17 +147,15 @@ class _AppButtonState extends State<AppButton> {
         widget.onPressed == null || widget.isLoading || widget.isDisabled;
 
     return switch (widget.theme) {
-      AppButtonTheme.primary => FilledButton.styleFrom(
+      .primary => FilledButton.styleFrom(
         backgroundColor: baseColor,
         foregroundColor: foregroundColor,
         disabledBackgroundColor: colorScheme.onSurface.withAlpha(35),
         disabledForegroundColor: colorScheme.onSurface.withAlpha(100),
         padding: widget.padding,
       ),
-      AppButtonTheme.secondary => FilledButton.styleFrom(
-        padding: widget.padding,
-      ),
-      AppButtonTheme.outline => OutlinedButton.styleFrom(
+      .secondary => FilledButton.styleFrom(padding: widget.padding),
+      .outline => OutlinedButton.styleFrom(
         foregroundColor: baseColor,
         side: .new(
           color: isButtonDisabled

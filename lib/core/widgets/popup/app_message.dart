@@ -17,56 +17,48 @@ class MessageHelper {
     BuildContext context, {
     required String message,
     String? title,
-  }) {
-    _show(
-      context,
-      message: message,
-      title: title ?? t.common.success,
-      type: .success,
-    );
-  }
+  }) => _show(
+    context,
+    message: message,
+    title: title ?? t.common.success,
+    type: .success,
+  );
 
   /// Show an error message.
   static void showError(
     BuildContext context, {
     required String message,
     String? title,
-  }) {
-    _show(
-      context,
-      message: message,
-      title: title ?? t.common.errors.error,
-      type: .error,
-    );
-  }
+  }) => _show(
+    context,
+    message: message,
+    title: title ?? t.common.errors.error,
+    type: .error,
+  );
 
   /// Show a warning message.
   static void showWarning(
     BuildContext context, {
     required String message,
     String? title,
-  }) {
-    _show(
-      context,
-      message: message,
-      title: title ?? t.common.warning,
-      type: .warning,
-    );
-  }
+  }) => _show(
+    context,
+    message: message,
+    title: title ?? t.common.warning,
+    type: .warning,
+  );
 
   /// Show an information message.
   static void showInfo(
     BuildContext context, {
     required String message,
     String? title,
-  }) {
-    _show(
-      context,
-      message: message,
-      title: title ?? t.common.info.info,
-      type: .info,
-    );
-  }
+  }) => _show(
+    context,
+    message: message,
+    title: title ?? t.common.info.info,
+    type: .info,
+  );
 
   static void _show(
     BuildContext context, {

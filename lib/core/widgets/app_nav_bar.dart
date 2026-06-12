@@ -51,119 +51,113 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
           ),
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);
-            if (ResponsiveHelper.isMobile(context)) {
-              return BlocBuilder<UICubit, UIState>(
-                builder: (context, state) {
-                  final settings = state.maybeWhen(
-                    loaded: (isFloating) => isFloating,
-                    orElse: () => null,
-                  );
-
-                  return Scaffold(
-                    extendBody: true,
-                    backgroundColor: colors.surface,
-                    body: settings?.isFloatingNavbar == true
-                        ? Stack(
-                            children: [
-                              child,
-                              AnimatedPositioned(
-                                duration: const .new(milliseconds: 500),
-                                curve: Curves.easeInOutQuart,
-                                left: 24,
-                                right: 24,
-                                bottom: _isVisible ? 48 : -100,
-                                // Slides below the screen
-                                child: _buildFloatingBar(
-                                  tabsRouter: tabsRouter,
-                                  colors: colors,
-                                  isShowLabel:
-                                      settings?.isShowNavbarLabel == true,
-                                  isGlassmorphism:
-                                      settings?.isGlassmorphism == true,
-                                ),
-                              ),
-                            ],
-                          )
-                        : child,
-                    bottomNavigationBar: settings?.isFloatingNavbar == true
-                        ? null
-                        : _applyGlassEffect(
-                            isEnabled: settings?.isGlassmorphism == true,
-                            borderRadius: .zero,
-                            colors: colors,
-                            child: NavigationBar(
-                              backgroundColor: settings?.isGlassmorphism == true
-                                  ? colors.surfaceContainer.withAlpha(155)
-                                  : colors.surfaceContainerLowest,
-                              selectedIndex: tabsRouter.activeIndex,
-                              onDestinationSelected: tabsRouter.setActiveIndex,
-                              destinations: [
-                                _buildBottomDestination(
-                                  labelKey: 'home',
-                                  icon: Symbols.home_rounded,
-                                  colors: colors,
-                                ),
-                                _buildBottomDestination(
-                                  labelKey: 'history',
-                                  icon: Symbols.history_rounded,
-                                  colors: colors,
-                                ),
-                                _buildBottomDestination(
-                                  labelKey: 'revenue',
-                                  icon: Symbols.analytics_rounded,
-                                  colors: colors,
-                                ),
-                                _buildBottomDestination(
-                                  labelKey: 'settings',
-                                  icon: Symbols.settings_rounded,
-                                  colors: colors,
+            return ResponsiveHelper.isMobile(context)
+                ? BlocBuilder<UICubit, UIState>(
+                    builder: (context, state) => Scaffold(
+                      extendBody: true,
+                      backgroundColor: colors.surface,
+                      body: state.currentSettings.isFloatingNavbar
+                          ? Stack(
+                              children: [
+                                child,
+                                AnimatedPositioned(
+                                  duration: const .new(milliseconds: 500),
+                                  curve: Curves.easeInOutQuart,
+                                  left: 24,
+                                  right: 24,
+                                  bottom: _isVisible ? 48 : -100,
+                                  // Slides below the screen
+                                  child: _buildFloatingBar(
+                                    tabsRouter: tabsRouter,
+                                    colors: colors,
+                                    isShowLabel:
+                                        state.currentSettings.isShowNavbarLabel,
+                                    isGlassmorphism:
+                                        state.currentSettings.isGlassmorphism,
+                                  ),
                                 ),
                               ],
+                            )
+                          : child,
+                      bottomNavigationBar:
+                          state.currentSettings.isFloatingNavbar
+                          ? null
+                          : _applyGlassEffect(
+                              isEnabled: state.currentSettings.isGlassmorphism,
+                              borderRadius: .zero,
+                              colors: colors,
+                              child: NavigationBar(
+                                backgroundColor:
+                                    state.currentSettings.isGlassmorphism
+                                    ? colors.surfaceContainer.withAlpha(155)
+                                    : colors.surfaceContainerLowest,
+                                selectedIndex: tabsRouter.activeIndex,
+                                onDestinationSelected:
+                                    tabsRouter.setActiveIndex,
+                                destinations: [
+                                  _buildBottomDestination(
+                                    labelKey: 'home',
+                                    icon: Symbols.home_rounded,
+                                    colors: colors,
+                                  ),
+                                  _buildBottomDestination(
+                                    labelKey: 'history',
+                                    icon: Symbols.history_rounded,
+                                    colors: colors,
+                                  ),
+                                  _buildBottomDestination(
+                                    labelKey: 'revenue',
+                                    icon: Symbols.analytics_rounded,
+                                    colors: colors,
+                                  ),
+                                  _buildBottomDestination(
+                                    labelKey: 'settings',
+                                    icon: Symbols.settings_rounded,
+                                    colors: colors,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                  );
-                },
-              );
-            } else {
-              return Scaffold(
-                backgroundColor: colors.surface,
-                body: Row(
-                  children: [
-                    NavigationRail(
-                      selectedIndex: tabsRouter.activeIndex,
-                      onDestinationSelected: tabsRouter.setActiveIndex,
-                      backgroundColor: colors.surfaceContainerLowest,
-                      indicatorColor: colors.secondaryContainer,
-                      labelType: .all,
-                      destinations: [
-                        _buildRailDestination(
-                          labelKey: 'home',
-                          icon: Symbols.home_rounded,
-                          colors: colors,
+                    ),
+                  )
+                : Scaffold(
+                    backgroundColor: colors.surface,
+                    body: Row(
+                      children: [
+                        NavigationRail(
+                          selectedIndex: tabsRouter.activeIndex,
+                          onDestinationSelected: tabsRouter.setActiveIndex,
+                          backgroundColor: colors.surfaceContainerLowest,
+                          indicatorColor: colors.secondaryContainer,
+                          labelType: .all,
+                          destinations: [
+                            _buildRailDestination(
+                              labelKey: 'home',
+                              icon: Symbols.home_rounded,
+                              colors: colors,
+                            ),
+                            _buildRailDestination(
+                              labelKey: 'history',
+                              icon: Symbols.history_rounded,
+                              colors: colors,
+                            ),
+                            _buildRailDestination(
+                              labelKey: 'revenue',
+                              icon: Symbols.analytics_rounded,
+                              colors: colors,
+                            ),
+                            _buildRailDestination(
+                              labelKey: 'settings',
+                              icon: Symbols.settings_rounded,
+                              colors: colors,
+                            ),
+                          ],
                         ),
-                        _buildRailDestination(
-                          labelKey: 'history',
-                          icon: Symbols.history_rounded,
-                          colors: colors,
-                        ),
-                        _buildRailDestination(
-                          labelKey: 'revenue',
-                          icon: Symbols.analytics_rounded,
-                          colors: colors,
-                        ),
-                        _buildRailDestination(
-                          labelKey: 'settings',
-                          icon: Symbols.settings_rounded,
-                          colors: colors,
-                        ),
+                        const VerticalDivider(thickness: 1, width: 1),
+                        Expanded(child: child),
                       ],
                     ),
-                    const VerticalDivider(thickness: 1, width: 1),
-                    Expanded(child: child),
-                  ],
-                ),
-              );
-            }
+                  );
           },
         ),
       ),
@@ -175,75 +169,73 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
     required AppColors colors,
     required bool isShowLabel,
     required bool isGlassmorphism,
-  }) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: .circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(40),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: _applyGlassEffect(
-        isEnabled: isGlassmorphism,
-        child: Container(
-          height: isShowLabel ? 72 : 56,
-          padding: const .symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: isGlassmorphism
-                ? colors.surfaceContainer.withAlpha(155)
-                : colors.surfaceContainerLowest,
-            borderRadius: .circular(32),
-            border: isGlassmorphism
-                ? .all(color: colors.outlineVariant.withAlpha(155), width: 1.5)
-                : null,
-          ),
-          child: Row(
-            mainAxisAlignment: .spaceEvenly,
-            children: [
-              _buildFloatingItem(
-                index: 0,
-                icon: Symbols.home_rounded,
-                labelKey: 'home',
-                tabsRouter: tabsRouter,
-                colors: colors,
-                isShowLabel: isShowLabel,
-              ),
-              _buildFloatingItem(
-                index: 1,
-                icon: Symbols.history_rounded,
-                labelKey: 'history',
-                tabsRouter: tabsRouter,
-                colors: colors,
-                isShowLabel: isShowLabel,
-              ),
-              _buildFloatingItem(
-                index: 2,
-                icon: Symbols.analytics_rounded,
-                labelKey: 'revenue',
-                tabsRouter: tabsRouter,
-                colors: colors,
-                isShowLabel: isShowLabel,
-              ),
-              _buildFloatingItem(
-                index: 3,
-                icon: Symbols.settings_rounded,
-                labelKey: 'settings',
-                tabsRouter: tabsRouter,
-                colors: colors,
-                isShowLabel: isShowLabel,
-              ),
-            ],
-          ),
+  }) => DecoratedBox(
+    decoration: BoxDecoration(
+      borderRadius: .circular(32),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(40),
+          blurRadius: 20,
+          offset: const Offset(0, 10),
         ),
-        borderRadius: .circular(32),
-        colors: colors,
+      ],
+    ),
+    child: _applyGlassEffect(
+      isEnabled: isGlassmorphism,
+      child: Container(
+        height: isShowLabel ? 72 : 56,
+        padding: const .symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: isGlassmorphism
+              ? colors.surfaceContainer.withAlpha(155)
+              : colors.surfaceContainerLowest,
+          borderRadius: .circular(32),
+          border: isGlassmorphism
+              ? .all(color: colors.outlineVariant.withAlpha(155), width: 1.5)
+              : null,
+        ),
+        child: Row(
+          mainAxisAlignment: .spaceEvenly,
+          children: [
+            _buildFloatingItem(
+              index: 0,
+              icon: Symbols.home_rounded,
+              labelKey: 'home',
+              tabsRouter: tabsRouter,
+              colors: colors,
+              isShowLabel: isShowLabel,
+            ),
+            _buildFloatingItem(
+              index: 1,
+              icon: Symbols.history_rounded,
+              labelKey: 'history',
+              tabsRouter: tabsRouter,
+              colors: colors,
+              isShowLabel: isShowLabel,
+            ),
+            _buildFloatingItem(
+              index: 2,
+              icon: Symbols.analytics_rounded,
+              labelKey: 'revenue',
+              tabsRouter: tabsRouter,
+              colors: colors,
+              isShowLabel: isShowLabel,
+            ),
+            _buildFloatingItem(
+              index: 3,
+              icon: Symbols.settings_rounded,
+              labelKey: 'settings',
+              tabsRouter: tabsRouter,
+              colors: colors,
+              isShowLabel: isShowLabel,
+            ),
+          ],
+        ),
       ),
-    );
-  }
+      borderRadius: .circular(32),
+      colors: colors,
+    ),
+  );
 
   Widget _buildFloatingItem({
     required int index,
@@ -313,50 +305,44 @@ class _AppNavBarScreenState extends AppState<AppNavBarScreen> {
     required String labelKey,
     required IconData icon,
     required AppColors colors,
-  }) {
-    return NavigationDestination(
-      icon: Icon(icon, color: colors.onSurfaceVariant, fill: 0, weight: 400),
-      selectedIcon: Icon(
-        icon,
-        color: colors.onSecondaryContainer,
-        fill: 1,
-        weight: 700,
-      ),
-      label: t['navbar.$labelKey'] ?? labelKey,
-    );
-  }
+  }) => .new(
+    icon: Icon(icon, color: colors.onSurfaceVariant, fill: 0, weight: 400),
+    selectedIcon: Icon(
+      icon,
+      color: colors.onSecondaryContainer,
+      fill: 1,
+      weight: 700,
+    ),
+    label: t['navbar.$labelKey'] ?? labelKey,
+  );
 
   NavigationRailDestination _buildRailDestination({
     required String labelKey,
     required IconData icon,
     required AppColors colors,
-  }) {
-    return NavigationRailDestination(
-      icon: Icon(icon, color: colors.onSurfaceVariant, fill: 0, weight: 400),
-      selectedIcon: Icon(
-        icon,
-        color: colors.onSecondaryContainer,
-        fill: 1,
-        weight: 700,
-      ),
-      label: Text(t['navbar.$labelKey'] ?? labelKey),
-    );
-  }
+  }) => .new(
+    icon: Icon(icon, color: colors.onSurfaceVariant, fill: 0, weight: 400),
+    selectedIcon: Icon(
+      icon,
+      color: colors.onSecondaryContainer,
+      fill: 1,
+      weight: 700,
+    ),
+    label: Text(t['navbar.$labelKey'] ?? labelKey),
+  );
 
   Widget _applyGlassEffect({
     required bool isEnabled,
     required Widget child,
     required BorderRadius borderRadius,
     required AppColors colors,
-  }) {
-    if (!isEnabled) return child;
-
-    return ClipRRect(
-      borderRadius: borderRadius,
-      child: BackdropFilter(
-        filter: .blur(sigmaX: 12, sigmaY: 12),
-        child: child,
-      ),
-    );
-  }
+  }) => isEnabled
+      ? ClipRRect(
+          borderRadius: borderRadius,
+          child: BackdropFilter(
+            filter: .blur(sigmaX: 12, sigmaY: 12),
+            child: child,
+          ),
+        )
+      : child;
 }

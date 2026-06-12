@@ -167,7 +167,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
   AppListItem _localizationItem({required BuildContext context}) {
     final colorScheme = context.colorScheme;
     final cubit = context.read<LocalizationCubit>();
-    return AppListItem(
+    return .new(
       leadingIcon: Symbols.globe,
       text: t.settings.language,
       trailing: AppDropDownSearch<AppLocalization>(
@@ -176,11 +176,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
         buttonWidth: 135,
         buttonPadding: const .symmetric(vertical: 8),
         iconEnabledColor: colorScheme.secondary,
-        initialValue: cubit.state.when(
-          loaded: (locale) => locale,
-          loading: (locale) => locale,
-          initial: () => .followSystem,
-        ),
+        initialValue: cubit.state.currentLocale,
         itemLabelGetter: (item) =>
             t["common.languages.${item?.getLocaleString() ?? ''}"] ??
             t.settings.followSystem,

@@ -4,8 +4,8 @@ class UISettingsEntity {
   final bool isGlassmorphism;
 
   const UISettingsEntity({
-    required this.isFloatingNavbar,
-    required this.isShowNavbarLabel,
-    required this.isGlassmorphism,
+     this.isFloatingNavbar = false,
+     this.isShowNavbarLabel = false,
+     this.isGlassmorphism = false,
   });
 }

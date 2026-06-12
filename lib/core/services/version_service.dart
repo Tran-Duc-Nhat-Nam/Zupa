@@ -12,7 +12,7 @@ class VersionService {
       ),
     );
 
-    return VersionInfo(
+    return .new(
       isForcedUpdate: result.status == .forcedUpdate,
       isMaintaining: result.status == .inactive,
       isUpToDate: result.status == .upToDate,

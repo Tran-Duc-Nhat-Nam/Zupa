@@ -64,37 +64,41 @@ class _AppAppBarState extends State<AppAppBar> {
               .withAppAnimation(delay: const .new(milliseconds: 100)),
       titleTextStyle: AppTextStyles.bodyLargeSemibold,
       automaticallyImplyLeading: false,
-      leading: widget.leading != null
-          ? widget.leading!
-          : widget.leadingIcon != null
-          ? IconButton(
-              constraints: const .new(),
-              padding: const .only(left: 24),
-              style: const .new(
-                overlayColor: WidgetStateColor.transparent,
-                tapTargetSize: .shrinkWrap,
-              ),
-              icon: Icon(widget.leadingIcon, color: colors.outline, size: 32),
-              onPressed: () {},
-            )
-          : ModalRoute.of(context)?.impliesAppBarDismissal == true
-          ? IconButton(
-              constraints: const .new(),
-              padding: const .only(left: 24),
-              style: const ButtonStyle(
-                overlayColor: WidgetStateColor.transparent,
-                tapTargetSize: .shrinkWrap,
-              ),
-              icon: Icon(
-                widget.isClose == true
-                    ? Symbols.close_rounded
-                    : Symbols.navigate_before_rounded,
-                color: colors.outline,
-                size: 32,
-              ).withAppAnimation(),
-              onPressed: () => context.router.pop(),
-            )
-          : null,
+      leading:
+          widget.leading ??
+          (widget.leadingIcon != null
+              ? IconButton(
+                  constraints: const .new(),
+                  padding: const .only(left: 24),
+                  style: const .new(
+                    overlayColor: WidgetStateColor.transparent,
+                    tapTargetSize: .shrinkWrap,
+                  ),
+                  icon: Icon(
+                    widget.leadingIcon,
+                    color: colors.outline,
+                    size: 32,
+                  ),
+                  onPressed: () {},
+                )
+              : ModalRoute.of(context)?.impliesAppBarDismissal == true
+              ? IconButton(
+                  constraints: const .new(),
+                  padding: const .only(left: 24),
+                  style: const ButtonStyle(
+                    overlayColor: WidgetStateColor.transparent,
+                    tapTargetSize: .shrinkWrap,
+                  ),
+                  icon: Icon(
+                    widget.isClose == true
+                        ? Symbols.close_rounded
+                        : Symbols.navigate_before_rounded,
+                    color: colors.outline,
+                    size: 32,
+                  ).withAppAnimation(),
+                  onPressed: () => context.router.pop(),
+                )
+              : null),
       titleSpacing: ModalRoute.of(context)?.impliesAppBarDismissal == true
           ? 8
           : 24,

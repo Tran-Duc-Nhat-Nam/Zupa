@@ -164,7 +164,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
           widget.onChanged?.call(value),
         },
         selectedItemBuilder: widget.selectedItemBuilder,
-        buttonStyleData: ButtonStyleData(
+        buttonStyleData: .new(
           height: widget.buttonHeight ?? 40,
           width: widget.buttonWidth,
           padding: widget.buttonPadding ?? const .only(left: 14, right: 14),
@@ -176,7 +176,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
               ),
           elevation: widget.buttonElevation,
         ),
-        iconStyleData: IconStyleData(
+        iconStyleData: .new(
           icon: AnimatedRotation(
             turns: isOpen ? 0.5 : 0,
             duration: const .new(milliseconds: 200),
@@ -187,7 +187,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
           iconEnabledColor: widget.iconEnabledColor,
           iconDisabledColor: widget.iconDisabledColor,
         ),
-        dropdownStyleData: DropdownStyleData(
+        dropdownStyleData: .new(
           //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
           maxHeight: widget.dropdownHeight ?? 200,
           width: widget.dropdownWidth ?? 140,
@@ -198,7 +198,7 @@ class _AppDropDownSearchState<T> extends State<AppDropDownSearch<T>> {
           elevation: widget.dropdownElevation ?? 8,
           //Null or Offset(0, 0) will open just under the button. You can edit as you want.
           offset: widget.offset,
-          scrollbarTheme: ScrollbarThemeData(
+          scrollbarTheme: .new(
             radius: widget.scrollbarRadius ?? const .circular(40),
             thickness: widget.scrollbarThickness != null
                 ? .all<double>(widget.scrollbarThickness!)
