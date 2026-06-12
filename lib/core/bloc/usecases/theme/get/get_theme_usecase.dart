@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
+import 'package:zupa/core/entities/theme_settings_entity.dart';
 import 'package:zupa/core/services/storage_service.dart';
 
 @injectable
@@ -8,5 +8,5 @@ class GetThemeUseCase {
 
   GetThemeUseCase(this._storageService);
 
-  Future<ThemeSettings> call() async => _storageService.getTheme();
+  Future<ThemeSettingsEntity> call() async => _storageService.getTheme();
 }

@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zupa/core/bloc/usecases/theme/get/get_theme_usecase.dart';
 import 'package:zupa/core/bloc/usecases/theme/set/params/set_theme_params.dart';
 import 'package:zupa/core/bloc/usecases/theme/set/set_theme_usecase.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
+import 'package:zupa/core/entities/theme_settings_entity.dart';
 
 part 'theme_cubit.freezed.dart';
 part 'theme_state.dart';

@@ -69,7 +69,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                           builder: (context, themeState) {
                             themeState.whenOrNull(
                               loaded: (settings) =>
-                                  formModel.updateValue(settings),
+                                  formModel.updateValue(.fromEntity(settings)),
                             );
                             return BlocBuilder<AnimationCubit, AnimationState>(
                               builder: (context, animationState) => Column(
@@ -80,15 +80,10 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
                                         leadingIcon: Symbols.animation_rounded,
                                         text: t.settings.animation,
                                         trailing: AppSwitch(
-                                          value: animationState.maybeWhen(
-                                            loaded: (isOn) => isOn,
-                                            orElse: () => true,
-                                          ),
-                                          onToggle: (value) {
-                                            context
-                                                .read<AnimationCubit>()
-                                                .changeAnimationMode(value);
-                                          },
+                                          value: animationState.isOn,
+                                          onToggle: (value) => context
+                                              .read<AnimationCubit>()
+                                              .changeAnimationMode(value),
                                         ),
                                       ),
                                       _localizationItem(context: context),
@@ -107,7 +102,7 @@ class _AppSettingsScreenState extends AppState<AppSettingsScreen> {
               builder: (context, state) => UISettingsFormBuilder(
                 initState: (context, formModel) => state.whenOrNull(
                   loaded: (settings) =>
-                      formModel.updateValue(UISettings.fromEntity(settings)),
+                      formModel.updateValue(.fromEntity(settings)),
                 ),
                 builder: (context, formModel, _) => AppList(
                   items: [

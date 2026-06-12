@@ -8,8 +8,8 @@ import 'package:zupa/core/bloc/usecases/ui_settings/set/params/set_ui_settings_p
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/data/models/user/user.dart';
 import 'package:zupa/core/data/request/account/account_request.dart';
+import 'package:zupa/core/entities/theme_settings_entity.dart';
 import 'package:zupa/core/entities/ui_settings_entity.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
 import 'package:zupa/features/general_config/domain/entities/general_config_entity.dart';
 import 'package:zupa/features/general_config/domain/usecases/set/params/set_general_config_params.dart';
 
@@ -111,14 +111,14 @@ class StorageService {
     }
   }
 
-  Future<ThemeSettings> getTheme() async {
+  Future<ThemeSettingsEntity> getTheme() async {
     final (themeModeIndex, colorSourceIndex, seedColorValue) = await (
       _sharedPreferences.getInt('themeMode'),
       _sharedPreferences.getInt('colorSource'),
       _sharedPreferences.getInt('seedColorValue'),
     ).wait;
 
-    return ThemeSettings(
+    return .new(
       themeMode: themeModeIndex != null ? .values[themeModeIndex] : .system,
       colorSource: colorSourceIndex != null
           ? .values[colorSourceIndex]

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:zupa/core/bloc/usecases/theme/set/params/set_theme_params.dart';
+import 'package:zupa/core/entities/theme_settings_entity.dart';
 import 'package:zupa/core/styles/theme.dart';
 
 part 'theme_settings_form.gform.dart';
@@ -12,8 +13,8 @@ class ThemeSettings {
   final int? seedColorValue;
 
   const ThemeSettings({
-    @RfControl() this.themeMode = ThemeMode.system,
-    @RfControl() this.colorSource = AppColorSchemeSource.brand,
+    @RfControl() required this.themeMode,
+    @RfControl() required this.colorSource,
     @RfControl() this.seedColorValue,
   });
 
@@ -23,7 +24,7 @@ class ThemeSettings {
     seedColorValue: seedColorValue,
   );
 
-  factory ThemeSettings.fromEntity(SetThemeParams entity) => .new(
+  factory ThemeSettings.fromEntity(ThemeSettingsEntity entity) => .new(
     themeMode: entity.themeMode,
     colorSource: entity.colorSource,
     seedColorValue: entity.seedColorValue,

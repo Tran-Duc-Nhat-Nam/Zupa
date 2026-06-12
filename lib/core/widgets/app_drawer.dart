@@ -61,12 +61,10 @@ class AppDrawer extends StatelessWidget {
                 ),
                 onTap: () {
                   final themeCubit = context.read<ThemeCubit>();
-                  final currentSettings = themeCubit.state.maybeWhen(
-                    loaded: (s) => s,
-                    orElse: () => ThemeSettings(),
-                  );
 
-                  formModel.themeModeControl.value = currentSettings.themeMode;
+                  formModel.themeModeControl.value = ThemeSettings.fromEntity(
+                    themeCubit.state.currentSettings,
+                  ).themeMode;
                   themeCubit.changeTheme(params: formModel.model.toParams());
                 },
               );
