@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_loading_widget.dart';
+
+enum AppButtonTheme { primary, secondary, outline }
+
+enum AppButtonColor { basic, info, success, warning, error }
 
 class AppButton extends StatefulWidget {
   const AppButton({
@@ -19,7 +24,7 @@ class AppButton extends StatefulWidget {
     this.width,
     this.isLoading = false,
     this.isDisabled = false,
-    this.debounceTime = 500, // Default debounce of 500ms
+    this.debounceTime = 500,
   });
 
   final VoidCallback? onPressed;
@@ -44,131 +49,132 @@ class AppButton extends StatefulWidget {
 class _AppButtonState extends State<AppButton> {
   DateTime? _lastClickTime;
 
-  void _handleTap(VoidCallback? originalOnPressed) {
-    if (originalOnPressed == null) return;
+  void _handleTap() {
+    // 1. Completely ignore actions when explicitly disabled or loading
+    if (widget.onPressed == null || widget.isDisabled || widget.isLoading) {
+      return;
+    }
 
     final now = DateTime.now();
-
-    // Check if enough time has passed since the last tap
     if (_lastClickTime == null ||
         now.difference(_lastClickTime!) >
-            .new(milliseconds: widget.debounceTime)) {
+            Duration(milliseconds: widget.debounceTime)) {
       _lastClickTime = now;
-      originalOnPressed();
+      widget.onPressed!();
     } else {
       DebuggerHelper.talker.log('Tap ignored: Debounced');
     }
   }
 
   @override
-  Widget build(BuildContext context) => _buildButton(context, widget.onPressed);
-
-  Widget _buildButton(BuildContext context, VoidCallback? effectiveOnPressed) {
+  Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
     final style = _getButtonStyle(colorScheme);
 
+    // Physically disable the Material button ONLY if the action callback is missing or explicitly disabled.
+    // If it's just loading, we keep the callback active to preserve brand colors.
+    final isPhysicallyDisabled = widget.onPressed == null || widget.isDisabled;
+
     return SizedBox(
       height: widget.height,
-      width: widget.fitContent ? null : widget.width ?? double.infinity,
-      child: _getButtonType(
-        // The button is physically disabled if effectiveOnPressed is null or isLoading is true
-        onPressed:
-            (effectiveOnPressed == null ||
-                widget.isLoading ||
-                widget.isDisabled)
-            ? null
-            : () => _handleTap(effectiveOnPressed),
-        style: style,
-        content: _buildContent(context),
-      ),
+      width: widget.fitContent ? null : widget.width ?? .infinity,
+      child: switch (widget.theme) {
+        .primary => FilledButton(
+          onPressed: isPhysicallyDisabled ? null : _handleTap,
+          style: style,
+          child: _buildContent(),
+        ),
+        .secondary => FilledButton.tonal(
+          onPressed: isPhysicallyDisabled ? null : _handleTap,
+          style: style,
+          child: _buildContent(),
+        ),
+        .outline => OutlinedButton(
+          onPressed: isPhysicallyDisabled ? null : _handleTap,
+          style: style,
+          child: _buildContent(),
+        ),
+      },
     );
   }
 
-  // Choose the Button Type based on theme
-  Widget _getButtonType({
-    required VoidCallback? onPressed,
-    required ButtonStyle style,
-    required Widget content,
-  }) => switch (widget.theme) {
-    .primary => FilledButton(
-      onPressed: onPressed,
-      style: style,
-      child: content,
+  Widget _buildContent() => AnimatedSwitcher(
+    duration: const .new(milliseconds: 250), // Smooth transition speed
+    switchInCurve: Curves.easeInOut,
+    switchOutCurve: Curves.easeInOut,
+    // Necessary so Flutter knows how to transition between layouts of slightly different sizes
+    layoutBuilder: (currentChild, previousChildren) => Stack(
+      alignment: .center,
+      children: [...previousChildren, ?currentChild],
     ),
-    .secondary => FilledButton.tonal(
-      onPressed: onPressed,
-      style: style,
-      child: content,
-    ),
-    .outline => OutlinedButton(
-      onPressed: onPressed,
-      style: style,
-      child: content,
-    ),
+    // The key tells AnimatedSwitcher that the widgets are different, triggering the animation
+    child: widget.isLoading
+        ? SizedBox(
+            key: const ValueKey('button_loading'),
+            child:
+                widget.loadingChild ??
+                AppLoadingWidget(
+                  color: widget.theme == .outline
+                      ? _getBaseColor(context.colorScheme)
+                      : _getForegroundColor(context.colorScheme),
+                  size: .small,
+                ),
+          )
+        : SizedBox(
+            key: const ValueKey('button_content'),
+            child:
+                widget.child ??
+                Row(
+                  spacing: 8,
+                  mainAxisSize: .min,
+                  mainAxisAlignment: .center,
+                  children: [
+                    if (widget.icon != null) Icon(widget.icon, size: 20),
+                    if (widget.text != null)
+                      Text(widget.text!, style: AppTextStyles.bodyLargeBold),
+                  ],
+                ),
+          ),
+  );
+
+  Color _getForegroundColor(AppColors colorScheme) => switch (widget.color) {
+    .success => colorScheme.onSuccess,
+    .warning => colorScheme.onWarning,
+    .error => colorScheme.onError,
+    .info => colorScheme.onPrimary,
+    .basic => colorScheme.surface,
   };
 
-  Widget _buildContent(BuildContext context) => widget.isLoading
-      ? (widget.loadingChild ??
-            const SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            ))
-      : widget.child ??
-            Row(
-              spacing: 8,
-              mainAxisSize: .min,
-              mainAxisAlignment: .center,
-              children: [
-                if (widget.icon != null) Icon(widget.icon, size: 20),
-                if (widget.text != null)
-                  Text(widget.text!, style: AppTextStyles.bodyLargeBold),
-              ],
-            );
+  Color _getBaseColor(AppColors colorScheme) => switch (widget.color) {
+    .success => colorScheme.success,
+    .warning => colorScheme.warning,
+    .error => colorScheme.error,
+    .info => colorScheme.primary,
+    .basic => colorScheme.onSurface,
+  };
 
   ButtonStyle _getButtonStyle(AppColors colorScheme) {
-    final baseColor = switch (widget.color) {
-      .success => colorScheme.success,
-      .warning => colorScheme.warning,
-      .error => colorScheme.error,
-      .info => colorScheme.primary,
-      .basic => colorScheme.onSurface,
-    };
-
-    final foregroundColor = switch (widget.color) {
-      .success => colorScheme.onSuccess,
-      .warning => colorScheme.onWarning,
-      .error => colorScheme.onError,
-      .info => colorScheme.onPrimary,
-      .basic => colorScheme.surface,
-    };
-
-    final isButtonDisabled =
-        widget.onPressed == null || widget.isLoading || widget.isDisabled;
+    final baseColor = _getBaseColor(colorScheme);
+    final foregroundColor = _getForegroundColor(colorScheme);
+    final isButtonDisabled = widget.onPressed == null || widget.isDisabled;
+    final disabledBackground = colorScheme.onSurface.withAlpha(35);
+    final disabledForeground = colorScheme.onSurface.withAlpha(100);
 
     return switch (widget.theme) {
       .primary => FilledButton.styleFrom(
         backgroundColor: baseColor,
         foregroundColor: foregroundColor,
-        disabledBackgroundColor: colorScheme.onSurface.withAlpha(35),
-        disabledForegroundColor: colorScheme.onSurface.withAlpha(100),
+        disabledBackgroundColor: disabledBackground,
+        disabledForegroundColor: disabledForeground,
         padding: widget.padding,
       ),
       .secondary => FilledButton.styleFrom(padding: widget.padding),
       .outline => OutlinedButton.styleFrom(
         foregroundColor: baseColor,
-        side: .new(
-          color: isButtonDisabled
-              ? colorScheme.onSurface.withAlpha(35)
-              : baseColor,
-        ),
-        disabledForegroundColor: colorScheme.onSurface.withAlpha(100),
+        side: .new(color: isButtonDisabled ? disabledBackground : baseColor),
+        disabledForegroundColor: disabledForeground,
         padding: widget.padding,
       ),
     };
   }
 }
-
-enum AppButtonTheme { primary, secondary, outline }
-
-enum AppButtonColor { basic, info, success, warning, error }
