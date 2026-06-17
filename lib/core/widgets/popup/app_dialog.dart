@@ -347,7 +347,7 @@ class DownloadProgressDialog extends StatelessWidget {
                   ),
                   // Progress Bar
                   ExpressiveLinearProgressIndicator(
-                    value: 0.5,
+                    value: progress.clamp(0.0, 1.0),
                     backgroundColor: colorScheme.secondaryContainer,
                     color: colorScheme.primary,
                     minHeight: 10,

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_gemma/flutter_gemma.dart';
+import 'package:flutter_gemma_litertlm/flutter_gemma_litertlm.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -47,7 +48,10 @@ Future<void> main() async {
     final router = getIt<AppRouter>();
 
     // Initialize Chatbot
-    FlutterGemma.initialize(huggingFaceToken: Env.huggingFaceToken);
+    FlutterGemma.initialize(
+      huggingFaceToken: Env.huggingFaceToken,
+      inferenceEngines: const [LiteRtLmEngine()],
+    );
 
     await NotificationService.initialize(router);
     await FlutterDisplayMode.setHighRefreshRate();
