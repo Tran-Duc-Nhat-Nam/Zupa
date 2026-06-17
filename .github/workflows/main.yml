@@ -66,6 +66,7 @@ jobs:
       - name: Create .env file
         run: |
           echo "END_POINT=${{ secrets.API_URL }}" >> .env
+          echo "CDN_END_POINT='${{ secrets.CDN_END_POINT }}'" >> .env
           echo "GITHUB=${{ secrets.GITHUB }}" >> .env
           echo "GITHUB_VERSIONARTE_JSON='${{ secrets.VERSIONARTE_JSON }}'" >> .env
           echo "MODEL_NAME=${{ secrets.MODEL_NAME }}" >> .env
@@ -146,29 +147,29 @@ jobs:
           NEW_FULL_VERSION="${{ needs.check_version.outputs.new_version }}"
           NEW_MAJOR=$(echo $NEW_FULL_VERSION | cut -d. -f1)
           NEW_MINOR=$(echo $NEW_FULL_VERSION | cut -d. -f2)
-          
+
           CURRENT_LATEST=$(jq -r '.android.version.latest' versionarte.json)
           OLD_MAJOR=$(echo $CURRENT_LATEST | cut -d. -f1)
           OLD_MINOR=$(echo $CURRENT_LATEST | cut -d. -f2)
-          
+
           UPDATE_MINIMUM=false
           if [ "$NEW_MAJOR" -gt "$OLD_MAJOR" ]; then
             UPDATE_MINIMUM=true
           elif [ "$NEW_MAJOR" -eq "$OLD_MAJOR" ] && [ "$NEW_MINOR" -gt "$OLD_MINOR" ]; then
             UPDATE_MINIMUM=true
           fi
-          
+
           echo "Update minimum version: $UPDATE_MINIMUM"
           NEW_CHANGELOG='${{ steps.changelog_gen.outputs.CHANGELOG }}'
-          
+
           jq --arg ver "$NEW_FULL_VERSION" \
              --arg log "$NEW_CHANGELOG" \
              --argjson up_min "$UPDATE_MINIMUM" \
-             '.android.version.latest = $ver | 
-              .iOS.version.latest = $ver | 
+             '.android.version.latest = $ver |
+              .iOS.version.latest = $ver |
               (if $up_min then .android.version.minimum = $ver else . end) |
               (if $up_min then .iOS.version.minimum = $ver else . end) |
-              .android.status.message.en = ($log + "\n\n" + .android.status.message.en) | 
+              .android.status.message.en = ($log + "\n\n" + .android.status.message.en) |
               .iOS.status.message.en = ($log + "\n\n" + .iOS.status.message.en)' \
               versionarte.json > temp.json && mv temp.json versionarte.json
 
