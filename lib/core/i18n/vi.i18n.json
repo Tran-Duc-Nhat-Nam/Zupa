@@ -260,6 +260,31 @@
       "button": "Gia hạn ${price}"
     }
   },
+  "employeeManagement": {
+    "title": "Quản lý nhân viên",
+    "profile": {
+      "loading": "Đang tải hồ sơ...",
+      "saveChanges": "Lưu thay đổi"
+    },
+    "sections": {
+      "employmentDetails": "Chi tiết công việc",
+      "contactInformation": "Thông tin liên hệ",
+      "legalDocuments": "Giấy tờ pháp lý"
+    },
+    "fields": {
+      "position": "Chức vụ",
+      "level": "Cấp bậc",
+      "hireDate": "Ngày vào làm",
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "phoneNumber": "Số điện thoại",
+      "identityCard": "CCCD / Hộ chiếu",
+      "taxCode": "Mã số thuế",
+      "socialInsurance": "Mã số BHXH",
+      "permanentAddress": "Địa chỉ thường trú",
+      "notAvailable": "N/A"
+    }
+  },
   "booking": {
     "bookTickets": "Đặt vé",
     "journeyInformation": "Thông tin hành trình",

@@ -7,6 +7,9 @@ abstract class Env {
   @EnviedField(varName: 'END_POINT', obfuscate: true)
   static final String endPoint = _Env.endPoint;
 
+  @EnviedField(varName: 'CDN_END_POINT', obfuscate: true)
+  static final String cdnEndPoint = _Env.cdnEndPoint;
+
   @EnviedField(varName: 'GITHUB_VERSIONARTE_JSON', obfuscate: true)
   static final String gitHubVersionarteJson = _Env.gitHubVersionarteJson;
 

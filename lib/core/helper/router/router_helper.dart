@@ -45,6 +45,10 @@ class AppRouter extends RootStackRouter {
 
         .new(path: 'settings/app', page: AppSettingsRoute.page),
         .new(path: 'settings/employee', page: EmployeeManagementRoute.page),
+        .new(
+          path: 'settings/employee/detail',
+          page: EmployeeRoute.page,
+        ),
 
         // Nested Configuration Group
         .new(path: 'settings/general-config', page: GeneralConfigRoute.page),

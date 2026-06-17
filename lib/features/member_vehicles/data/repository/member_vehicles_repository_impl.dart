@@ -33,7 +33,7 @@ class MemberVehiclesRepositoryImpl
     return response.when(
       success: (data) => Success(data.data.map((e) => e.toEntity()).toList()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 
@@ -51,7 +51,7 @@ class MemberVehiclesRepositoryImpl
     return response.when(
       success: (data) => Success(data.data.toEntity()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 
@@ -71,7 +71,7 @@ class MemberVehiclesRepositoryImpl
     return response.when(
       success: (data) => Success(data.data.toEntity()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 
@@ -91,7 +91,7 @@ class MemberVehiclesRepositoryImpl
     return response.when(
       success: (data) => Success(data.data.toEntity()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 
@@ -109,7 +109,7 @@ class MemberVehiclesRepositoryImpl
     return response.when(
       success: (data) => Success(data.data.toEntity()),
       failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('error'),
+      cancelled: () => const Error('cancelled'),
     );
   }
 }

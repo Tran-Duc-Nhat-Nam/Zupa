@@ -264,6 +264,31 @@
       "button": "Extend ${price}"
     }
   },
+  "employeeManagement": {
+    "title": "Employee management",
+    "profile": {
+      "loading": "Loading Profile...",
+      "saveChanges": "Save Changes"
+    },
+    "sections": {
+      "employmentDetails": "Employment Details",
+      "contactInformation": "Contact Information",
+      "legalDocuments": "Legal Documents"
+    },
+    "fields": {
+      "position": "Position",
+      "level": "Level",
+      "hireDate": "Hire Date",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "identityCard": "Identity Card / Passport",
+      "taxCode": "Tax Code",
+      "socialInsurance": "Social Insurance",
+      "permanentAddress": "Permanent Address",
+      "notAvailable": "N/A"
+    }
+  },
   "booking": {
     "bookTickets": "Book tickets",
     "journeyInformation": "Journey's information",
