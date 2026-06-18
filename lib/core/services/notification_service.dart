@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
@@ -10,15 +11,43 @@ class NotificationService {
   static final _messaging = FirebaseMessaging.instance;
 
   static Future<void> initialize(AppRouter router) async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    try {
+      // 1. Critical Base Initialization
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
-    await _messaging.requestPermission();
-    await _messaging.subscribeToTopic('all_users');
+      // Register the background handler immediately
+      FirebaseMessaging.onBackgroundMessage(
+        _firebaseMessagingBackgroundHandler,
+      );
 
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      // 2. Fire-and-forget Network/Permission Requests (Do NOT block the main flow)
+      _setupRemoteConfigurations();
 
+      // 3. Setup Listeners
+      _setupMessageListeners(router);
+    } catch (e) {
+      // Prevent Firebase initialization failure from crashing or freezing the whole app
+      debugPrint('Firebase Core failed to initialize: $e');
+    }
+  }
+
+  static Future<void> _setupRemoteConfigurations() async {
+    try {
+      await _messaging.requestPermission();
+      // Safely subscribe without throwing errors back up to the app lifecycle
+      await _messaging.subscribeToTopic('all_users').catchError((err) {
+        debugPrint('Topic subscription failed gracefully: $err');
+      });
+    } catch (e) {
+      debugPrint(
+        'Error setting up remote notifications permissions/topics: $e',
+      );
+    }
+  }
+
+  static void _setupMessageListeners(AppRouter router) {
     // Foreground
     FirebaseMessaging.onMessage.listen((message) {
       if (message.data['type'] == 'update_available') {
@@ -31,14 +60,22 @@ class NotificationService {
       (msg) => _handleNavigation(msg, router),
     );
 
-    // Terminated State
-    final initialMessage = await _messaging.getInitialMessage();
-    if (initialMessage != null) {
-      Future.delayed(
-        const Duration(milliseconds: 500),
-        () => _handleNavigation(initialMessage, router),
-      );
-    }
+    // Terminated State - Executed asynchronously without hindering execution flow
+    _messaging
+        .getInitialMessage()
+        .then((initialMessage) {
+          if (initialMessage != null) {
+            Future.delayed(
+              const Duration(
+                milliseconds: 800,
+              ), // Slightly longer delay to let AutoRoute settle
+              () => _handleNavigation(initialMessage, router),
+            );
+          }
+        })
+        .catchError((e) {
+          debugPrint('Error fetching initial message: $e');
+        });
   }
 
   static void _handleNavigation(RemoteMessage message, AppRouter router) {
@@ -49,7 +86,7 @@ class NotificationService {
           .catchError(
             (e, stack) => router.push(
               AppErrorRoute(
-                details: .new(exception: e, stack: stack),
+                details: FlutterErrorDetails(exception: e, stack: stack),
               ),
             ),
           );
@@ -58,5 +95,10 @@ class NotificationService {
 }
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async =>
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (_) {}
+}
