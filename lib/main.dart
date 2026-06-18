@@ -13,16 +13,15 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:shake/shake.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:zupa/core/bloc/animation/animation_cubit.dart'
-    as animation_cubit;
+import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/bloc/debugger/debugger_cubit.dart';
 import 'package:zupa/core/bloc/localization/localization_cubit.dart';
 import 'package:zupa/core/bloc/scanner/scanner_cubit.dart';
 import 'package:zupa/core/bloc/security/security_cubit.dart';
 import 'package:zupa/core/bloc/security/security_state.dart';
-import 'package:zupa/core/bloc/theme/theme_cubit.dart' as theme_cubit;
-import 'package:zupa/core/bloc/ui/ui_cubit.dart' as ui_cubit;
+import 'package:zupa/core/bloc/theme/theme_cubit.dart';
+import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/env/env.dart';
@@ -71,11 +70,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
     providers: [
-      BlocProvider(create: (_) => getIt<ui_cubit.UICubit>()..loadInfo()),
-      BlocProvider(
-        create: (_) => getIt<animation_cubit.AnimationCubit>()..loadInfo(),
-      ),
-      BlocProvider(create: (_) => getIt<theme_cubit.ThemeCubit>()..loadTheme()),
+      BlocProvider(create: (_) => getIt<UICubit>()..loadInfo()),
+      BlocProvider(create: (_) => getIt<AnimationCubit>()..loadInfo()),
+      BlocProvider(create: (_) => getIt<ThemeCubit>()..loadTheme()),
       BlocProvider(create: (_) => getIt<AuthCubit>()..loadAuth()),
       BlocProvider(create: (_) => getIt<LocalizationCubit>()..loadLocale()),
       BlocProvider(
@@ -105,10 +102,7 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
 
-    return BlocBuilder<
-      animation_cubit.AnimationCubit,
-      animation_cubit.AnimationState
-    >(
+    return BlocBuilder<AnimationCubit, AnimationState>(
       builder: (context, _) => MultiBlocListener(
         listeners: [
           _connectivityListener(),
@@ -123,82 +117,58 @@ class _AppViewState extends State<AppView> {
     );
   }
 
-  Widget _buildUI(AppRouter router) =>
-      BlocBuilder<theme_cubit.ThemeCubit, theme_cubit.ThemeState>(
-        builder: (context, themeState) =>
-            BlocBuilder<ui_cubit.UICubit, ui_cubit.UIState>(
-              builder: (context, uiState) =>
-                  BlocBuilder<
-                    animation_cubit.AnimationCubit,
-                    animation_cubit.AnimationState
-                  >(
-                    builder: (context, animationState) {
-                      if (themeState is theme_cubit.Loaded &&
-                          uiState is ui_cubit.Loaded &&
-                          animationState is animation_cubit.Loaded) {
-                        FlutterNativeSplash.remove();
-                        return DynamicColorBuilder(
-                          builder: (lightDynamic, darkDynamic) {
-                            return MaterialApp.router(
-                              onGenerateTitle: (_) => t.home.appTitle,
-                              theme: AppThemes.getTheme(
-                                brightness: .light,
-                                colorSource: themeState.maybeWhen(
-                                  loaded: (settings) => settings.colorSource,
-                                  orElse: () => .brand,
-                                ),
-                                dynamicColorScheme: lightDynamic,
-                                customSeedColor: themeState.maybeWhen(
-                                  loaded: (settings) =>
-                                      settings.seedColorValue != null
-                                      ? Color(settings.seedColorValue!)
-                                      : null,
-                                  orElse: () => null,
-                                ),
-                              ),
-                              darkTheme: AppThemes.getTheme(
-                                brightness: .dark,
-                                colorSource: themeState.maybeWhen(
-                                  loaded: (settings) => settings.colorSource,
-                                  orElse: () => .brand,
-                                ),
-                                dynamicColorScheme: darkDynamic,
-                                customSeedColor: themeState.maybeWhen(
-                                  loaded: (settings) =>
-                                      settings.seedColorValue != null
-                                      ? Color(settings.seedColorValue!)
-                                      : null,
-                                  orElse: () => null,
-                                ),
-                              ),
-                              themeMode: themeState.maybeWhen(
-                                loaded: (settings) => settings.themeMode,
-                                orElse: () => .system,
-                              ),
-                              debugShowCheckedModeBanner: false,
-                              routerConfig: router.config(
-                                navigatorObservers: () => [
-                                  TalkerRouteObserver(DebuggerHelper.talker),
-                                  FlutterSmartDialog.observer,
-                                ],
-                              ),
-                              localizationsDelegates:
-                                  GlobalMaterialLocalizations.delegates,
-                              supportedLocales: AppLocaleUtils.supportedLocales,
-                              locale: TranslationProvider.of(
-                                context,
-                              ).flutterLocale,
-                              builder: FlutterSmartDialog.init(),
-                            );
-                          },
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
+  Widget _buildUI(AppRouter router) => BlocBuilder<ThemeCubit, ThemeState>(
+    builder: (context, themeState) => BlocBuilder<UICubit, UIState>(
+      builder: (context, uiState) =>
+          BlocBuilder<AnimationCubit, AnimationState>(
+            builder: (context, animationState) {
+              if (themeState is ThemeLoaded &&
+                  uiState is UILoaded &&
+                  animationState is AnimationLoaded) {
+                FlutterNativeSplash.remove();
+                return DynamicColorBuilder(
+                  builder: (lightDynamic, darkDynamic) => MaterialApp.router(
+                    onGenerateTitle: (_) => t.home.appTitle,
+                    theme: AppThemes.getTheme(
+                      brightness: .light,
+                      colorSource: themeState.settings.colorSource,
+                      dynamicColorScheme: lightDynamic,
+                      customSeedColor:
+                          themeState.settings.seedColorValue != null
+                          ? .new(themeState.settings.seedColorValue!)
+                          : null,
+                    ),
+                    darkTheme: AppThemes.getTheme(
+                      brightness: .dark,
+                      colorSource: themeState.settings.colorSource,
+                      dynamicColorScheme: darkDynamic,
+                      customSeedColor:
+                          themeState.settings.seedColorValue != null
+                          ? .new(themeState.settings.seedColorValue!)
+                          : null,
+                    ),
+                    themeMode: themeState.settings.themeMode,
+                    debugShowCheckedModeBanner: false,
+                    routerConfig: router.config(
+                      navigatorObservers: () => [
+                        TalkerRouteObserver(DebuggerHelper.talker),
+                        FlutterSmartDialog.observer,
+                      ],
+                    ),
+                    localizationsDelegates:
+                        GlobalMaterialLocalizations.delegates,
+                    supportedLocales: AppLocaleUtils.supportedLocales,
+                    locale: TranslationProvider.of(context).flutterLocale,
+                    builder: FlutterSmartDialog.init(),
                   ),
-            ),
-      );
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+    ),
+  );
 
   BlocListener<DebuggerCubit, DebuggerState>? _debuggerListener(
     AppRouter router,
@@ -209,16 +179,14 @@ class _AppViewState extends State<AppView> {
               loaded: (isDebuggerMode) {
                 if (isDebuggerMode) {
                   detector = .autoStart(
-                    onPhoneShake: (ShakeEvent event) async {
-                      router
-                          .push(const DebugRoute())
-                          .onError(
-                            (error, stackTrace) => AppToast.showToast(
-                              t.common.errors.unknown,
-                              context: context.mounted ? context : null,
-                            ),
-                          );
-                    },
+                    onPhoneShake: (ShakeEvent event) async => router
+                        .push(const DebugRoute())
+                        .onError(
+                          (error, stackTrace) => AppToast.showToast(
+                            t.common.errors.unknown,
+                            context: context.mounted ? context : null,
+                          ),
+                        ),
                   );
                 }
               },
@@ -246,20 +214,18 @@ class _AppViewState extends State<AppView> {
       BlocListener<SecurityCubit, SecurityState>(
         listener: (context, state) {
           state.whenOrNull(
-            vulnerable: () {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                DialogHelper.showSecurityDialog(
-                  context,
-                  onQuit: () {
-                    if (kDebugMode) {
-                      DialogHelper.dismissAll();
-                    } else {
-                      SystemNavigator.pop();
-                    }
-                  },
-                );
-              });
-            },
+            vulnerable: () => WidgetsBinding.instance.addPostFrameCallback(
+              (_) => DialogHelper.showSecurityDialog(
+                context,
+                onQuit: () {
+                  if (kDebugMode) {
+                    DialogHelper.dismissAll();
+                  } else {
+                    SystemNavigator.pop();
+                  }
+                },
+              ),
+            ),
           );
         },
       );
