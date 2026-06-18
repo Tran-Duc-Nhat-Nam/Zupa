@@ -4,11 +4,12 @@ import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 
 extension AppFormTextField on AppTextField {
   static Widget form({
-    required AbstractControl<String> control,
+    AbstractControl<String>? control,
     String? labelText,
     IconData? prefixIcon,
     bool isPassword = false,
     String? errorText,
+    bool isReadOnly = false,
   }) => AppInputWrapper<String>(
       control: control,
       errorText: errorText,
@@ -19,6 +20,7 @@ extension AppFormTextField on AppTextField {
         initialValue: value,
         onChanged: onChanged,
         errorText: derivedError,
+        isReadOnly: isReadOnly,
       ),
     );
 }

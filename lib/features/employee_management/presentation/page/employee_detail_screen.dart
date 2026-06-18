@@ -57,286 +57,267 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
     controlFinishRefresh: true,
   );
   @override
-  Widget build(BuildContext context) => BlocProvider(
-    create: (context) =>
-        getIt<EmployeeBloc>()..add(FetchEmployee(.new(id: widget.employeeId))),
-    child: EmployeeFormBuilder(
-      model: .fromEntity(mockEmployee),
-      builder: (context, formModel, child) =>
-          BlocConsumer<EmployeeBloc, EmployeeState>(
-            listener: (context, state) {
-              switch (state) {
-                case EmployeeInitial():
-                  break;
-                case EmployeeLoading():
-                  break;
-                case EmployeeLoadedSuccess():
-                  refreshController.finishLoad();
-                  refreshController.finishRefresh();
-                case EmployeeLoadedError(:final errorMessage):
-                  MessageHelper.showError(context, message: errorMessage);
-                  refreshController.finishLoad(.fail);
-                  refreshController.finishRefresh(.fail);
-                case EmployeeEditing(:final employee):
-                  formModel.updateValue(.fromEntity(employee));
-                case EmployeeUpdating():
-                  break;
-              }
-            },
-            builder: (context, state) => AppScreen(
-              isChildScrollable: true,
-              title: state.isLoading
-                  ? t.employeeManagement.profile.loading
-                  : state.currentEmployee?.fullName ?? mockEmployee.fullName,
-              appBarTrailing: [
-                if (!state.isLoading)
-                  IconButton(
-                    icon: Icon(state.isEditing ? Icons.close : Icons.edit),
-                    onPressed: () =>
-                        context.read<EmployeeBloc>().add(const ToggleEditMode()),
-                  ),
-              ],
-              child: Skeletonizer(
-                enabled: state.isLoading,
-                child: EasyRefresh(
-                  controller: refreshController,
-                  onRefresh: () => context.read<EmployeeBloc>().add(
-                    FetchEmployee(.new(id: widget.employeeId)),
-                  ),
-                  header: const MaterialHeader(),
-                  child: ListView(
-                    padding: const .all(16.0),
-                    children: [
-                      // Profile Header Section
-                      Center(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 50,
-                              backgroundColor: Theme.of(
-                                context,
-                              ).colorScheme.primaryContainer,
-                              child: state.currentEmployee?.avatarPath == null
-                                  ? Icon(
-                                      Icons.person,
-                                      size: 50,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimaryContainer,
-                                    )
-                                  : ExtendedImage.network(
-                                      state.currentEmployee!.avatarPath!,
-                                    ),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              state.currentEmployee?.code ?? mockEmployee.code,
-                              style: Theme.of(context).textTheme.labelLarge
-                                  ?.copyWith(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.secondary,
-                                    letterSpacing: 1.2,
-                                  ),
-                            ),
-                            const SizedBox(height: 4),
-                            Chip(
-                              label: Text(
-                                state.currentEmployee?.status ??
-                                    mockEmployee.status,
+  Widget build(BuildContext context) {
+    final colorScheme = context.colorScheme;
+    return BlocProvider(
+      create: (context) =>
+          getIt<EmployeeBloc>()
+            ..add(FetchEmployee(.new(id: widget.employeeId))),
+      child: EmployeeFormBuilder(
+        model: .fromEntity(mockEmployee),
+        builder: (context, formModel, child) =>
+            BlocConsumer<EmployeeBloc, EmployeeState>(
+              listener: (context, state) {
+                switch (state) {
+                  case EmployeeInitial():
+                    break;
+                  case EmployeeLoading():
+                    break;
+                  case EmployeeLoadedSuccess(:final employee):
+                    formModel.updateValue(.fromEntity(employee));
+                    refreshController.finishLoad();
+                    refreshController.finishRefresh();
+                  case EmployeeLoadedError(:final errorMessage):
+                    MessageHelper.showError(context, message: errorMessage);
+                    refreshController.finishLoad(.fail);
+                    refreshController.finishRefresh(.fail);
+                  case EmployeeEditing(:final employee):
+                    formModel.updateValue(.fromEntity(employee));
+                  case EmployeeUpdating():
+                    break;
+                }
+              },
+              builder: (context, state) => AppScreen(
+                isChildScrollable: true,
+                title: state.isLoading
+                    ? t.employeeManagement.profile.loading
+                    : state.currentEmployee?.fullName ?? mockEmployee.fullName,
+                appBarTrailing: [
+                  if (!state.isLoading)
+                    IconButton(
+                      icon: Icon(state.isEditing ? Icons.close : Icons.edit),
+                      onPressed: () => context.read<EmployeeBloc>().add(
+                        const ToggleEditMode(),
+                      ),
+                    ),
+                ],
+                child: Skeletonizer(
+                  enabled: state.isLoading,
+                  child: EasyRefresh(
+                    controller: refreshController,
+                    onRefresh: () => context.read<EmployeeBloc>().add(
+                      FetchEmployee(.new(id: widget.employeeId)),
+                    ),
+                    header: const MaterialHeader(),
+                    child: ListView(
+                      padding: const .all(16.0),
+                      children: [
+                        // Profile Header Section
+                        Center(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 50,
+                                backgroundColor: colorScheme.primaryContainer,
+                                child: state.currentEmployee?.avatarPath == null
+                                    ? Icon(
+                                        Icons.person,
+                                        size: 50,
+                                        color: colorScheme.onPrimaryContainer,
+                                      )
+                                    : ExtendedImage.network(
+                                        state.currentEmployee!.avatarPath!,
+                                      ),
                               ),
-                              backgroundColor:
-                                  state.currentEmployee?.status.toLowerCase() ==
-                                      'active'
-                                  ? context.colorScheme.success
-                                  : context.colorScheme.warning,
+                              const SizedBox(height: 12),
+                              Text(
+                                state.currentEmployee?.code ??
+                                    mockEmployee.code,
+                                style: AppTextStyles.labelLarge.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
+                                  letterSpacing: 1.2,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Chip(
+                                label: Text(
+                                  state.currentEmployee?.status ??
+                                      mockEmployee.status,
+                                ),
+                                backgroundColor:
+                                    state.currentEmployee?.status
+                                            .toLowerCase() ==
+                                        'active'
+                                    ? colorScheme.success
+                                    : colorScheme.warning,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+
+                        // Section: Job Info
+                        _buildSectionTitle(
+                          context,
+                          t.employeeManagement.sections.employmentDetails,
+                        ),
+                        const SizedBox(height: 8),
+                        AppList(
+                          items: [
+                            _buildDetailField(
+                              label: t.employeeManagement.fields.position,
+                              formControl: formModel.positionControl,
+                              fallbackValue:
+                                  state.currentEmployee?.position ??
+                                  mockEmployee.position,
+                              isEditing: state.isEditing,
+                              icon: Icons.work_outline,
+                            ),
+                            _buildDetailField(
+                              label: t.employeeManagement.fields.level,
+                              formControl: formModel.staffMetaDataLevelControl,
+                              fallbackValue:
+                                  state.currentEmployee?.staffMetaDataLevel ??
+                                  mockEmployee.staffMetaDataLevel,
+                              isEditing: state.isEditing,
+                              icon: Icons.layers_outlined,
+                            ),
+                            if (state.currentEmployee?.hireDate != null)
+                              _buildDetailField(
+                                label: t.employeeManagement.fields.hireDate,
+                                fallbackValue:
+                                    state.currentEmployee?.hireDate ??
+                                    mockEmployee.hireDate!,
+                                isEditing: state.isEditing,
+                                icon: Icons.calendar_today_outlined,
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 32),
+
+                        // Section: Contact Info
+                        _buildSectionTitle(
+                          context,
+                          t.employeeManagement.sections.contactInformation,
+                        ),
+                        const SizedBox(height: 8),
+                        AppList(
+                          items: [
+                            _buildDetailField(
+                              label: t.employeeManagement.fields.fullName,
+                              formControl: formModel.fullNameControl,
+                              fallbackValue:
+                                  state.currentEmployee?.fullName ??
+                                  mockEmployee.fullName,
+                              isEditing: state.isEditing,
+                              icon: Icons.badge_outlined,
+                            ),
+                            _buildDetailField(
+                              label: t.employeeManagement.fields.email,
+                              formControl: formModel.emailControl,
+                              fallbackValue:
+                                  state.currentEmployee?.email ??
+                                  mockEmployee.email,
+                              isEditing: state.isEditing,
+                              icon: Icons.email_outlined,
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            _buildDetailField(
+                              label: t.employeeManagement.fields.phoneNumber,
+                              formControl: formModel.phoneNumberControl,
+                              fallbackValue:
+                                  state.currentEmployee?.phoneNumber ??
+                                  mockEmployee.phoneNumber,
+                              isEditing: state.isEditing,
+                              icon: Icons.phone_outlined,
+                              keyboardType: TextInputType.phone,
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 32),
+                        const SizedBox(height: 32),
 
-                      // Section: Job Info
-                      _buildSectionTitle(
-                        context,
-                        t.employeeManagement.sections.employmentDetails,
-                      ),
-                      const SizedBox(height: 8),
-                      AppList(
-                        items: [
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.position,
-                            formControl: formModel.positionControl,
-                            fallbackValue:
-                                state.currentEmployee?.position ??
-                                mockEmployee.position,
-                            isEditing: state.isEditing,
-                            icon: Icons.work_outline,
-                          ),
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.level,
-                            formControl: formModel.staffMetaDataLevelControl,
-                            fallbackValue:
-                                state.currentEmployee?.staffMetaDataLevel ??
-                                mockEmployee.staffMetaDataLevel,
-                            isEditing: state.isEditing,
-                            icon: Icons.layers_outlined,
-                          ),
-                          if (state.currentEmployee?.hireDate != null)
+                        // Section: Personal & ID Info (Read-only System Registry)
+                        _buildSectionTitle(
+                          context,
+                          t.employeeManagement.sections.legalDocuments,
+                        ),
+                        const SizedBox(height: 8),
+                        AppList(
+                          items: [
                             _buildDetailField(
-                              label: t.employeeManagement.fields.hireDate,
+                              label: t.employeeManagement.fields.identityCard,
                               fallbackValue:
-                                  state.currentEmployee?.hireDate ??
-                                  mockEmployee.hireDate!,
-                              isEditing: state.isEditing,
-                              icon: Icons.calendar_today_outlined,
+                                  state.currentEmployee?.identityCard ??
+                                  mockEmployee.identityCard,
+                              isEditing: false,
+                              icon: Icons.credit_card,
                             ),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-
-                      // Section: Contact Info
-                      _buildSectionTitle(
-                        context,
-                        t.employeeManagement.sections.contactInformation,
-                      ),
-                      const SizedBox(height: 8),
-                      AppList(
-                        items: [
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.fullName,
-                            formControl: formModel.fullNameControl,
-                            fallbackValue:
-                                state.currentEmployee?.fullName ??
-                                mockEmployee.fullName,
-                            isEditing: state.isEditing,
-                            icon: Icons.badge_outlined,
-                          ),
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.email,
-                            formControl: formModel.emailControl,
-                            fallbackValue:
-                                state.currentEmployee?.email ??
-                                mockEmployee.email,
-                            isEditing: state.isEditing,
-                            icon: Icons.email_outlined,
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.phoneNumber,
-                            formControl: formModel.phoneNumberControl,
-                            fallbackValue:
-                                state.currentEmployee?.phoneNumber ??
-                                mockEmployee.phoneNumber,
-                            isEditing: state.isEditing,
-                            icon: Icons.phone_outlined,
-                            keyboardType: TextInputType.phone,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-
-                      // Section: Personal & ID Info (Read-only System Registry)
-                      _buildSectionTitle(
-                        context,
-                        t.employeeManagement.sections.legalDocuments,
-                      ),
-                      const SizedBox(height: 8),
-                      AppList(
-                        items: [
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.identityCard,
-                            fallbackValue:
-                                state.currentEmployee?.identityCard ??
-                                mockEmployee.identityCard,
-                            isEditing: false,
-                            icon: Icons.credit_card,
-                          ),
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.taxCode,
-                            fallbackValue:
-                                state.currentEmployee?.taxCode ??
-                                t.employeeManagement.fields.notAvailable,
-                            isEditing: false,
-                            icon: Icons.request_quote_outlined,
-                          ),
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.socialInsurance,
-                            fallbackValue:
-                                state.currentEmployee?.socialInsuranceCode ??
-                                t.employeeManagement.fields.notAvailable,
-                            isEditing: false,
-                            icon: Icons.health_and_safety_outlined,
-                          ),
-                          _buildDetailField(
-                            label: t.employeeManagement.fields.permanentAddress,
-                            fallbackValue:
-                                state.currentEmployee?.permanentAddress ??
-                                t.employeeManagement.fields.notAvailable,
-                            isEditing: false,
-                            icon: Icons.home_outlined,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-                    ],
+                            _buildDetailField(
+                              label: t.employeeManagement.fields.taxCode,
+                              fallbackValue:
+                                  state.currentEmployee?.taxCode ??
+                                  t.employeeManagement.fields.notAvailable,
+                              isEditing: false,
+                              icon: Icons.request_quote_outlined,
+                            ),
+                            _buildDetailField(
+                              label:
+                                  t.employeeManagement.fields.socialInsurance,
+                              fallbackValue:
+                                  state.currentEmployee?.socialInsuranceCode ??
+                                  t.employeeManagement.fields.notAvailable,
+                              isEditing: false,
+                              icon: Icons.health_and_safety_outlined,
+                            ),
+                            _buildDetailField(
+                              label:
+                                  t.employeeManagement.fields.permanentAddress,
+                              fallbackValue:
+                                  state.currentEmployee?.permanentAddress ??
+                                  t.employeeManagement.fields.notAvailable,
+                              isEditing: false,
+                              icon: Icons.home_outlined,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 32),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-    ),
-  );
-
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 4.0, bottom: 8.0),
-      child: Text(
-        title,
-        style: AppTextStyles.titleSmall.copyWith(
-          color: context.colorScheme.primary,
-        ),
       ),
     );
   }
+
+  Widget _buildSectionTitle(BuildContext context, String title) => Padding(
+    padding: const .only(left: 4.0, bottom: 8.0),
+    child: Text(
+      title,
+      style: AppTextStyles.titleSmall.copyWith(
+        color: context.colorScheme.primary,
+      ),
+    ),
+  );
 
   AppListItem _buildDetailField({
     required String label,
     required String fallbackValue,
     required bool isEditing,
     required IconData icon,
-    FormControl<String>?
-    formControl, // Replaced control tracking with name strings
+    FormControl<String>? formControl,
     TextInputType? keyboardType,
-  }) {
-    return (isEditing && formControl != null)
-        ? AppListItem(
-            padding: const .only(top: 16),
-            content: AppFormTextField.form(
-              control: formControl,
-              errorText: t.common.errors.required,
-              prefixIcon: icon,
-              labelText: label,
-            ),
-          )
-        : AppListItem(
-            leading: Row(
-              children: [
-                Icon(
-                  icon,
-                  size: 20,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-            text: fallbackValue,
-          );
-  }
+  }) => .new(
+    padding: const .only(top: 16),
+    content: AppFormTextField.form(
+      control: formControl,
+      errorText: t.common.errors.required,
+      prefixIcon: icon,
+      labelText: label,
+      isReadOnly: !isEditing,
+    ),
+  );
 }

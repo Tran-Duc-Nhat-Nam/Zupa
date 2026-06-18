@@ -31,6 +31,7 @@ class AppTextField extends StatefulWidget {
     this.onEditingComplete,
     this.focusNode,
     this.obscureText,
+    this.isReadOnly = false, // <-- Added parameter
   });
 
   // Generic properties
@@ -38,7 +39,7 @@ class AppTextField extends StatefulWidget {
   final String? initialValue;
   final String? labelText;
   final String? hintText;
-  final String? errorText; // Pass error messages from any form provider
+  final String? errorText;
   final Widget? label;
   final Widget? prefix;
   final Widget? suffix;
@@ -58,7 +59,8 @@ class AppTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final VoidCallback? onEditingComplete;
   final FocusNode? focusNode;
-  final bool? obscureText; // Optional override for manual control
+  final bool? obscureText;
+  final bool isReadOnly; // <-- Added property
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -71,7 +73,6 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   void didUpdateWidget(AppTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // If the form value changes externally, update the text field's text
     if (widget.initialValue != oldWidget.initialValue &&
         widget.initialValue != _controller.text) {
       _controller.text = widget.initialValue ?? '';
@@ -81,7 +82,6 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   void initState() {
     super.initState();
-    // Default visibility logic for passwords
     _isObscured = widget.isPassword || widget.isPasswordConfirm;
     _controller = widget.controller ?? .new(text: widget.initialValue);
   }
@@ -106,7 +106,7 @@ class _AppTextFieldState extends State<AppTextField> {
         TextField(
           controller: widget.controller ?? _controller,
           focusNode: widget.focusNode,
-          // If obscureText is explicitly provided, use it; otherwise use internal state
+          readOnly: widget.isReadOnly,
           obscureText:
               widget.obscureText ?? (isPasswordType ? _isObscured : false),
           textAlign: widget.textAlign ?? .start,
@@ -120,13 +120,10 @@ class _AppTextFieldState extends State<AppTextField> {
           style: AppTextStyles.bodyMedium.copyWith(
             color: colorsScheme.onSurface,
           ),
-          decoration: InputDecoration(
+          decoration: .new(
             errorText: widget.errorText,
             prefixIcon: _buildPrefix(colorsScheme),
-            prefixIconConstraints: const .new(
-              maxHeight: 40, // Increased to allow padding space
-              minWidth: 44,
-            ),
+            prefixIconConstraints: const .new(maxHeight: 40, minWidth: 44),
             suffixIcon: _buildSuffix(colorsScheme, isPasswordType),
             suffixIconConstraints: const .new(maxHeight: 40, minWidth: 44),
             hintText: widget.hintText,
@@ -154,7 +151,7 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 
   Widget? _buildPrefix(dynamic colorsScheme) =>
-      widget.prefix == null && widget.prefixIcon == null
+      widget.prefix != null || widget.prefixIcon != null
       ? Padding(
           padding: const .only(left: 16, right: 8),
           child:
@@ -180,7 +177,7 @@ class _AppTextFieldState extends State<AppTextField> {
           ),
           onPressed: () => setState(() => _isObscured = !_isObscured),
         )
-      : widget.suffix == null && widget.suffixIcon == null
+      : widget.suffix != null || widget.suffixIcon != null
       ? Padding(
           padding: const .only(left: 8, right: 16),
           child:
