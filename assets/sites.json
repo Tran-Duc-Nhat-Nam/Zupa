@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "code": "GGL",
+    "name": "Google",
+    "fullName": "Google LLC",
+    "logo": "https://example.com/logos/google_thumb.png",
+    "logoFullSizeUrl": "https://example.com/logos/google_full.png",
+    "address": "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+    "phoneNumber": "+1-650-253-0000",
+    "email": "info@google.com",
+    "currency": "USD"
+  },
+  {
+    "id": 2,
+    "code": "MSFT",
+    "name": "Microsoft",
+    "fullName": "Microsoft Corporation",
+    "logo": "https://example.com/logos/msft_thumb.png",
+    "logoFullSizeUrl": null,
+    "address": "One Microsoft Way, Redmond, WA 98052, USA",
+    "phoneNumber": "+1-425-882-8080",
+    "email": "contact@microsoft.com",
+    "currency": "USD"
+  },
+  {
+    "id": 3,
+    "code": "SAP",
+    "name": "SAP",
+    "fullName": "SAP SE",
+    "logo": null,
+    "logoFullSizeUrl": null,
+    "address": "Dietmar-Hopp-Allee 16, 69190 Walldorf, Germany",
+    "phoneNumber": null,
+    "email": "support@sap.com",
+    "currency": "EUR"
+  }
+]

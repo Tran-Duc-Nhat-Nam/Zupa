@@ -8,6 +8,7 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_radio_group.dart';
+import 'package:zupa/features/site/domain/entities/site_entity.dart';
 import 'package:zupa/features/site/presentation/bloc/site_cubit.dart';
 
 class AppSiteSelector extends StatelessWidget {
@@ -22,15 +23,15 @@ class AppSiteSelector extends StatelessWidget {
 
     return InkWell(
           onTap: () => _showSitePicker(context, colors, siteCubit),
-          borderRadius: .circular(16),
+          borderRadius: .circular(28),
           child: Container(
-            padding: const .symmetric(horizontal: 16, vertical: 12),
+            padding: const .symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: colors.surfaceContainerHigh,
               borderRadius: .circular(28),
-              border: .all(color: colors.outlineVariant.withAlpha(50)),
+              border: .all(color: colors.outlineVariant),
               boxShadow: [
-                BoxShadow(
+                .new(
                   color: colors.shadow.withAlpha(10),
                   blurRadius: 8,
                   offset: const .new(0, 4),
@@ -64,19 +65,12 @@ class AppSiteSelector extends StatelessWidget {
                         ),
                       ),
                       BlocBuilder<SiteCubit, SiteState>(
-                        builder: (context, state) {
-                          final siteName = state.maybeWhen(
-                            loaded: (siteList, currentSite) =>
-                                currentSite?.name ?? _parkingLots[0],
-                            orElse: () => _parkingLots[0],
-                          );
-                          return Text(
-                            siteName,
-                            style: AppTextStyles.bodyLargeBold.copyWith(
-                              color: colors.onSurface,
-                            ),
-                          );
-                        },
+                        builder: (context, state) => Text(
+                          state.currentSite?.fullName ?? _parkingLots[0],
+                          style: AppTextStyles.bodyLargeBold.copyWith(
+                            color: colors.onSurface,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -98,89 +92,87 @@ class AppSiteSelector extends StatelessWidget {
     BuildContext context,
     AppColors colors,
     SiteCubit siteCubit,
-  ) {
-    WoltModalSheet.show(
-      context: context,
-      pageListBuilder: (context) => [
-        WoltModalSheetPage(
-          enableDrag: true,
-          backgroundColor: colors.surfaceContainerLow,
-          hasTopBarLayer: true,
-          topBarTitle: Text(
-            t.common.info.site,
-            style: AppTextStyles.bodyLargeSemibold,
+  ) => WoltModalSheet.show(
+    context: context,
+    pageListBuilder: (context) => [
+      WoltModalSheetPage(
+        enableDrag: true,
+        backgroundColor: colors.surfaceContainerLow,
+        hasTopBarLayer: true,
+        topBarTitle: Text(
+          t.common.info.site,
+          style: AppTextStyles.bodyLargeSemibold,
+        ),
+        isTopBarLayerAlwaysVisible: true,
+        trailingNavBarWidget: IconButton(
+          icon: const Icon(Symbols.close_rounded),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        stickyActionBar: Padding(
+          padding: const .only(left: 24, top: 0, right: 24, bottom: 16),
+          child: AppButton(
+            height: 48,
+            onPressed: () {
+              siteCubit.changeSite('');
+              Navigator.of(context).pop();
+            },
+            text: t.common.actions.apply,
           ),
-          isTopBarLayerAlwaysVisible: true,
-          trailingNavBarWidget: IconButton(
-            icon: const Icon(Symbols.close_rounded),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          stickyActionBar: Padding(
-            padding: const .only(left: 24, top: 0, right: 24, bottom: 16),
-            child: AppButton(
-              height: 48,
-              onPressed: () {
-                siteCubit.changeSite('');
-                Navigator.of(context).pop();
-              },
-              text: t.common.actions.apply,
-            ),
-          ),
-          child: Padding(
-            padding: const .only(bottom: 80, top: 16),
-            child: AppRadioGroup<String>(
-              items: _parkingLots,
-              isVertical: true,
-              showRadio: false,
-              itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: onSelect,
-                      child: Container(
-                        width: .infinity,
-                        padding: const .symmetric(vertical: 16, horizontal: 24),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? colors.primaryContainer.withAlpha(80)
-                              : null,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Symbols.location_on_rounded,
-                              size: 20,
+        ),
+        child: Padding(
+          padding: const .only(bottom: 80, top: 16),
+          child: AppRadioGroup<SiteEntity>(
+            items: siteCubit.state.siteList,
+            isVertical: true,
+            showRadio: false,
+            itemBuilder: (context, item, isSelected, onSelect, radioButton) =>
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onSelect,
+                    child: Container(
+                      width: .infinity,
+                      padding: const .symmetric(vertical: 16, horizontal: 24),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? colors.primaryContainer.withAlpha(80)
+                            : null,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Symbols.location_on_rounded,
+                            size: 20,
+                            color: isSelected
+                                ? colors.primary
+                                : colors.onSurfaceVariant,
+                            fill: isSelected ? 1 : 0,
+                          ),
+                          const SizedBox(width: 16),
+                          Text(
+                            item.fullName,
+                            style: AppTextStyles.bodyLarge.copyWith(
                               color: isSelected
                                   ? colors.primary
-                                  : colors.onSurfaceVariant,
-                              fill: isSelected ? 1 : 0,
+                                  : colors.onSurface,
+                              fontWeight: isSelected ? .w600 : .w400,
                             ),
-                            const SizedBox(width: 16),
-                            Text(
-                              item,
-                              style: AppTextStyles.bodyLarge.copyWith(
-                                color: isSelected
-                                    ? colors.primary
-                                    : colors.onSurface,
-                                fontWeight: isSelected ? .w600 : .w400,
-                              ),
+                          ),
+                          const Spacer(),
+                          if (isSelected)
+                            Icon(
+                              Symbols.check_rounded,
+                              color: colors.primary,
+                              size: 20,
                             ),
-                            const Spacer(),
-                            if (isSelected)
-                              Icon(
-                                Symbols.check_rounded,
-                                color: colors.primary,
-                                size: 20,
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
                   ),
-            ),
+                ),
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }

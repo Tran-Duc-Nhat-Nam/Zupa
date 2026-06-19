@@ -11,6 +11,6 @@ class SiteAPI {
   Future<List<SiteModel>> getSites() async {
     final response = await rootBundle.loadString('assets/sites.json');
     final json = jsonDecode(response);
-    return List<SiteModel>.from(json.map((e) => SiteModel.fromJson(e)));
+    return .from(json.map((e) => SiteModel.fromJson(e)));
   }
 }

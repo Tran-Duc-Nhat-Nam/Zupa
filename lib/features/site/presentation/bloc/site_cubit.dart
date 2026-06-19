@@ -37,8 +37,14 @@ class SiteCubit extends Cubit<SiteState> {
     }
   }
 
-  void changeSite(String code) {
+  Future<void> changeSite(String code) async {
     emit(const .loading());
-    emit(const .loaded(siteList: []));
+    await Future.delayed(const .new(seconds: 3));
+    emit(
+      .loaded(
+        siteList: state.siteList,
+        currentSite: state.siteList.firstWhere((site) => site.code == code),
+      ),
+    );
   }
 }
