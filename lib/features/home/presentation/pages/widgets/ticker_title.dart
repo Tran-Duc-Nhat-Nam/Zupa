@@ -2,16 +2,14 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dart_date/dart_date.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:zupa/core/widgets/app_avatar.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/features/home/domain/entities/home_ticker_entity.dart';
 
 class TicketTitle extends StatelessWidget {
@@ -82,31 +80,7 @@ class TicketTitle extends StatelessWidget {
           children: [
             Padding(
               padding: const .only(right: 12),
-              child: InkWell(
-                onTap: () =>
-                    AppPhotoView.showNetworkPhotoView(context, ticket.imageUrl),
-                child: ExtendedImage.network(
-                  ticket.imageUrl,
-                  fit: .cover,
-                  width: 50,
-                  height: 50,
-                  borderRadius: .circular(6),
-                  shape: .rectangle,
-                  loadStateChanged: (state) => switch (state) {
-                    LoadState.loading =>
-                      LoadingAnimationWidget.horizontalRotatingDots(
-                        color: colors.primary,
-                        size: 35,
-                      ),
-                    LoadState.completed => state.completedWidget,
-                    _ => Icon(
-                      Symbols.error_rounded,
-                      color: colors.error,
-                      size: 35,
-                    ),
-                  },
-                ),
-              ),
+              child: AppAvatarWidget(imageUrl: ticket.imageUrl),
             ),
             Expanded(
               child: Column(

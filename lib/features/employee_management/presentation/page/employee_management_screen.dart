@@ -9,6 +9,7 @@ import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_avatar.dart';
 import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
@@ -89,7 +90,16 @@ class _EmployeeManagementScreenState
                         items: params.employees
                             .map(
                               (employee) => AppListItem(
-                                leadingIcon: Symbols.settings_rounded,
+                                leading: AppAvatarWidget(
+                                  imageUrl: employee.avatarPath ?? '',
+                                  borderRadius: 100,
+                                  size: 28,
+                                  placeholder: Icon(
+                                    Symbols.account_box_rounded,
+                                    color: colorScheme.primary,
+                                    size: 28,
+                                  ),
+                                ),
                                 content: Row(
                                   spacing: 8,
                                   children: [
@@ -100,11 +110,12 @@ class _EmployeeManagementScreenState
                                             color: colorScheme.onSurfaceVariant,
                                           ),
                                     ),
-                                    Icon(
-                                      Symbols.lock_rounded,
-                                      color: colorScheme.error,
-                                      size: 16,
-                                    ),
+                                    if (employee.isResigned)
+                                      Icon(
+                                        Symbols.lock_rounded,
+                                        color: colorScheme.error,
+                                        size: 16,
+                                      ),
                                   ],
                                 ),
                                 trailingIcon: Symbols.chevron_right_rounded,
