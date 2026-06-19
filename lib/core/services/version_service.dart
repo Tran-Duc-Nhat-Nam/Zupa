@@ -12,16 +12,18 @@ class VersionService {
       ),
     );
 
-    return .new(
-      isForcedUpdate: result.status == .forcedUpdate,
-      isMaintaining: result.status == .inactive,
-      isUpToDate: result.status == .upToDate,
-      latestVersion: result.manifest?.currentPlatform?.version.latest,
-      message: result.manifest?.currentPlatform?.status.message?['en'],
-      updateUrl: result.downloadUrls,
-      update: result.downloadUrls != null
-          ? () => Versionarte.launchDownloadUrl(result.downloadUrls!)
-          : null,
-    );
+    return result.status != .unknown
+        ? .new(
+            isForcedUpdate: result.status == .forcedUpdate,
+            isMaintaining: result.status == .inactive,
+            isUpToDate: result.status == .upToDate,
+            latestVersion: result.manifest?.currentPlatform?.version.latest,
+            message: result.manifest?.currentPlatform?.status.message?['en'],
+            updateUrl: result.downloadUrls,
+            update: result.downloadUrls != null
+                ? () => Versionarte.launchDownloadUrl(result.downloadUrls!)
+                : null,
+          )
+        : null;
   }
 }
