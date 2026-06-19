@@ -236,70 +236,73 @@ class _AppViewState extends State<AppView> {
   BlocListener<VersionCubit, VersionState> _versionListener() =>
       BlocListener<VersionCubit, VersionState>(
         listener: (context, state) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            state.whenOrNull(
-              checking: (isShow) => isShow
-                  ? DialogHelper.showLoading(message: t.common.version.checking)
-                  : null,
-              upToDate: (_) => DialogHelper.dismissLoading(),
-              standby: () => DialogHelper.dismissLoading(),
-              updateAvailable: (info) {
-                DialogHelper.dismissLoading();
-                DialogHelper.showUpdateDialog(
-                  context,
-                  isMandatory: info.isForcedUpdate,
-                  version: info.latestVersion ?? '',
-                  onUpdate: () => Platform.isAndroid
-                      ? context.read<VersionCubit>().executeUpdate(info)
-                      : info.update,
-                );
-              },
-              maintaining: () {
-                DialogHelper.dismissLoading();
-                DialogHelper.showMaintenanceDialog(context);
-              },
-              downloading: (progress, info) {
-                DialogHelper.dismissLoading();
-                DialogHelper.showDownloadProgress(
-                  context,
-                  progressStream: progress.map((p) => p / 100.0),
-                  subtitle: info.latestVersion != null
-                      ? t.common.version.downloadingVersion(
-                          version: info.latestVersion!,
-                        )
-                      : null,
-                );
-              },
-              downloadFailed: (message, info) {
-                if (!info.isForcedUpdate) {
-                  DialogHelper.dismissAll();
-                }
-                MessageHelper.showError(context, message: message);
-              },
-            );
-          });
+          state.whenOrNull(
+            checking: (isShow) => isShow
+                ? DialogHelper.showLoading(message: t.common.version.checking)
+                : null,
+            upToDate: (_) => DialogHelper.dismissLoading(),
+            standby: () => DialogHelper.dismissLoading(),
+            updateAvailable: (info) {
+              DialogHelper.dismissLoading();
+              DialogHelper.showUpdateDialog(
+                context,
+                isMandatory: info.isForcedUpdate,
+                version: info.latestVersion ?? '',
+                onUpdate: () => Platform.isAndroid
+                    ? context.read<VersionCubit>().executeUpdate(info)
+                    : info.update,
+              );
+            },
+            maintaining: () {
+              DialogHelper.dismissLoading();
+              DialogHelper.showMaintenanceDialog(context);
+            },
+            downloading: (progress, info) {
+              DialogHelper.dismissLoading();
+              DialogHelper.showDownloadProgress(
+                context,
+                progressStream: progress.map((p) => p / 100.0),
+                subtitle: info.latestVersion != null
+                    ? t.common.version.downloadingVersion(
+                        version: info.latestVersion!,
+                      )
+                    : null,
+              );
+            },
+            downloadFailed: (message, info) {
+              if (!info.isForcedUpdate) {
+                DialogHelper.dismissAll();
+              }
+              MessageHelper.showError(context, message: message);
+            },
+          );
         },
       );
 
   BlocListener<AuthCubit, AuthState> _authListener(AppRouter router) =>
       BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
-          state.whenOrNull(
-            noAuthenticated: () => router.replaceAll([const LoginRoute()]),
-          );
+          switch (state) {
+            case NoAuthenticated():
+              router.replaceAll([const LoginRoute()]);
+            default:
+              break;
+          }
         },
       );
 
   BlocListener<ConnectivityCubit, ConnectivityState> _connectivityListener() =>
       BlocListener<ConnectivityCubit, ConnectivityState>(
-        listener: (context, state) => state.whenOrNull(
-          connected: () => AppToast.showToast(
-            t.common.errors.internetConnected,
-            context: context,
-          ),
-          disconnected: () =>
-              AppToast.showToast(t.common.errors.noInternet, context: context),
-        ),
+        listener: (_, state) {
+          switch (state) {
+            case Connected():
+              AppToast.showToast(t.common.errors.internetConnected);
+            case Disconnected():
+              AppToast.showToast(t.common.errors.noInternet);
+            default:
+              break;
+          }
+        },
       );
 
   @override
