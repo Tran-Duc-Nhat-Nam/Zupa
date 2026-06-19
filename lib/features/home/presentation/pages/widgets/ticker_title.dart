@@ -33,13 +33,14 @@ class TicketTitle extends StatelessWidget {
     return Slidable(
       enabled: enabled,
       startActionPane: .new(
-        motion: const ScrollMotion(),
+        motion: const StretchMotion(),
         extentRatio: 0.35,
         children: [
           SlidableAction(
             onPressed: (context) => context.pushRoute(CheckInRoute()),
             backgroundColor: ticket.isFlagError ? colors.primary : colors.error,
             foregroundColor: colors.surface,
+            borderRadius: const .all(.circular(16)),
             icon: ticket.isFlagError
                 ? Symbols.check_circle_outline_rounded
                 : Symbols.report_problem_rounded,
@@ -52,15 +53,15 @@ class TicketTitle extends StatelessWidget {
 
       // End Action Pane (Right side - was trailingActions)
       endActionPane: .new(
-        motion: const ScrollMotion(),
-        extentRatio: 0.25,
+        motion: const StretchMotion(),
+        extentRatio: 0.35,
         children: [
           SlidableAction(
-            onPressed: (context) {
-              context.pushRoute(CheckInRoute(isCheckOut: true));
-            },
-            backgroundColor: colors.error,
+            onPressed: (context) =>
+                context.pushRoute(CheckInRoute(isCheckOut: true)),
+            backgroundColor: colors.success,
             foregroundColor: colors.surface,
+            borderRadius: const .all(.circular(16)),
             icon: Symbols.logout_rounded,
             label: t.parking.allowOut,
           ),

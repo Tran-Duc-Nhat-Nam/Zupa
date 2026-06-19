@@ -20,6 +20,7 @@ class TicketListTab extends StatelessWidget {
       controlFinishRefresh: true,
     );
     final colorScheme = context.colorScheme;
+    final cubit = context.read<HomeCubit>();
     final form = ReactiveHomeForm.of(context);
 
     return BlocConsumer<HomeCubit, HomeState>(
@@ -62,12 +63,10 @@ class TicketListTab extends StatelessWidget {
               infiniteOffset: 200,
             ),
             controller: refreshController,
-            onRefresh: () => context.read<HomeCubit>().refresh(
-              filter: form?.model.toParams() ?? .initial(),
-            ),
-            onLoad: () => context.read<HomeCubit>().loadMore(
-              filter: form?.model.toParams() ?? .initial(),
-            ),
+            onRefresh: () =>
+                cubit.refresh(filter: form?.model.toParams() ?? .initial()),
+            onLoad: () =>
+                cubit.loadMore(filter: form?.model.toParams() ?? .initial()),
             child: ListView.builder(
               itemCount: state.items.isNotEmpty ? state.items.length : 10,
               itemBuilder: (c, i) =>

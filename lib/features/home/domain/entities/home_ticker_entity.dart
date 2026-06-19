@@ -9,6 +9,7 @@ class HomeTicketEntity {
   final String siteId;
   final VehicleTypeEntity type;
   final String imageUrl;
+  final String? checkOutImageUrl;
 
   const HomeTicketEntity({
     required this.id,
@@ -19,5 +20,6 @@ class HomeTicketEntity {
     required this.siteId,
     required this.type,
     required this.imageUrl,
+    this.checkOutImageUrl,
   });
 }
