@@ -18,7 +18,7 @@ class AppTextField extends StatefulWidget {
     this.suffix,
     this.prefixIcon,
     this.suffixIcon,
-    this.hasBorder = false,
+    this.hasBorder = true,
     this.border,
     this.textAlign,
     this.borderRadius = 4,

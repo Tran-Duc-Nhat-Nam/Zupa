@@ -13,10 +13,10 @@ import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_checkbox.dart';
 import 'package:zupa/core/widgets/app_loading_widget.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/core/widgets/wrapper/app_form_text_field.dart';
 import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
 import 'package:zupa/features/auth/presentation/models/login/login_form.dart';
@@ -91,24 +91,29 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     ),
                   ).animateIn(index: 1),
                   const SizedBox(height: 8),
-                  AppFormTextField.form(
+                  AppInputWrapper<String>(
                     control: formModel.tenantControl,
                     errorText: t.common.errors.required,
-                    labelText: t.common.info.site,
-                    prefixIcon: Symbols.warehouse_rounded,
+                    builder: (value, onChanged, errorText) => AppTextField(
+                      labelText: t.common.info.site,
+                      prefixIcon: Symbols.warehouse_rounded,
+                    ),
                   ).animateIn(index: 2),
-                  AppFormTextField.form(
+                  AppInputWrapper<String>(
                     control: formModel.usernameControl,
                     errorText: t.common.errors.required,
-                    labelText: t.auth.login.username,
-                    prefixIcon: Symbols.person_rounded,
+                    builder: (value, onChanged, errorText) => AppTextField(
+                      labelText: t.auth.login.username,
+                      prefixIcon: Symbols.person_rounded,
+                    ),
                   ).animateIn(index: 3),
-                  AppFormTextField.form(
+                  AppInputWrapper<String>(
                     control: formModel.passwordControl,
                     errorText: t.common.errors.required,
-                    labelText: t.auth.login.password,
-                    isPassword: true,
-                    prefixIcon: Symbols.lock_rounded,
+                    builder: (value, onChanged, errorText) => AppTextField(
+                      labelText: t.auth.login.password,
+                      prefixIcon: Symbols.lock_rounded,
+                    ),
                   ).animateIn(index: 4),
                   AppInputWrapper<bool>(
                     control: formModel.isRememberControl,
@@ -135,7 +140,7 @@ class _LoginScreenState extends AppState<LoginScreen> {
                             isLoading: state is Submitting || state is Loading,
                             isDisabled: formModel.form.invalid,
                             padding: const .all(16),
-                            loadingChild: const AppLoadingWidget(size: .small,),
+                            loadingChild: const AppLoadingWidget(size: .small),
                           ).animateIn(index: 6),
                         ),
                   ),
