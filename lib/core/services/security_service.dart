@@ -15,8 +15,8 @@ class SecurityService {
         reason: Platform.isAndroid ? .rooted : .jailbroken,
       );
     }
-    if (await SafeDevice.isRealDevice) {
-      return const VulnerableSecurityResult(reason: .rooted);
+    if (!(await SafeDevice.isRealDevice)) {
+      return const VulnerableSecurityResult(reason: .emulator);
     }
     if (await SafeDevice.isDevelopmentModeEnable) {
       return const SafeSecurityResult(note: .developerMode);
