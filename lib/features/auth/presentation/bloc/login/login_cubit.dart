@@ -70,13 +70,13 @@ class LoginCubit extends Cubit<LoginState> {
           }
           await _authCubit.loadAuth();
           emit(const .loginSuccess()); // Removed the leading dot
-        case Error(:final message):
-          emit(.loginFailed(message));
+        case Error(:final code, :final message):
+          emit(.loginFailed(code: code, message: message));
         default:
-          emit(const .loginFailed('error'));
+          emit(const .loginFailed(code: 0, message: 'error'));
       }
     } catch (e) {
-      emit(.loginFailed(e.toString()));
+      emit(const .loginFailed(code: -2, message: 'error'));
     }
   }
 

@@ -17,9 +17,10 @@ class Success<T> extends RequestState<T> {
 }
 
 class Error<T> extends RequestState<T> {
+  final int code;
   final String? message;
 
-  const Error([this.message]);
+  const Error({required this.code, this.message});
 }
 
 class Unauthenticated<T> extends RequestState<T> {

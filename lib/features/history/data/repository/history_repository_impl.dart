@@ -27,8 +27,8 @@ class HistoryRepositoryImpl with RequestService implements IHistoryRepository {
 
     return response.when(
       success: (data) => Success(data.data.map((e) => e.toEntity()).toList()),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: 0, message: 'cancelled'),
     );
   }
 }

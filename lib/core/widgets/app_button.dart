@@ -82,23 +82,23 @@ class _AppButtonState extends State<AppButton> {
         .primary => FilledButton(
           onPressed: isPhysicallyDisabled ? null : _handleTap,
           style: style,
-          child: _buildContent(),
+          child: _buildContent(context),
         ),
         .secondary => FilledButton.tonal(
           onPressed: isPhysicallyDisabled ? null : _handleTap,
           style: style,
-          child: _buildContent(),
+          child: _buildContent(context),
         ),
         .outline => OutlinedButton(
           onPressed: isPhysicallyDisabled ? null : _handleTap,
           style: style,
-          child: _buildContent(),
+          child: _buildContent(context),
         ),
       },
     );
   }
 
-  Widget _buildContent() => AnimatedSwitcher(
+  Widget _buildContent(BuildContext context) => AnimatedSwitcher(
     duration: const .new(milliseconds: 250), // Smooth transition speed
     switchInCurve: Curves.easeInOut,
     switchOutCurve: Curves.easeInOut,
@@ -157,7 +157,7 @@ class _AppButtonState extends State<AppButton> {
     final baseColor = _getBaseColor(colorScheme);
     final foregroundColor = _getForegroundColor(colorScheme);
     final isButtonDisabled = widget.onPressed == null || widget.isDisabled;
-    final disabledBackground = colorScheme.onSurface.withAlpha(35);
+    final disabledBackground = colorScheme.onSurface.withAlpha(30);
     final disabledForeground = colorScheme.onSurface.withAlpha(100);
 
     return switch (widget.theme) {

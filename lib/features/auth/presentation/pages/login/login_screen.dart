@@ -11,11 +11,9 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_checkbox.dart';
-import 'package:zupa/core/widgets/app_loading_widget.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
-import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
@@ -54,16 +52,14 @@ class _LoginScreenState extends AppState<LoginScreen> {
               },
               loginSuccess: () =>
                   context.router.replaceAll([const HomeRoute()]),
-              loginFailed: (message) => message != null
-                  ? MessageHelper.showError(
-                      context,
-                      message: message,
-                      title: t.common.errors.loginFailed,
-                    )
-                  : AppToast.showToast(
-                      t.common.errors.unknown,
-                      context: context,
-                    ),
+              loginFailed: (code, message) => MessageHelper.showError(
+                context,
+                message:
+                    t['common.errors.$message'] ??
+                    message ??
+                    t.common.errors.unknown,
+                title: '${t.common.errors.loginFailed} ($code)',
+              ),
             );
           },
           child: AppScreen(
@@ -97,6 +93,9 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     builder: (value, onChanged, errorText) => AppTextField(
                       labelText: t.common.info.site,
                       prefixIcon: Symbols.warehouse_rounded,
+                      initialValue: value,
+                      onChanged: onChanged,
+                      errorText: errorText,
                     ),
                   ).animateIn(index: 2),
                   AppInputWrapper<String>(
@@ -105,6 +104,9 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     builder: (value, onChanged, errorText) => AppTextField(
                       labelText: t.auth.login.username,
                       prefixIcon: Symbols.person_rounded,
+                      initialValue: value,
+                      onChanged: onChanged,
+                      errorText: errorText,
                     ),
                   ).animateIn(index: 3),
                   AppInputWrapper<String>(
@@ -113,6 +115,10 @@ class _LoginScreenState extends AppState<LoginScreen> {
                     builder: (value, onChanged, errorText) => AppTextField(
                       labelText: t.auth.login.password,
                       prefixIcon: Symbols.lock_rounded,
+                      initialValue: value,
+                      onChanged: onChanged,
+                      errorText: errorText,
+                      isPassword: true,
                     ),
                   ).animateIn(index: 4),
                   AppInputWrapper<bool>(
@@ -139,8 +145,6 @@ class _LoginScreenState extends AppState<LoginScreen> {
                             text: t.auth.login.title,
                             isLoading: state is Submitting || state is Loading,
                             isDisabled: formModel.form.invalid,
-                            padding: const .all(16),
-                            loadingChild: const AppLoadingWidget(size: .small),
                           ).animateIn(index: 6),
                         ),
                   ),

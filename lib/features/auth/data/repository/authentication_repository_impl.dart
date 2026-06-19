@@ -39,8 +39,8 @@ class AuthenticationRepositoryImpl
 
     return response.when(
       success: (data) => Success(data),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: -1, message: 'cancelled'),
     );
   }
 
@@ -63,8 +63,8 @@ class AuthenticationRepositoryImpl
 
     return response.when(
       success: (data) => Success(data.data),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: -1, message: 'cancelled'),
     );
   }
 }

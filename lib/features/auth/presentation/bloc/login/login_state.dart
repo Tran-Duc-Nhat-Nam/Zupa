@@ -17,5 +17,5 @@ sealed class LoginState with _$LoginState {
 
   const factory LoginState.loginSuccess() = LoginSuccess;
 
-  const factory LoginState.loginFailed(String? message) = LoginFailed;
+  const factory LoginState.loginFailed({required int code, String? message}) = LoginFailed;
 }

@@ -19,12 +19,10 @@ mixin RequestService {
           final errorData = ErrorResponse.fromJson(e.response!.data);
           return .failure(errorData);
         } catch (_) {
-          return const .failure(.new(code: 0, errorMessage: 'parsing_error'));
+          return .failure(.new(code: e.response?.statusCode ?? 1000, errorMessage: 'unknown'));
         }
       }
-      return .failure(
-        .new(code: 0, errorMessage: e.message ?? 'unknown_error'),
-      );
+      return .failure(.new(code: e.response?.statusCode ?? 9000, errorMessage: e.message ?? 'unknown'));
     }
   }
 }

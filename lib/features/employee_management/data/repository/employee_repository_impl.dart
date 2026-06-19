@@ -34,8 +34,8 @@ class EmployeeRepositoryImpl
 
     return response.when(
       success: (data) => Success(data.data.map((e) => e.toEntity()).toList()),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: -1, message: 'cancelled'),
     );
   }
 
@@ -52,8 +52,8 @@ class EmployeeRepositoryImpl
 
     return response.when(
       success: (data) => Success(data.data.toEntity()),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: -1, message: 'cancelled'),
     );
   }
 
@@ -73,8 +73,8 @@ class EmployeeRepositoryImpl
 
     return response.when(
       success: (data) => Success(data.data.toEntity()),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: -1, message: 'cancelled'),
     );
   }
 
@@ -94,8 +94,8 @@ class EmployeeRepositoryImpl
 
     return response.when(
       success: (data) => Success(data.data),
-      failure: (error) => Error(error.errorMessage),
-      cancelled: () => const Error('cancelled'),
+      failure: (error) => Error(code: error.code, message: error.errorMessage),
+      cancelled: () => const Error(code: -1, message: 'cancelled'),
     );
   }
 }
