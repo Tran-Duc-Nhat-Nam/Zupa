@@ -119,8 +119,18 @@
     },
     "success": "Thành công",
     "security": {
-      "rootDetected": "Cảnh báo bảo mật",
-      "rootSubtitle": "Thiết bị của bạn có vẻ đã được root hoặc jailbreak. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị đã bị can thiệp hệ thống.",
+      "unknown": "Cảnh báo bảo mật",
+      "unknownSubtitle": "Thiết bị của bạn có vấn đề bảo mật không xác định. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị đã bị can thiệp hệ thống.",
+      "rooted": "Thiết bị đã root",
+      "rootSubtitle": "Thiết bị Android của bạn đã root. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị đã root.",
+      "jailbroken": "Thiết bị đã jailbroken",
+      "jailbrokenSubtitle": "Thiết bị iOS của bạn đã jailbreak. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị đã jailbreak.",
+      "developerMode": "Thiết bị đã ở chế độ phát triển",
+      "developerModeSubtitle": "Thiết bị của bạn đã ở chế độ phát triển. Để bảo vệ thông tin, ứng dụng này không thể chạy trên các thiết bị ở chế độ phát triển.",
+      "usbDebugging": "Thiết bị đang ở chế độ gỡ lỗi bằng USB",
+      "usbDebuggingSubtitle": "Thiết bị của bạn đang ở chế độ gỡ lỗi bằng USB (USB debugging). Để bảo vệ thông tin, ứng dụng này không thể chạy trên thiết bị này.",
+      "emulator": "Trình mô phỏng thiết bị được phát hiện",
+      "emulatorSubtitle": "Thiết bị của bạn là một trình mô phỏng thiết bị (emulator). Để bảo vệ thông tin, ứng dụng này không thể chạy trên thiết bị này.",
       "quit": "Thoát ứng dụng"
     },
     "warning": "Cảnh báo"

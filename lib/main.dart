@@ -213,10 +213,12 @@ class _AppViewState extends State<AppView> {
   BlocListener<SecurityCubit, SecurityState> _securityListener() =>
       BlocListener<SecurityCubit, SecurityState>(
         listener: (context, state) {
-          state.whenOrNull(
-            vulnerable: () => WidgetsBinding.instance.addPostFrameCallback(
-              (_) => DialogHelper.showSecurityDialog(
+          switch (state) {
+            case Vulnerable(:final reason):
+              DialogHelper.showSecurityDialog(
                 context,
+                reason: t['common.security.${reason.name}'],
+                reasonDetail: t['common.security.${reason.name}Subtitle'],
                 onQuit: () {
                   if (kDebugMode) {
                     DialogHelper.dismissAll();
@@ -224,9 +226,10 @@ class _AppViewState extends State<AppView> {
                     SystemNavigator.pop();
                   }
                 },
-              ),
-            ),
-          );
+              );
+            default:
+              break;
+          }
         },
       );
 

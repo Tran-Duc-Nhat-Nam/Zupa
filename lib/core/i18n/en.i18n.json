@@ -119,8 +119,18 @@
     },
     "success": "Success",
     "security": {
-      "rootDetected": "Security Alert",
-      "rootSubtitle": "Your device appears to be rooted or jailbroken. For your protection, this app cannot run on compromised devices.",
+      "unknown": "Unknown security issue",
+      "unknownSubtitle": "Your device is not secure for unknown reasons. For your protection, this app cannot run on compromised device.",
+      "rooted": "Rooted device detected",
+      "rootSubtitle": "Your Android device appears to be rooted. For your protection, this app cannot run on a rooted device.",
+      "jailbroken": "Jailbroken device detected",
+      "jailbrokenSubtitle": "Your iOS device appears to be jailbroken. For your protection, this app cannot run on a jailbroken device.",
+      "developerMode": "Developer mode detected",
+      "developerModeSubtitle": "Your device appears to be in developer mode. For your protection, this app cannot run on a device in developer mode.",
+      "usbDebugging": "USB debugging detected",
+      "usbDebuggingSubtitle": "Your device appears to be in USB debugging mode. For your protection, this app cannot run on a device in USB debugging mode.",
+      "emulator": "Emulator detected",
+      "emulatorSubtitle": "Your device appears to be an emulator. For your protection, this app cannot run on an emulator.",
       "quit": "Quit App"
     },
     "warning": "Warning"

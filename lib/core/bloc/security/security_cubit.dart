@@ -9,5 +9,11 @@ class SecurityCubit extends Cubit<SecurityState> {
 
   final SecurityService _securityService;
 
-  Future<void> checkSecurity() async => emit((await _securityService.isSecurityVulnerable) ? const .vulnerable() : const .safe());
+  Future<void> checkSecurity() async {
+    final result = await _securityService.isSecurityVulnerable;
+    emit(switch (result) {
+      SafeSecurityResult(:final note) => .safe(reason: note),
+      VulnerableSecurityResult(:final reason) => .vulnerable(reason: reason),
+    });
+  }
 }
