@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:material3_expressive_loading_indicator/material3_expressive_loading_indicator.dart';
+import 'package:m3_expressive/m3_expressive.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 
@@ -24,15 +24,7 @@ class AppLoadingWidget extends StatelessWidget {
         mainAxisSize: .min,
         mainAxisAlignment: .center,
         children: [
-          ExpressiveLoadingIndicator(
-            color: color,
-            constraints: .new(
-              minHeight: size.size,
-              minWidth: size.size,
-              maxHeight: size.size,
-              maxWidth: size.size,
-            ),
-          ),
+          M3LoadingIndicator(color: color, size: size.size),
           if (label != null)
             Text(
               label!,

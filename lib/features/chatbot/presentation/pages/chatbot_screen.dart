@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
+import 'package:zupa/core/widgets/app_loading_widget.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
@@ -43,101 +43,98 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     List<ChatSession> sessions,
     ChatbotCubit cubit,
   ) => showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => DraggableScrollableSheet(
-          expand: false,
-          initialChildSize: 0.6,
-          maxChildSize: 0.9,
-          builder: (context, scrollController) {
-            final colors = context.colorScheme;
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                color: colors.surfaceContainer,
-                borderRadius: const .vertical(top: .circular(24)),
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (bottomSheetContext) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.6,
+      maxChildSize: 0.9,
+      builder: (context, scrollController) {
+        final colors = context.colorScheme;
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: colors.surfaceContainer,
+            borderRadius: const .vertical(top: .circular(24)),
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: colors.outlineVariant,
+                  borderRadius: .circular(2),
+                ),
               ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 16),
-                  Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: colors.outlineVariant,
-                      borderRadius: .circular(2),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    t.chatbot.pastChat,
-                    style: AppTextStyles.titleMedium.copyWith(
-                      color: colors.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: sessions.isEmpty
-                        ? Center(
-                            child: Text(
-                              t.chatbot.noPastChat,
-                              style: AppTextStyles.bodyMedium.copyWith(
-                                color: colors.onSurfaceVariant,
+              const SizedBox(height: 16),
+              Text(
+                t.chatbot.pastChat,
+                style: AppTextStyles.titleMedium.copyWith(
+                  color: colors.onSurface,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: sessions.isEmpty
+                    ? Center(
+                        child: Text(
+                          t.chatbot.noPastChat,
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: colors.onSurfaceVariant,
+                          ),
+                        ),
+                      )
+                    : ListView.separated(
+                        controller: scrollController,
+                        padding: const .symmetric(horizontal: 16, vertical: 8),
+                        itemCount: sessions.length,
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 2),
+                        itemBuilder: (context, index) {
+                          final session = sessions[index];
+                          return Container(
+                            clipBehavior: .antiAlias,
+                            decoration: BoxDecoration(
+                              color: colors.surfaceContainerHigh,
+                              borderRadius: .vertical(
+                                top: .circular(index == 0 ? 16 : 4),
+                                bottom: .circular(
+                                  index == sessions.length - 1 ? 16 : 4,
+                                ),
                               ),
                             ),
-                          )
-                        : ListView.separated(
-                            controller: scrollController,
-                            padding: const .symmetric(
-                              horizontal: 16,
-                              vertical: 8,
+                            child: ListTile(
+                              title: Text(
+                                session.title,
+                                maxLines: 1,
+                                overflow: .ellipsis,
+                                style: AppTextStyles.bodyMedium.copyWith(
+                                  color: colors.onSurface,
+                                ),
+                              ),
+                              subtitle: Text(
+                                '${session.createdAt.day}/${session.createdAt.month}/${session.createdAt.year}',
+                                style: AppTextStyles.bodySmall.copyWith(
+                                  color: colors.onSurfaceVariant,
+                                ),
+                              ),
+                              onTap: () {
+                                cubit.loadSession(session.id);
+                                Navigator.pop(bottomSheetContext);
+                              },
                             ),
-                            itemCount: sessions.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 2),
-                            itemBuilder: (context, index) {
-                              final session = sessions[index];
-                              return Container(
-                                clipBehavior: .antiAlias,
-                                decoration: BoxDecoration(
-                                  color: colors.surfaceContainerHigh,
-                                  borderRadius: .vertical(
-                                    top: .circular(index == 0 ? 16 : 4),
-                                    bottom: .circular(
-                                      index == sessions.length - 1 ? 16 : 4,
-                                    ),
-                                  ),
-                                ),
-                                child: ListTile(
-                                  title: Text(
-                                    session.title,
-                                    maxLines: 1,
-                                    overflow: .ellipsis,
-                                    style: AppTextStyles.bodyMedium.copyWith(
-                                      color: colors.onSurface,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    '${session.createdAt.day}/${session.createdAt.month}/${session.createdAt.year}',
-                                    style: AppTextStyles.bodySmall.copyWith(
-                                      color: colors.onSurfaceVariant,
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    cubit.loadSession(session.id);
-                                    Navigator.pop(bottomSheetContext);
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                  ),
-                ],
+                          );
+                        },
+                      ),
               ),
-            );
-          },
-        ),
-    );
+            ],
+          ),
+        );
+      },
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -226,10 +223,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 child: Column(
                   mainAxisAlignment: .center,
                   children: [
-                    LoadingAnimationWidget.staggeredDotsWave(
-                      color: colors.primary,
-                      size: 50,
-                    ),
+                    AppLoadingWidget(color: colors.primary),
                     const SizedBox(height: 16),
                     Text(
                       t.chatbot.loadingModel,
@@ -369,7 +363,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     }
                   },
             icon: isProcessing
-                ? LoadingAnimationWidget.beat(color: colors.onPrimary, size: 24)
+                ? AppLoadingWidget(color: colors.onPrimary, size: .small)
                 : const Icon(Icons.send_rounded, size: 24),
             style: IconButton.styleFrom(
               backgroundColor: colors.primary,

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
@@ -10,6 +9,7 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_card.dart';
+import 'package:zupa/core/widgets/app_loading_widget.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
@@ -65,24 +65,12 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                   controller,
                 ),
               ),
-              loading: () => Center(
-                child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: colors.primary,
-                  size: 48,
-                ),
-              ),
-              submitting: () => Center(
-                child: LoadingAnimationWidget.beat(
-                  color: colors.primary,
-                  size: 48,
-                ),
-              ),
-              takingPicture: () => Center(
-                child: LoadingAnimationWidget.fallingDot(
-                  color: colors.primary,
-                  size: 48,
-                ),
-              ),
+              loading: () =>
+                  Center(child: AppLoadingWidget(color: colors.primary)),
+              submitting: () =>
+                  Center(child: AppLoadingWidget(color: colors.primary)),
+              takingPicture: () =>
+                  Center(child: AppLoadingWidget(color: colors.primary)),
               orElse: () => Column(
                 mainAxisSize: .min,
                 spacing: 16,
@@ -104,10 +92,7 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                         child: child,
                                       ),
                                     )
-                                  : LoadingAnimationWidget.beat(
-                                      color: colors.primary,
-                                      size: 48,
-                                    );
+                                  : AppLoadingWidget(color: colors.primary);
                             },
                       ),
                       checkedOutSuccess: (picture) => Padding(
@@ -139,9 +124,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                                 child: child,
                                               ),
                                             )
-                                          : LoadingAnimationWidget.beat(
+                                          : AppLoadingWidget(
                                               color: colors.primary,
-                                              size: 48,
                                             );
                                     },
                               ),
@@ -170,9 +154,8 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                                 child: child,
                                               ),
                                             )
-                                          : LoadingAnimationWidget.beat(
+                                          : AppLoadingWidget(
                                               color: colors.primary,
-                                              size: 48,
                                             );
                                     },
                               ),
