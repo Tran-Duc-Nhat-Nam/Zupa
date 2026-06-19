@@ -64,13 +64,17 @@ abstract class DialogHelper {
   static void showSecurityDialog(
     BuildContext context, {
     required VoidCallback onQuit,
+    String? reason,
+    String? reasonDetail,
   }) {
     final bool isIOS = Theme.of(context).platform == .iOS;
     showModal(
       context,
       tag: 'app_security',
-      titleText: t.common.security.rootDetected,
-      subtitleText: t.common.security.rootSubtitle,
+      titleText: reason ?? t.common.security.unknown,
+      subtitleText:
+          reasonDetail ??
+          (reason == null ? t.common.security.unknownSubtitle : null),
       okText: isIOS ? '' : t.common.security.quit,
       showOk: !isIOS,
       dismissible: false,

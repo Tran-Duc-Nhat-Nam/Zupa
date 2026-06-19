@@ -9,11 +9,11 @@ import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
-import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
+import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/core/widgets/wrapper/app_form_text_field.dart';
+import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/employee_management/domain/entity/employee_entity.dart';
 import 'package:zupa/features/employee_management/presentation/bloc/detail/employee_bloc.dart';
 import 'package:zupa/features/employee_management/presentation/model/form/detail/employee_form.dart';
@@ -108,7 +108,10 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                     onRefresh: () => context.read<EmployeeBloc>().add(
                       FetchEmployee(.new(id: widget.employeeId)),
                     ),
-                    header: const MaterialHeader(),
+                    header: MaterialHeader(
+                      backgroundColor: colorScheme.primaryContainer,
+                      color: colorScheme.primary,
+                    ),
                     child: ListView(
                       padding: const .all(16.0),
                       children: [
@@ -118,7 +121,7 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                             children: [
                               CircleAvatar(
                                 radius: 50,
-                                backgroundColor: colorScheme.primaryContainer,
+                                backgroundColor: colorScheme.secondaryContainer,
                                 child: state.currentEmployee?.avatarPath == null
                                     ? Icon(
                                         Icons.person,
@@ -131,12 +134,9 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                               ),
                               const SizedBox(height: 12),
                               Text(
-                                state.currentEmployee?.code ??
-                                    mockEmployee.code,
+                                '${state.currentEmployee?.code ?? mockEmployee.code} - ${state.currentEmployee?.fullName ?? mockEmployee.fullName}',
                                 style: AppTextStyles.labelLarge.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.secondary,
+                                  color: colorScheme.secondary,
                                   letterSpacing: 1.2,
                                 ),
                               ),
@@ -145,6 +145,7 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                                 label: Text(
                                   state.currentEmployee?.status ??
                                       mockEmployee.status,
+                                  style: .new(color: colorScheme.onPrimary),
                                 ),
                                 backgroundColor:
                                     state.currentEmployee?.status
@@ -164,8 +165,9 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                           t.employeeManagement.sections.employmentDetails,
                         ),
                         const SizedBox(height: 8),
-                        AppList(
-                          items: [
+                        Column(
+                          spacing: 24,
+                          children: [
                             _buildDetailField(
                               label: t.employeeManagement.fields.position,
                               formControl: formModel.positionControl,
@@ -203,8 +205,9 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                           t.employeeManagement.sections.contactInformation,
                         ),
                         const SizedBox(height: 8),
-                        AppList(
-                          items: [
+                        Column(
+                          spacing: 24,
+                          children: [
                             _buildDetailField(
                               label: t.employeeManagement.fields.fullName,
                               formControl: formModel.fullNameControl,
@@ -244,8 +247,9 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
                           t.employeeManagement.sections.legalDocuments,
                         ),
                         const SizedBox(height: 8),
-                        AppList(
-                          items: [
+                        Column(
+                          spacing: 24,
+                          children: [
                             _buildDetailField(
                               label: t.employeeManagement.fields.identityCard,
                               fallbackValue:
@@ -303,21 +307,22 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
     ),
   );
 
-  AppListItem _buildDetailField({
+  Widget _buildDetailField({
     required String label,
     required String fallbackValue,
     required bool isEditing,
     required IconData icon,
     FormControl<String>? formControl,
     TextInputType? keyboardType,
-  }) => .new(
-    padding: const .only(top: 16),
-    content: AppFormTextField.form(
-      control: formControl,
-      errorText: t.common.errors.required,
+  }) => AppInputWrapper<String>(
+    control: formControl,
+    errorText: t.common.errors.required,
+    builder: (value, onChanged, errorText) => AppTextField(
       prefixIcon: icon,
       labelText: label,
       isReadOnly: !isEditing,
+      initialValue: value ?? fallbackValue,
+      hasBorder: true,
     ),
   );
 }

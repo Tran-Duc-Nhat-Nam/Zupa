@@ -21,7 +21,7 @@ class AppTextField extends StatefulWidget {
     this.hasBorder = false,
     this.border,
     this.textAlign,
-    this.borderRadius = 28,
+    this.borderRadius = 4,
     this.controller,
     this.initialValue,
     this.backgroundColor,
@@ -31,7 +31,7 @@ class AppTextField extends StatefulWidget {
     this.onEditingComplete,
     this.focusNode,
     this.obscureText,
-    this.isReadOnly = false, // <-- Added parameter
+    this.isReadOnly = false,
   });
 
   // Generic properties
@@ -60,7 +60,7 @@ class AppTextField extends StatefulWidget {
   final VoidCallback? onEditingComplete;
   final FocusNode? focusNode;
   final bool? obscureText;
-  final bool isReadOnly; // <-- Added property
+  final bool isReadOnly;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -106,7 +106,7 @@ class _AppTextFieldState extends State<AppTextField> {
         TextField(
           controller: widget.controller ?? _controller,
           focusNode: widget.focusNode,
-          readOnly: widget.isReadOnly,
+          enabled: !widget.isReadOnly,
           obscureText:
               widget.obscureText ?? (isPasswordType ? _isObscured : false),
           textAlign: widget.textAlign ?? .start,
@@ -133,17 +133,23 @@ class _AppTextFieldState extends State<AppTextField> {
             labelText: widget.isExternalLabel ? null : widget.labelText,
             label: widget.isExternalLabel ? null : widget.label,
             labelStyle: AppTextStyles.bodyMediumSemibold.copyWith(
-              color: colorsScheme.onSurfaceVariant,
+              color: widget.isReadOnly
+                  ? colorsScheme.onSurface
+                  : colorsScheme.onSurfaceVariant,
             ),
-            filled: true,
+            filled: false,
             fillColor:
                 widget.backgroundColor ?? colorsScheme.surfaceContainerHigh,
-            border: _getBorder(colorsScheme, colorsScheme.outline),
-            enabledBorder: _getBorder(colorsScheme, colorsScheme.outline),
-            focusedBorder: _getBorder(colorsScheme, colorsScheme.primary),
-            errorBorder: _getBorder(colorsScheme, colorsScheme.error),
-            focusedErrorBorder: _getBorder(colorsScheme, colorsScheme.error),
-            contentPadding: widget.contentPadding ?? const .all(16),
+            border: _getBorder(borderColor: colorsScheme.outline),
+            enabledBorder: _getBorder(borderColor: colorsScheme.outline),
+            disabledBorder: _getBorder(
+              borderColor: colorsScheme.onSurface,
+              alpha: 96,
+            ),
+            focusedBorder: _getBorder(borderColor: colorsScheme.primary),
+            errorBorder: _getBorder(borderColor: colorsScheme.error),
+            focusedErrorBorder: _getBorder(borderColor: colorsScheme.error),
+            contentPadding: widget.contentPadding,
           ),
         ),
       ],
@@ -190,10 +196,12 @@ class _AppTextFieldState extends State<AppTextField> {
         )
       : null;
 
-  InputBorder _getBorder(dynamic colorsScheme, Color borderColor) =>
+  InputBorder _getBorder({int alpha = 255, required Color borderColor}) =>
       widget.border ??
       OutlineInputBorder(
         borderRadius: .circular(widget.borderRadius),
-        borderSide: widget.hasBorder ? .new(color: borderColor) : .none,
+        borderSide: widget.hasBorder
+            ? .new(color: borderColor.withAlpha(alpha))
+            : .none,
       );
 }

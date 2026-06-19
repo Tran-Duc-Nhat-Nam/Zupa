@@ -4,7 +4,7 @@ import 'package:zupa/core/styles/colors.dart';
 
 abstract class AppToast {
   static void showToast(String message, {BuildContext? context}) {
-    if (context != null) {
+    if (context != null && context.mounted) {
       final colorScheme = context.colorScheme;
       Fluttertoast.showToast(
         msg: message,
@@ -12,14 +12,14 @@ abstract class AppToast {
         gravity: .BOTTOM,
         backgroundColor: colorScheme.secondaryContainer,
         textColor: colorScheme.onSecondaryContainer,
-        fontSize: 16.0,
+        fontAsset: 'assets/fonts/RobotoFlex-VariableFont.ttf',
       );
     } else {
       Fluttertoast.showToast(
         msg: message,
         toastLength: .LENGTH_SHORT,
         gravity: .BOTTOM,
-        fontSize: 16.0,
+        fontAsset: 'assets/fonts/RobotoFlex-VariableFont.ttf',
       );
     }
   }
