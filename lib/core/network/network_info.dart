@@ -4,8 +4,10 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 abstract class NetworkInfo {
   Future<bool> get isConnected;
 
-  Stream<InternetStatus> get onStatusChanged;
+  Stream<AppInternetStatus> get onStatusChanged;
 }
+
+enum AppInternetStatus { connected, disconnected }
 
 @LazySingleton(as: NetworkInfo)
 class NetworkInfoImpl implements NetworkInfo {
@@ -17,5 +19,6 @@ class NetworkInfoImpl implements NetworkInfo {
   Future<bool> get isConnected => _connection.hasInternetAccess;
 
   @override
-  Stream<InternetStatus> get onStatusChanged => _connection.onStatusChange;
+  Stream<AppInternetStatus> get onStatusChanged => _connection.onStatusChange
+      .map((status) => status == .connected ? .connected : .disconnected);
 }

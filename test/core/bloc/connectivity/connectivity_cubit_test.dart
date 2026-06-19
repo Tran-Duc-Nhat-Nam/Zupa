@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
 import 'package:zupa/core/network/network_info.dart';
@@ -11,11 +10,11 @@ class MockNetworkInfo extends Mock implements NetworkInfo {}
 void main() {
   late ConnectivityCubit connectivityCubit;
   late MockNetworkInfo mockNetworkInfo;
-  late StreamController<InternetStatus> statusController;
+  late StreamController<AppInternetStatus> statusController;
 
   setUp(() {
     mockNetworkInfo = MockNetworkInfo();
-    statusController = StreamController<InternetStatus>.broadcast();
+    statusController = StreamController<AppInternetStatus>.broadcast();
 
     when(
       () => mockNetworkInfo.onStatusChanged,
@@ -62,13 +61,13 @@ void main() {
       },
       act: (cubit) async {
         await cubit.monitorConnectivity();
-        statusController.add(InternetStatus.disconnected);
-        statusController.add(InternetStatus.connected);
+        statusController.add(.disconnected);
+        statusController.add(.connected);
       },
-      expect: () => [
-        const ConnectivityState.connected(),
-        const ConnectivityState.disconnected(),
-        const ConnectivityState.connected(),
+      expect: () => <ConnectivityState>[
+        const .connected(),
+        const .disconnected(),
+        const .connected(),
       ],
     );
   });
