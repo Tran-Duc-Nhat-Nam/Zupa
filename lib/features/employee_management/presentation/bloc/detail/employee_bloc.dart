@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
 import 'package:zupa/features/employee_management/domain/entity/employee_entity.dart';
 import 'package:zupa/features/employee_management/domain/usecase/get_info/get_employee_info_params.dart';
 import 'package:zupa/features/employee_management/domain/usecase/get_info/get_employee_info_usecase.dart';

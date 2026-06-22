@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/models/user/user.dart';
-import 'package:zupa/core/services/auth_status_service.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/auth_status_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';

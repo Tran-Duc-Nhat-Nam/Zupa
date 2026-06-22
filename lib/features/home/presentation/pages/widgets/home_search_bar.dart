@@ -12,7 +12,7 @@ import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
-import 'package:zupa/features/home/presentation/models/home_form.dart';
+import 'package:zupa/features/home/presentation/form/home_form.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});

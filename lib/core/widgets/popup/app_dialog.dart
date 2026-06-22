@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:material3_expressive_loading_indicator/material3_expressive_loading_indicator.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_loading_widget.dart';
+import 'package:zupa/features/animation/presentation/bloc/animation_cubit.dart';
 
 abstract class DialogHelper {
   /// Show a loading dialog with an optional [message].

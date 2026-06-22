@@ -5,7 +5,7 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/di/injection.dart';
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -16,7 +16,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/detail/member_vehicle_detail_cubit.dart';
-import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_detail_form.dart';
+import 'package:zupa/features/member_vehicles/presentation/form/member_vehicle_detail_form.dart';
 
 @RoutePage()
 class MemberVehicleDetailScreen extends StatelessWidget {

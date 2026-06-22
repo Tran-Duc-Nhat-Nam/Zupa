@@ -6,7 +6,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
-import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
+import 'package:zupa/features/member_vehicles/presentation/form/member_vehicle_list_form.dart';
 
 class MemberVehiclesSearchBar extends StatelessWidget {
   const MemberVehiclesSearchBar({super.key});

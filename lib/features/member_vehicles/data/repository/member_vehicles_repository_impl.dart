@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/request_response.dart';
-import 'package:zupa/core/resource/request_token.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/services/request_service.dart';
+import 'package:zupa/core/data/models/request/request_response.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/helper/services/request_service.dart';
 import 'package:zupa/features/member_vehicles/data/api/member_vehicles_api.dart';
 import 'package:zupa/features/member_vehicles/data/models/filter/member_vehicles_filter_model.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_params.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 

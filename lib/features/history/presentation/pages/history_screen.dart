@@ -5,7 +5,7 @@ import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/history/presentation/bloc/history_cubit.dart';
-import 'package:zupa/features/history/presentation/models/form/history_form.dart';
+import 'package:zupa/features/history/presentation/form/history_form.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_tab.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_search_bar.dart';
 

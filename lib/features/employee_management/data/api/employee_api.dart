@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/data/models/response/success/success_response.dart';
 import 'package:zupa/features/employee_management/data/model/employee_model.dart';
 import 'package:zupa/features/employee_management/data/model/request/get_employee_list_request_model.dart';
 import 'package:zupa/features/employee_management/data/model/request/update_employee_info_request_model.dart';

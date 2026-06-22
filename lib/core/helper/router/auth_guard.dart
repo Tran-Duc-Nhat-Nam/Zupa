@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 
 class AuthGuard extends AutoRouteGuard {

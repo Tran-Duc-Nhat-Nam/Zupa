@@ -1,5 +1,5 @@
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 
 class MemberVehicleEntity {
   MemberVehicleEntity({
@@ -24,19 +24,17 @@ class MemberVehicleEntity {
     String? cardId,
     int? expiredIn,
     int? price,
-  }) {
-    return MemberVehicleEntity(
-      id: id ?? '',
-      name: name ?? '',
-      phoneNumber: phoneNumber ?? '',
-      licenseNumber: licenseNumber ?? '',
-      parkingLotId: parkingLotId ?? '',
-      vehicleType: vehicleType ?? vehicleTypes[0],
-      cardId: cardId ?? '',
-      expiredIn: expiredIn ?? 0,
-      price: price ?? 0,
-    );
-  }
+  }) => .new(
+    id: id ?? '',
+    name: name ?? '',
+    phoneNumber: phoneNumber ?? '',
+    licenseNumber: licenseNumber ?? '',
+    parkingLotId: parkingLotId ?? '',
+    vehicleType: vehicleType ?? vehicleTypes[0],
+    cardId: cardId ?? '',
+    expiredIn: expiredIn ?? 0,
+    price: price ?? 0,
+  );
 
   final String id;
   final String name;

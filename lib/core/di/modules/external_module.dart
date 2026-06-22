@@ -14,8 +14,8 @@ import 'package:zupa/core/env/env.dart';
 import 'package:zupa/core/helper/api/interceptors.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.dart';
-import 'package:zupa/core/services/auth_status_service.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/auth_status_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 
 @module
 abstract class ExternalModule {

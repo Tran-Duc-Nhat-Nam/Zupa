@@ -15,7 +15,7 @@ import 'package:zupa/core/widgets/popup/app_photo_view.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
-import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
+import 'package:zupa/features/member_vehicles/presentation/form/member_vehicle_list_form.dart';
 
 class MemberVehicleListTab extends StatelessWidget {
   const MemberVehicleListTab({super.key});

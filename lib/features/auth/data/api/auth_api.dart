@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:zupa/core/data/models/user/user.dart';
-import 'package:zupa/core/data/request/account/account_request.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/data/models/request/account/account_request.dart';
+import 'package:zupa/core/data/models/response/success/success_response.dart';
 import 'package:zupa/features/auth/data/models/requests/change_password_request.dart';
 import 'package:zupa/features/auth/data/models/responses/auth_response.dart';
 

@@ -1,5 +1,5 @@
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
 import 'package:zupa/features/history/domain/usecases/params/get_history_params.dart';
 import 'package:zupa/features/history/domain/entities/history_ticket_entity.dart';
 

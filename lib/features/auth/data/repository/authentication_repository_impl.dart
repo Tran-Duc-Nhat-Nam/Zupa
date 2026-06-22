@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/data/models/user/user.dart';
-import 'package:zupa/core/resource/request_response.dart';
-import 'package:zupa/core/resource/request_token.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/services/request_service.dart';
+import 'package:zupa/core/data/models/request/request_response.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/helper/services/request_service.dart';
 import 'package:zupa/features/auth/data/api/auth_api.dart';
 import 'package:zupa/features/auth/data/models/responses/auth_response.dart';
 import 'package:zupa/features/auth/domain/repository/authentication_repository.dart';

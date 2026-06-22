@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/history/presentation/bloc/history_cubit.dart';
-import 'package:zupa/features/history/presentation/models/form/history_form.dart';
+import 'package:zupa/features/history/presentation/form/history_form.dart';
 import 'package:zupa/features/history/presentation/pages/widgets/history_list_section.dart';
 
 class HistoryListTab extends StatelessWidget {

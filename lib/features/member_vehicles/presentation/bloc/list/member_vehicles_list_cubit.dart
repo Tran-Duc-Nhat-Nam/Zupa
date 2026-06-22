@@ -2,11 +2,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/constants/query.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_params.dart';
 import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_usecase.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
 
 part 'member_vehicles_list_cubit.freezed.dart';
 part 'member_vehicles_list_state.dart';

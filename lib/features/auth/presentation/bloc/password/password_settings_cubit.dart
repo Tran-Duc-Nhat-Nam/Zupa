@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
 import 'package:zupa/features/auth/domain/usecases/change_password_usecase.dart';
 import 'package:zupa/features/auth/domain/usecases/params/change_password_params.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';

@@ -15,7 +15,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/employee_management/presentation/bloc/list/employee_list_bloc.dart';
-import 'package:zupa/features/employee_management/presentation/model/form/list/employee_list_form.dart';
+import 'package:zupa/features/employee_management/presentation/form/list/employee_list_form.dart';
 
 @RoutePage()
 class EmployeeManagementScreen extends StatefulWidget {

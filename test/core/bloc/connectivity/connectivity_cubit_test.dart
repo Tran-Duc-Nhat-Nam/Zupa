@@ -2,18 +2,18 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:zupa/core/bloc/connectivity/connectivity_cubit.dart';
-import 'package:zupa/core/network/network_info.dart';
+import 'package:zupa/core/helper/services/network_service.dart';
+import 'package:zupa/features/connectivity/presentation/bloc/connectivity_cubit.dart';
 
-class MockNetworkInfo extends Mock implements NetworkInfo {}
+class MockNetworkInfoService extends Mock implements NetworkInfoService {}
 
 void main() {
   late ConnectivityCubit connectivityCubit;
-  late MockNetworkInfo mockNetworkInfo;
+  late MockNetworkInfoService mockNetworkInfo;
   late StreamController<AppInternetStatus> statusController;
 
   setUp(() {
-    mockNetworkInfo = MockNetworkInfo();
+    mockNetworkInfo = MockNetworkInfoService();
     statusController = StreamController<AppInternetStatus>.broadcast();
 
     when(

@@ -1,6 +1,6 @@
 import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 
 class GetHistoryParams {
   const GetHistoryParams({

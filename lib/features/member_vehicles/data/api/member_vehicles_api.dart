@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/data/models/response/success/success_response.dart';
 import 'package:zupa/features/member_vehicles/data/models/filter/member_vehicles_filter_model.dart';
 import 'package:zupa/features/member_vehicles/data/models/member_vehicle_model.dart';
 

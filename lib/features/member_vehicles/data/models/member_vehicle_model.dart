@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/core/models/vehicle_type_model.dart';
+import 'package:zupa/core/data/models/vehicle_type/vehicle_type_model.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 
 part 'member_vehicle_model.freezed.dart';

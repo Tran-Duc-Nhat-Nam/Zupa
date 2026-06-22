@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/constants/query.dart';
-import 'package:zupa/core/models/vehicle_type_model.dart';
+import 'package:zupa/core/data/models/vehicle_type/vehicle_type_model.dart';
 import 'package:zupa/features/home/domain/usecases/params/get_ticket_params.dart';
 
 part 'home_filter_model.freezed.dart';

@@ -1,6 +1,6 @@
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
-import 'package:zupa/features/member_vehicles/domain/usecases/get_list/params/get_member_vehicle_list_params.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
+import 'package:zupa/features/member_vehicles/domain/usecases/get_list/get_member_vehicle_list_params.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 
 abstract class IMemberVehiclesRepository {

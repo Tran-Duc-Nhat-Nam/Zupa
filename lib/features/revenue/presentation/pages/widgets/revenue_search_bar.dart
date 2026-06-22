@@ -10,7 +10,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/features/revenue/presentation/bloc/revenue_cubit.dart';
-import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
+import 'package:zupa/features/revenue/presentation/form/revenue_form.dart';
 
 class RevenueSearchBar extends StatelessWidget {
   const RevenueSearchBar({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zupa/core/bloc/animation/animation_cubit.dart';
+import 'package:zupa/features/animation/presentation/bloc/animation_cubit.dart';
 
 class AppAnimation extends StatelessWidget {
   final Widget child;

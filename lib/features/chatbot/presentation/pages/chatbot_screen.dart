@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -17,6 +16,7 @@ import 'package:zupa/features/chatbot/domain/entity/chat_session.dart';
 import 'package:zupa/features/chatbot/presentation/bloc/chatbot_cubit.dart';
 import 'package:zupa/features/chatbot/domain/entity/chat_message.dart';
 import 'package:zupa/features/chatbot/presentation/widgets/chat_message_widget.dart';
+import 'package:zupa/features/ui/presentation/bloc/ui_cubit.dart';
 
 @RoutePage()
 class ChatbotScreen extends StatefulWidget {
@@ -41,205 +41,199 @@ class _ChatbotScreenState extends AppState<ChatbotScreen> {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<ChatbotCubit>()..loadModel(),
-      child: BlocConsumer<ChatbotCubit, ChatbotState>(
-        listener: (context, state) {
-          state.whenOrNull(
-            ready: (_, _, _, _, _) {
-              _scrollToBottom();
-            },
-            error: (message) {
-              MessageHelper.showError(context, message: message);
-            },
-          );
-        },
-        builder: (context, state) {
-          final colors = context.colorScheme;
+  Widget build(BuildContext context) => BlocProvider(
+    create: (context) => getIt<ChatbotCubit>()..loadModel(),
+    child: BlocConsumer<ChatbotCubit, ChatbotState>(
+      listener: (context, state) {
+        switch (state) {
+          case Ready():
+            _scrollToBottom();
+          case Error(:final message):
+            MessageHelper.showError(context, message: message);
+          default:
+            break;
+        }
+      },
+      builder: (context, state) {
+        final colors = context.colorScheme;
 
-          return AppScreen(
-            title: t.chatbot.title,
-            appBarTrailing: [
-              IconButton(
-                icon: const Icon(Symbols.add_rounded),
-                onPressed: () {
-                  context.read<ChatbotCubit>().createNewSession();
-                },
-              ),
-              IconButton(
-                icon: const Icon(Symbols.chat_rounded),
-                onPressed: () {
-                  final state = context.read<ChatbotCubit>().state;
-                  if (state is Ready) {
-                    _showHistorySheet(
-                      context,
-                      state.sessions,
-                      context.read<ChatbotCubit>(),
-                    );
-                  }
-                },
-              ),
-            ],
-            isChildScrollable: true,
-            hasSafeBottomArea: true,
-            resizeToAvoidBottomInset: true,
-            child: state.maybeWhen(
-              initial: () => const SizedBox.shrink(),
-              loadingModel: () => Center(
-                child: Column(
-                  mainAxisAlignment: .center,
-                  children: [
-                    AppLoadingWidget(color: colors.primary),
-                    const SizedBox(height: 16),
-                    Text(
-                      t.chatbot.loadingModel,
-                      style: AppTextStyles.bodyLargeMedium,
+        return AppScreen(
+          title: t.chatbot.title,
+          appBarTrailing: [
+            IconButton(
+              icon: const Icon(Symbols.add_rounded),
+              onPressed: () => context.read<ChatbotCubit>().createNewSession(),
+            ),
+            IconButton(
+              icon: const Icon(Symbols.chat_rounded),
+              onPressed: () {
+                final state = context.read<ChatbotCubit>().state;
+                if (state is Ready) {
+                  _showHistorySheet(
+                    context,
+                    state.sessions,
+                    context.read<ChatbotCubit>(),
+                  );
+                }
+              },
+            ),
+          ],
+          isChildScrollable: true,
+          hasSafeBottomArea: true,
+          resizeToAvoidBottomInset: true,
+          child: state.maybeWhen(
+            initial: () => const SizedBox.shrink(),
+            loadingModel: () => Center(
+              child: Column(
+                mainAxisAlignment: .center,
+                children: [
+                  AppLoadingWidget(color: colors.primary),
+                  const SizedBox(height: 16),
+                  Text(
+                    t.chatbot.loadingModel,
+                    style: AppTextStyles.bodyLargeMedium,
+                  ),
+                  Text(
+                    t.chatbot.loadingWarning,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: colors.onSurfaceVariant,
                     ),
-                    Text(
-                      t.chatbot.loadingWarning,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: colors.onSurfaceVariant,
+                  ),
+                ],
+              ),
+            ),
+            downloading: (progress) => Center(
+              child: DownloadProgressDialog(
+                progressStream: context
+                    .read<ChatbotCubit>()
+                    .stream
+                    .map(
+                      (s) => s.maybeWhen(
+                        downloading: (p) => p,
+                        orElse: () => null,
                       ),
-                    ),
-                  ],
-                ),
+                    )
+                    .where((p) => p != null)
+                    .cast<double>(),
+                title: t.chatbot.downloading,
+                subtitle: t.chatbot.downloadingSubtitle,
               ),
-              downloading: (progress) => Center(
-                child: DownloadProgressDialog(
-                  progressStream: context
-                      .read<ChatbotCubit>()
-                      .stream
-                      .map(
-                        (s) => s.maybeWhen(
-                          downloading: (p) => p,
-                          orElse: () => null,
-                        ),
-                      )
-                      .where((p) => p != null)
-                      .cast<double>(),
-                  title: t.chatbot.downloading,
-                  subtitle: t.chatbot.downloadingSubtitle,
-                ),
-              ),
-              ready:
-                  (
-                    messages,
-                    sessions,
-                    currentSessionId,
-                    isProcessing,
-                    currentStreamingResponse,
-                  ) {
-                    final uiSettings = context
-                        .read<UICubit>()
-                        .state
-                        .currentSettings;
-                    return !uiSettings.isFloatingNavbar
-                        ? Column(
-                            children: [
-                              Expanded(
-                                child: RepaintBoundary(
-                                  child: ListView.builder(
-                                    controller: _scrollController,
-                                    padding: const .symmetric(vertical: 12),
-                                    itemCount:
-                                        messages.length +
-                                        (currentStreamingResponse != null
-                                            ? 1
-                                            : 0),
-                                    itemBuilder: (context, index) =>
-                                        index < messages.length
-                                        ? ChatMessageWidget(
-                                            message: messages[index],
-                                          )
-                                        : ChatMessageWidget(
-                                            message: ChatMessage(
-                                              text: currentStreamingResponse!,
-                                              isUser: false,
-                                              isStreaming: true,
-                                            ),
+            ),
+            ready:
+                (
+                  messages,
+                  sessions,
+                  currentSessionId,
+                  isProcessing,
+                  currentStreamingResponse,
+                ) {
+                  final uiSettings = context
+                      .read<UICubit>()
+                      .state
+                      .currentSettings;
+                  return !uiSettings.isFloatingNavbar
+                      ? Column(
+                          children: [
+                            Expanded(
+                              child: RepaintBoundary(
+                                child: ListView.builder(
+                                  controller: _scrollController,
+                                  padding: const .symmetric(vertical: 12),
+                                  itemCount:
+                                      messages.length +
+                                      (currentStreamingResponse != null
+                                          ? 1
+                                          : 0),
+                                  itemBuilder: (context, index) =>
+                                      index < messages.length
+                                      ? ChatMessageWidget(
+                                          message: messages[index],
+                                        )
+                                      : ChatMessageWidget(
+                                          message: ChatMessage(
+                                            text: currentStreamingResponse!,
+                                            isUser: false,
+                                            isStreaming: true,
                                           ),
-                                  ),
+                                        ),
                                 ),
                               ),
-                              _buildInputArea(
+                            ),
+                            _buildInputArea(
+                              context: context,
+                              isProcessing: isProcessing,
+                              isGlassmorphism: uiSettings.isGlassmorphism,
+                              isFloating: uiSettings.isFloatingNavbar,
+                            ),
+                          ],
+                        )
+                      : Stack(
+                          children: [
+                            ListView.builder(
+                              controller: _scrollController,
+                              padding: const .symmetric(vertical: 12),
+                              itemCount:
+                                  messages.length +
+                                  (currentStreamingResponse != null ? 1 : 0),
+                              itemBuilder: (context, index) =>
+                                  index < messages.length
+                                  ? ChatMessageWidget(message: messages[index])
+                                  : ChatMessageWidget(
+                                      message: ChatMessage(
+                                        text: currentStreamingResponse!,
+                                        isUser: false,
+                                        isStreaming: true,
+                                      ),
+                                    ),
+                            ),
+                            AnimatedPositioned(
+                              duration: const .new(milliseconds: 500),
+                              curve: Curves.easeInOutQuart,
+                              left: 24,
+                              right: 24,
+                              bottom: 36,
+                              child: _buildInputArea(
                                 context: context,
                                 isProcessing: isProcessing,
                                 isGlassmorphism: uiSettings.isGlassmorphism,
                                 isFloating: uiSettings.isFloatingNavbar,
                               ),
-                            ],
-                          )
-                        : Stack(
-                            children: [
-                              ListView.builder(
-                                controller: _scrollController,
-                                padding: const .symmetric(vertical: 12),
-                                itemCount:
-                                    messages.length +
-                                    (currentStreamingResponse != null ? 1 : 0),
-                                itemBuilder: (context, index) =>
-                                    index < messages.length
-                                    ? ChatMessageWidget(
-                                        message: messages[index],
-                                      )
-                                    : ChatMessageWidget(
-                                        message: ChatMessage(
-                                          text: currentStreamingResponse!,
-                                          isUser: false,
-                                          isStreaming: true,
-                                        ),
-                                      ),
-                              ),
-                              AnimatedPositioned(
-                                duration: const .new(milliseconds: 500),
-                                curve: Curves.easeInOutQuart,
-                                left: 24,
-                                right: 24,
-                                bottom: 36,
-                                child: _buildInputArea(
-                                  context: context,
-                                  isProcessing: isProcessing,
-                                  isGlassmorphism: uiSettings.isGlassmorphism,
-                                  isFloating: uiSettings.isFloatingNavbar,
-                                ),
-                              ),
-                            ],
-                          );
-                  },
-              error: (message) => Center(
-                child: Column(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(
-                      Icons.error_outline_rounded,
-                      color: colors.error,
-                      size: 60,
+                            ),
+                          ],
+                        );
+                },
+            error: (message) => Center(
+              child: Column(
+                mainAxisAlignment: .center,
+                children: [
+                  Icon(
+                    Symbols.error_outline_rounded,
+                    color: colors.error,
+                    size: 60,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    message,
+                    textAlign: .center,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: colors.onSurface,
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      message,
-                      textAlign: .center,
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color: colors.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    FilledButton.icon(
-                      onPressed: () => context.read<ChatbotCubit>().loadModel(),
-                      icon: const Icon(Icons.refresh_rounded),
-                      label: Text(t.common.actions.retry),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 24),
+                  FilledButton.icon(
+                    onPressed: () => context.read<ChatbotCubit>().loadModel(),
+                    icon: const Icon(Symbols.refresh_rounded),
+                    label: Text(t.common.actions.retry),
+                  ),
+                ],
               ),
-              orElse: () => const SizedBox.shrink(),
             ),
-          );
-        },
-      ),
-    );
-  }
+            orElse: () => const SizedBox.shrink(),
+          ),
+        );
+      },
+    ),
+  );
 
   void _showHistorySheet(
     BuildContext context,

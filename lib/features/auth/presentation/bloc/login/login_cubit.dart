@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 import 'package:zupa/features/auth/domain/usecases/login_usecase.dart';
 import 'package:zupa/features/auth/domain/usecases/params/login_params.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';

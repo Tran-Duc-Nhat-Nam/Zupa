@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 
 part 'check_in_cubit.freezed.dart';
 part 'check_in_state.dart';

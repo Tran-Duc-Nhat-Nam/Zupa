@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:zupa/core/data/response/success/success_response.dart';
+import 'package:zupa/core/data/models/response/success/success_response.dart';
 import 'package:zupa/features/history/data/models/filter/history_filter_model.dart';
 import 'package:zupa/features/history/data/models/history_ticket_model.dart';
 

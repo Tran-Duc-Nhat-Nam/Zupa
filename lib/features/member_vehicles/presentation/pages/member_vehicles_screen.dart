@@ -8,7 +8,7 @@ import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/member_vehicles/presentation/bloc/list/member_vehicles_list_cubit.dart';
-import 'package:zupa/features/member_vehicles/presentation/models/member_vehicle_list_form.dart';
+import 'package:zupa/features/member_vehicles/presentation/form/member_vehicle_list_form.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicle_list_tab.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_search_bar.dart';
 import 'package:zupa/features/member_vehicles/presentation/pages/widgets/member_vehicles_tab_bar.dart';

@@ -14,7 +14,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/bloc/check_in/check_in_cubit.dart';
-import 'package:zupa/features/camera/presentation/models/check_in_form.dart';
+import 'package:zupa/features/camera/presentation/form/check_in_form.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/camera_screen.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/ticket_info_card.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/vehicle_info_card.dart';
@@ -140,24 +140,20 @@ class _CheckInScreenState extends AppState<CheckInScreen> {
                                       child,
                                       frame,
                                       wasSynchronouslyLoaded,
-                                    ) {
-                                      return frame != null
-                                          ? Container(
-                                              clipBehavior: .antiAlias,
-                                              decoration: BoxDecoration(
-                                                borderRadius: .circular(8),
-                                              ),
-                                              width: .infinity,
-                                              child: FittedBox(
-                                                clipBehavior: .antiAlias,
-                                                fit: .fitWidth,
-                                                child: child,
-                                              ),
-                                            )
-                                          : AppLoadingWidget(
-                                              color: colors.primary,
-                                            );
-                                    },
+                                    ) => frame != null
+                                    ? Container(
+                                        clipBehavior: .antiAlias,
+                                        decoration: BoxDecoration(
+                                          borderRadius: .circular(8),
+                                        ),
+                                        width: .infinity,
+                                        child: FittedBox(
+                                          clipBehavior: .antiAlias,
+                                          fit: .fitWidth,
+                                          child: child,
+                                        ),
+                                      )
+                                    : AppLoadingWidget(color: colors.primary),
                               ),
                             ),
                           ],

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
-import 'package:zupa/core/services/auth_status_service.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/auth_status_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 
 class AuthInterceptor extends QueuedInterceptor {
   final StorageService _storageService;

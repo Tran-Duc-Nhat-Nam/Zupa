@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/auth_guard.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
+import 'package:zupa/features/animation/presentation/bloc/animation_cubit.dart';
 
 @AutoRouterConfig(deferredLoading: true)
 class AppRouter extends RootStackRouter {
@@ -45,10 +45,7 @@ class AppRouter extends RootStackRouter {
 
         .new(path: 'settings/app', page: AppSettingsRoute.page),
         .new(path: 'settings/employee', page: EmployeeManagementRoute.page),
-        .new(
-          path: 'settings/employee/detail',
-          page: EmployeeRoute.page,
-        ),
+        .new(path: 'settings/employee/detail', page: EmployeeRoute.page),
 
         // Nested Configuration Group
         .new(path: 'settings/general-config', page: GeneralConfigRoute.page),

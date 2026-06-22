@@ -14,7 +14,7 @@ import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
 import 'package:zupa/features/revenue/presentation/bloc/revenue_cubit.dart';
-import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
+import 'package:zupa/features/revenue/presentation/form/revenue_form.dart';
 
 @RoutePage()
 class RevenueScreen extends StatelessWidget {

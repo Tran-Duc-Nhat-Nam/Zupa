@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:zupa/core/services/auth_status_service.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/auth_status_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 import 'package:zupa/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
 class MockStorageService extends Mock implements StorageService {}

@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/features/revenue/presentation/bloc/revenue_cubit.dart';
-import 'package:zupa/features/revenue/presentation/models/revenue_form.dart';
+import 'package:zupa/features/revenue/presentation/form/revenue_form.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_search_bar.dart';
 import 'package:zupa/features/revenue/presentation/pages/widgets/revenue_title.dart';
 

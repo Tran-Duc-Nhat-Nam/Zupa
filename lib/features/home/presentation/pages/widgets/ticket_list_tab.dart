@@ -7,7 +7,7 @@ import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_animation.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
-import 'package:zupa/features/home/presentation/models/home_form.dart';
+import 'package:zupa/features/home/presentation/form/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/ticker_title.dart';
 
 class TicketListTab extends StatelessWidget {

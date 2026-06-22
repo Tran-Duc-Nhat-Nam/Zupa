@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
-import 'package:zupa/features/home/presentation/models/home_form.dart';
+import 'package:zupa/features/home/presentation/form/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_card.dart';
 
 class VehicleCapacityTab extends StatelessWidget {

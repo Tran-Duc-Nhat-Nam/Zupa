@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
 import 'package:zupa/features/general_config/domain/usecases/set/params/set_general_config_params.dart';
 
 @injectable

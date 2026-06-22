@@ -1,4 +1,4 @@
-import 'package:zupa/core/entities/vehicle_type_entity.dart';
+import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 
 class HomeTicketEntity {
   final int id;

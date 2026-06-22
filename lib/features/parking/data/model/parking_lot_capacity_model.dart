@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:zupa/core/models/vehicle_type_model.dart';
+import 'package:zupa/core/data/models/vehicle_type/vehicle_type_model.dart';
 import 'package:zupa/features/parking/domain/entities/parking_lot_capacity_entity.dart';
 
 part 'parking_lot_capacity_model.freezed.dart';

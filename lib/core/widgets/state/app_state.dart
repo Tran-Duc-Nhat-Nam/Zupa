@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zupa/core/bloc/security/security_cubit.dart';
-import 'package:zupa/core/bloc/version/version_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
-import 'package:zupa/core/services/storage_service.dart';
+import 'package:zupa/core/helper/services/storage_service.dart';
+import 'package:zupa/features/security/presentation/bloc/security_cubit.dart';
+import 'package:zupa/features/version/presentation/bloc/version_cubit.dart';
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
   final AsyncCallback? onResume;

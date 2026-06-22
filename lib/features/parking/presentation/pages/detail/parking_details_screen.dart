@@ -16,7 +16,7 @@ import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_dialog.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/features/parking/presentation/bloc/detail/parking_lot_detail_cubit.dart';
-import 'package:zupa/features/parking/presentation/models/parking_lot_detail_form.dart';
+import 'package:zupa/features/parking/presentation/form/parking_lot_detail_form.dart';
 
 @RoutePage()
 class ParkingDetailsScreen extends StatelessWidget {

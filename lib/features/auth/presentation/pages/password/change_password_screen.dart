@@ -12,7 +12,7 @@ import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/popup/app_toast.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/auth/presentation/bloc/password/password_settings_cubit.dart';
-import 'package:zupa/features/auth/presentation/models/password/change_password_form.dart';
+import 'package:zupa/features/auth/presentation/form/password/change_password_form.dart';
 
 @RoutePage()
 class ChangePasswordScreen extends StatefulWidget {

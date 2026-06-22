@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:zupa/core/services/auth_status_service.dart';
+import 'package:zupa/core/helper/services/auth_status_service.dart';
 
 void main() {
   late AuthStatusService authStatusService;

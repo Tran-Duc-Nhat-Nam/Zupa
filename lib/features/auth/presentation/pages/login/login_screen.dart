@@ -17,7 +17,7 @@ import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
 import 'package:zupa/features/auth/presentation/bloc/login/login_cubit.dart';
-import 'package:zupa/features/auth/presentation/models/login/login_form.dart';
+import 'package:zupa/features/auth/presentation/form/login/login_form.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {

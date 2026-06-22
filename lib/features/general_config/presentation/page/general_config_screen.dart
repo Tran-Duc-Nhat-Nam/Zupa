@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/bloc/animation/animation_cubit.dart';
 import 'package:zupa/core/di/injection.dart';
 import 'package:zupa/core/helper/router/router_helper.gr.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
@@ -14,8 +13,9 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/features/animation/presentation/bloc/animation_cubit.dart';
 import 'package:zupa/features/general_config/presentation/bloc/general_config_cubit.dart';
-import 'package:zupa/features/general_config/presentation/models/general_config_form.dart';
+import 'package:zupa/features/general_config/presentation/form/general_config_form.dart';
 
 @RoutePage()
 class GeneralConfigScreen extends StatefulWidget {

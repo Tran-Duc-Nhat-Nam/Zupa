@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/helper/converter/date_time_converter.dart';
-import 'package:zupa/features/revenue/domain/usecases/params/get_revenue_params.dart';
+import 'package:zupa/features/revenue/domain/usecases/get_revenue_params.dart';
 
 part 'revenue_filter_model.freezed.dart';
 part 'revenue_filter_model.g.dart';

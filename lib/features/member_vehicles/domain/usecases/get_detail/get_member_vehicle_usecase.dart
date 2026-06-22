@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/resource/request_state.dart';
-import 'package:zupa/core/resource/request_token.dart';
+import 'package:zupa/core/data/models/request/request_state.dart';
+import 'package:zupa/core/data/models/request/request_token.dart';
 import 'package:zupa/features/member_vehicles/domain/entities/member_vehicle_entity.dart';
 import 'package:zupa/features/member_vehicles/domain/repository/member_vehicles_repository.dart';
 
@@ -13,7 +13,5 @@ class GetMemberVehicleUseCase {
   Future<RequestState<MemberVehicleEntity>> call({
     required String id,
     RequestToken? token,
-  }) async {
-    return _repository.getMemberVehicleDetail(id: id, token: token);
-  }
+  }) async => _repository.getMemberVehicleDetail(id: id, token: token);
 }

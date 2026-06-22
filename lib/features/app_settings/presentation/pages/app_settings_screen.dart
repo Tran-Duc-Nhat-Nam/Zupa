@@ -5,14 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:zupa/core/bloc/animation/animation_cubit.dart';
-import 'package:zupa/core/bloc/localization/localization_cubit.dart';
-import 'package:zupa/core/bloc/theme/theme_cubit.dart';
-import 'package:zupa/core/bloc/ui/ui_cubit.dart';
 import 'package:zupa/core/constants/localization.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
-import 'package:zupa/core/models/form/theme/theme_settings_form.dart';
-import 'package:zupa/core/models/form/ui/ui_settings_form.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/styles/theme.dart';
@@ -21,6 +15,12 @@ import 'package:zupa/core/widgets/app_list_tile.dart';
 import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_switch.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
+import 'package:zupa/features/animation/presentation/bloc/animation_cubit.dart';
+import 'package:zupa/features/localization/presentation/bloc/localization_cubit.dart';
+import 'package:zupa/features/theme/presentation/bloc/theme_cubit.dart';
+import 'package:zupa/features/theme/presentation/form/theme_settings_form.dart';
+import 'package:zupa/features/ui/presentation/bloc/ui_cubit.dart';
+import 'package:zupa/features/ui/presentation/form/ui_settings_form.dart';
 
 @RoutePage()
 class AppSettingsScreen extends StatefulWidget {

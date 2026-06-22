@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zupa/core/helper/debugger/debugger_helper.dart';
-import 'package:zupa/core/services/chatbot_service.dart';
+import 'package:zupa/core/helper/services/chatbot_service.dart';
 import 'package:zupa/features/chatbot/data/services/chat_storage_service.dart';
 import 'package:zupa/features/chatbot/domain/entity/chat_session.dart';
 import 'package:zupa/features/chatbot/domain/entity/chat_message.dart';
