@@ -318,13 +318,7 @@ class DownloadProgressDialog extends StatelessWidget {
 
     return Align(
       child: Container(
-        constraints: const .new(minWidth: 280, minHeight: 180),
-        margin: const .symmetric(horizontal: 24),
         padding: const .all(24),
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainer,
-          borderRadius: .circular(28),
-        ),
         child: Material(
           color: Colors.transparent,
           child: StreamBuilder<double>(
@@ -332,7 +326,6 @@ class DownloadProgressDialog extends StatelessWidget {
             builder: (context, snapshot) {
               final double progress = (snapshot.data ?? 0.0);
               final int displayPercent = (progress * 100).toInt();
-
               return Column(
                 mainAxisSize: .min,
                 spacing: 16,

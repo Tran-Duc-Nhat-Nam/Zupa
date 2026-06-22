@@ -2,7 +2,7 @@ name: zupa
 description: "A zero user parking app."
 publish_to: "none"
 
-version: 0.14.8+72
+version: 0.14.9+73
 
 environment:
   sdk: ^3.13.0-103.1.beta
@@ -86,7 +86,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.15.1
   flutter_gemma: ^1.0.2
   flutter_gemma_litertlm: ^1.0.2
-  flutter_markdown_plus: ^1.0.7
+  gpt_markdown: ^1.1.7
   isar_community: ^3.3.2
   isar_community_flutter_libs: ^3.3.2
   material3_expressive_loading_indicator: ^0.1.2

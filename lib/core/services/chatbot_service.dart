@@ -62,11 +62,15 @@ class ChatbotService {
       }
     }
 
-    _activeModel = await FlutterGemma.getActiveModel(
-      maxTokens: 4096,
-      preferredBackend: .npu,
-      enableSpeculativeDecoding: true,
-    );
+    try {
+      _activeModel = await FlutterGemma.getActiveModel(
+        maxTokens: 4096,
+        preferredBackend: .npu,
+        enableSpeculativeDecoding: true,
+      );
+    } catch (e) {
+      return e.toString();
+    }
 
     if (_activeModel != null) {
       _activeChat = await _activeModel!.createChat();

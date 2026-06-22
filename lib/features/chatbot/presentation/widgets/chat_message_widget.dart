@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
+import 'package:gpt_markdown/gpt_markdown.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/features/chatbot/domain/entity/chat_message.dart';
@@ -20,128 +21,56 @@ class ChatMessageWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: isUser ? .end : .start,
         crossAxisAlignment: .end,
+        spacing: 8,
         children: [
-          if (!isUser) ...[
+          if (!isUser)
             Container(
               margin: const .only(bottom: 4),
               child: CircleAvatar(
                 radius: 16,
                 backgroundColor: colors.primaryContainer,
                 child: Icon(
-                  Icons.smart_toy_rounded,
+                  Symbols.smart_toy_rounded,
                   color: colors.onPrimaryContainer,
-                  size: 20,
+                  size: 24,
                 ),
               ),
             ),
-            const SizedBox(width: 8),
-          ],
           Flexible(
             child: Container(
-              padding: const .symmetric(horizontal: 16, vertical: 10),
+              padding: const .symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: isUser
-                    ? colors.secondaryContainer
-                    : colors.surfaceContainerHigh,
+                    ? colors.primaryContainer
+                    : colors.secondaryContainer,
                 borderRadius: .only(
                   topLeft: const .circular(28),
                   topRight: const .circular(28),
-                  bottomLeft: .circular(isUser ? 28 : 6),
-                  bottomRight: .circular(isUser ? 6 : 28),
+                  bottomLeft: .circular(isUser ? 28 : 8),
+                  bottomRight: .circular(isUser ? 8 : 28),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: colors.shadow.withAlpha(123),
-                    blurRadius: 8,
-                    offset: const .new(0, 2),
-                  ),
-                ],
               ),
-              child: MarkdownBody(
-                data: message.text,
-                selectable: true,
-                styleSheet: .new(
-                  p: AppTextStyles.bodyLarge.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  h1: AppTextStyles.headlineMediumBold.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  h2: AppTextStyles.headlineSmallBold.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  h3: AppTextStyles.titleMediumBold.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  h4: AppTextStyles.titleMediumBold.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  h5: AppTextStyles.titleSmallBold.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  h6: AppTextStyles.titleSmall.copyWith(
-                    color: isUser
-                        ? colors.onSecondaryContainer
-                        : colors.onSurface,
-                  ),
-                  code: AppTextStyles.bodyMedium.copyWith(
-                    color: colors.onSurface,
-                    fontFamily: 'monospace',
-                  ),
-                  codeblockDecoration: BoxDecoration(
-                    color: colors.surfaceContainerHighest,
-                    borderRadius: .circular(8),
-                  ),
-                  blockquoteDecoration: BoxDecoration(
-                    border: Border(
-                      left: .new(
-                        color: isUser
-                            ? colors.onPrimary.withAlpha(100)
-                            : colors.outline,
-                        width: 4,
-                      ),
-                    ),
-                  ),
-                  blockquote: AppTextStyles.bodyMedium.copyWith(
-                    color: isUser
-                        ? colors.onPrimary.withAlpha(200)
-                        : colors.onSurfaceVariant,
-                    fontStyle: .italic,
-                  ),
-                  listBullet: AppTextStyles.bodyLarge.copyWith(
-                    color: isUser ? colors.onPrimary : colors.onSurface,
-                  ),
+              child: GptMarkdown(
+                message.text,
+                style: AppTextStyles.bodyLarge.copyWith(
+                  color: isUser
+                      ? colors.onPrimaryContainer
+                      : colors.onSecondaryContainer,
                 ),
+                followLinkColor: true,
               ),
             ),
           ).animate().fade(duration: 250.ms).slideY(begin: 0.1, end: 0),
-          if (isUser) ...[
-            const SizedBox(width: 8),
-            Container(
-              margin: const .only(bottom: 4),
-              child: CircleAvatar(
-                radius: 16,
-                backgroundColor: colors.secondaryContainer,
-                child: Icon(
-                  Icons.person_rounded,
-                  color: colors.onSecondaryContainer,
-                  size: 20,
-                ),
+          if (isUser)
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: colors.secondaryContainer,
+              child: Icon(
+                Symbols.person_rounded,
+                color: colors.onSecondaryContainer,
+                size: 24,
               ),
             ),
-          ],
         ],
       ),
     );
