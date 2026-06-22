@@ -64,7 +64,8 @@ class ChatbotService {
 
     _activeModel = await FlutterGemma.getActiveModel(
       maxTokens: 4096,
-      preferredBackend: .gpu,
+      preferredBackend: .npu,
+      enableSpeculativeDecoding: true,
     );
 
     if (_activeModel != null) {
