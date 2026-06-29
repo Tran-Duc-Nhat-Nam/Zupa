@@ -34,9 +34,10 @@ void main() {
   });
 
   group('AuthCubit Tests', () {
-    test('initial state should be AuthState.initial', () {
-      expect(authCubit.state, const AuthState.initial());
-    });
+    test(
+      'initial state should be AuthState.initial',
+      () => expect(authCubit.state, const AuthState.initial()),
+    );
 
     blocTest<AuthCubit, AuthState>(
       'loadAuth should emit loaded state with biometric status',
@@ -73,9 +74,7 @@ void main() {
         when(() => mockStorageService.removeUser()).thenAnswer((_) async {});
         return authCubit;
       },
-      act: (cubit) {
-        unauthorizedController.add(null);
-      },
+      act: (cubit) => unauthorizedController.add(null),
       expect: () => [const AuthState.noAuthenticated()],
       verify: (_) {
         verify(() => mockStorageService.removeAuth()).called(1);

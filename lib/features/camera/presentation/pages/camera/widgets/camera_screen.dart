@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:volume_listener/volume_listener.dart';
+import 'package:volume_button_listener/volume_button_listener.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/widgets/app_button.dart';
+import 'package:zupa/core/widgets/popup/app_toast.dart';
+import 'package:zupa/core/widgets/state/app_state.dart';
 import 'package:zupa/features/camera/presentation/pages/camera/widgets/vehicle_type_radio_cards.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -21,10 +23,10 @@ class CameraScreen extends StatefulWidget {
   final void Function() onTakePicture;
 
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
+  AppState<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> {
+class _CameraScreenState extends AppState<CameraScreen> {
   int upCount = 0;
   int downCount = 0;
   Timer? upTimer;
@@ -33,53 +35,12 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
-    VolumeListener.addListener((VolumeKey event) {
-      switch (event) {
-        case .up:
-          {
-            upCount++;
-            if (upCount == 1) {
-              upTimer = Timer(const .new(seconds: 1), () {
-                // Reset count after 1 second
-                upCount = 0;
-              });
-            }
-            if (upCount == 2) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const .new(content: Text('Press up')));
-              upCount = 0;
-              upTimer?.cancel();
-            }
-            break;
-          }
-        case .down:
-          {
-            downCount++;
-            if (downCount == 1) {
-              downTimer = Timer(const .new(seconds: 1), () {
-                // Reset count after 1 second
-                downCount = 0;
-              });
-            }
-            if (downCount == 2) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const .new(content: Text('Press down')));
-              downCount = 0;
-              downTimer?.cancel();
-            }
-            break;
-          }
-        case .capture:
-          break;
-      }
-    });
+    _init();
   }
 
   @override
   void dispose() {
-    VolumeListener.removeListener();
+    VolumeButtonListener.instance.removeButtonPressedListener(_onPressed);
     upTimer?.cancel();
     downTimer?.cancel();
     super.dispose();
@@ -87,6 +48,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = context.colorScheme;
     return Column(
       mainAxisSize: .min,
       mainAxisAlignment: .center,
@@ -98,7 +60,7 @@ class _CameraScreenState extends State<CameraScreen> {
             child: Container(
               width: .infinity,
               decoration: BoxDecoration(
-                color: context.colorScheme.surfaceContainer,
+                color: colorScheme.surfaceContainer,
                 borderRadius: .circular(28),
               ),
               clipBehavior: .antiAlias,
@@ -127,12 +89,51 @@ class _CameraScreenState extends State<CameraScreen> {
             onPressed: widget.onTakePicture,
             child: Icon(
               Symbols.camera_alt_rounded,
-              color: context.colorScheme.surface,
+              color: colorScheme.surface,
               size: 24,
             ),
           ),
         ),
       ],
     );
+  }
+
+  void _onPressed(VolumeButtonDirection direction) {
+    switch (direction) {
+      case .up:
+        {
+          upCount++;
+          if (upCount == 1) {
+            upTimer = Timer(const .new(seconds: 1), () => upCount = 0);
+          }
+          if (upCount == 2) {
+            AppToast.showToast('Press up');
+            upCount = 0;
+            upTimer?.cancel();
+          }
+        }
+      case .down:
+        {
+          downCount++;
+          if (downCount == 1) {
+            downTimer = Timer(const .new(seconds: 1), () => downCount = 0);
+          }
+          if (downCount == 2) {
+            AppToast.showToast('Press down');
+            downCount = 0;
+            downTimer?.cancel();
+          }
+        }
+    }
+  }
+
+  Future<void> _init() async {
+    final listener = VolumeButtonListener.instance;
+
+    if (VolumeButtonListener.supportsVolumeButtonListener) {
+      listener.showVolumeUI = false;
+      listener.suppressRepeatedPressEvents = true;
+      await listener.addButtonPressedListener(_onPressed);
+    }
   }
 }

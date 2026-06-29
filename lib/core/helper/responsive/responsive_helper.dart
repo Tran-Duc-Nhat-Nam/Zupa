@@ -23,9 +23,6 @@ class ResponsiveHelper {
     return width;
   }
 
-  static double getResponsivePadding(BuildContext context) {
-    if (isDesktop(context)) return 32;
-    if (isTablet(context)) return 16;
-    return 0;
-  }
+  static double getResponsivePadding(BuildContext context) =>
+      isDesktop(context) ? 32 : (isTablet(context) ? 16 : 0);
 }

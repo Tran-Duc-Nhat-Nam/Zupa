@@ -10,6 +10,6 @@ class VehicleTypeEntity {
 
   final String value;
   final String name;
-  final String icon;
+  final IconData icon;
   final Color color;
 }

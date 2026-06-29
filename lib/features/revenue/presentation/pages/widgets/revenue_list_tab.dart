@@ -68,14 +68,14 @@ class RevenueListTab extends StatelessWidget {
                       filter: form?.model.toParams() ?? .initial(),
                     ),
                     child: ListView.separated(
-                      itemCount: listState.items.isNotEmpty
-                          ? listState.items.length
+                      itemCount: listState.currentItems.isNotEmpty
+                          ? listState.currentItems.length
                           : 10,
                       separatorBuilder: (_, _) => const SizedBox(height: 10),
                       itemBuilder: (_, i) =>
                           RevenueTitle(
-                            revenue: listState.items.isNotEmpty
-                                ? listState.items[i]
+                            revenue: listState.currentItems.isNotEmpty
+                                ? listState.currentItems[i]
                                 : .new(
                                     date: .now(),
                                     revenue: [

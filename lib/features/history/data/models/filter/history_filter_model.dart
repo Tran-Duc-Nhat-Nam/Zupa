@@ -32,13 +32,11 @@ sealed class HistoryFilterModel with _$HistoryFilterModel {
     type: type?.toEntity(),
   );
 
-  factory HistoryFilterModel.fromEntity(GetHistoryParams entity) {
-    return .new(
-      page: entity.page,
-      size: entity.size,
-      keyword: entity.keyword,
-      time: entity.time,
-      type: entity.type != null ? .fromEntity(entity.type!) : null,
-    );
-  }
+  factory HistoryFilterModel.fromEntity(GetHistoryParams entity) => .new(
+    page: entity.page,
+    size: entity.size,
+    keyword: entity.keyword,
+    time: entity.time,
+    type: entity.type != null ? .fromEntity(entity.type!) : null,
+  );
 }

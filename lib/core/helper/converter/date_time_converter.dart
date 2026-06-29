@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 class DateTimeConverter implements JsonConverter<DateTime, String> {
   const DateTimeConverter();
 
-  static String toShortTime(DateTime object) => object.format('HH:mm');
+  static String toShortTime(DateTime object) => object.format('H:m');
 
   static String toDate(DateTime object) => object.format('d/M/y');
 

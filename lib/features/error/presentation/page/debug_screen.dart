@@ -8,7 +8,6 @@ class DebugScreen extends StatelessWidget {
   const DebugScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return TalkerScreen(talker: DebuggerHelper.talker);
-  }
+  Widget build(BuildContext context) =>
+      TalkerScreen(talker: DebuggerHelper.talker);
 }

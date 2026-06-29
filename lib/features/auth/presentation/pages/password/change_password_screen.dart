@@ -24,114 +24,100 @@ class ChangePasswordScreen extends StatefulWidget {
 
 class _ChangePasswordScreenState extends AppState<ChangePasswordScreen> {
   @override
-  Widget build(BuildContext context) {
-    return ChangePasswordFormBuilder(
-      builder: (context, formModel, _) {
-        return BlocProvider<PasswordSettingsCubit>(
-          create: (context) => getIt<PasswordSettingsCubit>()..init(),
-          child: BlocConsumer<PasswordSettingsCubit, PasswordSettingsState>(
-            listener: (context, state) {
-              state.whenOrNull(
-                changePasswordSuccess: () {
-                  AppToast.showToast(t.common.success, context: context);
-                  context.pop();
-                },
-                changePasswordFailed: (message) {
-                  message != null
-                      ? MessageHelper.showError(context, message: message)
-                      : AppToast.showToast(
-                          t.common.errors.unknown,
-                          context: context,
-                        );
-                  context.pop();
-                },
-              );
+  Widget build(BuildContext context) => ChangePasswordFormBuilder(
+    builder: (context, formModel, _) => BlocProvider<PasswordSettingsCubit>(
+      create: (context) => getIt<PasswordSettingsCubit>()..init(),
+      child: BlocConsumer<PasswordSettingsCubit, PasswordSettingsState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            changePasswordSuccess: () {
+              AppToast.showToast(t.common.success, context: context);
+              context.pop();
             },
-            builder: (context, state) {
-              return AppScreen(
-                isChildScrollable: true,
-                noBackground: true,
-                title: t.settings.changePassword,
-                footer: [
-                  AppButton(
-                    onPressed: () => context
-                        .read<PasswordSettingsCubit>()
-                        .changePassword(params: formModel.model.toParams()),
-                    text: t.settings.changePassword,
+            changePasswordFailed: (message) {
+              message != null
+                  ? MessageHelper.showError(context, message: message)
+                  : AppToast.showToast(
+                      t.common.errors.unknown,
+                      context: context,
+                    );
+              context.pop();
+            },
+          );
+        },
+        builder: (context, state) => AppScreen(
+          isChildScrollable: true,
+          noBackground: true,
+          title: t.settings.changePassword,
+          footer: [
+            AppButton(
+              onPressed: () => context
+                  .read<PasswordSettingsCubit>()
+                  .changePassword(params: formModel.model.toParams()),
+              text: t.settings.changePassword,
+            ),
+          ],
+          child: Padding(
+            padding: const .symmetric(vertical: 16, horizontal: 24),
+            child: Column(
+              spacing: 16,
+              children: [
+                AppCard(
+                  child: ReactiveValueListenableBuilder<String>(
+                    formControl: formModel.currentPasswordControl,
+                    builder: (context, control, child) => AppTextField(
+                      labelText: t.auth.password.current,
+                      hintText: t.auth.password.enterCurrent,
+                      initialValue: control.value,
+                      onChanged: (val) => control.updateValue(val),
+                      errorText: control.invalid && control.touched
+                          ? t.common.errors.required
+                          : null,
+                      isPassword: true,
+                    ),
                   ),
-                ],
-                child: Padding(
-                  padding: const .symmetric(vertical: 16, horizontal: 24),
+                ),
+                AppCard(
                   child: Column(
-                    spacing: 16,
+                    spacing: 8,
+                    mainAxisSize: .min,
                     children: [
-                      AppCard(
-                        child: ReactiveValueListenableBuilder<String>(
-                          formControl: formModel.currentPasswordControl,
-                          builder: (context, control, child) => AppTextField(
-                            labelText: t.auth.password.current,
-                            hintText: t.auth.password.enterCurrent,
-                            initialValue: control.value,
-                            onChanged: (val) => control.updateValue(val),
-                            errorText: control.invalid && control.touched
-                                ? t.common.errors.required
-                                : null,
-                            isPassword: true,
-                          ),
+                      ReactiveValueListenableBuilder<String>(
+                        formControl: formModel.newPasswordControl,
+                        builder: (context, control, child) => AppTextField(
+                          labelText: t.auth.password.kNew,
+                          hintText: t.auth.password.enterNew,
+                          initialValue: control.value,
+                          onChanged: (val) => control.updateValue(val),
+                          errorText: control.invalid && control.touched
+                              ? t.common.errors.required
+                              : null,
+                          isPassword: true,
                         ),
                       ),
-                      AppCard(
-                        child: Column(
-                          spacing: 8,
-                          mainAxisSize: .min,
-                          children: [
-                            ReactiveValueListenableBuilder<String>(
-                              formControl: formModel.newPasswordControl,
-                              builder: (context, control, child) =>
-                                  AppTextField(
-                                    labelText: t.auth.password.kNew,
-                                    hintText: t.auth.password.enterNew,
-                                    initialValue: control.value,
-                                    onChanged: (val) =>
-                                        control.updateValue(val),
-                                    errorText:
-                                        control.invalid && control.touched
-                                        ? t.common.errors.required
-                                        : null,
-                                    isPassword: true,
-                                  ),
-                            ),
-                            ReactiveValueListenableBuilder<String>(
-                              formControl: formModel.confirmPasswordControl,
-                              builder: (context, control, child) =>
-                                  AppTextField(
-                                    labelText: t.auth.password.confirm,
-                                    hintText: t.auth.password.enterConfirm,
-                                    initialValue: control.value,
-                                    onChanged: (val) =>
-                                        control.updateValue(val),
-                                    errorText:
-                                        control.invalid && control.touched
-                                        ? control.hasError(
-                                                ValidationMessage.required,
-                                              )
-                                              ? t.common.errors.required
-                                              : t.common.errors.confirmPassword
-                                        : null,
-                                    isPasswordConfirm: true,
-                                  ),
-                            ),
-                          ],
+                      ReactiveValueListenableBuilder<String>(
+                        formControl: formModel.confirmPasswordControl,
+                        builder: (context, control, child) => AppTextField(
+                          labelText: t.auth.password.confirm,
+                          hintText: t.auth.password.enterConfirm,
+                          initialValue: control.value,
+                          onChanged: (val) => control.updateValue(val),
+                          errorText: control.invalid && control.touched
+                              ? control.hasError(ValidationMessage.required)
+                                    ? t.common.errors.required
+                                    : t.common.errors.confirmPassword
+                              : null,
+                          isPasswordConfirm: true,
                         ),
                       ),
                     ],
                   ),
                 ),
-              );
-            },
+              ],
+            ),
           ),
-        );
-      },
-    );
-  }
+        ),
+      ),
+    ),
+  );
 }

@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/bloc/usecases/localization/get/get_locale_usecase.dart';
-import 'package:zupa/core/bloc/usecases/localization/set/set_locale_usecase.dart';
 import 'package:zupa/core/constants/localization.dart';
+import 'package:zupa/features/localization/domain/usecases/get/get_locale_usecase.dart';
+import 'package:zupa/features/localization/domain/usecases/set/set_locale_usecase.dart';
 
 part 'localization_cubit.freezed.dart';
 part 'localization_state.dart';

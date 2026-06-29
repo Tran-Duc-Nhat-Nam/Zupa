@@ -1,5 +1,5 @@
 package com.tsp.parking
 
-import com.folksable.volume_listener.VolumeListenerActivity
+import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: VolumeListenerActivity()
+class MainActivity: FlutterActivity()

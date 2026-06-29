@@ -18,7 +18,7 @@ class ChatbotService {
 
   Future<bool> isModelInstalled() async {
     try {
-      return FlutterGemma.isModelInstalled(_modelFileName);
+      return await FlutterGemma.isModelInstalled(_modelFileName);
     } catch (e) {
       return false;
     }

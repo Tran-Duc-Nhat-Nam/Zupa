@@ -35,7 +35,7 @@ class VehicleInfoCard extends StatelessWidget {
           ),
           Container(height: 1, width: double.infinity, color: colors.outline),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const .all(8),
             child: Text(
               '${t.vehicles.licenseNumber}: ${licenseNumber ?? ''}',
               style: AppTextStyles.titleLargeSemibold.copyWith(

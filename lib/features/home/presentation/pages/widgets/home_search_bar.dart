@@ -10,7 +10,7 @@ import 'package:zupa/core/styles/text_styles.dart';
 import 'package:zupa/core/widgets/app_button.dart';
 import 'package:zupa/core/widgets/app_date_time_picker.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
-import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
+import 'package:zupa/core/widgets/app_input_wrapper.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
 import 'package:zupa/features/home/presentation/form/home_form.dart';
 

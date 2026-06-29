@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zupa/core/constants/query.dart';
 import 'package:zupa/core/data/models/request/request_state.dart';
 import 'package:zupa/core/data/models/request/request_token.dart';
 import 'package:zupa/features/revenue/domain/entities/daily_revenue_entity.dart';
@@ -28,7 +27,7 @@ class RevenueCubit extends Cubit<RevenueState> {
 
     switch (response) {
       case Success(:final data):
-        emit(.loaded(revenueList: data, pageIndex: defaultPageIndex));
+        emit(.loaded(revenueList: data, filter: filter));
       case Error(:final message):
         emit(.failed(revenueList: [], message: message));
       default:
@@ -37,36 +36,35 @@ class RevenueCubit extends Cubit<RevenueState> {
   }
 
   Future<void> refresh({required GetRevenueParams filter}) async {
-    final int page = state.maybeWhen(
-      loaded: (revenueList, pageIndex) => pageIndex,
-      orElse: () => defaultPageIndex,
-    );
-    emit(.refreshing(revenueList: state.items, pageIndex: page));
+    emit(.refreshing(revenueList: state.currentItems, filter: filter));
     _getToken?.cancel();
     _getToken = RequestToken();
     final response = await _getRevenue(filter: filter, token: _getToken);
 
     switch (response) {
       case Success(:final data):
-        emit(.loaded(revenueList: data, pageIndex: defaultPageIndex));
+        emit(.loaded(revenueList: data, filter: filter));
       case Error(:final message):
-        emit(.failed(revenueList: state.items, message: message));
+        emit(.failed(revenueList: state.currentItems, message: message));
       default:
-        emit(.failed(revenueList: state.items, message: 'cancelled'));
+        emit(.failed(revenueList: state.currentItems, message: 'cancelled'));
     }
   }
 
   Future<void> loadMore({required GetRevenueParams filter}) async {
-    final tempItems = [...state.items];
-    final int pageIndex = state.maybeMap(
-      loaded: (params) => params.pageIndex,
-      orElse: () => defaultPageIndex,
+    final tempItems = [...state.currentItems];
+    final newFilter = GetRevenueParams(
+      keyword: filter.keyword,
+      type: filter.type,
+      fromDate: filter.fromDate,
+      toDate: filter.toDate,
     );
 
-    emit(.loadingMore(revenueList: tempItems, pageIndex: pageIndex));
+    emit(.loadingMore(revenueList: tempItems, filter: newFilter));
     _getToken?.cancel();
     _getToken = RequestToken();
-    final result = await _getRevenue(filter: filter, token: _getToken);
+
+    final result = await _getRevenue(filter: newFilter, token: _getToken);
 
     switch (result) {
       case Success(data: final newItems):
@@ -76,7 +74,7 @@ class RevenueCubit extends Cubit<RevenueState> {
               ? const .empty()
               : .loaded(
                   revenueList: tempItems,
-                  pageIndex: newItems.isEmpty ? pageIndex : pageIndex + 1,
+                  filter: newItems.isEmpty ? filter : newFilter,
                 ),
         );
       case Error(:final message):

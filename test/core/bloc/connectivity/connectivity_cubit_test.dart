@@ -29,9 +29,10 @@ void main() {
   });
 
   group('ConnectivityCubit Tests', () {
-    test('initial state should be ConnectivityState.initial()', () {
-      expect(connectivityCubit.state, const ConnectivityState.initial());
-    });
+    test(
+      'initial state should be ConnectivityState.initial()',
+      () => expect(connectivityCubit.state, const ConnectivityState.initial()),
+    );
 
     blocTest<ConnectivityCubit, ConnectivityState>(
       'should emit connected when initial check succeeds',

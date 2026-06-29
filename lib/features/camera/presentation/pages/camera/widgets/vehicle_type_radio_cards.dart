@@ -1,9 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
-import 'package:zupa/core/helper/converter/icon_converter.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
 import 'package:zupa/core/styles/text_styles.dart';
@@ -34,8 +32,7 @@ class VehicleTypeRadioCards extends StatelessWidget {
                 mainAxisAlignment: .center,
                 children: [
                   Icon(
-                    const IconConverter().fromJson(item.icon) ??
-                        Symbols.globe_rounded,
+                    item.icon,
                     color: item.color.harmonizeWith(colorScheme.primary),
                     size: 24,
                   ),

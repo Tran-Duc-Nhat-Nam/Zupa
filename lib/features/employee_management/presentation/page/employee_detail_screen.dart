@@ -13,7 +13,7 @@ import 'package:zupa/core/widgets/app_screen.dart';
 import 'package:zupa/core/widgets/app_text_field.dart';
 import 'package:zupa/core/widgets/popup/app_message.dart';
 import 'package:zupa/core/widgets/state/app_state.dart';
-import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
+import 'package:zupa/core/widgets/app_input_wrapper.dart';
 import 'package:zupa/features/employee_management/domain/entity/employee_entity.dart';
 import 'package:zupa/features/employee_management/presentation/bloc/detail/employee_bloc.dart';
 import 'package:zupa/features/employee_management/presentation/form/detail/employee_form.dart';

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
-import 'package:zupa/core/helper/converter/icon_converter.dart';
-import 'package:zupa/core/widgets/wrapper/app_input_wrapper.dart';
+import 'package:zupa/core/widgets/app_input_wrapper.dart';
 import 'package:zupa/features/home/presentation/bloc/home_cubit.dart';
 import 'package:zupa/features/home/presentation/form/home_form.dart';
 import 'package:zupa/features/home/presentation/pages/widgets/vehicle_capacity_card.dart';
@@ -34,11 +32,7 @@ class VehicleCapacityTab extends StatelessWidget {
                           right: index == vehicleTypes.length - 1 ? 0 : 12,
                         ),
                         child: VehicleCapacityCard(
-                          icon:
-                              const IconConverter().fromJson(
-                                vehicleTypes[index].icon,
-                              ) ??
-                              Symbols.globe_rounded,
+                          icon: vehicleTypes[index].icon,
                           color: vehicleTypes[index].color,
                           name: vehicleTypes[index].value,
                           current: 65 + index * 20,

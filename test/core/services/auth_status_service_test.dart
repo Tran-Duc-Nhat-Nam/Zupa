@@ -4,13 +4,9 @@ import 'package:zupa/core/helper/services/auth_status_service.dart';
 void main() {
   late AuthStatusService authStatusService;
 
-  setUp(() {
-    authStatusService = AuthStatusService();
-  });
+  setUp(() => authStatusService = AuthStatusService());
 
-  tearDown(() {
-    authStatusService.dispose();
-  });
+  tearDown(() => authStatusService.dispose());
 
   group('AuthStatusService Tests', () {
     test(

@@ -1,6 +1,7 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -93,7 +94,7 @@ class TicketListTab extends StatelessWidget {
                                 type: .new(
                                   value: '',
                                   name: '',
-                                  icon: '',
+                                  icon: Symbols.globe_rounded,
                                   color: colorScheme.primary,
                                 ),
                                 imageUrl: '',

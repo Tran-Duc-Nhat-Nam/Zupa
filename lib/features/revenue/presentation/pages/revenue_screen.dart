@@ -78,7 +78,7 @@ class RevenueScreen extends StatelessWidget {
                               locale: 'vi_VN',
                               symbol: 'đ',
                               decimalDigits: 0,
-                            ).format(state.items.totalRevenue),
+                            ).format(state.currentItems.totalRevenue),
                             icon: Symbols.account_balance_wallet_rounded,
                             color: colorScheme.primary,
                           ),
@@ -86,7 +86,7 @@ class RevenueScreen extends StatelessWidget {
                         Expanded(
                           child: _SummaryCard(
                             title: t.vehicles.type,
-                            value: state.items.totalPass.toString(),
+                            value: state.currentItems.totalPass.toString(),
                             icon: Symbols.directions_car_rounded,
                             color: colorScheme.secondary,
                           ),
@@ -111,9 +111,9 @@ class RevenueScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     SizedBox(
                       height: 300,
-                      child: state.items.isEmpty && !state.isLoading
+                      child: state.currentItems.isEmpty && !state.isLoading
                           ? const _EmptyRevenueState()
-                          : _RevenueChart(items: state.items),
+                          : _RevenueChart(items: state.currentItems),
                     ).animateIn(
                       key: const ValueKey('revenue_chart'),
                       animate: state.isLoading,

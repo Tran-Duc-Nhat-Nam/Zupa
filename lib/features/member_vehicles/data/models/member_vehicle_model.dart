@@ -15,7 +15,7 @@ sealed class MemberVehicleModel with _$MemberVehicleModel {
     @Default('N/A') String phoneNumber,
     @Default('N/A') String licenseNumber,
     @Default('N/A') String parkingLotId,
-    @Default(VehicleTypeModel()) VehicleTypeModel vehicleType,
+    @Default(.new()) VehicleTypeModel vehicleType,
     @Default('N/A') String cardId,
     @Default(86400) int expiredIn,
     @Default(0) int price,
@@ -39,17 +39,15 @@ sealed class MemberVehicleModel with _$MemberVehicleModel {
     price: price,
   );
 
-  factory MemberVehicleModel.fromEntity(MemberVehicleEntity entity) {
-    return .new(
-      id: entity.id,
-      name: entity.name,
-      phoneNumber: entity.phoneNumber,
-      licenseNumber: entity.licenseNumber,
-      parkingLotId: entity.parkingLotId,
-      vehicleType: .fromEntity(entity.vehicleType),
-      cardId: entity.cardId,
-      expiredIn: entity.expiredIn,
-      price: entity.price,
-    );
-  }
+  factory MemberVehicleModel.fromEntity(MemberVehicleEntity entity) => .new(
+    id: entity.id,
+    name: entity.name,
+    phoneNumber: entity.phoneNumber,
+    licenseNumber: entity.licenseNumber,
+    parkingLotId: entity.parkingLotId,
+    vehicleType: .fromEntity(entity.vehicleType),
+    cardId: entity.cardId,
+    expiredIn: entity.expiredIn,
+    price: entity.price,
+  );
 }
