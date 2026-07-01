@@ -15,7 +15,7 @@ sealed class VehicleTypeModel with _$VehicleTypeModel {
   const factory VehicleTypeModel({
     @Default('other') String value,
     @Default('vehicle') String name,
-    @Default('motorbike') @IconConverter() IconData? icon,
+    @IconConverter() IconData? icon,
     @ColorConverter() @Default(Colors.grey) Color color,
   }) = _VehicleTypeModel;
 
