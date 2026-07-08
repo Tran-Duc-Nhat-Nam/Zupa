@@ -222,7 +222,7 @@ class _AppViewState extends State<AppView> {
                   if (kDebugMode) {
                     DialogHelper.dismissAll();
                   } else {
-                    SystemNavigator.pop();
+                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                   }
                 },
               );
