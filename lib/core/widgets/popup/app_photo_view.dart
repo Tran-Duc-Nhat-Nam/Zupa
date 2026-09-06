@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 abstract class AppPhotoView {
   static Future<dynamic> showPhotoView(

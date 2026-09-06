@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -322,7 +322,6 @@ class _EmployeeScreenState extends AppState<EmployeeScreen> {
       labelText: label,
       isReadOnly: !isEditing,
       initialValue: value ?? fallbackValue,
-      hasBorder: true,
     ),
   );
 }

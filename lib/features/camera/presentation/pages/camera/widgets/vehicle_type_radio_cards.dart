@@ -1,5 +1,5 @@
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zupa/core/constants/vehicle_types.dart';
 import 'package:zupa/core/domain/entities/vehicle_type_entity.dart';
 import 'package:zupa/core/i18n/gen/strings.g.dart';

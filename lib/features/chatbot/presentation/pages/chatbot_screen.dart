@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:zupa/core/di/injection.dart';
@@ -338,7 +338,7 @@ class _ChatbotScreenState extends AppState<ChatbotScreen> {
       child: BackdropFilter(
         filter: isGlassmorphism
             ? .blur(sigmaX: 12, sigmaY: 12)
-            : .blur(sigmaX: 0, sigmaY: 0),
+            : .blur(),
         child: Container(
           padding: const .symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(

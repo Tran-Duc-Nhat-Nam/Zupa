@@ -2,13 +2,12 @@ import 'dart:io';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_gemma/flutter_gemma.dart';
 import 'package:flutter_gemma_litertlm/flutter_gemma_litertlm.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:shake/shake.dart';
@@ -154,8 +153,7 @@ class _AppViewState extends State<AppView> {
                         FlutterSmartDialog.observer,
                       ],
                     ),
-                    localizationsDelegates:
-                        GlobalMaterialLocalizations.delegates,
+                    localizationsDelegates: GlobalMaterialLocalizations.delegates,
                     supportedLocales: AppLocaleUtils.supportedLocales,
                     locale: TranslationProvider.of(context).flutterLocale,
                     builder: FlutterSmartDialog.init(),

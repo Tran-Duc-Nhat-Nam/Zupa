@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -109,7 +109,7 @@ class AppSiteSelector extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         stickyActionBar: Padding(
-          padding: const .only(left: 24, top: 0, right: 24, bottom: 16),
+          padding: const .only(left: 24, right: 24, bottom: 16),
           child: AppButton(
             height: 48,
             onPressed: () {

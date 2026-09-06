@@ -2,7 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:zupa/core/widgets/app_avatar.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';

@@ -117,7 +117,6 @@ class _GeneralConfigScreenState extends AppState<GeneralConfigScreen> {
                                 ? Padding(
                                     padding: const .only(
                                       left: 16,
-                                      top: 0,
                                       right: 16,
                                       bottom: 16,
                                     ),

@@ -16,6 +16,13 @@ analyzer:
     - '**.gr.dart'
     - '**/generated_plugin_registrant.dart'
     - "**/*.gform.dart"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -87,7 +94,6 @@ linter:
     strict_top_level_inference: true
     type_init_formals: true
     type_literal_in_constant_pattern: true
-    unnecessary_await_in_return: true
     unnecessary_brace_in_string_interps: true
     unnecessary_breaks: true
     unnecessary_const: true

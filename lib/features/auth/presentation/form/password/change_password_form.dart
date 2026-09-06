@@ -24,6 +24,5 @@ class ChangePassword {
   factory ChangePassword.fromParams(ChangePasswordParams params) => .new(
     newPassword: params.newPassword,
     currentPassword: params.currentPassword,
-    confirmPassword: '',
   );
 }

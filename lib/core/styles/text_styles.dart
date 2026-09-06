@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AppTextStyles {
   // Private constructor to prevent instantiation, making this a pure utility class.

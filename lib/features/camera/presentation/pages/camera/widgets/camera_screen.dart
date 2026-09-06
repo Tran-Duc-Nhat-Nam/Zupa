@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:volume_button_listener/volume_button_listener.dart';
 import 'package:zupa/core/styles/colors.dart';
@@ -83,7 +83,7 @@ class _CameraScreenState extends AppState<CameraScreen> {
               : const VehicleTypeRadioCards(),
         ),
         Padding(
-          padding: const .only(bottom: 48, top: 0),
+          padding: const .only(bottom: 48),
           child: AppButton(
             padding: const .all(16),
             onPressed: widget.onTakePicture,

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:zupa/core/styles/colors.dart';
 
