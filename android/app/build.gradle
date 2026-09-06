@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.tsp.parking"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = "30.0.14904198"
 
     compileOptions {
